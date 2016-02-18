@@ -14,41 +14,50 @@ Three kinds of data -\
 \
 Lead byte:\
 bit0..1\
-	00 signed integer\
+	00 signed integer [Enumerable]\
 		bit2=0 short value in bit3..7 (-16..15) [bit 3 is the sign bit]\
 		bit2=1 long value, number of bytes to follow (-1) in bit5..bit7 (1..8), MSB-first, sign extended from first byte [bit 0 of the first byte is the sign bit]\
 	01 floating-point\
 		bit2=0 floats [32-bit], number of floating-point values to follow (-1) in bit3..7 (1..32), MSB-first\
 		bit2=1 doubles [64-bit], number of floating-point values to follow (-1) in bit3..bit7 (1..32), MSB-first\
-	10 string\
+	10 string [Enumerable]\
 		bit2=0 length in bit3..7 (0..31) not NULL-terminated\
 		bit2=1 number of bytes for length (-1) in bit5..7 (1..8)\
          11 structure\
                   bit2..3\
-                            00 EOM (End Of Message)\
+                            00 EOM/EOL/EOD\
+                                 bit4..5\
+                                           00 EOM (End Of Message)\
+                                           01 EOL (End Of List)\
+                                           10 EOD (End Of Dictionary)\
+                                           11 Reserved\
+                                 bit6..7 Reserved\
                             01 List / Vector (sequence of values[any kind])\
-                                 bit4..6 Reserved\
-                                 bit7=0 SOL (Start of list)\
-                                 bit7=1 EOL (End of list)\
-                            10 Dictionary / Map (sequence of key[any kind]/value[any kind] pairs)\
-                                 bit4..6 Reserved\
-                                 bit7=0 (SOD) Start of dictionary\
-                                 bit7=1 (EOD) End of dictionary\
+                                 bit4..7 Reserved\
+                            10 Dictionary / Map (sequence of key[Enumerable]/value[any kind] pairs)\
+                                 bit4=0 Key is integer\
+                                 bit4=1 Key is string\
+                                 bit5..7 Reserved\
                             11 Reserved\
              \
 Examples -\
 EOM is 11000000 (0xC0)\
+EOL is 11000100 (0xC4)\
+EOD is 11001000 (0xC8)\
+SOL is 11010000 (0xD0)\
+SOD(integer) is 11100000 (0xE0)\
+SOD(string) is 11101000 (0xE8)\
 0 is 00000000 (0x00)\
 13 is 00001101(0x0D)\
 -13 is 00010011(0x13)\
 144 is 00010001(0x11)+00000000(0x00)+10010000(0x90)\
 -144 is 00110000(0x31)+11111111(0xFF)+01110000(0x70)\
-1.23 2.34 4.56 is 11010000(SOL=0xD0)+b(1.23)+b(2.34)+b(4.56)+11010001(EOL=0xD1), if b(x) is the binary representation of x\
+1.23 2.34 4.56 is SOL(0xD0)+b(1.23)+b(2.34)+b(4.56)+EOL(0xC4), if b(x) is the binary representation of x\
 "" is 10000000 (0x80)\
 "abc" is 10000011(0x83)+'a'+'b'+'c'\
 "abcde abcde abcde abcde abcde abcde " is 10100001(0xA1)+00100100(0x24)+'a'+'b'+'c'+...+'e'+' '\
 \
-As a complete example, "13 144 1.23 2.45 abc" is SOL(0xD0)+(0x0D)+(0x00,0x90)+(0x61,b(1.23),b(2.45))+(0x83,'a','b','c')+EOL(0xD1)+EOM(0xC0) => 11 + 3 x sizeof(floating-point) [21 bytes as ASCII, including NULL]; with floats, this would be 23 bytes versus 21 bytes and, with doubles, this would be 35 bytes versus 21 bytes. However, the precision of the values using this format is far greater than the representation as ASCII, and the ASCII representation does not include the number of 'slots' to follow.\
+As a complete example, "13 144 1.23 2.45 abc" is SOL(0xD0)+(0x0D)+(0x00,0x90)+(0x61,b(1.23),b(2.45))+(0x83,'a','b','c')+EOL(0xC4)+EOM(0xC0) => 11 + 3 x sizeof(floating-point) [21 bytes as ASCII, including NULL]; with floats, this would be 23 bytes versus 21 bytes and, with doubles, this would be 35 bytes versus 21 bytes. However, the precision of the values using this format is far greater than the representation as ASCII, and the ASCII representation does not include the number of 'slots' to follow.\
 \
 This uses one byte for EOM, one byte for values in the range -16..15, two bytes for values in the range -128..127, three bytes for values in the range -32,768..32,767, four bytes for values in the range -16,777,216..16,777,215, five bytes for values in the range -4,294,967,296..4,292,967,295, et cetera.\
 Double values take (1+8*n) bytes, float values take (1+4*n) bytes, strings under 31 bytes in length take n+1 bytes (lead byte. n bytes), strings over 31 bytes in length but less than 256 bytes take n+2 bytes (lead byte, length byte, n bytes), strings over 255 bytes in length but less than 65536 bytes take n+3 bytes (lead byte, two length bytes, n bytes), et cetera.\

@@ -1,0 +1,16 @@
+add SOM as a variant with EOM;
+each message is prefixed by k>0 SOMs
+
+need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;
+the issue is that multiple outgoing and incoming connections must be supported, both TCP and UDP
+
+it appears that both a TCP and a UDP socket can be opened with the same port; perhaps the TCP connection can be used as a transient control port
+
+better approach? --> open a 'control' (UDP?) port for each channel, register it with mDNS with a predictable name; it can be used to add or drop connections, get statistics, et cetera; this would leave the regular channel undisturbed
+
+need naming convention for channel
+need description of ASCII representation of data (JSON-like)
+need minimal mDNS code, to implement nImOportList
+
+threads, mutex, write+read, read callback
+length field to remove the need for SOM/EOM? checksum?

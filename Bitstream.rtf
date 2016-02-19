@@ -25,25 +25,26 @@ bit0..1\
 		bit2=1 number of bytes for length (-1) in bit5..7 (1..8)\
          11 structure\
                   bit2..3\
-                            00 EOM/EOL/EOD\
+                            00 SOM/EOM/EOL/EOD\
                                  bit4..5\
-                                           00 EOM (End Of Message)\
-                                           01 EOL (End Of List)\
-                                           10 EOD (End Of Dictionary)\
-                                           11 Reserved\
+                                           00 SOM (Start Of Message)\
+                                           01 EOM (End Of Message)\
+                                           10 EOL (End Of List)\
+                                           11 EOD (End Of Dictionary)\
                                  bit6..7 Reserved\
-                            01 List / Vector (sequence of values[any kind])\
+                            01 List / Vector (sequence of values[any kind]) = SOL\
                                  bit4..7 Reserved\
-                            10 Dictionary / Map (sequence of key[Enumerable]/value[any kind] pairs)\
+                            10 Dictionary / Map (sequence of key[Enumerable]/value[any kind] pairs) = SOD\
                                  bit4=0 Key is integer\
                                  bit4=1 Key is string\
                                  bit5..7 Reserved\
                             11 Reserved\
              \
 Examples -\
-EOM is 11000000 (0xC0)\
-EOL is 11000100 (0xC4)\
-EOD is 11001000 (0xC8)\
+SOM is 11000000 (0xC0)\
+EOM is 11000000 (0xC4)\
+EOL is 11000100 (0xC8)\
+EOD is 11001000 (0xCC)\
 SOL is 11010000 (0xD0)\
 SOD(integer) is 11100000 (0xE0)\
 SOD(string) is 11101000 (0xE8)\
@@ -59,15 +60,16 @@ SOD(string) is 11101000 (0xE8)\
 \
 As a complete example, "13 144 1.23 2.45 abc" is SOL(0xD0)+(0x0D)+(0x00,0x90)+(0x61,b(1.23),b(2.45))+(0x83,'a','b','c')+EOL(0xC4)+EOM(0xC0) => 11 + 3 x sizeof(floating-point) [21 bytes as ASCII, including NULL]; with floats, this would be 23 bytes versus 21 bytes and, with doubles, this would be 35 bytes versus 21 bytes. However, the precision of the values using this format is far greater than the representation as ASCII, and the ASCII representation does not include the number of 'slots' to follow.\
 \
-This uses one byte for EOM, one byte for values in the range -16..15, two bytes for values in the range -128..127, three bytes for values in the range -32,768..32,767, four bytes for values in the range -16,777,216..16,777,215, five bytes for values in the range -4,294,967,296..4,292,967,295, et cetera.\
+This uses one byte for SOM, one byte for EOM, one byte for values in the range -16..15, two bytes for values in the range -128..127, three bytes for values in the range -32,768..32,767, four bytes for values in the range -16,777,216..16,777,215, five bytes for values in the range -4,294,967,296..4,292,967,295, et cetera.\
 Double values take (1+8*n) bytes, float values take (1+4*n) bytes, strings under 31 bytes in length take n+1 bytes (lead byte. n bytes), strings over 31 bytes in length but less than 256 bytes take n+2 bytes (lead byte, length byte, n bytes), strings over 255 bytes in length but less than 65536 bytes take n+3 bytes (lead byte, two length bytes, n bytes), et cetera.\
 Numeric values are always signed.\
 \
 A single double is 12.5% longer, two doubles are 6.25% longer, three doubles are 4.2% longer, et cetera; a single float is 25% longer, two floats are 12.5% longer, three floats are 8.3% longer, et cetera.\
 4-byte longs use between 1 and 5 bytes, so either 75% reduction, 50% reduction, 25% reduction, no difference or 25% increase in length, short strings are the same length, medium strings are 3% longer, long strings are 0.7% longer, et cetera, assuming that the NULL is considered as part of the string.\
 \
-Note that there is no explicit restriction on the type of the keys or values in a dictionary or the values in a list.\
+Note that there is no explicit restriction on the type of the values in a dictionary or the values in a list, but dictionary keys must be 'enumerable' - that is, reproducibly washable, like integers or strings.\
 Singular values may appear as either singular lists or 'bare' but multiple values are bracketed by SOL and EOL.\
 All values, whether singular or structures, are followed by EOM.\
+Multiple SOMs may be used for framing.\
 Dictionary elements are unordered, with the key always preceding the value - there is no need for a tag or marker for which is which, and there must be an even number of values between SOD and EOD.\
 Sets can be represented by using values of one byte short integers.}

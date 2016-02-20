@@ -1,0 +1,332 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Tests/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B388F61C77F3D1004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Connect/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B388F71C77F3D1004B2D42 /* nImOconnect.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconnect.rc.in; path = Connect/nImOconnect.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B388F81C77F3D1004B2D42 /* nImOconnectMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconnectMain.cpp; path = Connect/nImOconnectMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B388F91C77F3D1004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Connect/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B388FA1C77F3E3004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = CPack/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B388FB1C77F3F1004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Disconnect/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B388FC1C77F3F1004B2D42 /* nImOdisconnect.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOdisconnect.rc.in; path = Disconnect/nImOdisconnect.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B388FD1C77F3F1004B2D42 /* nImOdisconnectMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdisconnectMain.cpp; path = Disconnect/nImOdisconnectMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B388FE1C77F3F1004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Disconnect/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B388FF1C77F40D004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Info/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B389001C77F40D004B2D42 /* nImOinfo.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOinfo.rc.in; path = Info/nImOinfo.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B389011C77F40D004B2D42 /* nImOinfoMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinfoMain.cpp; path = Info/nImOinfoMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B389021C77F40D004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Info/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B389031C77F41D004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = List/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B389041C77F41D004B2D42 /* nImOlist.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOlist.rc.in; path = List/nImOlist.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B389051C77F41D004B2D42 /* nImOlistMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlistMain.cpp; path = List/nImOlistMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B389061C77F41D004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = List/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B389071C77F42D004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = niMo/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B389081C77F42D004B2D42 /* nImOConfig.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOConfig.h.in; path = niMo/nImOConfig.h.in; sourceTree = SOURCE_ROOT; };
+		F6B389091C77F442004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Read/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B3890A1C77F442004B2D42 /* nImOread.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOread.rc.in; path = Read/nImOread.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B3890B1C77F442004B2D42 /* nImOreadMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreadMain.cpp; path = Read/nImOreadMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B3890C1C77F442004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Read/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B3890D1C77F455004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Version/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B3890E1C77F455004B2D42 /* nImOversion.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOversion.rc.in; path = Version/nImOversion.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B3890F1C77F455004B2D42 /* nImOversionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOversionMain.cpp; path = Version/nImOversionMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B389101C77F455004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Version/resource.h; sourceTree = SOURCE_ROOT; };
+		F6B389111C77F476004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Write/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F6B389121C77F476004B2D42 /* nImOwrite.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOwrite.rc.in; path = Write/nImOwrite.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B389131C77F476004B2D42 /* nImOwriteMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOwriteMain.cpp; path = Write/nImOwriteMain.cpp; sourceTree = SOURCE_ROOT; };
+		F6B389141C77F476004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Write/resource.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F6B388DF1C77F18B004B2D42 = {
+			isa = PBXGroup;
+			children = (
+				F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */,
+				F6B388ED1C77F298004B2D42 /* Connect */,
+				F6B388EE1C77F2A3004B2D42 /* CPack */,
+				F6B388EF1C77F2AA004B2D42 /* Disconnect */,
+				F6B388F01C77F2B4004B2D42 /* Info */,
+				F6B388F11C77F2BC004B2D42 /* List */,
+				F6B388F21C77F2E0004B2D42 /* nImO */,
+				F6B388F31C77F2EF004B2D42 /* Read */,
+				F6B388EC1C77F1EC004B2D42 /* Tests */,
+				F6B388F41C77F2F9004B2D42 /* Version */,
+				F6B388F51C77F300004B2D42 /* Write */,
+			);
+			sourceTree = "<group>";
+		};
+		F6B388EC1C77F1EC004B2D42 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388ED1C77F298004B2D42 /* Connect */ = {
+			isa = PBXGroup;
+			children = (
+				F6B388F61C77F3D1004B2D42 /* CMakeLists.txt */,
+				F6B388F71C77F3D1004B2D42 /* nImOconnect.rc.in */,
+				F6B388F81C77F3D1004B2D42 /* nImOconnectMain.cpp */,
+				F6B388F91C77F3D1004B2D42 /* resource.h */,
+			);
+			name = Connect;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388EE1C77F2A3004B2D42 /* CPack */ = {
+			isa = PBXGroup;
+			children = (
+				F6B388FA1C77F3E3004B2D42 /* CMakeLists.txt */,
+			);
+			name = CPack;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388EF1C77F2AA004B2D42 /* Disconnect */ = {
+			isa = PBXGroup;
+			children = (
+				F6B388FB1C77F3F1004B2D42 /* CMakeLists.txt */,
+				F6B388FC1C77F3F1004B2D42 /* nImOdisconnect.rc.in */,
+				F6B388FD1C77F3F1004B2D42 /* nImOdisconnectMain.cpp */,
+				F6B388FE1C77F3F1004B2D42 /* resource.h */,
+			);
+			name = Disconnect;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F01C77F2B4004B2D42 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				F6B388FF1C77F40D004B2D42 /* CMakeLists.txt */,
+				F6B389001C77F40D004B2D42 /* nImOinfo.rc.in */,
+				F6B389011C77F40D004B2D42 /* nImOinfoMain.cpp */,
+				F6B389021C77F40D004B2D42 /* resource.h */,
+			);
+			name = Info;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F11C77F2BC004B2D42 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				F6B389031C77F41D004B2D42 /* CMakeLists.txt */,
+				F6B389041C77F41D004B2D42 /* nImOlist.rc.in */,
+				F6B389051C77F41D004B2D42 /* nImOlistMain.cpp */,
+				F6B389061C77F41D004B2D42 /* resource.h */,
+			);
+			name = List;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F21C77F2E0004B2D42 /* nImO */ = {
+			isa = PBXGroup;
+			children = (
+				F6B389071C77F42D004B2D42 /* CMakeLists.txt */,
+				F6B389081C77F42D004B2D42 /* nImOConfig.h.in */,
+			);
+			name = nImO;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F31C77F2EF004B2D42 /* Read */ = {
+			isa = PBXGroup;
+			children = (
+				F6B389091C77F442004B2D42 /* CMakeLists.txt */,
+				F6B3890A1C77F442004B2D42 /* nImOread.rc.in */,
+				F6B3890B1C77F442004B2D42 /* nImOreadMain.cpp */,
+				F6B3890C1C77F442004B2D42 /* resource.h */,
+			);
+			name = Read;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F41C77F2F9004B2D42 /* Version */ = {
+			isa = PBXGroup;
+			children = (
+				F6B3890D1C77F455004B2D42 /* CMakeLists.txt */,
+				F6B3890E1C77F455004B2D42 /* nImOversion.rc.in */,
+				F6B3890F1C77F455004B2D42 /* nImOversionMain.cpp */,
+				F6B389101C77F455004B2D42 /* resource.h */,
+			);
+			name = Version;
+			sourceTree = SOURCE_ROOT;
+		};
+		F6B388F51C77F300004B2D42 /* Write */ = {
+			isa = PBXGroup;
+			children = (
+				F6B389111C77F476004B2D42 /* CMakeLists.txt */,
+				F6B389121C77F476004B2D42 /* nImOwrite.rc.in */,
+				F6B389131C77F476004B2D42 /* nImOwriteMain.cpp */,
+				F6B389141C77F476004B2D42 /* resource.h */,
+			);
+			name = Write;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		F6B388E41C77F18B004B2D42 /* nImO */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = F6B388E71C77F18B004B2D42 /* Build configuration list for PBXLegacyTarget "nImO" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = nImO;
+			passBuildSettingsInEnvironment = 1;
+			productName = nImO;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		F6B388E01C77F18B004B2D42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Norman Jaffe";
+				TargetAttributes = {
+					F6B388E41C77F18B004B2D42 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = F6B388E31C77F18B004B2D42 /* Build configuration list for PBXProject "nImO" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6B388DF1C77F18B004B2D42;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6B388E41C77F18B004B2D42 /* nImO */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F6B388E51C77F18B004B2D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		F6B388E61C77F18B004B2D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+			};
+			name = Release;
+		};
+		F6B388E81C77F18B004B2D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F6B388E91C77F18B004B2D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6B388E31C77F18B004B2D42 /* Build configuration list for PBXProject "nImO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B388E51C77F18B004B2D42 /* Debug */,
+				F6B388E61C77F18B004B2D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6B388E71C77F18B004B2D42 /* Build configuration list for PBXLegacyTarget "nImO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B388E81C77F18B004B2D42 /* Debug */,
+				F6B388E91C77F18B004B2D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6B388E01C77F18B004B2D42 /* Project object */;
+}

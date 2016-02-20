@@ -2,7 +2,7 @@
 #
 #  File:       CMakeLists.txt
 #
-#  Project:    m+m
+#  Project:    nImO
 #
 #  Contains:   The common CMAKE definitions for the nImO project.
 #
@@ -44,7 +44,7 @@ if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)
 endif(WIN32)
 
-project(m+m)
+project(nImO)
 
 set(nImO_VERSION_MAJOR 1)
 set(nImO_VERSION_MINOR 0)
@@ -148,22 +148,8 @@ endif(WIN32)
 
 option(nImO_DO_SWIG "Build the SWIG files" OFF)
 
-# Add the nImO target path so that YARP and ACE can be found
+# Add the nImO target path so that m+m can be found
 #list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
-
-# Find YARP
-#find_package(YARP REQUIRED)
-#list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
-
-# Add YARP include directories
-#include_directories(${YARP_INCLUDE_DIRS})
-
-# Find ACE
-#find_package(ACE REQUIRED)
-#list(APPEND CMAKE_MODULE_PATH ${ACE_MODULE_PATH})
-
-# Add ACE include directories
-#include_directories(${ACE_INCLUDE_DIRS})
 
 # Find SWIG
 if(nImO_DO_SWIG)
@@ -172,16 +158,7 @@ if(nImO_DO_SWIG)
     set(CMAKE_SWIG_FLAGS "")
 endif(nImO_DO_SWIG)
 
-#set(nImO_ADAPTER_BASE_NAME "/_adapter_/")
-#set(nImO_CLIENT_BASE_NAME "/_client_/")
-#set(nImO_INPUT_BASE_NAME "/_input_/")
-#set(nImO_OUTPUT_BASE_NAME "/_output_/")
-#set(nImO_REGISTRY_EXECUTABLE_NAME "m+mRegistryService")
-#set(nImO_SERVICE_BASE_NAME "/_service_/")
-
-#set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/SQLite3")
-
-configure_file("${nImO_SOURCE_DIR}/Common/nImOConfig.h.in" "${nImO_SOURCE_DIR}/Common/nImOConfig.h")
+configure_file("${nImO_SOURCE_DIR}/nImO/nImOConfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOConfig.h")
 
 include_directories("${nImO_SOURCE_DIR}")
 
@@ -203,14 +180,16 @@ if(LINUX)
     set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)
 endif(LINUX)
 
-#add_subdirectory(Address)
-#add_subdirectory(Blob)
-#if(nImO_COMMONLISP)
-#    add_subdirectory(CommonLisp)
-#endif(nImO_COMMONLISP)
-add_subdirectory(Common)
-#add_subdirectory(CommonTests)
+add_subdirectory(Connect)
+add_subdirectory(Disconnect)
+add_subdirectory(Info)
+add_subdirectory(List)
+add_subdirectory(nImO)
+add_subdirectory(Read)
+add_subdirectory(Tests)
+add_subdirectory(Version)
+add_subdirectory(Write)
 
-#add_subdirectory(CPack)
+add_subdirectory(CPack)
 
 enable_testing()

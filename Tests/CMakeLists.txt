@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       CommonTests/CMakeLists.txt
+#  File:       Tests/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the common unit test application.
+#  Contains:   The CMAKE definitions for the unit test application.
 #
 #  Written by: Norman Jaffe
 #

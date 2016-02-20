@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Common/CMakeLists.txt
+#  File:       nImO/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the nImO common libraries.
+#  Contains:   The CMAKE definitions for the nImO library.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2014 by H Plus Technologies Ltd. and Simon Fraser University.
+#  Copyright:  (c) 2016 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2014-02-06
+#  Created:    2016-02-19
 #
 #--------------------------------------------------------------------------------------------------
 

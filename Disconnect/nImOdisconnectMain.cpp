@@ -36,8 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <m+m/m+mCommon.h>
-#include <m+m/m+mUtilities.h>
+#include <nImO/nImOcommon.hpp>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -56,8 +55,8 @@
 # pragma warning(push)
 # pragma warning(disable: 4996)
 #endif // ! MAC_OR_LINUX_
-#include <ace/Version.h>
-#include <yarp/conf/version.h>
+//#include <ace/Version.h>
+//#include <yarp/conf/version.h>
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -83,8 +82,8 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace MplusM;
-using namespace MplusM::Common;
+using namespace nImO;
+using namespace nImO::Base;
 using std::cout;
 using std::endl;
 
@@ -113,6 +112,7 @@ int
 main(int      argc,
      char * * argv)
 {
+#if 0
     Utilities::DescriptorVector argumentList;
     OutputFlavour               flavour;
     
@@ -120,41 +120,24 @@ main(int      argc,
                                                    "Disconnect two channels", 2016,
                                                    STANDARD_COPYRIGHT_NAME_, flavour))
     {
-        YarpString aceVersionString;
-        YarpString mpmVersionString;
-        YarpString yarpVersionString;
+        YarpString nImOversionString;
 
         switch (flavour)
         {
             case kOutputFlavourTabs :
-                aceVersionString = SanitizeString(ACE_VERSION, true);
-                mpmVersionString = SanitizeString(MpM_VERSION_, true);
-                yarpVersionString = SanitizeString(YARP_VERSION_STRING, true);
-                cout << mpmVersionString.c_str() << "\t" << yarpVersionString.c_str() << "\t" <<
-                        aceVersionString.c_str() << endl;
+                nImOversionString = SanitizeString(nImO_VERSION_, true);
+                cout << nImOversionString.c_str() << endl;
                 break;
                 
             case kOutputFlavourJSON :
-                aceVersionString = SanitizeString(ACE_VERSION);
-                mpmVersionString = SanitizeString(MpM_VERSION_);
-                yarpVersionString = SanitizeString(YARP_VERSION_STRING);
-                cout << T_("{ " CHAR_DOUBLEQUOTE_ "m+m" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        mpmVersionString.c_str() << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
-                                                       "YARP" CHAR_DOUBLEQUOTE_ ": "
-                                                       CHAR_DOUBLEQUOTE_) <<
-                        yarpVersionString.c_str() << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
-                                                        "ACE" CHAR_DOUBLEQUOTE_ ": "
-                                                        CHAR_DOUBLEQUOTE_) <<
-                        aceVersionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
+                nImOversionString = SanitizeString(nImO_VERSION_);
+                cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                        nImOversionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
                 
             case kOutputFlavourNormal :
-                aceVersionString = SanitizeString(ACE_VERSION, true);
-                mpmVersionString = SanitizeString(MpM_VERSION_, true);
-                yarpVersionString = SanitizeString(YARP_VERSION_STRING, true);
-                cout << "Movement And Meaning Version: " << mpmVersionString.c_str() <<
-                        ", YARP Version: " << yarpVersionString.c_str() << ", ACE Version: " <<
-                aceVersionString.c_str() << endl;
+                nImOversionString = SanitizeString(nImO_VERSION_, true);
+                cout << "Movement And Meaning Version: " << nImOversionString.c_str() << endl;
                 break;
                 
             default :
@@ -162,5 +145,6 @@ main(int      argc,
                 
         }
     }
+#endif//0
     return 0;
 } // main

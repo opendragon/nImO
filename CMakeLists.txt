@@ -36,7 +36,6 @@
 #
 #--------------------------------------------------------------------------------------------------
 
-# YARP needs CMake 2.6 or greater
 # CPack requires CMake 2.6 or greater
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
@@ -46,8 +45,8 @@ endif(WIN32)
 
 project(nImO)
 
-set(nImO_VERSION_MAJOR 1)
-set(nImO_VERSION_MINOR 0)
+set(nImO_VERSION_MAJOR 0)
+set(nImO_VERSION_MINOR 1)
 set(nImO_VERSION_PATCH 0)
 set(nImO_VERSION_STRING "${nImO_VERSION_MAJOR}.${nImO_VERSION_MINOR}.${nImO_VERSION_PATCH}")
 set(nImO_COMPANY "OpenDragon")
@@ -57,6 +56,7 @@ set(nImO_SOURCE_DIR "${PROJECT_SOURCE_DIR}")
 # Make some flags to control the build flags visibilities
 mark_as_advanced(CLEAR BUILD_SHARED_LIBS)
 mark_as_advanced(CLEAR CMAKE_OSX_ARCHITECTURES)
+#mark_as_advanced(CLEAR CMAKE_OSX_DEPLOYMENT_TARGET)
 mark_as_advanced(SET CMAKE_INSTALL_RPATH)
 mark_as_advanced(SET CMAKE_BUILD_WITH_INSTALL_RPATH)
 
@@ -74,14 +74,15 @@ endif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
 
 if(APPLE)
     set(E_PATH "@executable_path")
-    set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING "Build architectures for Mac OS X" FORCE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for Mac OSX" FORCE)
+#    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.7" CACHE STRING "Deployment target for Mac OSX" FORCE)
 #    set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libstdc++" CACHE STRING
-#        "Fixes linking error for m+m/ACE" FORCE)
+#        "Fixes linking error for nImO/ACE" FORCE)
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
         FORCE)
-#    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for m+m/ACE" FORCE)
+    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO/ACE" FORCE)
 #    set(CMAKE_INSTALL_RPATH
-#"${E_PATH}/../lib;${E_PATH}/../m+m;${E_PATH}/../odl;${E_PATH}/../../m+m;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib"
+#"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib"
 #        CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 # 'rpath' warning
@@ -101,14 +102,15 @@ endif(WIN32)
 set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
 
 if(WIN32)
-    option(WIN64 "Build 64-bit binaries" ON)
+#    option(WIN64 "Build 64-bit binaries" ON)
+    set(WIN64 ON)
 else(WIN32)
     set(WIN64 OFF)
 endif(WIN32)
 
-#option(nImO_ChattyStart "Report the version numbers when launching an executable")
+option(nImO_ChattyStart "Report the version numbers when launching an executable")
 
-#option(nImO_DoExplicitCheckForOK "Check OK responses for validity")
+option(nImO_DoExplicitCheckForOK "Check OK responses for validity")
 
 #option(nImO_DoExplicitClose "Perform an explicit CloseChannel() prior to freeing a channel")
 #mark_as_advanced(nImO_DoExplicitClose)
@@ -148,8 +150,8 @@ endif(WIN32)
 
 option(nImO_DO_SWIG "Build the SWIG files" OFF)
 
-# Add the nImO target path so that m+m can be found
-#list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
+# Add the nImO target path so that nImO can be found
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
 # Find SWIG
 if(nImO_DO_SWIG)
@@ -158,7 +160,7 @@ if(nImO_DO_SWIG)
     set(CMAKE_SWIG_FLAGS "")
 endif(nImO_DO_SWIG)
 
-configure_file("${nImO_SOURCE_DIR}/nImO/nImOConfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOConfig.h")
+configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
 
 include_directories("${nImO_SOURCE_DIR}")
 
@@ -174,7 +176,8 @@ else(WIN32)
     set(BONJOUR_LIB "")
 endif(WIN32)
 
-#set(nImO_LINK_LIBRARIES m+mCommon odLogging ${YARP_LIBRARIES} ${ACE_LIBRARIES} ${BONJOUR_LIB})
+#set(nImO_LINK_LIBRARIES nImOcommon odLogging ${BONJOUR_LIB})
+set(nImO_LINK_LIBRARIES nImOcommon ${BONJOUR_LIB})
 
 if(LINUX)
     set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)
@@ -190,6 +193,6 @@ add_subdirectory(Tests)
 add_subdirectory(Version)
 add_subdirectory(Write)
 
-add_subdirectory(CPack)
+#add_subdirectory(CPack)
 
 enable_testing()

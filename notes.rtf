@@ -1,0 +1,102 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+\margl1440\margr1440\vieww18080\viewh14440\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 add SOM as a variant with EOM;\
+each message is prefixed by k>0 SOMs\
+\
+need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;\
+the issue is that multiple outgoing and incoming connections must be supported, both TCP and UDP\
+\
+it appears that both a TCP and a UDP socket can be opened with the same port; perhaps the TCP connection can be used as a transient control port\
+\
+better approach? --> open a 'control' (UDP?) port for each channel, register it with mDNS with a predictable name; it can be used to add or drop connections, get statistics, et cetera; this would leave the regular channel undisturbed\
+\
+need naming convention for channels\
+need description of ASCII representation of data (JSON-like)\
+need minimal mDNS code, to implement nImOportList\
+\
+threads, logging, mutex, random numbers, write+read, read callback >>>> Boost!!!!\
+length field to remove the need for SOM/EOM? checksum?\
+\
+* nImOlist \'97 reports all the known channels\
+* nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
+* nImOversion \'97 reports the versions of the libraries\
+* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
+* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
+* nImOconnect 'c' 'd' 'm' \'97 connects channel 'c' to channel 'd' with mode 'm' (TCP or UDP)\
+                          [only one connection allowed between 'c' and 'd']\
+* nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 1) test output of\
+\'a0 A) primaries\
+\'a0\'a0\'a0 i) integer\
+\'a0\'a0\'a0\'a0\'a0 a) positive\
+\'a0\'a0\'a0\'a0\'a0 b) negative\
+\'a0\'a0\'a0\'a0\'a0 c) zero\
+\'a0\'a0\'a0 ii) float\
+\'a0\'a0\'a0\'a0\'a0 a) positive\
+\'a0\'a0\'a0\'a0\'a0 b) negative\
+\'a0\'a0\'a0\'a0\'a0 c) zero\
+\'a0\'a0\'a0\'a0\'a0 d) large positive exponent\
+\'a0\'a0\'a0\'a0\'a0 e) large negative exponent\
+\'a0\'a0\'a0 iii) boolean\
+\'a0\'a0\'a0\'a0\'a0 a) false\
+\'a0\'a0\'a0\'a0\'a0 b) true\
+\'a0\'a0\'a0 iv) string\
+\'a0\'a0\'a0\'a0\'a0 a) empty\
+\'a0\'a0\'a0\'a0\'a0 b) single character\
+\'a0\'a0\'a0\'a0\'a0 c) 2 characters\
+\'a0\'a0\'a0\'a0\'a0 d) escaped character\
+    v) blob\
+      a) single byte\
+      b) two bytes\
+\'a0 B) lists\
+\'a0\'a0\'a0 i) empty list\
+\'a0\'a0\'a0 ii) list with 1 element\
+\'a0\'a0\'a0 iii) list with 2 elements\
+\'a0 C) arrays\
+\'a0\'a0\'a0 i) empty array\
+\'a0\'a0\'a0 ii) array with 1 element\
+\'a0\'a0\'a0 iii) array with 2 elements \
+\'a0 D) maps\
+\'a0\'a0\'a0 i) empty map\
+\'a0\'a0\'a0 ii) map with 1 element\
+\'a0\'a0\'a0 iii) map with 2 elements\
+\'a0 E) sets\
+\'a0\'a0\'a0 i) empty set\
+\'a0\'a0\'a0 ii) set with 1 element\
+\'a0\'a0\'a0 ii) set with 2 elements\
+\'a0 F) complexes\
+\'a0\'a0\'a0 i) list with array element\
+\'a0\'a0\'a0 ii) list with list element\
+\'a0\'a0\'a0 iii) list with map element\
+\'a0\'a0\'a0 iv) list with set element\
+\'a0\'a0\'a0 v) array with list element\
+\'a0\'a0\'a0 vi) array with map element\
+\'a0\'a0\'a0 vii) array with array element\
+\'a0\'a0\'a0 viii) array with set element\
+\'a0\'a0\'a0 ix) map with list value\
+\'a0\'a0\'a0 x) map with map value\
+\'a0\'a0\'a0 xi) map with array value\
+\'a0\'a0\'a0 xii) map with set value\
+\
+2) test input, using inputs matching (1)\
+\
+Operations -\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 virtual Value::toString() -> returns the std::string representation of a value\
+stream insert operator: uses toString()\
+for lists, arrays: add element, remove element, check for value\
+for sequences (lists, arrays, maps, sets): number of elements\
+for maps: add key/value, get value by key, get keys, check for key\
+for sets: add key, check for key\
+for integers, floating point, boolean, strings: isEnumerable (false for floating point)\
+\
+static bool Value::fromString(const std:string & input, Value & result) -> true if conversion succeeds;\
+use Boolean::fromString, et cetera\
+}

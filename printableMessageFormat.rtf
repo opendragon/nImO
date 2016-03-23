@@ -1,0 +1,35 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww17940\viewh12140\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs28 \cf0 \expnd0\expndtw0\kerning0
+<message> ::= <value>; ## note - no implicit lists\
+<value> ::= <atom> | <list> | <map> | <array> | <set> | <blob>;\
+<atom> ::= <sign>? <unsigned-number> | <string> | <boolean>;\
+<unsigned-number> ::= <unscaled-number> <exponent>?;\
+<unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
+<string> ::= <single-quoted-string> | <double-quoted-string>;\
+<single-quoted-string> ::= <single-quote> <character>* <single-quote>; ## empty strings allowed\
+<double-quoted-string> ::= <double-quote> <character>* <double-quote>; ## empty strings allowed\
+<single-quote> ::= "'";\
+<double-quote> ::= '"';\
+<character> ::= <non-escaped-character> | '\\' <non-escaped-character>;\
+<non-escaped-character> ::= <printable-character>; ## quotes need to be escaped\
+<boolean> ::= 'true' | 'false'; ## case-insensitive\
+<sign> ::= '+' | '-';\
+<unsigned-integer> ::= \\d+;\
+<fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
+<exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
+<exponent-tag> ::= 'E' | 'e';\
+<list> ::= '(' <value>* ')'; ## empty lists allowed\
+<map> ::= '\{'\'a0 <mapped-value>* '\}'; ## the first key seen establishes the type of remaining keys\
+<mapped-value> ::= <atom> '>' <value>; ## floating-point numbers can't be keys\
+<array> ::= '[' <value>* ']'; ## empty arrays allowed\
+<set> ::= '|' <atom>* '|'; ## empty sets allowed and floating-point numbers can't be keys\
+<blob> ::= '%' <unsigned-integer> '%' <byte>+ '%'; ## number of values == leading integer, > 0\
+<byte> ::= <hex-digit><hex-digit>;\
+\
+}

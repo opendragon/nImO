@@ -1,0 +1,6 @@
+namespace nImO
+{
+namespace Common
+{
+}
+}

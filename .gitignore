@@ -6,6 +6,7 @@ List/nImOlist
 List/nImOlist.rc
 libnImOcommon.dylib
 nImOconfig.hpp
+odl/libodLogging.dylib
 Read/nImOread
 Read/nImOread.rc
 Testing

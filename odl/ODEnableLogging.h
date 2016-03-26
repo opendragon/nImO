@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOblob.h
+//  File:       odl/ODEnableLogging.h
 //
-//  Project:    nImO
+//  Project:    m+m
 //
-//  Contains:   The function and class declarations for nImO 'blob' values.
+//  Contains:   The macro definitions to enable the logging facility.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2014 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,51 +32,26 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-22
+//  Created:    2014-03-27
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOblob_H_))
-# define nImOblob_H_ /* Header guard */
+// Note that this must NOT have a header guard, as it may be included more than once!
 
-namespace nImO
-{
-    namespace Base
-    {
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
+/*! @file
+ @brief The macro definitions to enable the logging facility. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-        class NiMoBlob
-        {
-        public :
-            // Public type definitions.
-        
-        protected :
-            // Protected type definitions.
-        
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
-        
-        protected :
-            // Protected fields.
-        
-        private :
-            // Private fields.
-            
-        }; // NiMoBlob
+#if (! defined(ODL_ENABLE_LOGGING_))
+# define ODL_ENABLE_LOGGING_ /* Enable logging if not already enabled. */
+#endif // ! defined(ODL_ENABLE_LOGGING_)
 
-    } // Base
-
-} // nImO
-
-#endif // ! defined(nImOblob_H_)
+// Allow a reload of the logging macros.
+#undef ODLOGGING_H_

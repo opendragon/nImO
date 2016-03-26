@@ -38,13 +38,16 @@
 
 #include "nImOset.hpp"
 
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for nImO sets. */
+ @brief The class definition for %nImO sets. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -52,9 +55,6 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
-
-using namespace nImO;
-using namespace nImO::Base;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -76,13 +76,18 @@ using namespace nImO::Base;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-NiMoSet::NiMoSet(void)
+nImO::Set::Set(void) :
+    inherited()
 {
-} // NiMoSet::NiMoSet
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Set::Set
 
-NiMoSet::~NiMoSet(void)
+nImO::Set::~Set(void)
 {
-} // NiMoSet::~NiMoSet
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Set::~Set
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

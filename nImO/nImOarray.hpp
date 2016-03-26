@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOarray.h
+//  File:       nImO/nImOarray.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOarray_HPP_))
 # define nImOarray_HPP_ /* Header guard */
 
+# include <nImO/nImOcontainer.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO arrays. */
+ @brief The class declaration for %nImO arrays. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide collections with array-like behaviour. */
+    class Array : public Container
     {
-
-        class NiMoArray
-        {
-        public :
-            // Public type definitions.
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
         
-        protected :
-            // Protected type definitions.
+        /*! @brief The class that this class is derived from. */
+        typedef Container inherited;
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
+    public :
+        // Public methods.
 
-            /*! @brief The constructor. */
-            NiMoArray(void);
+        /*! @brief The constructor. */
+        Array(void);
 
-            /*! @brief The destructor. */
-            ~NiMoArray(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+        /*! @brief The destructor. */
+        ~Array(void);
         
-        protected :
-            // Protected fields.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoArray
-
-    } // Base
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Array
 
 } // nImO
 

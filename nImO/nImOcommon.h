@@ -1,6 +1,0 @@
-namespace nImO
-{
-namespace Common
-{
-}
-}

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstring.h
+//  File:       nImO/nImOstring.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOstring_HPP_))
 # define nImOstring_HPP_ /* Header guard */
 
+# include <nImO/nImOatom.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO string values. */
+ @brief The class declaration for %nImO string values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide string values. */
+    class String : public Atom
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Atom inherited;
 
-        class NiMoString
-        {
-        public :
-            // Public type definitions.
+    public :
+        // Public methods.
         
-        protected :
-            // Protected type definitions.
-        
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoString(void);
+        /*! @brief The constructor. */
+        String(void);
 
-            /*! @brief The destructor. */
-            ~NiMoString(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+        /*! @brief The destructor. */
+        ~String(void);
         
-        protected :
-            // Protected fields.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoString
-
-    } // Base
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // String
 
 } // nImO
 

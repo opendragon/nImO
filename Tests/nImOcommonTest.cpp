@@ -47,7 +47,7 @@
 #include <nImO/nImOcommon.hpp>
 
 //#include <odl/ODEnableLogging.h>
-//#include <odl/ODLogging.h>
+#include <odl/ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -55,10 +55,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The test driver for the unit tests of the nImO common library. */
+ @brief The test driver for the unit tests of the %nImO common library. */
 
 /*! @namespace nImO::Test
- @brief The classes used for unit testing of the nImO classes. */
+ @brief The classes used for unit testing of the %nImO classes. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -67,9 +67,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace nImO;
-using namespace nImO::Base;
-//using namespace nImO::Test;
 using std::cerr;
 using std::endl;
 
@@ -94,7 +91,7 @@ static Endpoint *
 doCreateEndpointForTest(const int argc,
                         char * *  argv)
 {
-    OD_LOG_ENTER(); //####
+    ODL_ENTER(); //####
     Endpoint * stuff = NULL;
     
     try
@@ -120,10 +117,10 @@ doCreateEndpointForTest(const int argc,
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_P(stuff); //####
+    ODL_EXIT_P(stuff); //####
     return stuff;
 } // doCreateEndpointForTest
 
@@ -132,12 +129,12 @@ doCreateEndpointForTest(const int argc,
  @param channelPath The root path for the new temporary channel.
  @returns A pointer to a newly-allocated temporary channel. */
 static ClientChannel *
-doCreateTestChannel(const YarpString & destinationName,
+doCreateTestChannel(const std::string & destinationName,
                     const char *       channelPath)
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_S2("destinationName = ", destinationName.c_str(), "channelPath = ", channelPath); //####
-    YarpString              aName(GetRandomChannelName(channelPath));
+    ODL_ENTER(); //####
+    ODL_S2("destinationName = ", destinationName.c_str(), "channelPath = ", channelPath); //####
+    std::string              aName(GetRandomChannelName(channelPath));
     ClientChannel *         newChannel = new ClientChannel;
 #if defined(nImO_ReportOnConnections)
     ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
@@ -154,7 +151,7 @@ doCreateTestChannel(const YarpString & destinationName,
         {
             if (! Utilities::NetworkConnectWithRetries(aName, destinationName, STANDARD_WAIT_TIME_))
             {
-                OD_LOG("(! Utilities::NetworkConnectWithRetries(aName, destinationName, " //####
+                ODL_LOG("(! Utilities::NetworkConnectWithRetries(aName, destinationName, " //####
                        "STANDARD_WAIT_TIME_))"); //####
 #if defined(nImO_DoExplicitClose)
                 newChannel->close();
@@ -165,14 +162,14 @@ doCreateTestChannel(const YarpString & destinationName,
         }
         else
         {
-            OD_LOG("! (newChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))"); //####
+            ODL_LOG("! (newChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))"); //####
         }
     }
     else
     {
-        OD_LOG("! (newChannel)"); //####
+        ODL_LOG("! (newChannel)"); //####
     }
-    OD_LOG_EXIT_P(newChannel); //####
+    ODL_EXIT_P(newChannel); //####
     return newChannel;
 } // doCreateTestChannel
 
@@ -195,7 +192,7 @@ doCreateTestChannel(Endpoint &   anEndpoint,
  @param destinationName The name of the channel that the temporary channel was connected to.
  @param theChannel A pointer to the temporary channel. */
 static void
-doDestroyTestChannel(const YarpString & destinationName,
+doDestroyTestChannel(const std::string & destinationName,
                      ClientChannel *    theChannel)
 {
 #if (! defined(nImO_DoExplicitDisconnect))
@@ -203,15 +200,15 @@ doDestroyTestChannel(const YarpString & destinationName,
 #  pragma unused(destinationName)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_P1("theChannel = ", theChannel); //####
+    ODL_ENTER(); //####
+    ODL_P1("theChannel = ", theChannel); //####
     if (theChannel)
     {
 #if defined(nImO_DoExplicitDisconnect)
         if (! Utilities::NetworkDisconnectWithRetries(theChannel->name(), destinationName,
                                                       STANDARD_WAIT_TIME_))
         {
-            OD_LOG("(! Utilities::NetworkDisconnectWithRetries(theChannel->name(), " //####
+            ODL_LOG("(! Utilities::NetworkDisconnectWithRetries(theChannel->name(), " //####
                    "destinationName, STANDARD_WAIT_TIME_))"); //####
         }
 #endif // defined(nImO_DoExplicitDisconnect)
@@ -220,7 +217,7 @@ doDestroyTestChannel(const YarpString & destinationName,
 #endif // defined(nImO_DoExplicitClose)
         BaseChannel::RelinquishChannel(theChannel);
     }
-    OD_LOG_EXIT(); //####
+    ODL_EXIT(); //####
 } // doDestroyTestChannel
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
@@ -254,13 +251,13 @@ doTestCreateEndpoint(const char * launchPath,
                      const int    argc,
                      char * *     argv) // create endpoint
 {
-#if (! defined(OD_ENABLE_LOGGING_))
+#if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
-#endif // ! defined(OD_ENABLE_LOGGING_)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -271,26 +268,26 @@ doTestCreateEndpoint(const char * launchPath,
         {
             if (stuff->open(STANDARD_WAIT_TIME_))
             {
-                OD_LOG_S1s("endpoint name = ", stuff->getName());
+                ODL_S1s("endpoint name = ", stuff->getName());
                 result = 0;
             }
             else
             {
-                OD_LOG("! (stuff->open(STANDARD_WAIT_TIME_))"); //####
+                ODL_LOG("! (stuff->open(STANDARD_WAIT_TIME_))"); //####
             }
             delete stuff;
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestCreateEndpoint
 #if (! MAC_OR_LINUX_)
@@ -320,8 +317,8 @@ doTestConnectToEndpoint(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -333,9 +330,9 @@ doTestConnectToEndpoint(const char * launchPath,
         {
             if (stuff->open(STANDARD_WAIT_TIME_) && stuff->setReporter(reporter, true))
             {
-                OD_LOG_S1s("endpoint name = ", stuff->getName());
+                ODL_S1s("endpoint name = ", stuff->getName());
                 // Now we try to connect!
-                YarpString      aName(GetRandomChannelName("_test_/connecttoendpoint_"));
+                std::string      aName(GetRandomChannelName("_test_/connecttoendpoint_"));
                 ClientChannel * outChannel = new ClientChannel;
                 
                 if (outChannel)
@@ -347,7 +344,7 @@ doTestConnectToEndpoint(const char * launchPath,
                     if (outChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
                     {
                         outChannel->getReport(reporter);
-                        OD_LOG_S1s("endpoint name = ", stuff->getName());
+                        ODL_S1s("endpoint name = ", stuff->getName());
                         if (outChannel->addOutputWithRetries(stuff->getName(), STANDARD_WAIT_TIME_))
                         {
                             result = 0;
@@ -355,14 +352,14 @@ doTestConnectToEndpoint(const char * launchPath,
                             if (! NetworkDisconnectWithRetries(outChannel->name(), stuff->getName(),
                                                                STANDARD_WAIT_TIME_))
                             {
-                                OD_LOG("(! NetworkDisconnectWithRetries(outChannel->name(), " //####
+                                ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->name(), " //####
                                        "stuff->getName(), STANDARD_WAIT_TIME_))"); //####
                             }
 #endif // defined(nImO_DoExplicitDisconnect)
                         }
                         else
                         {
-                            OD_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
+                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
                                    "STANDARD_WAIT_TIME_))"); //####
                         }
 #if defined(nImO_DoExplicitClose)
@@ -371,34 +368,34 @@ doTestConnectToEndpoint(const char * launchPath,
                     }
                     else
                     {
-                        OD_LOG("! (outChannel->openWithRetries(aName, " //####
+                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
                                "STANDARD_WAIT_TIME_))"); //####
                     }
                     BaseChannel::RelinquishChannel(outChannel);
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)");
+                    ODL_LOG("! (outChannel)");
                 }
             }
             else
             {
-                OD_LOG("! (stuff->open(STANDARD_WAIT_TIME_) && " //####
+                ODL_LOG("! (stuff->open(STANDARD_WAIT_TIME_) && " //####
                        "stuff->setReporter(reporter, true))"); //####
             }
             delete stuff;
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestConnectToEndpoint
 #if (! MAC_OR_LINUX_)
@@ -428,8 +425,8 @@ doTestWriteToEndpoint(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -444,9 +441,9 @@ doTestWriteToEndpoint(const char * launchPath,
             if (stuff->setInputHandler(handler) && stuff->open(STANDARD_WAIT_TIME_) &&
                 stuff->setReporter(reporter, true))
             {
-                OD_LOG_S1s("endpoint name = ", stuff->getName());
+                ODL_S1s("endpoint name = ", stuff->getName());
                 // Now we try to connect!
-                YarpString      aName(GetRandomChannelName("_test_/writetoendpoint_"));
+                std::string      aName(GetRandomChannelName("_test_/writetoendpoint_"));
                 ClientChannel * outChannel = new ClientChannel;
                 
                 if (outChannel)
@@ -472,7 +469,7 @@ doTestWriteToEndpoint(const char * launchPath,
                                                                    stuff->getName(),
                                                                    STANDARD_WAIT_TIME_))
                                 {
-                                    OD_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
+                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
                                            "name(), stuff->getName(), " //####
                                            "STANDARD_WAIT_TIME_))"); //####
                                 }
@@ -480,7 +477,7 @@ doTestWriteToEndpoint(const char * launchPath,
                             }
                             else
                             {
-                                OD_LOG("! (outChannel->write(message))"); //####
+                                ODL_LOG("! (outChannel->write(message))"); //####
 #if defined(nImO_StallOnSendProblem)
                                 Stall();
 #endif // defined(nImO_StallOnSendProblem)
@@ -488,7 +485,7 @@ doTestWriteToEndpoint(const char * launchPath,
                         }
                         else
                         {
-                            OD_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
+                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
                                    "STANDARD_WAIT_TIME_))"); //####
                         }
 #if defined(nImO_DoExplicitClose)
@@ -497,19 +494,19 @@ doTestWriteToEndpoint(const char * launchPath,
                     }
                     else
                     {
-                        OD_LOG("! (outChannel->openWithRetries(aName, " //####
+                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
                                "STANDARD_WAIT_TIME_))"); //####
                     }
                     BaseChannel::RelinquishChannel(outChannel);
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)");
+                    ODL_LOG("! (outChannel)");
                 }
             }
             else
             {
-                OD_LOG("! (stuff->setInputHandler(handler) && " //####
+                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
                        "stuff->open(STANDARD_WAIT_TIME_) && " //####
                        "stuff->setReporter(reporter, true))"); //####
             }
@@ -517,15 +514,15 @@ doTestWriteToEndpoint(const char * launchPath,
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestWriteToEndpoint
 #if (! MAC_OR_LINUX_)
@@ -555,8 +552,8 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -571,9 +568,9 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
             if (stuff->setInputHandler(handler) && stuff->open(STANDARD_WAIT_TIME_) &&
                 stuff->setReporter(reporter, true))
             {
-                OD_LOG_S1s("endpoint name = ", stuff->getName());
+                ODL_S1s("endpoint name = ", stuff->getName());
                 // Now we try to connect!
-                YarpString      aName(GetRandomChannelName("_test_/echofromendpointwithreader_"));
+                std::string      aName(GetRandomChannelName("_test_/echofromendpointwithreader_"));
                 ClientChannel * outChannel = new ClientChannel;
                 
                 if (outChannel)
@@ -600,7 +597,7 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
                                                                    stuff->getName(),
                                                                    STANDARD_WAIT_TIME_))
                                 {
-                                    OD_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
+                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
                                            "name(), stuff->getName(), " //####
                                            "STANDARD_WAIT_TIME_))"); //####
                                 }
@@ -608,7 +605,7 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
                             }
                             else
                             {
-                                OD_LOG("! (outChannel->write(message, response))"); //####
+                                ODL_LOG("! (outChannel->write(message, response))"); //####
 #if defined(nImO_StallOnSendProblem)
                                 Stall();
 #endif // defined(nImO_StallOnSendProblem)
@@ -616,7 +613,7 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
                         }
                         else
                         {
-                            OD_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
+                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
                                    "STANDARD_WAIT_TIME_))"); //####
                         }
 #if defined(nImO_DoExplicitClose)
@@ -625,19 +622,19 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
                     }
                     else
                     {
-                        OD_LOG("! (outChannel->openWithRetries(aName, " //####
+                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
                                "STANDARD_WAIT_TIME_))"); //####
                     }
                     BaseChannel::RelinquishChannel(outChannel);
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)");
+                    ODL_LOG("! (outChannel)");
                 }
             }
             else
             {
-                OD_LOG("! (stuff->setInputHandler(handler) && " //####
+                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
                        "stuff->open(STANDARD_WAIT_TIME_) && " //####
                        "stuff->setReporter(reporter, true))"); //####
             }
@@ -645,15 +642,15 @@ doTestEchoFromEndpointWithReader(const char * launchPath,
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestEchoFromEndpointWithReader
 #if (! MAC_OR_LINUX_)
@@ -683,8 +680,8 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -699,9 +696,9 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
             if (stuff->setInputHandlerCreator(handlerCreator) && stuff->open(STANDARD_WAIT_TIME_) &&
                 stuff->setReporter(reporter, true))
             {
-                OD_LOG_S1s("endpoint name = ", stuff->getName());
+                ODL_S1s("endpoint name = ", stuff->getName());
                 // Now we try to connect!
-                YarpString      aName(GetRandomChannelName("_test_/echofromendpointwithreader"
+                std::string      aName(GetRandomChannelName("_test_/echofromendpointwithreader"
                                                            "creator_"));
                 ClientChannel * outChannel = new ClientChannel;
                 
@@ -729,7 +726,7 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
                                                                    stuff->getName(),
                                                                    STANDARD_WAIT_TIME_))
                                 {
-                                    OD_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
+                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
                                            "name(), stuff->getName(), " //####
                                            "STANDARD_WAIT_TIME_))"); //####
                                 }
@@ -737,7 +734,7 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
                             }
                             else
                             {
-                                OD_LOG("! (outChannel->write(message, response))"); //####
+                                ODL_LOG("! (outChannel->write(message, response))"); //####
 #if defined(nImO_StallOnSendProblem)
                                 Stall();
 #endif // defined(nImO_StallOnSendProblem)
@@ -745,7 +742,7 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
                         }
                         else
                         {
-                            OD_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
+                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
                                    "STANDARD_WAIT_TIME_))"); //####
                         }
 #if defined(nImO_DoExplicitClose)
@@ -754,19 +751,19 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
                     }
                     else
                     {
-                        OD_LOG("! (outChannel->openWithRetries(aName, " //####
+                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
                                "STANDARD_WAIT_TIME_))"); //####
                     }
                     BaseChannel::RelinquishChannel(outChannel);
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)");
+                    ODL_LOG("! (outChannel)");
                 }
             }
             else
             {
-                OD_LOG("! (stuff->setInputHandlerCreator(handlerCreator) && " //####
+                ODL_LOG("! (stuff->setInputHandlerCreator(handlerCreator) && " //####
                        "stuff->open(STANDARD_WAIT_TIME_) && " //####
                        "stuff->setReporter(&reporter, true))"); //####
             }
@@ -774,15 +771,15 @@ doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestEchoFromEndpointWithReaderCreator
 #if (! MAC_OR_LINUX_)
@@ -812,15 +809,15 @@ doTestCreateRequest(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
     {
         if (0 == argc)
         {
-            OD_LOG("0 == argc"); //####
+            ODL_LOG("0 == argc"); //####
         }
         else
         {
@@ -838,10 +835,10 @@ doTestCreateRequest(const char * launchPath,
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestCreateRequest
 #if (! MAC_OR_LINUX_)
@@ -871,8 +868,8 @@ doTestCreateResponse(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -890,10 +887,10 @@ doTestCreateResponse(const char * launchPath,
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestCreateResponse
 #if (! MAC_OR_LINUX_)
@@ -923,8 +920,8 @@ doTestRequestEchoFromEndpoint(const char * launchPath,
 #  pragma unused(launchPath)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(nImO_DoExplicitDisconnect)
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -944,35 +941,35 @@ doTestRequestEchoFromEndpoint(const char * launchPath,
                 
                 if (outChannel)
                 {
-                    OD_LOG_S1s("endpoint name = ", stuff->getName());
+                    ODL_S1s("endpoint name = ", stuff->getName());
                     yarp::os::Bottle parameters("some to send");
                     ServiceRequest   request(nImO_ECHO_REQUEST_, parameters);
                     ServiceResponse  response;
                     
                     if (request.send(*outChannel, response))
                     {
-                        OD_LOG_LL1("response size = ", response.count()); //####
+                        ODL_LL1("response size = ", response.count()); //####
                         for (int ii = 0; ii < response.count(); ++ii)
                         {
-                            OD_LOG_S1s("response value = ", response.element(ii).toString()); //####
+                            ODL_S1s("response value = ", response.element(ii).toString()); //####
                         }
                         result = 0;
                     }
                     else
                     {
-                        OD_LOG("! (request.send(*outChannel, response))"); //####
+                        ODL_LOG("! (request.send(*outChannel, response))"); //####
                     }
                     doDestroyTestChannel(stuff->getName(), outChannel);
                     outChannel = NULL;
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)"); //####
+                    ODL_LOG("! (outChannel)"); //####
                 }
             }
             else
             {
-                OD_LOG("! (stuff->setInputHandler(handler) && " //####
+                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
                        "stuff->open(STANDARD_WAIT_TIME_) && " //####
                        "stuff->setReporter(reporter, true))"); //####
             }
@@ -980,15 +977,15 @@ doTestRequestEchoFromEndpoint(const char * launchPath,
         }
         else
         {
-            OD_LOG("! (stuff)"); //####
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestRequestEchoFromEndpoint
 #if (! MAC_OR_LINUX_)
@@ -1009,8 +1006,8 @@ doTestRequestEchoFromServiceUsingDefaultWithReader(const char * launchPath,
                                                    const int    argc,
                                                    char * *     argv) // send 'echo' request
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -1033,43 +1030,43 @@ doTestRequestEchoFromServiceUsingDefaultWithReader(const char * launchPath,
                     
                     if (request.send(*outChannel, response))
                     {
-                        OD_LOG_LL1("response size = ", response.count()); //####
+                        ODL_LL1("response size = ", response.count()); //####
                         for (int ii = 0; ii < response.count(); ++ii)
                         {
-                            OD_LOG_S1s("response value = ", response.element(ii).toString()); //####
+                            ODL_S1s("response value = ", response.element(ii).toString()); //####
                         }
                         result = 0;
                     }
                     else
                     {
-                        OD_LOG("! (request.send(*outChannel, response))"); //####
+                        ODL_LOG("! (request.send(*outChannel, response))"); //####
                     }
                     doDestroyTestChannel(aService->getEndpoint(), outChannel);
                     outChannel = NULL;
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)"); //####
+                    ODL_LOG("! (outChannel)"); //####
                 }
                 aService->stopService();
             }
             else
             {
-                OD_LOG("! (aService->startService())"); //####
+                ODL_LOG("! (aService->startService())"); //####
             }
             delete aService;
         }
         else
         {
-            OD_LOG("! (aService)"); //####
+            ODL_LOG("! (aService)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestRequestEchoFromServiceUsingDefaultWithReader
 
@@ -1088,8 +1085,8 @@ doTestRequestEchoFromServiceUsingDefaultWithReaderCreator(const char * launchPat
                                                           char * *     argv) // send 'echo'
                                                                              // request
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -1112,43 +1109,43 @@ doTestRequestEchoFromServiceUsingDefaultWithReaderCreator(const char * launchPat
                     
                     if (request.send(*outChannel, response))
                     {
-                        OD_LOG_LL1("response size = ", response.count()); //####
+                        ODL_LL1("response size = ", response.count()); //####
                         for (int ii = 0; ii < response.count(); ++ii)
                         {
-                            OD_LOG_S1s("response value = ", response.element(ii).toString()); //####
+                            ODL_S1s("response value = ", response.element(ii).toString()); //####
                         }
                         result = 0;
                     }
                     else
                     {
-                        OD_LOG("! (request.send(*outChannel, response))"); //####
+                        ODL_LOG("! (request.send(*outChannel, response))"); //####
                     }
                     doDestroyTestChannel(aService->getEndpoint(), outChannel);
                     outChannel = NULL;
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)"); //####
+                    ODL_LOG("! (outChannel)"); //####
                 }
                 aService->stopService();
             }
             else
             {
-                OD_LOG("! (aService->startService())"); //####
+                ODL_LOG("! (aService->startService())"); //####
             }
             delete aService;
         }
         else
         {
-            OD_LOG("! (aService)"); //####
+            ODL_LOG("! (aService)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestRequestEchoFromServiceUsingDefaultWithReaderCreator
 
@@ -1166,8 +1163,8 @@ doTestRequestEchoFromServiceWithRequestHandler(const char * launchPath,
                                                const int    argc,
                                                char * *     argv) // create 'echo' request
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -1192,7 +1189,7 @@ doTestRequestEchoFromServiceWithRequestHandler(const char * launchPath,
                     {
                         if (3 == response.count())
                         {
-                            YarpString expected[] =
+                            std::string expected[] =
                             {
                                 "some", "to", "send"
                             };
@@ -1202,7 +1199,7 @@ doTestRequestEchoFromServiceWithRequestHandler(const char * launchPath,
                             {
                                 if (expected[ii] != response.element(ii).toString())
                                 {
-                                    OD_LOG_S2s("expected[ii] = ", expected[ii], //####
+                                    ODL_S2s("expected[ii] = ", expected[ii], //####
                                                "response.element(ii).toString() = ", //####
                                                response.element(ii).toString()); //####
                                     result = 1;
@@ -1211,39 +1208,39 @@ doTestRequestEchoFromServiceWithRequestHandler(const char * launchPath,
                         }
                         else
                         {
-                            OD_LOG("! (3 == response.count())"); //####
+                            ODL_LOG("! (3 == response.count())"); //####
                         }
                     }
                     else
                     {
-                        OD_LOG("! (request.send(*outChannel, response))"); //####
+                        ODL_LOG("! (request.send(*outChannel, response))"); //####
                     }
                     doDestroyTestChannel(aService->getEndpoint(), outChannel);
                     outChannel = NULL;
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)"); //####
+                    ODL_LOG("! (outChannel)"); //####
                 }
                 aService->stopService();
             }
             else
             {
-                OD_LOG("! (aService->startService())"); //####
+                ODL_LOG("! (aService->startService())"); //####
             }
             delete aService;
         }
         else
         {
-            OD_LOG("! (aService)"); //####
+            ODL_LOG("! (aService)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestRequestEchoFromServiceWithRequestHandler
 
@@ -1281,21 +1278,21 @@ checkListDictionary(yarp::os::Property & asDict,
                     bool &               sawName,
                     bool &               sawSetMetricsState)
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_P4("asDict = ", &asDict, "sawArguments = ", &sawArguments, "sawChannels = ", //####
+    ODL_ENTER(); //####
+    ODL_P4("asDict = ", &asDict, "sawArguments = ", &sawArguments, "sawChannels = ", //####
               &sawChannels, "sawClients = ", &sawClients); //####
-    OD_LOG_P4("sawDetach = ", &sawDetach, "sawEcho = ", &sawEcho, "sawExtraInfo = ", //####
+    ODL_P4("sawDetach = ", &sawDetach, "sawEcho = ", &sawEcho, "sawExtraInfo = ", //####
               &sawExtraInfo, "sawInfo = ", &sawInfo);
-    OD_LOG_P4("sawList = ", &sawList, "sawMetrics = ", &sawMetrics, "sawMetricsState = ", //####
+    ODL_P4("sawList = ", &sawList, "sawMetrics = ", &sawMetrics, "sawMetricsState = ", //####
               &sawMetricsState, "sawName = ", &sawName);
-    OD_LOG_P1("sawSetMetricsState = ", &sawSetMetricsState); //####
+    ODL_P1("sawSetMetricsState = ", &sawSetMetricsState); //####
     bool result = true;
     bool hasInput = asDict.check(nImO_REQREP_DICT_INPUT_KEY_);
     bool hasOutput = asDict.check(nImO_REQREP_DICT_OUTPUT_KEY_);
     
     if (asDict.check(nImO_REQREP_DICT_REQUEST_KEY_))
     {
-        YarpString aName(asDict.find(nImO_REQREP_DICT_REQUEST_KEY_).asString());
+        std::string aName(asDict.find(nImO_REQREP_DICT_REQUEST_KEY_).asString());
         
         if (aName == nImO_ARGUMENTS_REQUEST_)
         {
@@ -1305,7 +1302,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawArguments = (itsOutput == "s+");
             }
@@ -1318,7 +1315,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawChannels = (itsOutput == "(s*)(s*)(s*)");
             }
@@ -1331,7 +1328,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawClients = (itsOutput == "(s*)");
             }
@@ -1355,8 +1352,8 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if (hasInput && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                YarpString itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
                 
                 sawEcho = ((itsInput == ".*") && (itsOutput == ".*"));
             }
@@ -1369,7 +1366,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawExtraInfo = (itsOutput == "s");
             }
@@ -1382,8 +1379,8 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if (hasInput && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                YarpString itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
                 
                 sawInfo = ((itsInput == ".") && (itsOutput == "([]?)"));
             }
@@ -1396,7 +1393,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawList = (itsOutput == "([]+)");
             }
@@ -1409,7 +1406,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawMetrics = (itsOutput == "([]+)");
             }
@@ -1422,7 +1419,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawMetricsState = (itsOutput == "i");
             }
@@ -1435,7 +1432,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if ((! hasInput) && hasOutput)
             {
-                YarpString itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
+                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
                 
                 sawName = (itsOutput == "sssssss");
             }
@@ -1448,7 +1445,7 @@ checkListDictionary(yarp::os::Property & asDict,
             }
             else if (hasInput && (! hasOutput))
             {
-                YarpString itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
+                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
                 
                 sawSetMetricsState = (itsInput == "i");
             }
@@ -1458,7 +1455,7 @@ checkListDictionary(yarp::os::Property & asDict,
     {
         result = false;
     }
-    OD_LOG_EXIT_B(result); //####
+    ODL_EXIT_B(result); //####
     return result;
 } // checkListDictionary
 
@@ -1469,8 +1466,8 @@ checkListDictionary(yarp::os::Property & asDict,
 static bool
 checkResponseFromEchoFromServiceWithRequestHandlerAndInfo(const ServiceResponse & response)
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_P1("response = ", &response); //####
+    ODL_ENTER(); //####
+    ODL_P1("response = ", &response); //####
     bool result = false;
     
     try
@@ -1545,15 +1542,15 @@ checkResponseFromEchoFromServiceWithRequestHandlerAndInfo(const ServiceResponse 
         else
         {
             // Wrong number of values in the response.
-            OD_LOG("! (3 <= response.count())"); //####
+            ODL_LOG("! (3 <= response.count())"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_B(result); //####
+    ODL_EXIT_B(result); //####
     return result;
 } // checkResponseFromEchoFromServiceWithRequestHandlerAndInfo
 
@@ -1567,8 +1564,8 @@ doTestRequestEchoFromServiceWithRequestHandlerAndInfo(const char * launchPath,
                                                       const int    argc,
                                                       char * *     argv) // send 'list' request
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_S1("launchPath = ", launchPath); //####
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
     
     try
@@ -1590,10 +1587,10 @@ doTestRequestEchoFromServiceWithRequestHandlerAndInfo(const char * launchPath,
                     
                     if (request.send(*outChannel, response))
                     {
-                        OD_LOG_LL1("response size = ", response.count()); //####
+                        ODL_LL1("response size = ", response.count()); //####
                         for (int ii = 0; ii < response.count(); ++ii)
                         {
-                            OD_LOG_S1s("response value = ", response.element(ii).toString()); //####
+                            ODL_S1s("response value = ", response.element(ii).toString()); //####
                         }
                         if (checkResponseFromEchoFromServiceWithRequestHandlerAndInfo(response))
                         {
@@ -1601,40 +1598,40 @@ doTestRequestEchoFromServiceWithRequestHandlerAndInfo(const char * launchPath,
                         }
                         else
                         {
-                            OD_LOG("! (checkResponseFromEchoFromServiceWithRequestHandler" //####
+                            ODL_LOG("! (checkResponseFromEchoFromServiceWithRequestHandler" //####
                                    "AndInfo(response))"); //####
                         }
                     }
                     else
                     {
-                        OD_LOG("! (request.send(*outChannel, response))"); //####
+                        ODL_LOG("! (request.send(*outChannel, response))"); //####
                     }
                     doDestroyTestChannel(aService->getEndpoint(), outChannel);
                     outChannel = NULL;
                 }
                 else
                 {
-                    OD_LOG("! (outChannel)"); //####
+                    ODL_LOG("! (outChannel)"); //####
                 }
                 aService->stopService();
             }
             else
             {
-                OD_LOG("! (aService->startService())"); //####
+                ODL_LOG("! (aService->startService())"); //####
             }
             delete aService;
         }
         else
         {
-            OD_LOG("! (aService)"); //####
+            ODL_LOG("! (aService)"); //####
         }
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
         throw;
     }
-    OD_LOG_EXIT_L(result); //####
+    ODL_EXIT_L(result); //####
     return result;
 } // doTestRequestEchoFromServiceWithRequestHandlerAndInfo
 
@@ -1643,17 +1640,17 @@ doTestRequestEchoFromServiceWithRequestHandlerAndInfo(const char * launchPath,
 static void
 catchSignal(int signal)
 {
-    OD_LOG_ENTER(); //####
-    OD_LOG_LL1("signal = ", signal); //####
+    ODL_ENTER(); //####
+    ODL_LL1("signal = ", signal); //####
     std::stringstream buff;
-    YarpString        message("Exiting due to signal ");
+    std::string        message("Exiting due to signal ");
     
     buff << signal;
     message += buff.str();
     message += " = ";
     message += NameOfSignal(signal);
     nImO_ERROR_(message.c_str());
-    OD_LOG_EXIT_EXIT(1); //####
+    ODL_EXIT_EXIT(1); //####
     yarp::os::exit(1);
 } // catchSignal
 #endif//0
@@ -1662,7 +1659,7 @@ catchSignal(int signal)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for unit tests of the nImO common classes.
+/*! @brief The entry point for unit tests of the %nImO common classes.
  
  The first argument is the test number, the second argument is the name of the channel to be used
  with the test, the optional third argument is the machine to connect to and the optional fourth
@@ -1674,13 +1671,13 @@ int
 main(int      argc,
      char * * argv)
 {
-#if 0
-    YarpString progName(*argv);
+    std::string progName(*argv);
 
-    OD_LOG_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
                 kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
                 kODLoggingOptionWriteToStderr); //####
-    OD_LOG_ENTER(); //####
+    ODL_ENTER(); //####
+#if 0
 #if MAC_OR_LINUX_
     SetUpLogger(progName);
 #endif // MAC_OR_LINUX_
@@ -1777,22 +1774,22 @@ main(int      argc,
                 }
                 if (result)
                 {
-                    OD_LOG_LL1("%%%%%%% unit test failure = ", result); //####
+                    ODL_LL1("%%%%%%% unit test failure = ", result); //####
                 }
             }
             else
             {
-                OD_LOG("! (0 < --argc)"); //####
+                ODL_LOG("! (0 < --argc)"); //####
             }
         }
         Utilities::ShutDownGlobalStatusReporter();
     }
     catch (...)
     {
-        OD_LOG("Exception caught"); //####
+        ODL_LOG("Exception caught"); //####
     }
     yarp::os::Network::fini();
-    OD_LOG_EXIT_L(result); //####
 #endif//0
+    ODL_EXIT_L(result); //####
     return result;
 } // main

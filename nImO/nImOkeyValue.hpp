@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOkeyValue.h
+//  File:       nImO/nImOkeyValue.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,58 @@
 #if (! defined(nImOkeyValue_HPP_))
 # define nImOkeyValue_HPP_ /* Header guard */
 
+# include <nImO/nImOatom.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO key/value pairs. */
+ @brief The class declaration for %nImO key/value pairs. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide key / value pairs for maps. */
+    class KeyValue
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The constructor. */
+        KeyValue(void);
 
-        class NiMoKeyValue
-        {
-        public :
-            // Public type definitions.
+        /*! @brief The destructor. */
+        ~KeyValue(void);
         
-        protected :
-            // Protected type definitions.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoKeyValue(void);
-
-            /*! @brief The destructor. */
-            ~NiMoKeyValue(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+    private :
+        // Private methods.
         
-        protected :
-            // Protected fields.
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoKeyValue
-
-    } // Base
+    }; // KeyValue
 
 } // nImO
 

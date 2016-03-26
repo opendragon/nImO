@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOvalue.h
+//  File:       nImO/nImOvalue.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,75 @@
 #if (! defined(nImOvalue_HPP_))
 # define nImOvalue_HPP_ /* Header guard */
 
+# include <nImO/nImOcommon.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO general values. */
+ @brief The class declaration for %nImO general values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief Declare the isBoolean method, which returns @c true if the descriptor is for Boolean
+ arguments and @c false otherwise. */
+# define DECLARE_ISCONTAINER_ \
+    virtual bool\
+    isContainer(void)\
+    const
+
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide general value behaviours. */
+    class Value
     {
-
-        class NiMoValue
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The destructor. */
+        ~Value(void);
+        
+        /*! @fn virtual bool
+                isContainer(void)
+                const
+         @brief Return @c true if the object is a container.
+         @returns @c true if the object is a container and @c false otherwise. */
+        DECLARE_ISCONTAINER_
         {
-        public :
-            // Public type definitions.
+            return false;
+        } // isContainer
         
-        protected :
-            // Protected type definitions.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoValue(void);
-
-            /*! @brief The destructor. */
-            ~NiMoValue(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+        /*! @brief The constructor. */
+        Value(void);
         
-        protected :
-            // Protected fields.
+    private :
+        // Private methods.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoValue
-
-    } // Base
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Value
 
 } // nImO
 

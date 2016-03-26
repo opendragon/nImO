@@ -51,17 +51,29 @@ endif(APPLE)
 
 add_library(${THIS_TARGET}
             "${DO_SHARED}"
+            "${nImO_SOURCE_DIR}/nImO/nImOaddressArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOarray.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOatom.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOblob.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOboolean.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcommon.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOcontainer.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOkeyValue.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOlist.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOset.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOstring.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOvalue.cpp"
             "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
 
@@ -74,8 +86,8 @@ if(LINUX)
 endif(LINUX)
 
 if(APPLE)
-#    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-#                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET_LIB})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET_LIB})
 endif(APPLE)
 
 install(TARGETS ${THIS_TARGET}
@@ -83,17 +95,29 @@ install(TARGETS ${THIS_TARGET}
         COMPONENT libraries)
 
 install(FILES
+        "${nImO_SOURCE_DIR}/nImO/nImOaddressArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOarray.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOatom.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOblob.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOboolean.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcommon.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOcontainer.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOkeyValue.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOlist.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOset.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOstring.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOvalue.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
         DESTINATION include/nImO
@@ -101,14 +125,32 @@ install(FILES
 
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES swig_nImO_in/nImOcommon.i
-        nImOarray.cpp nImOarray.hpp nImOatom.cpp nImOatom.hpp nImOblob.cpp nImOblob.hpp
-        nImOboolean.cpp nImOboolean.hpp nImOcommon.cpp nImOcommon.hpp
-        nImOkeyValue.cpp nImOkeyValue.hpp nImOlist.cpp nImOlist.hpp
-        nImOmap.cpp nImOmap.hpp nImOnumber.cpp nImOnumber.hpp
-        nImOset.cpp nImOset.hpp nImOstring.cpp nImOstring.hpp
+        nImOaddressArgumentDescriptor.cpp nImOaddressArgumentDescriptor.hpp
+        nImOarray.cpp nImOarray.hpp
+        nImOatom.cpp nImOatom.hpp
+        nImObaseArgumentDescriptor.cpp nImObaseArgumentDescriptor.hpp
+        nImOblob.cpp nImOblob.hpp
+        nImOboolArgumentDescriptor.cpp nImOboolArgumentDescriptor.hpp
+        nImOboolean.cpp nImOboolean.hpp
+        nImOchannelArgumentDescriptor.cpp nImOchannelArgumentDescriptor.hpp
+        nImOcommon.cpp nImOcommon.hpp
+        nImOconnector.cpp nImOconnector.hpp
+        nImOcontainer.cpp nImOcontainer.hpp
+        nImOdoubleArgumentDescriptor.cpp nImOdoubleArgumentDescriptor.hpp
+        nImOextraArgumentDescriptor.cpp nImOextraArgumentDescriptor.hpp
+        nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
+        nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
+        nImOkeyValue.cpp nImOkeyValue.hpp
+        nImOlist.cpp nImOlist.hpp
+        nImOmap.cpp nImOmap.hpp
+        nImOnumber.cpp nImOnumber.hpp
+        nImOportArgumentDescriptor.cpp nImOportArgumentDescriptor.hpp
+        nImOset.cpp nImOset.hpp
+        nImOstring.cpp nImOstring.hpp
+        nImOstringArgumentDescriptor.cpp nImOstringArgumentDescriptor.hpp
         nImOvalue.cpp nImOvalue.hpp)
 
-    include_directories("${nImO_SOURCE_DIR}/nImO")
+    include_directories("${nImO_SOURCE_DIR}/Base")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES SWIG_FLAGS "-includeall")
 

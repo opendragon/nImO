@@ -38,6 +38,9 @@
 
 #include <nImO/nImOcommon.hpp>
 
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -82,8 +85,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace nImO;
-using namespace nImO::Base;
 using std::cout;
 using std::endl;
 
@@ -119,9 +120,9 @@ main(int      argc,
     
     if (Utilities::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
                                                    "Read from a channel", 2016,
-                                                   STANDARD_COPYRIGHT_NAME_, flavour))
+                                                   NIMO_COPYRIGHT_NAME_, flavour))
     {
-        YarpString nImOversionString;
+        std::string nImOversionString;
 
         switch (flavour)
         {

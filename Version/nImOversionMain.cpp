@@ -38,31 +38,8 @@
 
 #include <nImO/nImOcommon.hpp>
 
-#if defined(__APPLE__)
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunknown-pragmas"
-# pragma clang diagnostic ignored "-Wc++11-extensions"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# pragma clang diagnostic ignored "-Wdocumentation"
-# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# pragma clang diagnostic ignored "-Wextern-c-compat"
-# pragma clang diagnostic ignored "-Wpadded"
-# pragma clang diagnostic ignored "-Wshadow"
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wweak-vtables"
-#endif // defined(__APPLE__)
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4996)
-#endif // ! MAC_OR_LINUX_
-//#include <ace/Version.h>
-//#include <yarp/conf/version.h>
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -83,7 +60,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace nImO::Base;
 using std::cout;
 using std::endl;
 
@@ -113,15 +89,13 @@ int
 main(int      argc,
      char * * argv)
 {
-#if 0
-    Utilities::DescriptorVector argumentList;
-    OutputFlavour               flavour;
+    DescriptorVector argumentList;
+    OutputFlavour    flavour;
     
-    if (Utilities::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
-                                                   "Reports the version numbers", 2016,
-                                                   STANDARD_COPYRIGHT_NAME_, flavour))
+    if (ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version numbers",
+                                        2016, NIMO_COPYRIGHT_NAME_, flavour))
     {
-        YarpString nImOversionString;
+        std::string nImOversionString;
 
         switch (flavour)
         {
@@ -132,13 +106,14 @@ main(int      argc,
                 
             case kOutputFlavourJSON :
                 nImOversionString = SanitizeString(nImO_VERSION_);
-                cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        nImOversionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
+                cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
+                           CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
+                        T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
                 
             case kOutputFlavourNormal :
                 nImOversionString = SanitizeString(nImO_VERSION_, true);
-                cout << "Movement And Meaning Version: " << nImOversionString.c_str() << endl;
+                cout << "nImO Version: " << nImOversionString.c_str() << endl;
                 break;
                 
             default :
@@ -146,6 +121,5 @@ main(int      argc,
                 
         }
     }
-#endif//0
     return 0;
 } // main

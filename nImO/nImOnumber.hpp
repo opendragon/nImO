@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnumber.h
+//  File:       nImO/nImOnumber.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,69 @@
 #if (! defined(nImO$file$_HPP_))
 # define nImO$file$_HPP_ /* Header guard */
 
+# include <nImO/nImOatom.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO numeric values. */
+ @brief The class declaration for %nImO numeric values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide numeric values. */
+    class Number : public Atom
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Atom inherited;
 
-        class NiMoNumber
-        {
         public :
-            // Public type definitions.
+        // Public methods.
         
-        protected :
-            // Protected type definitions.
-        
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoNumber(void);
+        /*! @brief The constructor. */
+        Number(void);
 
-            /*! @brief The destructor. */
-            ~NiMoNumber(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
-        
-        protected :
-            // Protected fields.
-        
-        private :
-            // Private fields.
-            
-        }; // NiMoNumber
+        /*! @brief The constructor.
+          @param initialValue The initial value for the object. */
+        explicit Number(const int64_t initialValue);
 
-    } // Base
+        /*! @brief The constructor.
+          @param initialValue The initial value for the object. */
+        explicit Number(const double initialValue);
+
+        /*! @brief The destructor. */
+        ~Number(void);
+        
+    protected :
+        // Protected methods.
+        
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Number
 
 } // nImO
 

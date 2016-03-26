@@ -1,6 +1,6 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;\red174\green0\blue240;\red133\green0\blue175;}
 \margl1440\margr1440\vieww24540\viewh16020\viewkind0
 \deftab720
 \pard\pardeftab720\partightenfactor0
@@ -9,7 +9,7 @@
 Three kinds of data -\
 1) Signed integer\
 2) 64-bit floating point\
-3) Character string\
+3) Character string / binary blob\
 4) Structures\
 \
 Lead byte:\
@@ -17,31 +17,50 @@ bit0..1\
 	00 signed integer [Enumerable]\
 		bit2=0 short value in bit3..7 (-16..15) [bit 3 is the sign bit]\
 		bit2=1 long value, number of bytes to follow (-1) in bit5..bit7 (1..8), MSB-first, sign extended from first byte [bit 0 of the first byte is the sign bit]\
-	01 floating-point\
+	01 floating-point [Not Enumerable]\
 		bit2=0 floats [32-bit], number of floating-point values to follow (-1) in bit3..7 (1..32), MSB-first\
 		bit2=1 doubles [64-bit], number of floating-point values to follow (-1) in bit3..bit7 (1..32), MSB-first\
-	10 string [Enumerable]\
-		bit2=0 length in bit3..7 (0..31) not NULL-terminated\
-		bit2=1 number of bytes for length (-1) in bit5..7 (1..8)\
-         11 structure\
+         10 string [Enumerable] / blob [Not Enumerable]\
+                   bit2=0 string\
+                   bit2=1 blob\
+	          bit3=0 length in bit4..7 (0..15) not NULL-terminated\
+                   bit3=1 number of bytes for length (-1) in bit5..7 (1..8), bit4=Reserved (set to zero)\
+         11 other\
                   bit2..3\
-                            00 SOM/EOM/EOL/EOD\
+                            00 boolean [Enumerable]\
+                                 bit4=0 False\
+                                 bit4=1 True\
+                                 bit5..7 Reserved (set to zero)\
+                            01 start of container (sequence of values) [Not Enumerable]\
                                  bit4..5\
-                                           00 SOM (Start Of Message)\
-                                           01 EOM (End Of Message)\
-                                           10 EOL (End Of List)\
-                                           11 EOD (End Of Dictionary)\
-                                 bit6..7 Reserved\
-                            01 List / Vector (sequence of values[any kind]) = SOL\
-                                 bit4..7 Reserved\
-                            10 Dictionary / Map (sequence of key[Enumerable]/value[any kind] pairs) = SOD\
-                                 bit4=0 Key is integer\
-                                 bit4=1 Key is string\
-                                 bit5..7 Reserved\
-                            11 Reserved\
-             \
+                                           00 list\
+                                           01 array\
+                                           10 map\
+                                           11 set\
+                                 bit6=0 Empty\
+                                 bit6=1 Number of elements follows, as integer\
+                                 bit7 Reserved (set to zero)\
+                            10 end of container (sequence of values)\
+                                 bit4..5\
+                                           00 list\
+                                           01 array\
+                                           10 map\
+                                           11 set\
+                                 bit6=0 Empty\
+                                 bit6=1 Number of elements follows, as integer\
+                                 bit7 Reserved (set to zero)\
+                            11 start/end message\
+                                 bit4=0 start of message\
+                                 bit4=1 end of message\
+                                 bit5=0 Empty\
+                                 bit5=1 Non-empty\
+                                 bit6..7 expected first/last value in message if non-empty\
+\
+note that there is no explicit restriction on the elements; for a map, the elements are expected to be a key / value pair, with the key being an Enumerable, but the format does not add this as a constraint\
+the start / end of container entries are used for validation\
+\
 Examples -\
-SOM is 11000000 (0xC0)\
+\cf2 SOM is 11000000 (0xC0)\
 EOM is 11000000 (0xC4)\
 EOL is 11000100 (0xC8)\
 EOD is 11001000 (0xCC)\
@@ -57,8 +76,8 @@ SOD(string) is 11101000 (0xE8)\
 "" is 10000000 (0x80)\
 "abc" is 10000011(0x83)+'a'+'b'+'c'\
 "abcde abcde abcde abcde abcde abcde " is 10100001(0xA1)+00100100(0x24)+'a'+'b'+'c'+...+'e'+' '\
-\
-As a complete example, "13 144 1.23 2.45 abc" is SOL(0xD0)+(0x0D)+(0x00,0x90)+(0x61,b(1.23),b(2.45))+(0x83,'a','b','c')+EOL(0xC4)+EOM(0xC0) => 11 + 3 x sizeof(floating-point) [21 bytes as ASCII, including NULL]; with floats, this would be 23 bytes versus 21 bytes and, with doubles, this would be 35 bytes versus 21 bytes. However, the precision of the values using this format is far greater than the representation as ASCII, and the ASCII representation does not include the number of 'slots' to follow.\
+\cf0 \
+\cf3 As a complete example, "13 144 1.23 2.45 abc" is SOL(0xD0)+(0x0D)+(0x00,0x90)+(0x61,b(1.23),b(2.45))+(0x83,'a','b','c')+EOL(0xC4)+EOM(0xC0) => 11 + 3 x sizeof(floating-point) [21 bytes as ASCII, including NULL]; with floats, this would be 23 bytes versus 21 bytes and, with doubles, this would be 35 bytes versus 21 bytes. However, the precision of the values using this format is far greater than the representation as ASCII, and the ASCII representation does not include the number of 'slots' to follow.\
 \
 This uses one byte for SOM, one byte for EOM, one byte for values in the range -16..15, two bytes for values in the range -128..127, three bytes for values in the range -32,768..32,767, four bytes for values in the range -16,777,216..16,777,215, five bytes for values in the range -4,294,967,296..4,292,967,295, et cetera.\
 Double values take (1+8*n) bytes, float values take (1+4*n) bytes, strings under 31 bytes in length take n+1 bytes (lead byte. n bytes), strings over 31 bytes in length but less than 256 bytes take n+2 bytes (lead byte, length byte, n bytes), strings over 255 bytes in length but less than 65536 bytes take n+3 bytes (lead byte, two length bytes, n bytes), et cetera.\
@@ -72,4 +91,4 @@ Singular values may appear as either singular lists or 'bare' but multiple value
 All values, whether singular or structures, are followed by EOM.\
 Multiple SOMs may be used for framing.\
 Dictionary elements are unordered, with the key always preceding the value - there is no need for a tag or marker for which is which, and there must be an even number of values between SOD and EOD.\
-Sets can be represented by using values of one byte short integers.}
+}

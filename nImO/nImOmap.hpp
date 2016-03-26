@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOmap.h
+//  File:       nImO/nImOmap.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOmap_HPP_))
 # define nImOmap_HPP_ /* Header guard */
 
+# include <nImO/nImOcontainer.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO maps. */
+ @brief The class declaration for %nImO maps. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide collections with hashtable-like behaviour. */
+    class Map : public Container
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Container inherited;
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The constructor. */
+        Map(void);
 
-        class NiMoMap
-        {
-        public :
-            // Public type definitions.
+        /*! @brief The destructor. */
+        ~Map(void);
         
-        protected :
-            // Protected type definitions.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoMap(void);
-
-            /*! @brief The destructor. */
-            ~NiMoMap(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+    private :
+        // Private methods.
         
-        protected :
-            // Protected fields.
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoMap
-
-    } // Base
+    }; // Map
 
 } // nImO
 

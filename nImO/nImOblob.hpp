@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOblob.h
+//  File:       nImO/nImOblob.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOblob_HPP_))
 # define nImOblob_HPP_ /* Header guard */
 
+# include <nImO/nImOvalue.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO 'blob' values. */
+ @brief The class declaration for %nImO 'blob' values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide binary data with unknown structure. */
+    class Blob : public Value
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Value inherited;
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The constructor. */
+        Blob(void);
 
-        class NiMoBlob
-        {
-        public :
-            // Public type definitions.
+        /*! @brief The destructor. */
+        ~Blob(void);
         
-        protected :
-            // Protected type definitions.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoBlob(void);
-
-            /*! @brief The destructor. */
-            ~NiMoBlob(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+    private :
+        // Private methods.
         
-        protected :
-            // Protected fields.
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoBlob
-
-    } // Base
+    }; // Blob
 
 } // nImO
 

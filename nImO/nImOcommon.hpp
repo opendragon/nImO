@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommon.h
+//  File:       nImO/nImOcommon.hpp
 //
 //  Project:    nImO
 //
@@ -59,16 +59,22 @@
 //# include <list>
 //# include <map>
 //# include <stdint.h>
-//# include <sstream>
+# include <sstream>
 //# include <time.h>
-//# include <vector>
+# include <vector>
 
-# if (! defined(TRUE))
-#  define TRUE 1
-# endif // ! defined(TRUE)
-# if (! defined(FALSE))
-#  define FALSE 0
-# endif // ! defined(FALSE)
+# if MAC_OR_LINUX_
+#  include <arpa/inet.h>
+#  include <sys/socket.h>
+#  define SOCKET         int /* Standard socket type in *nix. */
+#  define INVALID_SOCKET -1
+# else // ! MAC_OR_LINUX_
+#  pragma warning(push)
+#  pragma warning(disable: 4996)
+#  include <WinSock2.h>
+#  include <Ws2tcpip.h>
+#  pragma warning(pop)
+# endif // ! MAC_OR_LINUX_
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -76,30 +82,173 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The function and class declarations for common entities for nImO. */
+ @brief The function and class declarations for common entities for %nImO. */
 
 /*! @dir /nImO
- @brief The set of files that implement the nImO framework. */
+ @brief The set of files that implement the %nImO framework. */
 
 /*! @dir /CommonTests
- @brief The set of files that provide test cases for the nImO framework. */
+ @brief The set of files that provide test cases for the %nImO framework. */
 
 /*! @namespace nImO
- @brief The classes that implement the nImO framework. */
-
-/*! @namespace nImO::Base
- @brief The classes that support the basic functionality of the nImO framework. */
+ @brief The classes that implement the %nImO framework. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief A TAB character. */
+# define CHAR_TAB_                  "\t"
+
+/*! @brief A NEWLINE character. */
+# define CHAR_NEWLINE_              "\n"
+
+/*! @brief A DOUBLEQUOTE character. */
+# define CHAR_DOUBLEQUOTE_          "\""
+
+/*! @brief The standard copy constructor and assignment operator declarations. */
+# define COPY_AND_ASSIGNMENT_(xx_) \
+    xx_(const xx_ & other_);\
+    xx_ &\
+    operator =(const xx_ & other_)
+
+/*! @brief The default name for the root part of a channel name. */
+# define DEFAULT_CHANNEL_ROOT_      "channel_"
+
+# if (! defined(FALSE))
+#  define FALSE 0
+# endif // ! defined(FALSE)
+
+/*! @brief The line length for command-line help output. */
+# define HELP_LINE_LENGTH_          250
+
+/*! @brief The largest IP port that is acceptable. */
+# define MAXIMUM_PORT_ALLOWED_      65535
+
+/*! @brief The smallest IP port that is acceptable. */
+# define MINIMUM_PORT_ALLOWED_      1024
+
+/*! @brief The standard copyright holder name to use for m+m-created executables. */
+# define NIMO_COPYRIGHT_NAME_       "OpenDragon"
+
+/*! @brief The IP address for the loopback address for the machine that is running the
+ executable. */
+# define SELF_ADDRESS_IPADDR_       "127.0.0.1"
+
+/*! @brief The IP name for the loopback address for the machine that is running the
+ executable. */
+# define SELF_ADDRESS_NAME_         "localhost"
+
+/*! @brief A simple macro to hold the pieces of a string together. */
+# define T_(xx_)                    xx_
+
+# if (! defined(TRUE))
+#  define TRUE 1
+# endif // ! defined(TRUE)
+
 namespace nImO
 {
-    namespace Base
+    // Type definitions.
+
+    /*! @brief The format for the output from command-line tools. */
+    enum OutputFlavour
     {
+        /*! @brief Normal output with no special processing. */
+        kOutputFlavourNormal,
 
-    } // Base
+        /*! @brief Output in JSON format. Tabs and newlines are replaced with spaces. */
+        kOutputFlavourJSON,
 
+        /*! @brief Output in tab-delimited format. Tabs and newlines are replaced with
+         spaces. */
+        kOutputFlavourTabs,
+
+        /*! @brief Force the size to be 4 bytes. */
+        kOutputFlavourUnknown = 0x7FFFFFFF
+
+    }; // OutputFlavour
+
+    // Forward reference.
+    class BaseArgumentDescriptor;
+    
+    /*! @brief A sequence of strings. */
+    typedef std::vector<std::string> StringVector;
+
+    /*! @brief A sequence of argument descriptors. */
+    typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
+    
+    // Methods.
+
+    /*! @brief Generate a random channel name.
+     @returns A randomly-generated channel name. */
+    std::string
+    GetRandomChannelName(const char * channelRoot = DEFAULT_CHANNEL_ROOT_);
+    
+    /*! @brief Generate a random channel name.
+     @returns A randomly-generated channel name. */
+    std::string
+    GetRandomChannelName(const std::string & channelRoot);
+    
+    /*! @brief Return a random string of hexadecimal digits.
+     @returns A random string of hexadecimal digits. */
+    std::string
+    GetRandomHexString(void);
+    
+    /*! @brief Process the standard options for utility executables.
+     The option '-h' / '--help' displays the list of optional parameters and arguments and
+     returns @c false.
+     The option '-i' / '--info' displays the type of the executable and the description of the
+     executable and returns @c false.
+     The option '-j' / '--json' specifies that output is to be in JSON format.
+     The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
+     The option '-v' / '--vers'displays the version and copyright information and returns
+     @c false.
+     @param argc The number of arguments in 'argv'.
+     @param argv The arguments to be used with the utility.
+     @param argumentDescriptions Descriptions of the arguments to the adapter.
+     @param utilityDescription A description of the utility.
+     @param year The copyright year for the calling application.
+     @param copyrightHolder The name of the entity holding the copyright to the utility.
+     @param flavour Set if the -j or -t options are seen.
+     @param ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
+     @param arguments If non-@c NULL, returns the arguments for the utility.
+     @returns @c true if the program should continue and @c false if it should leave. */
+    bool
+    ProcessStandardUtilitiesOptions(const int           argc,
+                                    char * *            argv,
+                                    DescriptorVector &  argumentDescriptions,
+                                    const std::string & utilityDescription,
+                                    const int           year,
+                                    const char *        copyrightHolder,
+                                    OutputFlavour &     flavour,
+                                    const bool          ignoreFlavours = false,
+                                    StringVector *      arguments = NULL);
+
+    /*! @brief Return a string with special characters escaped.
+     @param inString The string to be processed.
+     @param allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
+     @returns A string with special characters escaped. */
+    std::string
+    SanitizeString(const std::string & inString,
+                   const bool          allowDoubleQuotes = false);
+
+    /*! @brief Checks a network port number for validity.
+     @param aPort The port number to be checked.
+     @param systemAllowed @c true if system port numbers are valid and @c false otherwise.
+     @returns @c true if the port number is valid and @c false otherwise. */
+    inline bool
+    ValidPortNumber(const int  aPort,
+                    const bool systemAllowed = false)
+    {
+        return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
+                (MAXIMUM_PORT_ALLOWED_ >= aPort));
+    } // ValidPortNumber
+    
+    /*! @brief The escape character. */
+    extern const char kEscapeChar;
+    
+    /*! @brief The directory separator string; */
+    extern const std::string kDirectorySeparator;
+    
 } // nImO
 
 #endif // ! defined(nImOcommon_HPP_)

@@ -38,13 +38,16 @@
 
 #include "nImOlist.hpp"
 
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for nImO lists. */
+ @brief The class definition for %nImO lists. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -52,9 +55,6 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
-
-using namespace nImO;
-using namespace nImO::Base;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -76,13 +76,18 @@ using namespace nImO::Base;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-NiMoList::NiMoList(void)
+nImO::List::List(void) :
+    inherited()
 {
-} // NiMoList::NiMoList
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::List::List
 
-NiMoList::~NiMoList(void)
+nImO::List::~List(void)
 {
-} // NiMoList::~NiMoList
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::List::~List
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

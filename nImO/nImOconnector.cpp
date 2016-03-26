@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOset.h
+//  File:       nImO/nImOconnector.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The function and class declarations for nImO set values.
+//  Contains:   The class definition for nImO connectors.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,51 +32,66 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-21
+//  Created:    2016-03-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOset_H_))
-# define nImOset_H_ /* Header guard */
+#include "nImOconnector.hpp"
 
-namespace nImO
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
+/*! @file
+ @brief The class definition for %nImO connectors. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::Connector::Connector(void)
 {
-    namespace Base
-    {
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Connector::Connector
 
-        class NiMoSet
-        {
-        public :
-            // Public type definitions.
-        
-        protected :
-            // Protected type definitions.
-        
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
-        
-        protected :
-            // Protected fields.
-        
-        private :
-            // Private fields.
-            
-        }; // NiMoSet
+nImO::Connector::~Connector(void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Connector::~Connector
 
-    } // Base
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-} // nImO
-
-#endif // ! defined(nImOset_H_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

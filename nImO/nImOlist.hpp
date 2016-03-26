@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOlist.h
+//  File:       nImO/nImOlist.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOlist_HPP_))
 # define nImOlist_HPP_ /* Header guard */
 
+# include <nImO/nImOcontainer.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO lists. */
+ @brief The class declaration for %nImO lists. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide collections with list-like behaviour. */
+    class List : public Container
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Container inherited;
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The constructor. */
+        List(void);
 
-        class NiMoList
-        {
-        public :
-            // Public type definitions.
+        /*! @brief The destructor. */
+        ~List(void);
         
-        protected :
-            // Protected type definitions.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoList(void);
-
-            /*! @brief The destructor. */
-            ~NiMoList(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+    private :
+        // Private methods.
         
-        protected :
-            // Protected fields.
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoList
-
-    } // Base
+    }; // List
 
 } // nImO
 

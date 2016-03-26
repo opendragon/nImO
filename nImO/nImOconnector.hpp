@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       Common/nImOConfig.h
+//  File:       nImO/nImOconnector.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The common macro definitions for nImO applications.
+//  Contains:   The class declaration for nImO connectors.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2014-02-18
+//  Created:    2016-03-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOConfig_H_))
-# define nImOConfig_H_ /* Header guard */
+#if (! defined(nImOconnector_HPP_))
+# define nImOconnector_HPP_ /* Header guard */
+
+# include <nImO/nImOcommon.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -45,71 +47,51 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
-   @brief The common macro definitions for nImO clients and services. */
+ @brief The class declaration for %nImO connectors. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief The major part of the version number. */
-# define nImO_VERSION_MAJOR_ 1
+namespace nImO
+{
+    /*! @brief A class to provide network connection points. */
+    class Connector
+    {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+    public :
+        // Public methods.
 
-/*! @brief The minor part of the version number. */
-# define nImO_VERSION_MINOR_ 0
+        /*! @brief The constructor. */
+        Connector(void);
 
-/*! @brief The patch part of the version number. */
-# define nImO_VERSION_PATCH_ 0
+        /*! @brief The destructor. */
+        ~Connector(void);
+        
+    protected :
+        // Protected methods.
+        
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Connector
 
-/*! @brief The version number as a string. */
-# define nImO_VERSION_ "1.0.0"
+} // nImO
 
-/*! @brief The base of the channel name to use for an adapter. */
-# define nImO_ADAPTER_BASE_NAME_        ""
-
-/*! @brief The base of the channel name to use for a client. */
-# define nImO_CLIENT_BASE_NAME_         ""
-
-/*! @brief The base name of the channel name to use for an input. */
-# define nImO_INPUT_BASE_NAME_          ""
-
-/*! @brief The base name of the channel name to use for an output. */
-# define nImO_OUTPUT_BASE_NAME_         ""
-
-/*! @brief The name of the %Registry service executable. */
-# define nImO_REGISTRY_EXECUTABLE_NAME_ ""
-
-/*! @brief The base of the channel name to use for a service. */
-# define nImO_SERVICE_BASE_NAME_        ""
-
-/* #undef nImO_BuildDummyServices */
-
-/* #undef nImO_ChattyStart */
-
-/* #undef nImO_DoExplicitCheckForOK */
-
-/* #undef nImO_DoExplicitClose */
-
-/* #undef nImO_DoExplicitDisconnect */
-
-/* #undef nImO_DontUseTimeouts */
-
-/* #undef nImO_LogIncludesYarpTrace */
-
-/* #undef nImO_MetricsInitiallyOn */
-
-/* #undef nImO_ReportContactDetails */
-
-/* #undef nImO_ReportOnConnections */
-
-/* #undef nImO_ServicesLogToStandardError */
-
-/* #undef nImO_StallOnSendProblem */
-
-/* #undef nImO_UseCustomStringBuffer */
-
-/* #undef nImO_UseDiskDatabase */
-
-/* #undef nImO_UseTestDatabase */
-
-/* #undef nImO_UseTimeoutsInRetryLoops */
-
-#endif // ! defined(nImOConfig_H_)
+#endif // ! defined(nImOconnector_HPP_)

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOatom.h
+//  File:       nImO/nImOatom.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,61 @@
 #if (! defined(nImOatom_HPP_))
 # define nImOatom_HPP_ /* Header guard */
 
+# include <nImO/nImOvalue.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO atomic values. */
+ @brief The class declaration for %nImO atomic values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide simple values. */
+    class Atom : public Value
     {
-
-        class NiMoAtom
-        {
-        public :
-            // Public type definitions.
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
         
-        protected :
-            // Protected type definitions.
+        /*! @brief The class that this class is derived from. */
+        typedef Value inherited;
         
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoAtom(void);
-
-            /*! @brief The destructor. */
-            ~NiMoAtom(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+    public :
+        // Public methods.
         
-        protected :
-            // Protected fields.
+        /*! @brief The destructor. */
+        ~Atom(void);
         
-        private :
-            // Private fields.
-            
-        }; // NiMoAtom
-
-    } // Base
+    protected :
+        // Protected methods.
+        
+        /*! @brief The constructor. */
+        Atom(void);
+        
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Atom
 
 } // nImO
 

@@ -38,13 +38,16 @@
 
 #include "nImOnumber.hpp"
 
+//#include <odl/ODEnableLogging.h>
+#include <odl/ODLogging.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for nImO numeric values. */
+ @brief The class definition for %nImO numeric values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -52,9 +55,6 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
-
-using namespace nImO;
-using namespace nImO::Base;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -76,13 +76,34 @@ using namespace nImO::Base;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-NiMoNumber::NiMoNumber(void)
+nImO::Number::Number(void) :
+    inherited()
 {
-} // NiMoNumber::NiMoNumber
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Number::Number
 
-NiMoNumber::~NiMoNumber(void)
+nImO::Number::Number(const int64_t initialValue) :
+    inherited()
 {
-} // NiMoNumber::~NiMoNumber
+    ODL_ENTER(); //####
+    ODL_LL1("initialValue = ", initialValue); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Number::Number
+
+nImO::Number::Number(const double initialValue) :
+    inherited()
+{
+    ODL_ENTER(); //####
+    ODL_D1("initialValue = ", initialValue); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Number::Number
+
+nImO::Number::~Number(void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Number::~Number
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

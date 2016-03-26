@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOboolean.h
+//  File:       nImO/nImOboolean.hpp
 //
 //  Project:    nImO
 //
@@ -39,60 +39,65 @@
 #if (! defined(nImOboolean_HPP_))
 # define nImOboolean_HPP_ /* Header guard */
 
+# include <nImO/nImOatom.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for nImO boolean values. */
+ @brief The class declaration for %nImO boolean values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    namespace Base
+    /*! @brief A class to provide true / false values. */
+    class Boolean : public Atom
     {
+    public :
+        // Public type definitions.
+    
+    protected :
+        // Protected type definitions.
+    
+    private :
+        // Private type definitions.
+        
+        /*! @brief The class that this class is derived from. */
+        typedef Atom inherited;
+        
+    public :
+        // Public methods.
+        
+        /*! @brief The constructor. */
+        Boolean(void);
 
-        class NiMoBoolean
-        {
-        public :
-            // Public type definitions.
-        
-        protected :
-            // Protected type definitions.
-        
-        private :
-            // Private type definitions.
-            
-        public :
-            // Public methods.
-            
-            /*! @brief The constructor. */
-            NiMoBoolean(void);
+        /*! @brief The constructor.
+          @param initialValue The initial value for the object. */
+        explicit Boolean(const bool initialValue);
 
-            /*! @brief The destructor. */
-            ~NiMoBoolean(void);
-            
-        protected :
-            // Protected methods.
-            
-        private :
-            // Private methods.
-            
-        public :
-            // Public fields.
+        /*! @brief The destructor. */
+        ~Boolean(void);
         
-        protected :
-            // Protected fields.
+    protected :
+        // Protected methods.
         
-        private :
-            // Private fields.
-            
-        }; // NiMoBoolean
-
-    } // Base
+    private :
+        // Private methods.
+        
+    public :
+        // Public fields.
+    
+    protected :
+        // Protected fields.
+    
+    private :
+        // Private fields.
+        
+    }; // Boolean
 
 } // nImO
 

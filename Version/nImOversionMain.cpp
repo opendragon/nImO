@@ -59,7 +59,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace nImO;
 using std::cout;
 using std::endl;
 
@@ -89,30 +88,38 @@ int
 main(int      argc,
      char * * argv)
 {
-    DescriptorVector argumentList;
-    OutputFlavour    flavour;
+    std::string progName(*argv);
     
-    if (ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version numbers",
-                                        2016, NIMO_COPYRIGHT_NAME_, flavour))
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
+    nImO::DescriptorVector argumentList;
+    nImO::OutputFlavour    flavour;
+    
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
+                                              "Reports the version numbers", 2016,
+                                              NIMO_COPYRIGHT_NAME_, flavour))
     {
         std::string nImOversionString;
 
+        nImO::Initialize(progName);
         switch (flavour)
         {
-            case kOutputFlavourTabs :
-                nImOversionString = SanitizeString(nImO_VERSION_, true);
+            case nImO::kOutputFlavourTabs :
+                nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << nImOversionString.c_str() << endl;
                 break;
                 
-            case kOutputFlavourJSON :
-                nImOversionString = SanitizeString(nImO_VERSION_);
+            case nImO::kOutputFlavourJSON :
+                nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                 cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
                            CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                         T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
                 
-            case kOutputFlavourNormal :
-                nImOversionString = SanitizeString(nImO_VERSION_, true);
+            case nImO::kOutputFlavourNormal :
+                nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << "nImO Version: " << nImOversionString.c_str() << endl;
                 break;
                 
@@ -121,5 +128,6 @@ main(int      argc,
                 
         }
     }
+    ODL_EXIT_L(0); //####
     return 0;
 } // main

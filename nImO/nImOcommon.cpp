@@ -293,13 +293,12 @@ nImO::GetRandomChannelName(const std::string & channelRoot)
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
 
-#if 0
 #if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-Common::Initialize(const std::string & progName)
+nImO::Initialize(const std::string & progName)
 {
 #if ((! defined(MpM_ChattyStart)) && (! defined(ODL_ENABLE_LOGGING_)))
 # if MAC_OR_LINUX_
@@ -310,6 +309,7 @@ Common::Initialize(const std::string & progName)
     ODL_S1s("progName = ", progName); //####
     try
     {
+#if 0
 #if (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
         yarp::os::Network::setVerbosity(1);
 #else // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
@@ -340,6 +340,7 @@ Common::Initialize(const std::string & progName)
         ODL_D2("time = ", now, "fraction = ", fraction); //####
         ODL_LL1("seed = ", seed); //####
         yarp::os::Random::seed(seed);
+#endif//0
     }
     catch (...)
     {
@@ -347,11 +348,12 @@ Common::Initialize(const std::string & progName)
         throw;
     }
     ODL_EXIT(); //####
-} // Common::Initialize
+} // nImO::Initialize
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
+#if 0
 void
 Common::SetSignalHandlers(yarp::os::YarpSignalHandler theHandler)
 {

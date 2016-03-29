@@ -193,6 +193,13 @@ namespace nImO
     std::string
     GetRandomHexString(void);
     
+    /*! @brief Perform initialization of internal resources.
+     @param progName The name of the executing program.
+     
+     Should be called in the main() function of each application or service. */
+    void
+    Initialize(const std::string & progName);
+    
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
      returns @c false.

@@ -114,39 +114,20 @@ int
 main(int      argc,
      char * * argv)
 {
-#if 0
-    Utilities::DescriptorVector argumentList;
-    OutputFlavour               flavour;
+    std::string progName(*argv);
     
-    if (Utilities::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
-                                                   "Read from a channel", 2016,
-                                                   NIMO_COPYRIGHT_NAME_, flavour))
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
+    nImO::DescriptorVector argumentList;
+    nImO::OutputFlavour    flavour;
+    
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", 2016,
+                                              NIMO_COPYRIGHT_NAME_, flavour))
     {
-        std::string nImOversionString;
-
-        switch (flavour)
-        {
-            case kOutputFlavourTabs :
-                nImOversionString = SanitizeString(nImO_VERSION_, true);
-                cout << nImOversionString.c_str() << endl;
-                break;
-                
-            case kOutputFlavourJSON :
-                nImOversionString = SanitizeString(nImO_VERSION_);
-                cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        nImOversionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
-                break;
-                
-            case kOutputFlavourNormal :
-                nImOversionString = SanitizeString(nImO_VERSION_, true);
-                cout << "Movement And Meaning Version: " << nImOversionString.c_str() << endl;
-                break;
-                
-            default :
-                break;
-                
-        }
+        nImO::Initialize(progName);
     }
-#endif//0
+    ODL_EXIT_L(0); //####
     return 0;
 } // main

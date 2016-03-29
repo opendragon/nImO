@@ -1982,6 +1982,77 @@ doTestOverfilledBufferChunk(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 05 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBufferChunkReset(const char * launchPath,
+                       const int    argc,
+                       char * *     argv) // resetting buffer chunk
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        
+        if (stuff)
+        {
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+            
+            stuff->appendData(&stuff, 1);
+            if (1 == stuff->getDataSize())
+            {
+                stuff->reset();
+                if (0 == stuff->getDataSize())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == stuff->getDataSize())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (1 == stuff->getDataSize())"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBufferChunkReset
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -2013,7 +2084,7 @@ main(int      argc,
     try
     {
 #if 0
-        Initialize(progName);
+        nImO::Initialize(progName);
 #endif//0
         if (0 < --argc)
         {
@@ -2049,6 +2120,10 @@ main(int      argc,
                         result = doTestOverfilledBufferChunk(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 5 :
+                        result = doTestBufferChunkReset(*argv, argc - 1, argv + 2);
+                        break;
+                        
 #if 0
                     case 3 :
                         result = doTestWriteToEndpoint(*argv, argc - 1, argv + 2);

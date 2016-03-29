@@ -125,25 +125,6 @@ nImO::BufferChunk::appendData(const void * data,
     return *this;
 } // nImO::BufferChunk::appendData
 
-#if 0
-nImO::BufferChunk &
-nImO::BufferChunk::addChar(const char aChar)
-{
-    ODL_OBJENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
-    if ((_currentLength + 1) >= _thresholdLength)
-    {
-        ODL_LOG("((_currentLength + 1) >= _thresholdLength)"); //####
-        setSize(static_cast<size_t>(_currentSize * kBufferIncreaseFactor));
-    }
-    *(_buffer + _currentLength) = aChar;
-    ++_currentLength;
-    ODL_LL1("_currentLength <- ", _currentLength); //####
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::BufferChunk::addChar
-#endif//0
-
 nImO::BufferChunk &
 nImO::BufferChunk::reset(void)
 {

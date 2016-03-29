@@ -78,7 +78,8 @@ add_test(NAME TestBufferChunkWithSingleByte COMMAND ${THIS_TARGET} 2)
 add_test(NAME TestFilledBufferChunk COMMAND ${THIS_TARGET} 3)
 # Test buffer chunk overfilled with data
 add_test(NAME TestOverfilledBufferChunk COMMAND ${THIS_TARGET} 4)
-
+# Test buffer chunk reset
+add_test(NAME TestBufferChunkReset COMMAND ${THIS_TARGET} 5)
 
 
 

@@ -7,6 +7,7 @@
 #include "nImOblob.hpp"
 #include "nImOboolArgumentDescriptor.hpp"
 #include "nImOboolean.hpp"
+#include "nImObufferChunk.hpp"
 #include "nImOchannelArgumentDescriptor.hpp"
 #include "nImOcommon.hpp"
 #include "nImOconnector.hpp"
@@ -23,5 +24,6 @@
 #include "nImOset.hpp"
 #include "nImOstring.hpp"
 #include "nImOstringArgumentDescriptor.hpp"
+#include "nImOstringBuffer.hpp"
 #include "nImOvalue.hpp"
 %}

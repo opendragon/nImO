@@ -62,9 +62,25 @@ add_executable(${THIS_TARGET}
 target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 if(APPLE)
-#    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-#                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
 endif(APPLE)
+
+# Test empty buffer chunk
+add_test(NAME TestEmptyBufferChunk COMMAND ${THIS_TARGET} 1)
+# Test buffer chunk with 1 byte
+add_test(NAME TestBufferChunkWithSingleByte COMMAND ${THIS_TARGET} 2)
+# Test buffer chunk filled with data
+add_test(NAME TestFilledBufferChunk COMMAND ${THIS_TARGET} 3)
+# Test buffer chunk overfilled with data
+add_test(NAME TestOverfilledBufferChunk COMMAND ${THIS_TARGET} 4)
+
+
+
 
 # Argument order for test 1 = endpoint name [, IP address / name [, port]]
 ##add_test(NAME TestCreateEndpoint1 COMMAND ${THIS_TARGET} 1 "/service/test/createendpoint_1")

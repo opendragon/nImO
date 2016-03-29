@@ -80,9 +80,9 @@ if(APPLE)
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
         FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
-#    set(CMAKE_INSTALL_RPATH
-#"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib"
-#        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib"
+        CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 # 'rpath' warning
     cmake_policy(SET CMP0042 OLD)

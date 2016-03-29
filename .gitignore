@@ -19,3 +19,7 @@ Write/nImOwrite.rc
 Makefile
 Connect/nImOconnect
 Connect/nImOconnect.rc
+_nImOcommon_swig_python.so
+libnImOcommon_swig_csharp.so
+nImO/swig_nImO_out_csharp
+nImO/swig_nImO_out_python

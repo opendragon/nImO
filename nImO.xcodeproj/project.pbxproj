@@ -27,6 +27,8 @@
 		F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOportArgumentDescriptor.hpp; path = nImO/nImOportArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringArgumentDescriptor.cpp; path = nImO/nImOstringArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringArgumentDescriptor.hpp; path = nImO/nImOstringArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringBuffer.hpp; path = nImO/nImOstringBuffer.hpp; sourceTree = SOURCE_ROOT; };
+		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F6747F891CA70BA20070B240 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = odl/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6747F8A1CA70BA20070B240 /* ODDisableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODDisableLogging.h; path = odl/ODDisableLogging.h; sourceTree = SOURCE_ROOT; };
 		F6747F8B1CA70BA20070B240 /* ODEnableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODEnableLogging.h; path = odl/ODEnableLogging.h; sourceTree = SOURCE_ROOT; };
@@ -35,6 +37,8 @@
 		F6747F8E1CA70BA20070B240 /* ODLogging.inc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ODLogging.inc.c; path = odl/ODLogging.inc.c; sourceTree = SOURCE_ROOT; };
 		F6747F8F1CA70BA20070B240 /* ODLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODLogging.m; path = odl/ODLogging.m; sourceTree = SOURCE_ROOT; };
 		F6747F901CA70BA20070B240 /* ODLogging.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = ODLogging.i; path = odl/swig_odl_in/ODLogging.i; sourceTree = SOURCE_ROOT; };
+		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
+		F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObufferChunk.hpp; path = nImO/nImObufferChunk.hpp; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6866F021CA4145E00849A76 /* nImOcontainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontainer.hpp; path = nImO/nImOcontainer.hpp; sourceTree = "<group>"; };
 		F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
@@ -226,6 +230,8 @@
 				F6EE0AC81CA2C7F4004748ED /* nImOboolean.hpp */,
 				F60F864E1CA4B24C004D35AB /* nImOboolArgumentDescriptor.cpp */,
 				F60F864F1CA4B24C004D35AB /* nImOboolArgumentDescriptor.hpp */,
+				F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */,
+				F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */,
 				F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */,
 				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.hpp */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
@@ -260,6 +266,8 @@
 				F6EE0ADA1CA2C7F4004748ED /* nImOstring.hpp */,
 				F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */,
 				F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */,
+				F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */,
+				F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */,
 				F6EE0ADB1CA2C7F4004748ED /* nImOvalue.cpp */,
 				F6EE0ADC1CA2C7F4004748ED /* nImOvalue.hpp */,
 				F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */,

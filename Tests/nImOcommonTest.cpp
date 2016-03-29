@@ -44,7 +44,7 @@
 #include <nImO/nImOServiceResponse.h>
 #include <nImO/nImOUtilities.h>
 #endif//0
-#include <nImO/nImOcommon.hpp>
+#include <nImO/nImObufferChunk.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -1656,6 +1656,332 @@ catchSignal(int signal)
 #endif//0
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 01 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyBufferChunk(const char * launchPath,
+                       const int    argc,
+                       char * *     argv) // empty buffer chunk
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        
+        if (stuff)
+        {
+            if (0 == stuff->getDataSize())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->getDataSize())"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestEmptyBufferChunk
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 02 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBufferChunkWithSingleByte(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // buffer chunk with 1 byte of data
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        
+        if (stuff)
+        {
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+            
+            stuff->appendData(&stuff, 1);
+            if (1 == stuff->getDataSize())
+            {
+                const uint8_t * storedData = stuff->getData();
+                
+                if (storedData && (data == *storedData))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (storedData && (data == *storedData))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (1 == stuff->getDataSize())"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBufferChunkWithSingleByte
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 03 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestFilledBufferChunk(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // buffer chunk filled with data
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        
+        if (stuff)
+        {
+            size_t howMuch = stuff->getAvailableBytes();
+            
+            if (1 < howMuch)
+            {
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+
+                for (size_t ii = 0; howMuch > ii; ++ii)
+                {
+                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    
+                    stuff->appendData(&newData, 1);
+                }
+                if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
+                {
+                    const uint8_t * storedData = stuff->getData();
+                    
+                    if (storedData)
+                    {
+                        result = 0;
+                        for (size_t ii = 0; howMuch > ii; ++ii)
+                        {
+                            uint8_t aValue = storedData[ii];
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            
+                            if (aValue != expectedValue)
+                            {
+                                result = 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (storedData)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (((0 == stuff->getAvailableBytes()) && (howMuch == " //####
+                            "stuff->getDataSize()))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (1 < howMuch)"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestFilledBufferChunk
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 04 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestOverfilledBufferChunk(const char * launchPath,
+                            const int    argc,
+                            char * *     argv) // buffer chunk overfilled with data
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        
+        if (stuff)
+        {
+            size_t howMuch = stuff->getAvailableBytes();
+            
+            if (1 < howMuch)
+            {
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+                
+                for (size_t ii = 0; howMuch >= ii; ++ii)
+                {
+                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    
+                    stuff->appendData(&newData, 1);
+                }
+                if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
+                {
+                    const uint8_t * storedData = stuff->getData();
+                    
+                    if (storedData)
+                    {
+                        result = 0;
+                        for (size_t ii = 0; howMuch > ii; ++ii)
+                        {
+                            uint8_t aValue = storedData[ii];
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            
+                            if (aValue != expectedValue)
+                            {
+                                result = 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (storedData)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (((0 == stuff->getAvailableBytes()) && (howMuch == " //####
+                            "stuff->getDataSize()))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (1 < howMuch)"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestOverfilledBufferChunk
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -1674,8 +2000,8 @@ main(int      argc,
     std::string progName(*argv);
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-                kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-                kODLoggingOptionWriteToStderr); //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
 #if 0
 #if MAC_OR_LINUX_
@@ -1684,29 +2010,22 @@ main(int      argc,
 #endif//0
     int result = 1;
     
-#if 0
     try
     {
-        Utilities::SetUpGlobalStatusReporter();
-        Utilities::CheckForNameServerReporter();
-        if (Utilities::CheckForValidNetwork())
+#if 0
+        Initialize(progName);
+#endif//0
+        if (0 < --argc)
         {
-            yarp::os::Network yarp; // This is necessary to establish any connections to the YARP
-                                    // infrastructure
+            const char * startPtr = argv[1];
+            char *       endPtr;
+            int          selector = strtol(startPtr, &endPtr, 10);
             
-            Initialize(progName);
-            if (0 < --argc)
+            if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {
-                const char * startPtr = argv[1];
-                char *       endPtr;
-                int          selector = strtol(startPtr, &endPtr, 10);
-                
-                if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
-                {
-                    
-                }
-                
+#if 0
                 SetSignalHandlers(catchSignal);
+#endif//0
                 switch (selector)
                 {
                     case 0 :
@@ -1715,13 +2034,22 @@ main(int      argc,
                         break;
                         
                     case 1 :
-                        result = doTestCreateEndpoint(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyBufferChunk(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 2 :
-                        result = doTestConnectToEndpoint(*argv, argc - 1, argv + 2);
+                        result = doTestBufferChunkWithSingleByte(*argv, argc - 1, argv + 2);
                         break;
                         
+                    case 3 :
+                        result = doTestFilledBufferChunk(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 4 :
+                        result = doTestOverfilledBufferChunk(*argv, argc - 1, argv + 2);
+                        break;
+
+#if 0
                     case 3 :
                         result = doTestWriteToEndpoint(*argv, argc - 1, argv + 2);
                         break;
@@ -1767,6 +2095,7 @@ main(int      argc,
                                                                                        argc - 1,
                                                                                        argv + 2);
                         break;
+#endif//0
                         
                     default :
                         break;
@@ -1777,19 +2106,16 @@ main(int      argc,
                     ODL_LL1("%%%%%%% unit test failure = ", result); //####
                 }
             }
-            else
-            {
-                ODL_LOG("! (0 < --argc)"); //####
-            }
         }
-        Utilities::ShutDownGlobalStatusReporter();
+        else
+        {
+            ODL_LOG("! (0 < --argc)"); //####
+        }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
     }
-    yarp::os::Network::fini();
-#endif//0
     ODL_EXIT_L(result); //####
     return result;
 } // main

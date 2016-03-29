@@ -58,6 +58,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOblob.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOboolean.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcommon.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
@@ -74,6 +75,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOset.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOstring.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOvalue.cpp"
             "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
 
@@ -102,6 +104,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOblob.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOboolean.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcommon.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
@@ -118,6 +121,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOset.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOstring.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOvalue.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
         DESTINATION include/nImO
@@ -132,6 +136,7 @@ if(nImO_DO_SWIG)
         nImOblob.cpp nImOblob.hpp
         nImOboolArgumentDescriptor.cpp nImOboolArgumentDescriptor.hpp
         nImOboolean.cpp nImOboolean.hpp
+        nImObufferChunk.cpp nImObufferChunk.hpp
         nImOchannelArgumentDescriptor.cpp nImOchannelArgumentDescriptor.hpp
         nImOcommon.cpp nImOcommon.hpp
         nImOconnector.cpp nImOconnector.hpp
@@ -148,9 +153,10 @@ if(nImO_DO_SWIG)
         nImOset.cpp nImOset.hpp
         nImOstring.cpp nImOstring.hpp
         nImOstringArgumentDescriptor.cpp nImOstringArgumentDescriptor.hpp
+        nImOstringBuffer.cpp nImOstringBuffer.hpp
         nImOvalue.cpp nImOvalue.hpp)
 
-    include_directories("${nImO_SOURCE_DIR}/Base")
+    include_directories("${nImO_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES SWIG_FLAGS "-includeall")
 
@@ -159,7 +165,8 @@ if(nImO_DO_SWIG)
     swig_add_module(${OTHER_TARGET_CSHARP} csharp ${nImO_SWIG_SOURCES})
 
     swig_link_libraries(${OTHER_TARGET_CSHARP}
-                        ${THIS_TARGET})
+                        ${THIS_TARGET}
+                        odLogging)
 
     install(TARGETS ${OTHER_TARGET_CSHARP}
             DESTINATION lib
@@ -173,12 +180,14 @@ if(nImO_DO_SWIG)
 
     set(CMAKE_SWIG_OUTDIR "${nImO_SOURCE_DIR}/nImO/swig_nImO_out_python")
 
+    find_package(PythonLibs)
     include_directories(${PYTHON_INCLUDE_PATH})
 
     swig_add_module(${OTHER_TARGET_PYTHON} python ${nImO_SWIG_SOURCES})
 
     swig_link_libraries(${OTHER_TARGET_PYTHON}
                         ${THIS_TARGET}
+                        odLogging
                         ${PYTHON_LIBRARIES})
 
 # Note the modified target name!

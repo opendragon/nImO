@@ -442,7 +442,6 @@ nImO::StringBuffer::processCharacters(const char * aString,
             ++numEscapes;
         }
     }
-    
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
         char delimiter = ((numDoubleQuotes > numSingleQuotes) ? singleQuote : doubleQuote);
@@ -495,6 +494,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
                     }
                     else
                     {
+                        // 'Regular' meta characters
                         static const char metaPrefix[] = { 'M', '-' };
                         
                         appendChars(metaPrefix, sizeof(metaPrefix));
@@ -513,6 +513,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
             }
             else
             {
+                // Handle normal escapes - nested delimiters and the escape character
                 if ((delimiter == aByte) || (kEscapeChar == aByte))
                 {
                     appendChars(&kEscapeChar, 1);
@@ -524,6 +525,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
     }
     else
     {
+        // Nothing special
         appendChars(&doubleQuote, 1);
         appendChars(aString, length);
         appendChars(&doubleQuote, 1);

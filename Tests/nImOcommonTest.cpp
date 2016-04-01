@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       CommonTests/nImOcommonTest.cpp
+//  File:       Tests/nImOcommonTest.cpp
 //
 //  Project:    nImO
 //
@@ -36,15 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if 0
-#include <nImO/nImOClientChannel.h>
-#include <nImO/nImOEndpoint.h>
-#include <nImO/nImORequests.h>
-#include <nImO/nImOServiceRequest.h>
-#include <nImO/nImOServiceResponse.h>
-#include <nImO/nImOUtilities.h>
-#endif//0
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOstringBuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -78,1562 +71,15 @@ using std::endl;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The number of elements in a small test. */
+static const size_t kSmallTestSize = 100;
+
+/*! @brief The number of elements in a big test. */
+static const size_t kBigTestSize = 100000;
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-#if 0
-/*! @brief Create an endpoint for a test.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used with the endpoint constructor.
- @returns A newly created endpoint, or @c NULL if one could not be created. */
-static Endpoint *
-doCreateEndpointForTest(const int argc,
-                        char * *  argv)
-{
-    ODL_ENTER(); //####
-    Endpoint * stuff = NULL;
-    
-    try
-    {
-        if (0 < argc)
-        {
-            switch (argc)
-            {
-                    // Argument order for tests = endpoint name [, port]
-                case 1 :
-                    stuff = new Endpoint(*argv);
-                    break;
-                    
-                case 2 :
-                    stuff = new Endpoint(*argv, argv[1]);
-                    break;
-                    
-                default :
-                    break;
-                    
-            }
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_P(stuff); //####
-    return stuff;
-} // doCreateEndpointForTest
-
-/*! @brief Create a temporary channel for a test.
- @param destinationName The name of the channel to be connected to.
- @param channelPath The root path for the new temporary channel.
- @returns A pointer to a newly-allocated temporary channel. */
-static ClientChannel *
-doCreateTestChannel(const std::string & destinationName,
-                    const char *       channelPath)
-{
-    ODL_ENTER(); //####
-    ODL_S2("destinationName = ", destinationName.c_str(), "channelPath = ", channelPath); //####
-    std::string              aName(GetRandomChannelName(channelPath));
-    ClientChannel *         newChannel = new ClientChannel;
-#if defined(nImO_ReportOnConnections)
-    ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-#endif // defined(nImO_ReportOnConnections)
-    
-    
-    if (newChannel)
-    {
-#if defined(nImO_ReportOnConnections)
-        newChannel->setReporter(reporter);
-        newChannel->getReport(reporter);
-#endif // defined(nImO_ReportOnConnections)
-        if (newChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
-        {
-            if (! Utilities::NetworkConnectWithRetries(aName, destinationName, STANDARD_WAIT_TIME_))
-            {
-                ODL_LOG("(! Utilities::NetworkConnectWithRetries(aName, destinationName, " //####
-                       "STANDARD_WAIT_TIME_))"); //####
-#if defined(nImO_DoExplicitClose)
-                newChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-                BaseChannel::RelinquishChannel(newChannel);
-                newChannel = NULL;
-            }
-        }
-        else
-        {
-            ODL_LOG("! (newChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))"); //####
-        }
-    }
-    else
-    {
-        ODL_LOG("! (newChannel)"); //####
-    }
-    ODL_EXIT_P(newChannel); //####
-    return newChannel;
-} // doCreateTestChannel
-
-/*! @brief Create a temporary channel for a test.
- @param anEndpoint The endpoint to be connected to.
- @param channelPath The root path for the new temporary channel.
- @returns A pointer to a newly-allocated temporary channel. */
-static ClientChannel *
-doCreateTestChannel(Endpoint &   anEndpoint,
-                    const char * channelPath)
-{
-    return doCreateTestChannel(anEndpoint.getName(), channelPath);
-} // doCreateTestChannel
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Destroy a temporary channel that was used with a test.
- @param destinationName The name of the channel that the temporary channel was connected to.
- @param theChannel A pointer to the temporary channel. */
-static void
-doDestroyTestChannel(const std::string & destinationName,
-                     ClientChannel *    theChannel)
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(destinationName)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_P1("theChannel = ", theChannel); //####
-    if (theChannel)
-    {
-#if defined(nImO_DoExplicitDisconnect)
-        if (! Utilities::NetworkDisconnectWithRetries(theChannel->name(), destinationName,
-                                                      STANDARD_WAIT_TIME_))
-        {
-            ODL_LOG("(! Utilities::NetworkDisconnectWithRetries(theChannel->name(), " //####
-                   "destinationName, STANDARD_WAIT_TIME_))"); //####
-        }
-#endif // defined(nImO_DoExplicitDisconnect)
-#if defined(nImO_DoExplicitClose)
-        theChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-        BaseChannel::RelinquishChannel(theChannel);
-    }
-    ODL_EXIT(); //####
-} // doDestroyTestChannel
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-/*! @brief Destroy a temporary channel that was used with a test.
- @param anEndpoint The endpoint to be connected to.
- @param theChannel A pointer to the temporary channel. */
-static void
-doDestroyTestChannel(Endpoint &      anEndpoint,
-                     ClientChannel * theChannel)
-{
-    doDestroyTestChannel(anEndpoint.getName(), theChannel);
-} // doDestroyTestChannel
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 01 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestCreateEndpoint(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // create endpoint
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint * stuff = doCreateEndpointForTest(argc, argv);
-        
-        if (stuff)
-        {
-            if (stuff->open(STANDARD_WAIT_TIME_))
-            {
-                ODL_S1s("endpoint name = ", stuff->getName());
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (stuff->open(STANDARD_WAIT_TIME_))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestCreateEndpoint
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 02 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestConnectToEndpoint(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // connect to endpoint
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint *              stuff = doCreateEndpointForTest(argc, argv);
-        ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-        
-        if (stuff)
-        {
-            if (stuff->open(STANDARD_WAIT_TIME_) && stuff->setReporter(reporter, true))
-            {
-                ODL_S1s("endpoint name = ", stuff->getName());
-                // Now we try to connect!
-                std::string      aName(GetRandomChannelName("_test_/connecttoendpoint_"));
-                ClientChannel * outChannel = new ClientChannel;
-                
-                if (outChannel)
-                {
-#if defined(nImO_ReportOnConnections)
-                    outChannel->setReporter(reporter);
-                    outChannel->getReport(reporter);
-#endif // defined(nImO_ReportOnConnections)
-                    if (outChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
-                    {
-                        outChannel->getReport(reporter);
-                        ODL_S1s("endpoint name = ", stuff->getName());
-                        if (outChannel->addOutputWithRetries(stuff->getName(), STANDARD_WAIT_TIME_))
-                        {
-                            result = 0;
-#if defined(nImO_DoExplicitDisconnect)
-                            if (! NetworkDisconnectWithRetries(outChannel->name(), stuff->getName(),
-                                                               STANDARD_WAIT_TIME_))
-                            {
-                                ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->name(), " //####
-                                       "stuff->getName(), STANDARD_WAIT_TIME_))"); //####
-                            }
-#endif // defined(nImO_DoExplicitDisconnect)
-                        }
-                        else
-                        {
-                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
-                                   "STANDARD_WAIT_TIME_))"); //####
-                        }
-#if defined(nImO_DoExplicitClose)
-                        outChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-                    }
-                    else
-                    {
-                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
-                               "STANDARD_WAIT_TIME_))"); //####
-                    }
-                    BaseChannel::RelinquishChannel(outChannel);
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)");
-                }
-            }
-            else
-            {
-                ODL_LOG("! (stuff->open(STANDARD_WAIT_TIME_) && " //####
-                       "stuff->setReporter(reporter, true))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestConnectToEndpoint
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestWriteToEndpoint(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // send to endpoint
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint *              stuff = doCreateEndpointForTest(argc, argv);
-        ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-        
-        if (stuff)
-        {
-            Test03Handler handler;
-            
-            if (stuff->setInputHandler(handler) && stuff->open(STANDARD_WAIT_TIME_) &&
-                stuff->setReporter(reporter, true))
-            {
-                ODL_S1s("endpoint name = ", stuff->getName());
-                // Now we try to connect!
-                std::string      aName(GetRandomChannelName("_test_/writetoendpoint_"));
-                ClientChannel * outChannel = new ClientChannel;
-                
-                if (outChannel)
-                {
-#if defined(nImO_ReportOnConnections)
-                    outChannel->setReporter(reporter);
-                    outChannel->getReport(reporter);
-#endif // defined(nImO_ReportOnConnections)
-                    if (outChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
-                    {
-                        outChannel->getReport(reporter);
-                        if (outChannel->addOutputWithRetries(stuff->getName(), STANDARD_WAIT_TIME_))
-                        {
-                            yarp::os::Bottle message;
-                            
-                            message.addString(aName);
-                            message.addString("howdi");
-                            if (outChannel->write(message))
-                            {
-                                result = 0;
-#if defined(nImO_DoExplicitDisconnect)
-                                if (! NetworkDisconnectWithRetries(outChannel->name(),
-                                                                   stuff->getName(),
-                                                                   STANDARD_WAIT_TIME_))
-                                {
-                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
-                                           "name(), stuff->getName(), " //####
-                                           "STANDARD_WAIT_TIME_))"); //####
-                                }
-#endif // defined(nImO_DoExplicitDisconnect)
-                            }
-                            else
-                            {
-                                ODL_LOG("! (outChannel->write(message))"); //####
-#if defined(nImO_StallOnSendProblem)
-                                Stall();
-#endif // defined(nImO_StallOnSendProblem)
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
-                                   "STANDARD_WAIT_TIME_))"); //####
-                        }
-#if defined(nImO_DoExplicitClose)
-                        outChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-                    }
-                    else
-                    {
-                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
-                               "STANDARD_WAIT_TIME_))"); //####
-                    }
-                    BaseChannel::RelinquishChannel(outChannel);
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)");
-                }
-            }
-            else
-            {
-                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
-                       "stuff->open(STANDARD_WAIT_TIME_) && " //####
-                       "stuff->setReporter(reporter, true))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestWriteToEndpoint
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestEchoFromEndpointWithReader(const char * launchPath,
-                                 const int    argc,
-                                 char * *     argv) // send to endpoint
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint *              stuff = doCreateEndpointForTest(argc, argv);
-        ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-        
-        if (stuff)
-        {
-            Test04Handler handler;
-            
-            if (stuff->setInputHandler(handler) && stuff->open(STANDARD_WAIT_TIME_) &&
-                stuff->setReporter(reporter, true))
-            {
-                ODL_S1s("endpoint name = ", stuff->getName());
-                // Now we try to connect!
-                std::string      aName(GetRandomChannelName("_test_/echofromendpointwithreader_"));
-                ClientChannel * outChannel = new ClientChannel;
-                
-                if (outChannel)
-                {
-#if defined(nImO_ReportOnConnections)
-                    outChannel->setReporter(reporter);
-                    outChannel->getReport(reporter);
-#endif // defined(nImO_ReportOnConnections)
-                    if (outChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
-                    {
-                        outChannel->getReport(reporter);
-                        if (outChannel->addOutputWithRetries(stuff->getName(), STANDARD_WAIT_TIME_))
-                        {
-                            yarp::os::Bottle message;
-                            yarp::os::Bottle response;
-                            
-                            message.addString(aName);
-                            message.addString("howdi");
-                            if (outChannel->write(message, response))
-                            {
-                                result = 0;
-#if defined(nImO_DoExplicitDisconnect)
-                                if (! NetworkDisconnectWithRetries(outChannel->name(),
-                                                                   stuff->getName(),
-                                                                   STANDARD_WAIT_TIME_))
-                                {
-                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
-                                           "name(), stuff->getName(), " //####
-                                           "STANDARD_WAIT_TIME_))"); //####
-                                }
-#endif // defined(nImO_DoExplicitDisconnect)
-                            }
-                            else
-                            {
-                                ODL_LOG("! (outChannel->write(message, response))"); //####
-#if defined(nImO_StallOnSendProblem)
-                                Stall();
-#endif // defined(nImO_StallOnSendProblem)
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
-                                   "STANDARD_WAIT_TIME_))"); //####
-                        }
-#if defined(nImO_DoExplicitClose)
-                        outChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-                    }
-                    else
-                    {
-                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
-                               "STANDARD_WAIT_TIME_))"); //####
-                    }
-                    BaseChannel::RelinquishChannel(outChannel);
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)");
-                }
-            }
-            else
-            {
-                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
-                       "stuff->open(STANDARD_WAIT_TIME_) && " //####
-                       "stuff->setReporter(reporter, true))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestEchoFromEndpointWithReader
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestEchoFromEndpointWithReaderCreator(const char * launchPath,
-                                        const int    argc,
-                                        char * *     argv) // send to endpoint
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint *              stuff = doCreateEndpointForTest(argc, argv);
-        ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-        
-        if (stuff)
-        {
-            Test05HandlerCreator handlerCreator;
-            
-            if (stuff->setInputHandlerCreator(handlerCreator) && stuff->open(STANDARD_WAIT_TIME_) &&
-                stuff->setReporter(reporter, true))
-            {
-                ODL_S1s("endpoint name = ", stuff->getName());
-                // Now we try to connect!
-                std::string      aName(GetRandomChannelName("_test_/echofromendpointwithreader"
-                                                           "creator_"));
-                ClientChannel * outChannel = new ClientChannel;
-                
-                if (outChannel)
-                {
-#if defined(nImO_ReportOnConnections)
-                    outChannel->setReporter(reporter);
-                    outChannel->getReport(reporter);
-#endif // defined(nImO_ReportOnConnections)
-                    if (outChannel->openWithRetries(aName, STANDARD_WAIT_TIME_))
-                    {
-                        outChannel->getReport(reporter);
-                        if (outChannel->addOutputWithRetries(stuff->getName(), STANDARD_WAIT_TIME_))
-                        {
-                            yarp::os::Bottle message;
-                            yarp::os::Bottle response;
-                            
-                            message.addString(aName);
-                            message.addString("howdi");
-                            if (outChannel->write(message, response))
-                            {
-                                result = 0;
-#if defined(nImO_DoExplicitDisconnect)
-                                if (! NetworkDisconnectWithRetries(outChannel->name(),
-                                                                   stuff->getName(),
-                                                                   STANDARD_WAIT_TIME_))
-                                {
-                                    ODL_LOG("(! NetworkDisconnectWithRetries(outChannel->" //####
-                                           "name(), stuff->getName(), " //####
-                                           "STANDARD_WAIT_TIME_))"); //####
-                                }
-#endif // defined(nImO_DoExplicitDisconnect)
-                            }
-                            else
-                            {
-                                ODL_LOG("! (outChannel->write(message, response))"); //####
-#if defined(nImO_StallOnSendProblem)
-                                Stall();
-#endif // defined(nImO_StallOnSendProblem)
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (outChannel->addOutputWithRetries(stuff->getName(), " //####
-                                   "STANDARD_WAIT_TIME_))"); //####
-                        }
-#if defined(nImO_DoExplicitClose)
-                        outChannel->close();
-#endif // defined(nImO_DoExplicitClose)
-                    }
-                    else
-                    {
-                        ODL_LOG("! (outChannel->openWithRetries(aName, " //####
-                               "STANDARD_WAIT_TIME_))"); //####
-                    }
-                    BaseChannel::RelinquishChannel(outChannel);
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)");
-                }
-            }
-            else
-            {
-                ODL_LOG("! (stuff->setInputHandlerCreator(handlerCreator) && " //####
-                       "stuff->open(STANDARD_WAIT_TIME_) && " //####
-                       "stuff->setReporter(&reporter, true))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestEchoFromEndpointWithReaderCreator
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestCreateRequest(const char * launchPath,
-                    const int    argc,
-                    char * *     argv) // create request
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        if (0 == argc)
-        {
-            ODL_LOG("0 == argc"); //####
-        }
-        else
-        {
-            yarp::os::Bottle parameters;
-            
-            for (int ii = 1; ii < argc; ++ii)
-            {
-                parameters.addString(argv[ii]);
-            }
-            ServiceRequest * stuff = new ServiceRequest(*argv, parameters);
-            
-            delete stuff;
-            result = 0;
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestCreateRequest
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestCreateResponse(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // create request
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        yarp::os::Bottle parameters;
-        
-        for (int ii = 0; ii < argc; ++ii)
-        {
-            parameters.addString(argv[ii]);
-        }
-        ServiceResponse * stuff = new ServiceResponse(parameters);
-        
-        delete stuff;
-        result = 0;
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestCreateResponse
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 08 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestRequestEchoFromEndpoint(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // create request
-{
-#if (! defined(nImO_DoExplicitDisconnect))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(nImO_DoExplicitDisconnect)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Endpoint *              stuff = doCreateEndpointForTest(argc, argv);
-        ChannelStatusReporter & reporter = *Utilities::GetGlobalStatusReporter();
-        
-        if (stuff)
-        {
-            Test08Handler handler;
-            
-            if (stuff->setInputHandler(handler) && stuff->open(STANDARD_WAIT_TIME_) &&
-                stuff->setReporter(reporter, true))
-            {
-                ClientChannel * outChannel = doCreateTestChannel(stuff->getName(),
-                                                                 "test/requestechofromendpoint_");
-                
-                if (outChannel)
-                {
-                    ODL_S1s("endpoint name = ", stuff->getName());
-                    yarp::os::Bottle parameters("some to send");
-                    ServiceRequest   request(nImO_ECHO_REQUEST_, parameters);
-                    ServiceResponse  response;
-                    
-                    if (request.send(*outChannel, response))
-                    {
-                        ODL_LL1("response size = ", response.count()); //####
-                        for (int ii = 0; ii < response.count(); ++ii)
-                        {
-                            ODL_S1s("response value = ", response.element(ii).toString()); //####
-                        }
-                        result = 0;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (request.send(*outChannel, response))"); //####
-                    }
-                    doDestroyTestChannel(stuff->getName(), outChannel);
-                    outChannel = NULL;
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)"); //####
-                }
-            }
-            else
-            {
-                ODL_LOG("! (stuff->setInputHandler(handler) && " //####
-                       "stuff->open(STANDARD_WAIT_TIME_) && " //####
-                       "stuff->setReporter(reporter, true))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestRequestEchoFromEndpoint
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 09 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestRequestEchoFromServiceUsingDefaultWithReader(const char * launchPath,
-                                                   const int    argc,
-                                                   char * *     argv) // send 'echo' request
-{
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Test09Service * aService = new Test09Service(launchPath, argc, argv);
-        
-        if (aService)
-        {
-            if (aService->startService())
-            {
-                ClientChannel * outChannel = doCreateTestChannel(aService->getEndpoint(),
-                                                                 "test/requestechofromservice"
-                                                                 "usingdefaultwithreader");
-                
-                if (outChannel)
-                {
-                    yarp::os::Bottle parameters("some to send");
-                    ServiceRequest   request(nImO_ECHO_REQUEST_, parameters);
-                    ServiceResponse  response;
-                    
-                    if (request.send(*outChannel, response))
-                    {
-                        ODL_LL1("response size = ", response.count()); //####
-                        for (int ii = 0; ii < response.count(); ++ii)
-                        {
-                            ODL_S1s("response value = ", response.element(ii).toString()); //####
-                        }
-                        result = 0;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (request.send(*outChannel, response))"); //####
-                    }
-                    doDestroyTestChannel(aService->getEndpoint(), outChannel);
-                    outChannel = NULL;
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)"); //####
-                }
-                aService->stopService();
-            }
-            else
-            {
-                ODL_LOG("! (aService->startService())"); //####
-            }
-            delete aService;
-        }
-        else
-        {
-            ODL_LOG("! (aService)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestRequestEchoFromServiceUsingDefaultWithReader
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 10 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestRequestEchoFromServiceUsingDefaultWithReaderCreator(const char * launchPath,
-                                                          const int    argc,
-                                                          char * *     argv) // send 'echo'
-                                                                             // request
-{
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Test10Service * aService = new Test10Service(launchPath, argc, argv);
-        
-        if (aService)
-        {
-            if (aService->startService())
-            {
-                ClientChannel * outChannel = doCreateTestChannel(aService->getEndpoint(),
-                                                                 "test/requestechofromservice"
-                                                                 "usingdefaultwithreadercreator_");
-                
-                if (outChannel)
-                {
-                    yarp::os::Bottle parameters("some to send");
-                    ServiceRequest   request(nImO_ECHO_REQUEST_, parameters);
-                    ServiceResponse  response;
-                    
-                    if (request.send(*outChannel, response))
-                    {
-                        ODL_LL1("response size = ", response.count()); //####
-                        for (int ii = 0; ii < response.count(); ++ii)
-                        {
-                            ODL_S1s("response value = ", response.element(ii).toString()); //####
-                        }
-                        result = 0;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (request.send(*outChannel, response))"); //####
-                    }
-                    doDestroyTestChannel(aService->getEndpoint(), outChannel);
-                    outChannel = NULL;
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)"); //####
-                }
-                aService->stopService();
-            }
-            else
-            {
-                ODL_LOG("! (aService->startService())"); //####
-            }
-            delete aService;
-        }
-        else
-        {
-            ODL_LOG("! (aService)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestRequestEchoFromServiceUsingDefaultWithReaderCreator
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 11 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestRequestEchoFromServiceWithRequestHandler(const char * launchPath,
-                                               const int    argc,
-                                               char * *     argv) // create 'echo' request
-{
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Test11Service * aService = new Test11Service(launchPath, argc, argv);
-        
-        if (aService)
-        {
-            if (aService->startService())
-            {
-                ClientChannel * outChannel = doCreateTestChannel(aService->getEndpoint(),
-                                                                 "test/requestechofromservice"
-                                                                 "withrequesthandler_");
-                
-                if (outChannel)
-                {
-                    yarp::os::Bottle parameters("some to send");
-                    ServiceRequest   request(nImO_ECHO_REQUEST_, parameters);
-                    ServiceResponse  response;
-                    
-                    if (request.send(*outChannel, response))
-                    {
-                        if (3 == response.count())
-                        {
-                            std::string expected[] =
-                            {
-                                "some", "to", "send"
-                            };
-                            
-                            result = 0;
-                            for (int ii = 0; (! result) && (ii < response.count()); ++ii)
-                            {
-                                if (expected[ii] != response.element(ii).toString())
-                                {
-                                    ODL_S2s("expected[ii] = ", expected[ii], //####
-                                               "response.element(ii).toString() = ", //####
-                                               response.element(ii).toString()); //####
-                                    result = 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (3 == response.count())"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (request.send(*outChannel, response))"); //####
-                    }
-                    doDestroyTestChannel(aService->getEndpoint(), outChannel);
-                    outChannel = NULL;
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)"); //####
-                }
-                aService->stopService();
-            }
-            else
-            {
-                ODL_LOG("! (aService->startService())"); //####
-            }
-            delete aService;
-        }
-        else
-        {
-            ODL_LOG("! (aService)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestRequestEchoFromServiceWithRequestHandler
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 12 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Check the response from the 'list' request for this test.
- @param asDict The dictionary to be checked.
- @param sawArguments Set to @c true if a valid 'arguments' entry appears.
- @param sawChannels Set to @c true if a valid 'channels' entry appears.
- @param sawClients Set to @c true if a valid 'clients' entry appears.
- @param sawDetach Set to @c true if a valid 'detach' entry appears.
- @param sawEcho Set to @c true if a valid 'echo' entry appears.
- @param sawExtraInfo Set to @c true if a valid 'extraInfo' entry appears.
- @param sawInfo Set to @c true if a valid 'info' entry appears.
- @param sawList Set to @c true if a valid 'list' entry appears.
- @param sawMetrics Set to @c true if a valid 'getMetrics' entry appears.
- @param sawMetricsState Set to @c true if a valid 'getMetricsState' entry appears.
- @param sawName Set to @c true if a valid 'name' entry appears.
- @param sawSetMetricsState Set to @c true if a valid 'setMetricsState' entry appears.
- @returns @c false if an unexpected value appears and @c true otherwise. */
-static bool
-checkListDictionary(yarp::os::Property & asDict,
-                    bool &               sawArguments,
-                    bool &               sawChannels,
-                    bool &               sawClients,
-                    bool &               sawDetach,
-                    bool &               sawEcho,
-                    bool &               sawExtraInfo,
-                    bool &               sawInfo,
-                    bool &               sawList,
-                    bool &               sawMetrics,
-                    bool &               sawMetricsState,
-                    bool &               sawName,
-                    bool &               sawSetMetricsState)
-{
-    ODL_ENTER(); //####
-    ODL_P4("asDict = ", &asDict, "sawArguments = ", &sawArguments, "sawChannels = ", //####
-              &sawChannels, "sawClients = ", &sawClients); //####
-    ODL_P4("sawDetach = ", &sawDetach, "sawEcho = ", &sawEcho, "sawExtraInfo = ", //####
-              &sawExtraInfo, "sawInfo = ", &sawInfo);
-    ODL_P4("sawList = ", &sawList, "sawMetrics = ", &sawMetrics, "sawMetricsState = ", //####
-              &sawMetricsState, "sawName = ", &sawName);
-    ODL_P1("sawSetMetricsState = ", &sawSetMetricsState); //####
-    bool result = true;
-    bool hasInput = asDict.check(nImO_REQREP_DICT_INPUT_KEY_);
-    bool hasOutput = asDict.check(nImO_REQREP_DICT_OUTPUT_KEY_);
-    
-    if (asDict.check(nImO_REQREP_DICT_REQUEST_KEY_))
-    {
-        std::string aName(asDict.find(nImO_REQREP_DICT_REQUEST_KEY_).asString());
-        
-        if (aName == nImO_ARGUMENTS_REQUEST_)
-        {
-            if (sawArguments)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawArguments = (itsOutput == "s+");
-            }
-        }
-        else if (aName == nImO_CHANNELS_REQUEST_)
-        {
-            if (sawChannels)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawChannels = (itsOutput == "(s*)(s*)(s*)");
-            }
-        }
-        else if (aName == nImO_CLIENTS_REQUEST_)
-        {
-            if (sawClients)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawClients = (itsOutput == "(s*)");
-            }
-        }
-        else if (aName == nImO_DETACH_REQUEST_)
-        {
-            if (sawDetach)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && (! hasOutput))
-            {
-                sawDetach = true;
-            }
-        }
-        else if (aName == nImO_ECHO_REQUEST_)
-        {
-            if (sawEcho)
-            {
-                result = false;
-            }
-            else if (hasInput && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
-                
-                sawEcho = ((itsInput == ".*") && (itsOutput == ".*"));
-            }
-        }
-        else if (aName == nImO_EXTRAINFO_REQUEST_)
-        {
-            if (sawExtraInfo)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawExtraInfo = (itsOutput == "s");
-            }
-        }
-        else if (aName == nImO_INFO_REQUEST_)
-        {
-            if (sawInfo)
-            {
-                result = false;
-            }
-            else if (hasInput && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
-                
-                sawInfo = ((itsInput == ".") && (itsOutput == "([]?)"));
-            }
-        }
-        else if (aName == nImO_LIST_REQUEST_)
-        {
-            if (sawList)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawList = (itsOutput == "([]+)");
-            }
-        }
-        else if (aName == nImO_METRICS_REQUEST_)
-        {
-            if (sawMetrics)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawMetrics = (itsOutput == "([]+)");
-            }
-        }
-        else if (aName == nImO_METRICSSTATE_REQUEST_)
-        {
-            if (sawMetricsState)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawMetricsState = (itsOutput == "i");
-            }
-        }
-        else if (aName == nImO_NAME_REQUEST_)
-        {
-            if (sawName)
-            {
-                result = false;
-            }
-            else if ((! hasInput) && hasOutput)
-            {
-                std::string itsOutput(asDict.find(nImO_REQREP_DICT_OUTPUT_KEY_).asString());
-                
-                sawName = (itsOutput == "sssssss");
-            }
-        }
-        else if (aName == nImO_SETMETRICSSTATE_REQUEST_)
-        {
-            if (sawSetMetricsState)
-            {
-                result = false;
-            }
-            else if (hasInput && (! hasOutput))
-            {
-                std::string itsInput(asDict.find(nImO_REQREP_DICT_INPUT_KEY_).asString());
-                
-                sawSetMetricsState = (itsInput == "i");
-            }
-        }
-    }
-    else
-    {
-        result = false;
-    }
-    ODL_EXIT_B(result); //####
-    return result;
-} // checkListDictionary
-
-/*! @brief Check the response from the 'list' request for this test.
- @param response The response to be analyzed.
- @returns @c true if the expected values are all present and @c false if they are not or if
- unexpected values appear. */
-static bool
-checkResponseFromEchoFromServiceWithRequestHandlerAndInfo(const ServiceResponse & response)
-{
-    ODL_ENTER(); //####
-    ODL_P1("response = ", &response); //####
-    bool result = false;
-    
-    try
-    {
-        if (3 <= response.count())
-        {
-            bool sawArguments = false;
-            bool sawChannels = false;
-            bool sawClients = false;
-            bool sawDetach = false;
-            bool sawEcho = false;
-            bool sawExtraInfo = false;
-            bool sawInfo = false;
-            bool sawList = false;
-            bool sawMetrics = false;
-            bool sawMetricsState = false;
-            bool sawName = false;
-            bool sawSetMetricsState = false;
-            
-            result = true;
-            for (int ii = 0; result && (ii < response.count()); ++ii)
-            {
-                yarp::os::Value anElement(response.element(ii));
-                
-                if (anElement.isDict())
-                {
-                    yarp::os::Property * asDict = anElement.asDict();
-                    
-                    if (asDict)
-                    {
-                        result = checkListDictionary(*asDict, sawArguments, sawChannels, sawClients,
-                                                     sawDetach, sawEcho, sawExtraInfo, sawInfo,
-                                                     sawList, sawMetrics, sawMetricsState, sawName,
-                                                     sawSetMetricsState);
-                    }
-                }
-                else if (anElement.isList())
-                {
-                    yarp::os::Bottle * asList = anElement.asList();
-                    
-                    if (asList)
-                    {
-                        yarp::os::Property asDict;
-                        
-                        if (ListIsReallyDictionary(*asList, asDict))
-                        {
-                            result = checkListDictionary(asDict, sawArguments, sawChannels,
-                                                         sawClients, sawDetach, sawEcho,
-                                                         sawExtraInfo, sawInfo, sawList, sawMetrics,
-                                                         sawMetricsState, sawName,
-                                                         sawSetMetricsState);
-                        }
-                        else
-                        {
-                            result = false;
-                        }
-                    }
-                    else
-                    {
-                        result = false;
-                    }
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-            result &= (sawArguments && sawChannels && sawClients && sawDetach && sawEcho &&
-                       sawExtraInfo && sawInfo && sawList && sawMetrics && sawMetricsState &&
-                       sawName && sawSetMetricsState);
-        }
-        else
-        {
-            // Wrong number of values in the response.
-            ODL_LOG("! (3 <= response.count())"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_B(result); //####
-    return result;
-} // checkResponseFromEchoFromServiceWithRequestHandlerAndInfo
-
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestRequestEchoFromServiceWithRequestHandlerAndInfo(const char * launchPath,
-                                                      const int    argc,
-                                                      char * *     argv) // send 'list' request
-{
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-        Test12Service * aService = new Test12Service(launchPath, argc, argv);
-        
-        if (aService)
-        {
-            if (aService->startService())
-            {
-                ClientChannel * outChannel = doCreateTestChannel(aService->getEndpoint(),
-                                                                 "test/requestechofromservice"
-                                                                 "withrequesthandlerandinfo_");
-                
-                if (outChannel)
-                {
-                    ServiceRequest  request(nImO_LIST_REQUEST_);
-                    ServiceResponse response;
-                    
-                    if (request.send(*outChannel, response))
-                    {
-                        ODL_LL1("response size = ", response.count()); //####
-                        for (int ii = 0; ii < response.count(); ++ii)
-                        {
-                            ODL_S1s("response value = ", response.element(ii).toString()); //####
-                        }
-                        if (checkResponseFromEchoFromServiceWithRequestHandlerAndInfo(response))
-                        {
-                            result = 0;
-                        }
-                        else
-                        {
-                            ODL_LOG("! (checkResponseFromEchoFromServiceWithRequestHandler" //####
-                                   "AndInfo(response))"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (request.send(*outChannel, response))"); //####
-                    }
-                    doDestroyTestChannel(aService->getEndpoint(), outChannel);
-                    outChannel = NULL;
-                }
-                else
-                {
-                    ODL_LOG("! (outChannel)"); //####
-                }
-                aService->stopService();
-            }
-            else
-            {
-                ODL_LOG("! (aService->startService())"); //####
-            }
-            delete aService;
-        }
-        else
-        {
-            ODL_LOG("! (aService)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestRequestEchoFromServiceWithRequestHandlerAndInfo
 
 /*! @brief The signal handler to catch requests to stop the service.
  @param signal The signal being handled. */
@@ -1643,17 +89,18 @@ catchSignal(int signal)
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
     std::stringstream buff;
-    std::string        message("Exiting due to signal ");
+    std::string       message("Exiting due to signal ");
     
     buff << signal;
     message += buff.str();
     message += " = ";
-    message += NameOfSignal(signal);
+    message += nImO::NameOfSignal(signal);
+#if 0
     nImO_ERROR_(message.c_str());
-    ODL_EXIT_EXIT(1); //####
-    yarp::os::exit(1);
-} // catchSignal
 #endif//0
+    ODL_EXIT_EXIT(1); //####
+    exit(1);
+} // catchSignal
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -2053,6 +500,953 @@ doTestBufferChunkReset(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 06 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyStringBuffer(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // empty string buffer
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            if (0 == stuff->getLength())
+            {
+                size_t       length = 0;
+                const char * outString = stuff->getString(length);
+               
+                if (outString)
+                {
+                    if ((0 == length) && (0 == strlen(outString)))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ((0 == length) && (0 == strlen(outString)))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! outString"); //####
+                } 
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->getLength())"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestEmptyStringBuffer
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 07 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithCharacters(const char * launchPath,
+                                 const int    argc,
+                                 char * *     argv) // string buffer with character string
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        if (1 < argc)
+        {
+            const char *         inString = *argv;
+            const char *         outString = argv[1];
+            size_t               outLength = strlen(outString);
+            nImO::StringBuffer * stuff = new nImO::StringBuffer;
+           
+            if (stuff)
+            {
+                stuff->addString(inString);
+                size_t resultLength = stuff->getLength();
+
+                if (resultLength == outLength)
+                {
+                    const char * resultString = stuff->getString(resultLength);
+                   
+                    if (resultString && (0 == strcmp(resultString, outString)))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (resultString && (0 == strcmp(resultString, outString)))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (resultLength == outLength)"); //####
+                }
+                delete stuff;
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithCharacters
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 08 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithBoolean(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // string buffer with boolean
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        if (1 < argc)
+        {
+            const char * outString = argv[1];
+            const char * startPtr = *argv;
+            char *       endPtr;
+            int          value = strtol(startPtr, &endPtr, 10);
+
+            if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
+            {
+                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+
+                if (stuff)
+                {
+                    bool asBool = (0 != value);
+
+                    stuff->addBool(asBool);
+                    size_t       length;
+                    const char * resultString = stuff->getString(length);
+
+                    if (0 == strcmp(outString, resultString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
+                    }
+                    delete stuff;
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithBoolean
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 09 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithInteger(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // string buffer with integer
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        if (1 < argc)
+        {
+            const char * outString = argv[1];
+            const char * startPtr = *argv;
+            char *       endPtr;
+            int          value = strtol(startPtr, &endPtr, 10);
+
+            if ((startPtr != endPtr) && (! *endPtr))
+            {
+                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+
+                if (stuff)
+                {
+                    stuff->addLong(value);
+                    size_t       length;
+                    const char * resultString = stuff->getString(length);
+
+                    if (0 == strcmp(outString, resultString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
+                    }
+                    delete stuff;
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithInteger
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 10 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithString(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // string buffer with string
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        if (1 < argc)
+        {
+            const char *         inString = *argv;
+            const char *         outString = argv[1];
+            size_t               outLength = strlen(outString);
+            nImO::StringBuffer * stuff = new nImO::StringBuffer;
+            
+            if (stuff)
+            {
+                stuff->addString(inString, true);
+                size_t resultLength = stuff->getLength();
+
+                if (resultLength == outLength)
+                {
+                    const char * resultString = stuff->getString(resultLength);
+                    
+                    if (resultString && (0 == strcmp(resultString, outString)))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (resultString && (0 == strcmp(resultString, outString)))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (resultLength == outLength)"); //####
+                }
+                delete stuff;
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithString
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 11 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithSpecialCharacters(const char * launchPath,
+                                        const int    argc,
+                                        char * *     argv) // string buffer with special chars
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        const char *         inString = "abc\tdef\f\rghi\302";
+        const char *         outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t               outLength = strlen(outString);
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            stuff->addString(inString, true);
+            size_t resultLength = stuff->getLength();
+            
+            if (resultLength == outLength)
+            {
+                const char * resultString = stuff->getString(resultLength);
+                
+                if (resultString && (0 == strcmp(resultString, outString)))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (resultString && (0 == strcmp(resultString, outString)))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (resultLength == outLength)"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithSpecialCharacters
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 12 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithFloatingPoint(const char * launchPath,
+                                    const int    argc,
+                                    char * *     argv) // string buffer with floating point
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        if (1 < argc)
+        {
+            const char * outString = argv[1];
+            const char * startPtr = *argv;
+            char *       endPtr;
+            double       value = strtod(startPtr, &endPtr);
+
+            if ((startPtr != endPtr) && (! *endPtr))
+            {
+                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+
+                if (stuff)
+                {
+                    stuff->addDouble(value);
+                    size_t       length;
+                    const char * resultString = stuff->getString(length);
+
+                    for (result = 0; *outString && *resultString; ++outString, ++resultString)
+                    {
+                        char outChar = tolower(*outString);
+                        char resultChar = tolower(*resultString);
+
+                        if (outChar != resultChar)
+                        {
+                            break;
+                        }
+
+                    }
+                    if (*outString || *resultString)
+                    {
+                        result = 1;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (*outString || *resultString)"); //####
+                    }
+                    delete stuff;
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithFloatingPoint
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 13 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBigStringBuffer(const char * launchPath,
+                      const int    argc,
+                      char * *     argv) // big string buffer
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            const char * bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
+            size_t       bigLength = strlen(bigString);
+
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                stuff->addString(bigString);
+            }
+            size_t       length = 0;
+            const char * resultString = stuff->getString(length);
+
+            if ((bigLength * kBigTestSize) == length)
+            {
+                result = 0;
+                for (size_t ii = 0; kBigTestSize > ii; ++ii, resultString += bigLength)
+                {
+                    if (memcmp(bigString, resultString, bigLength))
+                    {
+                        result = 1;
+                        break;
+                    }
+
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((bigLength * kBigTestSize) == length)"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBigStringBuffer
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 14 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferWithEmptyBlob(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // string buffer with empty blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            stuff->addBlob(NULL, 0);
+            size_t       length;
+            const char * resultString = stuff->getString(length);
+            const char * expectedString = "%0%%";
+
+            if (0 == strcmp(resultString, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == strcmp(resultString, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferWithEmptyBlob
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 15 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+TestStringBufferWithSmallBlob(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // string buffer with simple blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            uint8_t * smallBlob = new uint8_t[kSmallTestSize];
+
+            if (smallBlob)
+            {
+                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                {
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
+
+                    smallBlob[ii] = aByte;
+                }
+                stuff->addBlob(smallBlob, kSmallTestSize);
+                size_t            length;
+                const char *      resultString = stuff->getString(length);
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kSmallTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                {
+                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t        aByte = smallBlob[ii];
+                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char           lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (0 == strcmp(resultString, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                }
+                delete[] smallBlob;
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // TestStringBufferWithSmallBlob
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 16 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+TestStringBufferWithBigBlob(const char * launchPath,
+                            const int    argc,
+                            char * *     argv) // string buffer with big blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+            if (bigBlob)
+            {
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                    bigBlob[ii] = aByte;
+                }
+                stuff->addBlob(bigBlob, kBigTestSize);
+                size_t            length;
+                const char *      resultString = stuff->getString(length);
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t        aByte = bigBlob[ii];
+                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char           lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (0 == strcmp(resultString, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                }
+                delete[] bigBlob;
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // TestStringBufferWithBigBlob
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 17 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringBufferReset(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // resetting string buffer
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        
+        if (stuff)
+        {
+            stuff->addString("abcdef");
+            stuff->reset();
+            size_t resultLength = stuff->getLength();
+
+            if (0 == resultLength)
+            {
+                const char * resultString = stuff->getString(resultLength);
+                    
+                if (resultString && (0 == strlen(resultString)))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (resultString && (0 == strlen(resultString)))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->getLength())"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringBufferReset
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -2080,12 +1474,10 @@ main(int      argc,
 #endif // MAC_OR_LINUX_
 #endif//0
     int result = 1;
-    
+   
     try
     {
-#if 0
         nImO::Initialize(progName);
-#endif//0
         if (0 < --argc)
         {
             const char * startPtr = argv[1];
@@ -2094,9 +1486,7 @@ main(int      argc,
             
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {
-#if 0
-                SetSignalHandlers(catchSignal);
-#endif//0
+                nImO::SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
                     case 0 :
@@ -2123,54 +1513,54 @@ main(int      argc,
                     case 5 :
                         result = doTestBufferChunkReset(*argv, argc - 1, argv + 2);
                         break;
-                        
-#if 0
-                    case 3 :
-                        result = doTestWriteToEndpoint(*argv, argc - 1, argv + 2);
-                        break;
-                        
-                    case 4 :
-                        result = doTestEchoFromEndpointWithReader(*argv, argc - 1, argv + 2);
-                        break;
-                        
-                    case 5 :
-                        result = doTestEchoFromEndpointWithReaderCreator(*argv, argc - 1, argv + 2);
-                        break;
-                        
+
                     case 6 :
-                        result = doTestCreateRequest(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyStringBuffer(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 7 :
-                        result = doTestCreateResponse(*argv, argc - 1, argv + 2);
+                        result = doTestStringBufferWithCharacters(*argv, argc - 1, argv + 2);
                         break;
-                        
+                    
                     case 8 :
-                        result = doTestRequestEchoFromEndpoint(*argv, argc - 1, argv + 2);
+                        result = doTestStringBufferWithBoolean(*argv, argc - 1, argv + 2);
                         break;
-                        
+                    
                     case 9 :
-                        result = doTestRequestEchoFromServiceUsingDefaultWithReader(*argv, argc - 1,
-                                                                                    argv + 2);
+                        result = doTestStringBufferWithInteger(*argv, argc - 1, argv + 2);
                         break;
-                        
+                    
                     case 10 :
-                        result = doTestRequestEchoFromServiceUsingDefaultWithReaderCreator(*argv,
-                                                                                           argc - 1,
-                                                                                       argv + 2);
+                        result = doTestStringBufferWithString(*argv, argc - 1, argv + 2);
                         break;
-                        
+                    
                     case 11 :
-                        result = doTestRequestEchoFromServiceWithRequestHandler(*argv, argc - 1,
-                                                                                argv + 2);
+                        result = doTestStringBufferWithSpecialCharacters(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 12 :
-                        result = doTestRequestEchoFromServiceWithRequestHandlerAndInfo(*argv,
-                                                                                       argc - 1,
-                                                                                       argv + 2);
+                        result = doTestStringBufferWithFloatingPoint(*argv, argc - 1, argv + 2);
                         break;
-#endif//0
+                    
+                    case 13 :
+                        result = doTestBigStringBuffer(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 14 :
+                        result = doTestStringBufferWithEmptyBlob(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 15 :
+                        result = TestStringBufferWithSmallBlob(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 16 :
+                        result = TestStringBufferWithBigBlob(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 17 :
+                        result = doTestStringBufferReset(*argv, argc - 1, argv + 2);
+                        break;
                         
                     default :
                         break;

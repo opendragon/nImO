@@ -52,8 +52,8 @@
 
 //# include <algorithm>
 //# include <cctype>
-//# include <csignal>
-//# include <cstdlib>
+# include <csignal>
+# include <cstdlib>
 //# include <cstring>
 # include <iostream>
 //# include <list>
@@ -138,6 +138,13 @@
  executable. */
 # define SELF_ADDRESS_NAME_         "localhost"
 
+/*! @brief The signal to use for internally-detected timeouts. */
+# if MAC_OR_LINUX_
+#  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
+# else // ! MAC_OR_LINUX_
+#  define STANDARD_SIGNAL_TO_USE_   42
+# endif // ! MAC_OR_LINUX_
+
 /*! @brief A simple macro to hold the pieces of a string together. */
 # define T_(xx_)                    xx_
 
@@ -170,12 +177,17 @@ namespace nImO
     // Forward reference.
     class BaseArgumentDescriptor;
     
+    /*! @brief A sequence of argument descriptors. */
+    typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
+
+    /*! @brief A pointer to a handler for system signals.
+     @param theSignal The signal of interest. */
+    typedef void (* SignalHandler)
+       (int theSignal);
+
     /*! @brief A sequence of strings. */
     typedef std::vector<std::string> StringVector;
 
-    /*! @brief A sequence of argument descriptors. */
-    typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
-    
     // Methods.
 
     /*! @brief Generate a random channel name.
@@ -199,6 +211,12 @@ namespace nImO
      Should be called in the main() function of each application or service. */
     void
     Initialize(const std::string & progName);
+    
+    /*! @brief Return the name of a signal.
+     @param theSignal The signal of interest.
+     @returns A string description of the signal. */
+    const char *
+    NameOfSignal(const int theSignal);
     
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
@@ -238,6 +256,19 @@ namespace nImO
     SanitizeString(const std::string & inString,
                    const bool          allowDoubleQuotes = false);
 
+    /*! @brief Connect the standard signals to a handler.
+     @param theHandler The new handler for the signals. */
+    void
+    SetSignalHandlers(SignalHandler theHandler);
+        
+    /*! @brief Set up the signal-handling behaviour so that this thread will catch our signal. */
+    void
+    SetUpCatcher(void);
+    
+    /*! @brief Restore the normal signal-handling behaviour. */
+    void
+    ShutDownCatcher(void);
+    
     /*! @brief Checks a network port number for validity.
      @param aPort The port number to be checked.
      @param systemAllowed @c true if system port numbers are valid and @c false otherwise.
@@ -250,9 +281,39 @@ namespace nImO
                 (MAXIMUM_PORT_ALLOWED_ >= aPort));
     } // ValidPortNumber
     
+    /*! @brief The character that is used with 'blob' data formatting. */
+    extern const char kBlobSeparator;
+
+    /*! @brief The character that ends an array value. */
+    extern const char kEndArrayChar;
+
+    /*! @brief The character that ends a list value. */
+    extern const char kEndListChar;
+
+    /*! @brief The character that ends a map value. */
+    extern const char kEndMapChar;
+
+    /*! @brief The character that ends a set value. */
+    extern const char kEndSetChar;
+
     /*! @brief The escape character. */
     extern const char kEscapeChar;
+
+    /*! @brief The character that separates a key from a value in a key/value pair. */
+    extern const char kKeyValueSeparator;
     
+    /*! @brief The character that starts an array value. */
+    extern const char kStartArrayChar;
+
+    /*! @brief The character that starts a list value. */
+    extern const char kStartListChar;
+
+    /*! @brief The character that starts a map value. */
+    extern const char kStartMapChar;
+
+    /*! @brief The character that starts a set value. */
+    extern const char kStartSetChar;
+
     /*! @brief The directory separator string; */
     extern const std::string kDirectorySeparator;
     

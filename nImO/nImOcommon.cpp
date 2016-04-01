@@ -46,32 +46,6 @@
 //#include <cmath>
 //#include <cstdio>
 //#include <ctime>
-#if defined(__APPLE__)
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunknown-pragmas"
-# pragma clang diagnostic ignored "-Wc++11-extensions"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# pragma clang diagnostic ignored "-Wdocumentation"
-# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# pragma clang diagnostic ignored "-Wextern-c-compat"
-# pragma clang diagnostic ignored "-Wpadded"
-# pragma clang diagnostic ignored "-Wshadow"
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wweak-vtables"
-#endif // defined(__APPLE__)
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4267)
-# pragma warning(disable: 4996)
-#endif // ! MAC_OR_LINUX_
-//#include <ace/Version.h>
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
-
 #if (! MAC_OR_LINUX_)
 # include <Windows.h>
 #endif //! MAC_OR_LINUX_
@@ -119,7 +93,27 @@ static yarp::os::impl::Logger * lLogger = NULL;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+const char nImO::kBlobSeparator = '%';
+
+const char nImO::kEndArrayChar = ']';
+
+const char nImO::kEndListChar = ')';
+
+const char nImO::kEndMapChar = '}';
+
+const char nImO::kEndSetChar = '|';
+
 const char nImO::kEscapeChar = '\\';
+    
+const char nImO::kKeyValueSeparator = '>';
+
+const char nImO::kStartArrayChar = '[';
+
+const char nImO::kStartListChar = '(';
+
+const char nImO::kStartMapChar = '{';
+
+const char nImO::kStartSetChar = '|';
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_
@@ -132,7 +126,6 @@ const std::string nImO::kDirectorySeparator = "\\";
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-#if 0
 #if MAC_OR_LINUX_
 /*! @brief The signal handler to catch requests to stop the service.
  @param signal The signal being handled. */
@@ -141,6 +134,7 @@ localCatcher(int signal)
 {
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
+#if 0
     if (lLogger)
     {
         std::stringstream buff;
@@ -156,11 +150,11 @@ localCatcher(int signal)
         lLogger->error(message.c_str());
 # endif // ! USE_YARP_FATAL_NOT_FAIL_
     }
+#endif//0
     ODL_EXIT_EXIT(1); //####
-    yarp::os::exit(1);
+    exit(1);
 } // localCatcher
 #endif // MAC_OR_LINUX_
-#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -353,9 +347,8 @@ nImO::Initialize(const std::string & progName)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
-#if 0
 void
-Common::SetSignalHandlers(yarp::os::YarpSignalHandler theHandler)
+nImO::SetSignalHandlers(SignalHandler theHandler)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -415,7 +408,7 @@ Common::SetSignalHandlers(yarp::os::YarpSignalHandler theHandler)
 } // Common::SetSignalHandlers
 
 void
-Common::SetUpCatcher(void)
+nImO::SetUpCatcher(void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -434,8 +427,9 @@ Common::SetUpCatcher(void)
 #else // ! MAC_OR_LINUX_
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
-} // Common::SetUpCatcher
+} // nImO::SetUpCatcher
 
+#if 0
 #if MAC_OR_LINUX_
 void
 Common::SetUpLogger(const std::string & progName)
@@ -449,9 +443,10 @@ Common::SetUpLogger(const std::string & progName)
     ODL_EXIT(); //####
 } // Common::SetUpLogger
 #endif // MAC_OR_LINUX_
+#endif//0
 
 void
-Common::ShutDownCatcher(void)
+nImO::ShutDownCatcher(void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -470,8 +465,9 @@ Common::ShutDownCatcher(void)
 #else // ! MAC_OR_LINUX_
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
-} // Common::ShutDownCatcher
+} // nImO::ShutDownCatcher
 
+#if 0
 void
 Common::Stall(void)
 {
@@ -626,6 +622,7 @@ nImO::ListIsReallyDictionary(const yarp::os::Bottle & aList,
     ODL_EXIT_B(isDictionary); //####
     return isDictionary;
 } // nImO::ListIsReallyDictionary
+#endif//0
 
 const char *
 nImO::NameOfSignal(const int theSignal)
@@ -796,6 +793,7 @@ nImO::NameOfSignal(const int theSignal)
     return result;
 } // nImO::NameOfSignal
 
+#if 0
 void
 nImO::OutputDescription(std::ostream &     outStream,
                           const char *       heading,

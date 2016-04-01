@@ -115,7 +115,8 @@ namespace nImO
         
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
-        BufferChunk & reset(void);
+        BufferChunk &
+        reset(void);
         
     protected :
         // Protected methods.

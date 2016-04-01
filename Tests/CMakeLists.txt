@@ -81,62 +81,52 @@ add_test(NAME TestOverfilledBufferChunk COMMAND ${THIS_TARGET} 4)
 # Test buffer chunk reset
 add_test(NAME TestBufferChunkReset COMMAND ${THIS_TARGET} 5)
 
+# Test empty string buffer
+add_test(NAME TestEmptyStringBuffer COMMAND ${THIS_TARGET} 6)
+# Test string buffer with no characters
+add_test(NAME TestStringBufferWithNoCharacters COMMAND ${THIS_TARGET} 7 "" "")
+# Test string buffer with single character
+add_test(NAME TestStringBufferWithSingleCharacter COMMAND ${THIS_TARGET} 7 "a" "a")
+# Test string buffer with multiple characters
+add_test(NAME TestStringBufferWithMultipleCharacters COMMAND ${THIS_TARGET} 7 "abcde" "abcde")
+# Test string buffer with false
+add_test(NAME TestStringBufferWithFalse COMMAND ${THIS_TARGET} 8 0 false)
+# Test string buffer with true
+add_test(NAME TestStringBufferWithTrue COMMAND ${THIS_TARGET} 8 1 true)
+# Test string buffer with integer zero
+add_test(NAME TestStringBufferWithIntegerZero COMMAND ${THIS_TARGET} 9 0 0)
+# Test string buffer with positive integer
+add_test(NAME TestStringBufferWithPositiveInteger COMMAND ${THIS_TARGET} 9 12345 12345)
+# Test string buffer with negative integer
+add_test(NAME TestStringBufferWithNegativeInteger COMMAND ${THIS_TARGET} 9 "-12345" "-12345")
+# Test string buffer with empty string
+add_test(NAME TestStringBufferWithEmptyString COMMAND ${THIS_TARGET} 10 "" "\"\"")
+# Test string buffer with simple string
+add_test(NAME TestStringBufferWithSimpleString COMMAND ${THIS_TARGET} 10 abcde "\"abcde\"")
+# Test string buffer with string with double quotes
+add_test(NAME TestStringBufferWithStringWithDblQuotes COMMAND ${THIS_TARGET} 10 "ab\"cde" "'ab\"cde'")
+# Test string buffer with string with single quotes
+add_test(NAME TestStringBufferWithStringWithSnglQuotes COMMAND ${THIS_TARGET} 10 "ab'cde" "\"ab'cde\"")
+# Test string buffer with string with escaped characters
+add_test(NAME TestStringBufferWithStringWithEscapedChars COMMAND ${THIS_TARGET} 11)
+# Test string buffer with floating point zero
+add_test(NAME TestStringBufferWithFloatingPointZero COMMAND ${THIS_TARGET} 12 "0.0" "0")
+# Test string buffer with simple positive floating point
+add_test(NAME TestStringBufferWithPositiveFloatingPoint COMMAND ${THIS_TARGET} 12 "1234.5" "1234.5")
+# Test string buffer with simple negative floating point
+add_test(NAME TestStringBufferWithNegativeFloatingPoint COMMAND ${THIS_TARGET} 12 "-1234.5" "-1234.5")
+# Test string buffer with very small floating point
+add_test(NAME TestStringBufferWithVerySmallFloatingPoint COMMAND ${THIS_TARGET} 12 "1e-20" "1E-20")
+# Test string buffer with very big floating point
+add_test(NAME TestStringBufferWithVeryBigFloatingPoint COMMAND ${THIS_TARGET} 12 "1e22" "1E+22")
+# Test big string buffer
+add_test(NAME TestBigStringBuffer COMMAND ${THIS_TARGET} 13)
+# Test string buffer with empty blob
+add_test(NAME TestStringBufferWithEmptyBlob COMMAND ${THIS_TARGET} 14)
+# Test string buffer with simple blob
+add_test(NAME TestStringBufferWithSmallBlob COMMAND ${THIS_TARGET} 15)
+# Test string buffer with big blob
+add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 16)
+# Test string buffer reset
+add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 17)
 
-
-# Argument order for test 1 = endpoint name [, IP address / name [, port]]
-##add_test(NAME TestCreateEndpoint1 COMMAND ${THIS_TARGET} 1 "/service/test/createendpoint_1")
-##add_test(NAME TestCreateEndpoint2 COMMAND ${THIS_TARGET} 1 "/service/test/createendpoint_2" "12340")
-# Test connection to endpoints, same arguments as test 1
-##add_test(NAME TestConnectToEndpoint1 COMMAND ${THIS_TARGET} 2 "/service/test/connecttoendpoint_1")
-##add_test(NAME TestConnectToEndpoint2 COMMAND ${THIS_TARGET} 2 "/service/test/connecttoendpoint_2"
-##            "12341")
-# Test data write to endpoints, same arguments as test 1
-##add_test(NAME TestWriteToEndpoint1 COMMAND ${THIS_TARGET} 3 "/service/test/writetoendpoint_1")
-##add_test(NAME TestWriteToEndpoint2 COMMAND ${THIS_TARGET} 3 "/service/test/writetoendpoint_2"
-##            "12342")
-# Test data echo from endpoints, same arguments as test 1
-##add_test(NAME TestEchoFromEndpointWithReader1 COMMAND ${THIS_TARGET} 4
-##            "/service/test/echofromendpointwithreader_1")
-##add_test(NAME TestEchoFromEndpointWithReader2 COMMAND ${THIS_TARGET} 4
-##            "/service/test/echofromendpointwithreader_2" "12343")
-# Test data echo from endpoints, using reader creator, same arguments as test 1
-##add_test(NAME TestEchoFromEndpointWithReaderCreator1 COMMAND ${THIS_TARGET} 5
-##            "/service/test/echofromendpointwithreadercreator_1")
-##add_test(NAME TestEchoFromEndpointWithReaderCreator2 COMMAND ${THIS_TARGET} 5
-##            "/service/test/echofromendpointwithreadercreator_2" "12344")
-# Test service request creation
-##add_test(NAME TestCreateRequest1 COMMAND ${THIS_TARGET} 6 "echo")
-##add_test(NAME TestCreateRequest2 COMMAND ${THIS_TARGET} 6 "echo" "something")
-# Test service response creation
-##add_test(NAME TestCreateResponse1 COMMAND ${THIS_TARGET} 7)
-##add_test(NAME TestCreateResponse2 COMMAND ${THIS_TARGET} 7 "back")
-##add_test(NAME TestCreateResponse3 COMMAND ${THIS_TARGET} 7 "back" "at" "you")
-# Test echo via request/response, fixed message [echo something to send] but arguments as with test
-# 1
-##add_test(NAME TestRequestEchoFromEndpoint1 COMMAND ${THIS_TARGET} 8
-##            "/service/test/requestechofromendpoint_1")
-##add_test(NAME TestRequestEchoFromEndpoint2 COMMAND ${THIS_TARGET} 8
-##            "/service/test/requestechofromendpoint_2" "12345")
-# Test echo via service request/response, fixed message [echo something to send] but arguments as
-# with test 1
-##add_test(NAME TestRequestEchoFromServiceUsingDefaultWithReader1 COMMAND ${THIS_TARGET} 9
-##            "/service/test/requestechofromserviceusingdefaultwithreader_1")
-##add_test(NAME TestRequestEchoFromServiceUsingDefaultWithReader2 COMMAND ${THIS_TARGET} 9
-##            "/service/test/requestechofromserviceusingdefaultwithreader_2" "12346")
-# Test echo via service request/response, fixed message [echo something to send] but arguments as
-# with test 1
-##add_test(NAME TestRequestEchoFromServiceUsingDefaultWithReaderCreator1 COMMAND ${THIS_TARGET} 10
-##            "/service/test/requestechofromserviceusingdefaultwithreadercreator_1")
-##add_test(NAME TestRequestEchoFromServiceUsingDefaultWithReaderCreator2 COMMAND ${THIS_TARGET} 10
-##            "/service/test/requestechofromserviceusingdefaultwithreadercreator_2" "12347")
-# Test echo via service request/response, fixed message [echo something to send] but arguments as
-# with test 1
-##add_test(NAME TestRequestEchoFromServiceWithRequestHandler1 COMMAND ${THIS_TARGET} 11
-##            "/service/test/requestechofromservicewithrequesthandler_1")
-##add_test(NAME TestRequestEchoFromServiceWithRequestHandler2 COMMAND ${THIS_TARGET} 11
-##            "/service/test/requestechofromservicewithrequesthandler_2" "12348")
-# Test list request
-##add_test(NAME TestRequestEchoFromServiceWithRequestHandlerAndInfo1 COMMAND ${THIS_TARGET} 12
-##            "/service/test/requestechofromservicewithrequesthandlerandinfo_1")
-##add_test(NAME TestRequestEchoFromServiceWithRequestHandlerAndInfo2 COMMAND ${THIS_TARGET} 12
-##            "/service/test/requestechofromservicewithrequesthandlerandinfo_2" "12349")

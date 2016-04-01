@@ -79,6 +79,20 @@ namespace nImO
         virtual
         ~StringBuffer(void);
         
+        /*! @brief Add a sequence of bytes to the buffer.
+         @param inBytes The bytes to be added.
+         @param numBytes The number of bytes to add.
+         @returns The StringBuffer object so that cascading can be done. */
+        StringBuffer &
+        addBlob(const uint8_t * inBytes,
+                const size_t    numBytes);
+        
+        /*! @brief Add a boolean value to the buffer.
+         @param aBool The value to add.
+         @returns The StringBuffer object so that cascading can be done. */
+        StringBuffer &
+        addBool(const bool aBool);
+        
         /*! @brief Add a character to the buffer.
          @param aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
@@ -99,15 +113,19 @@ namespace nImO
         
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
+         @param addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
-        addString(const char * aString);
+        addString(const char * aString,
+                  const bool   addQuotes = false);
         
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
+         @param addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
-        addString(const std::string & aString);
+        addString(const std::string & aString,
+                  const bool          addquotes = false);
         
         /*! @brief Add a horizontal tab character to the buffer.
          @returns The StringBuffer object so that cascading can be done. */
@@ -129,7 +147,8 @@ namespace nImO
         
         /*! @brief Prepare the buffer for reuse.
          @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer & reset(void);
+        StringBuffer &
+        reset(void);
         
     protected :
         // Protected methods.
@@ -141,10 +160,17 @@ namespace nImO
          @par m data The bytes to be added.
          @param numBytes The number of bytes to add. */
         void
-        addBytes(const char * data,
-                 const size_t numBytes);
+        appendChars(const char * data,
+                    const size_t numBytes);
 
         COPY_AND_ASSIGNMENT_(StringBuffer);
+        
+        /*! @brief Add quotes and escapes to a string.
+         @param aString The string to be processed.
+         @param length The length of the string. */
+        void
+        processCharacters(const char * aString,
+                          const size_t length);
         
     public :
         // Public fields.

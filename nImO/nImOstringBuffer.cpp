@@ -69,6 +69,43 @@ using namespace nImO;
 /*! @brief The size of a scratch buffer to use when formatting numeric values. */
 static const size_t kNumBuffSize = 100;
 
+/*! @brief The canonical names for control characters. */
+static const char * kCanonicalControl[] =
+{
+    "C-@", // 00 NUL
+    "C-A", // 01 SOH
+    "C-B", // 02 STX
+    "C-C", // 03 ETX
+    "C-D", // 04 EOT
+    "C-E", // 05 ENQ
+    "C-F", // 06 ACK
+    "a", // 07 BEL
+    "b", // 08 BS
+    "t", // 09 HT
+    "n", // 0A LF
+    "v", // 0B VT
+    "f", // 0C FF
+    "r", // 0D CR
+    "C-N", // 0E SO
+    "C-O", // 0F SI
+    "C-P", // 10 DLE
+    "C-Q", // 11 DC1
+    "C-R", // 12 DC2
+    "C-S", // 13 DC3
+    "C-T", // 14 DC4
+    "C-U", // 15 NAK
+    "C-V", // 16 SYN
+    "C-W", // 17 ETB
+    "C-X", // 18 CAN
+    "C-Y", // 19 EM
+    "C-Z", // 1A SUB
+    "e", // 1B ESC
+    "C-`", // 1C FS
+    "C-]", // 1D GS
+    "C-^", // 1E RS
+    "C-_" // 1F US
+}; // kCanonicalControl
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -114,9 +151,139 @@ nImO::StringBuffer::~StringBuffer(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+nImO::StringBuffer &
+nImO::StringBuffer::addBlob(const uint8_t * inBytes,
+                            const size_t    numBytes)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("inBytes = ", inBytes); //####
+    ODL_LL1("numBytes = ", numBytes); //####
+    static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+    addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
+    for (size_t ii = 0; numBytes > ii; ++ii)
+    {
+        uint8_t aByte = inBytes[ii];
+
+        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
+    }
+    addChar(kBlobSeparator);
+    ODL_EXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addBlob
+
+nImO::StringBuffer &
+nImO::StringBuffer::addBool(const bool aBool)
+{
+    ODL_OBJENTER(); //####
+    ODL_B1("aBool = ", aBool); //####
+    addString(aBool ? "true" : "false");
+    ODL_EXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addBool
+
+nImO::StringBuffer &
+nImO::StringBuffer::addChar(const char aChar)
+{
+    ODL_OBJENTER(); //####
+    ODL_C1("aChar = ", aChar); //####
+    char temp = aChar;
+
+    appendChars(&temp, 1);
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addChar
+
+nImO::StringBuffer &
+nImO::StringBuffer::addDouble(const double aDouble)
+{
+    ODL_OBJENTER(); //####
+    ODL_D1("aDouble = ", aDouble); //####
+    char numBuff[kNumBuffSize];
+    
+#if MAC_OR_LINUX_
+    snprintf(numBuff, sizeof(numBuff), "%g", aDouble);
+#else // ! MAC_OR_LINUX_
+    sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
+#endif // ! MAC_OR_LINUX_
+    ODL_S1("numBuff <- ", numBuff); //####
+    appendChars(numBuff, strlen(numBuff));
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addDouble
+
+nImO::StringBuffer &
+nImO::StringBuffer::addLong(const int64_t aLong)
+{
+    ODL_OBJENTER(); //####
+    ODL_LL1("aLong = ", aLong); //####
+    char numBuff[kNumBuffSize];
+    
+    snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
+    ODL_S1("numBuff <- ", numBuff); //####
+    appendChars(numBuff, strlen(numBuff));
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addLong
+
+nImO::StringBuffer &
+nImO::StringBuffer::addString(const char * aString,
+                              const bool   addQuotes)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1("aString = ", aString); //####
+    ODL_B1("addQuotes = ", addQuotes); //####
+    if (aString)
+    {
+        size_t length = strlen(aString);
+        
+        if (addQuotes)
+        {
+            processCharacters(aString, length);
+        }
+        else
+        {
+            appendChars(aString, length);
+        }
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addString
+
+nImO::StringBuffer &
+nImO::StringBuffer::addString(const std::string & aString,
+                              const bool          addQuotes)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("aString = ", aString); //####
+    ODL_B1("addQuotes = ", addQuotes); //####
+    size_t length = aString.length();
+    
+    if (addQuotes)
+    {
+        processCharacters(aString.c_str(), length);
+    }
+    else
+    {
+        appendChars(aString.c_str(), length);
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addString
+
+nImO::StringBuffer &
+nImO::StringBuffer::addTab(void)
+{
+    ODL_OBJENTER(); //####
+    addChar('\t');
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addTab
+
 void
-nImO::StringBuffer::addBytes(const char * data,
-                             const size_t numBytes)
+nImO::StringBuffer::appendChars(const char * data,
+                                const size_t numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -175,85 +342,7 @@ nImO::StringBuffer::addBytes(const char * data,
         }
     }
     ODL_OBJEXIT(); //####
-} // nImO::StringBuffer::addBytes
-
-nImO::StringBuffer &
-nImO::StringBuffer::addChar(const char aChar)
-{
-    ODL_OBJENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
-    char temp = aChar;
-
-    addBytes(&temp, 1);
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addChar
-
-nImO::StringBuffer &
-nImO::StringBuffer::addDouble(const double aDouble)
-{
-    ODL_OBJENTER(); //####
-    ODL_D1("aDouble = ", aDouble); //####
-    char numBuff[kNumBuffSize];
-    
-#if MAC_OR_LINUX_
-    snprintf(numBuff, sizeof(numBuff), "%g", aDouble);
-#else // ! MAC_OR_LINUX_
-    sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
-#endif // ! MAC_OR_LINUX_
-    ODL_S1("numBuff <- ", numBuff); //####
-    addBytes(numBuff, strlen(numBuff));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addDouble
-
-nImO::StringBuffer &
-nImO::StringBuffer::addLong(const int64_t aLong)
-{
-    ODL_OBJENTER(); //####
-    ODL_LL1("aLong = ", aLong); //####
-    char numBuff[kNumBuffSize];
-    
-    snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
-    ODL_S1("numBuff <- ", numBuff); //####
-    addBytes(numBuff, strlen(numBuff));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addLong
-
-nImO::StringBuffer &
-nImO::StringBuffer::addString(const char * aString)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    if (aString)
-    {
-        addBytes(aString, strlen(aString));
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addString
-
-nImO::StringBuffer &
-nImO::StringBuffer::addString(const std::string & aString)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1s("aString = ", aString); //####
-    addBytes(aString.c_str(), aString.length());
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addString
-
-nImO::StringBuffer &
-nImO::StringBuffer::addTab(void)
-{
-    ODL_OBJENTER(); //####
-    char aTab = '\t';
-
-    addBytes(&aTab, 1);
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addTab
+} // nImO::StringBuffer::appendChars
 
 size_t
 nImO::StringBuffer::getLength(void)
@@ -288,10 +377,7 @@ nImO::StringBuffer::getString(size_t & length)
     {
         size_t cachedSize = getLength();
 
-        if (0 < cachedSize)
-        {
-            _cachedOutput = new char[cachedSize + 1];
-        }
+        _cachedOutput = new char[cachedSize + 1];
         if (_cachedOutput)
         {
             char * walker = _cachedOutput;
@@ -319,6 +405,132 @@ nImO::StringBuffer::getString(size_t & length)
     return _cachedOutput;
 } // getString
         
+void
+nImO::StringBuffer::processCharacters(const char * aString,
+                                      const size_t length)
+{
+    ODL_ENTER(); //####
+    ODL_S1("aString = ", aString); //####
+    ODL_LL1("length = ", length); //####
+    // First, determine how many of each kind of quote character there are, and if there are
+    // 'special' characters - control characters or characters with the high bit set
+    bool              hasSpecials = false;
+    size_t            numSingleQuotes = 0;
+    size_t            numDoubleQuotes = 0;
+    size_t            numEscapes = 0;
+    static const char doubleQuote = '"';
+    static const char singleQuote = '\'';
+    
+    for (size_t ii = 0; length > ii; ++ii)
+    {
+        uint8_t aByte = static_cast<uint8_t>(aString[ii]);
+        
+        if ((0x20 > aByte) || (0 != (aByte & 0x80)))
+        {
+            hasSpecials = true;
+        }
+        else if (singleQuote == aByte)
+        {
+            ++numSingleQuotes;
+        }
+        else if (doubleQuote == aByte)
+        {
+            ++numDoubleQuotes;
+        }
+        else if (kEscapeChar == aByte)
+        {
+            ++numEscapes;
+        }
+    }
+    
+    if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
+    {
+        char delimiter = ((numDoubleQuotes > numSingleQuotes) ? singleQuote : doubleQuote);
+        
+        appendChars(&delimiter, 1);
+        for (size_t ii = 0; length > ii; ++ii)
+        {
+            uint8_t aByte = static_cast<uint8_t>(aString[ii]);
+            
+            if ((0x20 > aByte) || (0 != (aByte & 0x80)))
+            {
+                appendChars(&kEscapeChar, 1);
+                if (0x20 > aByte)
+                {
+                    const char * controlString = kCanonicalControl[aByte];
+                    
+                    appendChars(controlString, strlen(controlString));
+                }
+                else
+                {
+                    aByte &= 0x07F;
+                    if (' ' == aByte)
+                    {
+                        // Meta-blank is very special
+                        static const char metaBlank[] = { '2', '4', '0' };
+                        
+                        appendChars(metaBlank, sizeof(metaBlank));
+                    }
+                    else if (0x7F == aByte)
+                    {
+                        // As is 0xFF
+                        static const char metaDel[] = { '3', '7', '7' };
+                        
+                        appendChars(metaDel, sizeof(metaDel));
+                    }
+                    else if (delimiter == aByte)
+                    {
+                        // Make sure that we don't break if there's a meta-quote of some form!
+                        static const char metaDoubleQuote[] = { '2', '4', '2' };
+                        static const char metaSingleQuote[] = { '2', '4', '7' };
+                        
+                        if (singleQuote == aByte)
+                        {
+                            appendChars(metaSingleQuote, sizeof(metaSingleQuote));
+                        }
+                        else
+                        {
+                            appendChars(metaDoubleQuote, sizeof(metaDoubleQuote));
+                        }
+                    }
+                    else
+                    {
+                        static const char metaPrefix[] = { 'M', '-' };
+                        
+                        appendChars(metaPrefix, sizeof(metaPrefix));
+                        if (0x20 > aByte)
+                        {
+                            const char * controlString = kCanonicalControl[aByte];
+                            
+                            appendChars(controlString, strlen(controlString));
+                        }
+                        else
+                        {
+                            appendChars(reinterpret_cast<const char *>(&aByte), 1);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if ((delimiter == aByte) || (kEscapeChar == aByte))
+                {
+                    appendChars(&kEscapeChar, 1);
+                }
+                appendChars(aString + ii, 1);
+            }
+        }
+        appendChars(&delimiter, 1);
+    }
+    else
+    {
+        appendChars(&doubleQuote, 1);
+        appendChars(aString, length);
+        appendChars(&doubleQuote, 1);
+    }
+    ODL_EXIT(); //####
+} // nImO::StringBuffer::processCharacters
+
 nImO::StringBuffer &
 nImO::StringBuffer::reset(void)
 {

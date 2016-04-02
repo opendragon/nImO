@@ -93,6 +93,13 @@ nImO::Map::~Map(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Map::addToStringBuffer
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

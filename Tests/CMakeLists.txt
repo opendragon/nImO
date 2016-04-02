@@ -82,51 +82,147 @@ add_test(NAME TestOverfilledBufferChunk COMMAND ${THIS_TARGET} 4)
 add_test(NAME TestBufferChunkReset COMMAND ${THIS_TARGET} 5)
 
 # Test empty string buffer
-add_test(NAME TestEmptyStringBuffer COMMAND ${THIS_TARGET} 6)
+add_test(NAME TestEmptyStringBuffer COMMAND ${THIS_TARGET} 10)
 # Test string buffer with no characters
-add_test(NAME TestStringBufferWithNoCharacters COMMAND ${THIS_TARGET} 7 "" "")
+add_test(NAME TestStringBufferWithNoCharacters COMMAND ${THIS_TARGET} 11 "" "")
 # Test string buffer with single character
-add_test(NAME TestStringBufferWithSingleCharacter COMMAND ${THIS_TARGET} 7 "a" "a")
+add_test(NAME TestStringBufferWithSingleCharacter COMMAND ${THIS_TARGET} 11 "a" "a")
 # Test string buffer with multiple characters
-add_test(NAME TestStringBufferWithMultipleCharacters COMMAND ${THIS_TARGET} 7 "abcde" "abcde")
+add_test(NAME TestStringBufferWithMultipleCharacters COMMAND ${THIS_TARGET} 11 "abcde" "abcde")
 # Test string buffer with false
-add_test(NAME TestStringBufferWithFalse COMMAND ${THIS_TARGET} 8 0 false)
+add_test(NAME TestStringBufferWithFalse COMMAND ${THIS_TARGET} 12 0 false)
 # Test string buffer with true
-add_test(NAME TestStringBufferWithTrue COMMAND ${THIS_TARGET} 8 1 true)
+add_test(NAME TestStringBufferWithTrue COMMAND ${THIS_TARGET} 12 1 true)
 # Test string buffer with integer zero
-add_test(NAME TestStringBufferWithIntegerZero COMMAND ${THIS_TARGET} 9 0 0)
+add_test(NAME TestStringBufferWithIntegerZero COMMAND ${THIS_TARGET} 13 0 0)
 # Test string buffer with positive integer
-add_test(NAME TestStringBufferWithPositiveInteger COMMAND ${THIS_TARGET} 9 12345 12345)
+add_test(NAME TestStringBufferWithPositiveInteger COMMAND ${THIS_TARGET} 13 12345 12345)
 # Test string buffer with negative integer
-add_test(NAME TestStringBufferWithNegativeInteger COMMAND ${THIS_TARGET} 9 "-12345" "-12345")
+add_test(NAME TestStringBufferWithNegativeInteger COMMAND ${THIS_TARGET} 13 "-12345" "-12345")
 # Test string buffer with empty string
-add_test(NAME TestStringBufferWithEmptyString COMMAND ${THIS_TARGET} 10 "" "\"\"")
+add_test(NAME TestStringBufferWithEmptyString COMMAND ${THIS_TARGET} 14 "" "\"\"")
 # Test string buffer with simple string
-add_test(NAME TestStringBufferWithSimpleString COMMAND ${THIS_TARGET} 10 abcde "\"abcde\"")
+add_test(NAME TestStringBufferWithSimpleString COMMAND ${THIS_TARGET} 14 abcde "\"abcde\"")
 # Test string buffer with string with double quotes
-add_test(NAME TestStringBufferWithStringWithDblQuotes COMMAND ${THIS_TARGET} 10 "ab\"cde" "'ab\"cde'")
+add_test(NAME TestStringBufferWithStringWithDblQuotes COMMAND ${THIS_TARGET} 14 "ab\"cde" "'ab\"cde'")
 # Test string buffer with string with single quotes
-add_test(NAME TestStringBufferWithStringWithSnglQuotes COMMAND ${THIS_TARGET} 10 "ab'cde" "\"ab'cde\"")
+add_test(NAME TestStringBufferWithStringWithSnglQuotes COMMAND ${THIS_TARGET} 14 "ab'cde" "\"ab'cde\"")
 # Test string buffer with string with escaped characters
-add_test(NAME TestStringBufferWithStringWithEscapedChars COMMAND ${THIS_TARGET} 11)
+add_test(NAME TestStringBufferWithStringWithEscapedChars COMMAND ${THIS_TARGET} 15)
 # Test string buffer with floating point zero
-add_test(NAME TestStringBufferWithFloatingPointZero COMMAND ${THIS_TARGET} 12 "0.0" "0")
+add_test(NAME TestStringBufferWithFloatingPointZero COMMAND ${THIS_TARGET} 16 "0.0" "0")
 # Test string buffer with simple positive floating point
-add_test(NAME TestStringBufferWithPositiveFloatingPoint COMMAND ${THIS_TARGET} 12 "1234.5" "1234.5")
+add_test(NAME TestStringBufferWithPositiveFloatingPoint COMMAND ${THIS_TARGET} 16 "1234.5" "1234.5")
 # Test string buffer with simple negative floating point
-add_test(NAME TestStringBufferWithNegativeFloatingPoint COMMAND ${THIS_TARGET} 12 "-1234.5" "-1234.5")
+add_test(NAME TestStringBufferWithNegativeFloatingPoint COMMAND ${THIS_TARGET} 16 "-1234.5" "-1234.5")
 # Test string buffer with very small floating point
-add_test(NAME TestStringBufferWithVerySmallFloatingPoint COMMAND ${THIS_TARGET} 12 "1e-20" "1E-20")
+add_test(NAME TestStringBufferWithVerySmallFloatingPoint COMMAND ${THIS_TARGET} 16 "1e-20" "1E-20")
 # Test string buffer with very big floating point
-add_test(NAME TestStringBufferWithVeryBigFloatingPoint COMMAND ${THIS_TARGET} 12 "1e22" "1E+22")
+add_test(NAME TestStringBufferWithVeryBigFloatingPoint COMMAND ${THIS_TARGET} 16 "1e22" "1E+22")
 # Test big string buffer
-add_test(NAME TestBigStringBuffer COMMAND ${THIS_TARGET} 13)
+add_test(NAME TestBigStringBuffer COMMAND ${THIS_TARGET} 17)
 # Test string buffer with empty blob
-add_test(NAME TestStringBufferWithEmptyBlob COMMAND ${THIS_TARGET} 14)
+add_test(NAME TestStringBufferWithEmptyBlob COMMAND ${THIS_TARGET} 18)
 # Test string buffer with simple blob
-add_test(NAME TestStringBufferWithSmallBlob COMMAND ${THIS_TARGET} 15)
+add_test(NAME TestStringBufferWithSmallBlob COMMAND ${THIS_TARGET} 19)
 # Test string buffer with big blob
-add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 16)
+add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 20)
 # Test string buffer reset
-add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 17)
+add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 21)
+
+# Test default boolean value
+add_test(NAME TestDefaultBooleanValue COMMAND ${THIS_TARGET} 100)
+# Test false boolean value
+add_test(NAME TestFalseBooleanValue COMMAND ${THIS_TARGET} 101 0 "false")
+# Test true boolean value
+add_test(NAME TestTrueBooleanValue COMMAND ${THIS_TARGET} 101 1 "true")
+# Test default numeric value
+add_test(NAME TestDefaultNumericValue COMMAND ${THIS_TARGET} 102)
+# Test integer numeric value
+add_test(NAME TestIntegerNumericValue COMMAND ${THIS_TARGET} 103 "12345" "12345")
+# Test floating point numeric value
+add_test(NAME TestFloatingPointNumericValue COMMAND ${THIS_TARGET} 103 "123.45" "123.45")
+# Test default string value
+add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 104)
+# Test short string value
+add_test(NAME TestShortStringValue COMMAND ${THIS_TARGET} 105)
+# Test string value with escaped characters
+add_test(NAME TestStringValueWithEscapedChars COMMAND ${THIS_TARGET} 106)
+
+# Test empty array
+add_test(NAME TestEmptyArrayValue COMMAND ${THIS_TARGET} 110)
+# Test singular array
+add_test(NAME TestSingularArrayValue COMMAND ${THIS_TARGET} 111)
+# Test small array
+add_test(NAME TestSmallArrayValue COMMAND ${THIS_TARGET} 112)
+# Test big array
+add_test(NAME TestBigArrayValue COMMAND ${THIS_TARGET} 113)
+
+# Test empty list
+add_test(NAME TestEmptyListValue COMMAND ${THIS_TARGET} 120)
+# Test singular list
+add_test(NAME TestSingularListValue COMMAND ${THIS_TARGET} 121)
+# Test small list
+add_test(NAME TestSmallListValue COMMAND ${THIS_TARGET} 122)
+# Test big list
+add_test(NAME TestBigListValue COMMAND ${THIS_TARGET} 123)
+
+# Test empty map
+add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 130)
+# Test singular map with boolean keys
+add_test(NAME TestSingularBooleanMapValue COMMAND ${THIS_TARGET} 131)
+# Test singular map with integer keys
+add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 132)
+# Test singular map with string keys
+add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 133)
+# Test small map with boolean keys
+add_test(NAME TestSmallBooleanMapValue COMMAND ${THIS_TARGET} 134)
+# Test small map with integer keys
+add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 135)
+# Test small map with string keys
+add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 136)
+# Test big map with integer keys
+add_test(NAME TestBigIntegerMapValue COMMAND ${THIS_TARGET} 137)
+
+# Test empty set
+add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 150)
+# Test singular set with boolean keys
+add_test(NAME TestSingularBooleanSetValue COMMAND ${THIS_TARGET} 151)
+# Test singular set with integer keys
+add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 152)
+# Test singular set with string keys
+add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 153)
+# Test small set with boolean keys
+add_test(NAME TestSmallBooleanSetValue COMMAND ${THIS_TARGET} 154)
+# Test small set with integer keys
+add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 155)
+# Test small set with string keys
+add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 156)
+# Test big set with integer keys
+add_test(NAME TestBigIntegerSetValue COMMAND ${THIS_TARGET} 157)
+
+# Test array with array
+add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 170)
+# Test array with list
+add_test(NAME TestArrayWithListValue COMMAND ${THIS_TARGET} 171)
+# Test array with map
+add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 172)
+# Test array with set
+add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 173)
+# Test list with array
+add_test(NAME TestListWithArrayValue COMMAND ${THIS_TARGET} 174)
+# Test list with list
+add_test(NAME TestListWithListValue COMMAND ${THIS_TARGET} 175)
+# Test list with map
+add_test(NAME TestListWithMapValue COMMAND ${THIS_TARGET} 176)
+# Test list with set
+add_test(NAME TestListWithSetValue COMMAND ${THIS_TARGET} 177)
+# Test map with array
+add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 178)
+# Test map with list
+add_test(NAME TestMapWithListValue COMMAND ${THIS_TARGET} 179)
+# Test map with map
+add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 180)
+# Test map with set
+add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 181)
 

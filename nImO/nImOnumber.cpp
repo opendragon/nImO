@@ -109,6 +109,13 @@ nImO::Number::~Number(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+DEFINE_ADDTOSTRINGBUFFER_(nImO::Number)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Number::addToStringBuffer
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

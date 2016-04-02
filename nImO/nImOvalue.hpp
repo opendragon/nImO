@@ -52,6 +52,13 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief Declare the disableMetrics method, which turns off the send / receive metrics
+ collecting. */
+# define DECLARE_ADDTOSTRINGBUFFER_ \
+    virtual void\
+    addToStringBuffer(StringBuffer & outBuffer)\
+    const
+
 /*! @brief Declare the isBoolean method, which returns @c true if the descriptor is for Boolean
  arguments and @c false otherwise. */
 # define DECLARE_ISCONTAINER_ \
@@ -59,8 +66,17 @@
     isContainer(void)\
     const
 
+/*! @brief Declare the disableMetrics method, which turns off the send / receive metrics
+ collecting. */
+# define DEFINE_ADDTOSTRINGBUFFER_(class_) \
+    void\
+    class_::addToStringBuffer(StringBuffer & outBuffer)\
+    const
+
 namespace nImO
 {
+    class StringBuffer;
+
     /*! @brief A class to provide general value behaviours. */
     class Value
     {
@@ -78,6 +94,12 @@ namespace nImO
         
         /*! @brief The destructor. */
         ~Value(void);
+        
+        /*! @fn virtual void
+                addToStringBuffer(StringBuffer & outBuffer)
+         @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        DECLARE_ADDTOSTRINGBUFFER_ = 0;
         
         /*! @fn virtual bool
                 isContainer(void)

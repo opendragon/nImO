@@ -78,6 +78,12 @@ namespace nImO
         /*! @brief The destructor. */
         ~Set(void);
         
+        /*! @fn virtual void
+                addToStringBuffer(StringBuffer & outBuffer)
+         @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        DECLARE_ADDTOSTRINGBUFFER_;
+        
     protected :
         // Protected methods.
         

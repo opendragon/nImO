@@ -29,6 +29,8 @@
 		F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringArgumentDescriptor.hpp; path = nImO/nImOstringArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringBuffer.hpp; path = nImO/nImOstringBuffer.hpp; sourceTree = SOURCE_ROOT; };
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
+		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
+		F67032551CB1CBB500E04BBC /* nImOcompareValues.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcompareValues.hpp; path = nImO/nImOcompareValues.hpp; sourceTree = "<group>"; };
 		F6747F891CA70BA20070B240 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = odl/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6747F8A1CA70BA20070B240 /* ODDisableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODDisableLogging.h; path = odl/ODDisableLogging.h; sourceTree = SOURCE_ROOT; };
 		F6747F8B1CA70BA20070B240 /* ODEnableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODEnableLogging.h; path = odl/ODEnableLogging.h; sourceTree = SOURCE_ROOT; };
@@ -236,6 +238,8 @@
 				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.hpp */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
 				F6EE0ACA1CA2C7F4004748ED /* nImOcommon.hpp */,
+				F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */,
+				F67032551CB1CBB500E04BBC /* nImOcompareValues.hpp */,
 				F6EE0ACB1CA2C7F4004748ED /* nImOconfig.hpp */,
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.hpp.in */,
 				F6EE0ACD1CA2C7F4004748ED /* nImOconnector.cpp */,

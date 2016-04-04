@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOarray.cpp
+//  File:       nImO/nImOcompareValues.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO arrays.
+//  Contains:   The class definition for nImO comparing pointers to values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-21
+//  Created:    2016-04-03
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOarray.hpp"
-
-#include <nImO/nImOstringbuffer.hpp>
+#include "nImOcompareValues.hpp"
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -49,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO arrays. */
+ @brief The class definition for the %nImO value comparison functional objects. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,72 +76,44 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Array::Array(void) :
-    inherited1(), inherited2()
+nImO::CompareValues::CompareValues(void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::Array::Array
+} // nImO::CompareValues::CompareValues
 
-nImO::Array::~Array(void)
+nImO::CompareValues::~CompareValues(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-        
-        delete aValue;
-    }
     ODL_OBJEXIT(); //####
-} // nImO::Array::~Array
+} // nImO::CompareValues::~CompareValues
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Array)
+bool
+nImO::CompareValues::operator() (const Value * const lhs,
+                                 const Value * const rhs)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    outBuffer.addChar(kStartArrayChar);
-    outBuffer.addChar(' ');
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-        
-        aValue->addToStringBuffer(outBuffer);
-        outBuffer.addChar(' ');
-    }
-    outBuffer.addChar(kEndArrayChar);
-    ODL_OBJEXIT(); //####
-} // nImO::Array::addToStringBuffer
-
-DEFINE_LESSTHAN_(nImO::Array)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    const Array * otherPtr = dynamic_cast<const Array *>(&other);
-    bool          result;
+    ODL_P2("lhs = ", lhs, "rhs = ", rhs); //####
+    bool result;
     
-    if (otherPtr)
+    if (lhs->enumerationType() == rhs->enumerationType())
     {
-#if 0
-        //TBD
-        result = (_value < otherPtr->_value);
-        validComparison = true;
-#else//0
-        result = false;
-        validComparison = false;
-#endif//0
+        bool ok = true;
+        
+        result = lhs->lessThan(*rhs, ok);
+        result &= ok;
     }
     else
     {
         result = false;
-        validComparison = false;
     }
     ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Array::lessThan
+} // nImO::CompareValues::operator()
 
 #if defined(__APPLE__)
 # pragma mark Global functions

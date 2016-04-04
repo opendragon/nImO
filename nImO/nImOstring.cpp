@@ -38,6 +38,8 @@
 
 #include "nImOstring.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,9 +79,25 @@
 #endif // defined(__APPLE__)
 
 nImO::String::String(void) :
-    inherited()
+    inherited(), _value()
 {
     ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::String::String
+
+nImO::String::String(const std::string & initialValue) :
+    inherited(), _value(initialValue)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("initialValue = ", initialValue); //####
+    ODL_EXIT_P(this); //####
+} // nImO::String::String
+
+nImO::String::String(const char * initialValue) :
+    inherited(), _value(initialValue)
+{
+    ODL_ENTER(); //####
+    ODL_S1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
@@ -97,8 +115,30 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::String)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::addToStringBuffer
+
+DEFINE_LESSTHAN_(nImO::String)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const String * otherPtr = dynamic_cast<const String *>(&other);
+    bool           result;
+    
+    if (otherPtr)
+    {
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::String::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

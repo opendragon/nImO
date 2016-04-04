@@ -36,8 +36,15 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImO/nImOarray.hpp>
+#include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOlist.hpp>
+#include <nImO/nImOmap.hpp>
+#include <nImO/nImOnumber.hpp>
+#include <nImO/nImOset.hpp>
+#include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -121,6 +128,10 @@ compareValueWithString(const nImO::Value & aValue,
     
     aValue.addToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
+    
+    cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
+    cerr << "result: " << result << endl;
+    
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString
@@ -664,6 +675,10 @@ doTestStringBufferWithCharacters(const char * launchPath,
                 ODL_LOG("! (stuff)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
     }
     catch (...)
     {
@@ -741,6 +756,10 @@ doTestStringBufferWithBoolean(const char * launchPath,
                 }
             }
         }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
     }
     catch (...)
     {
@@ -815,6 +834,10 @@ doTestStringBufferWithInteger(const char * launchPath,
                     ODL_LOG("! (stuff)"); //####
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
         }
     }
     catch (...)
@@ -893,6 +916,10 @@ doTestStringBufferWithString(const char * launchPath,
             {
                 ODL_LOG("! (stuff)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
         }
     }
     catch (...)
@@ -1054,6 +1081,10 @@ doTestStringBufferWithFloatingPoint(const char * launchPath,
                     ODL_LOG("! (stuff)"); //####
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
         }
     }
     catch (...)
@@ -1265,11 +1296,11 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
                 expectedString += buff.str() + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = smallBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = smallBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1357,11 +1388,11 @@ doTestStringBufferWithBigBlob(const char * launchPath,
                 expectedString += buff.str() + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1470,7 +1501,7 @@ doTestStringBufferReset(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 100 ***
+# pragma mark *** Test Case 50 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1498,50 +1529,17 @@ doTestDefaultBooleanValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Boolean * stuff = new nImO::Boolean;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            if (0 == compareValueWithString(*stuff, "false"))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, \"false\"))"); //####
             }
             delete stuff;
         }
@@ -1549,7 +1547,6 @@ doTestDefaultBooleanValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -1564,7 +1561,7 @@ doTestDefaultBooleanValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 101 ***
+# pragma mark *** Test Case 51 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1592,58 +1589,43 @@ doTestBooleanValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
-        if (stuff)
+        if (1 < argc)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            const char * outString = argv[1];
+            const char * startPtr = *argv;
+            char *       endPtr;
+            int          value = strtol(startPtr, &endPtr, 10);
+            
+            if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                nImO::Boolean * stuff = new nImO::Boolean(0 != value);
+                
+                if (stuff)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
+                    if (0 == compareValueWithString(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                    }
+                    delete stuff;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (stuff)"); //####
                 }
-                delete[] bigBlob;
             }
-            delete stuff;
+            else
+            {
+                ODL_LOG("! ((startPtr != endPtr) && (! *endPtr) && (0 <= value))"); //####
+            }
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (1 < argc)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -1658,7 +1640,7 @@ doTestBooleanValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 102 ***
+# pragma mark *** Test Case 52 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1671,9 +1653,9 @@ doTestBooleanValue(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultNumericValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // default numeric value
+doTestDefaultNumberValue(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // default number value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1686,50 +1668,18 @@ doTestDefaultNumericValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Number * stuff = new nImO::Number;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            if ((0 == compareValueWithString(*stuff, "0")) && (! stuff->isFloat()))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && "//####
+                        "(! stuff->isFloat()))"); //####
             }
             delete stuff;
         }
@@ -1737,7 +1687,6 @@ doTestDefaultNumericValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -1746,13 +1695,13 @@ doTestDefaultNumericValue(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestDefaultNumericValue
+} // doTestDefaultNumberValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 103 ***
+# pragma mark *** Test Case 53 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1765,9 +1714,9 @@ doTestDefaultNumericValue(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNumericValue(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // numeric values
+doTestNumberValue(const char * launchPath,
+                  const int    argc,
+                  char * *     argv) // number values
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1780,58 +1729,69 @@ doTestNumericValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
-        if (stuff)
+        if (1 < argc)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            const char * outString = argv[1];
+            const char * startPtr = *argv;
+            char *       endPtr;
+            int64_t      intValue = strtol(startPtr, &endPtr, 10);
+            
+            if ((startPtr != endPtr) && (! *endPtr))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                nImO::Number * stuff = new nImO::Number(intValue);
+                
+                if (stuff)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
+                    if (0 == compareValueWithString(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                    }
+                    delete stuff;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (stuff)"); //####
                 }
-                delete[] bigBlob;
             }
-            delete stuff;
+            else
+            {
+                double floatValue = strtod(startPtr, &endPtr);
+                
+                if ((startPtr != endPtr) && (! *endPtr))
+                {
+                    nImO::Number * stuff = new nImO::Number(floatValue);
+                    
+                    if (stuff)
+                    {
+                        if (0 == compareValueWithString(*stuff, outString))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                        }
+                        delete stuff;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (stuff)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((startPtr != endPtr) && (! *endPtr))"); //####
+                }
+            }
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (1 < argc)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -1840,13 +1800,13 @@ doTestNumericValue(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestNumericValue
+} // doTestNumberValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 104 ***
+# pragma mark *** Test Case 54 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1874,50 +1834,17 @@ doTestDefaultStringValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::String * stuff = new nImO::String;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            if (0 == compareValueWithString(*stuff, "\"\""))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("(0 == compareValueWithString(*stuff, \"\\\"\\\"\"))"); //####
             }
             delete stuff;
         }
@@ -1925,7 +1852,6 @@ doTestDefaultStringValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -1940,7 +1866,7 @@ doTestDefaultStringValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 105 ***
+# pragma mark *** Test Case 55 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1968,58 +1894,31 @@ doTestStringValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
-        if (stuff)
+        if (1 < argc)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            nImO::String * stuff = new nImO::String(*argv);
+            
+            if (stuff)
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                if (0 == compareValueWithString(*stuff, argv[1]))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, argv[1]))"); //####
                 }
-                delete[] bigBlob;
+                delete stuff;
             }
-            delete stuff;
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (1 < argc)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2034,10 +1933,9 @@ doTestStringValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 106 ***
+# pragma mark *** Test Case 56 ***
 #endif // defined(__APPLE__)
 
-#if defined(__APPLE__)
 #if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
@@ -2063,58 +1961,18 @@ doTestStringValueWithEscapes(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        const char *   inString = "abc\tdef\f\rghi\302";
+        const char *   outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        nImO::String * stuff = new nImO::String(inString);
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            if (! compareValueWithString(*stuff, outString))
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                result = 0;
             }
             delete stuff;
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -2128,6 +1986,221 @@ doTestStringValueWithEscapes(const char * launchPath,
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
+#if defined(__APPLE__)
+# pragma mark *** Test Case 57 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultBlobValue(const char * launchPath,
+                       const int    argc,
+                       char * *     argv) // default blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Blob * stuff = new nImO::Blob;
+        
+        if (stuff)
+        {
+            if (! compareValueWithString(*stuff, "%0%%"))
+            {
+                result = 0;
+            }
+            delete stuff;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestDefaultBlobValue
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 58 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallBlobValue(const char * launchPath,
+                     const int    argc,
+                     char * *     argv) // small blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        uint8_t * smallBlob = new uint8_t[kSmallTestSize];
+        
+        if (smallBlob)
+        {
+            for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
+                
+                smallBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(smallBlob, kSmallTestSize);
+            
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+                
+                buff << kSmallTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = smallBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+                    
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] smallBlob;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestSmallBlobValue
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 59 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBigBlobValue(const char * launchPath,
+                   const int    argc,
+                   char * *     argv) // big blob
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+                
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+            
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+                
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+                    
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBigBlobValue
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
@@ -2156,50 +2229,22 @@ doTestEmptyArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, '\0'
+            };
+            
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2207,7 +2252,6 @@ doTestEmptyArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2250,50 +2294,25 @@ doTestSingularArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Number(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2301,7 +2320,6 @@ doTestSingularArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2344,50 +2362,31 @@ doTestSmallArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                    't', 'r', 'u', 'e', ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                    '4', '2', ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Number(123.45));
+            stuff->push_back(new nImO::Boolean(true));
+            stuff->push_back(new nImO::String("charlie"));
+            stuff->push_back(new nImO::Number(static_cast<int64_t>(42)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2395,7 +2394,6 @@ doTestSmallArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2438,50 +2436,37 @@ doTestBigArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
             uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
+            
             if (bigBlob)
             {
+                std::string expectedString;
+                char        numBuff[10];
+                
+                expectedString += nImO::kStartArrayChar;
+                expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
+                    
                     bigBlob[ii] = aByte;
+                    stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
+                    snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
+                    expectedString += numBuff;
                 }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                expectedString += nImO::kEndArrayChar;
+                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
                 }
-                delete[] bigBlob;
             }
             delete stuff;
         }
@@ -2489,7 +2474,6 @@ doTestBigArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2532,50 +2516,22 @@ doTestEmptyListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ', nImO::kEndListChar, '\0'
+            };
+            
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2583,7 +2539,6 @@ doTestEmptyListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2626,50 +2581,25 @@ doTestSingularListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Number(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2677,7 +2607,6 @@ doTestSingularListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2720,50 +2649,31 @@ doTestSmallListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                    't', 'r', 'u', 'e', ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                    '4', '2', ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Number(123.45));
+            stuff->push_back(new nImO::Boolean(true));
+            stuff->push_back(new nImO::String("charlie"));
+            stuff->push_back(new nImO::Number(static_cast<int64_t>(42)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2771,7 +2681,6 @@ doTestSmallListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2814,50 +2723,37 @@ doTestBigListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
             uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
+            
             if (bigBlob)
             {
+                std::string expectedString;
+                char        numBuff[10];
+                
+                expectedString += nImO::kStartListChar;
+                expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
+                    
                     bigBlob[ii] = aByte;
+                    stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
+                    snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
+                    expectedString += numBuff;
                 }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                expectedString += nImO::kEndListChar;
+                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
                 }
-                delete[] bigBlob;
             }
             delete stuff;
         }
@@ -2865,7 +2761,6 @@ doTestBigListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -2908,50 +2803,22 @@ doTestEmptyMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ', nImO::kEndMapChar, '\0'
+            };
+            
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -2959,7 +2826,6 @@ doTestEmptyMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3002,50 +2868,27 @@ doTestSingularBooleanMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                        '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Boolean(true), new nImO::Number(123.45));
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3053,7 +2896,6 @@ doTestSingularBooleanMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3096,50 +2938,27 @@ doTestSingularIntegerMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
+                                       new nImO::Number(123.45));
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3147,7 +2966,6 @@ doTestSingularIntegerMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3190,58 +3008,53 @@ doTestSingularStringMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+        ODL_ENTER(); //####
+        ODL_S1("launchPath = ", launchPath); //####
+        int result = 1;
         
-        if (stuff)
+        try
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            nImO::Map * stuff = new nImO::Map;
+            
+            if (stuff)
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                static const char expectedString[] =
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                    nImO::kStartMapChar, ' ',
+                        '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                            nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                    nImO::kEndMapChar, '\0'
+                };
+                nImO::Map::mapValue aValue(new nImO::String("charlie"), new nImO::Number(123.45));
+                
+                stuff->insert(aValue);
+                if (0 == compareValueWithString(*stuff, expectedString))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
                 }
-                delete[] bigBlob;
+                delete stuff;
             }
-            delete stuff;
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
         }
-        else
+        catch (...)
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("Exception caught"); //####
+            throw;
         }
-#endif//0
+        ODL_EXIT_L(result); //####
+        return result;
     }
     catch (...)
     {
@@ -3284,50 +3097,31 @@ doTestSmallBooleanMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    'f', 'a', 'l', 's', 'e', ' ', nImO::kKeyValueSeparator, ' ', '4', '2', ' ',
+                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue1(new nImO::Boolean(true), new nImO::Number(123.45));
+            nImO::Map::mapValue aValue2(new nImO::Boolean(false),
+                                        new nImO::Number(static_cast<int64_t>(42)));
+            
+            stuff->insert(aValue1);
+            stuff->insert(aValue2);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3335,7 +3129,6 @@ doTestSmallBooleanMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3378,50 +3171,35 @@ doTestSmallIntegerMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '1', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
+                    '1', '7', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue1(new nImO::Number(static_cast<int64_t>(42)),
+                                        new nImO::Number(123.45));
+            nImO::Map::mapValue aValue2(new nImO::Number(static_cast<int64_t>(17)),
+                                        new nImO::Number(12.345));
+            nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(12)),
+                                        new nImO::Number(1234.5));
+            
+            stuff->insert(aValue1);
+            stuff->insert(aValue2);
+            stuff->insert(aValue3);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3429,7 +3207,6 @@ doTestSmallIntegerMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3472,50 +3249,35 @@ doTestSmallStringMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                        '1', '2', '3', '4', '.', '5', ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                        '1', '2', '3', '.', '4', '5', ' ',
+                    '"', 'l', 'i', 'm', 'a', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                        '1', '2', '.', '3', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue1(new nImO::String("delta"), new nImO::Number(123.45));
+            nImO::Map::mapValue aValue2(new nImO::String("lima"), new nImO::Number(12.345));
+            nImO::Map::mapValue aValue3(new nImO::String("charlie"), new nImO::Number(1234.5));
+            
+            stuff->insert(aValue1);
+            stuff->insert(aValue2);
+            stuff->insert(aValue3);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3523,7 +3285,6 @@ doTestSmallStringMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3538,101 +3299,7 @@ doTestSmallStringMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 137 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestBigIntegerMapValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // big integer map
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
-        if (stuff)
-        {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
-            {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestBigIntegerMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 130 ***
+# pragma mark *** Test Case 150 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3660,50 +3327,22 @@ doTestEmptySetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ', nImO::kEndSetChar, '\0'
+            };
+            
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3711,7 +3350,6 @@ doTestEmptySetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3726,7 +3364,7 @@ doTestEmptySetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 131 ***
+# pragma mark *** Test Case 151 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3754,50 +3392,25 @@ doTestSingularBooleanSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    't', 'r', 'u', 'e', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Boolean(true));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3805,7 +3418,6 @@ doTestSingularBooleanSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3820,7 +3432,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 132 ***
+# pragma mark *** Test Case 152 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3848,50 +3460,25 @@ doTestSingularIntegerSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    '4', '2', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3899,7 +3486,6 @@ doTestSingularIntegerSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -3914,7 +3500,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 133 ***
+# pragma mark *** Test Case 153 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3942,50 +3528,25 @@ doTestSingularStringSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::String("charlie"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -3993,7 +3554,6 @@ doTestSingularStringSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4008,7 +3568,7 @@ doTestSingularStringSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 134 ***
+# pragma mark *** Test Case 154 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -4036,50 +3596,29 @@ doTestSmallBooleanSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    'f', 'a', 'l', 's', 'e', ' ',
+                    't', 'r', 'u', 'e', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Boolean(false));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Boolean(false));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4087,7 +3626,6 @@ doTestSmallBooleanSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4102,7 +3640,7 @@ doTestSmallBooleanSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 135 ***
+# pragma mark *** Test Case 155 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -4130,50 +3668,35 @@ doTestSmallIntegerSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    '1', '2', ' ',
+                    '1', '7', ' ',
+                    '4', '2', ' ',
+                    '1', '2', '3', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Number(static_cast<int64_t>(123)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(17)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(12)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(123)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(17)));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(12)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4181,7 +3704,6 @@ doTestSmallIntegerSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4196,7 +3718,7 @@ doTestSmallIntegerSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 136 ***
+# pragma mark *** Test Case 156 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -4224,50 +3746,35 @@ doTestSmallStringSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Set * stuff = new nImO::Set;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartSetChar, ' ',
+                    '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
+                    '"', 'b', 'e', 't', 'a', '"', ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
+                    '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::String("gamma"));
+            stuff->insert(new nImO::String("alpha"));
+            stuff->insert(new nImO::String("delta"));
+            stuff->insert(new nImO::String("beta"));
+            stuff->insert(new nImO::String("gamma"));
+            stuff->insert(new nImO::String("alpha"));
+            stuff->insert(new nImO::String("delta"));
+            stuff->insert(new nImO::String("beta"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4275,7 +3782,6 @@ doTestSmallStringSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4285,100 +3791,6 @@ doTestSmallStringSetValue(const char * launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestSmallStringSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 137 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestBigIntegerSetValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // big integer map
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-    
-    try
-    {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
-        if (stuff)
-        {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
-            {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestBigIntegerSetValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -4412,50 +3824,25 @@ doTestArrayWithArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Array);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4463,7 +3850,6 @@ doTestArrayWithArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4506,50 +3892,25 @@ doTestArrayWithListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::List);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4557,7 +3918,6 @@ doTestArrayWithListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4600,50 +3960,25 @@ doTestArrayWithMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Map);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4651,7 +3986,6 @@ doTestArrayWithMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4694,50 +4028,25 @@ doTestArrayWithSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Array * stuff = new nImO::Array;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartArrayChar, ' ',
+                    nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
+                nImO::kEndArrayChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Set);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4745,7 +4054,6 @@ doTestArrayWithSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4788,50 +4096,25 @@ doTestListWithArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Array);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4839,7 +4122,6 @@ doTestListWithArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4882,50 +4164,25 @@ doTestListWithListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::List);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -4933,7 +4190,6 @@ doTestListWithListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -4976,50 +4232,25 @@ doTestListWithMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Map);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5027,7 +4258,6 @@ doTestListWithMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5070,50 +4300,25 @@ doTestListWithSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::List * stuff = new nImO::List;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartListChar, ' ',
+                    nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
+                nImO::kEndListChar, '\0'
+            };
+            
+            stuff->push_back(new nImO::Set);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5121,7 +4326,6 @@ doTestListWithSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5164,50 +4368,28 @@ doTestMapWithArrayValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
+                        nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
+                                       new nImO::Array());
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5215,7 +4397,6 @@ doTestMapWithArrayValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5258,50 +4439,28 @@ doTestMapWithListValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
+                        nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
+                                       new nImO::List());
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5309,7 +4468,6 @@ doTestMapWithListValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5352,50 +4510,27 @@ doTestMapWithMapValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
+                        nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Map());
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5403,7 +4538,6 @@ doTestMapWithMapValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5446,50 +4580,27 @@ doTestMapWithSetValue(const char * launchPath,
     
     try
     {
-#if 0
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::Map * stuff = new nImO::Map;
         
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
+            static const char expectedString[] =
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                }
-                stuff->addBlob(bigBlob, kBigTestSize);
-                size_t            length;
-                const char *      resultString = stuff->getString(length);
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char    hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t        aByte = bigBlob[ii];
-                    char           highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char           lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
-                }
-                delete[] bigBlob;
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
+                        nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Set());
+            
+            stuff->insert(aValue);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
             delete stuff;
         }
@@ -5497,7 +4608,6 @@ doTestMapWithSetValue(const char * launchPath,
         {
             ODL_LOG("! (stuff)"); //####
         }
-#endif//0
     }
     catch (...)
     {
@@ -5507,6 +4617,468 @@ doTestMapWithSetValue(const char * launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestMapWithSetValue
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 200 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
+                                          const int    argc,
+                                          char * *     argv) // boolean map with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Map * stuff = new nImO::Map;
+        
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartMapChar, ' ',
+                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                        '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue1(new nImO::Boolean(true), new nImO::Number(123.45));
+            nImO::Map::mapValue aValue2(new nImO::Number(static_cast<int64_t>(42)),
+                                        new nImO::Number(12.345));
+            nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
+            nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
+            
+            stuff->insert(aValue1);
+            stuff->insert(aValue2);
+            stuff->insert(aValue3);
+            stuff->insert(aValue4);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanMapValueWithIncompatibleKeys
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 201 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
+                                          const int    argc,
+                                          char * *     argv) // integer map with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Map * stuff = new nImO::Map;
+        
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartMapChar, ' ',
+                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            nImO::Map::mapValue aValue1(new nImO::Number(static_cast<int64_t>(42)),
+                                        new nImO::Number(123.45));
+            nImO::Map::mapValue aValue2(new nImO::Boolean(true), new nImO::Number(123.45));
+            nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
+            nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
+            
+            stuff->insert(aValue1);
+            stuff->insert(aValue2);
+            stuff->insert(aValue3);
+            stuff->insert(aValue4);
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerMapValueWithIncompatibleKeys
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 202 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
+                                         const int    argc,
+                                         char * *     argv) // string map with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+        ODL_ENTER(); //####
+        ODL_S1("launchPath = ", launchPath); //####
+        int result = 1;
+        
+        try
+        {
+            nImO::Map * stuff = new nImO::Map;
+            
+            if (stuff)
+            {
+                static const char expectedString[] =
+                {
+                    nImO::kStartMapChar, ' ',
+                        '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                        nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                    nImO::kEndMapChar, '\0'
+                };
+                nImO::Map::mapValue aValue1(new nImO::String("charlie"), new nImO::Number(123.45));
+                nImO::Map::mapValue aValue2(new nImO::Boolean(true), new nImO::Number(123.45));
+                nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(42)),
+                                            new nImO::Number(12.345));
+                nImO::Map::mapValue aValue4(new nImO::Number(19.77), new nImO::Number(1.2345));
+                
+                stuff->insert(aValue1);
+                stuff->insert(aValue2);
+                stuff->insert(aValue3);
+                stuff->insert(aValue4);
+                if (0 == compareValueWithString(*stuff, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                }
+                delete stuff;
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+            throw;
+        }
+        ODL_EXIT_L(result); //####
+        return result;
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringMapValueWithIncompatibleKeys
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 203 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
+                                          const int    argc,
+                                          char * *     argv) // boolean set with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Set * stuff = new nImO::Set;
+        
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    't', 'r', 'u', 'e', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            stuff->insert(new nImO::String("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanSetValueWithIncompatibleKeys
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 204 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
+                                          const int    argc,
+                                          char * *     argv) // integer set with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Set * stuff = new nImO::Set;
+        
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '4', '2', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(19.77));
+            stuff->insert(new nImO::String("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerSetValueWithIncompatibleKeys
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 205 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
+                                         const int    argc,
+                                         char * *     argv) // string set with incompatible keys
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::Set * stuff = new nImO::Set;
+        
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+            
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringSetValueWithIncompatibleKeys
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -5626,35 +5198,47 @@ main(int      argc,
                     case 21 :
                         result = doTestStringBufferReset(*argv, argc - 1, argv + 2);
                         break;
- 
-                    case 100 :
+                        
+                    case 50 :
                         result = doTestDefaultBooleanValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 101 :
+                    case 51 :
                         result = doTestBooleanValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 102 :
-                        result = doTestDefaultNumericValue(*argv, argc - 1, argv + 2);
+                    case 52 :
+                        result = doTestDefaultNumberValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 103 :
-                        result = doTestNumericValue(*argv, argc - 1, argv + 2);
+                    case 53 :
+                        result = doTestNumberValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 104 :
+                    case 54 :
                         result = doTestDefaultStringValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 105 :
+                    case 55 :
                         result = doTestStringValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 106 :
+                    case 56 :
                         result = doTestStringValueWithEscapes(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 57 :
+                        result = doTestDefaultBlobValue(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 58 :
+                        result = doTestSmallBlobValue(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 59 :
+                        result = doTestBigBlobValue(*argv, argc - 1, argv + 2);
+                        break;
+                        
                     case 110 :
                         result = doTestEmptyArrayValue(*argv, argc - 1, argv + 2);
                         break;
@@ -5715,10 +5299,6 @@ main(int      argc,
                         result = doTestSmallStringMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 137 :
-                        result = doTestBigIntegerMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
                     case 150 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
@@ -5745,10 +5325,6 @@ main(int      argc,
 
                     case 156 :
                         result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 157 :
-                        result = doTestBigIntegerSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 170 :
@@ -5797,6 +5373,36 @@ main(int      argc,
 
                     case 181 :
                         result = doTestMapWithSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 200 :
+                        result = doTestBooleanMapValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                           argv + 2);
+                        break;
+                        
+                    case 201 :
+                        result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                           argv + 2);
+                        break;
+                        
+                    case 202 :
+                        result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                          argv + 2);
+                        break;
+                        
+                    case 203 :
+                        result = doTestBooleanSetValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                           argv + 2);
+                        break;
+                        
+                    case 204 :
+                        result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                           argv + 2);
+                        break;
+                        
+                    case 205 :
+                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
+                                                                           argv + 2);
                         break;
 
                     default :

@@ -78,11 +78,40 @@ namespace nImO
         /*! @brief The destructor. */
         ~String(void);
         
+        /*! @brief The constructor.
+         @param initialValue The initial value for the object. */
+        explicit String(const std::string & initialValue);
+        
+        /*! @brief The constructor.
+         @param initialValue The initial value for the object. */
+        explicit String(const char * initialValue);
+        
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
+        
+        /*! @fn int
+                lessThan(const Value & other,
+                          bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Strings.
+         @param other The String to be compared with.
+         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Strings. */
+        DECLARE_LESSTHAN_;
+        
+        /*! @fn Enumerable
+                enumerationType(void)
+                const
+         @brief Return the enumeraton type of an object.
+         @returns The enumeration type of an object. */
+        DECLARE_ENUMERATIONTYPE_
+        {
+            return kEnumerableString;
+        } // enumerationType
         
     protected :
         // Protected methods.
@@ -98,6 +127,9 @@ namespace nImO
     
     private :
         // Private fields.
+        
+        /*! @brief The associated value. */
+        std::string _value;
         
     }; // String
 

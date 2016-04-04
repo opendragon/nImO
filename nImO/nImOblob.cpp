@@ -38,6 +38,8 @@
 
 #include "nImOblob.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,15 +79,32 @@
 #endif // defined(__APPLE__)
 
 nImO::Blob::Blob(void) :
-    inherited()
+    inherited(), _value(NULL), _size(0)
 {
     ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Blob::Blob
+
+nImO::Blob::Blob(const uint8_t * data,
+                 const size_t    size) :
+    inherited(), _value(NULL), _size(0)
+{
+    ODL_ENTER(); //####
+    ODL_P1("datat = ", data); //####
+    ODL_LL1("size = ", size); //####
+    if (data && (0 < size))
+    {
+        _value = new uint8_t[size];
+        _size = size;
+        memcpy(_value, data, _size);
+    }
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
 nImO::Blob::~Blob(void)
 {
     ODL_OBJENTER(); //####
+    delete[] _value;
     ODL_OBJEXIT(); //####
 } // nImO::Blob::~Blob
 
@@ -97,8 +116,36 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Blob)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addBlob(_value, _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::addToStringBuffer
+
+DEFINE_LESSTHAN_(nImO::Blob)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Blob * otherPtr = dynamic_cast<const Blob *>(&other);
+    bool         result;
+    
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Blob::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

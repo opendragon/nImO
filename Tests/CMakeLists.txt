@@ -131,23 +131,29 @@ add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 20)
 add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 21)
 
 # Test default boolean value
-add_test(NAME TestDefaultBooleanValue COMMAND ${THIS_TARGET} 100)
+add_test(NAME TestDefaultBooleanValue COMMAND ${THIS_TARGET} 50)
 # Test false boolean value
-add_test(NAME TestFalseBooleanValue COMMAND ${THIS_TARGET} 101 0 "false")
+add_test(NAME TestFalseBooleanValue COMMAND ${THIS_TARGET} 51 0 "false")
 # Test true boolean value
-add_test(NAME TestTrueBooleanValue COMMAND ${THIS_TARGET} 101 1 "true")
-# Test default numeric value
-add_test(NAME TestDefaultNumericValue COMMAND ${THIS_TARGET} 102)
-# Test integer numeric value
-add_test(NAME TestIntegerNumericValue COMMAND ${THIS_TARGET} 103 "12345" "12345")
-# Test floating point numeric value
-add_test(NAME TestFloatingPointNumericValue COMMAND ${THIS_TARGET} 103 "123.45" "123.45")
+add_test(NAME TestTrueBooleanValue COMMAND ${THIS_TARGET} 51 1 "true")
+# Test default number value
+add_test(NAME TestDefaultNumberValue COMMAND ${THIS_TARGET} 52)
+# Test integer number value
+add_test(NAME TestIntegerNumberValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
+# Test floating point number value
+add_test(NAME TestFloatingPointNumberValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
 # Test default string value
-add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 104)
+add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 54)
 # Test short string value
-add_test(NAME TestShortStringValue COMMAND ${THIS_TARGET} 105)
+add_test(NAME TestShortStringValue COMMAND ${THIS_TARGET} 55 "abcdef" "\"abcdef\"")
 # Test string value with escaped characters
-add_test(NAME TestStringValueWithEscapedChars COMMAND ${THIS_TARGET} 106)
+add_test(NAME TestStringValueWithEscapedChars COMMAND ${THIS_TARGET} 56)
+# Test default blob value
+add_test(NAME TestDefaultBlobValue COMMAND ${THIS_TARGET} 57)
+# Test small blob value
+add_test(NAME TestSmallBlobValue COMMAND ${THIS_TARGET} 58)
+# Test big blob value
+add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
 
 # Test empty array
 add_test(NAME TestEmptyArrayValue COMMAND ${THIS_TARGET} 110)
@@ -181,8 +187,6 @@ add_test(NAME TestSmallBooleanMapValue COMMAND ${THIS_TARGET} 134)
 add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 135)
 # Test small map with string keys
 add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 136)
-# Test big map with integer keys
-add_test(NAME TestBigIntegerMapValue COMMAND ${THIS_TARGET} 137)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 150)
@@ -198,8 +202,6 @@ add_test(NAME TestSmallBooleanSetValue COMMAND ${THIS_TARGET} 154)
 add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 155)
 # Test small set with string keys
 add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 156)
-# Test big set with integer keys
-add_test(NAME TestBigIntegerSetValue COMMAND ${THIS_TARGET} 157)
 
 # Test array with array
 add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 170)
@@ -226,3 +228,15 @@ add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 180)
 # Test map with set
 add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 181)
 
+# Test boolean map with incompatible keys
+add_test(NAME TestBooleanMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 200)
+# Test integer map with incompatible keys
+add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 201)
+# Test string map with incompatible keys
+add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 202)
+# Test boolean set with incompatible keys
+add_test(NAME TestBooleanSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 203)
+# Test integer set with incompatible keys
+add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 204)
+# Test string set with incompatible keys
+add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 205)

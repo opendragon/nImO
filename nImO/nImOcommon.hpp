@@ -56,8 +56,9 @@
 # include <cstdlib>
 //# include <cstring>
 # include <iostream>
-//# include <list>
-//# include <map>
+# include <list>
+# include <map>
+# include <set>
 //# include <stdint.h>
 # include <sstream>
 //# include <time.h>
@@ -156,6 +157,15 @@ namespace nImO
 {
     // Type definitions.
 
+    enum Enumerable
+    {
+        kEnumerableUnknown,
+        kEnumerableBoolean,
+        kEnumerableInteger,
+        kEnumerableString,
+        kEnumerableNotEnumerable
+    }; // Enumerable
+    
     /*! @brief The format for the output from command-line tools. */
     enum OutputFlavour
     {

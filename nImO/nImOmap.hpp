@@ -39,6 +39,7 @@
 #if (! defined(nImOmap_HPP_))
 # define nImOmap_HPP_ /* Header guard */
 
+# include <nImO/nImOcompareValues.hpp>
 # include <nImO/nImOcontainer.hpp>
 
 # if defined(__APPLE__)
@@ -55,19 +56,29 @@
 namespace nImO
 {
     /*! @brief A class to provide collections with hashtable-like behaviour. */
-    class Map : public Container
+    class Map : public Container,
+                public std::map<Value *, Value *, CompareValues>
     {
     public :
         // Public type definitions.
     
+        /*! @brief The return result from the insert method. */
+        typedef std::pair<std::map<Value *, Value *, CompareValues>::iterator, bool> insertResult;
+        
+        /*! @brief The type of value to be inserted. */
+        typedef std::pair<Value *, Value *> mapValue;
+        
     protected :
         // Protected type definitions.
     
     private :
         // Private type definitions.
         
-        /*! @brief The class that this class is derived from. */
-        typedef Container inherited;
+        /*! @brief The first class that this class is derived from. */
+        typedef Container inherited1;
+        
+        /*! @brief The second class that this class is derived from. */
+        typedef std::map<Value *, Value *, CompareValues> inherited2;
         
     public :
         // Public methods.
@@ -84,6 +95,23 @@ namespace nImO
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
         
+        /*! @fn bool
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Maps.
+         @param other The Map to be compared with.
+         @param validComparison @c true if the Maps were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Maps. */
+        DECLARE_LESSTHAN_;
+
+        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
+         @param val Value to be inserted.
+         @returns A pair<iterator, bool> indicating the success or failure of the insert
+         operation. */
+        insertResult insert(mapValue val);
+        
     protected :
         // Protected methods.
         
@@ -98,6 +126,9 @@ namespace nImO
     
     private :
         // Private fields.
+        
+        /*! @brief The kind of key being used. */
+        Enumerable _keyKind;
         
     }; // Map
 

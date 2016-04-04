@@ -38,6 +38,8 @@
 
 #include "nImOnumber.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,14 +79,14 @@
 #endif // defined(__APPLE__)
 
 nImO::Number::Number(void) :
-    inherited()
+    inherited(), _intValue(0), _floatValue(0), _valueIsFloat(false)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number
 
 nImO::Number::Number(const int64_t initialValue) :
-    inherited()
+    inherited(), _intValue(initialValue), _floatValue(0), _valueIsFloat(false)
 {
     ODL_ENTER(); //####
     ODL_LL1("initialValue = ", initialValue); //####
@@ -92,7 +94,7 @@ nImO::Number::Number(const int64_t initialValue) :
 } // nImO::Number::Number
 
 nImO::Number::Number(const double initialValue) :
-    inherited()
+    inherited(), _intValue(0), _floatValue(initialValue), _valueIsFloat(true)
 {
     ODL_ENTER(); //####
     ODL_D1("initialValue = ", initialValue); //####
@@ -113,8 +115,47 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Number)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    if (_valueIsFloat)
+    {
+        outBuffer.addDouble(_floatValue);
+    }
+    else
+    {
+        outBuffer.addLong(_intValue);
+    }
     ODL_OBJEXIT(); //####
 } // nImO::Number::addToStringBuffer
+
+DEFINE_LESSTHAN_(nImO::Number)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Number * otherPtr = dynamic_cast<const Number *>(&other);
+    bool           result;
+    
+    if (otherPtr)
+    {
+        if (_valueIsFloat)
+        {
+            result = (_floatValue < ((otherPtr->_valueIsFloat) ? otherPtr->_floatValue :
+                                     otherPtr->_intValue));
+        }
+        else
+        {
+            result = (static_cast<double>(_intValue) < ((otherPtr->_valueIsFloat) ?
+                                                        otherPtr->_floatValue :
+                                                        otherPtr->_intValue));
+        }
+        validComparison = true;
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Number::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

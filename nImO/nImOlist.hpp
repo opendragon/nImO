@@ -55,7 +55,8 @@
 namespace nImO
 {
     /*! @brief A class to provide collections with list-like behaviour. */
-    class List : public Container
+    class List : public Container,
+                 public std::list<Value *>
     {
     public :
         // Public type definitions.
@@ -66,8 +67,11 @@ namespace nImO
     private :
         // Private type definitions.
         
-        /*! @brief The class that this class is derived from. */
-        typedef Container inherited;
+        /*! @brief The first class that this class is derived from. */
+        typedef Container inherited1;
+        
+        /*! @brief The second class that this class is derived from. */
+        typedef std::list<Value *> inherited2;
         
     public :
         // Public methods.
@@ -84,6 +88,17 @@ namespace nImO
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
         
+        /*! @fn bool
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Lists.
+         @param other The List to be compared with.
+         @param validComparison @c true if the Lists were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Lists. */
+        DECLARE_LESSTHAN_;
+
     protected :
         // Protected methods.
         

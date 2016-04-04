@@ -38,6 +38,8 @@
 
 #include "nImOmap.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,7 +79,7 @@
 #endif // defined(__APPLE__)
 
 nImO::Map::Map(void) :
-    inherited()
+    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -86,6 +88,13 @@ nImO::Map::Map(void) :
 nImO::Map::~Map(void)
 {
     ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        mapValue aValue = *walker;
+        
+        delete aValue.first;
+        delete aValue.second;
+    }
     ODL_OBJEXIT(); //####
 } // nImO::Map::~Map
 
@@ -97,8 +106,71 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addChar(kStartMapChar);
+    outBuffer.addChar(' ');
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        mapValue aValue = *walker;
+        
+        aValue.first->addToStringBuffer(outBuffer);
+        outBuffer.addChar(' ');
+        outBuffer.addChar(kKeyValueSeparator);
+        outBuffer.addChar(' ');
+        aValue.second->addToStringBuffer(outBuffer);
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndMapChar);
     ODL_OBJEXIT(); //####
 } // nImO::Map::addToStringBuffer
+
+nImO::Map::insertResult nImO::Map::insert(mapValue val)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("val = ", val); //####
+    insertResult result;
+    
+    if (kEnumerableUnknown == _keyKind)
+    {
+        _keyKind = val.first->enumerationType();
+    }
+    if (val.first->enumerationType() == _keyKind)
+    {
+        result = inherited2::insert(val);
+    }
+    else
+    {
+        result = insertResult(end(), false);
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Map::insert
+
+DEFINE_LESSTHAN_(nImO::Map)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Map * otherPtr = dynamic_cast<const Map *>(&other);
+    bool        result;
+    
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Map::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

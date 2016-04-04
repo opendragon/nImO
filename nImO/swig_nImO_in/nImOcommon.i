@@ -10,6 +10,7 @@
 #include "nImObufferChunk.hpp"
 #include "nImOchannelArgumentDescriptor.hpp"
 #include "nImOcommon.hpp"
+#include "nImOcompareValues.hpp"
 #include "nImOconnector.hpp"
 #include "nImOcontainer.hpp"
 #include "nImOdoubleArgumentDescriptor.hpp"

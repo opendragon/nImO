@@ -38,6 +38,8 @@
 
 #include "nImOset.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,9 +79,15 @@
 #endif // defined(__APPLE__)
 
 nImO::Set::Set(void) :
-    inherited()
+    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
 {
     ODL_ENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+        
+        delete aValue;
+    }
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
 
@@ -97,8 +105,67 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Set)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addChar(kStartSetChar);
+    outBuffer.addChar(' ');
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+        
+        aValue->addToStringBuffer(outBuffer);
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndSetChar);
     ODL_OBJEXIT(); //####
 } // nImO::Set::addToStringBuffer
+
+nImO::Set::insertResult nImO::Set::insert(Value * val)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("val = ", val); //####
+    insertResult result;
+    
+    if (kEnumerableUnknown == _keyKind)
+    {
+        _keyKind = val->enumerationType();
+    }
+    if (val->enumerationType() == _keyKind)
+    {
+        result = inherited2::insert(val);
+    }
+    else
+    {
+        result = insertResult(end(), false);
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Set::insert
+
+DEFINE_LESSTHAN_(nImO::Set)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Set * otherPtr = dynamic_cast<const Set *>(&other);
+    bool        result;
+    
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Set::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

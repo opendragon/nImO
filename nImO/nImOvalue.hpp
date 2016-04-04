@@ -52,25 +52,52 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief Declare the disableMetrics method, which turns off the send / receive metrics
- collecting. */
+/*! @brief Declare the addToStringBuffer method, which appends a printable version the object to a
+ string buffer. */
 # define DECLARE_ADDTOSTRINGBUFFER_ \
     virtual void\
     addToStringBuffer(StringBuffer & outBuffer)\
     const
 
-/*! @brief Declare the isBoolean method, which returns @c true if the descriptor is for Boolean
- arguments and @c false otherwise. */
+/*! @brief Declare the lessThan method, which returns the relative ordering of two values. */
+# define DECLARE_LESSTHAN_ \
+    virtual bool\
+    lessThan(const Value & other,\
+             bool &        validComparison)\
+    const
+
+/*! @brief Declare the enumerationType method, which returns the enumerability of an object. */
+# define DECLARE_ENUMERATIONTYPE_ \
+    virtual Enumerable\
+    enumerationType(void)\
+    const
+
+/*! @brief Declare the isContainer method, which returns @c true if the object is a container and
+ @c false otherwise. */
 # define DECLARE_ISCONTAINER_ \
     virtual bool\
     isContainer(void)\
     const
 
-/*! @brief Declare the disableMetrics method, which turns off the send / receive metrics
- collecting. */
+/*! @brief Define the addToStringBuffer method, which appends a printable version the object to a
+ string buffer. */
 # define DEFINE_ADDTOSTRINGBUFFER_(class_) \
     void\
     class_::addToStringBuffer(StringBuffer & outBuffer)\
+    const
+
+/*! @brief Define the lessThan method, which returns the relative ordering of two Values. */
+# define DEFINE_LESSTHAN_(class_) \
+    bool\
+    class_::lessThan(const Value & other,\
+                     bool &        validComparison)\
+    const
+
+/*! @brief Declare the isContainer method, which returns @c true if the object is a container and
+ @c false otherwise. */
+# define DEFINE_ISCONTAINER_(class_) \
+    bool\
+    class_::isContainer(void)\
     const
 
 namespace nImO
@@ -99,7 +126,34 @@ namespace nImO
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_ = 0;
+        DECLARE_ADDTOSTRINGBUFFER_
+        {
+        } // addToStringBuffer
+        
+        /*! @fn bool
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        DECLARE_LESSTHAN_
+        {
+            validComparison = false;
+            return false;
+        } // lessThan        
+        
+        /*! @fn Enumerable
+                enumerationType(void)
+                const
+         @brief Return the enumeraton type of an object.
+         @returns The enumeration type of an object. */
+        DECLARE_ENUMERATIONTYPE_
+        {
+            return kEnumerableNotEnumerable;
+        } // enumerationType
         
         /*! @fn virtual bool
                 isContainer(void)

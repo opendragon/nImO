@@ -55,7 +55,8 @@
 namespace nImO
 {
     /*! @brief A class to provide collections with array-like behaviour. */
-    class Array : public Container
+    class Array : public Container,
+                  public std::vector<Value *>
     {
     public :
         // Public type definitions.
@@ -66,9 +67,12 @@ namespace nImO
     private :
         // Private type definitions.
         
-        /*! @brief The class that this class is derived from. */
-        typedef Container inherited;
+        /*! @brief The first class that this class is derived from. */
+        typedef Container inherited1;
         
+        /*! @brief The second class that this class is derived from. */
+        typedef std::vector<Value *> inherited2;
+
     public :
         // Public methods.
 
@@ -83,6 +87,17 @@ namespace nImO
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
+        
+        /*! @fn bool
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Arrays. */
+        DECLARE_LESSTHAN_;
         
     protected :
         // Protected methods.

@@ -38,6 +38,8 @@
 
 #include "nImOboolean.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,14 +79,14 @@
 #endif // defined(__APPLE__)
 
 nImO::Boolean::Boolean(void) :
-    inherited()
+    inherited(), _value(false)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Boolean::Boolean
 
 nImO::Boolean::Boolean(const bool initialValue) :
-    inherited()
+    inherited(), _value(initialValue)
 {
     ODL_ENTER(); //####
     ODL_B1("initialValue = ", initialValue); //####
@@ -105,8 +107,30 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Boolean)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Boolean::addToStringBuffer
+
+DEFINE_LESSTHAN_(nImO::Boolean)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Boolean * otherPtr = dynamic_cast<const Boolean *>(&other);
+    bool            result;
+    
+    if (otherPtr)
+    {
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Boolean::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -38,6 +38,8 @@
 
 #include "nImOlist.hpp"
 
+#include <nImO/nImOstringbuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -77,7 +79,7 @@
 #endif // defined(__APPLE__)
 
 nImO::List::List(void) :
-    inherited()
+    inherited1(), inherited2()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -86,6 +88,12 @@ nImO::List::List(void) :
 nImO::List::~List(void)
 {
     ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+        
+        delete aValue;
+    }
     ODL_OBJEXIT(); //####
 } // nImO::List::~List
 
@@ -97,8 +105,45 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::List)
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addChar(kStartListChar);
+    outBuffer.addChar(' ');
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+        
+        aValue->addToStringBuffer(outBuffer);
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndListChar);
     ODL_OBJEXIT(); //####
 } // nImO::List::addToStringBuffer
+
+DEFINE_LESSTHAN_(nImO::List)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const List * otherPtr = dynamic_cast<const List *>(&other);
+    bool         result;
+    
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value < otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::List::lessThan
 
 #if defined(__APPLE__)
 # pragma mark Global functions

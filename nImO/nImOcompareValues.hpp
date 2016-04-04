@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOboolean.hpp
+//  File:       nImO/nImOcompareValues.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO boolean values.
+//  Contains:   The class declaration for nImO comparing pointers to values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-21
+//  Created:    2016-04-03
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOboolean_HPP_))
-# define nImOboolean_HPP_ /* Header guard */
+#if (! defined(nImOcompareValues_HPP_))
+# define nImOcompareValues_HPP_ /* Header guard */
 
-# include <nImO/nImOatom.hpp>
+# include <nImO/nImOvalue.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO boolean values. */
+ @brief The class declaration for the %nImO value comparison functional objects. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide true / false values. */
-    class Boolean : public Atom
+    /*! @brief A class to provide values that are used to compare pointers to values. */
+    class CompareValues : public Value
     {
     public :
         // Public type definitions.
@@ -66,48 +66,18 @@ namespace nImO
     private :
         // Private type definitions.
         
-        /*! @brief The class that this class is derived from. */
-        typedef Atom inherited;
-        
     public :
         // Public methods.
         
         /*! @brief The constructor. */
-        Boolean(void);
-
-        /*! @brief The constructor.
-          @param initialValue The initial value for the object. */
-        explicit Boolean(const bool initialValue);
-
+        CompareValues(void);
+        
         /*! @brief The destructor. */
-        ~Boolean(void);
+        ~CompareValues(void);
         
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_;
-        
-        /*! @fn int
-                lessThan(const Value & other,
-                          bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Booleans.
-         @param other The Boolean to be compared with.
-         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Booleans. */
-        DECLARE_LESSTHAN_;
-        
-        /*! @fn Enumerable
-                enumerationType(void)
-                const
-         @brief Return the enumeraton type of an object.
-         @returns The enumeration type of an object. */
-        DECLARE_ENUMERATIONTYPE_
-        {
-            return kEnumerableBoolean;
-        } // enumerationType
+        bool
+        operator() (const Value * const lhs,
+                    const Value * const rhs);
         
     protected :
         // Protected methods.
@@ -124,11 +94,8 @@ namespace nImO
     private :
         // Private fields.
         
-        /*! @brief The associated value of the object. */
-        bool _value;
-        
-    }; // Boolean
+    }; // CompareValues
 
 } // nImO
 
-#endif // ! defined(nImOboolean_HPP_)
+#endif // ! defined(nImOcompareValues_HPP_)

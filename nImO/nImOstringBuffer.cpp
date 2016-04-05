@@ -201,7 +201,7 @@ nImO::StringBuffer::addDouble(const double aDouble)
     ODL_OBJENTER(); //####
     ODL_D1("aDouble = ", aDouble); //####
     char numBuff[kNumBuffSize];
-    
+
 #if MAC_OR_LINUX_
     snprintf(numBuff, sizeof(numBuff), "%g", aDouble);
 #else // ! MAC_OR_LINUX_
@@ -219,7 +219,7 @@ nImO::StringBuffer::addLong(const int64_t aLong)
     ODL_OBJENTER(); //####
     ODL_LL1("aLong = ", aLong); //####
     char numBuff[kNumBuffSize];
-    
+
     snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
     ODL_S1("numBuff <- ", numBuff); //####
     appendChars(numBuff, strlen(numBuff));
@@ -237,7 +237,7 @@ nImO::StringBuffer::addString(const char * aString,
     if (aString)
     {
         size_t length = strlen(aString);
-        
+
         if (addQuotes)
         {
             processCharacters(aString, length);
@@ -259,7 +259,7 @@ nImO::StringBuffer::addString(const std::string & aString,
     ODL_S1s("aString = ", aString); //####
     ODL_B1("addQuotes = ", addQuotes); //####
     size_t length = aString.length();
-    
+
     if (addQuotes)
     {
         processCharacters(aString.c_str(), length);
@@ -404,7 +404,7 @@ nImO::StringBuffer::getString(size_t & length)
     ODL_OBJEXIT_P(_cachedOutput); //####
     return _cachedOutput;
 } // getString
-        
+
 void
 nImO::StringBuffer::processCharacters(const char * aString,
                                       const size_t length)
@@ -420,11 +420,11 @@ nImO::StringBuffer::processCharacters(const char * aString,
     size_t            numEscapes = 0;
     static const char doubleQuote = '"';
     static const char singleQuote = '\'';
-    
+
     for (size_t ii = 0; length > ii; ++ii)
     {
         uint8_t aByte = static_cast<uint8_t>(aString[ii]);
-        
+
         if ((0x20 > aByte) || (0 != (aByte & 0x80)))
         {
             hasSpecials = true;
@@ -445,19 +445,19 @@ nImO::StringBuffer::processCharacters(const char * aString,
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
         char delimiter = ((numDoubleQuotes > numSingleQuotes) ? singleQuote : doubleQuote);
-        
+
         appendChars(&delimiter, 1);
         for (size_t ii = 0; length > ii; ++ii)
         {
             uint8_t aByte = static_cast<uint8_t>(aString[ii]);
-            
+
             if ((0x20 > aByte) || (0 != (aByte & 0x80)))
             {
                 appendChars(&kEscapeChar, 1);
                 if (0x20 > aByte)
                 {
                     const char * controlString = kCanonicalControl[aByte];
-                    
+
                     appendChars(controlString, strlen(controlString));
                 }
                 else
@@ -467,14 +467,14 @@ nImO::StringBuffer::processCharacters(const char * aString,
                     {
                         // Meta-blank is very special
                         static const char metaBlank[] = { '2', '4', '0' };
-                        
+
                         appendChars(metaBlank, sizeof(metaBlank));
                     }
                     else if (0x7F == aByte)
                     {
                         // As is 0xFF
                         static const char metaDel[] = { '3', '7', '7' };
-                        
+
                         appendChars(metaDel, sizeof(metaDel));
                     }
                     else if (delimiter == aByte)
@@ -482,7 +482,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
                         // Make sure that we don't break if there's a meta-quote of some form!
                         static const char metaDoubleQuote[] = { '2', '4', '2' };
                         static const char metaSingleQuote[] = { '2', '4', '7' };
-                        
+
                         if (singleQuote == aByte)
                         {
                             appendChars(metaSingleQuote, sizeof(metaSingleQuote));
@@ -496,12 +496,12 @@ nImO::StringBuffer::processCharacters(const char * aString,
                     {
                         // 'Regular' meta characters
                         static const char metaPrefix[] = { 'M', '-' };
-                        
+
                         appendChars(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)
                         {
                             const char * controlString = kCanonicalControl[aByte];
-                            
+
                             appendChars(controlString, strlen(controlString));
                         }
                         else
@@ -554,7 +554,7 @@ nImO::StringBuffer::reset(void)
             }
         }
         BufferChunk * firstChunk = *_buffers;
-        
+
         delete[] _buffers;
         _buffers = new BufferChunk *[1];
         *_buffers = firstChunk;

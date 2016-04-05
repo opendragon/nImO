@@ -57,25 +57,25 @@
 namespace nImO
 {
     /*! @brief A port number argument description.
-     
+
      The external representation of a port number argument description is:
-     
+
      portTagAndInfo ::= 'P' sep systemOrRegular;
-     
+
      systemOrRegular ::= 's' | 'r'; */
     class PortArgumentDescriptor : public IntArgumentDescriptor
     {
     public :
-    
+
     protected :
-    
+
     private :
-        
+
         /*! @brief The class that this class is derived from. */
         typedef IntArgumentDescriptor inherited;
-        
+
     public :
-        
+
         /*! @brief The constructor.
          @param argName The name of the command-line argument.
          @param argDescription A description of the command-line argument.
@@ -88,11 +88,11 @@ namespace nImO
                                const ArgumentMode  argMode,
                                const int           defaultValue,
                                const bool          isSystemPort);
-        
+
         /*! @brief The destructor. */
         virtual
         ~PortArgumentDescriptor(void);
-        
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
@@ -100,24 +100,24 @@ namespace nImO
         parseArgString(const std::string & inString);
 
     protected :
-    
+
     private :
-        
+
         DECLARE_CLONE_;
 
         DECLARE_TOSTRING_;
-        
+
         COPY_AND_ASSIGNMENT_(PortArgumentDescriptor);
-        
+
     public :
-    
+
     protected :
-    
+
     private :
-        
+
         /*! @brief @c true if the value can be a system port and @c false otherwise. */
         bool _isSystemPort;
-        
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
@@ -127,9 +127,9 @@ namespace nImO
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
-        
+
     }; // PortArgumentDescriptor
-    
+
 } // nImO
 
 #endif // ! defined(nImOportArgumentDescriptor_HPP_)

@@ -139,13 +139,13 @@ BaseArgumentDescriptor::partitionString(const std::string & inString,
             if (0 < workingCopy.length())
             {
                 size_t innerIndx = workingCopy.find(innerChar, 0);
-                
+
                 if (std::string::npos == innerIndx)
                 {
                     // Badly formatted - the matching delimiter is missing!
                     break;
                 }
-                
+
                 result.push_back(workingCopy.substr(0, innerIndx));
                 workingCopy = workingCopy.substr(innerIndx + 1);
                 if (0 < workingCopy.length())
@@ -160,14 +160,14 @@ BaseArgumentDescriptor::partitionString(const std::string & inString,
                         // Badly formatted - the delimiter is not followed by the separator!
                         break;
                     }
-                    
+
                 }
             }
             else
             {
                 break;
             }
-            
+
         }
         else
         {
@@ -186,7 +186,7 @@ BaseArgumentDescriptor::partitionString(const std::string & inString,
                     {
                         break;
                     }
-                    
+
                 }
                 result.push_back(workingCopy);
                 workingCopy = "";
@@ -211,7 +211,7 @@ const
     ODL_S1s("tagForField = ", tagForField); //####
     std::string       result(_argName);
     std::stringstream buff;
-    
+
     buff << static_cast<int>(_argMode);
     result += _parameterSeparator + tagForField + _parameterSeparator + buff.str();
     ODL_OBJEXIT_s(result); //####
@@ -227,7 +227,7 @@ BaseArgumentDescriptor::suffixFields(const std::string & defaultToUse)
                                     "abcdefghijklmnopqrtuvwxyz0123456789";
     char              charToUse = possibles[0];
     std::string       result(_parameterSeparator);
-    
+
     if (0 < defaultToUse.length())
     {
         // Determine an appropriate delimiter
@@ -258,11 +258,11 @@ nImO::ArgumentsToArgString(const DescriptorVector & arguments)
     ODL_P1("arguments = ", &arguments); //####
     std::string result;
     size_t      numOptional = 0;
-    
+
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg)
         {
             if (0 < ii)
@@ -293,15 +293,15 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
     int nameSize = -1;
-    
+
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg)
         {
             int len = static_cast<int>(anArg->argumentName().length());
-            
+
             if (nameSize < len)
             {
                 nameSize = len;
@@ -314,12 +314,12 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
             BaseArgumentDescriptor * anArg = arguments[ii];
-            
+
             if (anArg)
             {
                 std::string aLine(anArg->argumentName());
                 size_t      len = aLine.length();
-                
+
                 aLine += std::string(nameSize - len, ' ');
                 if (anArg->isOptional())
                 {
@@ -340,11 +340,11 @@ nImO::CombineArguments(const DescriptorVector & arguments,
     ODL_ENTER(); //####
     ODL_S1s("sep = ", sep); //####
     std::string result;
-    
+
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (0 < ii)
         {
             result += sep;
@@ -412,7 +412,7 @@ nImO::CopyArgumentsToBottle(const DescriptorVector & arguments,
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
             anArg->addValueToBottle(container);
@@ -430,12 +430,12 @@ nImO::ModeFromString(const std::string & modeString)
     ArgumentMode      result = kArgModeUnknown;
     std::stringstream buff(modeString.c_str());
     int               modeAsInt;
-    
+
     buff >> modeAsInt;
     if (! buff.fail())
     {
         int holder = modeAsInt;
-        
+
         // Check that only the known bits are set!
         holder &= ~kArgModeMask;
         if (! holder)
@@ -487,7 +487,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg)
         {
             ODL_LOG("(anArg)"); //####
@@ -517,7 +517,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
             BaseArgumentDescriptor * anArg = arguments[ii];
-            
+
             if (anArg && (! anArg->isExtra()))
             {
                 ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
@@ -540,7 +540,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     for (size_t ii = numToCheck; numArgs > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg && (! anArg->isExtra()))
         {
             ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
@@ -583,13 +583,13 @@ nImO::PromptForValues(const DescriptorVector & arguments)
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor * anArg = arguments[ii];
-        
+
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
             std::string currentValue(anArg->getProcessedValue().c_str());
             std::string defaultValue(anArg->getDefaultValue().c_str());
             std::string inputLine;
-            
+
             std::cout << anArg->argumentDescription().c_str();
             std::cout << " (default=" << defaultValue << ", current=" << currentValue << "): ";
             std::cout.flush();
@@ -611,12 +611,12 @@ nImO::PromptForValues(const DescriptorVector & arguments)
                 {
                     break;
                 }
-                
+
                 if (! std::cin)
                 {
                     break;
                 }
-                
+
             }
             if (getline(std::cin, inputLine))
             {

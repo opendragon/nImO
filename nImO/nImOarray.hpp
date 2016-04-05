@@ -60,16 +60,16 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The first class that this class is derived from. */
         typedef Container inherited1;
-        
+
         /*! @brief The second class that this class is derived from. */
         typedef std::vector<Value *> inherited2;
 
@@ -81,13 +81,24 @@ namespace nImO
 
         /*! @brief The destructor. */
         ~Array(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
+
+        /*! @fn bool
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Arrays. */
+        DECLARE_GREATERTHAN_;
+
         /*! @fn bool
                 lessThan(const Value & other,
                          bool &        validComparison)
@@ -98,22 +109,22 @@ namespace nImO
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Arrays. */
         DECLARE_LESSTHAN_;
-        
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // Array
 
 } // nImO

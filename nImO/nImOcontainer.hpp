@@ -59,22 +59,22 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The class that this class is derived from. */
         typedef Value inherited;
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The destructor. */
         ~Container(void);
-        
+
         /*! @fn virtual bool
                 isContainer(void)
                 const
@@ -84,25 +84,25 @@ namespace nImO
         {
             return true;
         } // isContainer
-        
+
     protected :
         // Protected methods.
-        
+
         /*! @brief The constructor. */
         Container(void);
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // Container
 
 } // nImO

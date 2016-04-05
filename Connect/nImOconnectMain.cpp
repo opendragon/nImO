@@ -105,7 +105,7 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The entry point for connecting two #nImO channels together.
- 
+
  @param argc The number of arguments in 'argv'.
  @param argv The arguments to be used with the application.
  @returns @c 0 on a successful test and @c 1 on failure. */
@@ -114,14 +114,14 @@ main(int      argc,
      char * * argv)
 {
     std::string progName(*argv);
-    
+
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::DescriptorVector argumentList;
     nImO::OutputFlavour    flavour;
-    
+
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour))
     {

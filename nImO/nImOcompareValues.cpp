@@ -99,11 +99,11 @@ nImO::CompareValues::operator() (const Value * const lhs,
     ODL_OBJENTER(); //####
     ODL_P2("lhs = ", lhs, "rhs = ", rhs); //####
     bool result;
-    
+
     if (lhs->enumerationType() == rhs->enumerationType())
     {
         bool ok = true;
-        
+
         result = lhs->lessThan(*rhs, ok);
         result &= ok;
     }

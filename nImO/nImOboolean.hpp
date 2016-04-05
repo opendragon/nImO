@@ -59,19 +59,19 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The class that this class is derived from. */
         typedef Atom inherited;
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         Boolean(void);
 
@@ -81,24 +81,13 @@ namespace nImO
 
         /*! @brief The destructor. */
         ~Boolean(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
-        /*! @fn int
-                lessThan(const Value & other,
-                          bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Booleans.
-         @param other The Boolean to be compared with.
-         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Booleans. */
-        DECLARE_LESSTHAN_;
-        
+
         /*! @fn Enumerable
                 enumerationType(void)
                 const
@@ -108,25 +97,47 @@ namespace nImO
         {
             return kEnumerableBoolean;
         } // enumerationType
-        
+
+        /*! @fn int
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Booleans.
+         @param other The Boolean to be compared with.
+         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Booleans. */
+        DECLARE_GREATERTHAN_;
+
+        /*! @fn int
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Booleans.
+         @param other The Boolean to be compared with.
+         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Booleans. */
+        DECLARE_LESSTHAN_;
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
         /*! @brief The associated value of the object. */
         bool _value;
-        
+
     }; // Boolean
 
 } // nImO

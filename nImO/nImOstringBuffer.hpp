@@ -62,23 +62,23 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-    
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         StringBuffer(void);
-        
+
         /*! @brief The destructor. */
         virtual
         ~StringBuffer(void);
-        
+
         /*! @brief Add a sequence of bytes to the buffer.
          @param inBytes The bytes to be added.
          @param numBytes The number of bytes to add.
@@ -86,31 +86,31 @@ namespace nImO
         StringBuffer &
         addBlob(const uint8_t * inBytes,
                 const size_t    numBytes);
-        
+
         /*! @brief Add a boolean value to the buffer.
          @param aBool The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addBool(const bool aBool);
-        
+
         /*! @brief Add a character to the buffer.
          @param aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addChar(const char aChar);
-        
+
         /*! @brief Add a character string representation of a floating-point value to the buffer.
          @param aDouble The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addDouble(const double aDouble);
-        
+
         /*! @brief Add a character string representation of an integer value to the buffer.
          @param aLong The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addLong(const int64_t aLong);
-        
+
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
          @param addQuotes @c true if the string is to be delimited by quote characters.
@@ -118,7 +118,7 @@ namespace nImO
         StringBuffer &
         addString(const char * aString,
                   const bool   addQuotes = false);
-        
+
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
          @param addQuotes @c true if the string is to be delimited by quote characters.
@@ -126,36 +126,36 @@ namespace nImO
         StringBuffer &
         addString(const std::string & aString,
                   const bool          addquotes = false);
-        
+
         /*! @brief Add a horizontal tab character to the buffer.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addTab(void);
-        
+
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
         size_t
         getLength(void)
         const;
-        
+
         /*! @brief Return a pointer to the characters in the buffer as well as the number of valid
          characters present.
          @param length Set to the number of valid characters in the buffer.
          @returns A pointer to the characters in the buffer. */
         const char *
         getString(size_t & length);
-        
+
         /*! @brief Prepare the buffer for reuse.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         reset(void);
-        
+
     protected :
         // Protected methods.
-    
+
     private :
         // Private methods.
-  
+
         /*! @brief Add some characters to the buffer.
          @par m data The bytes to be added.
          @param numBytes The number of bytes to add. */
@@ -164,23 +164,23 @@ namespace nImO
                     const size_t numBytes);
 
         COPY_AND_ASSIGNMENT_(StringBuffer);
-        
+
         /*! @brief Add quotes and escapes to a string.
          @param aString The string to be processed.
          @param length The length of the string. */
         void
         processCharacters(const char * aString,
                           const size_t length);
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-       
+
         /*! @brief The internal buffers used to hold the assembled text. */
         BufferChunk * * _buffers;
 
@@ -189,9 +189,9 @@ namespace nImO
 
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
-        
+
     }; // StringBuffer
-    
+
 } // nImO
 
 #endif // ! defined(nImOstringBuffer_HPP_)

@@ -104,7 +104,7 @@ const char nImO::kEndMapChar = '}';
 const char nImO::kEndSetChar = '|';
 
 const char nImO::kEscapeChar = '\\';
-    
+
 const char nImO::kKeyValueSeparator = '>';
 
 const char nImO::kStartArrayChar = '[';
@@ -139,7 +139,7 @@ localCatcher(int signal)
     {
         std::stringstream buff;
         std::string       message("Exiting due to signal ");
-        
+
         buff << signal;
         message += buff.str();
         message += " = ";
@@ -170,7 +170,7 @@ Common::DumpContactToLog(const char *              tag,
     {
         std::stringstream buff;
         std::string        message("tag = ");
-        
+
         buff << aContact.getPort();
         message += tag;
 # if USE_YARP_FATAL_NOT_FAIL_
@@ -241,7 +241,7 @@ nImO::GetRandomChannelName(const char * channelRoot)
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####
     std::string result;
-    
+
     try
     {
         bool              hasLeadingSlash = false;
@@ -252,7 +252,7 @@ nImO::GetRandomChannelName(const char * channelRoot)
         int randNumb = 17;
 #endif//0
         std::stringstream buff;
-        
+
         if (channelRoot)
         {
             stringToUse = channelRoot;
@@ -313,13 +313,13 @@ nImO::Initialize(const std::string & progName)
         double now = yarp::os::Time::now();
         double fraction = modf(now, &intPart);
         int    seed = static_cast<int>(ceil(fraction * kMaxRandom));
-        
+
 #if defined(MpM_ChattyStart)
 # if MAC_OR_LINUX_
         if (lLogger)
         {
             std::string message("Program ");
-            
+
             message += progName;
 #  if USE_YARP_FATAL_NOT_FAIL_
             lLogger->info("%s", message.c_str());
@@ -355,7 +355,7 @@ nImO::SetSignalHandlers(SignalHandler theHandler)
     sigset_t         blocking;
     struct sigaction act;
 #endif // MAC_OR_LINUX_
-    
+
 #if MAC_OR_LINUX_
     act.sa_handler = theHandler;
     sigemptyset(&act.sa_mask);
@@ -415,7 +415,7 @@ nImO::SetUpCatcher(void)
     sigset_t         unblocking;
     struct sigaction act;
 #endif // MAC_OR_LINUX_
-    
+
 #if MAC_OR_LINUX_
     sigemptyset(&unblocking);
     sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
@@ -453,7 +453,7 @@ nImO::ShutDownCatcher(void)
     sigset_t         blocking;
     struct sigaction act;
 #endif // MAC_OR_LINUX_
-    
+
 #if MAC_OR_LINUX_
     sigemptyset(&blocking);
     sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
@@ -487,7 +487,7 @@ nImO::CanReadFromStandardInput(void)
     HWND  wind = GetConsoleWindow();
 #endif // ! MAC_OR_LINUX_
     bool  result = false;
-    
+
 #if MAC_OR_LINUX_
     if (-1 == fg)
     {
@@ -528,7 +528,7 @@ nImO::GetRandomHexString(void)
     int               randNumb;
     std::string       result;
     std::stringstream buff;
-    
+
     if (! lRandomSeeded)
     {
 #if defined(__APPLE__)
@@ -573,27 +573,27 @@ nImO::ListIsReallyDictionary(const yarp::os::Bottle & aList,
     ODL_P2("aList = ", &aList, "aDictionary = ", &aDictionary); //####
     int  mm = aList.size();
     bool isDictionary = (0 < mm);
-    
+
     aDictionary.clear();
     for (int ii = 0; isDictionary && (mm > ii); ++ii)
     {
         yarp::os::Value anEntry(aList.get(ii));
-        
+
         if (anEntry.isList())
         {
             yarp::os::Bottle * entryAsList = anEntry.asList();
-            
+
             if (entryAsList)
             {
                 if (2 == entryAsList->size())
                 {
                     yarp::os::Value key(entryAsList->get(0));
                     yarp::os::Value data(entryAsList->get(1));
-                    
+
                     if (key.isString())
                     {
                         std::string keyAsString(key.toString());
-                        
+
                         if (aDictionary.check(keyAsString))
                         {
                             isDictionary = false;
@@ -628,34 +628,34 @@ const char *
 nImO::NameOfSignal(const int theSignal)
 {
     const char * result;
-    
+
 #if MAC_OR_LINUX_
     switch (theSignal)
     {
         case SIGHUP :
             result = "SIGHUP[hangup]";
             break;
-            
+
         case SIGINT :
             result = "SIGINT[interrupt]";
             break;
-            
+
         case SIGQUIT :
             result = "SIGQUIT[quit]";
             break;
-            
+
         case SIGILL :
             result = "SIGILL[illegal instruction]";
             break;
-            
+
         case SIGTRAP :
             result = "SIGTRAP[trace trap]";
             break;
-            
+
         case SIGABRT :
             result = "SIGABRT[abort()]";
             break;
-            
+
 # if (defined(_POSIX_C_SOURCE) && (! defined(_DARWIN_C_SOURCE)))
         case SIGPOLL :
             result = "SIGPOLL[pollable evebt]";
@@ -665,113 +665,113 @@ nImO::NameOfSignal(const int theSignal)
             result = "SIGEMT[EMT instruction]";
             break;
 # endif // (! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE)
-            
+
         case SIGFPE :
             result = "SIGFPE[floating point exception]";
             break;
-            
+
         case SIGKILL :
             result = "SIGKILL[kill]";
             break;
-            
+
         case SIGBUS :
             result = "SIGBUS[bus error]";
             break;
-            
+
         case SIGSEGV :
             result = "SIGSEGV[segmentation violation]";
             break;
-            
+
         case SIGSYS :
             result = "SIGSYS[bad argument to system call]";
             break;
-            
+
         case SIGPIPE :
             result = "SIGPIPE[write on a pipe with no one to read it]";
             break;
-            
+
         case SIGALRM :
             result = "SIGALRM[alarm clock]";
             break;
-            
+
         case SIGTERM :
             result = "SIGTERM[software termination signal from kill]";
             break;
-            
+
         case SIGURG :
             result = "SIGURG[urgent condition on IO channel]";
             break;
-            
+
         case SIGSTOP :
             result = "SIGSTOP[sendable stop signal not from tty]";
             break;
-            
+
         case SIGTSTP :
             result = "SIGTSTP[stop signal from tty]";
             break;
-            
+
         case SIGCONT :
             result = "SIGCONT[continue a stopped process]";
             break;
-            
+
         case SIGCHLD :
             result = "SIGCHLD[to parent on child stop or exit]";
             break;
-            
+
         case SIGTTIN :
             result = "SIGTTIN[to readers pgrp upon background tty read]";
             break;
-            
+
         case SIGTTOU :
             result = "SIGTTOU[like TTIN for output if (tp->t_local&LTOSTOP)]";
             break;
-            
+
 # if ((! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE))
         case SIGIO :
             result = "SIGIO[input/output possible signal]";
             break;
 # endif // (! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE)
-            
+
         case SIGXCPU :
             result = "SIGXCPU[exceeded CPU time limit]";
             break;
-            
+
         case SIGXFSZ :
             result = "SIGXFSZ[exceeded file size limit]";
             break;
-            
+
         case SIGVTALRM :
             result = "SIGVTALRM[virtual time alarm]";
             break;
-            
+
         case SIGPROF :
             result = "SIGPROF[profiling time alarm]";
             break;
-            
+
 # if ((! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE))
         case SIGWINCH :
             result = "SIGWINCH[window size changes]";
             break;
 # endif // (! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE)
-            
+
 # if ((! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE))
         case SIGINFO :
             result = "SIGINFO[information request]";
             break;
 # endif // (! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE)
-            
+
         case SIGUSR1 :
             result = "SIGUSR1[user defined signal 1]";
             break;
-            
+
         case SIGUSR2 :
             result = "SIGUSR2[user defined signal 2]";
             break;
-            
+
         default :
             result = "unknown";
             break;
-            
+
     }
 #else // ! MAC_OR_LINUX_
     switch (theSignal)
@@ -779,15 +779,15 @@ nImO::NameOfSignal(const int theSignal)
         case SIGINT :
             result = "SIGINT[interrupt]";
             break;
-            
+
         case SIGABRT :
             result = "SIGABRT[abort()]";
             break;
-            
+
         default :
             result = "unknown";
             break;
-            
+
     }
 #endif // ! MAC_OR_LINUX_
     return result;
@@ -804,20 +804,20 @@ nImO::OutputDescription(std::ostream &     outStream,
     size_t     pieceStart = 0;
     std::string blanks(indentSize, ' ');
     std::string indent(heading);
-    
+
     for (size_t ii = 0; ii < descriptionLength; ++ii)
     {
         if ('\n' == description[ii])
         {
             std::string piece(description.substr(pieceStart, ii - pieceStart));
-            
+
             outStream << indent << piece.c_str() << endl;
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
     std::string piece(description.substr(pieceStart, descriptionLength - pieceStart));
-    
+
     outStream << indent << piece.c_str() << endl;
 } // nImO::OutputDescription
 #endif//0
@@ -849,7 +849,7 @@ nImO::ProcessStandardUtilitiesOptions(const int           argc,
         kOptionTABS,
         kOptionVERSION
     }; // optionIndex
-    
+
     bool                  keepGoing = true;
     Option_::Descriptor   firstDescriptor(kOptionUNKNOWN, 0, "", "", Option_::Arg::None, NULL);
     Option_::Descriptor   helpDescriptor(kOptionHELP, 0, "h", "help", Option_::Arg::None,
@@ -871,14 +871,14 @@ nImO::ProcessStandardUtilitiesOptions(const int           argc,
     char * *              argvWork = argv;
     std::string           usageString("USAGE: ");
     std::string           argList(ArgumentsToArgString(argumentDescriptions));
-    
+
     flavour = kOutputFlavourNormal;
     usageString += *argv;
     usageString += " [options]";
     if (0 < argList.length())
     {
         StringVector descriptions;
-        
+
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
         usageString += " ";
         usageString += argList + "\n\n";
@@ -918,7 +918,7 @@ nImO::ProcessStandardUtilitiesOptions(const int           argc,
     Option_::Option * buffer = new Option_::Option[stats.buffer_max];
     Option_::Parser   parse(usage, argcWork, argvWork, options, buffer, 1);
     std::string       badArgs;
-    
+
     if (parse.error())
     {
         keepGoing = false;
@@ -931,7 +931,7 @@ nImO::ProcessStandardUtilitiesOptions(const int           argc,
     else if (options[kOptionVERSION])
     {
         std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
-        
+
         cout << "Version " << nImOversionString.c_str() << ": Copyright (c) " << year << " by " <<
         copyrightHolder << "." << endl;
         keepGoing = false;
@@ -979,39 +979,39 @@ nImO::SanitizeString(const std::string & inString,
     ODL_S1s("channelRoot = ", inString); //####
     ODL_B1("allowDoubleQuotes = ", allowDoubleQuotes); //####
     std::string outString;
-    
+
     try
     {
         for (size_t ii = 0, mm = inString.length(); mm > ii; )
         {
             char cc = inString[ii++];
-            
+
             switch (cc)
             {
                 case '\t' :
                     outString += kEscapeChar;
                     cc = 't';
                     break;
-                    
+
                 case '\n' :
                     outString += kEscapeChar;
                     cc = 'n';
                     break;
-                    
+
                 case '\\' :
                     outString += kEscapeChar;
                     break;
-                    
+
                 case '"' :
                     if (! allowDoubleQuotes)
                     {
                         outString += kEscapeChar;
                     }
                     break;
-                    
+
                 default :
                     break;
-                    
+
             }
             outString += cc;
         }

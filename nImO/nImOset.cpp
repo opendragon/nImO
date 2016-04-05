@@ -85,7 +85,7 @@ nImO::Set::Set(void) :
     for (const_iterator walker(begin()); end() != walker; ++walker)
     {
         Value * aValue = *walker;
-        
+
         delete aValue;
     }
     ODL_EXIT_P(this); //####
@@ -110,7 +110,7 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Set)
     for (const_iterator walker(begin()); end() != walker; ++walker)
     {
         Value * aValue = *walker;
-        
+
         aValue->addToStringBuffer(outBuffer);
         outBuffer.addChar(' ');
     }
@@ -118,12 +118,55 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Set)
     ODL_OBJEXIT(); //####
 } // nImO::Set::addToStringBuffer
 
+DEFINE_GREATERTHAN_(nImO::Set)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Set * otherPtr = dynamic_cast<const Set *>(&other);
+    bool        result;
+
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value > otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else if (other.isContainer())
+    {
+        result = validComparison = false;
+    }
+    else if (0 < size())
+    {
+        result = validComparison = true;
+        for (const_iterator walker(begin()); result && (end() != walker); ++walker)
+        {
+            bool    lV = true;
+            Value * aValue = *walker;
+
+            result = aValue->greaterThan(other, lV);
+            validComparison &= lV;
+        }
+    }
+    else
+    {
+        result = false;
+        validComparison = true;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Set::greaterThan
+
 nImO::Set::insertResult nImO::Set::insert(Value * val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", val); //####
     insertResult result;
-    
+
     if (kEnumerableUnknown == _keyKind)
     {
         _keyKind = val->enumerationType();
@@ -146,7 +189,7 @@ DEFINE_LESSTHAN_(nImO::Set)
     ODL_P1("other = ", &other); //####
     const Set * otherPtr = dynamic_cast<const Set *>(&other);
     bool        result;
-    
+
     if (otherPtr)
     {
 #if 0
@@ -158,10 +201,25 @@ DEFINE_LESSTHAN_(nImO::Set)
         validComparison = false;
 #endif//0
     }
+    else if (other.isContainer())
+    {
+        result = validComparison = false;
+    }
+    else if (0 < size())
+    {
+        result = validComparison = true;
+        for (const_iterator walker(begin()); result && (end() != walker); ++walker)
+        {
+            bool    lV = true;
+            Value * aValue = *walker;
+
+            result = aValue->lessThan(other, lV);
+            validComparison &= lV;
+        }
+    }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = true;
     }
     ODL_OBJEXIT_B(result); //####
     return result;

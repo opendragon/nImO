@@ -164,7 +164,7 @@ PortArgumentDescriptor::parseArgString(const std::string & inString)
                 okSoFar = false;
             }
         }
-        
+
         if (okSoFar && (0 < defaultString.length()))
         {
             const char * startPtr = defaultString.c_str();

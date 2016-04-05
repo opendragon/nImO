@@ -59,19 +59,19 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The class that this class is derived from. */
         typedef Atom inherited;
 
         public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         Number(void);
 
@@ -85,24 +85,13 @@ namespace nImO
 
         /*! @brief The destructor. */
         ~Number(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
-        /*! @fn int
-                lessThan(const Value & other,
-                          bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Numbers.
-         @param other The Number to be compared with.
-         @param validComparison @c true if the Numbers were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Numbers. */
-        DECLARE_LESSTHAN_;
-        
+
         /*! @fn Enumerable
                 enumerationType(void)
                 const
@@ -112,7 +101,18 @@ namespace nImO
         {
             return (_valueIsFloat ? kEnumerableNotEnumerable : kEnumerableInteger);
         } // enumerationType
-        
+
+        /*! @fn int
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Numbers.
+         @param other The Number to be compared with.
+         @param validComparison @c true if the Numbers were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Numbers. */
+        DECLARE_GREATERTHAN_;
+
         /*! @brief Returns @c true if the associated value is a floating-point number and @c false
          otherwise.
          @returns @c true if the associated value is a floating-point number and @c false
@@ -124,31 +124,42 @@ namespace nImO
             return _valueIsFloat;
         } // isFloat
 
+        /*! @fn int
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Numbers.
+         @param other The Number to be compared with.
+         @param validComparison @c true if the Numbers were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Numbers. */
+        DECLARE_LESSTHAN_;
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
         /*! @brief The associated value, if it is floating point. */
         int64_t _intValue;
-        
+
         /*! @brief The associated value, if it is an integer. */
         double _floatValue;
-        
+
         /*! @brief @c true if the associated value is a floating-point number and @c false
          otherwise. */
         bool _valueIsFloat;
-        
+
     }; // Number
 
 } // nImO

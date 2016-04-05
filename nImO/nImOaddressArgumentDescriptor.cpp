@@ -184,7 +184,7 @@ DEFINE_VALIDATE_(AddressArgumentDescriptor)
 {
     ODL_OBJENTER(); //####
     std::string testValue;
-    
+
     if (value == SELF_ADDRESS_NAME_)
     {
         testValue = SELF_ADDRESS_IPADDR_;
@@ -205,7 +205,7 @@ DEFINE_VALIDATE_(AddressArgumentDescriptor)
     else
     {
         struct in_addr addrBuff;
-        
+
 #if MAC_OR_LINUX_
         _valid = (0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
 #else // ! MAC_OR_LINUX_

@@ -120,13 +120,44 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Blob)
     ODL_OBJEXIT(); //####
 } // nImO::Blob::addToStringBuffer
 
+DEFINE_GREATERTHAN_(nImO::Blob)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Blob * otherPtr = dynamic_cast<const Blob *>(&other);
+    bool         result;
+
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value > otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Blob::greaterThan
+
 DEFINE_LESSTHAN_(nImO::Blob)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     const Blob * otherPtr = dynamic_cast<const Blob *>(&other);
     bool         result;
-    
+
     if (otherPtr)
     {
 #if 0
@@ -137,6 +168,10 @@ DEFINE_LESSTHAN_(nImO::Blob)
         result = false;
         validComparison = false;
 #endif//0
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThan(*this, validComparison);
     }
     else
     {

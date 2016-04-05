@@ -59,41 +59,41 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         CompareValues(void);
-        
+
         /*! @brief The destructor. */
         ~CompareValues(void);
-        
+
         bool
         operator() (const Value * const lhs,
                     const Value * const rhs);
-        
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // CompareValues
 
 } // nImO

@@ -57,23 +57,23 @@
 namespace nImO
 {
     /*! @brief A string-type argument description.
-     
+
      The external representation of a string-type argument description is:
-     
+
      stringTagAndInfo ::= 'S'; */
     class StringArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
-    
+
     protected :
-    
+
     private :
-        
+
         /*! @brief The class that this class is derived from. */
         typedef BaseArgumentDescriptor inherited;
-        
+
     public :
-        
+
         /*! @brief The constructor.
          @param argName The name of the command-line argument.
          @param argDescription A description of the command-line argument.
@@ -83,11 +83,11 @@ namespace nImO
                                  const std::string & argDescription,
                                  const ArgumentMode  argMode,
                                  const std::string & defaultValue);
-        
+
         /*! @brief The destructor. */
         virtual
         ~StringArgumentDescriptor(void);
-        
+
         /*! @brief Return the current value.
          @returns The current value. */
         inline const std::string &
@@ -96,7 +96,7 @@ namespace nImO
         {
             return _currentValue;
         } // getCurrentValue
-        
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
@@ -104,39 +104,39 @@ namespace nImO
         parseArgString(const std::string & inString);
 
     protected :
-    
+
         DECLARE_GETDEFAULTVALUE_;
-        
+
     private :
-        
+
 #if 0
         DECLARE_ADDVALUETOBOTTLE_;
 #endif//0
-        
+
         DECLARE_CLONE_;
 
         DECLARE_GETPROCESSEDVALUE_;
-        
+
         DECLARE_SETTODEFAULTVALUE_;
-        
+
         DECLARE_TOSTRING_;
-        
+
         DECLARE_VALIDATE_;
-        
+
         COPY_AND_ASSIGNMENT_(StringArgumentDescriptor);
-        
+
     public :
-    
+
     protected :
-    
+
         /*! @brief The current value of the command-line argument. */
         std::string _currentValue;
-        
+
         /*! @brief The default value for the command-line argument. */
         std::string _defaultValue;
 
     private :
-        
+
     }; // StringArgumentDescriptor
 
 } // nImO

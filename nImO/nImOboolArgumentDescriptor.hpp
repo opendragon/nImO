@@ -57,23 +57,23 @@
 namespace nImO
 {
     /*! @brief A boolean argument description.
-     
+
      The external representation of a boolean argument description is:
-     
+
      booleanTagAndInfo ::= 'B'; */
     class BoolArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
-    
+
     protected :
-    
+
     private :
-        
+
         /*! @brief The class that this class is derived from. */
         typedef BaseArgumentDescriptor inherited;
-        
+
     public :
-        
+
         /*! @brief The constructor.
          @param argName The name of the command-line argument.
          @param argDescription A description of the command-line argument.
@@ -83,11 +83,11 @@ namespace nImO
                                const std::string & argDescription,
                                const ArgumentMode  argMode,
                                const bool          defaultValue);
-        
+
         /*! @brief The destructor. */
         virtual
         ~BoolArgumentDescriptor(void);
-        
+
         /*! @brief Return the current value.
          @returns The current value. */
         inline bool
@@ -96,7 +96,7 @@ namespace nImO
         {
             return _currentValue;
         } // getCurrentValue
-        
+
         /*! @fn virtual bool
                 isBoolean(void) const
          @brief Return @c true if the argument is for Boolean arguments.
@@ -105,7 +105,7 @@ namespace nImO
         {
             return true;
         } // isBoolean
-        
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
@@ -113,42 +113,42 @@ namespace nImO
         parseArgString(const std::string & inString);
 
     protected :
-    
+
         DECLARE_GETDEFAULTVALUE_;
-        
+
     private :
-        
+
 #if 0
         DECLARE_ADDVALUETOBOTTLE_;
 #endif//0
-        
+
         DECLARE_CLONE_;
 
         DECLARE_GETPROCESSEDVALUE_;
-        
+
         DECLARE_SETTODEFAULTVALUE_;
-        
+
         DECLARE_TOSTRING_;
-        
+
         DECLARE_VALIDATE_;
-        
+
         COPY_AND_ASSIGNMENT_(BoolArgumentDescriptor);
-        
+
     public :
-    
+
     protected :
-    
+
         /*! @brief The address of the variable to be set with the argument value. */
         bool * _argumentReference;
-        
+
         /*! @brief The default value for the command-line argument. */
         bool _defaultValue;
 
     private :
-        
+
         /*! @brief The current value of the command-line argument. */
         bool _currentValue;
-        
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
@@ -158,9 +158,9 @@ namespace nImO
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
-        
+
     }; // BoolArgumentDescriptor
-    
+
 } // nImO
 
 #endif // ! defined(nImOboolArgumentDescriptor_HPP_)

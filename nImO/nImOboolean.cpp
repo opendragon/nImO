@@ -111,17 +111,46 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Boolean)
     ODL_OBJEXIT(); //####
 } // nImO::Boolean::addToStringBuffer
 
+DEFINE_GREATERTHAN_(nImO::Boolean)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Boolean * otherPtr = dynamic_cast<const Boolean *>(&other);
+    bool            result;
+
+    if (otherPtr)
+    {
+        result = (_value > otherPtr->_value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Boolean::greaterThan
+
 DEFINE_LESSTHAN_(nImO::Boolean)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     const Boolean * otherPtr = dynamic_cast<const Boolean *>(&other);
     bool            result;
-    
+
     if (otherPtr)
     {
         result = (_value < otherPtr->_value);
         validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThan(*this, validComparison);
     }
     else
     {

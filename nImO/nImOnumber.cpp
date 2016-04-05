@@ -126,13 +126,48 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Number)
     ODL_OBJEXIT(); //####
 } // nImO::Number::addToStringBuffer
 
+DEFINE_GREATERTHAN_(nImO::Number)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Number * otherPtr = dynamic_cast<const Number *>(&other);
+    bool           result;
+
+    if (otherPtr)
+    {
+        if (_valueIsFloat)
+        {
+            result = (_floatValue > ((otherPtr->_valueIsFloat) ? otherPtr->_floatValue :
+                                     otherPtr->_intValue));
+        }
+        else
+        {
+            result = (static_cast<double>(_intValue) > ((otherPtr->_valueIsFloat) ?
+                                                        otherPtr->_floatValue :
+                                                        otherPtr->_intValue));
+        }
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+    {
+        result = false;
+        validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Number::greaterThan
+
 DEFINE_LESSTHAN_(nImO::Number)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     const Number * otherPtr = dynamic_cast<const Number *>(&other);
     bool           result;
-    
+
     if (otherPtr)
     {
         if (_valueIsFloat)
@@ -147,6 +182,10 @@ DEFINE_LESSTHAN_(nImO::Number)
                                                         otherPtr->_intValue));
         }
         validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThan(*this, validComparison);
     }
     else
     {

@@ -79,7 +79,7 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The entry point for reporting the version numbers.
- 
+
  Standard output will receive a list of the version numbers.
  @param argc The number of arguments in 'argv'.
  @param argv The arguments to be used with the application.
@@ -89,14 +89,14 @@ main(int      argc,
      char * * argv)
 {
     std::string progName(*argv);
-    
+
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::DescriptorVector argumentList;
     nImO::OutputFlavour    flavour;
-    
+
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
                                               "Reports the version numbers", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour))
@@ -110,22 +110,22 @@ main(int      argc,
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << nImOversionString.c_str() << endl;
                 break;
-                
+
             case nImO::kOutputFlavourJSON :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                 cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
                            CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                         T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
-                
+
             case nImO::kOutputFlavourNormal :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << "nImO Version: " << nImOversionString.c_str() << endl;
                 break;
-                
+
             default :
                 break;
-                
+
         }
     }
     ODL_EXIT_L(0); //####

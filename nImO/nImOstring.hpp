@@ -59,50 +59,39 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The class that this class is derived from. */
         typedef Atom inherited;
 
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         String(void);
 
         /*! @brief The destructor. */
         ~String(void);
-        
+
         /*! @brief The constructor.
          @param initialValue The initial value for the object. */
         explicit String(const std::string & initialValue);
-        
+
         /*! @brief The constructor.
          @param initialValue The initial value for the object. */
         explicit String(const char * initialValue);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
-        /*! @fn int
-                lessThan(const Value & other,
-                          bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Strings.
-         @param other The String to be compared with.
-         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Strings. */
-        DECLARE_LESSTHAN_;
-        
+
         /*! @fn Enumerable
                 enumerationType(void)
                 const
@@ -112,25 +101,47 @@ namespace nImO
         {
             return kEnumerableString;
         } // enumerationType
-        
+
+        /*! @fn int
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Strings.
+         @param other The String to be compared with.
+         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Strings. */
+        DECLARE_GREATERTHAN_;
+
+        /*! @fn int
+                lessThan(const Value & other,
+                         bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Strings.
+         @param other The String to be compared with.
+         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Strings. */
+        DECLARE_LESSTHAN_;
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
         /*! @brief The associated value. */
         std::string _value;
-        
+
     }; // String
 
 } // nImO

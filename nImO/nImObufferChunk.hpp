@@ -59,19 +59,19 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-    
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         BufferChunk(void);
-        
+
         /*! @brief The destructor. */
         virtual
         ~BufferChunk(void);
@@ -94,7 +94,7 @@ namespace nImO
         {
             return static_cast<size_t>(_bufferEnd - _write);
         } // getAvailableBytes
-        
+
         /*! @brief Return the stored data.
          @returns A pointer to the stored data. */
         inline const uint8_t *
@@ -112,29 +112,29 @@ namespace nImO
         {
             return static_cast<size_t>(_write - _buffer);
         } // getDataSize
-        
+
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
         reset(void);
-        
+
     protected :
         // Protected methods.
-    
+
     private :
         // Private methods.
-        
+
         COPY_AND_ASSIGNMENT_(BufferChunk);
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
         /*! @brief The internal buffer used to hold the assembled data. */
         uint8_t * _buffer;
 
@@ -143,9 +143,9 @@ namespace nImO
 
         /*! @brief The next byte to write in the internal buffer. */
         uint8_t * _write;
-        
+
     }; // BufferChunk
-    
+
 } // nImO
 
 #endif // ! defined(nImObufferChunk_HPP_)

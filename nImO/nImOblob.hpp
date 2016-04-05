@@ -59,19 +59,19 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The class that this class is derived from. */
         typedef Value inherited;
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         Blob(void);
 
@@ -80,19 +80,30 @@ namespace nImO
          @param size The number of bytes in the data. */
         Blob(const uint8_t * data,
              const size_t    size);
-        
+
         /*! @brief The destructor. */
         ~Blob(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
+
+        /*! @fn bool
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Blobs.
+         @param other The Blob to be compared with.
+         @param validComparison @c true if the Blobs were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Blobs. */
+        DECLARE_GREATERTHAN_;
+
         /*! @fn bool
                 lessThan(const Value & other,
-                         bool &     c  validComparison)
+                         bool &        validComparison)
                 const
          @brief Return the relative ordering of two Blobs.
          @param other The Blob to be compared with.
@@ -100,28 +111,28 @@ namespace nImO
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Blobs. */
         DECLARE_LESSTHAN_;
-        
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
         /*! @brief The associated value. */
         uint8_t * _value;
-        
+
         /*! @brief The size of the associated value. */
         size_t _size;
-        
+
     }; // Blob
 
 } // nImO

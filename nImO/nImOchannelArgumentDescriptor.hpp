@@ -57,23 +57,23 @@
 namespace nImO
 {
     /*! @brief A channel-type argument description.
-     
+
      The external representation of a channel-type argument description is:
-     
+
      channelTagAndInfo ::= 'C'; */
     class ChannelArgumentDescriptor : public StringArgumentDescriptor
     {
     public :
-    
+
     protected :
-    
+
     private :
-        
+
         /*! @brief The class that this class is derived from. */
         typedef StringArgumentDescriptor inherited;
-        
+
     public :
-        
+
         /*! @brief The constructor.
          @param argName The name of the command-line argument.
          @param argDescription A description of the command-line argument.
@@ -83,11 +83,11 @@ namespace nImO
                                   const std::string & argDescription,
                                   const ArgumentMode  argMode,
                                   const std::string & defaultValue);
-        
+
         /*! @brief The destructor. */
         virtual
         ~ChannelArgumentDescriptor(void);
-        
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
@@ -95,25 +95,25 @@ namespace nImO
         parseArgString(const std::string & inString);
 
     protected :
-    
+
     private :
-        
+
         DECLARE_CLONE_;
 
         DECLARE_TOSTRING_;
-        
+
         DECLARE_VALIDATE_;
-        
+
         COPY_AND_ASSIGNMENT_(ChannelArgumentDescriptor);
-        
+
     public :
-    
+
     protected :
-    
+
     private :
-        
+
     }; // ChannelArgumentDescriptor
-    
+
 } // nImO
 
 #endif // ! defined(nImOchannelArgumentDescriptor_HPP_)

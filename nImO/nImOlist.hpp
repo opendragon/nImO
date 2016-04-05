@@ -60,34 +60,45 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The first class that this class is derived from. */
         typedef Container inherited1;
-        
+
         /*! @brief The second class that this class is derived from. */
         typedef std::list<Value *> inherited2;
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         List(void);
 
         /*! @brief The destructor. */
         ~List(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
+
+        /*! @fn bool
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Lists.
+         @param other The List to be compared with.
+         @param validComparison @c true if the Lists were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Lists. */
+        DECLARE_GREATERTHAN_;
+
         /*! @fn bool
                 lessThan(const Value & other,
                          bool &        validComparison)
@@ -101,19 +112,19 @@ namespace nImO
 
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // List
 
 } // nImO

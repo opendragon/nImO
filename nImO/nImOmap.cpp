@@ -91,7 +91,7 @@ nImO::Map::~Map(void)
     for (const_iterator walker(begin()); end() != walker; ++walker)
     {
         mapValue aValue = *walker;
-        
+
         delete aValue.first;
         delete aValue.second;
     }
@@ -111,7 +111,7 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
     for (const_iterator walker(begin()); end() != walker; ++walker)
     {
         mapValue aValue = *walker;
-        
+
         aValue.first->addToStringBuffer(outBuffer);
         outBuffer.addChar(' ');
         outBuffer.addChar(kKeyValueSeparator);
@@ -123,12 +123,55 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
     ODL_OBJEXIT(); //####
 } // nImO::Map::addToStringBuffer
 
+DEFINE_GREATERTHAN_(nImO::Map)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    const Map * otherPtr = dynamic_cast<const Map *>(&other);
+    bool        result;
+
+    if (otherPtr)
+    {
+#if 0
+        //TBD
+        result = (_value > otherPtr->_value);
+        validComparison = true;
+#else//0
+        result = false;
+        validComparison = false;
+#endif//0
+    }
+    else if (other.isContainer())
+    {
+        result = validComparison = false;
+    }
+    else if (0 < size())
+    {
+        result = validComparison = true;
+        for (const_iterator walker(begin()); result && (end() != walker); ++walker)
+        {
+            bool     lV = true;
+            mapValue aValue = *walker;
+
+            result = aValue.first->greaterThan(other, lV);
+            validComparison &= lV;
+        }
+    }
+    else
+    {
+        result = false;
+        validComparison = true;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Map::greaterThan
+
 nImO::Map::insertResult nImO::Map::insert(mapValue val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", val); //####
     insertResult result;
-    
+
     if (kEnumerableUnknown == _keyKind)
     {
         _keyKind = val.first->enumerationType();
@@ -151,7 +194,7 @@ DEFINE_LESSTHAN_(nImO::Map)
     ODL_P1("other = ", &other); //####
     const Map * otherPtr = dynamic_cast<const Map *>(&other);
     bool        result;
-    
+
     if (otherPtr)
     {
 #if 0
@@ -163,10 +206,25 @@ DEFINE_LESSTHAN_(nImO::Map)
         validComparison = false;
 #endif//0
     }
+    else if (other.isContainer())
+    {
+        result = validComparison = false;
+    }
+    else if (0 < size())
+    {
+        result = validComparison = true;
+        for (const_iterator walker(begin()); result && (end() != walker); ++walker)
+        {
+            bool     lV = true;
+            mapValue aValue = *walker;
+
+            result = aValue.first->lessThan(other, lV);
+            validComparison &= lV;
+        }
+    }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = true;
     }
     ODL_OBJEXIT_B(result); //####
     return result;

@@ -127,7 +127,7 @@ DEFINE_GETDEFAULTVALUE_(BoolArgumentDescriptor)
 {
     ODL_OBJENTER(); //####
     std::string result(_defaultValue ? "1" : "0");
-    
+
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BoolArgumentDescriptor::getDefaultValue
@@ -227,7 +227,7 @@ DEFINE_VALIDATE_(BoolArgumentDescriptor)
     ODL_OBJENTER(); //####
     bool boolValue;
     char firstChar = tolower(value[0]);
-    
+
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {
         boolValue = false;

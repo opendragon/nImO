@@ -59,13 +59,13 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
     public :
         // Public methods.
 
@@ -74,22 +74,22 @@ namespace nImO
 
         /*! @brief The destructor. */
         ~Connector(void);
-        
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // Connector
 
 } // nImO

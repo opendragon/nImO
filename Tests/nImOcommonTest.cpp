@@ -98,7 +98,7 @@ catchSignal(int signal)
     ODL_LL1("signal = ", signal); //####
     std::stringstream buff;
     std::string       message("Exiting due to signal ");
-    
+
     buff << signal;
     message += buff.str();
     message += " = ";
@@ -125,13 +125,13 @@ compareValueWithString(const nImO::Value & aValue,
     nImO::StringBuffer buff;
     int                result;
     size_t             length;
-    
+
     aValue.addToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
-    
+
     cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
     cerr << "result: " << result << endl;
-    
+
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString
@@ -162,11 +162,11 @@ doTestEmptyBufferChunk(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::BufferChunk * stuff = new nImO::BufferChunk;
-        
+
         if (stuff)
         {
             if (0 == stuff->getDataSize())
@@ -222,20 +222,20 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::BufferChunk * stuff = new nImO::BufferChunk;
-        
+
         if (stuff)
         {
             uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
-            
+
             stuff->appendData(&stuff, 1);
             if (1 == stuff->getDataSize())
             {
                 const uint8_t * storedData = stuff->getData();
-                
+
                 if (storedData && (data == *storedData))
                 {
                     result = 0;
@@ -294,15 +294,15 @@ doTestFilledBufferChunk(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::BufferChunk * stuff = new nImO::BufferChunk;
-        
+
         if (stuff)
         {
             size_t howMuch = stuff->getAvailableBytes();
-            
+
             if (1 < howMuch)
             {
                 uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
@@ -310,13 +310,13 @@ doTestFilledBufferChunk(const char * launchPath,
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
                     uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
-                    
+
                     stuff->appendData(&newData, 1);
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
                     const uint8_t * storedData = stuff->getData();
-                    
+
                     if (storedData)
                     {
                         result = 0;
@@ -324,7 +324,7 @@ doTestFilledBufferChunk(const char * launchPath,
                         {
                             uint8_t aValue = storedData[ii];
                             uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
-                            
+
                             if (aValue != expectedValue)
                             {
                                 result = 1;
@@ -391,29 +391,29 @@ doTestOverfilledBufferChunk(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::BufferChunk * stuff = new nImO::BufferChunk;
-        
+
         if (stuff)
         {
             size_t howMuch = stuff->getAvailableBytes();
-            
+
             if (1 < howMuch)
             {
                 uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
-                
+
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
                     uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
-                    
+
                     stuff->appendData(&newData, 1);
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
                     const uint8_t * storedData = stuff->getData();
-                    
+
                     if (storedData)
                     {
                         result = 0;
@@ -421,7 +421,7 @@ doTestOverfilledBufferChunk(const char * launchPath,
                         {
                             uint8_t aValue = storedData[ii];
                             uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
-                            
+
                             if (aValue != expectedValue)
                             {
                                 result = 1;
@@ -488,15 +488,15 @@ doTestBufferChunkReset(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::BufferChunk * stuff = new nImO::BufferChunk;
-        
+
         if (stuff)
         {
             uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
-            
+
             stuff->appendData(&stuff, 1);
             if (1 == stuff->getDataSize())
             {
@@ -559,18 +559,18 @@ doTestEmptyStringBuffer(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             if (0 == stuff->getLength())
             {
                 size_t       length = 0;
                 const char * outString = stuff->getString(length);
-               
+
                 if (outString)
                 {
                     if ((0 == length) && (0 == strlen(outString)))
@@ -585,7 +585,7 @@ doTestEmptyStringBuffer(const char * launchPath,
                 else
                 {
                     ODL_LOG("! outString"); //####
-                } 
+                }
             }
             else
             {
@@ -636,7 +636,7 @@ doTestStringBufferWithCharacters(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -645,7 +645,7 @@ doTestStringBufferWithCharacters(const char * launchPath,
             const char *         outString = argv[1];
             size_t               outLength = strlen(outString);
             nImO::StringBuffer * stuff = new nImO::StringBuffer;
-           
+
             if (stuff)
             {
                 stuff->addString(inString);
@@ -654,7 +654,7 @@ doTestStringBufferWithCharacters(const char * launchPath,
                 if (resultLength == outLength)
                 {
                     const char * resultString = stuff->getString(resultLength);
-                   
+
                     if (resultString && (0 == strcmp(resultString, outString)))
                     {
                         result = 0;
@@ -718,7 +718,7 @@ doTestStringBufferWithBoolean(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -799,7 +799,7 @@ doTestStringBufferWithInteger(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -878,7 +878,7 @@ doTestStringBufferWithString(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -887,7 +887,7 @@ doTestStringBufferWithString(const char * launchPath,
             const char *         outString = argv[1];
             size_t               outLength = strlen(outString);
             nImO::StringBuffer * stuff = new nImO::StringBuffer;
-            
+
             if (stuff)
             {
                 stuff->addString(inString, true);
@@ -896,7 +896,7 @@ doTestStringBufferWithString(const char * launchPath,
                 if (resultLength == outLength)
                 {
                     const char * resultString = stuff->getString(resultLength);
-                    
+
                     if (resultString && (0 == strcmp(resultString, outString)))
                     {
                         result = 0;
@@ -960,23 +960,23 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         const char *         inString = "abc\tdef\f\rghi\302";
         const char *         outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
         size_t               outLength = strlen(outString);
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             stuff->addString(inString, true);
             size_t resultLength = stuff->getLength();
-            
+
             if (resultLength == outLength)
             {
                 const char * resultString = stuff->getString(resultLength);
-                
+
                 if (resultString && (0 == strcmp(resultString, outString)))
                 {
                     result = 0;
@@ -1035,7 +1035,7 @@ doTestStringBufferWithFloatingPoint(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -1125,11 +1125,11 @@ doTestBigStringBuffer(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             const char * bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -1204,11 +1204,11 @@ doTestStringBufferWithEmptyBlob(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             stuff->addBlob(NULL, 0);
@@ -1269,11 +1269,11 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             uint8_t * smallBlob = new uint8_t[kSmallTestSize];
@@ -1361,11 +1361,11 @@ doTestStringBufferWithBigBlob(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             uint8_t * bigBlob = new uint8_t[kBigTestSize];
@@ -1453,11 +1453,11 @@ doTestStringBufferReset(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer * stuff = new nImO::StringBuffer;
-        
+
         if (stuff)
         {
             stuff->addString("abcdef");
@@ -1467,7 +1467,7 @@ doTestStringBufferReset(const char * launchPath,
             if (0 == resultLength)
             {
                 const char * resultString = stuff->getString(resultLength);
-                    
+
                 if (resultString && (0 == strlen(resultString)))
                 {
                     result = 0;
@@ -1526,11 +1526,11 @@ doTestDefaultBooleanValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Boolean * stuff = new nImO::Boolean;
-        
+
         if (stuff)
         {
             if (0 == compareValueWithString(*stuff, "false"))
@@ -1586,7 +1586,7 @@ doTestBooleanValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -1595,11 +1595,11 @@ doTestBooleanValue(const char * launchPath,
             const char * startPtr = *argv;
             char *       endPtr;
             int          value = strtol(startPtr, &endPtr, 10);
-            
+
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
                 nImO::Boolean * stuff = new nImO::Boolean(0 != value);
-                
+
                 if (stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
@@ -1665,11 +1665,11 @@ doTestDefaultNumberValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Number * stuff = new nImO::Number;
-        
+
         if (stuff)
         {
             if ((0 == compareValueWithString(*stuff, "0")) && (! stuff->isFloat()))
@@ -1726,7 +1726,7 @@ doTestNumberValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
@@ -1735,11 +1735,11 @@ doTestNumberValue(const char * launchPath,
             const char * startPtr = *argv;
             char *       endPtr;
             int64_t      intValue = strtol(startPtr, &endPtr, 10);
-            
+
             if ((startPtr != endPtr) && (! *endPtr))
             {
                 nImO::Number * stuff = new nImO::Number(intValue);
-                
+
                 if (stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
@@ -1760,11 +1760,11 @@ doTestNumberValue(const char * launchPath,
             else
             {
                 double floatValue = strtod(startPtr, &endPtr);
-                
+
                 if ((startPtr != endPtr) && (! *endPtr))
                 {
                     nImO::Number * stuff = new nImO::Number(floatValue);
-                    
+
                     if (stuff)
                     {
                         if (0 == compareValueWithString(*stuff, outString))
@@ -1831,11 +1831,11 @@ doTestDefaultStringValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::String * stuff = new nImO::String;
-        
+
         if (stuff)
         {
             if (0 == compareValueWithString(*stuff, "\"\""))
@@ -1891,13 +1891,13 @@ doTestStringValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         if (1 < argc)
         {
             nImO::String * stuff = new nImO::String(*argv);
-            
+
             if (stuff)
             {
                 if (0 == compareValueWithString(*stuff, argv[1]))
@@ -1958,13 +1958,13 @@ doTestStringValueWithEscapes(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         const char *   inString = "abc\tdef\f\rghi\302";
         const char *   outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
         nImO::String * stuff = new nImO::String(inString);
-        
+
         if (stuff)
         {
             if (! compareValueWithString(*stuff, outString))
@@ -2012,11 +2012,11 @@ doTestDefaultBlobValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Blob * stuff = new nImO::Blob;
-        
+
         if (stuff)
         {
             if (! compareValueWithString(*stuff, "%0%%"))
@@ -2064,26 +2064,26 @@ doTestSmallBlobValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         uint8_t * smallBlob = new uint8_t[kSmallTestSize];
-        
+
         if (smallBlob)
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
                 uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
-                
+
                 smallBlob[ii] = aByte;
             }
             nImO::Blob * stuff = new nImO::Blob(smallBlob, kSmallTestSize);
-            
+
             if (stuff)
             {
                 std::string       expectedString("%");
                 std::stringstream buff;
-                
+
                 buff << kSmallTestSize;
                 expectedString += buff.str() + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
@@ -2093,7 +2093,7 @@ doTestSmallBlobValue(const char * launchPath,
                     uint8_t     aByte = smallBlob[ii];
                     char        highByte = hexDigits[(aByte >> 4) & 0x0F];
                     char        lowByte = hexDigits[aByte & 0x0F];
-                    
+
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
@@ -2145,26 +2145,26 @@ doTestBigBlobValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         uint8_t * bigBlob = new uint8_t[kBigTestSize];
-        
+
         if (bigBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
                 uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-                
+
                 bigBlob[ii] = aByte;
             }
             nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-            
+
             if (stuff)
             {
                 std::string       expectedString("%");
                 std::stringstream buff;
-                
+
                 buff << kBigTestSize;
                 expectedString += buff.str() + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
@@ -2174,7 +2174,7 @@ doTestBigBlobValue(const char * launchPath,
                     uint8_t     aByte = bigBlob[ii];
                     char        highByte = hexDigits[(aByte >> 4) & 0x0F];
                     char        lowByte = hexDigits[aByte & 0x0F];
-                    
+
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
@@ -2226,18 +2226,18 @@ doTestEmptyArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, '\0'
             };
-            
+
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2291,11 +2291,11 @@ doTestSingularArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2304,7 +2304,7 @@ doTestSingularArrayValue(const char * launchPath,
                     '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Number(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -2359,11 +2359,11 @@ doTestSmallArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2375,7 +2375,7 @@ doTestSmallArrayValue(const char * launchPath,
                     '4', '2', ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Number(123.45));
             stuff->push_back(new nImO::Boolean(true));
             stuff->push_back(new nImO::String("charlie"));
@@ -2433,26 +2433,26 @@ doTestBigArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             uint8_t * bigBlob = new uint8_t[kBigTestSize];
-            
+
             if (bigBlob)
             {
                 std::string expectedString;
                 char        numBuff[10];
-                
+
                 expectedString += nImO::kStartArrayChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-                    
+
                     bigBlob[ii] = aByte;
                     stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
@@ -2513,18 +2513,18 @@ doTestEmptyListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
             {
                 nImO::kStartListChar, ' ', nImO::kEndListChar, '\0'
             };
-            
+
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2578,11 +2578,11 @@ doTestSingularListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2591,7 +2591,7 @@ doTestSingularListValue(const char * launchPath,
                     '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Number(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -2646,11 +2646,11 @@ doTestSmallListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2662,7 +2662,7 @@ doTestSmallListValue(const char * launchPath,
                     '4', '2', ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Number(123.45));
             stuff->push_back(new nImO::Boolean(true));
             stuff->push_back(new nImO::String("charlie"));
@@ -2720,26 +2720,26 @@ doTestBigListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             uint8_t * bigBlob = new uint8_t[kBigTestSize];
-            
+
             if (bigBlob)
             {
                 std::string expectedString;
                 char        numBuff[10];
-                
+
                 expectedString += nImO::kStartListChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-                    
+
                     bigBlob[ii] = aByte;
                     stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
@@ -2800,18 +2800,18 @@ doTestEmptyMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ', nImO::kEndMapChar, '\0'
             };
-            
+
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2865,11 +2865,11 @@ doTestSingularBooleanMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2880,7 +2880,7 @@ doTestSingularBooleanMapValue(const char * launchPath,
                 nImO::kEndMapChar, '\0'
             };
             nImO::Map::mapValue aValue(new nImO::Boolean(true), new nImO::Number(123.45));
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -2935,11 +2935,11 @@ doTestSingularIntegerMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -2950,7 +2950,7 @@ doTestSingularIntegerMapValue(const char * launchPath,
             };
             nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
                                        new nImO::Number(123.45));
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3005,7 +3005,7 @@ doTestSingularStringMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -3016,11 +3016,11 @@ doTestSingularStringMapValue(const char * launchPath,
         ODL_ENTER(); //####
         ODL_S1("launchPath = ", launchPath); //####
         int result = 1;
-        
+
         try
         {
             nImO::Map * stuff = new nImO::Map;
-            
+
             if (stuff)
             {
                 static const char expectedString[] =
@@ -3031,7 +3031,7 @@ doTestSingularStringMapValue(const char * launchPath,
                     nImO::kEndMapChar, '\0'
                 };
                 nImO::Map::mapValue aValue(new nImO::String("charlie"), new nImO::Number(123.45));
-                
+
                 stuff->insert(aValue);
                 if (0 == compareValueWithString(*stuff, expectedString))
                 {
@@ -3094,11 +3094,11 @@ doTestSmallBooleanMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3112,7 +3112,7 @@ doTestSmallBooleanMapValue(const char * launchPath,
             nImO::Map::mapValue aValue1(new nImO::Boolean(true), new nImO::Number(123.45));
             nImO::Map::mapValue aValue2(new nImO::Boolean(false),
                                         new nImO::Number(static_cast<int64_t>(42)));
-            
+
             stuff->insert(aValue1);
             stuff->insert(aValue2);
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -3168,11 +3168,11 @@ doTestSmallIntegerMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3189,7 +3189,7 @@ doTestSmallIntegerMapValue(const char * launchPath,
                                         new nImO::Number(12.345));
             nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(12)),
                                         new nImO::Number(1234.5));
-            
+
             stuff->insert(aValue1);
             stuff->insert(aValue2);
             stuff->insert(aValue3);
@@ -3246,11 +3246,11 @@ doTestSmallStringMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3267,7 +3267,7 @@ doTestSmallStringMapValue(const char * launchPath,
             nImO::Map::mapValue aValue1(new nImO::String("delta"), new nImO::Number(123.45));
             nImO::Map::mapValue aValue2(new nImO::String("lima"), new nImO::Number(12.345));
             nImO::Map::mapValue aValue3(new nImO::String("charlie"), new nImO::Number(1234.5));
-            
+
             stuff->insert(aValue1);
             stuff->insert(aValue2);
             stuff->insert(aValue3);
@@ -3324,18 +3324,18 @@ doTestEmptySetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ', nImO::kEndSetChar, '\0'
             };
-            
+
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3389,11 +3389,11 @@ doTestSingularBooleanSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3402,7 +3402,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
                     't', 'r', 'u', 'e', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Boolean(true));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3457,11 +3457,11 @@ doTestSingularIntegerSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3470,7 +3470,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
                     '4', '2', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3525,11 +3525,11 @@ doTestSingularStringSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3538,7 +3538,7 @@ doTestSingularStringSetValue(const char * launchPath,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::String("charlie"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3593,11 +3593,11 @@ doTestSmallBooleanSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3607,7 +3607,7 @@ doTestSmallBooleanSetValue(const char * launchPath,
                     't', 'r', 'u', 'e', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Boolean(true));
             stuff->insert(new nImO::Boolean(false));
             stuff->insert(new nImO::Boolean(true));
@@ -3665,11 +3665,11 @@ doTestSmallIntegerSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3681,7 +3681,7 @@ doTestSmallIntegerSetValue(const char * launchPath,
                     '1', '2', '3', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Number(static_cast<int64_t>(123)));
             stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
             stuff->insert(new nImO::Number(static_cast<int64_t>(17)));
@@ -3743,11 +3743,11 @@ doTestSmallStringSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3759,7 +3759,7 @@ doTestSmallStringSetValue(const char * launchPath,
                     '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::String("gamma"));
             stuff->insert(new nImO::String("alpha"));
             stuff->insert(new nImO::String("delta"));
@@ -3821,11 +3821,11 @@ doTestArrayWithArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3834,7 +3834,7 @@ doTestArrayWithArrayValue(const char * launchPath,
                     nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Array);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3889,11 +3889,11 @@ doTestArrayWithListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3902,7 +3902,7 @@ doTestArrayWithListValue(const char * launchPath,
                     nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::List);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -3957,11 +3957,11 @@ doTestArrayWithMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -3970,7 +3970,7 @@ doTestArrayWithMapValue(const char * launchPath,
                     nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Map);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4025,11 +4025,11 @@ doTestArrayWithSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Array * stuff = new nImO::Array;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4038,7 +4038,7 @@ doTestArrayWithSetValue(const char * launchPath,
                     nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
                 nImO::kEndArrayChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Set);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4093,11 +4093,11 @@ doTestListWithArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4106,7 +4106,7 @@ doTestListWithArrayValue(const char * launchPath,
                     nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Array);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4161,11 +4161,11 @@ doTestListWithListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4174,7 +4174,7 @@ doTestListWithListValue(const char * launchPath,
                     nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::List);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4229,11 +4229,11 @@ doTestListWithMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4242,7 +4242,7 @@ doTestListWithMapValue(const char * launchPath,
                     nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Map);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4297,11 +4297,11 @@ doTestListWithSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::List * stuff = new nImO::List;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4310,7 +4310,7 @@ doTestListWithSetValue(const char * launchPath,
                     nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
                 nImO::kEndListChar, '\0'
             };
-            
+
             stuff->push_back(new nImO::Set);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4365,11 +4365,11 @@ doTestMapWithArrayValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4381,7 +4381,7 @@ doTestMapWithArrayValue(const char * launchPath,
             };
             nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
                                        new nImO::Array());
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4436,11 +4436,11 @@ doTestMapWithListValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4452,7 +4452,7 @@ doTestMapWithListValue(const char * launchPath,
             };
             nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
                                        new nImO::List());
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4507,11 +4507,11 @@ doTestMapWithMapValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4522,7 +4522,7 @@ doTestMapWithMapValue(const char * launchPath,
                 nImO::kEndMapChar, '\0'
             };
             nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Map());
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4577,11 +4577,11 @@ doTestMapWithSetValue(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4592,7 +4592,7 @@ doTestMapWithSetValue(const char * launchPath,
                 nImO::kEndMapChar, '\0'
             };
             nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Set());
-            
+
             stuff->insert(aValue);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -4647,11 +4647,11 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4666,7 +4666,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
                                         new nImO::Number(12.345));
             nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
             nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
-            
+
             stuff->insert(aValue1);
             stuff->insert(aValue2);
             stuff->insert(aValue3);
@@ -4724,11 +4724,11 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Map * stuff = new nImO::Map;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4742,7 +4742,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
             nImO::Map::mapValue aValue2(new nImO::Boolean(true), new nImO::Number(123.45));
             nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
             nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
-            
+
             stuff->insert(aValue1);
             stuff->insert(aValue2);
             stuff->insert(aValue3);
@@ -4800,7 +4800,7 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -4811,11 +4811,11 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
         ODL_ENTER(); //####
         ODL_S1("launchPath = ", launchPath); //####
         int result = 1;
-        
+
         try
         {
             nImO::Map * stuff = new nImO::Map;
-            
+
             if (stuff)
             {
                 static const char expectedString[] =
@@ -4830,7 +4830,7 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
                 nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(42)),
                                             new nImO::Number(12.345));
                 nImO::Map::mapValue aValue4(new nImO::Number(19.77), new nImO::Number(1.2345));
-                
+
                 stuff->insert(aValue1);
                 stuff->insert(aValue2);
                 stuff->insert(aValue3);
@@ -4896,11 +4896,11 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4909,7 +4909,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
                     't', 'r', 'u', 'e', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Boolean(true));
             stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
             stuff->insert(new nImO::Number(19.77));
@@ -4967,11 +4967,11 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -4980,7 +4980,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
                     '4', '2', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
             stuff->insert(new nImO::Boolean(true));
             stuff->insert(new nImO::Number(19.77));
@@ -5038,11 +5038,11 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
-    
+
     try
     {
         nImO::Set * stuff = new nImO::Set;
-        
+
         if (stuff)
         {
             static const char expectedString[] =
@@ -5051,7 +5051,7 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                 nImO::kEndSetChar, '\0'
             };
-            
+
             stuff->insert(new nImO::String("charlie"));
             stuff->insert(new nImO::Boolean(true));
             stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
@@ -5088,7 +5088,7 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // defined(__APPLE__)
 
 /*! @brief The entry point for unit tests of the %nImO common classes.
- 
+
  The first argument is the test number, the second argument is the name of the channel to be used
  with the test, the optional third argument is the machine to connect to and the optional fourth
  argument is the port number to be used. Output depends on the test being run.
@@ -5111,7 +5111,7 @@ main(int      argc,
 #endif // MAC_OR_LINUX_
 #endif//0
     int result = 1;
-   
+
     try
     {
         nImO::Initialize(progName);
@@ -5120,7 +5120,7 @@ main(int      argc,
             const char * startPtr = argv[1];
             char *       endPtr;
             int          selector = strtol(startPtr, &endPtr, 10);
-            
+
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {
                 nImO::SetSignalHandlers(catchSignal);
@@ -5130,19 +5130,19 @@ main(int      argc,
                         // Just used to validate the random number seed.
                         result = 0;
                         break;
-                        
+
                     case 1 :
                         result = doTestEmptyBufferChunk(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 2 :
                         result = doTestBufferChunkWithSingleByte(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 3 :
                         result = doTestFilledBufferChunk(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 4 :
                         result = doTestOverfilledBufferChunk(*argv, argc - 1, argv + 2);
                         break;
@@ -5154,51 +5154,51 @@ main(int      argc,
                     case 10 :
                         result = doTestEmptyStringBuffer(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 11 :
                         result = doTestStringBufferWithCharacters(*argv, argc - 1, argv + 2);
                         break;
-                    
+
                     case 12 :
                         result = doTestStringBufferWithBoolean(*argv, argc - 1, argv + 2);
                         break;
-                    
+
                     case 13 :
                         result = doTestStringBufferWithInteger(*argv, argc - 1, argv + 2);
                         break;
-                    
+
                     case 14 :
                         result = doTestStringBufferWithString(*argv, argc - 1, argv + 2);
                         break;
-                    
+
                     case 15 :
                         result = doTestStringBufferWithSpecialCharacters(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 16 :
                         result = doTestStringBufferWithFloatingPoint(*argv, argc - 1, argv + 2);
                         break;
-                    
+
                     case 17 :
                         result = doTestBigStringBuffer(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 18 :
                         result = doTestStringBufferWithEmptyBlob(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 19 :
                         result = doTestStringBufferWithSmallBlob(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 20 :
                         result = doTestStringBufferWithBigBlob(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 21 :
                         result = doTestStringBufferReset(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 50 :
                         result = doTestDefaultBooleanValue(*argv, argc - 1, argv + 2);
                         break;
@@ -5230,15 +5230,15 @@ main(int      argc,
                     case 57 :
                         result = doTestDefaultBlobValue(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 58 :
                         result = doTestSmallBlobValue(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 59 :
                         result = doTestBigBlobValue(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 110 :
                         result = doTestEmptyArrayValue(*argv, argc - 1, argv + 2);
                         break;
@@ -5379,27 +5379,27 @@ main(int      argc,
                         result = doTestBooleanMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
-                        
+
                     case 201 :
                         result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
-                        
+
                     case 202 :
                         result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                           argv + 2);
                         break;
-                        
+
                     case 203 :
                         result = doTestBooleanSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
-                        
+
                     case 204 :
                         result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
-                        
+
                     case 205 :
                         result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
@@ -5407,7 +5407,7 @@ main(int      argc,
 
                     default :
                         break;
-                        
+
                 }
                 if (result)
                 {

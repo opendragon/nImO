@@ -59,6 +59,13 @@
     addToStringBuffer(StringBuffer & outBuffer)\
     const
 
+/*! @brief Declare the greaterThan method, which returns the relative ordering of two values. */
+# define DECLARE_GREATERTHAN_ \
+    virtual bool\
+    greaterThan(const Value & other,\
+                bool &        validComparison)\
+    const
+
 /*! @brief Declare the lessThan method, which returns the relative ordering of two values. */
 # define DECLARE_LESSTHAN_ \
     virtual bool\
@@ -86,11 +93,11 @@
     class_::addToStringBuffer(StringBuffer & outBuffer)\
     const
 
-/*! @brief Define the lessThan method, which returns the relative ordering of two Values. */
-# define DEFINE_LESSTHAN_(class_) \
+/*! @brief Define the greaterThan method, which returns the relative ordering of two Values. */
+# define DEFINE_GREATERTHAN_(class_) \
     bool\
-    class_::lessThan(const Value & other,\
-                     bool &        validComparison)\
+    class_::greaterThan(const Value & other,\
+                        bool &        validComparison)\
     const
 
 /*! @brief Declare the isContainer method, which returns @c true if the object is a container and
@@ -98,6 +105,13 @@
 # define DEFINE_ISCONTAINER_(class_) \
     bool\
     class_::isContainer(void)\
+    const
+
+/*! @brief Define the lessThan method, which returns the relative ordering of two Values. */
+# define DEFINE_LESSTHAN_(class_) \
+    bool\
+    class_::lessThan(const Value & other,\
+                     bool &        validComparison)\
     const
 
 namespace nImO
@@ -109,19 +123,19 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
     public :
         // Public methods.
-        
+
         /*! @brief The destructor. */
         ~Value(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
@@ -129,7 +143,42 @@ namespace nImO
         DECLARE_ADDTOSTRINGBUFFER_
         {
         } // addToStringBuffer
-        
+
+        /*! @fn Enumerable
+                enumerationType(void)
+                const
+         @brief Return the enumeraton type of an object.
+         @returns The enumeration type of an object. */
+        DECLARE_ENUMERATIONTYPE_
+        {
+            return kEnumerableNotEnumerable;
+        } // enumerationType
+
+        /*! @fn bool
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        DECLARE_GREATERTHAN_
+        {
+            validComparison = false;
+            return false;
+        } // greaterThan
+
+        /*! @fn virtual bool
+                isContainer(void)
+                const
+         @brief Return @c true if the object is a container.
+         @returns @c true if the object is a container and @c false otherwise. */
+        DECLARE_ISCONTAINER_
+        {
+            return false;
+        } // isContainer
+
         /*! @fn bool
                 lessThan(const Value & other,
                          bool &        validComparison)
@@ -143,46 +192,26 @@ namespace nImO
         {
             validComparison = false;
             return false;
-        } // lessThan        
-        
-        /*! @fn Enumerable
-                enumerationType(void)
-                const
-         @brief Return the enumeraton type of an object.
-         @returns The enumeration type of an object. */
-        DECLARE_ENUMERATIONTYPE_
-        {
-            return kEnumerableNotEnumerable;
-        } // enumerationType
-        
-        /*! @fn virtual bool
-                isContainer(void)
-                const
-         @brief Return @c true if the object is a container.
-         @returns @c true if the object is a container and @c false otherwise. */
-        DECLARE_ISCONTAINER_
-        {
-            return false;
-        } // isContainer
-        
+        } // lessThan
+
     protected :
         // Protected methods.
-        
+
         /*! @brief The constructor. */
         Value(void);
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-    
+
     private :
         // Private fields.
-        
+
     }; // Value
 
 } // nImO

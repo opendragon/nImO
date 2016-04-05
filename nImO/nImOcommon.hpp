@@ -165,7 +165,7 @@ namespace nImO
         kEnumerableString,
         kEnumerableNotEnumerable
     }; // Enumerable
-    
+
     /*! @brief The format for the output from command-line tools. */
     enum OutputFlavour
     {
@@ -186,7 +186,7 @@ namespace nImO
 
     // Forward reference.
     class BaseArgumentDescriptor;
-    
+
     /*! @brief A sequence of argument descriptors. */
     typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
 
@@ -204,30 +204,30 @@ namespace nImO
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName(const char * channelRoot = DEFAULT_CHANNEL_ROOT_);
-    
+
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName(const std::string & channelRoot);
-    
+
     /*! @brief Return a random string of hexadecimal digits.
      @returns A random string of hexadecimal digits. */
     std::string
     GetRandomHexString(void);
-    
+
     /*! @brief Perform initialization of internal resources.
      @param progName The name of the executing program.
-     
+
      Should be called in the main() function of each application or service. */
     void
     Initialize(const std::string & progName);
-    
+
     /*! @brief Return the name of a signal.
      @param theSignal The signal of interest.
      @returns A string description of the signal. */
     const char *
     NameOfSignal(const int theSignal);
-    
+
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
      returns @c false.
@@ -270,15 +270,15 @@ namespace nImO
      @param theHandler The new handler for the signals. */
     void
     SetSignalHandlers(SignalHandler theHandler);
-        
+
     /*! @brief Set up the signal-handling behaviour so that this thread will catch our signal. */
     void
     SetUpCatcher(void);
-    
+
     /*! @brief Restore the normal signal-handling behaviour. */
     void
     ShutDownCatcher(void);
-    
+
     /*! @brief Checks a network port number for validity.
      @param aPort The port number to be checked.
      @param systemAllowed @c true if system port numbers are valid and @c false otherwise.
@@ -290,7 +290,7 @@ namespace nImO
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
                 (MAXIMUM_PORT_ALLOWED_ >= aPort));
     } // ValidPortNumber
-    
+
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char kBlobSeparator;
 
@@ -311,7 +311,7 @@ namespace nImO
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
     extern const char kKeyValueSeparator;
-    
+
     /*! @brief The character that starts an array value. */
     extern const char kStartArrayChar;
 
@@ -326,7 +326,7 @@ namespace nImO
 
     /*! @brief The directory separator string; */
     extern const std::string kDirectorySeparator;
-    
+
 } // nImO
 
 #endif // ! defined(nImOcommon_HPP_)

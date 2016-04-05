@@ -61,37 +61,54 @@ namespace nImO
     {
     public :
         // Public type definitions.
-    
+
         /*! @brief The return result from the insert method. */
         typedef std::pair<std::set<Value *, CompareValues>::iterator, bool> insertResult;
-        
+
     protected :
         // Protected type definitions.
-    
+
     private :
         // Private type definitions.
-        
+
         /*! @brief The first class that this class is derived from. */
         typedef Container inherited1;
-        
+
         /*! @brief The second class that this class is derived from. */
         typedef std::set<Value *, CompareValues> inherited2;
 
     public :
         // Public methods.
-        
+
         /*! @brief The constructor. */
         Set(void);
 
         /*! @brief The destructor. */
         ~Set(void);
-        
+
         /*! @fn virtual void
                 addToStringBuffer(StringBuffer & outBuffer)
          @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
-        
+
+        /*! @fn bool
+                greaterThan(const Value & other,
+                            bool &        validComparison)
+                const
+         @brief Return the relative ordering of two Sets.
+         @param other The Set to be compared with.
+         @param validComparison @c true if the Sets were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Sets. */
+        DECLARE_GREATERTHAN_;
+
+        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
+         @param val Value to be inserted.
+         @returns A pair<iterator, bool> indicating the success or failure of the insert
+         operation. */
+        insertResult insert(Value * val);
+
         /*! @fn bool
                 lessThan(const Value & other,
                          bool &        validComparison)
@@ -102,31 +119,25 @@ namespace nImO
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Sets. */
         DECLARE_LESSTHAN_;
-        
-        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
-         @param val Value to be inserted.
-         @returns A pair<iterator, bool> indicating the success or failure of the insert
-         operation. */
-        insertResult insert(Value * val);
-        
+
     protected :
         // Protected methods.
-        
+
     private :
         // Private methods.
-        
+
     public :
         // Public fields.
-    
+
     protected :
         // Protected fields.
-        
+
     private :
         // Private fields.
-        
+
         /*! @brief The kind of key being used. */
         Enumerable _keyKind;
-        
+
     }; // Set
 
 } // nImO

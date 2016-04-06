@@ -10,8 +10,12 @@ odl/libodLogging.dylib
 Read/nImOread
 Read/nImOread.rc
 Testing
+Tests/nImOatomicTest
+Tests/nImOatomicTest.rc
 Tests/nImOcommonTest
 Tests/nImOcommonTest.rc
+Tests/nImOcontainerTest
+Tests/nImOcontainerTest.rc
 Version/nImOversion
 Version/nImOversion.rc
 Write/nImOwrite

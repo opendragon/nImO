@@ -102,6 +102,22 @@ namespace nImO
             return (_valueIsFloat ? kEnumerableNotEnumerable : kEnumerableInteger);
         } // enumerationType
 
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        double getDoubleValue(void)
+        const
+        {
+            return (_valueIsFloat ? _floatValue : _intValue);
+        } // getDoubleValue
+        
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        int64_t getIntegerValue(void)
+        const
+        {
+            return (_valueIsFloat ? static_cast<int64_t>(_floatValue) : _intValue);
+        } // getIntegerValue
+        
         /*! @fn int
                 greaterThan(const Value & other,
                             bool &        validComparison)

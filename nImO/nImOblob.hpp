@@ -81,6 +81,10 @@ namespace nImO
         Blob(const uint8_t * data,
              const size_t    size);
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        Blob(const Blob & other);
+        
         /*! @brief The destructor. */
         ~Blob(void);
 
@@ -90,6 +94,16 @@ namespace nImO
          @param outBuffer The buffer to be appended to. */
         DECLARE_ADDTOSTRINGBUFFER_;
 
+#if 0
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        bool getValue(void)
+        const
+        {
+            return _value;
+        } // getValue
+#endif//0
+        
         /*! @fn bool
                 greaterThan(const Value & other,
                             bool &        validComparison)
@@ -112,6 +126,12 @@ namespace nImO
          @returns The relative ordering of the two Blobs. */
         DECLARE_LESSTHAN_;
 
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        Blob &
+        operator =(const Blob & other);
+        
     protected :
         // Protected methods.
 

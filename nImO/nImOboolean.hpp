@@ -98,6 +98,14 @@ namespace nImO
             return kEnumerableBoolean;
         } // enumerationType
 
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        bool getValue(void)
+        const
+        {
+            return _value;
+        } // getValue
+        
         /*! @fn int
                 greaterThan(const Value & other,
                             bool &        validComparison)

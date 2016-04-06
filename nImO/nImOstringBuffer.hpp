@@ -132,6 +132,14 @@ namespace nImO
         StringBuffer &
         addTab(void);
 
+        /*! @brief Return the character found at a particular index.
+         @param index The zero-based location in the buffer.
+         @returns The character found at the provided index, or the null character if the index
+         is not within the buffer. */
+        char
+        getChar(const size_t index)
+        const;
+
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
         size_t

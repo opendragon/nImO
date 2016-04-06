@@ -94,12 +94,31 @@ nImO::Blob::Blob(const uint8_t * data,
     ODL_LL1("size = ", size); //####
     if (data && (0 < size))
     {
-        _value = new uint8_t[size];
         _size = size;
+        _value = new uint8_t[_size];
         memcpy(_value, data, _size);
     }
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
+
+nImO::Blob::Blob(const nImO::Blob & other) :
+    inherited(), _value(NULL), _size(0)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (0 < other._size)
+    {
+        _size = other._size;
+        _value = new uint8_t[_size];
+        memcpy(_value, other._value, _size);
+    }
+    else
+    {
+        _size = 0;
+        _value = NULL;
+    }
+    ODL_EXIT_P(this); //####
+} // nImO::Blob
 
 nImO::Blob::~Blob(void)
 {
@@ -181,6 +200,30 @@ DEFINE_LESSTHAN_(nImO::Blob)
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Blob::lessThan
+
+nImO::Blob &
+nImO::Blob::operator =(const nImO::Blob & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        delete[] _value;
+        if (0 < other._size)
+        {
+            _size = other._size;
+            _value = new uint8_t[_size];
+            memcpy(_value, other._value, _size);
+        }
+        else
+        {
+            _size = 0;
+            _value = NULL;
+        }
+    }
+    ODL_OBJEXIT_P(this);
+    return *this;
+} // operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

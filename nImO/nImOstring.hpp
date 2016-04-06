@@ -102,6 +102,14 @@ namespace nImO
             return kEnumerableString;
         } // enumerationType
 
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        const std::string & getValue(void)
+        const
+        {
+            return _value;
+        } // getValue
+        
         /*! @fn int
                 greaterThan(const Value & other,
                             bool &        validComparison)

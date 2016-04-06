@@ -344,6 +344,39 @@ nImO::StringBuffer::appendChars(const char * data,
     ODL_OBJEXIT(); //####
 } // nImO::StringBuffer::appendChars
 
+char
+nImO::StringBuffer::getChar(const size_t index)
+const
+{
+    ODL_OBJENTER(); //####
+    char result = '\0';
+
+    if (_buffers)
+    {
+        size_t soFar = 0;
+
+        for (size_t ii = 0; (_numChunks > ii) && (index >= soFar); ++ii)
+        {
+            BufferChunk * aChunk = _buffers[ii];
+
+            if (aChunk)
+            {
+                size_t thisSize = aChunk->getDataSize();
+
+                if (index < (soFar + thisSize))
+                {
+                    const uint8_t * thisData = aChunk->getData();
+
+                    result = *(thisData + index - soFar); 
+                }
+                soFar += thisSize;
+            }
+        }
+    }
+    ODL_OBJEXIT_C(result); //####
+    return result;
+} // nImO::StringBuffer::getChar
+
 size_t
 nImO::StringBuffer::getLength(void)
 const

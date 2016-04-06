@@ -74,8 +74,10 @@
 		F6B389121C77F476004B2D42 /* nImOwrite.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOwrite.rc.in; path = Write/nImOwrite.rc.in; sourceTree = SOURCE_ROOT; };
 		F6B389131C77F476004B2D42 /* nImOwriteMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOwriteMain.cpp; path = Write/nImOwriteMain.cpp; sourceTree = SOURCE_ROOT; };
 		F6B389141C77F476004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Write/resource.h; sourceTree = SOURCE_ROOT; };
-		F6EE0A9E1CA2C48F004748ED /* nImOcommonTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommonTest.cpp; path = Tests/nImOcommonTest.cpp; sourceTree = SOURCE_ROOT; };
-		F6EE0A9F1CA2C48F004748ED /* nImOcommonTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcommonTest.rc.in; path = Tests/nImOcommonTest.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B9F1B71CB4931A00ECC740 /* nImOatomicTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOatomicTest.cpp; path = Tests/nImOatomicTest.cpp; sourceTree = "<group>"; };
+		F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOatomicTest.rc.in; path = Tests/nImOatomicTest.rc.in; sourceTree = "<group>"; };
+		F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainerTest.cpp; path = Tests/nImOcontainerTest.cpp; sourceTree = "<group>"; };
+		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
 		F6EE0AC01CA2C7F4004748ED /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = nImO/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6EE0AC11CA2C7F4004748ED /* nImOarray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOarray.cpp; path = nImO/nImOarray.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AC21CA2C7F4004748ED /* nImOarray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOarray.hpp; path = nImO/nImOarray.hpp; sourceTree = SOURCE_ROOT; };
@@ -156,8 +158,10 @@
 			isa = PBXGroup;
 			children = (
 				F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */,
-				F6EE0A9E1CA2C48F004748ED /* nImOcommonTest.cpp */,
-				F6EE0A9F1CA2C48F004748ED /* nImOcommonTest.rc.in */,
+				F6B9F1B71CB4931A00ECC740 /* nImOatomicTest.cpp */,
+				F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */,
+				F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */,
+				F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */,
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;

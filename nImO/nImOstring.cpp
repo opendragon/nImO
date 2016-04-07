@@ -101,6 +101,14 @@ nImO::String::String(const char * initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
+nImO::String::String(const nImO::String & other) :
+    inherited(), _value(other._value)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::String::String
+
 nImO::String::~String(void)
 {
     ODL_OBJENTER(); //####
@@ -111,7 +119,9 @@ nImO::String::~String(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::String)
+void
+nImO::String::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -119,7 +129,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::String)
     ODL_OBJEXIT(); //####
 } // nImO::String::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::String)
+nImO::Value *
+nImO::String::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    String * result = new String(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::String::copy
+
+bool
+nImO::String::greaterThan(const Value & other,
+                          bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -144,7 +168,10 @@ DEFINE_GREATERTHAN_(nImO::String)
     return result;
 } // nImO::String::greaterThan
 
-DEFINE_LESSTHAN_(nImO::String)
+bool
+nImO::String::lessThan(const Value & other,
+                       bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -168,6 +195,39 @@ DEFINE_LESSTHAN_(nImO::String)
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::String::lessThan
+
+nImO::String &
+nImO::String::operator =(const nImO::String & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _value = other._value;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::String::operator=
+
+nImO::String &
+nImO::String::operator =(const std::string & value)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
+    _value = value;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::String::operator=
+
+nImO::String &
+nImO::String::operator =(const char * value)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1("value = ", value); //####
+    _value = value;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::String::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

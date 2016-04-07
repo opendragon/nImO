@@ -100,13 +100,32 @@ namespace nImO
 
     private :
 
-        DECLARE_CLONE_;
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        AddressArgumentDescriptor(const AddressArgumentDescriptor & other);
 
-        DECLARE_TOSTRING_;
+        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+         @returns A copy of the descriptor, with only non-pointer types duplicated. */
+        virtual BaseArgumentDescriptor *
+        clone(void);
 
-        DECLARE_VALIDATE_;
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        AddressArgumentDescriptor &
+        operator =(const AddressArgumentDescriptor & other);
+        
+        /*! @brief Convert to a printable representation.
+         @returns A printable representation of the descriptor. */
+        virtual std::string
+        toString(void);
 
-        COPY_AND_ASSIGNMENT_(AddressArgumentDescriptor);
+        /*! @brief Check an input value against the constraints of the descriptor.
+         @param value The value to be checked.
+         @returns @c true if the value is within the domain of the descriptor and @c false
+         otherwise. */
+        virtual bool
+        validate(const std::string & value);
 
     public :
 

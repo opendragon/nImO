@@ -111,7 +111,8 @@ DoubleArgumentDescriptor::~DoubleArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 #if 0
-DEFINE_ADDVALUETOBOTTLE_(DoubleArgumentDescriptor)
+void
+DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -121,7 +122,8 @@ DEFINE_ADDVALUETOBOTTLE_(DoubleArgumentDescriptor)
 } // DoubleArgumentDescriptor::addValueToBottle
 #endif//0
 
-DEFINE_CLONE_(DoubleArgumentDescriptor)
+BaseArgumentDescriptor *
+DoubleArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new DoubleArgumentDescriptor(argumentName(),
@@ -134,7 +136,8 @@ DEFINE_CLONE_(DoubleArgumentDescriptor)
     return result;
 } // DoubleArgumentDescriptor::clone
 
-DEFINE_GETDEFAULTVALUE_(DoubleArgumentDescriptor)
+std::string
+DoubleArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     std::string       result;
@@ -146,7 +149,8 @@ DEFINE_GETDEFAULTVALUE_(DoubleArgumentDescriptor)
     return result;
 } // DoubleArgumentDescriptor::getDefaultValue
 
-DEFINE_GETPROCESSEDVALUE_(DoubleArgumentDescriptor)
+std::string
+DoubleArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
     std::string       result;
@@ -241,7 +245,8 @@ DoubleArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // DoubleArgumentDescriptor::parseArgString
 
-DEFINE_SETTODEFAULTVALUE_(DoubleArgumentDescriptor)
+void
+DoubleArgumentDescriptor::setToDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -249,7 +254,8 @@ DEFINE_SETTODEFAULTVALUE_(DoubleArgumentDescriptor)
     ODL_OBJEXIT(); //####
 } // DoubleArgumentDescriptor::setToDefaultValue
 
-DEFINE_TOSTRING_(DoubleArgumentDescriptor)
+std::string
+DoubleArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("D"));
@@ -275,7 +281,8 @@ DEFINE_TOSTRING_(DoubleArgumentDescriptor)
     return result;
 } // DoubleArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(DoubleArgumentDescriptor)
+bool
+DoubleArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
     const char * startPtr = value.c_str();

@@ -85,15 +85,19 @@ nImO::List::List(void) :
     ODL_EXIT_P(this); //####
 } // nImO::List::List
 
+nImO::List::List(const nImO::List & other) :
+    inherited1(), inherited2()
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    ODL_EXIT_P(this); //####
+} // nImO::List::List
+
 nImO::List::~List(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-
-        delete aValue;
-    }
+    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::List::~List
 
@@ -101,7 +105,23 @@ nImO::List::~List(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::List)
+void
+nImO::List::addEntries(const nImO::List & other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    for (const_iterator walker(other.begin()); other.end() != walker; ++walker)
+    {
+        Value * aValue = (*walker)->clone();
+
+        push_back(aValue);
+    }
+    ODL_EXIT(); //####
+} // nImO::List::addEntries
+
+void
+nImO::List::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -118,7 +138,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::List)
     ODL_OBJEXIT(); //####
 } // nImO::List::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::List)
+nImO::Value *
+nImO::List::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    List * result = new List(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::List::copy
+
+bool
+nImO::List::greaterThan(const Value & other,
+                        bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -161,7 +195,10 @@ DEFINE_GREATERTHAN_(nImO::List)
     return result;
 } // nImO::List::greaterThan
 
-DEFINE_LESSTHAN_(nImO::List)
+bool
+nImO::List::lessThan(const Value & other,
+                     bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -202,6 +239,34 @@ DEFINE_LESSTHAN_(nImO::List)
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::List::lessThan
+
+nImO::List &
+nImO::List::operator =(const nImO::List & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        removeAllEntries();
+        addEntries(other);
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::List::operator=
+
+void
+nImO::List::removeAllEntries(void)
+{
+    ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+
+        delete aValue;
+    }
+    clear();
+    ODL_OBJEXIT(); //####
+} // nImO::List::removeAllEntries
 
 #if defined(__APPLE__)
 # pragma mark Global functions

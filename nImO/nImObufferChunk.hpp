@@ -124,7 +124,15 @@ namespace nImO
     private :
         // Private methods.
 
-        COPY_AND_ASSIGNMENT_(BufferChunk);
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        BufferChunk(const BufferChunk & other);
+
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        BufferChunk &
+        operator =(const BufferChunk & other);
 
     public :
         // Public fields.

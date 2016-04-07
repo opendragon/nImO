@@ -52,68 +52,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief Declare the addToStringBuffer method, which appends a printable version the object to a
- string buffer. */
-# define DECLARE_ADDTOSTRINGBUFFER_ \
-    virtual void\
-    addToStringBuffer(StringBuffer & outBuffer)\
-    const
-
-/*! @brief Declare the greaterThan method, which returns the relative ordering of two values. */
-# define DECLARE_GREATERTHAN_ \
-    virtual bool\
-    greaterThan(const Value & other,\
-                bool &        validComparison)\
-    const
-
-/*! @brief Declare the lessThan method, which returns the relative ordering of two values. */
-# define DECLARE_LESSTHAN_ \
-    virtual bool\
-    lessThan(const Value & other,\
-             bool &        validComparison)\
-    const
-
-/*! @brief Declare the enumerationType method, which returns the enumerability of an object. */
-# define DECLARE_ENUMERATIONTYPE_ \
-    virtual Enumerable\
-    enumerationType(void)\
-    const
-
-/*! @brief Declare the isContainer method, which returns @c true if the object is a container and
- @c false otherwise. */
-# define DECLARE_ISCONTAINER_ \
-    virtual bool\
-    isContainer(void)\
-    const
-
-/*! @brief Define the addToStringBuffer method, which appends a printable version the object to a
- string buffer. */
-# define DEFINE_ADDTOSTRINGBUFFER_(class_) \
-    void\
-    class_::addToStringBuffer(StringBuffer & outBuffer)\
-    const
-
-/*! @brief Define the greaterThan method, which returns the relative ordering of two Values. */
-# define DEFINE_GREATERTHAN_(class_) \
-    bool\
-    class_::greaterThan(const Value & other,\
-                        bool &        validComparison)\
-    const
-
-/*! @brief Declare the isContainer method, which returns @c true if the object is a container and
- @c false otherwise. */
-# define DEFINE_ISCONTAINER_(class_) \
-    bool\
-    class_::isContainer(void)\
-    const
-
-/*! @brief Define the lessThan method, which returns the relative ordering of two Values. */
-# define DEFINE_LESSTHAN_(class_) \
-    bool\
-    class_::lessThan(const Value & other,\
-                     bool &        validComparison)\
-    const
-
 namespace nImO
 {
     class StringBuffer;
@@ -136,59 +74,64 @@ namespace nImO
         /*! @brief The destructor. */
         ~Value(void);
 
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
+        /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_
+        virtual void
+        addToStringBuffer(StringBuffer & outBuffer)
+        const
         {
         } // addToStringBuffer
 
-        /*! @fn Enumerable
-                enumerationType(void)
-                const
-         @brief Return the enumeraton type of an object.
+        /*! @brief Return a copy of the object.
+         @returns Returns a copy of the object. */
+        virtual Value *
+        clone(void)
+        const
+        {
+            return NULL;
+        } // copy
+
+        /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        DECLARE_ENUMERATIONTYPE_
+        virtual Enumerable
+        enumerationType(void)
+        const
         {
             return kEnumerableNotEnumerable;
         } // enumerationType
 
-        /*! @fn bool
-                greaterThan(const Value & other,
-                            bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        DECLARE_GREATERTHAN_
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        greaterThan(const Value & other,
+                    bool &        validComparison)
+        const
         {
             validComparison = false;
             return false;
         } // greaterThan
 
-        /*! @fn virtual bool
-                isContainer(void)
-                const
-         @brief Return @c true if the object is a container.
+        /*! @brief Return @c true if the object is a container.
          @returns @c true if the object is a container and @c false otherwise. */
-        DECLARE_ISCONTAINER_
+        virtual bool
+        isContainer(void)
+        const
         {
             return false;
         } // isContainer
 
-        /*! @fn bool
-                lessThan(const Value & other,
-                         bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        DECLARE_LESSTHAN_
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        lessThan(const Value & other,
+                 bool &        validComparison)
+        const
         {
             validComparison = false;
             return false;

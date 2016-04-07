@@ -93,6 +93,14 @@ nImO::Boolean::Boolean(const bool initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::Boolean::Boolean
 
+nImO::Boolean::Boolean(const nImO::Boolean & other) :
+    inherited(), _value(other._value)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Boolean::Boolean
+
 nImO::Boolean::~Boolean(void)
 {
     ODL_OBJENTER(); //####
@@ -103,7 +111,9 @@ nImO::Boolean::~Boolean(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Boolean)
+void
+nImO::Boolean::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -111,7 +121,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Boolean)
     ODL_OBJEXIT(); //####
 } // nImO::Boolean::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::Boolean)
+nImO::Value *
+nImO::Boolean::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Boolean * result = new Boolean(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Boolean::copy
+
+bool
+nImO::Boolean::greaterThan(const Value & other,
+                           bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -136,7 +160,10 @@ DEFINE_GREATERTHAN_(nImO::Boolean)
     return result;
 } // nImO::Boolean::greaterThan
 
-DEFINE_LESSTHAN_(nImO::Boolean)
+bool
+nImO::Boolean::lessThan(const Value & other,
+                        bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -160,6 +187,29 @@ DEFINE_LESSTHAN_(nImO::Boolean)
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Boolean::lessThan
+
+nImO::Boolean &
+nImO::Boolean::operator =(const nImO::Boolean & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _value = other._value;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Boolean::operator=
+
+nImO::Boolean &
+nImO::Boolean::operator =(const bool value)
+{
+    ODL_OBJENTER(); //####
+    ODL_B1("value = ", value); //####
+    _value = value;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Boolean::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

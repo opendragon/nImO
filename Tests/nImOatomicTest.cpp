@@ -36,14 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImO/nImOarray.hpp>
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOlist.hpp>
-#include <nImO/nImOmap.hpp>
 #include <nImO/nImOnumber.hpp>
-#include <nImO/nImOset.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -2201,6 +2197,421 @@ doTestBigBlobValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 60 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanCopyAndAssign(const char * launchPath,
+                           const int    argc,
+                           char * *     argv) // boolean copy and assign
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doBooleanCopyAndAssign
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 61 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerCopyAndAssign(const char * launchPath,
+                           const int    argc,
+                           char * *     argv) // integer copy and assign
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerCopyAndAssign
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 62 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestFloatingPointCopyAndAssign(const char * launchPath,
+                                 const int    argc,
+                                 char * *     argv) // floating point copy and assign
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doFloatingPointCopyAndAssign
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 63 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringCopyAndAssign(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // string copy and assign
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doStringCopyAndAssign
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 64 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBlobCopyAndAssign(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // blob copy and assign
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+
+        if (bigBlob)
+        {
+            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            {
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+
+                bigBlob[ii] = aByte;
+            }
+            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+
+            if (stuff)
+            {
+                std::string       expectedString("%");
+                std::stringstream buff;
+
+                buff << kBigTestSize;
+                expectedString += buff.str() + "%";
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    uint8_t     aByte = bigBlob[ii];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
+
+                    expectedString += highByte;
+                    expectedString += lowByte;
+                }
+                expectedString += "%";
+                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                delete stuff;
+            }
+            delete[] bigBlob;
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doBlobCopyAndAssign
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -2354,6 +2765,26 @@ main(int      argc,
 
                     case 59 :
                         result = doTestBigBlobValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 60 :
+                        result = doTestBooleanCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 61 :
+                        result = doTestIntegerCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 62 :
+                        result = doTestFloatingPointCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 63 :
+                        result = doTestStringCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 64 :
+                        result = doTestBlobCopyAndAssign(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

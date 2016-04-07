@@ -112,18 +112,13 @@ nImO::Blob::Blob(const nImO::Blob & other) :
         _value = new uint8_t[_size];
         memcpy(_value, other._value, _size);
     }
-    else
-    {
-        _size = 0;
-        _value = NULL;
-    }
     ODL_EXIT_P(this); //####
-} // nImO::Blob
+} // nImO::Blob::Blob
 
 nImO::Blob::~Blob(void)
 {
     ODL_OBJENTER(); //####
-    delete[] _value;
+    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::Blob::~Blob
 
@@ -131,7 +126,9 @@ nImO::Blob::~Blob(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Blob)
+void
+nImO::Blob::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -139,7 +136,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Blob)
     ODL_OBJEXIT(); //####
 } // nImO::Blob::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::Blob)
+nImO::Value *
+nImO::Blob::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Blob * result = new Blob(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Blob::copy
+
+bool
+nImO::Blob::greaterThan(const Value & other,
+                        bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -170,7 +181,10 @@ DEFINE_GREATERTHAN_(nImO::Blob)
     return result;
 } // nImO::Blob::greaterThan
 
-DEFINE_LESSTHAN_(nImO::Blob)
+bool
+nImO::Blob::lessThan(const Value & other,
+                     bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -208,22 +222,27 @@ nImO::Blob::operator =(const nImO::Blob & other)
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        delete[] _value;
+        removeAllEntries();
         if (0 < other._size)
         {
             _size = other._size;
             _value = new uint8_t[_size];
             memcpy(_value, other._value, _size);
         }
-        else
-        {
-            _size = 0;
-            _value = NULL;
-        }
     }
     ODL_OBJEXIT_P(this);
     return *this;
-} // operator=
+} // nImO::Blob::operator=
+
+void
+nImO::Blob::removeAllEntries(void)
+{
+    ODL_OBJENTER(); //####
+    delete[] _value;
+    _size = 0;
+    _value = NULL;
+    ODL_OBJEXIT(); //####
+} // nImO::Blob::removeAllEntries
 
 #if defined(__APPLE__)
 # pragma mark Global functions

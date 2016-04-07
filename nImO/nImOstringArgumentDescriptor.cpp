@@ -103,7 +103,8 @@ StringArgumentDescriptor::~StringArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 #if 0
-DEFINE_ADDVALUETOBOTTLE_(StringArgumentDescriptor)
+void
+StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -112,7 +113,8 @@ DEFINE_ADDVALUETOBOTTLE_(StringArgumentDescriptor)
 } // StringArgumentDescriptor::addValueToBottle
 #endif//0
 
-DEFINE_CLONE_(StringArgumentDescriptor)
+BaseArgumentDescriptor *
+StringArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new StringArgumentDescriptor(argumentName(),
@@ -123,7 +125,8 @@ DEFINE_CLONE_(StringArgumentDescriptor)
     return result;
 } // StringArgumentDescriptor::clone
 
-DEFINE_GETDEFAULTVALUE_(StringArgumentDescriptor)
+std::string
+StringArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     std::string result(_defaultValue);
@@ -132,7 +135,8 @@ DEFINE_GETDEFAULTVALUE_(StringArgumentDescriptor)
     return result;
 } // StringArgumentDescriptor::getDefaultValue
 
-DEFINE_GETPROCESSEDVALUE_(StringArgumentDescriptor)
+std::string
+StringArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(_currentValue); //####
@@ -179,7 +183,8 @@ StringArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // StringArgumentDescriptor::parseArgString
 
-DEFINE_SETTODEFAULTVALUE_(StringArgumentDescriptor)
+void
+StringArgumentDescriptor::setToDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -187,7 +192,8 @@ DEFINE_SETTODEFAULTVALUE_(StringArgumentDescriptor)
     ODL_OBJEXIT(); //####
 } // StringArgumentDescriptor::setToDefaultValue
 
-DEFINE_TOSTRING_(StringArgumentDescriptor)
+std::string
+StringArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("S"));
@@ -197,7 +203,8 @@ DEFINE_TOSTRING_(StringArgumentDescriptor)
     return result;
 } // StringArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(StringArgumentDescriptor)
+bool
+StringArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
     _valid = true;

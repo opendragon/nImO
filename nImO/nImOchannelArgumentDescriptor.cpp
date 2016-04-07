@@ -104,7 +104,8 @@ ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_CLONE_(ChannelArgumentDescriptor)
+BaseArgumentDescriptor *
+ChannelArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new ChannelArgumentDescriptor(argumentName(),
@@ -162,7 +163,8 @@ ChannelArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // ChannelArgumentDescriptor::parseArgString
 
-DEFINE_TOSTRING_(ChannelArgumentDescriptor)
+std::string
+ChannelArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("C"));
@@ -172,7 +174,8 @@ DEFINE_TOSTRING_(ChannelArgumentDescriptor)
     return result;
 } // ChannelArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(ChannelArgumentDescriptor)
+bool
+ChannelArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
 #if 0

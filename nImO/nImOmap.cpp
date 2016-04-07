@@ -85,16 +85,19 @@ nImO::Map::Map(void) :
     ODL_EXIT_P(this); //####
 } // nImO::Map::
 
+nImO::Map::Map(const nImO::Map & other) :
+    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    ODL_EXIT_P(this); //####
+} // nImO::Map::Map
+
 nImO::Map::~Map(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        mapValue aValue = *walker;
-
-        delete aValue.first;
-        delete aValue.second;
-    }
+    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::Map::~Map
 
@@ -102,7 +105,25 @@ nImO::Map::~Map(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
+void
+nImO::Map::addEntries(const nImO::Map & other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        mapValue aValue = *walker;
+        Value *  key = aValue.first->clone();
+        Value *  mappedValue = aValue.second->clone();
+
+        insert(mapValue(key, mappedValue));
+    }
+    ODL_EXIT(); //####
+} // nImO::Map::addEntries
+
+void
+nImO::Map::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -123,7 +144,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Map)
     ODL_OBJEXIT(); //####
 } // nImO::Map::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::Map)
+nImO::Value *
+nImO::Map::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Map * result = new Map(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Map::copy
+
+bool
+nImO::Map::greaterThan(const Value & other,
+                       bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -179,6 +214,11 @@ nImO::Map::insertResult nImO::Map::insert(mapValue val)
     if (val.first->enumerationType() == _keyKind)
     {
         result = inherited2::insert(val);
+        if (! result.second)
+        {
+            delete val.first;
+            delete val.second;
+        }
     }
     else
     {
@@ -188,7 +228,10 @@ nImO::Map::insertResult nImO::Map::insert(mapValue val)
     return result;
 } // nImO::Map::insert
 
-DEFINE_LESSTHAN_(nImO::Map)
+bool
+nImO::Map::lessThan(const Value & other,
+                    bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -229,6 +272,36 @@ DEFINE_LESSTHAN_(nImO::Map)
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Map::lessThan
+
+nImO::Map &
+nImO::Map::operator =(const nImO::Map & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        removeAllEntries();
+        addEntries(other);
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Map::operator=
+
+void
+nImO::Map::removeAllEntries(void)
+{
+    ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        mapValue aValue = *walker;
+
+        delete aValue.first;
+        delete aValue.second;
+    }
+    clear();
+    _keyKind = kEnumerableUnknown;
+    ODL_OBJEXIT(); //####
+} // nImO::Map::removeAllEntries
 
 #if defined(__APPLE__)
 # pragma mark Global functions

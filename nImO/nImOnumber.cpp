@@ -101,6 +101,15 @@ nImO::Number::Number(const double initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number
 
+nImO::Number::Number(const nImO::Number & other) :
+    inherited(), _intValue(other._intValue), _floatValue(other._floatValue),
+    _valueIsFloat(other._valueIsFloat)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Number::Number
+
 nImO::Number::~Number(void)
 {
     ODL_OBJENTER(); //####
@@ -111,7 +120,9 @@ nImO::Number::~Number(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Number)
+void
+nImO::Number::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -126,7 +137,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Number)
     ODL_OBJEXIT(); //####
 } // nImO::Number::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::Number)
+nImO::Value *
+nImO::Number::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Number * result = new Number(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Number::copy
+
+bool
+nImO::Number::greaterThan(const Value & other,
+                          bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -161,7 +186,10 @@ DEFINE_GREATERTHAN_(nImO::Number)
     return result;
 } // nImO::Number::greaterThan
 
-DEFINE_LESSTHAN_(nImO::Number)
+bool
+nImO::Number::lessThan(const Value & other,
+                       bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -196,6 +224,45 @@ DEFINE_LESSTHAN_(nImO::Number)
     return result;
 } // nImO::Number::lessThan
 
+nImO::Number &
+nImO::Number::operator =(const nImO::Number & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _valueIsFloat = other._valueIsFloat;
+        _intValue = other._intValue;
+        _floatValue = other._floatValue;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Number::operator=
+
+nImO::Number &
+nImO::Number::operator =(const double value)
+{
+    ODL_OBJENTER(); //####
+    ODL_D1("value = ", value); //####
+    _valueIsFloat = true;
+    _floatValue = value;
+    _intValue = 0;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Number::operator=
+
+nImO::Number &
+nImO::Number::operator =(const int64_t value)
+{
+    ODL_OBJENTER(); //####
+    ODL_LL1("value = ", value); //####
+    _valueIsFloat = false;
+    _floatValue = 0;
+    _intValue = value;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Number::operator=
+        
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

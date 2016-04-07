@@ -103,7 +103,8 @@ BoolArgumentDescriptor::~BoolArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 #if 0
-DEFINE_ADDVALUETOBOTTLE_(BoolArgumentDescriptor)
+void
+BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -112,7 +113,8 @@ DEFINE_ADDVALUETOBOTTLE_(BoolArgumentDescriptor)
 } // BoolArgumentDescriptor::addValueToBottle
 #endif//0
 
-DEFINE_CLONE_(BoolArgumentDescriptor)
+BaseArgumentDescriptor *
+BoolArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new BoolArgumentDescriptor(argumentName(),
@@ -123,7 +125,8 @@ DEFINE_CLONE_(BoolArgumentDescriptor)
     return result;
 } // BoolArgumentDescriptor::clone
 
-DEFINE_GETDEFAULTVALUE_(BoolArgumentDescriptor)
+std::string
+BoolArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     std::string result(_defaultValue ? "1" : "0");
@@ -132,7 +135,8 @@ DEFINE_GETDEFAULTVALUE_(BoolArgumentDescriptor)
     return result;
 } // BoolArgumentDescriptor::getDefaultValue
 
-DEFINE_GETPROCESSEDVALUE_(BoolArgumentDescriptor)
+std::string
+BoolArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
     std::string result(_currentValue ? "1" : "0");
@@ -204,7 +208,8 @@ BoolArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // BoolArgumentDescriptor::parseArgString
 
-DEFINE_SETTODEFAULTVALUE_(BoolArgumentDescriptor)
+void
+BoolArgumentDescriptor::setToDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -212,7 +217,8 @@ DEFINE_SETTODEFAULTVALUE_(BoolArgumentDescriptor)
     ODL_OBJEXIT(); //####
 } // BoolArgumentDescriptor::setToDefaultValue
 
-DEFINE_TOSTRING_(BoolArgumentDescriptor)
+std::string
+BoolArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("B"));
@@ -222,7 +228,8 @@ DEFINE_TOSTRING_(BoolArgumentDescriptor)
     return result;
 } // BoolArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(BoolArgumentDescriptor)
+bool
+BoolArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
     bool boolValue;

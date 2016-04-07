@@ -113,23 +113,53 @@ namespace nImO
 
     private :
 
-        DECLARE_CLONE_;
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        FilePathArgumentDescriptor(const FilePathArgumentDescriptor & other);
+        
+        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+         @returns A copy of the descriptor, with only non-pointer types duplicated. */
+        virtual BaseArgumentDescriptor *
+        clone(void);
 
-        DECLARE_GETDEFAULTVALUE_;
+        /*! @brief Return the default value.
+         @returns The default value. */
+        virtual std::string
+        getDefaultValue(void);
 
-        DECLARE_ISFORFILES_
+        /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
+         @param isForOutput Set to @c true if the argument is for output files and @c false
+         otherwise.
+         @returns @c true if the argument is for file paths and @c false otherwise. */
+        virtual bool
+        isForFiles(bool & isForOutput)
+        const
         {
             isForOutput = _forOutput;
             return true;
         } // isForFiles
 
-        DECLARE_SETTODEFAULTVALUE_;
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        FilePathArgumentDescriptor &
+        operator =(const FilePathArgumentDescriptor & other);
 
-        DECLARE_TOSTRING_;
+        /*! @brief Set the associated variable to the default value. */
+        virtual void
+        setToDefaultValue(void);
 
-        DECLARE_VALIDATE_;
+        /*! @brief Convert to a printable representation.
+         @returns A printable representation of the descriptor. */
+        virtual std::string
+        toString(void);
 
-        COPY_AND_ASSIGNMENT_(FilePathArgumentDescriptor);
+        /*! @brief Check an input value against the constraints of the descriptor.
+         @param value The value to be checked.
+         @returns @c true if the value is within the domain of the descriptor and @c false
+         otherwise. */
+        virtual bool
+        validate(const std::string & value);
 
     public :
 

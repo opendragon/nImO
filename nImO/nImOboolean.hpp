@@ -79,21 +79,30 @@ namespace nImO
           @param initialValue The initial value for the object. */
         explicit Boolean(const bool initialValue);
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        Boolean(const Boolean & other);
+        
         /*! @brief The destructor. */
         ~Boolean(void);
 
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
+        /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_;
+        virtual void
+        addToStringBuffer(StringBuffer & outBuffer)
+        const;
 
-        /*! @fn Enumerable
-                enumerationType(void)
-                const
-         @brief Return the enumeraton type of an object.
+        /*! @brief Return a copy of the object.
+         @returns Returns a copy of the object. */
+        virtual Value *
+        clone(void)
+        const;
+
+        /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        DECLARE_ENUMERATIONTYPE_
+        virtual Enumerable
+        enumerationType(void)
+        const
         {
             return kEnumerableBoolean;
         } // enumerationType
@@ -106,28 +115,38 @@ namespace nImO
             return _value;
         } // getValue
         
-        /*! @fn int
-                greaterThan(const Value & other,
-                            bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Booleans.
-         @param other The Boolean to be compared with.
-         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Booleans. */
-        DECLARE_GREATERTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        greaterThan(const Value & other,
+                    bool &        validComparison)
+        const;
 
-        /*! @fn int
-                lessThan(const Value & other,
-                         bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Booleans.
-         @param other The Boolean to be compared with.
-         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Booleans. */
-        DECLARE_LESSTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        lessThan(const Value & other,
+                 bool &        validComparison)
+        const;
 
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        Boolean &
+        operator =(const Boolean & other);
+        
+        /*! @brief The assignment operator.
+         @param value The value to be assigned.
+         @returns The updated object. */
+        Boolean &
+        operator =(const bool value);
+        
     protected :
         // Protected methods.
 

@@ -106,12 +106,6 @@
 /*! @brief A DOUBLEQUOTE character. */
 # define CHAR_DOUBLEQUOTE_          "\""
 
-/*! @brief The standard copy constructor and assignment operator declarations. */
-# define COPY_AND_ASSIGNMENT_(xx_) \
-    xx_(const xx_ & other_);\
-    xx_ &\
-    operator =(const xx_ & other_)
-
 /*! @brief The default name for the root part of a channel name. */
 # define DEFAULT_CHANNEL_ROOT_      "channel_"
 

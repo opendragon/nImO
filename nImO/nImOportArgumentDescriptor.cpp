@@ -107,7 +107,8 @@ PortArgumentDescriptor::~PortArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_CLONE_(PortArgumentDescriptor)
+BaseArgumentDescriptor *
+PortArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new PortArgumentDescriptor(argumentName(),
@@ -186,7 +187,8 @@ PortArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // PortArgumentDescriptor::parseArgString
 
-DEFINE_TOSTRING_(PortArgumentDescriptor)
+std::string
+PortArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("P"));

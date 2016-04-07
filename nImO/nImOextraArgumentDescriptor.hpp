@@ -99,28 +99,64 @@ namespace nImO
 
     private :
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        ExtraArgumentDescriptor(const ExtraArgumentDescriptor & other);
+        
 #if 0
-        DECLARE_ADDVALUETOBOTTLE_;
+        /*! @brief Add the processed value to a bottle.
+         @param container The bottle to be modified. */
+        virtual void
+        addValueToBottle(yarp::os::Bottle & container);
 #endif//0
 
-        DECLARE_CLONE_;
+        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+         @returns A copy of the descriptor, with only non-pointer types duplicated. */
+        virtual BaseArgumentDescriptor *
+        clone(void);
 
-        DECLARE_GETDEFAULTVALUE_;
+        /*! @brief Return the default value.
+         @returns The default value. */
+        virtual std::string
+        getDefaultValue(void);
 
-        DECLARE_GETPROCESSEDVALUE_;
+        /*! @brief Return the processed value.
+         @returns The processed value. */
+        virtual std::string
+        getProcessedValue(void);
 
-        DECLARE_ISEXTRA_
+        /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
+         arguments.
+         @returns @c true if the argument is a placeholder for zero of more trailing arguments
+         and @c false otherwise. */
+        virtual bool
+        isExtra(void)
+        const
         {
             return true;
         } // isExtra
 
-        DECLARE_SETTODEFAULTVALUE_;
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        ExtraArgumentDescriptor &
+        operator =(const ExtraArgumentDescriptor & other);
+        
+        /*! @brief Set the associated variable to the default value. */
+        virtual void
+        setToDefaultValue(void);
 
-        DECLARE_TOSTRING_;
+        /*! @brief Convert to a printable representation.
+         @returns A printable representation of the descriptor. */
+        virtual std::string
+        toString(void);
 
-        DECLARE_VALIDATE_;
-
-        COPY_AND_ASSIGNMENT_(ExtraArgumentDescriptor);
+        /*! @brief Check an input value against the constraints of the descriptor.
+         @param value The value to be checked.
+         @returns @c true if the value is within the domain of the descriptor and @c false
+         otherwise. */
+        virtual bool
+        validate(const std::string & value);
 
     public :
 

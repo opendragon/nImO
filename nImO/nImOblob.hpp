@@ -88,43 +88,46 @@ namespace nImO
         /*! @brief The destructor. */
         ~Blob(void);
 
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
+        /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_;
+        virtual void
+        addToStringBuffer(StringBuffer & outBuffer)
+        const;
 
-#if 0
+        /*! @brief Return a copy of the object.
+         @returns Returns a copy of the object. */
+        virtual Value *
+        clone(void)
+        const;
+
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        bool getValue(void)
+        const uint8_t * getValue(size_t & length)
         const
         {
+            length = _size;
             return _value;
         } // getValue
-#endif//0
         
-        /*! @fn bool
-                greaterThan(const Value & other,
-                            bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Blobs.
-         @param other The Blob to be compared with.
-         @param validComparison @c true if the Blobs were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Blobs. */
-        DECLARE_GREATERTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        greaterThan(const Value & other,
+                    bool &        validComparison)
+        const;
 
-        /*! @fn bool
-                lessThan(const Value & other,
-                         bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Blobs.
-         @param other The Blob to be compared with.
-         @param validComparison @c true if the Blobs were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Blobs. */
-        DECLARE_LESSTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        lessThan(const Value & other,
+                 bool &        validComparison)
+        const;
 
         /*! @brief The assignment operator.
          @param other The object to be copied.
@@ -137,6 +140,10 @@ namespace nImO
 
     private :
         // Private methods.
+
+        /*! @brief Remove all entries. */
+        void
+        removeAllEntries(void);
 
     public :
         // Public fields.

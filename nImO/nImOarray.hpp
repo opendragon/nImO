@@ -54,7 +54,10 @@
 
 namespace nImO
 {
-    /*! @brief A class to provide collections with array-like behaviour. */
+    /*! @brief A class to provide collections with array-like behaviour.
+
+     Note that Arrays 'own' their data and will perform a delete of the
+     contained elements on deletion. */
     class Array : public Container,
                   public std::vector<Value *>
     {
@@ -79,42 +82,65 @@ namespace nImO
         /*! @brief The constructor. */
         Array(void);
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        Array(const Array & other);
+        
         /*! @brief The destructor. */
         ~Array(void);
 
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
+        /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_;
+        virtual void
+        addToStringBuffer(StringBuffer & outBuffer)
+        const;
 
-        /*! @fn bool
-                greaterThan(const Value & other,
-                            bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Arrays.
+        /*! @brief Return a copy of the object.
+         @returns Returns a copy of the object. */
+        virtual Value *
+        clone(void)
+        const;
+
+        /*! @brief Return the relative ordering of two Arrays.
          @param other The Array to be compared with.
          @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Arrays. */
-        DECLARE_GREATERTHAN_;
+        virtual bool
+        greaterThan(const Value & other,
+                    bool &        validComparison)
+        const;
 
-        /*! @fn bool
-                lessThan(const Value & other,
-                         bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Arrays.
+        /*! @brief Return the relative ordering of two Arrays.
          @param other The Array to be compared with.
          @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Arrays. */
-        DECLARE_LESSTHAN_;
+        virtual bool
+        lessThan(const Value & other,
+                 bool &        validComparison)
+        const;
 
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        Array &
+        operator =(const Array & other);
+        
     protected :
         // Protected methods.
 
     private :
         // Private methods.
+
+        /*! @brief Add the entries from another Array.
+          @param other The object to be copied from. */
+        void
+        addEntries(const Array & other);
+
+        /*! @brief Remove all entries. */
+        void
+        removeAllEntries(void);
 
     public :
         // Public fields.

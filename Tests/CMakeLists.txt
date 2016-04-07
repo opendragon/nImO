@@ -154,6 +154,16 @@ add_test(NAME TestDefaultBlobValue COMMAND ${THIS_TARGET} 57)
 add_test(NAME TestSmallBlobValue COMMAND ${THIS_TARGET} 58)
 # Test big blob value
 add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
+# Test boolean copy constructor and assignment operators
+add_test(NAME TestBooleanCopyAndAssign COMMAND ${THIS_TARGET} 60)
+# Test integer number copy constructor and assignment operators
+add_test(NAME TestIntegerCopyAndAssign COMMAND ${THIS_TARGET} 61)
+# Test floating point copy constructor and assignment operators
+add_test(NAME TestFloatingPointCopyAndAssign COMMAND ${THIS_TARGET} 62)
+# Test string copy constructor and assignment operators
+add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
+# Test blob copy constructor and assignment operator
+add_test(NAME TestBlobCopyAndAssign COMMAND ${THIS_TARGET} 64)
 
 set(THIS_TARGET nImOcontainerTest)
 

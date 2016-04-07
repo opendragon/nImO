@@ -164,6 +164,10 @@ namespace nImO
     private :
         // Private methods.
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        StringBuffer(const StringBuffer & other);
+        
         /*! @brief Add some characters to the buffer.
          @par m data The bytes to be added.
          @param numBytes The number of bytes to add. */
@@ -171,8 +175,12 @@ namespace nImO
         appendChars(const char * data,
                     const size_t numBytes);
 
-        COPY_AND_ASSIGNMENT_(StringBuffer);
-
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        StringBuffer &
+        operator =(const StringBuffer & other);
+        
         /*! @brief Add quotes and escapes to a string.
          @param aString The string to be processed.
          @param length The length of the string. */

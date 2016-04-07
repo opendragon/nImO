@@ -54,7 +54,10 @@
 
 namespace nImO
 {
-    /*! @brief A class to provide values that contain other values. */
+    /*! @brief A class to provide values that contain other values.
+
+     Note that Containers 'own' their data and will perform a delete of the
+     contained elements on deletion. */
     class Container : public Value
     {
     public :
@@ -75,12 +78,11 @@ namespace nImO
         /*! @brief The destructor. */
         ~Container(void);
 
-        /*! @fn virtual bool
-                isContainer(void)
-                const
-         @brief Return @c true if the object is a container.
+        /*! @brief Return @c true if the object is a container.
          @returns @c true if the object is a container and @c false otherwise. */
-        DECLARE_ISCONTAINER_
+        virtual bool
+        isContainer(void)
+        const
         {
             return true;
         } // isContainer

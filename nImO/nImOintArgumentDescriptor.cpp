@@ -111,7 +111,8 @@ IntArgumentDescriptor::~IntArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 #if 0
-DEFINE_ADDVALUETOBOTTLE_(IntArgumentDescriptor)
+void
+IntArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -120,7 +121,8 @@ DEFINE_ADDVALUETOBOTTLE_(IntArgumentDescriptor)
 } // IntArgumentDescriptor::addValueToBottle
 #endif//0
 
-DEFINE_CLONE_(IntArgumentDescriptor)
+BaseArgumentDescriptor *
+IntArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new IntArgumentDescriptor(argumentName(),
@@ -133,7 +135,8 @@ DEFINE_CLONE_(IntArgumentDescriptor)
     return result;
 } // IntArgumentDescriptor::clone
 
-DEFINE_GETDEFAULTVALUE_(IntArgumentDescriptor)
+std::string
+IntArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     std::string       result;
@@ -145,7 +148,8 @@ DEFINE_GETDEFAULTVALUE_(IntArgumentDescriptor)
     return result;
 } // IntArgumentDescriptor::getDefaultValue
 
-DEFINE_GETPROCESSEDVALUE_(IntArgumentDescriptor)
+std::string
+IntArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
     std::string       result;
@@ -240,7 +244,8 @@ IntArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // IntArgumentDescriptor::parseArgString
 
-DEFINE_SETTODEFAULTVALUE_(IntArgumentDescriptor)
+void
+IntArgumentDescriptor::setToDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -248,7 +253,8 @@ DEFINE_SETTODEFAULTVALUE_(IntArgumentDescriptor)
     ODL_OBJEXIT(); //####
 } // IntArgumentDescriptor::setToDefaultValue
 
-DEFINE_TOSTRING_(IntArgumentDescriptor)
+std::string
+IntArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("I"));
@@ -274,7 +280,8 @@ DEFINE_TOSTRING_(IntArgumentDescriptor)
     return result;
 } // IntArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(IntArgumentDescriptor)
+bool
+IntArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
     const char * startPtr = value.c_str();

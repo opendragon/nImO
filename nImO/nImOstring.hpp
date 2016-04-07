@@ -75,6 +75,10 @@ namespace nImO
         /*! @brief The constructor. */
         String(void);
 
+        /*! @brief The copy constructor.
+         @param other The object to be copied. */
+        String(const String & other);
+        
         /*! @brief The destructor. */
         ~String(void);
 
@@ -86,18 +90,23 @@ namespace nImO
          @param initialValue The initial value for the object. */
         explicit String(const char * initialValue);
 
-        /*! @fn virtual void
-                addToStringBuffer(StringBuffer & outBuffer)
-         @brief Add a readable representation of the object to the buffer.
+        /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to. */
-        DECLARE_ADDTOSTRINGBUFFER_;
+        virtual void
+        addToStringBuffer(StringBuffer & outBuffer)
+        const;
 
-        /*! @fn Enumerable
-                enumerationType(void)
-                const
-         @brief Return the enumeraton type of an object.
+        /*! @brief Return a copy of the object.
+         @returns Returns a copy of the object. */
+        virtual Value *
+        clone(void)
+        const;
+
+        /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        DECLARE_ENUMERATIONTYPE_
+        virtual Enumerable
+        enumerationType(void)
+        const
         {
             return kEnumerableString;
         } // enumerationType
@@ -110,28 +119,44 @@ namespace nImO
             return _value;
         } // getValue
         
-        /*! @fn int
-                greaterThan(const Value & other,
-                            bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Strings.
-         @param other The String to be compared with.
-         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Strings. */
-        DECLARE_GREATERTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        greaterThan(const Value & other,
+                    bool &        validComparison)
+        const;
 
-        /*! @fn int
-                lessThan(const Value & other,
-                         bool &        validComparison)
-                const
-         @brief Return the relative ordering of two Strings.
-         @param other The String to be compared with.
-         @param validComparison @c true if the Strings were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Arrays.
+         @param other The Array to be compared with.
+         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Strings. */
-        DECLARE_LESSTHAN_;
+         @returns The relative ordering of the two Arrays. */
+        virtual bool
+        lessThan(const Value & other,
+                 bool &        validComparison)
+        const;
 
+        /*! @brief The assignment operator.
+         @param other The object to be copied.
+         @returns The updated object. */
+        String &
+        operator =(const String & other);
+        
+        /*! @brief The assignment operator.
+         @param value The value to be assigned.
+         @returns The updated object. */
+        String &
+        operator =(const std::string & value);
+        
+        /*! @brief The assignment operator.
+         @param value The value to be assigned.
+         @returns The updated object. */
+        String &
+        operator =(const char * value);
+        
     protected :
         // Protected methods.
 

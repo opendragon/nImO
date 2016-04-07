@@ -168,7 +168,8 @@ FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_CLONE_(FilePathArgumentDescriptor)
+BaseArgumentDescriptor *
+FilePathArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
     BaseArgumentDescriptor * result = new FilePathArgumentDescriptor(argumentName(),
@@ -181,7 +182,8 @@ DEFINE_CLONE_(FilePathArgumentDescriptor)
     return result;
 } // FilePathArgumentDescriptor::clone
 
-DEFINE_GETDEFAULTVALUE_(FilePathArgumentDescriptor)
+std::string
+FilePathArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     _defaultValue = _pathPrefix;
@@ -278,7 +280,8 @@ FilePathArgumentDescriptor::parseArgString(const std::string & inString)
     return result;
 } // FilePathArgumentDescriptor::parseArgString
 
-DEFINE_SETTODEFAULTVALUE_(FilePathArgumentDescriptor)
+void
+FilePathArgumentDescriptor::setToDefaultValue(void)
 {
     ODL_OBJENTER(); //####
     if (! _defaultSet)
@@ -290,7 +293,8 @@ DEFINE_SETTODEFAULTVALUE_(FilePathArgumentDescriptor)
     ODL_OBJEXIT(); //####
 } // FilePathArgumentDescriptor::setToDefaultValue
 
-DEFINE_TOSTRING_(FilePathArgumentDescriptor)
+std::string
+FilePathArgumentDescriptor::toString(void)
 {
     ODL_OBJENTER(); //####
     std::string oldDefault(_defaultValue);
@@ -304,7 +308,8 @@ DEFINE_TOSTRING_(FilePathArgumentDescriptor)
     return result;
 } // FilePathArgumentDescriptor::toString
 
-DEFINE_VALIDATE_(FilePathArgumentDescriptor)
+bool
+FilePathArgumentDescriptor::validate(const std::string & value)
 {
     ODL_OBJENTER(); //####
     _valid = checkFilePath(value.c_str(), _forOutput, false);

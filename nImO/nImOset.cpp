@@ -82,18 +82,22 @@ nImO::Set::Set(void) :
     inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
 {
     ODL_ENTER(); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-
-        delete aValue;
-    }
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
+
+nImO::Set::Set(const nImO::Set & other) :
+    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    ODL_EXIT_P(this); //####
+} // nImO::Blob::Blob
 
 nImO::Set::~Set(void)
 {
     ODL_OBJENTER(); //####
+    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::Set::~Set
 
@@ -101,7 +105,23 @@ nImO::Set::~Set(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DEFINE_ADDTOSTRINGBUFFER_(nImO::Set)
+void
+nImO::Set::addEntries(const nImO::Set & other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    for (const_iterator walker(other.begin()); other.end() != walker; ++walker)
+    {
+        Value * aValue = (*walker)->clone();
+
+        insert(aValue);
+    }
+    ODL_EXIT(); //####
+} // nImO::Set::addEntries
+
+void
+nImO::Set::addToStringBuffer(nImO::StringBuffer & outBuffer)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -118,7 +138,21 @@ DEFINE_ADDTOSTRINGBUFFER_(nImO::Set)
     ODL_OBJEXIT(); //####
 } // nImO::Set::addToStringBuffer
 
-DEFINE_GREATERTHAN_(nImO::Set)
+nImO::Value *
+nImO::Set::clone(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Set * result = new Set(*this);
+
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Set::copy
+
+bool
+nImO::Set::greaterThan(const Value & other,
+                       bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -174,6 +208,10 @@ nImO::Set::insertResult nImO::Set::insert(Value * val)
     if (val->enumerationType() == _keyKind)
     {
         result = inherited2::insert(val);
+        if (! result.second)
+        {
+            delete val;
+        }
     }
     else
     {
@@ -183,7 +221,10 @@ nImO::Set::insertResult nImO::Set::insert(Value * val)
     return result;
 } // nImO::Set::insert
 
-DEFINE_LESSTHAN_(nImO::Set)
+bool
+nImO::Set::lessThan(const Value & other,
+                    bool &        validComparison)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -224,6 +265,35 @@ DEFINE_LESSTHAN_(nImO::Set)
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Set::lessThan
+
+nImO::Set &
+nImO::Set::operator =(const nImO::Set & other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        removeAllEntries();
+        addEntries(other);
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Set::operator=
+
+void
+nImO::Set::removeAllEntries(void)
+{
+    ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+
+        delete aValue;
+    }
+    clear();
+    _keyKind = kEnumerableUnknown;
+    ODL_OBJEXIT(); //####
+} // nImO::Set::removeAllEntries
 
 #if defined(__APPLE__)
 # pragma mark Global functions

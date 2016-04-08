@@ -76,7 +76,7 @@ install(FILES
 if(ODL_DO_SWIG)
     set(ODL_SWIG_SOURCES swig_odl_in/ODLogging.i ODLogging.h ODLogging.cpp)
 
-#    include_directories("${PROJECT_SOURCE_DIR}/odl")
+    include_directories("${PROJECT_SOURCE_DIR}/odl")
     set_source_files_properties(swig_odl_in/ODLogging.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties(swig_odl_in/ODLogging.i PROPERTIES SWIG_FLAGS "-includeall")
 

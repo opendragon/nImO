@@ -139,12 +139,13 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const Boolean * otherPtr = dynamic_cast<const Boolean *>(&other);
-    bool            result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isBoolean())
     {
-        result = (_value > otherPtr->_value);
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value > otherRef._value);
         validComparison = true;
     }
     else if (other.isContainer())
@@ -153,8 +154,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -167,12 +167,13 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const Boolean * otherPtr = dynamic_cast<const Boolean *>(&other);
-    bool            result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isBoolean())
     {
-        result = (_value < otherPtr->_value);
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value < otherRef._value);
         validComparison = true;
     }
     else if (other.isContainer())

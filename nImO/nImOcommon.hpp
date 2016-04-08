@@ -291,9 +291,6 @@ namespace nImO
     /*! @brief The character that ends an array value. */
     extern const char kEndArrayChar;
 
-    /*! @brief The character that ends a list value. */
-    extern const char kEndListChar;
-
     /*! @brief The character that ends a map value. */
     extern const char kEndMapChar;
 
@@ -308,9 +305,6 @@ namespace nImO
 
     /*! @brief The character that starts an array value. */
     extern const char kStartArrayChar;
-
-    /*! @brief The character that starts a list value. */
-    extern const char kStartListChar;
 
     /*! @brief The character that starts a map value. */
     extern const char kStartMapChar;

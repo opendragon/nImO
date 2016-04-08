@@ -40,7 +40,6 @@
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOlist.hpp>
 #include <nImO/nImOmap.hpp>
 #include <nImO/nImOnumber.hpp>
 #include <nImO/nImOset.hpp>
@@ -424,294 +423,7 @@ doTestBigArrayValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 20 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestEmptyListValue(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // empty list value
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ', nImO::kEndListChar, '\0'
-            };
-
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestEmptyListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 21 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestSingularListValue(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // singular list value
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::Number(123.45));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestSingularListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 22 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestSmallListValue(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // small list value
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    '1', '2', '3', '.', '4', '5', ' ',
-                    't', 'r', 'u', 'e', ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                    '4', '2', ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::Number(123.45));
-            stuff->push_back(new nImO::Boolean(true));
-            stuff->push_back(new nImO::String("charlie"));
-            stuff->push_back(new nImO::Number(static_cast<int64_t>(42)));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestSmallListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 23 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestBigListValue(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // big list value
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
-
-            if (bigBlob)
-            {
-                std::string expectedString;
-                char        numBuff[10];
-
-                expectedString += nImO::kStartListChar;
-                expectedString += ' ';
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                    bigBlob[ii] = aByte;
-                    stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
-                    snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
-                    expectedString += numBuff;
-                }
-                expectedString += nImO::kEndListChar;
-                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-                }
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestBigListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 40 ***
+# pragma mark *** Test Case 41 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -776,7 +488,7 @@ doTestEmptyMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 41 ***
+# pragma mark *** Test Case 21 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -846,7 +558,7 @@ doTestSingularBooleanMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 42 ***
+# pragma mark *** Test Case 22 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -916,7 +628,7 @@ doTestSingularIntegerMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 43 ***
+# pragma mark *** Test Case 23 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1005,7 +717,7 @@ doTestSingularStringMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 44 ***
+# pragma mark *** Test Case 24 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1079,7 +791,7 @@ doTestSmallBooleanMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 45 ***
+# pragma mark *** Test Case 25 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1157,7 +869,7 @@ doTestSmallIntegerMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 46 ***
+# pragma mark *** Test Case 26 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1235,7 +947,7 @@ doTestSmallStringMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 60 ***
+# pragma mark *** Test Case 40 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1300,7 +1012,7 @@ doTestEmptySetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 61 ***
+# pragma mark *** Test Case 41 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1368,7 +1080,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 62 ***
+# pragma mark *** Test Case 42 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1436,7 +1148,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 63 ***
+# pragma mark *** Test Case 43 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1504,7 +1216,7 @@ doTestSingularStringSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 64 ***
+# pragma mark *** Test Case 44 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1576,7 +1288,7 @@ doTestSmallBooleanSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 65 ***
+# pragma mark *** Test Case 45 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1654,7 +1366,7 @@ doTestSmallIntegerSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 66 ***
+# pragma mark *** Test Case 46 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1732,7 +1444,7 @@ doTestSmallStringSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 80 ***
+# pragma mark *** Test Case 60 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1800,75 +1512,7 @@ doTestArrayWithArrayValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 81 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestArrayWithListValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // array with list value
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::Array * stuff = new nImO::Array;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartArrayChar, ' ',
-                    nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
-                nImO::kEndArrayChar, '\0'
-            };
-
-            stuff->push_back(new nImO::List);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestArrayWithListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 82 ***
+# pragma mark *** Test Case 61 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1936,7 +1580,7 @@ doTestArrayWithMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 83 ***
+# pragma mark *** Test Case 62 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2004,279 +1648,7 @@ doTestArrayWithSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 84 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestListWithArrayValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // list with array
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::Array);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestListWithArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 85 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestListWithListValue(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // list with list
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::List);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestListWithListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 86 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestListWithMapValue(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // list with map
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::Map);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestListWithMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 87 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestListWithSetValue(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // list with set
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::List * stuff = new nImO::List;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartListChar, ' ',
-                    nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
-                nImO::kEndListChar, '\0'
-            };
-
-            stuff->push_back(new nImO::Set);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestListWithSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 88 ***
+# pragma mark *** Test Case 63 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2347,78 +1719,7 @@ doTestMapWithArrayValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 89 ***
-#endif // defined(__APPLE__)
-
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
-/*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestMapWithListValue(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // map with list
-{
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-    ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
-
-    try
-    {
-        nImO::Map * stuff = new nImO::Map;
-
-        if (stuff)
-        {
-            static const char expectedString[] =
-            {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
-                        nImO::kStartListChar, ' ', nImO::kEndListChar, ' ',
-                nImO::kEndMapChar, '\0'
-            };
-            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
-                                       new nImO::List());
-
-            stuff->insert(aValue);
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestMapWithListValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 90 ***
+# pragma mark *** Test Case 64 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2488,7 +1789,7 @@ doTestMapWithMapValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 91 ***
+# pragma mark *** Test Case 65 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2558,7 +1859,7 @@ doTestMapWithSetValue(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 110 ***
+# pragma mark *** Test Case 80 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2635,7 +1936,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 111 ***
+# pragma mark *** Test Case 81 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2711,7 +2012,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 112 ***
+# pragma mark *** Test Case 82 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2807,7 +2108,7 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 113 ***
+# pragma mark *** Test Case 83 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2878,7 +2179,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 114 ***
+# pragma mark *** Test Case 84 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -2949,7 +2250,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 115 ***
+# pragma mark *** Test Case 85 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3084,151 +2385,111 @@ main(int      argc,
                         break;
 
                     case 20 :
-                        result = doTestEmptyListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 21 :
-                        result = doTestSingularListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 22 :
-                        result = doTestSmallListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 23 :
-                        result = doTestBigListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 40 :
                         result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 41 :
+                    case 21 :
                         result = doTestSingularBooleanMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 42 :
+                    case 22 :
                         result = doTestSingularIntegerMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 43 :
+                    case 23 :
                         result = doTestSingularStringMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 44 :
+                    case 24 :
                         result = doTestSmallBooleanMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 45 :
+                    case 25 :
                         result = doTestSmallIntegerMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 46 :
+                    case 26 :
                         result = doTestSmallStringMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 60 :
+                    case 40 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 61 :
+                    case 41 :
                         result = doTestSingularBooleanSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 62 :
+                    case 42 :
                         result = doTestSingularIntegerSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 63 :
+                    case 43 :
                         result = doTestSingularStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 64 :
+                    case 44 :
                         result = doTestSmallBooleanSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 65 :
+                    case 45 :
                         result = doTestSmallIntegerSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 66 :
+                    case 46 :
                         result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 80 :
+                    case 60 :
                         result = doTestArrayWithArrayValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 81 :
-                        result = doTestArrayWithListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 82 :
+                    case 61 :
                         result = doTestArrayWithMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 83 :
+                    case 62 :
                         result = doTestArrayWithSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 84 :
-                        result = doTestListWithArrayValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 85 :
-                        result = doTestListWithListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 86 :
-                        result = doTestListWithMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 87 :
-                        result = doTestListWithSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 88 :
+                    case 63 :
                         result = doTestMapWithArrayValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 89 :
-                        result = doTestMapWithListValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 90 :
+                    case 64 :
                         result = doTestMapWithMapValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 91 :
+                    case 65 :
                         result = doTestMapWithSetValue(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 110 :
+                    case 80 :
                         result = doTestBooleanMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
-                    case 111 :
+                    case 81 :
                         result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
-                    case 112 :
+                    case 82 :
                         result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                           argv + 2);
                         break;
 
-                    case 113 :
+                    case 83 :
                         result = doTestBooleanSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
-                    case 114 :
+                    case 84 :
                         result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
-                    case 115 :
+                    case 85 :
                         result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;

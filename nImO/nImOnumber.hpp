@@ -148,6 +148,15 @@ namespace nImO
             return _valueIsFloat;
         } // isFloat
 
+        /*! @brief Return @c true if the object is a Number.
+         @returns @c true if the object is a Number and @c false otherwise. */
+        virtual bool
+        isNumber(void)
+        const
+        {
+            return true;
+        } // isNumber
+
         /*! @brief Return the relative ordering of two Arrays.
          @param other The Array to be compared with.
          @param validComparison @c true if the Arrays were comparable and @c false otherwise; if

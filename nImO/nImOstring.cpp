@@ -147,12 +147,13 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const String * otherPtr = dynamic_cast<const String *>(&other);
-    bool           result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isString())
     {
-        result = (_value > otherPtr->_value);
+        const String & otherRef = static_cast<const String &>(other);
+
+        result = (_value > otherRef._value);
         validComparison = true;
     }
     else if (other.isContainer())
@@ -161,8 +162,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -175,12 +175,13 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const String * otherPtr = dynamic_cast<const String *>(&other);
-    bool           result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isString())
     {
-        result = (_value < otherPtr->_value);
+        const String & otherRef = static_cast<const String &>(other);
+
+        result = (_value < otherRef._value);
         validComparison = true;
     }
     else if (other.isContainer())
@@ -189,8 +190,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_B(result); //####
     return result;

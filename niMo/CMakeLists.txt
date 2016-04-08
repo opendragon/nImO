@@ -69,7 +69,6 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOkeyValue.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOlist.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
@@ -117,7 +116,6 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOkeyValue.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOlist.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
@@ -150,7 +148,6 @@ if(nImO_DO_SWIG)
         nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
         nImOkeyValue.cpp nImOkeyValue.hpp
-        nImOlist.cpp nImOlist.hpp
         nImOmap.cpp nImOmap.hpp
         nImOnumber.cpp nImOnumber.hpp
         nImOportArgumentDescriptor.cpp nImOportArgumentDescriptor.hpp

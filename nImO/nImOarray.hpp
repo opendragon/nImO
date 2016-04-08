@@ -101,25 +101,14 @@ namespace nImO
         clone(void)
         const;
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+        /*! @brief Return @c true if the object is an Array.
+         @returns @c true if the object is an Array and @c false otherwise. */
         virtual bool
-        greaterThan(const Value & other,
-                    bool &        validComparison)
-        const;
-
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
-        virtual bool
-        lessThan(const Value & other,
-                 bool &        validComparison)
-        const;
+        isArray(void)
+        const
+        {
+            return true;
+        } // isArray
 
         /*! @brief The assignment operator.
          @param other The object to be copied.

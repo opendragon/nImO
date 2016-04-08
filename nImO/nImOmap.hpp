@@ -108,31 +108,20 @@ namespace nImO
         clone(void)
         const;
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
-        virtual bool
-        greaterThan(const Value & other,
-                    bool &        validComparison)
-        const;
-
         /*! @brief Override the standard insert operation to ignore inserting incompatible values.
          @param val Value to be inserted.
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
         insertResult insert(mapValue val);
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+        /*! @brief Return @c true if the object is a Map.
+         @returns @c true if the object is a Map and @c false otherwise. */
         virtual bool
-        lessThan(const Value & other,
-                 bool &        validComparison)
-        const;
+        isMap(void)
+        const
+        {
+            return true;
+        } // isMap
 
         /*! @brief The assignment operator.
          @param other The object to be copied.

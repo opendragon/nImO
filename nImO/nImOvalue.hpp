@@ -114,14 +114,77 @@ namespace nImO
             return false;
         } // greaterThan
 
-        /*! @brief Return @c true if the object is a container.
-         @returns @c true if the object is a container and @c false otherwise. */
+        /*! @brief Return @c true if the object is an Array.
+         @returns @c true if the object is an Array and @c false otherwise. */
+        virtual bool
+        isArray(void)
+        const
+        {
+            return false;
+        } // isArray
+
+        /*! @brief Return @c true if the object is a Blob.
+         @returns @c true if the object is a Blob and @c false otherwise. */
+        virtual bool
+        isBlob(void)
+        const
+        {
+            return false;
+        } // isBlob
+
+        /*! @brief Return @c true if the object is a Boolean.
+         @returns @c true if the object is a Boolean and @c false otherwise. */
+        virtual bool
+        isBoolean(void)
+        const
+        {
+            return false;
+        } // isBoolean
+
+        /*! @brief Return @c true if the object is a Container.
+         @returns @c true if the object is a Container and @c false otherwise. */
         virtual bool
         isContainer(void)
         const
         {
             return false;
         } // isContainer
+
+        /*! @brief Return @c true if the object is a Map.
+         @returns @c true if the object is a Map and @c false otherwise. */
+        virtual bool
+        isMap(void)
+        const
+        {
+            return false;
+        } // isMap
+
+        /*! @brief Return @c true if the object is a Number.
+         @returns @c true if the object is a Number and @c false otherwise. */
+        virtual bool
+        isNumber(void)
+        const
+        {
+            return false;
+        } // isNumber
+
+        /*! @brief Return @c true if the object is a Set.
+         @returns @c true if the object is a Set and @c false otherwise. */
+        virtual bool
+        isSet(void)
+        const
+        {
+            return false;
+        } // isSet
+
+        /*! @brief Return @c true if the object is a String.
+         @returns @c true if the object is a String and @c false otherwise. */
+        virtual bool
+        isString(void)
+        const
+        {
+            return false;
+        } // isString
 
         /*! @brief Return the relative ordering of two Arrays.
          @param other The Array to be compared with.

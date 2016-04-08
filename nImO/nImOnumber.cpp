@@ -155,21 +155,22 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const Number * otherPtr = dynamic_cast<const Number *>(&other);
-    bool           result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isNumber())
     {
+        const Number & otherRef = static_cast<const Number &>(other);
+
         if (_valueIsFloat)
         {
-            result = (_floatValue > ((otherPtr->_valueIsFloat) ? otherPtr->_floatValue :
-                                     otherPtr->_intValue));
+            result = (_floatValue > ((otherRef._valueIsFloat) ? otherRef._floatValue :
+                                     otherRef._intValue));
         }
         else
         {
-            result = (static_cast<double>(_intValue) > ((otherPtr->_valueIsFloat) ?
-                                                        otherPtr->_floatValue :
-                                                        otherPtr->_intValue));
+            result = (static_cast<double>(_intValue) > ((otherRef._valueIsFloat) ?
+                                                        otherRef._floatValue :
+                                                        otherRef._intValue));
         }
         validComparison = true;
     }
@@ -179,8 +180,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -193,21 +193,22 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    const Number * otherPtr = dynamic_cast<const Number *>(&other);
-    bool           result;
+    bool result;
 
-    if (otherPtr)
+    if (other.isNumber())
     {
+        const Number & otherRef = static_cast<const Number &>(other);
+
         if (_valueIsFloat)
         {
-            result = (_floatValue < ((otherPtr->_valueIsFloat) ? otherPtr->_floatValue :
-                                     otherPtr->_intValue));
+            result = (_floatValue < ((otherRef._valueIsFloat) ? otherRef._floatValue :
+                                     otherRef._intValue));
         }
         else
         {
-            result = (static_cast<double>(_intValue) < ((otherPtr->_valueIsFloat) ?
-                                                        otherPtr->_floatValue :
-                                                        otherPtr->_intValue));
+            result = (static_cast<double>(_intValue) < ((otherRef._valueIsFloat) ?
+                                                        otherRef._floatValue :
+                                                        otherRef._intValue));
         }
         validComparison = true;
     }
@@ -217,8 +218,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_B(result); //####
     return result;

@@ -206,81 +206,60 @@ add_test(NAME TestSmallArrayValue COMMAND ${THIS_TARGET} 3)
 # Test big array
 add_test(NAME TestBigArrayValue COMMAND ${THIS_TARGET} 4)
 
-# Test empty list
-add_test(NAME TestEmptyListValue COMMAND ${THIS_TARGET} 20)
-# Test singular list
-add_test(NAME TestSingularListValue COMMAND ${THIS_TARGET} 21)
-# Test small list
-add_test(NAME TestSmallListValue COMMAND ${THIS_TARGET} 22)
-# Test big list
-add_test(NAME TestBigListValue COMMAND ${THIS_TARGET} 23)
-
 # Test empty map
-add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 40)
+add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
 # Test singular map with boolean keys
-add_test(NAME TestSingularBooleanMapValue COMMAND ${THIS_TARGET} 41)
+add_test(NAME TestSingularBooleanMapValue COMMAND ${THIS_TARGET} 21)
 # Test singular map with integer keys
-add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 42)
+add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 22)
 # Test singular map with string keys
-add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 43)
+add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 23)
 # Test small map with boolean keys
-add_test(NAME TestSmallBooleanMapValue COMMAND ${THIS_TARGET} 44)
+add_test(NAME TestSmallBooleanMapValue COMMAND ${THIS_TARGET} 24)
 # Test small map with integer keys
-add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 45)
+add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 25)
 # Test small map with string keys
-add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 46)
+add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 26)
 
 # Test empty set
-add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 60)
+add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
 # Test singular set with boolean keys
-add_test(NAME TestSingularBooleanSetValue COMMAND ${THIS_TARGET} 61)
+add_test(NAME TestSingularBooleanSetValue COMMAND ${THIS_TARGET} 41)
 # Test singular set with integer keys
-add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 62)
+add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 42)
 # Test singular set with string keys
-add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 63)
+add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 43)
 # Test small set with boolean keys
-add_test(NAME TestSmallBooleanSetValue COMMAND ${THIS_TARGET} 64)
+add_test(NAME TestSmallBooleanSetValue COMMAND ${THIS_TARGET} 44)
 # Test small set with integer keys
-add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 65)
+add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 45)
 # Test small set with string keys
-add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 66)
+add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 46)
 
 # Test array with array
-add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 80)
-# Test array with list
-add_test(NAME TestArrayWithListValue COMMAND ${THIS_TARGET} 81)
+add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 60)
 # Test array with map
-add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 82)
+add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 61)
 # Test array with set
-add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 83)
-# Test list with array
-add_test(NAME TestListWithArrayValue COMMAND ${THIS_TARGET} 84)
-# Test list with list
-add_test(NAME TestListWithListValue COMMAND ${THIS_TARGET} 85)
-# Test list with map
-add_test(NAME TestListWithMapValue COMMAND ${THIS_TARGET} 86)
-# Test list with set
-add_test(NAME TestListWithSetValue COMMAND ${THIS_TARGET} 87)
+add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 62)
 # Test map with array
-add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 88)
-# Test map with list
-add_test(NAME TestMapWithListValue COMMAND ${THIS_TARGET} 89)
+add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 63)
 # Test map with map
-add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 90)
+add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 64)
 # Test map with set
-add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 91)
+add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 65)
 
 # Test boolean map with incompatible keys
-add_test(NAME TestBooleanMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 110)
+add_test(NAME TestBooleanMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 80)
 # Test integer map with incompatible keys
-add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 111)
+add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 81)
 # Test string map with incompatible keys
-add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 112)
+add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 82)
 # Test boolean set with incompatible keys
-add_test(NAME TestBooleanSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 113)
+add_test(NAME TestBooleanSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 83)
 # Test integer set with incompatible keys
-add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 114)
+add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 84)
 # Test string set with incompatible keys
-add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 115)
+add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 85)
 
 

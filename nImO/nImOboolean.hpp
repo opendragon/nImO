@@ -125,6 +125,15 @@ namespace nImO
                     bool &        validComparison)
         const;
 
+        /*! @brief Return @c true if the object is a Boolean.
+         @returns @c true if the object is a Boolean and @c false otherwise. */
+        virtual bool
+        isBoolean(void)
+        const
+        {
+            return true;
+        } // isBoolean
+
         /*! @brief Return the relative ordering of two Arrays.
          @param other The Array to be compared with.
          @param validComparison @c true if the Arrays were comparable and @c false otherwise; if

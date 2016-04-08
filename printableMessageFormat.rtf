@@ -6,10 +6,10 @@
 \pard\pardeftab720\sl360\partightenfactor0
 
 \f0\fs28 \cf0 \expnd0\expndtw0\kerning0
-<message> ::= <sp>* <value> <sp>*; ## note - no implicit lists\
+<message> ::= <sp>* <value> <sp>*; ## note - no implicit arrays\
 <value> ::= <atom> | <container> | <blob>;\
 <atom> ::= <sign>? <unsigned-number> | <string> | <boolean>;\
-<container> ::= <list> | <map> | <array> | <set>;\
+<container> ::= <map> | <array> | <set>;\
 <unsigned-number> ::= <unscaled-number> <exponent>?;\
 <unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
 <string> ::= <single-quoted-string> | <double-quoted-string>;\
@@ -23,30 +23,29 @@
 <non-escaped-character> ::= <printable-character>; ## quotes need to be escaped\
 <special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
 <escape-sequence> ::= 'a' | 'b' | 'e' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
-<octal-sequence> ::= <octal-digit><octal-digit><octal-digit>;\
+<octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
 <octal-digit> ::= '0' .. '7';\
 <control-sequence> ::= <control-sequence1> | <control-sequence2>;\
 <control-sequence1> ::= 'c' <low-char>;\
-<control-sequence2> ::= 'C' '-' <low-char>;\
+<control-sequence2> ::= 'C-' <low-char>;\
 <low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
-<meta-sequence> ::= 'M' '-' <meta-char>;\
+<meta-sequence> ::= 'M-' <meta-char>;\
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
-<boolean> ::= 'true' | 'false'; ## case-insensitive\
+<boolean> ::= 'true' | 'false'; ## case-insensitive, initial substrings accepted\
 <sign> ::= '+' | '-';\
 <unsigned-integer> ::= \\d+;\
 <fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
 <exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
 <exponent-tag> ::= 'e'; ## case-insensitive\
-<list> ::= '(' <sp>* <value-list>? <sp>* ')'; ## empty lists allowed\
 <value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
-<map> ::= '\{'\'a0<sp>* <mapped-value-list>? <sp>* '\}'; ## the first key seen establishes the type of remaining keys\
+<map> ::= '\{' <sp>* <mapped-value-list>? <sp>* '\}'; ## the first key seen establishes the type of remaining keys\
 <mapped-value-list> ::= <mapped-value> (<sp>+ <mapped-value>)*; ## space-separated key/value pairs\
 <mapped-value> ::= <atom> <sp>* '>' <sp>* <value>; ## floating-point numbers can't be keys\
-<array> ::= '[' <sp>* <value-list>? <sp>* ']'; ## empty arrays allowed\
-<set> ::= '|' <sp>* <atom-list>? <sp>* '|'; ## empty sets allowed and floating-point numbers can't be keys\
-<atom-list> ::= <atom> (<sp>+ <atom)*; ## space-separated atomic values\
+<array> ::= '(' <sp>* <value-list>? <sp>* ')'; ## empty arrays allowed\
+<set> ::= '[' <sp>* <atom-list>? <sp>* ']'; ## empty sets allowed and floating-point numbers can't be keys\
+<atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
 <blob> ::= '%' <unsigned-integer> '%' <byte>+ '%'; ## number of values == leading integer, > 0\
-<byte> ::= <hex-digit><hex-digit>;\
+<byte> ::= <hex-digit> <hex-digit>;\
 <hex-digit> ::= \\d | 'a' .. 'f'; ## case-insensitive\
 \
 ## when generating output, insert single spaces wherever <sp>+ or <sp>* appear in these patterns\

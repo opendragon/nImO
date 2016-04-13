@@ -114,7 +114,7 @@ namespace nImO
          @returns The updated object. */
         AddressArgumentDescriptor &
         operator =(const AddressArgumentDescriptor & other);
-        
+
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string

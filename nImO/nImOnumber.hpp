@@ -86,7 +86,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         Number(const Number & other);
-        
+
         /*! @brief The destructor. */
         ~Number(void);
 
@@ -118,7 +118,7 @@ namespace nImO
         {
             return (_valueIsFloat ? _floatValue : _intValue);
         } // getDoubleValue
-        
+
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         int64_t getIntegerValue(void)
@@ -126,12 +126,12 @@ namespace nImO
         {
             return (_valueIsFloat ? static_cast<int64_t>(_floatValue) : _intValue);
         } // getIntegerValue
-        
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -157,11 +157,11 @@ namespace nImO
             return true;
         } // isNumber
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
@@ -172,19 +172,19 @@ namespace nImO
          @returns The updated object. */
         Number &
         operator =(const Number & other);
-        
+
         /*! @brief The assignment operator.
          @param value The value to be assigned.
          @returns The updated object. */
         Number &
         operator =(const double value);
-        
+
         /*! @brief The assignment operator.
          @param value The value to be assigned.
          @returns The updated object. */
         Number &
         operator =(const int64_t value);
-        
+
     protected :
         // Protected methods.
 

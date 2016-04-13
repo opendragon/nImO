@@ -100,11 +100,11 @@ namespace nImO
             return kEnumerableNotEnumerable;
         } // enumerationType
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -186,11 +186,11 @@ namespace nImO
             return false;
         } // isString
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)

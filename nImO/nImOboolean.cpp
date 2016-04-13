@@ -182,8 +182,7 @@ const
     }
     else
     {
-        result = false;
-        validComparison = false;
+        result = validComparison = false;
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

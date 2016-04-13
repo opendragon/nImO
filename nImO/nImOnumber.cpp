@@ -262,7 +262,7 @@ nImO::Number::operator =(const int64_t value)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Number::operator=
-        
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

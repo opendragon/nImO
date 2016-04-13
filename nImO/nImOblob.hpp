@@ -84,7 +84,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         Blob(const Blob & other);
-        
+
         /*! @brief The destructor. */
         ~Blob(void);
 
@@ -108,7 +108,7 @@ namespace nImO
             length = _size;
             return _value;
         } // getValue
-        
+
         /*! @brief Return @c true if the object is a Blob.
          @returns @c true if the object is a Blob and @c false otherwise. */
         virtual bool
@@ -123,7 +123,7 @@ namespace nImO
          @returns The updated object. */
         Blob &
         operator =(const Blob & other);
-        
+
     protected :
         // Protected methods.
 

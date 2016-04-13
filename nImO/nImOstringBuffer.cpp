@@ -367,7 +367,7 @@ const
                 {
                     const uint8_t * thisData = aChunk->getData();
 
-                    result = *(thisData + index - soFar); 
+                    result = *(thisData + index - soFar);
                 }
                 soFar += thisSize;
             }

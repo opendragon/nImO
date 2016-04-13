@@ -127,10 +127,10 @@ compareValueWithString(const nImO::Value & aValue,
 
     aValue.addToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
-
+#if 0
     cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
     cerr << "result: " << result << endl;
-
+#endif //0
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString
@@ -2324,6 +2324,1028 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
+#if defined(__APPLE__)
+# pragma mark *** Test Case 100 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidArrayCompares(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // valid array compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidArrayCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 101 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidBooleanMapCompares(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // valid boolean map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidBooleanMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 102 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidIntegerMapCompares(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // valid integer map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidIntegerMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 103 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidStringMapCompares(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // valid string map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidStringMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 104 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidBooleanSetCompares(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // valid boolean set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidBooleanSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 105 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidIntegerSetCompares(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // valid integer set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidIntegerSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 106 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestValidStringSetCompares(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // valid string set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidStringSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 107 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidArrayCompares(const char * launchPath,
+                           const int    argc,
+                           char * *     argv) // invalid array compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidArrayCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 108 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidBooleanMapCompares(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // invalid boolean map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidBooleanMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 109 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidIntegerMapCompares(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // invalid integer map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidIntegerMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 110 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidStringMapCompares(const char * launchPath,
+                               const int    argc,
+                               char * *     argv) // invalid string map compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidStringMapCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 111 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidBooleanSetCompares(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // invalid boolean set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidBooleanSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 112 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidIntegerSetCompares(const char * launchPath,
+                                const int    argc,
+                                char * *     argv) // invalid integer set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidIntegerSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 113 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidStringSetCompares(const char * launchPath,
+                               const int    argc,
+                               char * *     argv) // invalid string set compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        nImO::Set * stuff = new nImO::Set;
+
+        if (stuff)
+        {
+            static const char expectedString[] =
+            {
+                nImO::kStartSetChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                nImO::kEndSetChar, '\0'
+            };
+
+            stuff->insert(new nImO::String("charlie"));
+            stuff->insert(new nImO::Boolean(true));
+            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->insert(new nImO::Number(19.77));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidStringSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
 /*! @brief The entry point for unit tests of the %nImO common classes.
 
  The first argument is the test number, the second argument is the name of the channel to be used
@@ -2492,6 +3514,62 @@ main(int      argc,
                     case 85 :
                         result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
+                        break;
+
+                    case 100 :
+                        result = doTestValidArrayCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 101 :
+                        result = doTestValidBooleanMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 102 :
+                        result = doTestValidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 103 :
+                        result = doTestValidStringMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 104 :
+                        result = doTestValidBooleanSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 105 :
+                        result = doTestValidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 106 :
+                        result = doTestValidStringSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 107 :
+                        result = doTestInvalidArrayCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 108 :
+                        result = doTestInvalidBooleanMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 109 :
+                        result = doTestInvalidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 110 :
+                        result = doTestInvalidStringMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 111 :
+                        result = doTestInvalidBooleanSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 112 :
+                        result = doTestInvalidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 113 :
+                        result = doTestInvalidStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

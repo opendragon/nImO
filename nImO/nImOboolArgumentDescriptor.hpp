@@ -147,7 +147,7 @@ namespace nImO
          @returns The updated object. */
         BoolArgumentDescriptor &
         operator =(const BoolArgumentDescriptor & other);
-        
+
         /*! @brief Set the associated variable to the default value. */
         virtual void
         setToDefaultValue(void);

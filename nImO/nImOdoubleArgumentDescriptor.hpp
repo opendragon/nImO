@@ -128,7 +128,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         DoubleArgumentDescriptor(const DoubleArgumentDescriptor & other);
-        
+
 #if 0
         /*! @brief Add the processed value to a bottle.
          @param container The bottle to be modified. */
@@ -156,7 +156,7 @@ namespace nImO
          @returns The updated object. */
         DoubleArgumentDescriptor &
         operator =(const DoubleArgumentDescriptor & other);
-        
+
         /*! @brief Set the associated variable to the default value. */
         virtual void
         setToDefaultValue(void);

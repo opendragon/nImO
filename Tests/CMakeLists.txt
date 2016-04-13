@@ -165,6 +165,19 @@ add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
 # Test blob copy constructor and assignment operator
 add_test(NAME TestBlobCopyAndAssign COMMAND ${THIS_TARGET} 64)
 
+# Test valid boolean compares
+add_test(NAME TestValidBooleanCompares COMMAND ${THIS_TARGET} 80)
+# Test valid number compares
+add_test(NAME TestValidNumberCompares COMMAND ${THIS_TARGET} 81)
+# Test valid string compares
+add_test(NAME TestValidStringCompares COMMAND ${THIS_TARGET} 82)
+# Test invalid boolean compares
+add_test(NAME TestInvalidBooleanCompares COMMAND ${THIS_TARGET} 83)
+# Test invalid number compares
+add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 84)
+# Test invalid string compares
+add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 85)
+
 set(THIS_TARGET nImOcontainerTest)
 
 if(WIN32)
@@ -262,4 +275,63 @@ add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 84)
 # Test string set with incompatible keys
 add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 85)
 
+# Test valid array compares
+add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 100)
+# Test valid boolean map compares
+add_test(NAME TestValidBooleanMapCompares COMMAND ${THIS_TARGET} 101)
+# Test valid integer map compares
+add_test(NAME TestValidIntegerMapCompares COMMAND ${THIS_TARGET} 102)
+# Test valid string map compares
+add_test(NAME TestValidStringMapCompares COMMAND ${THIS_TARGET} 103)
+# Test valid boolean set compares
+add_test(NAME TestValidBooleanSetCompares COMMAND ${THIS_TARGET} 104)
+# Test valid integer set compares
+add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 105)
+# Test valid string set compares
+add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 106)
+# Test invalid array compares
+add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 107)
+# Test invalid boolean map compares
+add_test(NAME TestInvalidBooleanMapCompares COMMAND ${THIS_TARGET} 108)
+# Test invalid integer map compares
+add_test(NAME TestInvalidIntegerMapCompares COMMAND ${THIS_TARGET} 109)
+# Test invalid string map compares
+add_test(NAME TestInvalidStringMapCompares COMMAND ${THIS_TARGET} 110)
+# Test invalid boolean set compares
+add_test(NAME TestInvalidBooleanSetCompares COMMAND ${THIS_TARGET} 111)
+# Test invalid integer set compares
+add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 112)
+# Test invalid string set compares
+add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 113)
+ 
+set(THIS_TARGET nImOparserTest)
 
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else(WIN32)
+    set(VERS_RESOURCE "")
+endif(WIN32)
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImOparserTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+if(APPLE)
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
+endif(APPLE)

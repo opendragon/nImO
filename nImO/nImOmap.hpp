@@ -92,7 +92,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         Map(const Map & other);
-        
+
         /*! @brief The destructor. */
         ~Map(void);
 
@@ -108,11 +108,11 @@ namespace nImO
         clone(void)
         const;
 
-        /*! @brief Return the relative ordering of two Maps.
-         @param other The Map to be compared with.
-         @param validComparison @c true if the Maps were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Maps. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -134,11 +134,11 @@ namespace nImO
             return true;
         } // isMap
 
-        /*! @brief Return the relative ordering of two Maps.
-         @param other The Map to be compared with.
-         @param validComparison @c true if the Maps were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Maps. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
@@ -149,7 +149,7 @@ namespace nImO
          @returns The updated object. */
         Map &
         operator =(const Map & other);
-        
+
     protected :
         // Protected methods.
 

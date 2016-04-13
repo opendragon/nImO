@@ -85,7 +85,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         Array(const Array & other);
-        
+
         /*! @brief The destructor. */
         ~Array(void);
 
@@ -101,11 +101,11 @@ namespace nImO
         clone(void)
         const;
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -120,11 +120,11 @@ namespace nImO
             return true;
         } // isArray
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
@@ -135,7 +135,7 @@ namespace nImO
          @returns The updated object. */
         Array &
         operator =(const Array & other);
-        
+
     protected :
         // Protected methods.
 

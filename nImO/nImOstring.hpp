@@ -78,7 +78,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         String(const String & other);
-        
+
         /*! @brief The destructor. */
         ~String(void);
 
@@ -118,12 +118,12 @@ namespace nImO
         {
             return _value;
         } // getValue
-        
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -138,11 +138,11 @@ namespace nImO
             return true;
         } // isString
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
@@ -153,19 +153,19 @@ namespace nImO
          @returns The updated object. */
         String &
         operator =(const String & other);
-        
+
         /*! @brief The assignment operator.
          @param value The value to be assigned.
          @returns The updated object. */
         String &
         operator =(const std::string & value);
-        
+
         /*! @brief The assignment operator.
          @param value The value to be assigned.
          @returns The updated object. */
         String &
         operator =(const char * value);
-        
+
     protected :
         // Protected methods.
 

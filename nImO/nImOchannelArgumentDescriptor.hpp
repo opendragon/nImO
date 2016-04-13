@@ -112,7 +112,7 @@ namespace nImO
          @returns The updated object. */
         ChannelArgumentDescriptor &
         operator =(const ChannelArgumentDescriptor & other);
-        
+
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string

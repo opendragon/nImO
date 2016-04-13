@@ -89,7 +89,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         Set(const Set & other);
-        
+
         /*! @brief The destructor. */
         ~Set(void);
 
@@ -105,11 +105,11 @@ namespace nImO
         clone(void)
         const;
 
-        /*! @brief Return the relative ordering of two Sets.
-         @param other The Set to be compared with.
-         @param validComparison @c true if the Sets were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Sets. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -131,11 +131,11 @@ namespace nImO
             return true;
         } // isSet
 
-        /*! @brief Return the relative ordering of two Sets.
-         @param other The Set to be compared with.
-         @param validComparison @c true if the Sets were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Sets. */
+         @returns The relative ordering of the two Values. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
@@ -146,7 +146,7 @@ namespace nImO
          @returns The updated object. */
         Set &
         operator =(const Set & other);
-        
+
     protected :
         // Protected methods.
 

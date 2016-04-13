@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       Tests/nImOatomicTest.cpp
+//  File:       Tests/nImOparserTest.cpp
 //
 //  Project:    nImO
 //
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-22
+//  Created:    2016-04-13
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -132,6 +132,7 @@ compareValueWithString(const nImO::Value & aValue,
     return result;
 } // compareValueWithString
 
+#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
@@ -3278,6 +3279,7 @@ doTestInvalidStringCompares(const char * launchPath,
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -3327,6 +3329,7 @@ main(int      argc,
                         result = 0;
                         break;
 
+#if 0
                     case 1 :
                         result = doTestEmptyBufferChunk(*argv, argc - 1, argv + 2);
                         break;
@@ -3478,7 +3481,7 @@ main(int      argc,
                     case 85 :
                         result = doTestInvalidStringCompares(*argv, argc - 1, argv + 2);
                         break;
-
+#endif//0
                     default :
                         break;
 

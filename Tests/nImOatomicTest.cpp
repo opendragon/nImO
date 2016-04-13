@@ -2221,51 +2221,42 @@ doTestBooleanCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result;
 
     try
     {
-#if 0
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        nImO::Boolean falseStuff(false);
+        nImO::Boolean trueStuff(true);
 
-        if (bigBlob)
+        if ((! falseStuff.getValue()) && trueStuff.getValue())
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            nImO::Boolean falseCopy(falseStuff);
+            nImO::Boolean trueCopy(trueStuff);
+
+            if ((falseCopy.getValue() == falseStuff.getValue()) &&
+                (trueCopy.getValue() == trueStuff.getValue()))
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                bigBlob[ii] = aByte;
-            }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-
-            if (stuff)
-            {
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                falseCopy = trueStuff;
+                trueCopy = falseStuff;
+                if ((falseCopy.getValue() == trueStuff.getValue()) &&
+                    (trueCopy.getValue() == falseStuff.getValue()))
                 {
                     result = 0;
                 }
-                delete stuff;
+                else
+                {
+                    result = 1;
+                }
             }
-            delete[] bigBlob;
+            else
+            {
+                result = 1;
+            }
         }
-#endif//0
+        else
+        {
+            result = 1;
+        }
     }
     catch (...)
     {
@@ -2308,47 +2299,44 @@ doTestIntegerCopyAndAssign(const char * launchPath,
 
     try
     {
-#if 0
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        nImO::Number negativeStuff(static_cast<int64_t>(-1234));
+        nImO::Number zeroStuff(static_cast<int64_t>(0));
+        nImO::Number positiveStuff(static_cast<int64_t>(2345));
 
-        if (bigBlob)
+        if ((-1234 == negativeStuff.getIntegerValue()) && (0 == zeroStuff.getIntegerValue()) &&
+            (2345 == positiveStuff.getIntegerValue()))
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            nImO::Number negativeCopy(negativeStuff);
+            nImO::Number zeroCopy(zeroStuff);
+            nImO::Number positiveCopy(positiveStuff);
+
+            if ((negativeCopy.getIntegerValue() == negativeStuff.getIntegerValue()) &&
+                (zeroCopy.getIntegerValue() == zeroStuff.getIntegerValue()) &&
+                (positiveCopy.getIntegerValue() == positiveStuff.getIntegerValue()))
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                bigBlob[ii] = aByte;
-            }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-
-            if (stuff)
-            {
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                negativeCopy = zeroStuff;
+                zeroCopy = positiveStuff;
+                positiveCopy = negativeStuff;
+                if ((negativeCopy.getIntegerValue() == zeroStuff.getIntegerValue()) &&
+                    (zeroCopy.getIntegerValue() == positiveStuff.getIntegerValue()) &&
+                    (positiveCopy.getIntegerValue() == negativeStuff.getIntegerValue()))
                 {
                     result = 0;
                 }
-                delete stuff;
+                else
+                {
+                    result = 1;
+                }
             }
-            delete[] bigBlob;
+            else
+            {
+                result = 1;
+            }
         }
-#endif//0
+        else
+        {
+            result = 1;
+        }
     }
     catch (...)
     {
@@ -2391,47 +2379,44 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
 
     try
     {
-#if 0
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        nImO::Number negativeStuff(-1234.5);
+        nImO::Number zeroStuff(0.0);
+        nImO::Number positiveStuff(2345.6);
 
-        if (bigBlob)
+        if ((-1234.5 == negativeStuff.getDoubleValue()) && (0.0 == zeroStuff.getDoubleValue()) &&
+            (2345.6 == positiveStuff.getDoubleValue()))
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            nImO::Number negativeCopy(negativeStuff);
+            nImO::Number zeroCopy(zeroStuff);
+            nImO::Number positiveCopy(positiveStuff);
+
+            if ((negativeCopy.getDoubleValue() == negativeStuff.getDoubleValue()) &&
+                (zeroCopy.getDoubleValue() == zeroStuff.getDoubleValue()) &&
+                (positiveCopy.getDoubleValue() == positiveStuff.getDoubleValue()))
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                bigBlob[ii] = aByte;
-            }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-
-            if (stuff)
-            {
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                negativeCopy = zeroStuff;
+                zeroCopy = positiveStuff;
+                positiveCopy = negativeStuff;
+                if ((negativeCopy.getDoubleValue() == zeroStuff.getDoubleValue()) &&
+                    (zeroCopy.getDoubleValue() == positiveStuff.getDoubleValue()) &&
+                    (positiveCopy.getDoubleValue() == negativeStuff.getDoubleValue()))
                 {
                     result = 0;
                 }
-                delete stuff;
+                else
+                {
+                    result = 1;
+                }
             }
-            delete[] bigBlob;
+            else
+            {
+                result = 1;
+            }
         }
-#endif//0
+        else
+        {
+            result = 1;
+        }
     }
     catch (...)
     {
@@ -2474,47 +2459,38 @@ doTestStringCopyAndAssign(const char * launchPath,
 
     try
     {
-#if 0
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        nImO::String emptyString;
+        nImO::String shortString("alphabetagamma");
 
-        if (bigBlob)
+        if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"))
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            nImO::String emptyCopy(emptyString);
+            nImO::String shortCopy(shortString);
+
+            if ((emptyCopy.getValue() == emptyString.getValue()) &&
+                (shortCopy.getValue() == shortString.getValue()))
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
-
-                bigBlob[ii] = aByte;
-            }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-
-            if (stuff)
-            {
-                std::string       expectedString("%");
-                std::stringstream buff;
-
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                emptyCopy = shortString;
+                shortCopy = emptyString;
+                if ((emptyCopy.getValue() == shortString.getValue()) &&
+                    (shortCopy.getValue() == emptyString.getValue()))
                 {
                     result = 0;
                 }
-                delete stuff;
+                else
+                {
+                    result = 1;
+                }
             }
-            delete[] bigBlob;
+            else
+            {
+                result = 1;
+            }
         }
-#endif//0
+        else
+        {
+            result = 1;
+        }
     }
     catch (...)
     {
@@ -2557,10 +2533,10 @@ doTestBlobCopyAndAssign(const char * launchPath,
 
     try
     {
-#if 0
         uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        uint8_t * smallBlob = new uint8_t[kSmallTestSize];
 
-        if (bigBlob)
+        if (bigBlob && smallBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -2568,36 +2544,96 @@ doTestBlobCopyAndAssign(const char * launchPath,
 
                 bigBlob[ii] = aByte;
             }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
-
-            if (stuff)
+            for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                std::string       expectedString("%");
-                std::stringstream buff;
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
 
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
-                {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
-
-                    expectedString += highByte;
-                    expectedString += lowByte;
-                }
-                expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
-                {
-                    result = 0;
-                }
-                delete stuff;
+                smallBlob[ii] = aByte;
             }
-            delete[] bigBlob;
+            nImO::Blob smallStuff(smallBlob, kSmallTestSize);
+            nImO::Blob bigStuff(bigBlob, kBigTestSize);
+            size_t smallLength = 0;
+            size_t bigLength = 0;
+            const uint8_t * smallValue = smallStuff.getValue(smallLength);
+            const uint8_t * bigValue = bigStuff.getValue(bigLength);
+
+            result = ((kSmallTestSize == smallLength) ? 0 : 1);
+            for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+            {
+                if (smallValue[ii] != smallBlob[ii])
+                {
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                result = ((kBigTestSize == bigLength) ? 0 : 1);
+                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                {
+                    if (bigValue[ii] != bigBlob[ii])
+                    {
+                        result = 1;
+                    }
+                }
+            }
+            if (0 == result)
+            {
+                nImO::Blob smallCopy(smallStuff);
+                nImO::Blob bigCopy(bigStuff);
+
+                smallLength = bigLength = 0;
+                smallValue = smallCopy.getValue(smallLength);
+                bigValue = bigCopy.getValue(bigLength);
+                result = ((kSmallTestSize == smallLength) ? 0 : 1);
+                for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+                {
+                    if (smallValue[ii] != smallBlob[ii])
+                    {
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    result = ((kBigTestSize == bigLength) ? 0 : 1);
+                    for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                    {
+                        if (bigValue[ii] != bigBlob[ii])
+                        {
+                            result = 1;
+                        }
+                    }
+                }
+                if (0 == result)
+                {
+                    smallCopy = bigStuff;
+                    bigCopy = smallStuff;
+                    smallLength = bigLength = 0;
+                    smallValue = smallCopy.getValue(smallLength);
+                    bigValue = bigCopy.getValue(bigLength);
+                    result = ((kBigTestSize == smallLength) ? 0 : 1);
+                    for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                    {
+                        if (smallValue[ii] != bigBlob[ii])
+                        {
+                            result = 1;
+                        }
+                    }
+                    if (0 == result)
+                    {
+                        result = ((kSmallTestSize == bigLength) ? 0 : 1);
+                        for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+                        {
+                            if (bigValue[ii] != smallBlob[ii])
+                            {
+                                result = 1;
+                            }
+                        }
+                    }
+                }
+            }
         }
-#endif//0
+        delete[] bigBlob;
+        delete[] smallBlob;
     }
     catch (...)
     {

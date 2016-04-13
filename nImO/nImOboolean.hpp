@@ -115,11 +115,11 @@ namespace nImO
             return _value;
         } // getValue
         
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Booleans.
+         @param other The Boolean to be compared with.
+         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Booleans. */
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
@@ -134,11 +134,11 @@ namespace nImO
             return true;
         } // isBoolean
 
-        /*! @brief Return the relative ordering of two Arrays.
-         @param other The Array to be compared with.
-         @param validComparison @c true if the Arrays were comparable and @c false otherwise; if
+        /*! @brief Return the relative ordering of two Booleans.
+         @param other The Boolean to be compared with.
+         @param validComparison @c true if the Booleans were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Arrays. */
+         @returns The relative ordering of the two Booleans. */
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)

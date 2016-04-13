@@ -155,7 +155,38 @@ const
     return result;
 } // nImO::Map::copy
 
-nImO::Map::insertResult nImO::Map::insert(mapValue val)
+bool
+nImO::Map::greaterThan(const Value & other,
+                       bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+#if 0
+    if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value > otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+#endif//0
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Map::greaterThan
+
+nImO::Map::insertResult
+nImO::Map::insert(mapValue val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", val); //####
@@ -181,6 +212,36 @@ nImO::Map::insertResult nImO::Map::insert(mapValue val)
     ODL_OBJEXIT(); //####
     return result;
 } // nImO::Map::insert
+
+bool
+nImO::Map::lessThan(const Value & other,
+                    bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+#if 0
+    if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value < otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThan(*this, validComparison);
+    }
+    else
+#endif//0
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Map::lessThan
 
 nImO::Map &
 nImO::Map::operator =(const nImO::Map & other)

@@ -60,16 +60,13 @@ namespace nImO
      Note that Maps 'own' their data and will perform a delete of the
      contained elements and their keys on deletion. */
     class Map : public Container,
-                public std::map<Value *, Value *, CompareValues>
+                private std::map<Value *, Value *, CompareValues>
     {
     public :
         // Public type definitions.
 
         /*! @brief The return result from the insert method. */
         typedef std::pair<std::map<Value *, Value *, CompareValues>::iterator, bool> insertResult;
-
-        /*! @brief The type of value to be inserted. */
-        typedef std::pair<Value *, Value *> mapValue;
 
     protected :
         // Protected type definitions.
@@ -82,6 +79,9 @@ namespace nImO
 
         /*! @brief The second class that this class is derived from. */
         typedef std::map<Value *, Value *, CompareValues> inherited2;
+
+        /*! @brief The type of value to be inserted. */
+        typedef std::pair<Value *, Value *> mapValue;
 
     public :
         // Public methods.
@@ -102,6 +102,15 @@ namespace nImO
         addToStringBuffer(StringBuffer & outBuffer)
         const;
 
+        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
+         @param newKey The key for the Value.
+         @param newValue The Value to be inserted.
+         @returns A pair<iterator, bool> indicating the success or failure of the insert
+         operation. */
+        insertResult
+        addValue(Value * newKey,
+                 Value * newValue);
+
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -117,13 +126,6 @@ namespace nImO
         greaterThan(const Value & other,
                     bool &        validComparison)
         const;
-
-        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
-         @param val Value to be inserted.
-         @returns A pair<iterator, bool> indicating the success or failure of the insert
-         operation. */
-        insertResult
-        insert(mapValue val);
 
         /*! @brief Return @c true if the object is a Map.
          @returns @c true if the object is a Map and @c false otherwise. */

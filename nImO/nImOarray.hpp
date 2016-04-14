@@ -59,7 +59,7 @@ namespace nImO
      Note that Arrays 'own' their data and will perform a delete of the
      contained elements on deletion. */
     class Array : public Container,
-                  public std::vector<Value *>
+                  private std::vector<Value *>
     {
     public :
         // Public type definitions.
@@ -94,6 +94,12 @@ namespace nImO
         virtual void
         addToStringBuffer(StringBuffer & outBuffer)
         const;
+
+        /*! @brief Add a Value to the end of the Array.
+         @param newElement The Value to be added.
+         @returns The updated Array. */
+        Array &
+        addValue(Value * newElement);
 
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */

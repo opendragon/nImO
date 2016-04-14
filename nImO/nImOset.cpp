@@ -110,11 +110,14 @@ nImO::Set::addEntries(const nImO::Set & other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    for (const_iterator walker(other.begin()); other.end() != walker; ++walker)
+    if ((other._keyKind == _keyKind) || (kEnumerableUnknown == _keyKind))
     {
-        Value * aValue = (*walker)->clone();
+        for (const_iterator walker(other.begin()); other.end() != walker; ++walker)
+        {
+            Value * aValue = (*walker)->clone();
 
-        insert(aValue);
+            addValue(aValue);
+        }
     }
     ODL_EXIT(); //####
 } // nImO::Set::addEntries
@@ -137,6 +140,40 @@ const
     outBuffer.addChar(kEndSetChar);
     ODL_OBJEXIT(); //####
 } // nImO::Set::addToStringBuffer
+
+nImO::Set::insertResult
+nImO::Set::addValue(Value * val)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("val = ", val); //####
+    insertResult result;
+
+    if (NULL == val)
+    {
+        result = insertResult(end(), false);
+    }
+    else
+    {
+        if (kEnumerableUnknown == _keyKind)
+        {
+            _keyKind = val->enumerationType();
+        }
+        if (val->enumerationType() == _keyKind)
+        {
+            result = inherited2::insert(val);
+            if (! result.second)
+            {
+                delete val;
+            }
+        }
+        else
+        {
+            result = insertResult(end(), false);
+        }
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Set::addValue
 
 nImO::Value *
 nImO::Set::clone(void)
@@ -178,33 +215,6 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Set::greaterThan
-
-nImO::Set::insertResult
-nImO::Set::insert(Value * val)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("val = ", val); //####
-    insertResult result;
-
-    if (kEnumerableUnknown == _keyKind)
-    {
-        _keyKind = val->enumerationType();
-    }
-    if (val->enumerationType() == _keyKind)
-    {
-        result = inherited2::insert(val);
-        if (! result.second)
-        {
-            delete val;
-        }
-    }
-    else
-    {
-        result = insertResult(end(), false);
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Set::insert
 
 bool
 nImO::Set::lessThan(const Value & other,

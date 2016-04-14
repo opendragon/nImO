@@ -240,7 +240,7 @@ doTestSingularArrayValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->push_back(new nImO::Number(123.45));
+            stuff->addValue(new nImO::Number(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -311,10 +311,10 @@ doTestSmallArrayValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->push_back(new nImO::Number(123.45));
-            stuff->push_back(new nImO::Boolean(true));
-            stuff->push_back(new nImO::String("charlie"));
-            stuff->push_back(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(123.45));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -389,7 +389,7 @@ doTestBigArrayValue(const char * launchPath,
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
 
                     bigBlob[ii] = aByte;
-                    stuff->push_back(new nImO::Number(static_cast<int64_t>(aByte)));
+                    stuff->addValue(new nImO::Number(static_cast<int64_t>(aByte)));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
                     expectedString += numBuff;
                 }
@@ -527,9 +527,7 @@ doTestSingularBooleanMapValue(const char * launchPath,
                         '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue(new nImO::Boolean(true), new nImO::Number(123.45));
-
-            stuff->insert(aValue);
+            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -596,10 +594,8 @@ doTestSingularIntegerMapValue(const char * launchPath,
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
-                                       new nImO::Number(123.45));
-
-            stuff->insert(aValue);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Number(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -678,9 +674,7 @@ doTestSingularStringMapValue(const char * launchPath,
                             nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                     nImO::kEndMapChar, '\0'
                 };
-                nImO::Map::mapValue aValue(new nImO::String("charlie"), new nImO::Number(123.45));
-
-                stuff->insert(aValue);
+                stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
                 if (0 == compareValueWithString(*stuff, expectedString))
                 {
                     result = 0;
@@ -757,12 +751,9 @@ doTestSmallBooleanMapValue(const char * launchPath,
                     '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue1(new nImO::Boolean(true), new nImO::Number(123.45));
-            nImO::Map::mapValue aValue2(new nImO::Boolean(false),
-                                        new nImO::Number(static_cast<int64_t>(42)));
-
-            stuff->insert(aValue1);
-            stuff->insert(aValue2);
+            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+            stuff->addValue(new nImO::Boolean(false),
+                            new nImO::Number(static_cast<int64_t>(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -831,16 +822,12 @@ doTestSmallIntegerMapValue(const char * launchPath,
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue1(new nImO::Number(static_cast<int64_t>(42)),
-                                        new nImO::Number(123.45));
-            nImO::Map::mapValue aValue2(new nImO::Number(static_cast<int64_t>(17)),
-                                        new nImO::Number(12.345));
-            nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(12)),
-                                        new nImO::Number(1234.5));
-
-            stuff->insert(aValue1);
-            stuff->insert(aValue2);
-            stuff->insert(aValue3);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Number(123.45));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)),
+                            new nImO::Number(12.345));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)),
+                            new nImO::Number(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -912,13 +899,9 @@ doTestSmallStringMapValue(const char * launchPath,
                         '1', '2', '.', '3', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue1(new nImO::String("delta"), new nImO::Number(123.45));
-            nImO::Map::mapValue aValue2(new nImO::String("lima"), new nImO::Number(12.345));
-            nImO::Map::mapValue aValue3(new nImO::String("charlie"), new nImO::Number(1234.5));
-
-            stuff->insert(aValue1);
-            stuff->insert(aValue2);
-            stuff->insert(aValue3);
+            stuff->addValue(new nImO::String("delta"), new nImO::Number(123.45));
+            stuff->addValue(new nImO::String("lima"), new nImO::Number(12.345));
+            stuff->addValue(new nImO::String("charlie"), new nImO::Number(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1051,7 +1034,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Boolean(true));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1119,7 +1102,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1187,7 +1170,7 @@ doTestSingularStringSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
+            stuff->addValue(new nImO::String("charlie"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1256,10 +1239,10 @@ doTestSmallBooleanSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Boolean(false));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Boolean(false));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Boolean(false));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Boolean(false));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1330,14 +1313,14 @@ doTestSmallIntegerSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Number(static_cast<int64_t>(123)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(17)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(12)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(123)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(17)));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(12)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(123)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(123)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1408,14 +1391,14 @@ doTestSmallStringSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("gamma"));
-            stuff->insert(new nImO::String("alpha"));
-            stuff->insert(new nImO::String("delta"));
-            stuff->insert(new nImO::String("beta"));
-            stuff->insert(new nImO::String("gamma"));
-            stuff->insert(new nImO::String("alpha"));
-            stuff->insert(new nImO::String("delta"));
-            stuff->insert(new nImO::String("beta"));
+            stuff->addValue(new nImO::String("gamma"));
+            stuff->addValue(new nImO::String("alpha"));
+            stuff->addValue(new nImO::String("delta"));
+            stuff->addValue(new nImO::String("beta"));
+            stuff->addValue(new nImO::String("gamma"));
+            stuff->addValue(new nImO::String("alpha"));
+            stuff->addValue(new nImO::String("delta"));
+            stuff->addValue(new nImO::String("beta"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1483,7 +1466,7 @@ doTestArrayWithArrayValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->push_back(new nImO::Array);
+            stuff->addValue(new nImO::Array);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1551,7 +1534,7 @@ doTestArrayWithMapValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->push_back(new nImO::Map);
+            stuff->addValue(new nImO::Map);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1619,7 +1602,7 @@ doTestArrayWithSetValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->push_back(new nImO::Set);
+            stuff->addValue(new nImO::Set);
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1687,10 +1670,8 @@ doTestMapWithArrayValue(const char * launchPath,
                         nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)),
-                                       new nImO::Array());
-
-            stuff->insert(aValue);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Array());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1758,9 +1739,7 @@ doTestMapWithMapValue(const char * launchPath,
                         nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Map());
-
-            stuff->insert(aValue);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Map());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1828,9 +1807,7 @@ doTestMapWithSetValue(const char * launchPath,
                         nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Set());
-
-            stuff->insert(aValue);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Set());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1898,16 +1875,11 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
                         '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue1(new nImO::Boolean(true), new nImO::Number(123.45));
-            nImO::Map::mapValue aValue2(new nImO::Number(static_cast<int64_t>(42)),
-                                        new nImO::Number(12.345));
-            nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
-            nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
-
-            stuff->insert(aValue1);
-            stuff->insert(aValue2);
-            stuff->insert(aValue3);
-            stuff->insert(aValue4);
+            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Number(12.345));
+            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
+            stuff->addValue(new nImO::String("zebra"), new nImO::Number(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1974,16 +1946,11 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            nImO::Map::mapValue aValue1(new nImO::Number(static_cast<int64_t>(42)),
-                                        new nImO::Number(123.45));
-            nImO::Map::mapValue aValue2(new nImO::Boolean(true), new nImO::Number(123.45));
-            nImO::Map::mapValue aValue3(new nImO::Number(19.77), new nImO::Number(1.2345));
-            nImO::Map::mapValue aValue4(new nImO::String("zebra"), new nImO::Number(1234.5));
-
-            stuff->insert(aValue1);
-            stuff->insert(aValue2);
-            stuff->insert(aValue3);
-            stuff->insert(aValue4);
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Number(123.45));
+            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
+            stuff->addValue(new nImO::String("zebra"), new nImO::Number(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2062,16 +2029,11 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
                         nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                     nImO::kEndMapChar, '\0'
                 };
-                nImO::Map::mapValue aValue1(new nImO::String("charlie"), new nImO::Number(123.45));
-                nImO::Map::mapValue aValue2(new nImO::Boolean(true), new nImO::Number(123.45));
-                nImO::Map::mapValue aValue3(new nImO::Number(static_cast<int64_t>(42)),
-                                            new nImO::Number(12.345));
-                nImO::Map::mapValue aValue4(new nImO::Number(19.77), new nImO::Number(1.2345));
-
-                stuff->insert(aValue1);
-                stuff->insert(aValue2);
-                stuff->insert(aValue3);
-                stuff->insert(aValue4);
+                stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
+                stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+                stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                                new nImO::Number(12.345));
+                stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
                 if (0 == compareValueWithString(*stuff, expectedString))
                 {
                     result = 0;
@@ -2147,10 +2109,10 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
-            stuff->insert(new nImO::String("zebra"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2218,10 +2180,10 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(19.77));
-            stuff->insert(new nImO::String("zebra"));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2289,10 +2251,10 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2365,10 +2327,10 @@ doTestValidArrayCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2438,10 +2400,10 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2511,10 +2473,10 @@ doTestValidIntegerMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2584,10 +2546,10 @@ doTestValidStringMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2657,10 +2619,10 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2730,10 +2692,10 @@ doTestValidIntegerSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2803,10 +2765,10 @@ doTestValidStringSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2876,10 +2838,10 @@ doTestInvalidArrayCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2949,10 +2911,10 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3022,10 +2984,10 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3095,10 +3057,10 @@ doTestInvalidStringMapCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3168,10 +3130,10 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3241,10 +3203,10 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -3314,10 +3276,10 @@ doTestInvalidStringSetCompares(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->insert(new nImO::String("charlie"));
-            stuff->insert(new nImO::Boolean(true));
-            stuff->insert(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->insert(new nImO::Number(19.77));
+            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Number(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;

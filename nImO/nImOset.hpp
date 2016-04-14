@@ -60,7 +60,7 @@ namespace nImO
      Note that Sets 'own' their data and will perform a delete of the
      contained elements on deletion. */
     class Set : public Container,
-                public std::set<Value *, CompareValues>
+                private std::set<Value *, CompareValues>
     {
     public :
         // Public type definitions.
@@ -99,6 +99,13 @@ namespace nImO
         addToStringBuffer(StringBuffer & outBuffer)
         const;
 
+        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
+         @param val Value to be inserted.
+         @returns A pair<iterator, bool> indicating the success or failure of the insert
+         operation. */
+        insertResult
+        addValue(Value * val);
+
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -114,13 +121,6 @@ namespace nImO
         greaterThan(const Value & other,
                     bool &        validComparison)
         const;
-
-        /*! @brief Override the standard insert operation to ignore inserting incompatible values.
-         @param val Value to be inserted.
-         @returns A pair<iterator, bool> indicating the success or failure of the insert
-         operation. */
-        insertResult
-        insert(Value * val);
 
         /*! @brief Return @c true if the object is a Set.
          @returns @c true if the object is a Set and @c false otherwise. */

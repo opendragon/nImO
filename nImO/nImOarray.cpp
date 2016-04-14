@@ -114,7 +114,7 @@ nImO::Array::addEntries(const nImO::Array & other)
     {
         Value * aValue = (*walker)->clone();
 
-        push_back(aValue);
+        addValue(aValue);
     }
     ODL_EXIT(); //####
 } // nImO::Array::addEntries
@@ -137,6 +137,19 @@ const
     outBuffer.addChar(kEndArrayChar);
     ODL_OBJEXIT(); //####
 } // nImO::Array::addToStringBuffer
+
+nImO::Array &
+nImO::Array::addValue(Value * newElement)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("newElement = ", newElement); //####
+    if (NULL != newElement)
+    {
+        inherited2::push_back(newElement);
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Array::addValue
 
 nImO::Value *
 nImO::Array::clone(void)

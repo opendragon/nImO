@@ -110,13 +110,16 @@ nImO::Map::addEntries(const nImO::Map & other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
+    if ((other._keyKind == _keyKind) || (kEnumerableUnknown == _keyKind))
     {
-        mapValue aValue = *walker;
-        Value *  key = aValue.first->clone();
-        Value *  mappedValue = aValue.second->clone();
+        for (const_iterator walker(begin()); end() != walker; ++walker)
+        {
+            mapValue aValue = *walker;
+            Value *  key = aValue.first->clone();
+            Value *  mappedValue = aValue.second->clone();
 
-        insert(mapValue(key, mappedValue));
+            addValue(key, mappedValue);
+        }
     }
     ODL_EXIT(); //####
 } // nImO::Map::addEntries
@@ -143,6 +146,46 @@ const
     outBuffer.addChar(kEndMapChar);
     ODL_OBJEXIT(); //####
 } // nImO::Map::addToStringBuffer
+
+nImO::Map::insertResult
+nImO::Map::addValue(Value * newKey,
+                    Value * newValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("newKey = ", newKey, "newValue = ", newValue); //####
+    insertResult result;
+
+    if ((NULL == newKey) || (NULL == newValue))
+    {
+        delete newKey;
+        delete newValue;
+        result = insertResult(end(), false);
+    }
+    else
+    {
+        if (kEnumerableUnknown == _keyKind)
+        {
+            _keyKind = newKey->enumerationType();
+        }
+        if (newKey->enumerationType() == _keyKind)
+        {
+            mapValue keyValue(newKey, newValue);
+
+            result = inherited2::insert(keyValue);
+            if (! result.second)
+            {
+                delete newKey;
+                delete newValue;
+            }
+        }
+        else
+        {
+            result = insertResult(end(), false);
+        }
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Map::addValue
 
 nImO::Value *
 nImO::Map::clone(void)
@@ -184,34 +227,6 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Map::greaterThan
-
-nImO::Map::insertResult
-nImO::Map::insert(mapValue val)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("val = ", val); //####
-    insertResult result;
-
-    if (kEnumerableUnknown == _keyKind)
-    {
-        _keyKind = val.first->enumerationType();
-    }
-    if (val.first->enumerationType() == _keyKind)
-    {
-        result = inherited2::insert(val);
-        if (! result.second)
-        {
-            delete val.first;
-            delete val.second;
-        }
-    }
-    else
-    {
-        result = insertResult(end(), false);
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Map::insert
 
 bool
 nImO::Map::lessThan(const Value & other,

@@ -133,6 +133,38 @@ const
 } // nImO::Boolean::copy
 
 bool
+nImO::Boolean::equalTo(const Value & other,
+                       bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value == otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.equalTo(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Boolean::equalTo
+
+bool
 nImO::Boolean::greaterThan(const Value & other,
                            bool &        validComparison)
 const
@@ -141,7 +173,12 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isBoolean())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isBoolean())
     {
         const Boolean & otherRef = static_cast<const Boolean &>(other);
 
@@ -161,6 +198,38 @@ const
 } // nImO::Boolean::greaterThan
 
 bool
+nImO::Boolean::greaterThanOrEqual(const Value & other,
+                                  bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value >= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Boolean::greaterThanOrEqual
+
+bool
 nImO::Boolean::lessThan(const Value & other,
                         bool &        validComparison)
 const
@@ -169,7 +238,12 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isBoolean())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isBoolean())
     {
         const Boolean & otherRef = static_cast<const Boolean &>(other);
 
@@ -187,6 +261,38 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Boolean::lessThan
+
+bool
+nImO::Boolean::lessThanOrEqual(const Value & other,
+                               bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value <= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Boolean::lessThanOrEqual
 
 nImO::Boolean &
 nImO::Boolean::operator =(const nImO::Boolean & other)

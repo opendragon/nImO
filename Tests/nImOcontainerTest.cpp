@@ -2315,6 +2315,48 @@ doTestValidArrayCompares(const char * launchPath,
 
     try
     {
+//        struct 
+//        {
+//        };
+
+        nImO::Array   stuff;
+        nImO::Value * testValue = new nImO::Boolean;
+
+        
+
+
+
+
+
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+
+
+
+
+        stuff.clear();
+        stuff.addValue(new nImO::Boolean(false));
+        stuff.addValue(new nImO::Boolean(false));
+        stuff.addValue(new nImO::Boolean(false));
+
+
+        stuff.clear();
+        stuff.addValue(new nImO::Number(123.45));
+        stuff.addValue(new nImO::Number(234.5));
+        stuff.addValue(new nImO::Number(-17.12));
+
+
+
+
+        stuff.clear();
+        stuff.addValue(new nImO::String("abc"));
+        stuff.addValue(new nImO::String("def"));
+        stuff.addValue(new nImO::String("ghi"));
+
+
+
+        
 #if 0
         nImO::Set * stuff = new nImO::Set;
 
@@ -3477,6 +3519,12 @@ main(int      argc,
                         result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
+#if 0
+add tests for atomic and container comparisons
+   for container/atom comparisons, construct the container and use arrays of test structures that have an atomic value, the expected lessThan (...) and greaterThan(...) with the atomic value on the left and the expected lessThan(...) and greaterThan(...) with the atomic value on the right
+
+add index test for array, and search tests for map and set, including invalid keys
+#endif//0
 
                     case 100 :
                         result = doTestValidArrayCompares(*argv, argc - 1, argv + 2);

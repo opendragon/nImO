@@ -70,6 +70,82 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Compare two byte sequences.
+ @param leftValue A pointer to the left sequence.
+ @param leftSize The number of bytes in the left sequence.
+ @param rightValue A pointer to the right sequence.
+ @param rightSize The number of bytes in the right sequence.
+ @returns @c 1 if the left sequence is lexicographically greater than
+ the right sequence, @c 0 if they are the same sequence and @c -1 if
+ the left sequence is lexicographically less than the right sequence. */
+static int
+compareBytes(const uint8_t * leftValue,
+             const size_t    leftSize,
+             const uint8_t * rightValue,
+             const size_t    rightSize)
+{
+    ODL_ENTER(); //####
+    int result;
+
+    if (0 == leftSize)
+    {
+        if (0 == rightSize)
+        {
+            result = 0; // Both are empty
+        }
+        else
+        {
+            result = -1; // Left is empty, right is not
+        }
+    }
+    else if (0 == rightSize)
+    {
+        result = 1; // Right is empty, left is not
+    }
+    else
+    {
+        size_t firstCount;
+
+        if (leftSize > rightSize)
+        {
+            firstCount = rightSize;
+        }
+        else
+        {
+            firstCount = leftSize;
+        }
+        result = 0;
+        for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
+        {
+            uint8_t leftByte = leftValue[ii];
+            uint8_t rightByte = rightValue[ii];
+
+            if (leftByte > rightByte)
+            {
+                result = 1; // Left sequence is greater
+            }
+            else if (leftByte < rightByte)
+            {
+                result = -1; // Right sequence is greater
+            }
+        }
+        if (0 == result)
+        {
+            // The shorter sequence is a prefix of the longer sequence
+            if (leftSize > rightSize)
+            {
+                result = 1; // Left sequence is longer
+            }
+            else if (leftSize < rightSize)
+            {
+                result = -1; // Right sequence is longer
+            }
+        }
+    }
+    ODL_EXIT_LL(result); //####
+    return result;
+} // compareBytes
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -146,6 +222,168 @@ const
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Blob::copy
+
+bool
+nImO::Blob::equalTo(const Value & other,
+                    bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBlob())
+    {
+        const Blob & otherRef = static_cast<const Blob &>(other);
+
+        result = (0 == compareBytes(_value, _size, otherRef._value, otherRef._size));
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.equalTo(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::equalTo
+
+bool
+nImO::Blob::greaterThan(const Value & other,
+                        bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isBlob())
+    {
+        const Blob & otherRef = static_cast<const Blob &>(other);
+
+        result = (0 < compareBytes(_value, _size, otherRef._value, otherRef._size));
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::greaterThan
+
+bool
+nImO::Blob::greaterThanOrEqual(const Value & other,
+                               bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBlob())
+    {
+        const Blob & otherRef = static_cast<const Blob &>(other);
+
+        result = (0 <= compareBytes(_value, _size, otherRef._value, otherRef._size));
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::greaterThanOrEqual
+
+bool
+nImO::Blob::lessThan(const Value & other,
+                     bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isBlob())
+    {
+        const Blob & otherRef = static_cast<const Blob &>(other);
+
+        result = (0 > compareBytes(_value, _size, otherRef._value, otherRef._size));
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThan(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::lessThan
+
+bool
+nImO::Blob::lessThanOrEqual(const Value & other,
+                            bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isBlob())
+    {
+        const Blob & otherRef = static_cast<const Blob &>(other);
+
+        result = (0 >= compareBytes(_value, _size, otherRef._value, otherRef._size));
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::lessThanOrEqual
 
 nImO::Blob &
 nImO::Blob::operator =(const nImO::Blob & other)

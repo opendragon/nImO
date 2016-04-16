@@ -141,6 +141,38 @@ const
 } // nImO::String::copy
 
 bool
+nImO::String::equalTo(const Value & other,
+                      bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isString())
+    {
+        const String & otherRef = static_cast<const String &>(other);
+
+        result = (_value == otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.equalTo(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::String::equalTo
+
+bool
 nImO::String::greaterThan(const Value & other,
                           bool &        validComparison)
 const
@@ -149,7 +181,12 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isString())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isString())
     {
         const String & otherRef = static_cast<const String &>(other);
 
@@ -169,6 +206,38 @@ const
 } // nImO::String::greaterThan
 
 bool
+nImO::String::greaterThanOrEqual(const Value & other,
+                                 bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isString())
+    {
+        const String & otherRef = static_cast<const String &>(other);
+
+        result = (_value >= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::String::greaterThanOrEqual
+
+bool
 nImO::String::lessThan(const Value & other,
                        bool &        validComparison)
 const
@@ -177,7 +246,12 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isString())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isString())
     {
         const String & otherRef = static_cast<const String &>(other);
 
@@ -195,6 +269,38 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::String::lessThan
+
+bool
+nImO::String::lessThanOrEqual(const Value & other,
+                              bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isString())
+    {
+        const String & otherRef = static_cast<const String &>(other);
+
+        result = (_value <= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::String::lessThanOrEqual
 
 nImO::String &
 nImO::String::operator =(const nImO::String & other)

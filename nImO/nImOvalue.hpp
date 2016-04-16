@@ -106,6 +106,20 @@ namespace nImO
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
+        equalTo(const Value & other,
+                bool &        validComparison)
+        const
+        {
+            validComparison = (&other == this);
+            return (&other == this);
+        } // equalTo
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
         const
@@ -113,6 +127,20 @@ namespace nImO
             validComparison = false;
             return false;
         } // greaterThan
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        greaterThanOrEqual(const Value & other,
+                           bool &        validComparison)
+        const
+        {
+            validComparison = (&other == this);
+            return (&other == this);
+        } // greaterThanOrEqual
 
         /*! @brief Return @c true if the object is an Array.
          @returns @c true if the object is an Array and @c false otherwise. */
@@ -199,6 +227,86 @@ namespace nImO
             validComparison = false;
             return false;
         } // lessThan
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        lessThanOrEqual(const Value & other,
+                        bool &        validComparison)
+        const
+        {
+            validComparison = (&other == this);
+            return (&other == this);
+        } // lessThanOrEqual
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator <(const Value & other)
+        {
+            bool valid = false;
+            bool result = lessThan(other, valid);
+
+            return (valid && result);
+        } // operator <
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator >(const Value & other)
+        {
+            bool valid = false;
+            bool result = greaterThan(other, valid);
+
+            return (valid && result);
+        } // operator >
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator <=(const Value & other)
+        {
+            bool valid = false;
+            bool result = lessThanOrEqual(other, valid);
+
+            return (valid && result);
+        } // operator <=
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator >=(const Value & other)
+        {
+            bool valid = false;
+            bool result = greaterThanOrEqual(other, valid);
+
+            return (valid && result);
+        } // operator >=
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator ==(const Value & other)
+        {
+            bool valid = false;
+            bool result = equalTo(other, valid);
+
+            return (valid && result);
+        } // operator ==
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @returns The relative ordering of the two Values. */
+        bool operator !=(const Value & other)
+        {
+            bool valid = false;
+            bool result = ! equalTo(other, valid);
+
+            return (valid && result);
+        } // operator !=
 
     protected :
         // Protected methods.

@@ -20,14 +20,14 @@ need minimal mDNS code, to implement nImOportList\
 threads, logging, mutex, random numbers, write+read, read callback >>>> Boost!!!!\
 length field to remove the need for SOM/EOM? checksum?\
 \
-* nImOlist \'97 reports all the known channels\
-* nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
-* nImOversion \'97 reports the versions of the libraries\
-* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
-* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
-* nImOconnect 'c' 'd' 'm' \'97 connects channel 'c' to channel 'd' with mode 'm' (TCP or UDP)\
+* nImOconnect 'c' 'd' 'm' \'97 connects channel 'c' to channel 'd' with mode 'm' (TCP or UDP [or UDT])\
                           [only one connection allowed between 'c' and 'd']\
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
+* nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
+* nImOlist \'97 reports all the known channels\
+* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
+* nImOversion \'97 reports the versions of the libraries\
+* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 \cf0 \expnd0\expndtw0\kerning0

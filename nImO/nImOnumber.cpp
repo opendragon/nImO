@@ -149,6 +149,56 @@ const
 } // nImO::Number::copy
 
 bool
+nImO::Number::equalTo(const Value & other,
+                      bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isNumber())
+    {
+        const Number & otherRef = static_cast<const Number &>(other);
+
+        if (_valueIsFloat)
+        {
+            if (otherRef._valueIsFloat)
+            {
+                result = (_floatValue == otherRef._floatValue);
+            }
+            else
+            {
+                result = (_floatValue == otherRef._intValue);
+            }
+        }
+        else if (otherRef._valueIsFloat)
+        {
+            result = (static_cast<double>(_intValue) == otherRef._floatValue);
+        }
+        else
+        {
+            result = (_intValue == otherRef._intValue);
+        }
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.equalTo(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Number::equalTo
+
+bool
 nImO::Number::greaterThan(const Value & other,
                           bool &        validComparison)
 const
@@ -157,20 +207,33 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isNumber())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isNumber())
     {
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
-            result = (_floatValue > ((otherRef._valueIsFloat) ? otherRef._floatValue :
-                                     otherRef._intValue));
+            if (otherRef._valueIsFloat)
+            {
+                result = (_floatValue > otherRef._floatValue);
+            }
+            else
+            {
+                result = (_floatValue > otherRef._intValue);
+            }
+        }
+        else if (otherRef._valueIsFloat)
+        {
+            result = (static_cast<double>(_intValue) > otherRef._floatValue);
         }
         else
         {
-            result = (static_cast<double>(_intValue) > ((otherRef._valueIsFloat) ?
-                                                        otherRef._floatValue :
-                                                        otherRef._intValue));
+            result = (_intValue > otherRef._intValue);
         }
         validComparison = true;
     }
@@ -187,6 +250,56 @@ const
 } // nImO::Number::greaterThan
 
 bool
+nImO::Number::greaterThanOrEqual(const Value & other,
+                                 bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isNumber())
+    {
+        const Number & otherRef = static_cast<const Number &>(other);
+
+        if (_valueIsFloat)
+        {
+            if (otherRef._valueIsFloat)
+            {
+                result = (_floatValue >= otherRef._floatValue);
+            }
+            else
+            {
+                result = (_floatValue >= otherRef._intValue);
+            }
+        }
+        else if (otherRef._valueIsFloat)
+        {
+            result = (static_cast<double>(_intValue) >= otherRef._floatValue);
+        }
+        else
+        {
+            result = (_intValue >= otherRef._intValue);
+        }
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Number::greaterThanOrEqual
+
+bool
 nImO::Number::lessThan(const Value & other,
                        bool &        validComparison)
 const
@@ -195,20 +308,33 @@ const
     ODL_P1("other = ", &other); //####
     bool result;
 
-    if (other.isNumber())
+    if (&other == this)
+    {
+        result = false;
+        validComparison = true;
+    }
+    else if (other.isNumber())
     {
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
-            result = (_floatValue < ((otherRef._valueIsFloat) ? otherRef._floatValue :
-                                     otherRef._intValue));
+            if (otherRef._valueIsFloat)
+            {
+                result = (_floatValue < otherRef._floatValue);
+            }
+            else
+            {
+                result = (_floatValue < otherRef._intValue);
+            }
+        }
+        else if (otherRef._valueIsFloat)
+        {
+            result = (static_cast<double>(_intValue) < otherRef._floatValue);
         }
         else
         {
-            result = (static_cast<double>(_intValue) < ((otherRef._valueIsFloat) ?
-                                                        otherRef._floatValue :
-                                                        otherRef._intValue));
+            result = (_intValue < otherRef._intValue);
         }
         validComparison = true;
     }
@@ -223,6 +349,56 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Number::lessThan
+
+bool
+nImO::Number::lessThanOrEqual(const Value & other,
+                              bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+    if (&other == this)
+    {
+        result = validComparison = true;
+    }
+    else if (other.isNumber())
+    {
+        const Number & otherRef = static_cast<const Number &>(other);
+
+        if (_valueIsFloat)
+        {
+            if (otherRef._valueIsFloat)
+            {
+                result = (_floatValue <= otherRef._floatValue);
+            }
+            else
+            {
+                result = (_floatValue <= otherRef._intValue);
+            }
+        }
+        else if (otherRef._valueIsFloat)
+        {
+            result = (static_cast<double>(_intValue) <= otherRef._floatValue);
+        }
+        else
+        {
+            result = (_intValue <= otherRef._intValue);
+        }
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Number::lessThanOrEqual
 
 nImO::Number &
 nImO::Number::operator =(const nImO::Number & other)

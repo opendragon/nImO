@@ -316,13 +316,14 @@ doTestFilledBufferChunk(const char * launchPath,
                     if (storedData)
                     {
                         result = 0;
-                        for (size_t ii = 0; howMuch > ii; ++ii)
+                        for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
                             uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
+                                ODL_LOG("(aValue != expectedValue)"); //####
                                 result = 1;
                             }
                         }
@@ -413,13 +414,14 @@ doTestOverfilledBufferChunk(const char * launchPath,
                     if (storedData)
                     {
                         result = 0;
-                        for (size_t ii = 0; howMuch > ii; ++ii)
+                        for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
                             uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
+                                ODL_LOG("(aValue != expectedValue)"); //####
                                 result = 1;
                             }
                         }
@@ -1064,11 +1066,8 @@ doTestStringBufferWithFloatingPoint(const char * launchPath,
                     }
                     if (*outString || *resultString)
                     {
+                        ODL_LOG("(*outString || *resultString)"); //####
                         result = 1;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (*outString || *resultString)"); //####
                     }
                     delete stuff;
                 }
@@ -1141,14 +1140,13 @@ doTestBigStringBuffer(const char * launchPath,
             if ((bigLength * kBigTestSize) == length)
             {
                 result = 0;
-                for (size_t ii = 0; kBigTestSize > ii; ++ii, resultString += bigLength)
+                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii, resultString += bigLength)
                 {
-                    if (memcmp(bigString, resultString, bigLength))
+                    if (0 != memcmp(bigString, resultString, bigLength))
                     {
+                        ODL_LOG("(0 != memcmp(bigString, resultString, bigLength))"); //####
                         result = 1;
-                        break;
                     }
-
                 }
             }
             else
@@ -1312,6 +1310,10 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
                 }
                 delete[] smallBlob;
             }
+            else
+            {
+                ODL_LOG("! (smallBlob)"); //####
+            }
             delete stuff;
         }
         else
@@ -1403,6 +1405,10 @@ doTestStringBufferWithBigBlob(const char * launchPath,
                     ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
                 }
                 delete[] bigBlob;
+            }
+            else
+            {
+                ODL_LOG("! (bigBlob)"); //####
             }
             delete stuff;
         }
@@ -1963,11 +1969,19 @@ doTestStringValueWithEscapes(const char * launchPath,
 
         if (stuff)
         {
-            if (! compareValueWithString(*stuff, outString))
+            if (0 == compareValueWithString(*stuff, outString))
             {
                 result = 0;
             }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+            }
             delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2015,11 +2029,19 @@ doTestDefaultBlobValue(const char * launchPath,
 
         if (stuff)
         {
-            if (! compareValueWithString(*stuff, "%0%%"))
+            if (0 == compareValueWithString(*stuff, "%0%%"))
             {
                 result = 0;
             }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, \"%0%%\"))"); //####
+            }
             delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2094,13 +2116,25 @@ doTestSmallBlobValue(const char * launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
                 }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString.c_str()))"); //####
+                }
                 delete stuff;
             }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
             delete[] smallBlob;
+        }
+        else
+        {
+            ODL_LOG("! (smallBlob)"); //####
         }
     }
     catch (...)
@@ -2175,13 +2209,25 @@ doTestBigBlobValue(const char * launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (! compareValueWithString(*stuff, expectedString.c_str()))
+                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
                 }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString.c_str()))"); //####
+                }
                 delete stuff;
             }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
             delete[] bigBlob;
+        }
+        else
+        {
+            ODL_LOG("! (bigBlob)"); //####
         }
     }
     catch (...)
@@ -2245,16 +2291,21 @@ doTestBooleanCopyAndAssign(const char * launchPath,
                 }
                 else
                 {
+                    ODL_LOG("! ((falseCopy.getValue() == trueStuff.getValue()) && " //####
+                            "(trueCopy.getValue() == falseStuff.getValue()))"); //####
                     result = 1;
                 }
             }
             else
             {
+                ODL_LOG("! ((falseCopy.getValue() == falseStuff.getValue()) && " //####
+                        "(trueCopy.getValue() == trueStuff.getValue()))"); //####
                 result = 1;
             }
         }
         else
         {
+            ODL_LOG("! ((! falseStuff.getValue()) && trueStuff.getValue())"); //####
             result = 1;
         }
     }
@@ -2299,12 +2350,16 @@ doTestIntegerCopyAndAssign(const char * launchPath,
 
     try
     {
-        nImO::Number negativeStuff(static_cast<int64_t>(-1234));
-        nImO::Number zeroStuff(static_cast<int64_t>(0));
-        nImO::Number positiveStuff(static_cast<int64_t>(2345));
+        static const int64_t value1 = -1234;
+        static const int64_t value2 = 0;
+        static const int64_t value3 = 2345;
+        nImO::Number negativeStuff(value1);
+        nImO::Number zeroStuff(value2);
+        nImO::Number positiveStuff(value3);
 
-        if ((-1234 == negativeStuff.getIntegerValue()) && (0 == zeroStuff.getIntegerValue()) &&
-            (2345 == positiveStuff.getIntegerValue()))
+        if ((value1 == negativeStuff.getIntegerValue()) &&
+            (value2 == zeroStuff.getIntegerValue()) &&
+            (value3 == positiveStuff.getIntegerValue()))
         {
             nImO::Number negativeCopy(negativeStuff);
             nImO::Number zeroCopy(zeroStuff);
@@ -2325,16 +2380,25 @@ doTestIntegerCopyAndAssign(const char * launchPath,
                 }
                 else
                 {
+                    ODL_LOG("! ((negativeCopy.getIntegerValue() == zeroStuff.getIntegerValue()) && " //####
+                            "(zeroCopy.getIntegerValue() == positiveStuff.getIntegerValue()) && " //####
+                            "(positiveCopy.getIntegerValue() == negativeStuff.getIntegerValue()))"); //####
                     result = 1;
                 }
             }
             else
             {
+                ODL_LOG("! ((negativeCopy.getIntegerValue() == negativeStuff.getIntegerValue()) && " //####
+                        "(zeroCopy.getIntegerValue() == zeroStuff.getIntegerValue()) && " //####
+                        "(positiveCopy.getIntegerValue() == positiveStuff.getIntegerValue()))"); //####
                 result = 1;
             }
         }
         else
         {
+            ODL_LOG("! ((value1 == negativeStuff.getIntegerValue()) && " //####
+                    "(value2 == zeroStuff.getIntegerValue()) && " //####
+                    "(value3 == positiveStuff.getIntegerValue()))"); //####
             result = 1;
         }
     }
@@ -2379,12 +2443,16 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
 
     try
     {
-        nImO::Number negativeStuff(-1234.5);
-        nImO::Number zeroStuff(0.0);
-        nImO::Number positiveStuff(2345.6);
+        static const double value1 = -1234.5;
+        static const double value2 = 0.0;
+        static const double value3 = 2345.6;
+        nImO::Number negativeStuff(value1);
+        nImO::Number zeroStuff(value2);
+        nImO::Number positiveStuff(value3);
 
-        if ((-1234.5 == negativeStuff.getDoubleValue()) && (0.0 == zeroStuff.getDoubleValue()) &&
-            (2345.6 == positiveStuff.getDoubleValue()))
+        if ((value1 == negativeStuff.getDoubleValue()) &&
+            (value2 == zeroStuff.getDoubleValue()) &&
+            (value3 == positiveStuff.getDoubleValue()))
         {
             nImO::Number negativeCopy(negativeStuff);
             nImO::Number zeroCopy(zeroStuff);
@@ -2405,16 +2473,25 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
                 }
                 else
                 {
+                    ODL_LOG("! ((negativeCopy.getDoubleValue() == zeroStuff.getDoubleValue()) && " //####
+                            "(zeroCopy.getDoubleValue() == positiveStuff.getDoubleValue()) && " //####
+                            "(positiveCopy.getDoubleValue() == negativeStuff.getDoubleValue()))"); //####
                     result = 1;
                 }
             }
             else
             {
+                ODL_LOG("! ((negativeCopy.getDoubleValue() == negativeStuff.getDoubleValue()) && " //####
+                        "(zeroCopy.getDoubleValue() == zeroStuff.getDoubleValue()) && " //####
+                        "(positiveCopy.getDoubleValue() == positiveStuff.getDoubleValue()))"); //####
                 result = 1;
             }
         }
         else
         {
+            ODL_LOG("! ((value1 == negativeStuff.getDoubleValue()) && " //####
+                    "(value2 == zeroStuff.getDoubleValue()) && " //####
+                    "(value3 == positiveStuff.getDoubleValue()))"); //####
             result = 1;
         }
     }
@@ -2462,7 +2539,8 @@ doTestStringCopyAndAssign(const char * launchPath,
         nImO::String emptyString;
         nImO::String shortString("alphabetagamma");
 
-        if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"))
+        if ((0 == emptyString.getValue().length()) &&
+            (shortString.getValue() == "alphabetagamma"))
         {
             nImO::String emptyCopy(emptyString);
             nImO::String shortCopy(shortString);
@@ -2479,16 +2557,22 @@ doTestStringCopyAndAssign(const char * launchPath,
                 }
                 else
                 {
+                    ODL_LOG("! ((emptyCopy.getValue() == shortString.getValue()) && " //####
+                            "(shortCopy.getValue() == emptyString.getValue()))"); //####
                     result = 1;
                 }
             }
             else
             {
+                ODL_LOG("! ((emptyCopy.getValue() == emptyString.getValue()) && " //####
+                        "(shortCopy.getValue() == shortString.getValue()))"); //####
                 result = 1;
             }
         }
         else
         {
+            ODL_LOG("! ((0 == emptyString.getValue().length()) && " //####
+                    "(shortString.getValue() == \"alphabetagamma\"))"); //####
             result = 1;
         }
     }
@@ -2562,6 +2646,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
             {
                 if (smallValue[ii] != smallBlob[ii])
                 {
+                    ODL_LOG("(smallValue[ii] != smallBlob[ii])"); //####
                     result = 1;
                 }
             }
@@ -2572,6 +2657,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
                 {
                     if (bigValue[ii] != bigBlob[ii])
                     {
+                        ODL_LOG("(bigValue[ii] != bigBlob[ii])"); //####
                         result = 1;
                     }
                 }
@@ -2589,6 +2675,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
                 {
                     if (smallValue[ii] != smallBlob[ii])
                     {
+                        ODL_LOG("(smallValue[ii] != smallBlob[ii])"); //####
                         result = 1;
                     }
                 }
@@ -2599,6 +2686,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
                     {
                         if (bigValue[ii] != bigBlob[ii])
                         {
+                            ODL_LOG("(bigValue[ii] != bigBlob[ii])"); //####
                             result = 1;
                         }
                     }
@@ -2615,6 +2703,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
                     {
                         if (smallValue[ii] != bigBlob[ii])
                         {
+                            ODL_LOG("(smallValue[ii] != bigBlob[ii])"); //####
                             result = 1;
                         }
                     }
@@ -2625,6 +2714,7 @@ doTestBlobCopyAndAssign(const char * launchPath,
                         {
                             if (bigValue[ii] != smallBlob[ii])
                             {
+                                ODL_LOG("(bigValue[ii] != smallBlob[ii])"); //####
                                 result = 1;
                             }
                         }
@@ -2684,14 +2774,21 @@ doTestValidBooleanCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // tests
 
         const tests testSet[] =
         {
-            { false, false, false, true, false, true },
-            { false, true, true, true, false, true },
-            { true, false, false, true, true, true },
-            { true, true, false, true, false, true }
+            // left  right  <            >            <=           >=           ==
+            { false, false, false, true, false, true, true,  true, true,  true, true,  true },
+            { false, true,  true,  true, false, true, true,  true, false, true, false, true },
+            { true,  false, false, true, true,  true, false, true, true,  true, false, true },
+            { true,  true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
 
@@ -2703,21 +2800,67 @@ doTestValidBooleanCompares(const char * launchPath,
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
             else if (testSet[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
                 if (testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -2772,6 +2915,12 @@ doTestValidNumberCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // testsI2I
         struct testsI2R
         {
@@ -2781,6 +2930,12 @@ doTestValidNumberCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // testsI2R
         struct testsR2I
         {
@@ -2790,6 +2945,12 @@ doTestValidNumberCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // testsR2I
         struct testsR2R
         {
@@ -2799,42 +2960,60 @@ doTestValidNumberCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // testsR2R
 
         const testsI2I testSet1[] =
         {
-            { 0, 0, false, true, false, true },
-            { 0, 1, true, true, false, true },
-            { 0, -1, false, true, true, true },
-            { 1, 0, false, true, true, true },
-            { -1, 0, true, true, false, true }
+            // l   r  <            >            <=           >=           ==
+            { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
+            { 0,   1, true,  true, false, true, true,  true, false, true, false, true },
+            { 0,  -1, false, true, true,  true, false, true, true,  true, false, true },
+            { 1,   0, false, true, true,  true, false, true, true,  true, false, true },
+            { -1,  0, true,  true, false, true, true,  true, false, true, false, true },
+            { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
+            { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t numTests1 = (sizeof(testSet1) / sizeof(testSet1[0]));
         const testsI2R testSet2[] =
         {
-            { 0, 0, false, true, false, true },
-            { 0, 1, true, true, false, true },
-            { 0, -1, false, true, true, true },
-            { 1, 0, false, true, true, true },
-            { -1, 0, true, true, false, true }
+            // l   r  <            >            <=           >=           ==
+            { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
+            { 0,   1, true,  true, false, true, true,  true, false, true, false, true },
+            { 0,  -1, false, true, true,  true, false, true, true,  true, false, true },
+            { 1,   0, false, true, true,  true, false, true, true,  true, false, true },
+            { -1,  0, true,  true, false, true, true,  true, false, true, false, true },
+            { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
+            { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t numTests2 = (sizeof(testSet2) / sizeof(testSet2[0]));
         const testsR2I testSet3[] =
         {
-            { 0, 0, false, true, false, true },
-            { 0, 1, true, true, false, true },
-            { 0, -1, false, true, true, true },
-            { 1, 0, false, true, true, true },
-            { -1, 0, true, true, false, true }
+            // l   r  <            >            <=           >=           ==
+            { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
+            { 0,   1, true,  true, false, true, true,  true, false, true, false, true },
+            { 0,  -1, false, true, true,  true, false, true, true,  true, false, true },
+            { 1,   0, false, true, true,  true, false, true, true,  true, false, true },
+            { -1,  0, true,  true, false, true, true,  true, false, true, false, true },
+            { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
+            { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t numTests3 = (sizeof(testSet3) / sizeof(testSet3[0]));
         const testsR2R testSet4[] =
         {
-            { 0, 0, false, true, false, true },
-            { 0, 1, true, true, false, true },
-            { 0, -1, false, true, true, true },
-            { 1, 0, false, true, true, true },
-            { -1, 0, true, true, false, true }
+            // l   r  <            >            <=           >=           ==
+            { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
+            { 0,   1, true,  true, false, true, true,  true, false, true, false, true },
+            { 0,  -1, false, true, true,  true, false, true, true,  true, false, true },
+            { 1,   0, false, true, true,  true, false, true, true,  true, false, true },
+            { -1,  0, true,  true, false, true, true,  true, false, true, false, true },
+            { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
+            { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t numTests4 = (sizeof(testSet4) / sizeof(testSet4[0]));
 
@@ -2846,21 +3025,67 @@ doTestValidNumberCompares(const char * launchPath,
 
             if (testSet1[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet1[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
             else if (testSet1[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet1[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
                 if (testSet1[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet1[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet1[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet1[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet1[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet1[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet1[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet1[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -2868,26 +3093,72 @@ doTestValidNumberCompares(const char * launchPath,
         for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
         {
             bool         valid = false;
-            nImO::Number leftValue(testSet3[ii]._leftValue);
-            nImO::Number rightValue(testSet3[ii]._rightValue);
+            nImO::Number leftValue(testSet2[ii]._leftValue);
+            nImO::Number rightValue(testSet2[ii]._rightValue);
 
-            if (testSet3[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
+            if (testSet2[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet2[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
-            else if (testSet3[ii]._lessThanValid != valid)
+            else if (testSet2[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet2[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
-                if (testSet3[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
+                if (testSet2[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet2[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
-                else if (testSet3[ii]._greaterThanValid != valid)
+                else if (testSet2[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet2[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet2[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet2[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet2[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet2[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet2[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet2[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet2[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet2[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet2[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -2900,21 +3171,67 @@ doTestValidNumberCompares(const char * launchPath,
 
             if (testSet3[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet3[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
             else if (testSet3[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet3[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
                 if (testSet3[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet3[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet3[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet3[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet3[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet3[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet3[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet3[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet3[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet3[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet3[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet3[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet3[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet3[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet3[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet3[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -2927,21 +3244,67 @@ doTestValidNumberCompares(const char * launchPath,
 
             if (testSet4[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet4[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
             else if (testSet4[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet4[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
                 if (testSet4[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet4[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet4[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet4[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet4[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet4[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet4[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet4[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet4[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet4[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet4[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet4[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet4[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet4[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet4[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet4[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -2996,18 +3359,25 @@ doTestValidStringCompares(const char * launchPath,
             bool _lessThanValid;
             bool _greaterThanResult;
             bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
         }; // tests
 
         const tests testSet[] =
         {
-            { "", "", false, true, false, true },
-            { "", "abc", true, true, false, true },
-            { "abc", "", false, true, true, true },
-            { "abc", "abc", false, true, false, true },
-            { "abc", "def", true, true, false, true },
-            { "def", "abc", false, true, true, true },
-            { "abc", "abcd", true, true, false, true },
-            { "abcd", "abc", false, true, true, true }
+            // left  right    <            >            <=           >=           ==
+            { "",    "",      false, true, false, true, true,  true, true,  true, true,  true },
+            { "",    "abc",   true,  true, false, true, true,  true, false, true, false, true },
+            { "abc",  "",     false, true, true,  true, false, true, true,  true, false, true },
+            { "abc",  "abc",  false, true, false, true, true,  true, true,  true, true,  true },
+            { "abc",  "def",  true,  true, false, true, true,  true, false, true, false, true },
+            { "def",  "abc",  false, true, true,  true, false, true, true,  true, false, true },
+            { "abc",  "abcd", true,  true, false, true, true,  true, false, true, false, true },
+            { "abcd", "abc",  false, true, true,  true, false, true, true,  true, false, true }
         };
         const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
 
@@ -3019,21 +3389,67 @@ doTestValidStringCompares(const char * launchPath,
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
+                ODL_LOG("(testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
                 result = 1;
             }
             else if (testSet[ii]._lessThanValid != valid)
             {
+                ODL_LOG("(testSet[ii]._lessThanValid != valid)"); //####
                 result = 1;
             }
-            else
+            if (0 == result)
             {
                 valid = false;
                 if (testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
                 {
+                    ODL_LOG("(testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet[ii]._greaterThanValid != valid)
                 {
+                    ODL_LOG("(testSet[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._equalToValid != valid)"); //####
                     result = 1;
                 }
             }
@@ -3065,6 +3481,161 @@ doTestValidStringCompares(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
+doTestValidBlobCompares(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // valid blob compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 0;
+
+    try
+    {
+        struct tests
+        {
+            const nImO::Blob * _leftValue;
+            const nImO::Blob * _rightValue;
+            bool _lessThanResult;
+            bool _lessThanValid;
+            bool _greaterThanResult;
+            bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
+        }; // tests
+
+        const uint8_t blobData1[] = { 1, 2, 3, 4, 5, 6 };
+        const uint8_t blobData2[] = { 1, 2, 3, 4, 5, 6, 7 };
+        const uint8_t blobData3[] = { 1, 2, 3, 4, 5, 7 };
+        const size_t  blobSize1 = (sizeof(blobData1) / sizeof(blobData1[0]));
+        const size_t  blobSize2 = (sizeof(blobData2) / sizeof(blobData2[0]));
+        const size_t  blobSize3 = (sizeof(blobData3) / sizeof(blobData3[0]));
+        nImO::Blob    blob0;
+        nImO::Blob    blob1(blobData1, blobSize1);
+        nImO::Blob    blob2(blobData2, blobSize2);
+        nImO::Blob    blob3(blobData3, blobSize3);
+        const tests   testSet[] =
+        {
+            // left   right   <            >            <=           >=           ==
+            { &blob0, &blob0, false, true, false, true, true,  true, true,  true, true,  true },
+            { &blob0, &blob1, true,  true, false, true, true,  true, false, true, false, true },
+            { &blob1, &blob0, false, true, true,  true, false, true, true,  true, false, true },
+            { &blob1, &blob1, false, true, false, true, true,  true, true,  true, true,  true },
+            { &blob1, &blob3, true,  true, false, true, true,  true, false, true, false, true },
+            { &blob3, &blob1, false, true, true,  true, false, true, true,  true, false, true },
+            { &blob1, &blob2, true,  true, false, true, true,  true, false, true, false, true },
+            { &blob2, &blob1, false, true, true,  true, false, true, true,  true, false, true }
+        };
+        const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
+
+        for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
+        {
+            bool               valid = false;
+            const nImO::Blob & leftValue = *testSet[ii]._leftValue;
+            const nImO::Blob & rightValue = *testSet[ii]._rightValue;
+
+            if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
+            {
+                ODL_LOG("(testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanResult != leftValue.greaterThan(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                valid = false;
+                if (testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))
+                {
+                    ODL_LOG("(testSet[ii]._equalToResult != leftValue.equalTo(rightValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestValidBlobCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 84 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
 doTestInvalidBooleanCompares(const char * launchPath,
                              const int    argc,
                              char * *     argv) // invalid boolean compares
@@ -3084,35 +3655,57 @@ doTestInvalidBooleanCompares(const char * launchPath,
         nImO::Boolean leftValue;
         nImO::Number  rightValue1;
         nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.lessThan(rightValue1, valid);
-        if (valid)
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue1, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.lessThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.lessThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.equalTo(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
         }
     }
     catch (...)
@@ -3128,7 +3721,7 @@ doTestInvalidBooleanCompares(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 84 ***
+# pragma mark *** Test Case 85 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3160,35 +3753,57 @@ doTestInvalidNumberCompares(const char * launchPath,
         nImO::Number  leftValue;
         nImO::Boolean rightValue1;
         nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.lessThan(rightValue1, valid);
-        if (valid)
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue1, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.lessThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.lessThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.equalTo(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
         }
     }
     catch (...)
@@ -3204,7 +3819,7 @@ doTestInvalidNumberCompares(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 85 ***
+# pragma mark *** Test Case 86 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -3236,35 +3851,57 @@ doTestInvalidStringCompares(const char * launchPath,
         nImO::String  leftValue;
         nImO::Boolean rightValue1;
         nImO::Number  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.lessThan(rightValue1, valid);
-        if (valid)
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue1, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.lessThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
-        }
-        else
-        {
-            leftValue.greaterThan(rightValue2, valid);
-        }
-        if (valid)
-        {
-            result = 1;
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.lessThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.equalTo(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
         }
     }
     catch (...)
@@ -3275,6 +3912,104 @@ doTestInvalidStringCompares(const char * launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInvalidStringCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 87 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidBlobCompares(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // invalid blob compares
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 0;
+
+    try
+    {
+        bool          valid = false;
+        nImO::Blob    leftValue;
+        nImO::Boolean rightValue1;
+        nImO::Number  rightValue2;
+        nImO::String  rightValue3;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.lessThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThanOrEqual(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.equalTo(aRightValue, valid);
+            }
+            if (valid && (0 == result))
+            {
+                ODL_LOG("(valid && (0 == result))"); //####
+                result = 1;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidBlobCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3468,15 +4203,23 @@ main(int      argc,
                         break;
 
                     case 83 :
-                        result = doTestInvalidBooleanCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidBlobCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 84 :
-                        result = doTestInvalidNumberCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidBooleanCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 85 :
+                        result = doTestInvalidNumberCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 86 :
                         result = doTestInvalidStringCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 87 :
+                        result = doTestInvalidBlobCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

@@ -171,12 +171,16 @@ add_test(NAME TestValidBooleanCompares COMMAND ${THIS_TARGET} 80)
 add_test(NAME TestValidNumberCompares COMMAND ${THIS_TARGET} 81)
 # Test valid string compares
 add_test(NAME TestValidStringCompares COMMAND ${THIS_TARGET} 82)
+# Test valid blob compares
+add_test(NAME TestValidBlobCompares COMMAND ${THIS_TARGET} 83)
 # Test invalid boolean compares
-add_test(NAME TestInvalidBooleanCompares COMMAND ${THIS_TARGET} 83)
+add_test(NAME TestInvalidBooleanCompares COMMAND ${THIS_TARGET} 84)
 # Test invalid number compares
-add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 84)
+add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 85)
 # Test invalid string compares
-add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 85)
+add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 86)
+# Test invalid blob compares
+add_test(NAME TestInvalidBlobCompares COMMAND ${THIS_TARGET} 87)
 
 set(THIS_TARGET nImOcontainerTest)
 

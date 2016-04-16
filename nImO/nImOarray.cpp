@@ -97,7 +97,7 @@ nImO::Array::Array(const nImO::Array & other) :
 nImO::Array::~Array(void)
 {
     ODL_OBJENTER(); //####
-    removeAllEntries();
+    clear();
     ODL_OBJEXIT(); //####
 } // nImO::Array::~Array
 
@@ -151,6 +151,20 @@ nImO::Array::addValue(Value * newElement)
     return *this;
 } // nImO::Array::addValue
 
+void
+nImO::Array::clear(void)
+{
+    ODL_OBJENTER(); //####
+    for (const_iterator walker(begin()); end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+
+        delete aValue;
+    }
+    inherited2::clear();
+    ODL_OBJEXIT(); //####
+} // nImO::Array::clear
+
 nImO::Value *
 nImO::Array::clone(void)
 const
@@ -161,6 +175,36 @@ const
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Array::copy
+
+bool
+nImO::Array::equalTo(const Value & other,
+                     bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+#if 0
+    if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value == otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.equalTo(*this, validComparison);
+    }
+    else
+#endif//0
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Array::equalTo
 
 bool
 nImO::Array::greaterThan(const Value & other,
@@ -193,6 +237,36 @@ const
 } // nImO::Array::greaterThan
 
 bool
+nImO::Array::greaterThanOrEqual(const Value & other,
+                                bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+#if 0
+    if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value >= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+#endif//0
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Array::greaterThanOrEqual
+
+bool
 nImO::Array::lessThan(const Value & other,
                       bool &        validComparison)
 const
@@ -222,6 +296,36 @@ const
     return result;
 } // nImO::Array::lessThan
 
+bool
+nImO::Array::lessThanOrEqual(const Value & other,
+                             bool &        validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result;
+
+#if 0
+    if (other.isBoolean())
+    {
+        const Boolean & otherRef = static_cast<const Boolean &>(other);
+
+        result = (_value <= otherRef._value);
+        validComparison = true;
+    }
+    else if (other.isContainer())
+    {
+        result = other.greaterThanOrEqual(*this, validComparison);
+    }
+    else
+#endif//0
+    {
+        result = validComparison = false;
+    }
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Array::lessThanOrEqual
+
 nImO::Array &
 nImO::Array::operator =(const nImO::Array & other)
 {
@@ -229,26 +333,12 @@ nImO::Array::operator =(const nImO::Array & other)
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        removeAllEntries();
+        clear();
         addEntries(other);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Array::operator=
-
-void
-nImO::Array::removeAllEntries(void)
-{
-    ODL_OBJENTER(); //####
-    clear();
-    for (const_iterator walker(begin()); end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-
-        delete aValue;
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::Array::removeAllEntries
 
 #if defined(__APPLE__)
 # pragma mark Global functions

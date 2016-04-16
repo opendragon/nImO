@@ -106,6 +106,10 @@ namespace nImO
         insertResult
         addValue(Value * val);
 
+        /*! @brief Remove all entries from the Set. */
+        void
+        clear(void);
+
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -118,8 +122,28 @@ namespace nImO
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
+        equalTo(const Value & other,
+                bool &        validComparison)
+        const;
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
+        const;
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        greaterThanOrEqual(const Value & other,
+                           bool &        validComparison)
         const;
 
         /*! @brief Return @c true if the object is a Set.
@@ -141,6 +165,16 @@ namespace nImO
                  bool &        validComparison)
         const;
 
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        lessThanOrEqual(const Value & other,
+                        bool &        validComparison)
+        const;
+
         /*! @brief The assignment operator.
          @param other The object to be copied.
          @returns The updated object. */
@@ -157,10 +191,6 @@ namespace nImO
           @param other The object to be copied from. */
         void
         addEntries(const Set & other);
-
-        /*! @brief Remove all entries. */
-        void
-        removeAllEntries(void);
 
     public :
         // Public fields.

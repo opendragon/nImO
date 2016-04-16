@@ -107,6 +107,16 @@ namespace nImO
             return kEnumerableBoolean;
         } // enumerationType
 
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        equalTo(const Value & other,
+                bool &        validComparison)
+        const;
+
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         bool getValue(void)
@@ -123,6 +133,16 @@ namespace nImO
         virtual bool
         greaterThan(const Value & other,
                     bool &        validComparison)
+        const;
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        greaterThanOrEqual(const Value & other,
+                           bool &        validComparison)
         const;
 
         /*! @brief Return @c true if the object is a Boolean.
@@ -142,6 +162,16 @@ namespace nImO
         virtual bool
         lessThan(const Value & other,
                  bool &        validComparison)
+        const;
+
+        /*! @brief Return the relative ordering of two Values.
+         @param other The Value to be compared with.
+         @param validComparison @c true if the Values were comparable and @c false otherwise; if
+         @c false, the returned value should be ignored.
+         @returns The relative ordering of the two Values. */
+        virtual bool
+        lessThanOrEqual(const Value & other,
+                        bool &        validComparison)
         const;
 
         /*! @brief The assignment operator.

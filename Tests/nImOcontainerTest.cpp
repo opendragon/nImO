@@ -2311,83 +2311,710 @@ doTestValidArrayCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-//        struct 
-//        {
-//        };
-
-        nImO::Array   stuff;
-        nImO::Value * testValue = new nImO::Boolean;
-
-        
-
-
-
-
-
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
-
-
-
-
-        stuff.clear();
-        stuff.addValue(new nImO::Boolean(false));
-        stuff.addValue(new nImO::Boolean(false));
-        stuff.addValue(new nImO::Boolean(false));
-
-
-        stuff.clear();
-        stuff.addValue(new nImO::Number(123.45));
-        stuff.addValue(new nImO::Number(234.5));
-        stuff.addValue(new nImO::Number(-17.12));
-
-
-
-
-        stuff.clear();
-        stuff.addValue(new nImO::String("abc"));
-        stuff.addValue(new nImO::String("def"));
-        stuff.addValue(new nImO::String("ghi"));
-
-
-
-        
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testBooleans
         {
-            static const char expectedString[] =
+            bool _testValue;
+            bool _lessThanResult;
+            bool _lessThanValid;
+            bool _greaterThanResult;
+            bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
+        }; // testBooleans
+
+        nImO::Array         stuff;
+        static testBooleans testSet1l[] =
+        {
+            // test  <            >            <=           >=           ==
+            { false, true,  true, false, true, true,  true, false, true, false, true },
+            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+        };
+        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        static testBooleans testSet1r[] =
+        {
+            // test  <            >            <=           >=          ==
+            { false, false, true, true,  true, false, true, true, true, false, true },
+            { true,  false, true, false, true, true,  true, true, true, true,  true }
+        };
+        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            static testBooleans testSet2l[] =
+            {
+                // test  <            >            <=           >=          ==
+                { false, false, true, false, true, true,  true, true, true, true,  true },
+                { true,  false, true, true,  true, false, true, true, true, false, true }
             };
+            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            static testBooleans testSet2r[] =
+            {
+                // test  <            >            <=          >=           ==
+                { false, false, true, false, true, true, true, true,  true, true,  true },
+                { true,  true,  true, false, true, true, true, false, true, false, true }
+            };
+            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            stuff.clear();
+            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(new nImO::Boolean(false));
+            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                result = 0;
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                
+                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2l[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            else
+            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                
+                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2r[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            delete stuff;
         }
-        else
+        if (0 == result)
         {
-            ODL_LOG("! (stuff)"); //####
+            struct testNumbers
+            {
+                double _testValue;
+                bool   _lessThanResult;
+                bool   _lessThanValid;
+                bool   _greaterThanResult;
+                bool   _greaterThanValid;
+                bool   _lessThanOrEqualResult;
+                bool   _lessThanOrEqualValid;
+                bool   _greaterThanOrEqualResult;
+                bool   _greaterThanOrEqualValid;
+                bool   _equalToResult;
+                bool   _equalToValid;
+            }; // testNumbers
+    
+            static testNumbers testSet3l[] =
+            {
+                // test <            >            <=           >=           ==
+                { -300, true,  true, false, true, true,  true, false, true, false, true },
+                { -200, true,  true, false, true, true,  true, false, true, false, true },
+                { -100, true,  true, false, true, true,  true, false, true, false, true },
+                { -50,  false, true, false, true, false, true, false, true, false, true },
+                { -25,  false, true, false, true, false, true, false, true, false, true },
+                { 0,    false, true, false, true, false, true, false, true, false, true },
+                { 25,   false, true, false, true, false, true, false, true, false, true },
+                { 50,   false, true, false, true, false, true, false, true, false, true },
+                { 100,  false, true, false, true, false, true, false, true, false, true },
+                { 200,  false, true, false, true, false, true, true,  true, false, true },
+                { 300,  false, true, true,  true, false, true, true,  true, false, true }
+            };
+            const size_t       numTestValues3l = (sizeof(testSet3l) / sizeof(testSet3l[0]));
+            static testNumbers testSet3r[] =
+            {
+                // test <            >            <=           >=           ==
+                { -300, false, true, true,  true, false, true, true,  true, false, true },
+                { -200, false, true, true,  true, false, true, true,  true, false, true },
+                { -100, false, true, true,  true, false, true, true,  true, false, true },
+                { -50,  false, true, false, true, false, true, false, true, false, true },
+                { -25,  false, true, false, true, false, true, false, true, false, true },
+                { 0,    false, true, false, true, false, true, false, true, false, true },
+                { 25,   false, true, false, true, false, true, false, true, false, true },
+                { 50,   false, true, false, true, false, true, false, true, false, true },
+                { 100,  false, true, false, true, false, true, false, true, false, true },
+                { 200,  false, true, false, true, true,  true, false, true, false, true },
+                { 300,  true,  true, false, true, true,  true, false, true, false, true }
+            };
+            const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
+    
+            stuff.clear();
+            stuff.addValue(new nImO::Number(123.45));
+            stuff.addValue(new nImO::Number(200.0));
+            stuff.addValue(new nImO::Number(-25.0));
+            stuff.addValue(new nImO::Number(-60.0));
+            stuff.addValue(new nImO::Number(0.0));
+            for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
+            {
+                bool         valid = false;
+                nImO::Number aValue(testSet3l[ii]._testValue);
+                
+                if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet3l[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet3l[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3l[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3l[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3l[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    {
+                        ODL_LOG("(testSet3l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3l[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet3l[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
+            {
+                bool         valid = false;
+                nImO::Number aValue(testSet3r[ii]._testValue);
+                
+                if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet3r[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet3r[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3r[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3r[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3r[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    {
+                        ODL_LOG("(testSet3r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet3r[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet3r[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+            }
         }
-#endif//0
+        if (0 == result)
+        {
+            struct testStrings
+            {
+                const char * _testValue;
+                bool         _lessThanResult;
+                bool         _lessThanValid;
+                bool         _greaterThanResult;
+                bool         _greaterThanValid;
+                bool         _lessThanOrEqualResult;
+                bool         _lessThanOrEqualValid;
+                bool         _greaterThanOrEqualResult;
+                bool         _greaterThanOrEqualValid;
+                bool         _equalToResult;
+                bool         _equalToValid;
+            }; // testStrings
+    
+            static testStrings testSet4l[] =
+            {
+                // test  <            >            <=           >=           ==
+                { "aaa", true,  true, false, true, true,  true, false, true, false, true },
+                { "abc", false, true, false, true, true,  true, false, true, false, true },
+                { "def", false, true, false, true, false, true, false, true, false, true },
+                { "ghi", false, true, false, true, false, true, true,  true, false, true },
+                { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+            };
+            const size_t       numTestValues4l = (sizeof(testSet4l) / sizeof(testSet4l[0]));
+            static testStrings testSet4r[] =
+            {
+                // test  <            >            <=           >=           ==
+                { "aaa", false, true, true,  true, false, true, true,  true, false, true },
+                { "abc", false, true, false, true, false, true, true,  true, false, true },
+                { "def", false, true, false, true, false, true, false, true, false, true },
+                { "ghi", false, true, false, true, true,  true, false, true, false, true },
+                { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+            };
+            const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
+    
+            stuff.clear();
+            stuff.addValue(new nImO::String("abc"));
+            stuff.addValue(new nImO::String("def"));
+            stuff.addValue(new nImO::String("ghi"));
+            for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
+            {
+                bool         valid = false;
+                nImO::String aValue(testSet4l[ii]._testValue);
+                
+                if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet4l[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet4l[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4l[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4l[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4l[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    {
+                        ODL_LOG("(testSet4l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4l[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet4l[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
+            {
+                bool         valid = false;
+                nImO::String aValue(testSet4r[ii]._testValue);
+                
+                if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet4r[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet4r[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4r[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4r[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4r[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    {
+                        ODL_LOG("(testSet4r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet4r[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet4r[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
     }
     catch (...)
     {
@@ -2426,41 +3053,338 @@ doTestValidBooleanMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testBooleans
         {
-            static const char expectedString[] =
+            bool _testValue;
+            bool _lessThanResult;
+            bool _lessThanValid;
+            bool _greaterThanResult;
+            bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
+        }; // testBooleans
+
+        static testBooleans testSet1l[] =
+        {
+            // test  <            >            <=           >=           ==
+            { false, true,  true, false, true, true,  true, false, true, false, true },
+            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+        };
+        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        static testBooleans testSet1r[] =
+        {
+            // test  <            >            <=           >=          ==
+            { false, false, true, true,  true, false, true, true, true, false, true },
+            { true,  false, true, false, true, true,  true, true, true, true,  true }
+        };
+        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Map           stuff;
+
+        stuff.addValue(new nImO::Boolean(true), new nImO::String("abc"));
+        stuff.addValue(new nImO::Boolean(true), new nImO::String("def"));
+        stuff.addValue(new nImO::Boolean(true), new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            static testBooleans testSet2l[] =
+            {
+                // test  <            >            <=           >=          ==
+                { false, false, true, false, true, true,  true, true, true, true,  true },
+                { true,  false, true, true,  true, false, true, true, true, false, true }
             };
+            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            static testBooleans testSet2r[] =
+            {
+                // test  <            >            <=          >=           ==
+                { false, false, true, false, true, true, true, true,  true, true,  true },
+                { true,  true,  true, false, true, true, true, false, true, false, true }
+            };
+            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            stuff.clear();
+            stuff.addValue(new nImO::Boolean(false), new nImO::String("abc"));
+            stuff.addValue(new nImO::Boolean(false), new nImO::String("def"));
+            stuff.addValue(new nImO::Boolean(false), new nImO::String("ghi"));
+            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                result = 0;
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                
+                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2l[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            else
+            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                
+                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2r[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            delete stuff;
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -2499,41 +3423,201 @@ doTestValidIntegerMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testNumbers
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            int64_t _testValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
+        }; // testNumbers
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
+        static testNumbers testSet1l[] =
         {
-            ODL_LOG("! (stuff)"); //####
+            // test <            >            <=           >=           ==
+            { -300, true,  true, false, true, true,  true, false, true, false, true },
+            { -200, true,  true, false, true, true,  true, false, true, false, true },
+            { -100, true,  true, false, true, true,  true, false, true, false, true },
+            { -50,  false, true, false, true, false, true, false, true, false, true },
+            { -25,  false, true, false, true, false, true, false, true, false, true },
+            { 0,    false, true, false, true, false, true, false, true, false, true },
+            { 25,   false, true, false, true, false, true, false, true, false, true },
+            { 50,   false, true, false, true, false, true, false, true, false, true },
+            { 100,  false, true, false, true, false, true, false, true, false, true },
+            { 200,  false, true, false, true, false, true, true,  true, false, true },
+            { 300,  false, true, true,  true, false, true, true,  true, false, true }
+        };
+        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+
+        static testNumbers testSet1r[] =
+        {
+            // test <            >            <=           >=           ==
+            { -300, false, true, true,  true, false, true, true,  true, false, true },
+            { -200, false, true, true,  true, false, true, true,  true, false, true },
+            { -100, false, true, true,  true, false, true, true,  true, false, true },
+            { -50,  false, true, false, true, false, true, false, true, false, true },
+            { -25,  false, true, false, true, false, true, false, true, false, true },
+            { 0,    false, true, false, true, false, true, false, true, false, true },
+            { 25,   false, true, false, true, false, true, false, true, false, true },
+            { 50,   false, true, false, true, false, true, false, true, false, true },
+            { 100,  false, true, false, true, false, true, false, true, false, true },
+            { 200,  false, true, false, true, true,  true, false, true, false, true },
+            { 300,  true,  true, false, true, true,  true, false, true, false, true }
+        };
+        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Map          stuff;
+
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(123)), new nImO::String("abc"));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(200)), new nImO::String("def"));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(-25)), new nImO::String("ghi"));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(-60)), new nImO::String("jkl"));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(0)), new nImO::String("mno"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::Number aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
         }
-#endif//0
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::Number aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
     }
     catch (...)
     {
@@ -2572,41 +3656,186 @@ doTestValidStringMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testStrings
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            const char * _testValue;
+            bool         _lessThanResult;
+            bool         _lessThanValid;
+            bool         _greaterThanResult;
+            bool         _greaterThanValid;
+            bool         _lessThanOrEqualResult;
+            bool         _lessThanOrEqualValid;
+            bool         _greaterThanOrEqualResult;
+            bool         _greaterThanOrEqualValid;
+            bool         _equalToResult;
+            bool         _equalToValid;
+        }; // testStrings
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
+        static testStrings testSet1l[] =
         {
-            ODL_LOG("! (stuff)"); //####
+            // test  <            >            <=           >=           ==
+            { "aaa", true,  true, false, true, true,  true, false, true, false, true },
+            { "abc", false, true, false, true, true,  true, false, true, false, true },
+            { "def", false, true, false, true, false, true, false, true, false, true },
+            { "ghi", false, true, false, true, false, true, true,  true, false, true },
+            { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+        };
+        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        static testStrings testSet1r[] =
+        {
+            // test  <            >            <=           >=           ==
+            { "aaa", false, true, true,  true, false, true, true,  true, false, true },
+            { "abc", false, true, false, true, false, true, true,  true, false, true },
+            { "def", false, true, false, true, false, true, false, true, false, true },
+            { "ghi", false, true, false, true, true,  true, false, true, false, true },
+            { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+        };
+        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Map          stuff;
+
+        stuff.addValue(new nImO::String("abc"), new nImO::String("123"));
+        stuff.addValue(new nImO::String("def"), new nImO::String("456"));
+        stuff.addValue(new nImO::String("ghi"), new nImO::String("789"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::String aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
         }
-#endif//0
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::String aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
     }
     catch (...)
     {
@@ -2645,41 +3874,338 @@ doTestValidBooleanSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testBooleans
         {
-            static const char expectedString[] =
+            bool _testValue;
+            bool _lessThanResult;
+            bool _lessThanValid;
+            bool _greaterThanResult;
+            bool _greaterThanValid;
+            bool _lessThanOrEqualResult;
+            bool _lessThanOrEqualValid;
+            bool _greaterThanOrEqualResult;
+            bool _greaterThanOrEqualValid;
+            bool _equalToResult;
+            bool _equalToValid;
+        }; // testBooleans
+
+        static testBooleans testSet1l[] =
+        {
+            // test  <            >            <=           >=           ==
+            { false, true,  true, false, true, true,  true, false, true, false, true },
+            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+        };
+        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        static testBooleans testSet1r[] =
+        {
+            // test  <            >            <=           >=          ==
+            { false, false, true, true,  true, false, true, true, true, false, true },
+            { true,  false, true, false, true, true,  true, true, true, true,  true }
+        };
+        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Set           stuff;
+
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(new nImO::Boolean(true));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool          valid = false;
+            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            static testBooleans testSet2l[] =
+            {
+                // test  <            >            <=           >=          ==
+                { false, false, true, false, true, true,  true, true, true, true,  true },
+                { true,  false, true, true,  true, false, true, true, true, false, true }
             };
+            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            static testBooleans testSet2r[] =
+            {
+                // test  <            >            <=          >=           ==
+                { false, false, true, false, true, true, true, true,  true, true,  true },
+                { true,  true,  true, false, true, true, true, false, true, false, true }
+            };
+            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            stuff.clear();
+            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(new nImO::Boolean(false));
+            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                result = 0;
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                
+                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2l[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2l[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            else
+            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                bool          valid = false;
+                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                
+                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet2r[ii]._lessThanValid != valid)
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        result = 1;
+                    }
+                    else if (testSet2r[ii]._equalToValid != valid)
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        result = 1;
+                    }
+                }
             }
-            delete stuff;
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -2718,41 +4244,201 @@ doTestValidIntegerSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testNumbers
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            int64_t _testValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
+        }; // testNumbers
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
+        static testNumbers testSet1l[] =
         {
-            ODL_LOG("! (stuff)"); //####
+            // test <            >            <=           >=           ==
+            { -300, true,  true, false, true, true,  true, false, true, false, true },
+            { -200, true,  true, false, true, true,  true, false, true, false, true },
+            { -100, true,  true, false, true, true,  true, false, true, false, true },
+            { -50,  false, true, false, true, false, true, false, true, false, true },
+            { -25,  false, true, false, true, false, true, false, true, false, true },
+            { 0,    false, true, false, true, false, true, false, true, false, true },
+            { 25,   false, true, false, true, false, true, false, true, false, true },
+            { 50,   false, true, false, true, false, true, false, true, false, true },
+            { 100,  false, true, false, true, false, true, false, true, false, true },
+            { 200,  false, true, false, true, false, true, true,  true, false, true },
+            { 300,  false, true, true,  true, false, true, true,  true, false, true }
+        };
+        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+
+        static testNumbers testSet1r[] =
+        {
+            // test <            >            <=           >=           ==
+            { -300, false, true, true,  true, false, true, true,  true, false, true },
+            { -200, false, true, true,  true, false, true, true,  true, false, true },
+            { -100, false, true, true,  true, false, true, true,  true, false, true },
+            { -50,  false, true, false, true, false, true, false, true, false, true },
+            { -25,  false, true, false, true, false, true, false, true, false, true },
+            { 0,    false, true, false, true, false, true, false, true, false, true },
+            { 25,   false, true, false, true, false, true, false, true, false, true },
+            { 50,   false, true, false, true, false, true, false, true, false, true },
+            { 100,  false, true, false, true, false, true, false, true, false, true },
+            { 200,  false, true, false, true, true,  true, false, true, false, true },
+            { 300,  true,  true, false, true, true,  true, false, true, false, true }
+        };
+        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Set          stuff;
+
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(123)));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(200)));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(-25)));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(-60)));
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(0)));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::Number aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
         }
-#endif//0
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::Number aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
     }
     catch (...)
     {
@@ -2791,41 +4477,186 @@ doTestValidStringSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
-
-        if (stuff)
+        struct testStrings
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            const char * _testValue;
+            bool         _lessThanResult;
+            bool         _lessThanValid;
+            bool         _greaterThanResult;
+            bool         _greaterThanValid;
+            bool         _lessThanOrEqualResult;
+            bool         _lessThanOrEqualValid;
+            bool         _greaterThanOrEqualResult;
+            bool         _greaterThanOrEqualValid;
+            bool         _equalToResult;
+            bool         _equalToValid;
+        }; // testStrings
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
-            {
-                result = 0;
-            }
-            else
-            {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-            }
-            delete stuff;
-        }
-        else
+        static testStrings testSet1l[] =
         {
-            ODL_LOG("! (stuff)"); //####
+            // test  <            >            <=           >=           ==
+            { "aaa", true,  true, false, true, true,  true, false, true, false, true },
+            { "abc", false, true, false, true, true,  true, false, true, false, true },
+            { "def", false, true, false, true, false, true, false, true, false, true },
+            { "ghi", false, true, false, true, false, true, true,  true, false, true },
+            { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+        };
+        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        static testStrings testSet1r[] =
+        {
+            // test  <            >            <=           >=           ==
+            { "aaa", false, true, true,  true, false, true, true,  true, false, true },
+            { "abc", false, true, false, true, false, true, true,  true, false, true },
+            { "def", false, true, false, true, false, true, false, true, false, true },
+            { "ghi", false, true, false, true, true,  true, false, true, false, true },
+            { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+        };
+        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        nImO::Set          stuff;
+
+        stuff.addValue(new nImO::String("abc"));
+        stuff.addValue(new nImO::String("def"));
+        stuff.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::String aValue(testSet1l[ii]._testValue);
+            
+            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1l[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1l[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
         }
-#endif//0
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            bool         valid = false;
+            nImO::String aValue(testSet1r[ii]._testValue);
+            
+            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                result = 1;
+            }
+            else if (testSet1r[ii]._lessThanValid != valid)
+            {
+                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    result = 1;
+                }
+                else if (testSet1r[ii]._equalToValid != valid)
+                {
+                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    result = 1;
+                }
+            }
+        }
     }
     catch (...)
     {
@@ -2864,41 +4695,85 @@ doTestInvalidArrayCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Array   leftValue;
+        nImO::Boolean rightValue1;
+        nImO::Number  rightValue2;
+        nImO::String  rightValue3;
+        nImO::Blob    rightValue4;
+        nImO::Array   rightValue5;
+        nImO::Map     rightValue6;
+        nImO::Set     rightValue7;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::Boolean);
+        leftValue.addValue(new nImO::Number);
+        leftValue.addValue(new nImO::String);
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -2937,41 +4812,83 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Map     leftValue;
+        nImO::Number  rightValue1;
+        nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::Boolean(false), new nImO::String("false"));
+        leftValue.addValue(new nImO::Boolean(true), new nImO::String("true"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -3010,41 +4927,87 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Map     leftValue;
+        nImO::Boolean rightValue1;
+        nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(42)),
+                           new nImO::Number(123.45));
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(17)),
+                           new nImO::Number(12.345));
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(12)),
+                           new nImO::Number(1234.5));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -3083,41 +5046,84 @@ doTestInvalidStringMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Map     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::String("abc"), new nImO::String("123"));
+        leftValue.addValue(new nImO::String("def"), new nImO::String("456"));
+        leftValue.addValue(new nImO::String("ghi"), new nImO::String("789"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -3156,41 +5162,83 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::Boolean(false));
+        leftValue.addValue(new nImO::Boolean(true));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -3229,41 +5277,84 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    int result = 0;
 
     try
     {
-#if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Boolean rightValue1;
+        nImO::String  rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(42)));
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(17)));
+        leftValue.addValue(new nImO::Number(static_cast<int64_t>(12)));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -3302,39 +5393,200 @@ doTestInvalidStringSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    int result = 0;
+
+    try
+    {
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidStringSetCompares
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 120 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayIndices(const char * launchPath,
+                   const int    argc,
+                   char * *     argv) // array indices
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
     int result = 1;
 
     try
     {
 #if 0
-        nImO::Set * stuff = new nImO::Set;
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        if (stuff)
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            static const char expectedString[] =
-            {
-                nImO::kStartSetChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
-            };
+            nImO::Value & aRightValue = *rightValues[ii];
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
-            if (0 == compareValueWithString(*stuff, expectedString))
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
             {
-                result = 0;
+                ODL_LOG("(valid)"); //####
+                result = 1;
             }
             else
             {
-                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                leftValue.greaterThan(aRightValue, valid);
             }
-            delete stuff;
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
         }
 #endif//0
     }
@@ -3345,7 +5597,715 @@ doTestInvalidStringSetCompares(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInvalidStringSetCompares
+} // doTestArrayIndices
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 121 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanMapSearches(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // boolean map searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanMapSearches
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 122 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerMapSearches(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // integer map searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerMapSearches
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 123 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringMapSearches(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // string map searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringMapSearches
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 124 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanSetSearches(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // boolean set searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanSetSearches
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 125 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerSetSearches(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // integer set searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerSetSearches
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 126 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringSetSearches(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // string set searches
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    int result = 1;
+
+    try
+    {
+#if 0
+        bool          valid = false;
+        nImO::Set     leftValue;
+        nImO::Number  rightValue1;
+        nImO::Boolean rightValue2;
+        nImO::Blob    rightValue3;
+        nImO::Array   rightValue4;
+        nImO::Map     rightValue5;
+        nImO::Set     rightValue6;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+
+        leftValue.addValue(new nImO::String("abc"));
+        leftValue.addValue(new nImO::String("def"));
+        leftValue.addValue(new nImO::String("ghi"));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            nImO::Value & aRightValue = *rightValues[ii];
+
+            valid = false;
+            leftValue.lessThan(aRightValue, valid);
+            if (valid)
+            {
+                ODL_LOG("(valid)"); //####
+                result = 1;
+            }
+            else
+            {
+                leftValue.greaterThan(aRightValue, valid);
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.lessThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    leftValue.equalTo(aRightValue, valid);
+                }
+            }
+            if (0 == result)
+            {
+                if (valid)
+                {
+                    ODL_LOG("(valid)"); //####
+                    result = 1;
+                }
+            }
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringSetSearches
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3519,12 +6479,6 @@ main(int      argc,
                         result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
-#if 0
-add tests for atomic and container comparisons
-   for container/atom comparisons, construct the container and use arrays of test structures that have an atomic value, the expected lessThan (...) and greaterThan(...) with the atomic value on the left and the expected lessThan(...) and greaterThan(...) with the atomic value on the right
-
-add index test for array, and search tests for map and set, including invalid keys
-#endif//0
 
                     case 100 :
                         result = doTestValidArrayCompares(*argv, argc - 1, argv + 2);
@@ -3580,6 +6534,34 @@ add index test for array, and search tests for map and set, including invalid ke
 
                     case 113 :
                         result = doTestInvalidStringSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 120 :
+                        result = doTestArrayIndices(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 121 :
+                        result = doTestBooleanMapSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 122 :
+                        result = doTestIntegerMapSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 123 :
+                        result = doTestStringMapSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 124 :
+                        result = doTestBooleanSetSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 125 :
+                        result = doTestIntegerSetSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 126 :
+                        result = doTestStringSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

@@ -190,7 +190,7 @@ nImO::StringBuffer::addChar(const char aChar)
     ODL_C1("aChar = ", aChar); //####
     char temp = aChar;
 
-    appendChars(&temp, 1);
+    appendChars(&temp, sizeof(temp));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addChar
@@ -208,7 +208,7 @@ nImO::StringBuffer::addDouble(const double aDouble)
     sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
 #endif // ! MAC_OR_LINUX_
     ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff));
+    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addDouble
@@ -222,7 +222,7 @@ nImO::StringBuffer::addLong(const int64_t aLong)
 
     snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
     ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff));
+    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addLong
@@ -244,7 +244,7 @@ nImO::StringBuffer::addString(const char * aString,
         }
         else
         {
-            appendChars(aString, length);
+            appendChars(aString, length * sizeof(*aString));
         }
     }
     ODL_OBJEXIT_P(this); //####
@@ -266,7 +266,7 @@ nImO::StringBuffer::addString(const std::string & aString,
     }
     else
     {
-        appendChars(aString.c_str(), length);
+        appendChars(aString.c_str(), length * sizeof(*aString.c_str()));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -304,7 +304,7 @@ nImO::StringBuffer::appendChars(const char * data,
 
             if (bytesLeft <= available)
             {
-                lastChunk->appendData(walker, bytesLeft);
+                lastChunk->appendData(walker, bytesLeft * sizeof(*data));
                 bytesLeft = 0;
             }
             else
@@ -479,19 +479,19 @@ nImO::StringBuffer::processCharacters(const char * aString,
     {
         char delimiter = ((numDoubleQuotes > numSingleQuotes) ? singleQuote : doubleQuote);
 
-        appendChars(&delimiter, 1);
+        appendChars(&delimiter, sizeof(delimiter));
         for (size_t ii = 0; length > ii; ++ii)
         {
             uint8_t aByte = static_cast<uint8_t>(aString[ii]);
 
             if ((0x20 > aByte) || (0 != (aByte & 0x80)))
             {
-                appendChars(&kEscapeChar, 1);
+                appendChars(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
                     const char * controlString = kCanonicalControl[aByte];
 
-                    appendChars(controlString, strlen(controlString));
+                    appendChars(controlString, strlen(controlString) * sizeof(*controlString));
                 }
                 else
                 {
@@ -535,11 +535,11 @@ nImO::StringBuffer::processCharacters(const char * aString,
                         {
                             const char * controlString = kCanonicalControl[aByte];
 
-                            appendChars(controlString, strlen(controlString));
+                            appendChars(controlString, strlen(controlString) * sizeof(*controlString));
                         }
                         else
                         {
-                            appendChars(reinterpret_cast<const char *>(&aByte), 1);
+                            appendChars(reinterpret_cast<const char *>(&aByte), sizeof(char));
                         }
                     }
                 }
@@ -549,19 +549,19 @@ nImO::StringBuffer::processCharacters(const char * aString,
                 // Handle normal escapes - nested delimiters and the escape character
                 if ((delimiter == aByte) || (kEscapeChar == aByte))
                 {
-                    appendChars(&kEscapeChar, 1);
+                    appendChars(&kEscapeChar, sizeof(kEscapeChar));
                 }
-                appendChars(aString + ii, 1);
+                appendChars(aString + ii, sizeof(*aString));
             }
         }
-        appendChars(&delimiter, 1);
+        appendChars(&delimiter, sizeof(delimiter));
     }
     else
     {
         // Nothing special
-        appendChars(&doubleQuote, 1);
-        appendChars(aString, length);
-        appendChars(&doubleQuote, 1);
+        appendChars(&doubleQuote, sizeof(doubleQuote));
+        appendChars(aString, length * sizeof(*aString));
+        appendChars(&doubleQuote, sizeof(doubleQuote));
     }
     ODL_EXIT(); //####
 } // nImO::StringBuffer::processCharacters

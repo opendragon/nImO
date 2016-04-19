@@ -307,7 +307,22 @@ add_test(NAME TestInvalidBooleanSetCompares COMMAND ${THIS_TARGET} 111)
 add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 112)
 # Test invalid string set compares
 add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 113)
- 
+
+# Test array indices
+add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 120)
+# Test boolean map searches
+add_test(NAME TestBooleanMapSearches COMMAND ${THIS_TARGET} 121)
+# Test integer map searches
+add_test(NAME TestIntegerMapSearches COMMAND ${THIS_TARGET} 122)
+# Test string map searches
+add_test(NAME TestStringMapSearches COMMAND ${THIS_TARGET} 123)
+# Test boolean set searches
+add_test(NAME TestBooleanSetSearches COMMAND ${THIS_TARGET} 124)
+# Test integer set searches
+add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 125)
+# Test string set searches
+add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 126)
+
 set(THIS_TARGET nImOparserTest)
 
 if(WIN32)

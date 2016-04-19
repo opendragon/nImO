@@ -228,7 +228,7 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
         {
             uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
 
-            stuff->appendData(&stuff, 1);
+            stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
                 const uint8_t * storedData = stuff->getData();
@@ -308,7 +308,7 @@ doTestFilledBufferChunk(const char * launchPath,
                 {
                     uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
 
-                    stuff->appendData(&newData, 1);
+                    stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
@@ -405,7 +405,7 @@ doTestOverfilledBufferChunk(const char * launchPath,
                 {
                     uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
 
-                    stuff->appendData(&newData, 1);
+                    stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
@@ -494,7 +494,7 @@ doTestBufferChunkReset(const char * launchPath,
         {
             uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
 
-            stuff->appendData(&stuff, 1);
+            stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
                 stuff->reset();

@@ -112,7 +112,7 @@ nImO::Map::addEntries(const nImO::Map & other)
     ODL_P1("other = ", &other); //####
     if ((other._keyKind == _keyKind) || (kEnumerableUnknown == _keyKind))
     {
-        for (const_iterator walker(begin()); end() != walker; ++walker)
+        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             mapValue aValue = *walker;
             Value *  key = aValue.first->clone();
@@ -132,7 +132,7 @@ const
     ODL_P1("outBuffer = ", &outBuffer); //####
     outBuffer.addChar(kStartMapChar);
     outBuffer.addChar(' ');
-    for (const_iterator walker(begin()); end() != walker; ++walker)
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         mapValue aValue = *walker;
 
@@ -159,7 +159,7 @@ nImO::Map::addValue(Value * newKey,
     {
         delete newKey;
         delete newValue;
-        result = insertResult(end(), false);
+        result = insertResult(inherited2::end(), false);
     }
     else
     {
@@ -180,7 +180,7 @@ nImO::Map::addValue(Value * newKey,
         }
         else
         {
-            result = insertResult(end(), false);
+            result = insertResult(inherited2::end(), false);
         }
     }
     ODL_OBJEXIT(); //####
@@ -191,7 +191,7 @@ void
 nImO::Map::clear(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(begin()); end() != walker; ++walker)
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         mapValue aValue = *walker;
 
@@ -221,24 +221,18 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result;
+    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
-#if 0
-    if (other.isBoolean())
+    validComparison = (kEnumerableUnknown != _keyKind);
+    ODL_B1("validComparison <- ", validComparison); //####
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
+        Value * aValue = walker->first;
 
-        result = (_value == otherRef._value);
-        validComparison = true;
-    }
-    else if (other.isContainer())
-    {
-        result = other.equalTo(*this, validComparison);
-    }
-    else
-#endif//0
-    {
-        result = validComparison = false;
+        if (aValue)
+        {
+            result &= aValue->equalTo(other, validComparison);
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -251,24 +245,18 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result;
+    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
-#if 0
-    if (other.isBoolean())
+    validComparison = (kEnumerableUnknown != _keyKind);
+    ODL_B1("validComparison <- ", validComparison); //####
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
+        Value * aValue = walker->first;
 
-        result = (_value > otherRef._value);
-        validComparison = true;
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThan(*this, validComparison);
-    }
-    else
-#endif//0
-    {
-        result = validComparison = false;
+        if (aValue)
+        {
+            result &= aValue->greaterThan(other, validComparison);
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -281,24 +269,18 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result;
+    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
-#if 0
-    if (other.isBoolean())
+    validComparison = (kEnumerableUnknown != _keyKind);
+    ODL_B1("validComparison <- ", validComparison); //####
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
+        Value * aValue = walker->first;
 
-        result = (_value >= otherRef._value);
-        validComparison = true;
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThanOrEqual(*this, validComparison);
-    }
-    else
-#endif//0
-    {
-        result = validComparison = false;
+        if (aValue)
+        {
+            result &= aValue->greaterThanOrEqual(other, validComparison);
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -311,24 +293,18 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result;
+    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
-#if 0
-    if (other.isBoolean())
+    validComparison = (kEnumerableUnknown != _keyKind);
+    ODL_B1("validComparison <- ", validComparison); //####
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
+        Value * aValue = walker->first;
 
-        result = (_value < otherRef._value);
-        validComparison = true;
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThan(*this, validComparison);
-    }
-    else
-#endif//0
-    {
-        result = validComparison = false;
+        if (aValue)
+        {
+            result &= aValue->lessThan(other, validComparison);
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -341,24 +317,18 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result;
+    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
-#if 0
-    if (other.isBoolean())
+    validComparison = (kEnumerableUnknown != _keyKind);
+    ODL_B1("validComparison <- ", validComparison); //####
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
+        Value * aValue = walker->first;
 
-        result = (_value <= otherRef._value);
-        validComparison = true;
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThanOrEqual(*this, validComparison);
-    }
-    else
-#endif//0
-    {
-        result = validComparison = false;
+        if (aValue)
+        {
+            result &= aValue->lessThanOrEqual(other, validComparison);
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

@@ -235,6 +235,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isBlob())
     {
@@ -242,6 +243,7 @@ const
 
         result = (0 == compareBytes(_value, _size, otherRef._value, otherRef._size));
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -250,6 +252,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -268,6 +271,7 @@ const
     {
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isBlob())
     {
@@ -275,6 +279,7 @@ const
 
         result = (0 < compareBytes(_value, _size, otherRef._value, otherRef._size));
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -283,6 +288,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -300,6 +306,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isBlob())
     {
@@ -307,6 +314,7 @@ const
 
         result = (0 <= compareBytes(_value, _size, otherRef._value, otherRef._size));
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -315,6 +323,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -333,6 +342,7 @@ const
     {
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isBlob())
     {
@@ -340,6 +350,7 @@ const
 
         result = (0 > compareBytes(_value, _size, otherRef._value, otherRef._size));
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -348,6 +359,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -365,6 +377,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isBlob())
     {
@@ -372,6 +385,7 @@ const
 
         result = (0 >= compareBytes(_value, _size, otherRef._value, otherRef._size));
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -380,6 +394,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

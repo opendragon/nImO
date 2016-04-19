@@ -152,6 +152,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isString())
     {
@@ -159,6 +160,7 @@ const
 
         result = (_value == otherRef._value);
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -167,6 +169,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -185,6 +188,7 @@ const
     {
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isString())
     {
@@ -192,6 +196,7 @@ const
 
         result = (_value > otherRef._value);
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -200,6 +205,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -217,6 +223,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isString())
     {
@@ -224,6 +231,7 @@ const
 
         result = (_value >= otherRef._value);
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -232,6 +240,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -250,6 +259,7 @@ const
     {
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isString())
     {
@@ -257,6 +267,7 @@ const
 
         result = (_value < otherRef._value);
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -265,6 +276,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -282,6 +294,7 @@ const
     if (&other == this)
     {
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isString())
     {
@@ -289,6 +302,7 @@ const
 
         result = (_value <= otherRef._value);
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
@@ -297,6 +311,7 @@ const
     else
     {
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;

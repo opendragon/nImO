@@ -159,40 +159,56 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isNumber())
     {
+        ODL_LOG("(other.isNumber())"); //####
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
+            ODL_D1("_floatValue = ", _floatValue); //####
             if (otherRef._valueIsFloat)
             {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
                 result = (_floatValue == otherRef._floatValue);
             }
             else
             {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
                 result = (_floatValue == otherRef._intValue);
             }
         }
-        else if (otherRef._valueIsFloat)
-        {
-            result = (static_cast<double>(_intValue) == otherRef._floatValue);
-        }
         else
         {
-            result = (_intValue == otherRef._intValue);
+            ODL_LL1("_intValue = ", _intValue); //####
+            if (otherRef._valueIsFloat)
+            {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
+                result = (static_cast<double>(_intValue) == otherRef._floatValue);
+            }
+            else
+            {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
+                result = (_intValue == otherRef._intValue);
+            }
         }
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.equalTo(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -209,41 +225,57 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isNumber())
     {
+        ODL_LOG("(other.isNumber())"); //####
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
+            ODL_D1("_floatValue = ", _floatValue); //####
             if (otherRef._valueIsFloat)
             {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
                 result = (_floatValue > otherRef._floatValue);
             }
             else
             {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
                 result = (_floatValue > otherRef._intValue);
             }
         }
-        else if (otherRef._valueIsFloat)
-        {
-            result = (static_cast<double>(_intValue) > otherRef._floatValue);
-        }
         else
         {
-            result = (_intValue > otherRef._intValue);
+            ODL_LL1("_intValue = ", _intValue); //####
+            if (otherRef._valueIsFloat)
+            {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
+                result = (static_cast<double>(_intValue) > otherRef._floatValue);
+            }
+            else
+            {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
+                result = (_intValue > otherRef._intValue);
+            }
         }
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.lessThan(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -260,40 +292,56 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isNumber())
     {
+        ODL_LOG("(other.isNumber())"); //####
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
+            ODL_D1("_floatValue = ", _floatValue); //####
             if (otherRef._valueIsFloat)
             {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
                 result = (_floatValue >= otherRef._floatValue);
             }
             else
             {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
                 result = (_floatValue >= otherRef._intValue);
             }
         }
-        else if (otherRef._valueIsFloat)
-        {
-            result = (static_cast<double>(_intValue) >= otherRef._floatValue);
-        }
         else
         {
-            result = (_intValue >= otherRef._intValue);
+            ODL_LL1("_intValue = ", _intValue); //####
+            if (otherRef._valueIsFloat)
+            {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
+                result = (static_cast<double>(_intValue) >= otherRef._floatValue);
+            }
+            else
+            {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
+                result = (_intValue >= otherRef._intValue);
+            }
         }
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.lessThanOrEqual(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -310,41 +358,57 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = false;
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isNumber())
     {
+        ODL_LOG("(other.isNumber())"); //####
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
+            ODL_D1("_floatValue = ", _floatValue); //####
             if (otherRef._valueIsFloat)
             {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
                 result = (_floatValue < otherRef._floatValue);
             }
             else
             {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
                 result = (_floatValue < otherRef._intValue);
             }
         }
-        else if (otherRef._valueIsFloat)
-        {
-            result = (static_cast<double>(_intValue) < otherRef._floatValue);
-        }
         else
         {
-            result = (_intValue < otherRef._intValue);
+            ODL_LL1("_intValue = ", _intValue); //####
+            if (otherRef._valueIsFloat)
+            {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
+                result = (static_cast<double>(_intValue) < otherRef._floatValue);
+            }
+            else
+            {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
+                result = (_intValue < otherRef._intValue);
+            }
         }
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.greaterThan(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -361,40 +425,56 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isNumber())
     {
+        ODL_LOG("(other.isNumber())"); //####
         const Number & otherRef = static_cast<const Number &>(other);
 
         if (_valueIsFloat)
         {
+            ODL_D1("_floatValue = ", _floatValue); //####
             if (otherRef._valueIsFloat)
             {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
                 result = (_floatValue <= otherRef._floatValue);
             }
             else
             {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
                 result = (_floatValue <= otherRef._intValue);
             }
         }
-        else if (otherRef._valueIsFloat)
-        {
-            result = (static_cast<double>(_intValue) <= otherRef._floatValue);
-        }
         else
         {
-            result = (_intValue <= otherRef._intValue);
+            ODL_LL1("_intValue = ", _intValue); //####
+            if (otherRef._valueIsFloat)
+            {
+                ODL_D1("otherRef._floatValue = ", otherRef._floatValue); //####
+                result = (static_cast<double>(_intValue) <= otherRef._floatValue);
+            }
+            else
+            {
+                ODL_LL1("otherRef._intValue = ", otherRef._intValue); //####
+                result = (_intValue <= otherRef._intValue);
+            }
         }
         validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.greaterThanOrEqual(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
     }
     ODL_OBJEXIT_B(result); //####
     return result;

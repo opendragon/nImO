@@ -75,9 +75,14 @@ namespace nImO
         /*! @brief The destructor. */
         ~CompareValues(void);
 
+        /*! @brief Compare two Values, returning @c true if the first is less than the second.
+         @param lhs The first Value to be compared.
+         @param rhs The second Value to be compared.
+         @returns @c true if the first Value is less than the second. */
         bool
         operator() (const Value * const lhs,
-                    const Value * const rhs);
+                    const Value * const rhs)
+        const;
 
     protected :
         // Protected methods.

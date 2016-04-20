@@ -93,8 +93,9 @@ nImO::CompareValues::~CompareValues(void)
 #endif // defined(__APPLE__)
 
 bool
-nImO::CompareValues::operator() (const Value * const lhs,
-                                 const Value * const rhs)
+nImO::CompareValues::operator() (const nImO::Value * const lhs,
+                                 const nImO::Value * const rhs)
+const
 {
     ODL_OBJENTER(); //####
     ODL_P2("lhs = ", lhs, "rhs = ", rhs); //####

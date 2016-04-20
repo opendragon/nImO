@@ -88,12 +88,6 @@ namespace nImO
         /*! @brief The destructor. */
         ~Blob(void);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const;
-
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -112,7 +106,7 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        const uint8_t * getValue(size_t & length)
+        inline const uint8_t * getValue(size_t & length)
         const
         {
             length = _size;
@@ -141,7 +135,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Blob.
          @returns @c true if the object is a Blob and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isBlob(void)
         const
         {
@@ -174,6 +168,12 @@ namespace nImO
         Blob &
         operator =(const Blob & other);
 
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const;
+        
     protected :
         // Protected methods.
 

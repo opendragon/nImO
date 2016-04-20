@@ -202,16 +202,6 @@ nImO::Blob::~Blob(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::Blob::addToStringBuffer(nImO::StringBuffer & outBuffer)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    outBuffer.addBlob(_value, _size);
-    ODL_OBJEXIT(); //####
-} // nImO::Blob::addToStringBuffer
-
 nImO::Value *
 nImO::Blob::clone(void)
 const
@@ -224,12 +214,12 @@ const
 } // nImO::Blob::copy
 
 bool
-nImO::Blob::equalTo(const Value & other,
-                    bool &        validComparison)
+nImO::Blob::equalTo(const nImO::Value & other,
+                    bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -259,12 +249,12 @@ const
 } // nImO::Blob::equalTo
 
 bool
-nImO::Blob::greaterThan(const Value & other,
-                        bool &        validComparison)
+nImO::Blob::greaterThan(const nImO::Value & other,
+                        bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -295,12 +285,12 @@ const
 } // nImO::Blob::greaterThan
 
 bool
-nImO::Blob::greaterThanOrEqual(const Value & other,
-                               bool &        validComparison)
+nImO::Blob::greaterThanOrEqual(const nImO::Value & other,
+                               bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -330,12 +320,12 @@ const
 } // nImO::Blob::greaterThanOrEqual
 
 bool
-nImO::Blob::lessThan(const Value & other,
-                     bool &        validComparison)
+nImO::Blob::lessThan(const nImO::Value & other,
+                     bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -366,12 +356,12 @@ const
 } // nImO::Blob::lessThan
 
 bool
-nImO::Blob::lessThanOrEqual(const Value & other,
-                            bool &        validComparison)
+nImO::Blob::lessThanOrEqual(const nImO::Value & other,
+                            bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -418,6 +408,16 @@ nImO::Blob::operator =(const nImO::Blob & other)
     ODL_OBJEXIT_P(this);
     return *this;
 } // nImO::Blob::operator=
+
+void
+nImO::Blob::printToStringBuffer(nImO::StringBuffer & outBuffer)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addBlob(_value, _size);
+    ODL_OBJEXIT(); //####
+} // nImO::Blob::printToStringBuffer
 
 void
 nImO::Blob::removeAllEntries(void)

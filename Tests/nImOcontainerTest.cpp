@@ -125,7 +125,7 @@ compareValueWithString(const nImO::Value & aValue,
     int                result;
     size_t             length;
 
-    aValue.addToStringBuffer(buff);
+    aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
 #if 0
     cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
@@ -160,6 +160,8 @@ doTestEmptyArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -225,6 +227,8 @@ doTestSingularArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -293,6 +297,8 @@ doTestSmallArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -367,6 +373,8 @@ doTestBigArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -447,6 +455,8 @@ doTestEmptyMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -512,6 +522,8 @@ doTestSingularBooleanMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -580,6 +592,8 @@ doTestSingularIntegerMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -648,55 +662,38 @@ doTestSingularStringMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-        ODL_ENTER(); //####
-        ODL_S1("launchPath = ", launchPath); //####
-        int result = 1;
+        nImO::Map * stuff = new nImO::Map;
 
-        try
+        if (stuff)
         {
-            nImO::Map * stuff = new nImO::Map;
-
-            if (stuff)
+            static const char expectedString[] =
             {
-                static const char expectedString[] =
-                {
-                    nImO::kStartMapChar, ' ',
-                        '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                            nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                    nImO::kEndMapChar, '\0'
-                };
-                stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
-                if (0 == compareValueWithString(*stuff, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-                }
-                delete stuff;
+                nImO::kStartMapChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                        nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
+            delete stuff;
         }
-        catch (...)
+        else
         {
-            ODL_LOG("Exception caught"); //####
-            throw;
+            ODL_LOG("! (stuff)"); //####
         }
-        ODL_EXIT_L(result); //####
-        return result;
     }
     catch (...)
     {
@@ -735,6 +732,8 @@ doTestSmallBooleanMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -806,6 +805,8 @@ doTestSmallIntegerMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -880,6 +881,8 @@ doTestSmallStringMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -954,6 +957,8 @@ doTestEmptySetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1019,6 +1024,8 @@ doTestSingularBooleanSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1087,6 +1094,8 @@ doTestSingularIntegerSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1155,6 +1164,8 @@ doTestSingularStringSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1223,6 +1234,8 @@ doTestSmallBooleanSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1295,6 +1308,8 @@ doTestSmallIntegerSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1373,6 +1388,8 @@ doTestSmallStringSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1451,6 +1468,8 @@ doTestArrayWithArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1519,6 +1538,8 @@ doTestArrayWithMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1587,6 +1608,8 @@ doTestArrayWithSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1655,6 +1678,8 @@ doTestMapWithArrayValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1724,6 +1749,8 @@ doTestMapWithMapValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1792,6 +1819,8 @@ doTestMapWithSetValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1860,6 +1889,8 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1932,6 +1963,8 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2003,59 +2036,42 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
-        ODL_ENTER(); //####
-        ODL_S1("launchPath = ", launchPath); //####
-        int result = 1;
+        nImO::Map * stuff = new nImO::Map;
 
-        try
+        if (stuff)
         {
-            nImO::Map * stuff = new nImO::Map;
-
-            if (stuff)
+            static const char expectedString[] =
             {
-                static const char expectedString[] =
-                {
-                    nImO::kStartMapChar, ' ',
-                        '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                        nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                    nImO::kEndMapChar, '\0'
-                };
-                stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
-                stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
-                stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                                new nImO::Number(12.345));
-                stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
-                if (0 == compareValueWithString(*stuff, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
-                }
-                delete stuff;
+                nImO::kStartMapChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                    nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                nImO::kEndMapChar, '\0'
+            };
+            stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
+            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
+                            new nImO::Number(12.345));
+            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
             }
+            delete stuff;
         }
-        catch (...)
+        else
         {
-            ODL_LOG("Exception caught"); //####
-            throw;
+            ODL_LOG("! (stuff)"); //####
         }
-        ODL_EXIT_L(result); //####
-        return result;
     }
     catch (...)
     {
@@ -2094,6 +2110,8 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2165,6 +2183,8 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2236,6 +2256,8 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2311,6 +2333,8 @@ doTestValidArrayCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3053,6 +3077,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3423,6 +3449,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3656,6 +3684,8 @@ doTestValidStringMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3874,6 +3904,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4244,6 +4276,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4477,6 +4511,8 @@ doTestValidStringSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4695,6 +4731,8 @@ doTestInvalidArrayCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4812,6 +4850,8 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4927,6 +4967,8 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5046,6 +5088,8 @@ doTestInvalidStringMapCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5162,6 +5206,8 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5277,6 +5323,8 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5393,6 +5441,8 @@ doTestInvalidStringSetCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5509,86 +5559,92 @@ doTestArrayIndices(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Array     stuff;
+        nImO::Boolean * aBoolValue;
+        nImO::Number *  aNumberValue;
+        nImO::String *  aStringValue;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        if (0 != stuff.size())
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(0 != stuff.size())"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            if (NULL != stuff.at(0))
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(NULL != aValue)"); //####
                 result = 1;
             }
-            else
+        }
+        if (0 == result)
+        {
+            if (NULL != stuff.at(1))
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("NULL != aValue"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            aBoolValue = new nImO::Boolean;
+            stuff.addValue(aBoolValue);
+            if (1 != stuff.size())
+            {
+                ODL_LOG("(1 != stuff.size())"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            if (stuff.at(0) != aBoolValue)
+            {
+                ODL_LOG("(stuff.at(0) != aBoolValue)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            aNumberValue = new nImO::Number;
+            stuff.addValue(aNumberValue);
+            if (2 != stuff.size())
+            {
+                ODL_LOG("(2 != stuff.size())"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue))
+            {
+                ODL_LOG("((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue))"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            aStringValue = new nImO::String;
+            stuff.addValue(aStringValue);
+            if (3 != stuff.size())
+            {
+                ODL_LOG("(3 != stuff.size())"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || (stuff.at(2) != aStringValue))
+            {
+                ODL_LOG("((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || (stuff.at(2) != aStringValue))"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -5627,86 +5683,81 @@ doTestBooleanMapSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Map           stuff;
+        nImO::Map::iterator iter;
+        nImO::String *      falseString = new nImO::String("false");
+        nImO::String *      trueString;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::Boolean(false), falseString);
+        iter = stuff.find(nImO::Boolean(true));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean(false));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+            else if (iter->second != falseString)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(iter->second != falseString)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean(true));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            trueString = new nImO::String("true");
+            stuff.addValue(new nImO::Boolean(true), trueString);
+            iter = stuff.find(nImO::Boolean(true));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else if (iter->second != trueString)
+            {
+                ODL_LOG("(iter->second != trueString)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -5745,86 +5796,81 @@ doTestIntegerMapSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Map           stuff;
+        nImO::Map::iterator iter;
+        nImO::String *      string17 = new nImO::String("17");
+        nImO::String *      string12;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(17)), string17);
+        iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(17)));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+            else if (iter->second != string17)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(iter->second != string17)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            string12 = new nImO::String("12");
+            stuff.addValue(new nImO::Number(static_cast<int64_t>(12)), string12);
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else if (iter->second != string12)
+            {
+                ODL_LOG("(iter->second != string12)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -5863,86 +5909,81 @@ doTestStringMapSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Map           stuff;
+        nImO::Map::iterator iter;
+        nImO::String *      stringOneSeven = new nImO::String("17");
+        nImO::String *      stringOneTwo;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::String("abc"), stringOneSeven);
+        iter = stuff.find(nImO::String("def"));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String("abc"));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+            else if (iter->second != stringOneSeven)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(iter->second != stringOneSeven)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String("def"));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            stringOneTwo = new nImO::String("12");
+            stuff.addValue(new nImO::String("def"), stringOneTwo);
+            iter = stuff.find(nImO::String("def"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else if (iter->second != stringOneTwo)
+            {
+                ODL_LOG("(iter->second != stringOneTwo)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -5981,86 +6022,68 @@ doTestBooleanSetSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Set           stuff;
+        nImO::Set::iterator iter;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::Boolean(false));
+        iter = stuff.find(nImO::Boolean(true));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean(false));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean(true));
+            if (stuff.end() != iter)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            stuff.addValue(new nImO::Boolean(true));
+            iter = stuff.find(nImO::Boolean(true));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -6099,86 +6122,68 @@ doTestIntegerSetSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Set           stuff;
+        nImO::Set::iterator iter;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::Number(static_cast<int64_t>(17)));
+        iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(17)));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            if (stuff.end() != iter)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            stuff.addValue(new nImO::Number(static_cast<int64_t>(12)));
+            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -6217,86 +6222,68 @@ doTestStringSetSearches(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    int result = 1;
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 0;
 
     try
     {
-#if 0
-        bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Number  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        nImO::Set           stuff;
+        nImO::Set::iterator iter;
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        stuff.addValue(new nImO::String("abc"));
+        iter = stuff.find(nImO::String("def"));
+        if (stuff.end() != iter)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
-
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String("abc"));
+            if (stuff.end() == iter)
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::String("def"));
+            if (stuff.end() != iter)
             {
-                leftValue.greaterThan(aRightValue, valid);
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    leftValue.equalTo(aRightValue, valid);
-                }
-            }
-            if (0 == result)
-            {
-                if (valid)
-                {
-                    ODL_LOG("(valid)"); //####
-                    result = 1;
-                }
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
             }
         }
-#endif//0
+        if (0 == result)
+        {
+            stuff.addValue(new nImO::String("def"));
+            iter = stuff.find(nImO::String("def"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Boolean());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(nImO::Number());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
     }
     catch (...)
     {
@@ -6582,6 +6569,7 @@ main(int      argc,
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        throw;
     }
     ODL_EXIT_L(result); //####
     return result;

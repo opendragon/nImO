@@ -99,7 +99,7 @@ namespace nImO
 
         /*! @brief Return @c true if the argument is for Boolean arguments.
          @returns @c true if the argument is for Boolean arguments and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isBoolean(void)
         const
         {

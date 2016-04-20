@@ -213,7 +213,7 @@ namespace nImO
 
         /*! @brief Return @c true if the argument is for Boolean arguments.
          @returns @c true if the argument is for Boolean arguments and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isBoolean(void)
         const
         {
@@ -224,7 +224,7 @@ namespace nImO
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
          and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isExtra(void)
         const
         {
@@ -242,7 +242,7 @@ namespace nImO
          @param isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isForFiles(bool & isForOutput)
         const
         {

@@ -129,7 +129,7 @@ namespace nImO
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
          and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isExtra(void)
         const
         {

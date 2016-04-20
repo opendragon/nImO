@@ -74,17 +74,9 @@ namespace nImO
         /*! @brief The destructor. */
         ~Value(void);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const
-        {
-        } // addToStringBuffer
-
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
-        virtual Value *
+        virtual inline Value *
         clone(void)
         const
         {
@@ -93,7 +85,7 @@ namespace nImO
 
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        virtual Enumerable
+        virtual inline Enumerable
         enumerationType(void)
         const
         {
@@ -105,7 +97,7 @@ namespace nImO
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual bool
+        virtual inline bool
         equalTo(const Value & other,
                 bool &        validComparison)
         const
@@ -119,7 +111,7 @@ namespace nImO
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual bool
+        virtual inline bool
         greaterThan(const Value & other,
                     bool &        validComparison)
         const
@@ -133,7 +125,7 @@ namespace nImO
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual bool
+        virtual inline bool
         greaterThanOrEqual(const Value & other,
                            bool &        validComparison)
         const
@@ -144,7 +136,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is an Array.
          @returns @c true if the object is an Array and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isArray(void)
         const
         {
@@ -153,7 +145,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Blob.
          @returns @c true if the object is a Blob and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isBlob(void)
         const
         {
@@ -162,7 +154,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Boolean.
          @returns @c true if the object is a Boolean and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isBoolean(void)
         const
         {
@@ -171,7 +163,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Container.
          @returns @c true if the object is a Container and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isContainer(void)
         const
         {
@@ -180,7 +172,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Map.
          @returns @c true if the object is a Map and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isMap(void)
         const
         {
@@ -189,7 +181,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Number.
          @returns @c true if the object is a Number and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isNumber(void)
         const
         {
@@ -198,7 +190,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Set.
          @returns @c true if the object is a Set and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isSet(void)
         const
         {
@@ -207,7 +199,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a String.
          @returns @c true if the object is a String and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isString(void)
         const
         {
@@ -219,7 +211,7 @@ namespace nImO
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual bool
+        virtual inline bool
         lessThan(const Value & other,
                  bool &        validComparison)
         const
@@ -233,7 +225,7 @@ namespace nImO
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
          @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual bool
+        virtual inline bool
         lessThanOrEqual(const Value & other,
                         bool &        validComparison)
         const
@@ -245,7 +237,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator <(const Value & other)
+        inline bool
+        operator <(const Value & other)
         {
             bool valid = false;
             bool result = lessThan(other, valid);
@@ -256,7 +249,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator >(const Value & other)
+        inline bool
+        operator >(const Value & other)
         {
             bool valid = false;
             bool result = greaterThan(other, valid);
@@ -267,7 +261,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator <=(const Value & other)
+        inline bool
+        operator <=(const Value & other)
         {
             bool valid = false;
             bool result = lessThanOrEqual(other, valid);
@@ -278,7 +273,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator >=(const Value & other)
+        inline bool
+        operator >=(const Value & other)
         {
             bool valid = false;
             bool result = greaterThanOrEqual(other, valid);
@@ -289,7 +285,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator ==(const Value & other)
+        inline bool
+        operator ==(const Value & other)
         {
             bool valid = false;
             bool result = equalTo(other, valid);
@@ -300,7 +297,8 @@ namespace nImO
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @returns The relative ordering of the two Values. */
-        bool operator !=(const Value & other)
+        inline bool
+        operator !=(const Value & other)
         {
             bool valid = false;
             bool result = ! equalTo(other, valid);
@@ -308,6 +306,14 @@ namespace nImO
             return (valid && result);
         } // operator !=
 
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual inline void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const
+        {
+        } // printToStringBuffer
+        
     protected :
         // Protected methods.
 

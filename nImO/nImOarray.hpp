@@ -54,15 +54,30 @@
 
 namespace nImO
 {
+    /*! @brief The standard class on which Array is based. */
+    typedef std::vector<Value *> ArrayBase;
+
     /*! @brief A class to provide collections with array-like behaviour.
 
      Note that Arrays 'own' their data and will perform a delete of the
      contained elements on deletion. */
     class Array : public Container,
-                  private std::vector<Value *>
+                  private ArrayBase
     {
     public :
         // Public type definitions.
+
+        /*! @brief The non-const iterator for Arrays. */
+        typedef ArrayBase::iterator iterator;
+
+        /*! @brief The const iterator for Arrays. */
+        typedef ArrayBase::const_iterator const_iterator;
+
+        /*! @brief The non-const iterator for Arrays. */
+        typedef ArrayBase::reverse_iterator reverse_iterator;
+
+        /*! @brief The const iterator for Arrays. */
+        typedef ArrayBase::const_reverse_iterator const_reverse_iterator;
 
     protected :
         // Protected type definitions.
@@ -74,7 +89,7 @@ namespace nImO
         typedef Container inherited1;
 
         /*! @brief The second class that this class is derived from. */
-        typedef std::vector<Value *> inherited2;
+        typedef ArrayBase inherited2;
 
     public :
         // Public methods.
@@ -89,17 +104,35 @@ namespace nImO
         /*! @brief The destructor. */
         ~Array(void);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const;
-
         /*! @brief Add a Value to the end of the Array.
          @param newElement The Value to be added.
          @returns The updated Array. */
         Array &
         addValue(Value * newElement);
+
+        /*! @brief Returns the element at position index in the Array.
+         @param index The position of the element in the Array.
+         @returns The element at the given position, or @c NULL if the index is out of range. */
+        Value *
+        at(const size_t index)
+        const;
+
+        /*! @brief Return an iterator pointing to the first element of the Array.
+         @returns An iterator pointing to the first element of the Array. */
+        inline iterator
+        begin(void)
+        {
+            return inherited2::begin();
+        } // begin
+
+        /*! @brief Return an iterator pointing to the first element of the Array.
+         @returns An iterator pointing to the first element of the Array. */
+        inline const_iterator
+        begin(void)
+        const
+        {
+            return inherited2::begin();
+        } // begin
 
         /*! @brief Remove all entries from the Array. */
         void
@@ -110,6 +143,23 @@ namespace nImO
         virtual Value *
         clone(void)
         const;
+
+        /*! @brief Return an iterator pointing past the last element of the Array.
+         @returns An iterator pointing past the last element of the Array. */
+        inline iterator
+        end(void)
+        {
+            return inherited2::end();
+        } // end
+
+        /*! @brief Return an iterator pointing past the last element of the Array.
+         @returns An iterator pointing past the last element of the Array. */
+        inline const_iterator
+        end(void)
+        const
+        {
+            return inherited2::end();
+        } // end
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -143,7 +193,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is an Array.
          @returns @c true if the object is an Array and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isArray(void)
         const
         {
@@ -175,6 +225,55 @@ namespace nImO
          @returns The updated object. */
         Array &
         operator =(const Array & other);
+
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const;
+        
+        /*! @brief Return a reverse iterator pointing to the first element of the Array.
+         @returns A reverse iterator pointing to the first element of the Array. */
+        inline reverse_iterator
+        rbegin(void)
+        {
+            return inherited2::rbegin();
+        } // rbegin
+
+        /*! @brief Return a reverse iterator pointing to the first element of the Array.
+         @returns A reverse iterator pointing to the first element of the Array. */
+        inline const_reverse_iterator
+        rbegin(void)
+        const
+        {
+            return inherited2::rbegin();
+        } // rbegin
+
+        /*! @brief Return a reverse iterator pointing past the first element of the Array.
+         @returns A reverse iterator pointing past the first element of the Array. */
+        inline reverse_iterator
+        rend(void)
+        {
+            return inherited2::rend();
+        } // rend
+
+        /*! @brief Return a reverse iterator pointing past the first element of the Array.
+         @returns A reverse iterator pointing past the first element of the Array. */
+        inline const_reverse_iterator
+        rend(void)
+        const
+        {
+            return inherited2::rend();
+        } // rend
+
+        /*! @brief Returns the number of elements in the Array.
+         @returns The number of elements in the Array. */
+        inline size_t
+        size(void)
+        const
+        {
+            return inherited2::size();
+        } // size
 
     protected :
         // Protected methods.

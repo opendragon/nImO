@@ -122,7 +122,7 @@ compareValueWithString(const nImO::Value & aValue,
     int                result;
     size_t             length;
 
-    aValue.addToStringBuffer(buff);
+    aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
 #if 0
     cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
@@ -157,6 +157,8 @@ doTestEmptyBufferChunk(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -217,6 +219,8 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -289,6 +293,8 @@ doTestFilledBufferChunk(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -387,6 +393,8 @@ doTestOverfilledBufferChunk(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -485,6 +493,8 @@ doTestBufferChunkReset(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -556,6 +566,8 @@ doTestEmptyStringBuffer(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -633,6 +645,8 @@ doTestStringBufferWithCharacters(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -715,6 +729,8 @@ doTestStringBufferWithBoolean(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -796,6 +812,8 @@ doTestStringBufferWithInteger(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -875,6 +893,8 @@ doTestStringBufferWithString(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -957,6 +977,8 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1032,6 +1054,8 @@ doTestStringBufferWithFloatingPoint(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1119,6 +1143,8 @@ doTestBigStringBuffer(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1197,6 +1223,8 @@ doTestStringBufferWithEmptyBlob(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1262,6 +1290,8 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1358,6 +1388,8 @@ doTestStringBufferWithBigBlob(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1454,6 +1486,8 @@ doTestStringBufferReset(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1527,6 +1561,8 @@ doTestDefaultBooleanValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1587,6 +1623,8 @@ doTestBooleanValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1666,6 +1704,8 @@ doTestDefaultNumberValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1727,6 +1767,8 @@ doTestNumberValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1832,6 +1874,8 @@ doTestDefaultStringValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1892,6 +1936,8 @@ doTestStringValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1959,6 +2005,8 @@ doTestStringValueWithEscapes(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2021,6 +2069,8 @@ doTestDefaultBlobValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2081,6 +2131,8 @@ doTestSmallBlobValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2174,6 +2226,8 @@ doTestBigBlobValue(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2267,6 +2321,8 @@ doTestBooleanCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result;
 
     try
@@ -2346,6 +2402,8 @@ doTestIntegerCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2439,6 +2497,8 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2532,6 +2592,8 @@ doTestStringCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2613,6 +2675,8 @@ doTestBlobCopyAndAssign(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2762,6 +2826,8 @@ doTestValidBooleanCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -2903,6 +2969,8 @@ doTestValidNumberCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3347,6 +3415,8 @@ doTestValidStringCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3492,6 +3562,8 @@ doTestValidBlobCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3647,6 +3719,8 @@ doTestInvalidBooleanCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3757,6 +3831,8 @@ doTestInvalidNumberCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3867,6 +3943,8 @@ doTestInvalidStringCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3977,6 +4055,8 @@ doTestInvalidBlobCompares(const char * launchPath,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4288,6 +4368,7 @@ main(int      argc,
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        throw;
     }
     ODL_EXIT_L(result); //####
     return result;

@@ -119,16 +119,6 @@ nImO::String::~String(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::String::addToStringBuffer(nImO::StringBuffer & outBuffer)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    outBuffer.addString(_value, true);
-    ODL_OBJEXIT(); //####
-} // nImO::String::addToStringBuffer
-
 nImO::Value *
 nImO::String::clone(void)
 const
@@ -141,12 +131,12 @@ const
 } // nImO::String::copy
 
 bool
-nImO::String::equalTo(const Value & other,
-                      bool &        validComparison)
+nImO::String::equalTo(const nImO::Value & other,
+                      bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -176,12 +166,12 @@ const
 } // nImO::String::equalTo
 
 bool
-nImO::String::greaterThan(const Value & other,
-                          bool &        validComparison)
+nImO::String::greaterThan(const nImO::Value & other,
+                          bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -212,12 +202,12 @@ const
 } // nImO::String::greaterThan
 
 bool
-nImO::String::greaterThanOrEqual(const Value & other,
-                                 bool &        validComparison)
+nImO::String::greaterThanOrEqual(const nImO::Value & other,
+                                 bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -247,12 +237,12 @@ const
 } // nImO::String::greaterThanOrEqual
 
 bool
-nImO::String::lessThan(const Value & other,
-                       bool &        validComparison)
+nImO::String::lessThan(const nImO::Value & other,
+                       bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -283,12 +273,12 @@ const
 } // nImO::String::lessThan
 
 bool
-nImO::String::lessThanOrEqual(const Value & other,
-                              bool &        validComparison)
+nImO::String::lessThanOrEqual(const nImO::Value & other,
+                              bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result;
 
     if (&other == this)
@@ -349,6 +339,16 @@ nImO::String::operator =(const char * value)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::String::operator=
+
+void
+nImO::String::printToStringBuffer(nImO::StringBuffer & outBuffer)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addString(_value, true);
+    ODL_OBJEXIT(); //####
+} // nImO::String::printToStringBuffer
 
 #if defined(__APPLE__)
 # pragma mark Global functions

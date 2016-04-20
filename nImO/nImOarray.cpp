@@ -119,27 +119,8 @@ nImO::Array::addEntries(const nImO::Array & other)
     ODL_EXIT(); //####
 } // nImO::Array::addEntries
 
-void
-nImO::Array::addToStringBuffer(nImO::StringBuffer & outBuffer)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    outBuffer.addChar(kStartArrayChar);
-    outBuffer.addChar(' ');
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
-    {
-        Value * aValue = *walker;
-
-        aValue->addToStringBuffer(outBuffer);
-        outBuffer.addChar(' ');
-    }
-    outBuffer.addChar(kEndArrayChar);
-    ODL_OBJEXIT(); //####
-} // nImO::Array::addToStringBuffer
-
 nImO::Array &
-nImO::Array::addValue(Value * newElement)
+nImO::Array::addValue(nImO::Value * newElement)
 {
     ODL_OBJENTER(); //####
     ODL_P1("newElement = ", newElement); //####
@@ -150,6 +131,25 @@ nImO::Array::addValue(Value * newElement)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Array::addValue
+
+nImO::Value *
+nImO::Array::at(const size_t index)
+const
+{
+    ODL_OBJENTER(); //####
+    Value * result;
+
+    if (index < inherited2::size())
+    {
+        result = inherited2::at(index);
+    }
+    else
+    {
+        result = NULL;
+    }
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Array::at
 
 void
 nImO::Array::clear(void)
@@ -177,12 +177,12 @@ const
 } // nImO::Array::copy
 
 bool
-nImO::Array::equalTo(const Value & other,
-                     bool &        validComparison)
+nImO::Array::equalTo(const nImO::Value & other,
+                     bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
@@ -202,12 +202,12 @@ const
 } // nImO::Array::equalTo
 
 bool
-nImO::Array::greaterThan(const Value & other,
-                         bool &        validComparison)
+nImO::Array::greaterThan(const nImO::Value & other,
+                         bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
@@ -226,12 +226,12 @@ const
 } // nImO::Array::greaterThan
 
 bool
-nImO::Array::greaterThanOrEqual(const Value & other,
-                                bool &        validComparison)
+nImO::Array::greaterThanOrEqual(const nImO::Value & other,
+                                bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
@@ -250,12 +250,12 @@ const
 } // nImO::Array::greaterThanOrEqual
 
 bool
-nImO::Array::lessThan(const Value & other,
-                      bool &        validComparison)
+nImO::Array::lessThan(const nImO::Value & other,
+                      bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
@@ -274,12 +274,12 @@ const
 } // nImO::Array::lessThan
 
 bool
-nImO::Array::lessThanOrEqual(const Value & other,
-                             bool &        validComparison)
+nImO::Array::lessThanOrEqual(const nImO::Value & other,
+                             bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
     bool result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
@@ -310,6 +310,25 @@ nImO::Array::operator =(const nImO::Array & other)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Array::operator=
+
+void
+nImO::Array::printToStringBuffer(nImO::StringBuffer & outBuffer)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    outBuffer.addChar(kStartArrayChar);
+    outBuffer.addChar(' ');
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    {
+        Value * aValue = *walker;
+        
+        aValue->printToStringBuffer(outBuffer);
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndArrayChar);
+    ODL_OBJEXIT(); //####
+} // nImO::Array::printToStringBuffer
 
 #if defined(__APPLE__)
 # pragma mark Global functions

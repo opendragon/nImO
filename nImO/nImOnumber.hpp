@@ -90,12 +90,6 @@ namespace nImO
         /*! @brief The destructor. */
         ~Number(void);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const;
-
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -104,7 +98,7 @@ namespace nImO
 
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        virtual Enumerable
+        virtual inline Enumerable
         enumerationType(void)
         const
         {
@@ -123,7 +117,7 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        double getDoubleValue(void)
+        inline double getDoubleValue(void)
         const
         {
             return (_valueIsFloat ? _floatValue : _intValue);
@@ -131,7 +125,7 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        int64_t getIntegerValue(void)
+        inline int64_t getIntegerValue(void)
         const
         {
             return (_valueIsFloat ? static_cast<int64_t>(_floatValue) : _intValue);
@@ -161,7 +155,7 @@ namespace nImO
          otherwise.
          @returns @c true if the associated value is a floating-point number and @c false
          otherwise. */
-        bool
+        inline bool
         isFloat(void)
         const
         {
@@ -170,7 +164,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Number.
          @returns @c true if the object is a Number and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isNumber(void)
         const
         {
@@ -215,6 +209,12 @@ namespace nImO
         Number &
         operator =(const int64_t value);
 
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const;
+        
     protected :
         // Protected methods.
 

@@ -90,12 +90,6 @@ namespace nImO
          @param initialValue The initial value for the object. */
         explicit String(const char * initialValue);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const;
-
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
@@ -104,7 +98,7 @@ namespace nImO
 
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
-        virtual Enumerable
+        virtual inline Enumerable
         enumerationType(void)
         const
         {
@@ -123,7 +117,7 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        const std::string & getValue(void)
+        inline const std::string & getValue(void)
         const
         {
             return _value;
@@ -151,7 +145,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a String.
          @returns @c true if the object is a String and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isString(void)
         const
         {
@@ -196,6 +190,12 @@ namespace nImO
         String &
         operator =(const char * value);
 
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const;
+        
     protected :
         // Protected methods.
 

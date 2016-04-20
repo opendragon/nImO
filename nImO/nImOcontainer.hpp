@@ -80,7 +80,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a container.
          @returns @c true if the object is a container and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isContainer(void)
         const
         {

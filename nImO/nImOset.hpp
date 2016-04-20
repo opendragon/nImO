@@ -55,18 +55,33 @@
 
 namespace nImO
 {
+    /*! @brief The standard class on which Array is based. */
+    typedef std::set<Value *, CompareValues> SetBase;
+
     /*! @brief A class to provide collections with set-like behaviour.
 
      Note that Sets 'own' their data and will perform a delete of the
      contained elements on deletion. */
     class Set : public Container,
-                private std::set<Value *, CompareValues>
+                private SetBase
     {
     public :
         // Public type definitions.
 
+        /*! @brief The non-const iterator for Arrays. */
+        typedef SetBase::iterator iterator;
+
+        /*! @brief The const iterator for Arrays. */
+        typedef SetBase::const_iterator const_iterator;
+
+        /*! @brief The non-const iterator for Arrays. */
+        typedef SetBase::reverse_iterator reverse_iterator;
+
+        /*! @brief The const iterator for Arrays. */
+        typedef SetBase::const_reverse_iterator const_reverse_iterator;
+
         /*! @brief The return result from the insert method. */
-        typedef std::pair<std::set<Value *, CompareValues>::iterator, bool> insertResult;
+        typedef std::pair<SetBase::iterator, bool> insertResult;
 
     protected :
         // Protected type definitions.
@@ -78,7 +93,7 @@ namespace nImO
         typedef Container inherited1;
 
         /*! @brief The second class that this class is derived from. */
-        typedef std::set<Value *, CompareValues> inherited2;
+        typedef SetBase inherited2;
 
     public :
         // Public methods.
@@ -93,18 +108,29 @@ namespace nImO
         /*! @brief The destructor. */
         ~Set(void);
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        addToStringBuffer(StringBuffer & outBuffer)
-        const;
-
         /*! @brief Override the standard insert operation to ignore inserting incompatible values.
          @param val Value to be inserted.
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
         insertResult
         addValue(Value * val);
+
+        /*! @brief Return an iterator pointing to the first element of the Array.
+         @returns An iterator pointing to the first element of the Array. */
+        inline iterator
+        begin(void)
+        {
+            return inherited2::begin();
+        } // begin
+
+        /*! @brief Return an iterator pointing to the first element of the Array.
+         @returns An iterator pointing to the first element of the Array. */
+        inline const_iterator
+        begin(void)
+        const
+        {
+            return inherited2::begin();
+        } // begin
 
         /*! @brief Remove all entries from the Set. */
         void
@@ -116,6 +142,23 @@ namespace nImO
         clone(void)
         const;
 
+        /*! @brief Return an iterator pointing past the last element of the Array.
+         @returns An iterator pointing past the last element of the Array. */
+        inline iterator
+        end(void)
+        {
+            return inherited2::end();
+        } // end
+
+        /*! @brief Return an iterator pointing past the last element of the Array.
+         @returns An iterator pointing past the last element of the Array. */
+        inline const_iterator
+        end(void)
+        const
+        {
+            return inherited2::end();
+        } // end
+
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -124,6 +167,21 @@ namespace nImO
         virtual bool
         equalTo(const Value & other,
                 bool &        validComparison)
+        const;
+
+        /*! @brief Search the Map for an element with the given key value an return an iterator
+         to it, or Map::end if not found.
+         @param key The key to be searched for.
+         @returns An iterator for the given key key value or Map::end if not found. */
+        iterator
+        find(const Value & key);
+
+        /*! @brief Search the Map for an element with the given key value an return an iterator
+         to it, or Map::end if not found.
+         @param key The key to be searched for.
+         @returns An iterator for the given key key value or Map::end if not found. */
+        const_iterator
+        find(const Value & key)
         const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -148,7 +206,7 @@ namespace nImO
 
         /*! @brief Return @c true if the object is a Set.
          @returns @c true if the object is a Set and @c false otherwise. */
-        virtual bool
+        virtual inline bool
         isSet(void)
         const
         {
@@ -180,6 +238,21 @@ namespace nImO
          @returns The updated object. */
         Set &
         operator =(const Set & other);
+
+        /*! @brief Add a readable representation of the object to the buffer.
+         @param outBuffer The buffer to be appended to. */
+        virtual void
+        printToStringBuffer(StringBuffer & outBuffer)
+        const;
+        
+        /*! @brief Returns the number of elements in the Set.
+         @returns The number of elements in the Set. */
+        inline size_t
+        size(void)
+        const
+        {
+            return inherited2::size();
+        } // size
 
     protected :
         // Protected methods.

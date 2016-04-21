@@ -114,7 +114,7 @@ nImO::Map::addEntries(const nImO::Map & other)
     {
         for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            mapValue aValue = *walker;
+            MapValue aValue = *walker;
             Value *  key = aValue.first->clone();
             Value *  mappedValue = aValue.second->clone();
 
@@ -124,19 +124,19 @@ nImO::Map::addEntries(const nImO::Map & other)
     ODL_EXIT(); //####
 } // nImO::Map::addEntries
 
-nImO::Map::insertResult
+nImO::Map::InsertResult
 nImO::Map::addValue(nImO::Value * newKey,
                     nImO::Value * newValue)
 {
     ODL_OBJENTER(); //####
     ODL_P2("newKey = ", newKey, "newValue = ", newValue); //####
-    insertResult result;
+    InsertResult result;
 
     if ((NULL == newKey) || (NULL == newValue))
     {
         delete newKey;
         delete newValue;
-        result = insertResult(inherited2::end(), false);
+        result = InsertResult(inherited2::end(), false);
     }
     else
     {
@@ -146,7 +146,7 @@ nImO::Map::addValue(nImO::Value * newKey,
         }
         if (newKey->enumerationType() == _keyKind)
         {
-            mapValue keyValue(newKey, newValue);
+            MapValue keyValue(newKey, newValue);
 
             result = inherited2::insert(keyValue);
             if (! result.second)
@@ -157,7 +157,7 @@ nImO::Map::addValue(nImO::Value * newKey,
         }
         else
         {
-            result = insertResult(inherited2::end(), false);
+            result = InsertResult(inherited2::end(), false);
         }
     }
     ODL_OBJEXIT(); //####
@@ -170,7 +170,7 @@ nImO::Map::clear(void)
     ODL_OBJENTER(); //####
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        mapValue aValue = *walker;
+        MapValue aValue = *walker;
 
         delete aValue.first;
         delete aValue.second;
@@ -197,12 +197,14 @@ nImO::Map::equalTo(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result = ((other.enumerationType() == _keyKind) &&
+                   (inherited2::begin() != inherited2::end()));
 
     validComparison = (kEnumerableUnknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison &&
+         (inherited2::end() != walker); ++walker)
     {
         Value * aValue = walker->first;
 
@@ -254,18 +256,30 @@ const
     return result;
 } // nImO::Map::find
 
+const char *
+nImO::Map::getInitialCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char * initialChars = "{";
+
+    ODL_EXIT_S(initialChars); //####
+    return initialChars;
+} // nImO::Map::getInitialCharacters
+
 bool
 nImO::Map::greaterThan(const nImO::Value & other,
                        bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result = ((other.enumerationType() == _keyKind) &&
+                   (inherited2::begin() != inherited2::end()));
 
     validComparison = (kEnumerableUnknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison &&
+         (inherited2::end() != walker); ++walker)
     {
         Value * aValue = walker->first;
 
@@ -284,12 +298,14 @@ nImO::Map::greaterThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result = ((other.enumerationType() == _keyKind) &&
+                   (inherited2::begin() != inherited2::end()));
 
     validComparison = (kEnumerableUnknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison &&
+         (inherited2::end() != walker); ++walker)
     {
         Value * aValue = walker->first;
 
@@ -308,12 +324,14 @@ nImO::Map::lessThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result = ((other.enumerationType() == _keyKind) &&
+                   (inherited2::begin() != inherited2::end()));
 
     validComparison = (kEnumerableUnknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison &&
+         (inherited2::end() != walker); ++walker)
     {
         Value * aValue = walker->first;
 
@@ -332,12 +350,14 @@ nImO::Map::lessThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result = ((other.enumerationType() == _keyKind) &&
+                   (inherited2::begin() != inherited2::end()));
 
     validComparison = (kEnumerableUnknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison &&
+         (inherited2::end() != walker); ++walker)
     {
         Value * aValue = walker->first;
 
@@ -374,7 +394,7 @@ const
     outBuffer.addChar(' ');
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        mapValue aValue = *walker;
+        MapValue aValue = *walker;
         
         aValue.first->printToStringBuffer(outBuffer);
         outBuffer.addChar(' ');
@@ -387,6 +407,28 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::Map::printToStringBuffer
 
+nImO::Value *
+nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
+                                const size_t               fromIndex,
+                                const char *               termChars,
+                                size_t *                   updatedIndex)
+{
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
+    ODL_LL1("fromIndex = ", fromIndex); //####
+    ODL_S1("termChars = ", termChars); //####
+    //bool    done = false;
+    //bool    eatWhitespace = false;
+    //bool    valid = false;
+    Value * result = NULL;
+    size_t  localIndex = fromIndex;
+    int     aChar = inBuffer.getChar(localIndex++);
+    int     endChar = StringBuffer::getEndChar();
+
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Map::readFromStringBuffer
+ 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

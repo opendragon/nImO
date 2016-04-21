@@ -81,7 +81,7 @@ namespace nImO
         typedef SetBase::const_reverse_iterator const_reverse_iterator;
 
         /*! @brief The return result from the insert method. */
-        typedef std::pair<SetBase::iterator, bool> insertResult;
+        typedef std::pair<SetBase::iterator, bool> InsertResult;
 
     protected :
         // Protected type definitions.
@@ -112,7 +112,7 @@ namespace nImO
          @param val Value to be inserted.
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
-        insertResult
+        InsertResult
         addValue(Value * val);
 
         /*! @brief Return an iterator pointing to the first element of the Array.
@@ -184,6 +184,11 @@ namespace nImO
         find(const Value & key)
         const;
 
+        /*! @brief Return the characters that can appear as the start of a Set.
+         @returns The characters that can appear as the start of a Set. */
+        static const char *
+        getInitialCharacters(void);
+
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -245,6 +250,18 @@ namespace nImO
         printToStringBuffer(StringBuffer & outBuffer)
         const;
         
+        /*! @brief Convert a readable representation of the object in a buffer into an object.
+         @param inBuffer The buffer to be scanned.
+         @param fromIndex Where in the buffer to start.
+         @param termChars The expected termination characters - @c NULL is anything is legal.
+         @param updatedIndex The next location in the buffer to be processed.
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+        static Value *
+        readFromStringBuffer(const StringBuffer & inBuffer,
+                             const size_t         fromIndex = 0,
+                             const char *         termChars = NULL,
+                             size_t *             updatedIndex = NULL);
+ 
         /*! @brief Returns the number of elements in the Set.
          @returns The number of elements in the Set. */
         inline size_t

@@ -219,7 +219,7 @@ nImO::Blob::equalTo(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -254,7 +254,7 @@ nImO::Blob::greaterThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -290,7 +290,7 @@ nImO::Blob::greaterThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -325,7 +325,7 @@ nImO::Blob::lessThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -361,7 +361,7 @@ nImO::Blob::lessThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)

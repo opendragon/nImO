@@ -111,6 +111,17 @@ namespace nImO
                 bool &        validComparison)
         const;
 
+        /*! @brief Return the standard textual representation of a boolean value.
+         @param aValue The value to be represented.
+         @returns The standard textual representation of a boolean value. */
+        static const std::string &
+        getCanonicalRepresentation(const bool aValue);
+
+        /*! @brief Return the characters that can appear as the start of a Boolean.
+         @returns The characters that can appear as the start of a Boolean. */
+        static const char *
+        getInitialCharacters(void);
+
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         inline bool getValue(void)
@@ -185,7 +196,19 @@ namespace nImO
         virtual void
         printToStringBuffer(StringBuffer & outBuffer)
         const;
-        
+
+        /*! @brief Convert a readable representation of the object in a buffer into an object.
+         @param inBuffer The buffer to be scanned.
+         @param fromIndex Where in the buffer to start.
+         @param termChars The expected termination characters - @c NULL is anything is legal.
+         @param updatedIndex The next location in the buffer to be processed.
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+        static Value *
+        readFromStringBuffer(const StringBuffer & inBuffer,
+                             const size_t         fromIndex = 0,
+                             const char *         termChars = NULL,
+                             size_t *             updatedIndex = NULL);
+ 
     protected :
         // Protected methods.
 

@@ -64,9 +64,28 @@ namespace nImO
 
     protected :
         // Protected type definitions.
-
+       
     private :
         // Private type definitions.
+        
+        /*! @brief The function pointer for StringBuffer readers. */ 
+        typedef Value * (*BufferReader)
+            (const StringBuffer & inBuffer,
+             const size_t         fromIndex,
+             const char *         termChars,
+             size_t *             updatedIndex);
+
+        /*! @brief The map from characters to BufferReaders. */
+        typedef std::map<char, BufferReader> BufferReaderMap;
+
+        /*! @brief The non-const iterator for BufferReaderMaps. */
+        typedef BufferReaderMap::iterator BufferReaderIterator;
+        
+        /*! @brief The return result from the insert method. */
+        typedef std::pair<BufferReaderMap::iterator, bool> BufferReaderInsertResult;
+
+        /*! @brief The type of value to be inserted. */
+        typedef BufferReaderMap::value_type BufferReaderValue;
 
     public :
         // Public methods.
@@ -133,6 +152,10 @@ namespace nImO
             validComparison = (&other == this);
             return (&other == this);
         } // greaterThanOrEqual
+
+        /*! @brief Set up the global structures used. */
+        static void
+        initialize(void);
 
         /*! @brief Return @c true if the object is an Array.
          @returns @c true if the object is an Array and @c false otherwise. */
@@ -314,6 +337,18 @@ namespace nImO
         {
         } // printToStringBuffer
         
+        /*! @brief Convert a readable representation of the object in a buffer into an object.
+         @param inBuffer The buffer to be scanned.
+         @param fromIndex Where in the buffer to start.
+         @param termChars The expected termination characters - @c NULL is anything is legal.
+         @param updatedIndex The next location in the buffer to be processed.
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+        static Value *
+        readFromStringBuffer(const StringBuffer & inBuffer,
+                             const size_t         fromIndex = 0,
+                             const char *         termChars = NULL,
+                             size_t *             updatedIndex = NULL);
+ 
     protected :
         // Protected methods.
 
@@ -331,6 +366,9 @@ namespace nImO
 
     private :
         // Private fields.
+
+        /*! @brief The table of StringBuffer readers. */
+        static BufferReaderMap gReaders;
 
     }; // Value
 

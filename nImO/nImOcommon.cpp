@@ -39,6 +39,7 @@
 #include "nImOcommon.hpp"
 
 #include <nImO/nImObaseArgumentDescriptor.hpp>
+#include <nImO/nImOvalue.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -299,6 +300,7 @@ nImO::Initialize(const std::string & progName)
     ODL_S1s("progName = ", progName); //####
     try
     {
+        Value::initialize();
 #if 0
 #if (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
         yarp::os::Network::setVerbosity(1);

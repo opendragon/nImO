@@ -38,6 +38,7 @@
 
 #include "nImOstringBuffer.hpp"
 
+#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -106,6 +107,9 @@ static const char * kCanonicalControl[] =
     "C-_" // 1F US
 }; // kCanonicalControl
 
+/*! @brief The value used to represent the end of the buffer. */
+static const int kEndCharacter = -1;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -129,6 +133,7 @@ nImO::StringBuffer::StringBuffer(void) :
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
     ODL_LL1("_numChunks <- ", _numChunks); //####
     *_buffers = new BufferChunk;
+    initReadTables();
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
@@ -178,7 +183,7 @@ nImO::StringBuffer::addBool(const bool aBool)
 {
     ODL_OBJENTER(); //####
     ODL_B1("aBool = ", aBool); //####
-    addString(aBool ? "true" : "false");
+    addString(Boolean::getCanonicalRepresentation(aBool));
     ODL_EXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBool
@@ -344,12 +349,20 @@ nImO::StringBuffer::appendChars(const char * data,
     ODL_OBJEXIT(); //####
 } // nImO::StringBuffer::appendChars
 
-char
+int
+nImO::StringBuffer::getEndChar(void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_C(kEndCharacter); //####
+    return kEndCharacter;
+} // nImO::StringBuffer::getEndChar
+
+int
 nImO::StringBuffer::getChar(const size_t index)
 const
 {
     ODL_OBJENTER(); //####
-    char result = '\0';
+    int result = kEndCharacter;
 
     if (_buffers)
     {
@@ -373,7 +386,7 @@ const
             }
         }
     }
-    ODL_OBJEXIT_C(result); //####
+    ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::StringBuffer::getChar
 
@@ -437,6 +450,13 @@ nImO::StringBuffer::getString(size_t & length)
     ODL_OBJEXIT_P(_cachedOutput); //####
     return _cachedOutput;
 } // getString
+
+void
+nImO::StringBuffer::initReadTables(void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // nImO::StringBuffer::initReadTables
 
 void
 nImO::StringBuffer::processCharacters(const char * aString,
@@ -535,7 +555,8 @@ nImO::StringBuffer::processCharacters(const char * aString,
                         {
                             const char * controlString = kCanonicalControl[aByte];
 
-                            appendChars(controlString, strlen(controlString) * sizeof(*controlString));
+                            appendChars(controlString, strlen(controlString) *
+                                        sizeof(*controlString));
                         }
                         else
                         {

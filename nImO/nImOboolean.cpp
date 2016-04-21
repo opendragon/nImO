@@ -62,6 +62,12 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The standard textual representation of a @c false value. */
+static const std::string kCanonicalFalse("false");
+
+/*! @brief The standard textual representation of a @c true value. */
+static const std::string kCanonicalTrue("true");
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -128,7 +134,7 @@ nImO::Boolean::equalTo(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -157,13 +163,33 @@ const
     return result;
 } // nImO::Boolean::equalTo
 
+const std::string &
+nImO::Boolean::getCanonicalRepresentation(const bool aValue)
+{
+    ODL_ENTER(); //####
+    const std::string & result = (aValue ? kCanonicalTrue : kCanonicalFalse);
+
+    ODL_EXIT_P(&result); //####
+    return result;
+} // nImO::Boolean::getCanonicalRepresentation
+
+const char *
+nImO::Boolean::getInitialCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char * initialChars = "ftFT";
+
+    ODL_EXIT_S(initialChars); //####
+    return initialChars;
+} // nImO::Boolean::getInitialCharacters
+
 bool
 nImO::Boolean::greaterThan(const nImO::Value & other,
                            bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -199,7 +225,7 @@ nImO::Boolean::greaterThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -234,7 +260,7 @@ nImO::Boolean::lessThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -270,7 +296,7 @@ nImO::Boolean::lessThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -331,6 +357,169 @@ const
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Boolean::printToStringBuffer
+
+nImO::Value *
+nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
+                                    const size_t               fromIndex,
+                                    const char *               termChars,
+                                    size_t *                   updatedIndex)
+{
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
+    ODL_LL1("fromIndex = ", fromIndex); //####
+    ODL_S1("termChars = ", termChars); //####
+    bool    done = false;
+    bool    eatWhitespace = false;
+    bool    valid = false;
+    Value * result = NULL;
+    size_t  localIndex = fromIndex;
+    int     aChar = inBuffer.getChar(localIndex++);
+    int     endChar = StringBuffer::getEndChar();
+
+    // Select which form of the value that is in the buffer:
+    if ((aChar == 'f') || (aChar == 'F'))
+    {
+        for (size_t ii = 1, len = kCanonicalFalse.length(); (! done); )
+        {
+            aChar = tolower(inBuffer.getChar(localIndex++));
+            if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (eatWhitespace)
+            {
+                if (! isspace(aChar))
+                {
+                    if (NULL == termChars)
+                    {
+                        done = valid = true; // no terminators, but only whitespace after value
+                    }
+                    else if (NULL == strchr(termChars, aChar))
+                    {
+                        done = true; // the next character is unexpected        
+                    }
+                    else
+                    {
+                        done = valid = true; // terminator seen after the whitespace
+                    }
+                }
+            }
+            else if (kCanonicalFalse[ii] == aChar)
+            {
+                if (len == ++ii)
+                {
+                    // the last character of the reference value was seen, look for a terminator
+                    eatWhitespace = true;
+                }
+            }
+            else if (isspace(aChar))
+            {
+                // string ended via whitespace
+                eatWhitespace = true;
+            }
+            else if (NULL == termChars)
+            {
+                // no terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (NULL == strchr(termChars, aChar))
+            {
+                // not one of the terminators, so this is likely not a valid string
+                done = true;
+            }
+            else
+            {
+                // one of the terminators, so we can stop
+                done = valid = true;
+            }
+        }
+        if (valid)
+        {
+            result = new Boolean(false);
+        }
+    }
+    else if ((aChar == 't') || (aChar == 'T'))
+    {
+        for (size_t ii = 1, len = kCanonicalTrue.length(); (! done); )
+        {
+            aChar = tolower(inBuffer.getChar(localIndex++));
+            if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (eatWhitespace)
+            {
+                if (! isspace(aChar))
+                {
+                    if (NULL == termChars)
+                    {
+                        done = valid = true; // no terminators, but only whitespace after value
+                    }
+                    else if (NULL == strchr(termChars, aChar))
+                    {
+                        done = true; // the next character is unexpected        
+                    }
+                    else
+                    {
+                        done = valid = true; // terminator seen after the whitespace
+                    }
+                }
+            }
+            else if (kCanonicalTrue[ii] == aChar)
+            {
+                if (len == ++ii)
+                {
+                    // the last character of the reference value was seen, look for a terminator
+                    eatWhitespace = true;
+                }
+            }
+            else if (isspace(aChar))
+            {
+                // string ended via whitespace
+                eatWhitespace = true;
+            }
+            else if (NULL == termChars)
+            {
+                // no terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (NULL == strchr(termChars, aChar))
+            {
+                // not one of the terminators, so this is likely not a valid string
+                done = true;
+            }
+            else
+            {
+                // one of the terminators, so we can stop
+                done = valid = true;
+            }
+        }
+        if (valid)
+        {
+            result = new Boolean(true);
+        }
+    }
+    if ((NULL != result) && (NULL != updatedIndex))
+    {
+        *updatedIndex = localIndex - 1;
+    }
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Boolean::readFromStringBuffer
 
 #if defined(__APPLE__)
 # pragma mark Global functions

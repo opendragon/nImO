@@ -171,6 +171,11 @@ namespace nImO
                 bool &        validComparison)
         const;
 
+        /*! @brief Return the characters that can appear as the start of an Array.
+         @returns The characters that can appear as the start of an Array. */
+        static const char *
+        getInitialCharacters(void);
+
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -232,6 +237,18 @@ namespace nImO
         printToStringBuffer(StringBuffer & outBuffer)
         const;
         
+        /*! @brief Convert a readable representation of the object in a buffer into an object.
+         @param inBuffer The buffer to be scanned.
+         @param fromIndex Where in the buffer to start.
+         @param termChars The expected termination characters - @c NULL is anything is legal.
+         @param updatedIndex The next location in the buffer to be processed.
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+        static Value *
+        readFromStringBuffer(const StringBuffer & inBuffer,
+                             const size_t         fromIndex = 0,
+                             const char *         termChars = NULL,
+                             size_t *             updatedIndex = NULL);
+ 
         /*! @brief Return a reverse iterator pointing to the first element of the Array.
          @returns A reverse iterator pointing to the first element of the Array. */
         inline reverse_iterator

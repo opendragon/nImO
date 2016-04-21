@@ -95,8 +95,6 @@
 		F6EE0ACC1CA2C7F4004748ED /* nImOconfig.hpp.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconfig.hpp.in; path = nImO/nImOconfig.hpp.in; sourceTree = SOURCE_ROOT; };
 		F6EE0ACD1CA2C7F4004748ED /* nImOconnector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconnector.cpp; path = nImO/nImOconnector.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ACE1CA2C7F4004748ED /* nImOconnector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOconnector.hpp; path = nImO/nImOconnector.hpp; sourceTree = SOURCE_ROOT; };
-		F6EE0ACF1CA2C7F4004748ED /* nImOkeyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOkeyValue.cpp; path = nImO/nImOkeyValue.cpp; sourceTree = SOURCE_ROOT; };
-		F6EE0AD01CA2C7F4004748ED /* nImOkeyValue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOkeyValue.hpp; path = nImO/nImOkeyValue.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmap.cpp; path = nImO/nImOmap.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOmap.hpp; path = nImO/nImOmap.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnumber.cpp; path = nImO/nImOnumber.cpp; sourceTree = SOURCE_ROOT; };
@@ -260,8 +258,6 @@
 				F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.hpp */,
 				F60F86581CA4B24C004D35AB /* nImOintArgumentDescriptor.cpp */,
 				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
-				F6EE0ACF1CA2C7F4004748ED /* nImOkeyValue.cpp */,
-				F6EE0AD01CA2C7F4004748ED /* nImOkeyValue.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */,
 				F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */,

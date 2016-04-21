@@ -134,11 +134,16 @@ namespace nImO
 
         /*! @brief Return the character found at a particular index.
          @param index The zero-based location in the buffer.
-         @returns The character found at the provided index, or the null character if the index
+         @returns The character found at the provided index, or the 'end' character if the index
          is not within the buffer. */
-        char
+        int
         getChar(const size_t index)
         const;
+
+        /*! @brief Return the character that is used to represent the end of the buffer.
+         @returns The character that represents the end of the buffer. */
+        static int
+        getEndChar(void);
 
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
@@ -174,6 +179,10 @@ namespace nImO
         void
         appendChars(const char * data,
                     const size_t numBytes);
+
+        /*! @brief Set up the parse tables. */
+        void
+        initReadTables(void);
 
         /*! @brief The assignment operator.
          @param other The object to be copied.

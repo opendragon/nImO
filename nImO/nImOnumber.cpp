@@ -137,7 +137,7 @@ nImO::Number::equalTo(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -197,13 +197,23 @@ const
     return result;
 } // nImO::Number::equalTo
 
+const char *
+nImO::Number::getInitialCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char * initialChars = "+-.0123456789";
+
+    ODL_EXIT_S(initialChars); //####
+    return initialChars;
+} // nImO::Number::getInitialCharacters
+
 bool
 nImO::Number::greaterThan(const nImO::Value & other,
                           bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -270,7 +280,7 @@ nImO::Number::greaterThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -336,7 +346,7 @@ nImO::Number::lessThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -403,7 +413,7 @@ nImO::Number::lessThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -519,6 +529,359 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::Number::printToStringBuffer
 
+nImO::Value *
+nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
+                                   const size_t               fromIndex,
+                                   const char *               termChars,
+                                   size_t *                   updatedIndex)
+{
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
+    ODL_LL1("fromIndex = ", fromIndex); //####
+    ODL_S1("termChars = ", termChars); //####
+    enum ScanState
+    {
+        kScanInitial,
+        kScanIntegerDigitSeen,
+        kScanFractionStartSeen,
+        kScanExponentStart,
+        kScanExponentSeen,
+        kScanTrailingWhitespace
+    }; // ScanState
+
+    bool      done = false;
+    bool      eatWhitespace = false;
+    bool      isDouble = false;
+    bool      needsAdigit = false;
+    bool      sawInitialMinus = false;
+    bool      sawInitialPlus = false;
+    bool      sawExponentMinus = false;
+    bool      sawExponentPlus = false;
+    bool      sawDecimalPoint = false;
+    bool      valid = false;
+    int64_t   integerPart = 0;
+    int64_t   fractionPart = 0;
+    int       exponent = 0;
+    int       fractionPower = 0;
+    ScanState currentState = kScanInitial;
+    Value *   result = NULL;
+    size_t    localIndex = fromIndex;
+    int       endChar = StringBuffer::getEndChar();
+
+    for (int aChar; (! done); )
+    {
+        aChar = tolower(inBuffer.getChar(localIndex++));
+        switch (currentState)
+        {
+        case kScanInitial :
+            if ('+' == aChar)
+            {
+               if (sawInitialMinus || sawInitialPlus)
+               {
+                   done = true; // more than one sign character
+               }
+               else
+               {
+                   sawInitialPlus = true;
+               }
+            }
+            else if ('-' == aChar)
+            {
+               if (sawInitialMinus || sawInitialPlus)
+               {
+                   done = true; // more than one sign character
+               }
+               else
+               {
+                   sawInitialMinus = true;
+               }
+            }
+            else if ('.' == aChar)
+            {
+                sawDecimalPoint = needsAdigit = isDouble = true;
+                currentState = kScanFractionStartSeen;
+            }
+            else if (isdigit(aChar))
+            {
+                currentState = kScanIntegerDigitSeen;
+                integerPart = aChar - '0';
+            }
+            else
+            {
+                done = true; // unexpected character
+            }
+            break;
+
+        case kScanIntegerDigitSeen :
+            if ('.' == aChar)
+            {
+                isDouble = true;
+                currentState = kScanFractionStartSeen;
+            }
+            else if ('e' == aChar)
+            {
+                isDouble = true;
+                currentState = kScanExponentStart;
+            }
+            else if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (isdigit(aChar))
+            {
+                integerPart *= 10;
+                integerPart += aChar - '0';
+            }
+            else if (isspace(aChar))
+            {
+                currentState = kScanTrailingWhitespace;
+            }
+            else if (NULL == termChars)
+            {
+                // no terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (NULL == strchr(termChars, aChar))
+            {
+                // not one of the terminators, so this is likely not a valid string
+                done = true;
+            }
+            else
+            {
+                // one of the terminators, so we can stop
+                done = valid = true;
+            }
+            break;
+
+        case kScanFractionStartSeen :
+            if ('e' == aChar)
+            {
+                if (needsAdigit)
+                {
+                    done = true; // decimal point with no trailing digits
+                }
+                else
+                {
+                    currentState = kScanExponentStart;
+                }
+            }
+            else if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    if (needsAdigit)
+                    {
+                        done = true; // decimal point with no trailing digits
+                    }
+                    else
+                    {
+                        done = valid = true; // the character seen is the buffer end
+                    }
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (isdigit(aChar))
+            {
+                needsAdigit = false;
+                fractionPart *= 10;
+                fractionPart += aChar - '0';
+                ++fractionPower;
+            }
+            else if (isspace(aChar))
+            {
+                if (needsAdigit)
+                {
+                    done = true; // decimal point with no trailing digits
+                }
+                else
+                {
+                    currentState = kScanTrailingWhitespace;
+                }
+            }
+            else if (NULL == termChars)
+            {
+                // no terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (NULL == strchr(termChars, aChar))
+            {
+                // not one of the terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (needsAdigit)
+            {
+                done = true; // decimal point with no trailing digits
+            }
+            else
+            {
+                // one of the terminators, so we can stop
+                done = valid = true;
+            }
+            break;
+
+        case kScanExponentStart :
+            if ('+' == aChar)
+            {
+               if (sawExponentMinus || sawExponentPlus)
+               {
+                   done = true; // more than one sign character
+               }
+               else
+               {
+                   sawExponentPlus = true;
+               }
+            }
+            else if ('-' == aChar)
+            {
+               if (sawExponentMinus || sawExponentPlus)
+               {
+                   done = true; // more than one sign character
+               }
+               else
+               {
+                   sawExponentMinus = true;
+               }
+            }
+            else if (isdigit(aChar))
+            {
+                currentState = kScanExponentSeen;
+                exponent = aChar - '0';
+            }
+            else
+            {
+                done = true; // unexpected character
+            }
+            break;
+
+        case kScanExponentSeen :
+            if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (isdigit(aChar))
+            {
+                exponent *= 10;
+                exponent += aChar - '0';
+            }
+            else if (isspace(aChar))
+            {
+                currentState = kScanTrailingWhitespace;
+            }
+            else if (NULL == termChars)
+            {
+                // no terminators, so this is likely not a valid string
+                done = true;
+            }
+            else if (NULL == strchr(termChars, aChar))
+            {
+                // not one of the terminators, so this is likely not a valid string
+                done = true;
+            }
+            else
+            {
+                // one of the terminators, so we can stop
+                done = valid = true;
+            }
+            break;
+
+        case kScanTrailingWhitespace :
+            if (endChar == aChar)
+            {
+                if (NULL == termChars)
+                {
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else
+                {
+                    done = true; // terminator not seen
+                }
+            }
+            else if (! isspace(aChar))
+            {
+                if (NULL == termChars)
+                {
+                    // no terminators, so this is likely not a valid string
+                    done = true;
+                }
+                else if (NULL == strchr(termChars, aChar))
+                {
+                    // not one of the terminators, so this is likely not a valid string
+                    done = true;
+                }
+                else
+                {
+                    // one of the terminators, so we can stop
+                    done = valid = true;
+                }
+            }
+            break;
+
+        default :
+            break;
+
+        }
+    }
+    if (valid)
+    {
+        if (isDouble)
+        {
+            double fullNumber;
+            
+            if (0 == exponent)
+            {
+                fullNumber = integerPart + (fractionPart / std::pow(10.0, fractionPower));
+            }
+            else if (sawExponentMinus)
+            {
+                fullNumber = ((integerPart + (fractionPart / std::pow(10.0, fractionPower))) /
+                              std::pow(10.0, exponent));
+            }
+            else if (exponent > fractionPower)
+            {
+                fullNumber = ((integerPart * std::pow(10.0, exponent)) +
+                              (fractionPart * std::pow(10.0, exponent - fractionPower)));
+            }
+            else if (exponent < fractionPower)
+            {
+                fullNumber = ((integerPart * std::pow(10.0, exponent)) +
+                              (fractionPart / std::pow(10.0, fractionPower - exponent)));
+            }
+            else
+            {
+                fullNumber = (integerPart * std::pow(10.0, exponent)) + fractionPart;
+            }
+            result = new Number(sawInitialMinus ? -fullNumber : fullNumber);
+        }
+        else
+        {
+            result = new Number(sawInitialMinus ? -integerPart : integerPart);
+        }
+        if (NULL != updatedIndex)
+        {
+            *updatedIndex = localIndex - 1;
+        }
+    }
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Number::readFromStringBuffer
+ 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

@@ -52,6 +52,7 @@
 
 //# include <algorithm>
 //# include <cctype>
+# include <cmath>
 # include <csignal>
 # include <cstdlib>
 //# include <cstring>

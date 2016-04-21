@@ -354,3 +354,184 @@ if(APPLE)
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
 endif(APPLE)
+
+# Test parse of boolean false value
+add_test(NAME TestBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "false")
+set_property(TEST TestBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of boolean true value
+add_test(NAME TestBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "true")
+set_property(TEST TestBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of abbreviated boolean false value
+add_test(NAME TestAbbreviatedBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fal")
+set_property(TEST TestAbbreviatedBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of abbreviated boolean true value
+add_test(NAME TestAbbreviatedBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru")
+set_property(TEST TestAbbreviatedBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of minimal boolean false value
+add_test(NAME TestMinimalBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "f")
+set_property(TEST TestMinimalBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of minimal boolean true value
+add_test(NAME TestMinimalBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "t")
+set_property(TEST TestMinimalBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of invalid boolean false value
+add_test(NAME TestInvalidBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "falze")
+# Test parse of invalid boolean true value
+add_test(NAME TestInvalidBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "trve")
+# Test parse of whitespace and boolean false value
+add_test(NAME TestWhitespaceAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  ")
+set_property(TEST TestWhitespaceAndBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of whitespace and boolean true value
+add_test(NAME TestWhitespaceAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  ")
+set_property(TEST TestWhitespaceAndBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of whitespace, terminator and boolean false value
+add_test(NAME TestWhitespaceTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  ]" "]")
+set_property(TEST TestWhitespaceTerminatorAndBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of whitespace, terminator and boolean true value
+add_test(NAME TestWhitespaceTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  ]" "]")
+set_property(TEST TestWhitespaceTerminatorAndBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of terminator and boolean false value
+add_test(NAME TestTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fal]" "]")
+set_property(TEST TestTerminatorAndBooleanFalseValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
+# Test parse of terminator and boolean true value
+add_test(NAME TestTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru]" "]")
+set_property(TEST TestTerminatorAndBooleanTrueValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of invalid terminator and boolean false value
+add_test(NAME TestInvalidTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "fal]" ")")
+# Test parse of invalid terminator and boolean true value
+add_test(NAME TestInvalidTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "tru]" ")")
+# Test parse of missing terminator and boolean false value
+add_test(NAME TestMissingTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "fal" ")")
+# Test parse of missing terminator and boolean true value
+add_test(NAME TestMissingTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "tru" ")")
+
+# Test parse of number value
+add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0")
+set_property(TEST TestNumberValue01
+             PROPERTY PASS_REGULAR_EXPRESSION "^0\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue02 COMMAND ${THIS_TARGET} 2 t "1234")
+set_property(TEST TestNumberValue02
+             PROPERTY PASS_REGULAR_EXPRESSION "^1234\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue03 COMMAND ${THIS_TARGET} 2 t "1234.5")
+set_property(TEST TestNumberValue03
+             PROPERTY PASS_REGULAR_EXPRESSION "^1234.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue04 COMMAND ${THIS_TARGET} 2 t "-1234.5")
+set_property(TEST TestNumberValue04
+             PROPERTY PASS_REGULAR_EXPRESSION "^-1234.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue05 COMMAND ${THIS_TARGET} 2 t "-.5")
+set_property(TEST TestNumberValue05
+             PROPERTY PASS_REGULAR_EXPRESSION "^-0.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue06 COMMAND ${THIS_TARGET} 2 t ".5")
+set_property(TEST TestNumberValue06
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue07 COMMAND ${THIS_TARGET} 2 t "+.5")
+set_property(TEST TestNumberValue07
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue08 COMMAND ${THIS_TARGET} 2 t "0.5")
+set_property(TEST TestNumberValue08
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue09 COMMAND ${THIS_TARGET} 2 t "1e2")
+set_property(TEST TestNumberValue09
+             PROPERTY PASS_REGULAR_EXPRESSION "^100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue10 COMMAND ${THIS_TARGET} 2 t "1E+2")
+set_property(TEST TestNumberValue10
+             PROPERTY PASS_REGULAR_EXPRESSION "^100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue11 COMMAND ${THIS_TARGET} 2 t "1e-2")
+set_property(TEST TestNumberValue11
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.01\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue12 COMMAND ${THIS_TARGET} 2 t "-1e2")
+set_property(TEST TestNumberValue12
+             PROPERTY PASS_REGULAR_EXPRESSION "^-100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue13 COMMAND ${THIS_TARGET} 2 t "-1e+2")
+set_property(TEST TestNumberValue13
+             PROPERTY PASS_REGULAR_EXPRESSION "^-100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue14 COMMAND ${THIS_TARGET} 2 t "-1e-2")
+set_property(TEST TestNumberValue14
+             PROPERTY PASS_REGULAR_EXPRESSION "^-0.01\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue15 COMMAND ${THIS_TARGET} 2 t "+1e2")
+set_property(TEST TestNumberValue15
+             PROPERTY PASS_REGULAR_EXPRESSION "^100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue16 COMMAND ${THIS_TARGET} 2 t "+1e+2")
+set_property(TEST TestNumberValue16
+             PROPERTY PASS_REGULAR_EXPRESSION "^100\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue17 COMMAND ${THIS_TARGET} 2 t "+1e-2")
+set_property(TEST TestNumberValue17
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.01\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue18 COMMAND ${THIS_TARGET} 2 t "-.5e0")
+set_property(TEST TestNumberValue18
+             PROPERTY PASS_REGULAR_EXPRESSION "^-0.5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue19 COMMAND ${THIS_TARGET} 2 t ".5e1")
+set_property(TEST TestNumberValue19
+             PROPERTY PASS_REGULAR_EXPRESSION "^5\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue20 COMMAND ${THIS_TARGET} 2 t "+.5e-001")
+set_property(TEST TestNumberValue20
+             PROPERTY PASS_REGULAR_EXPRESSION "^0.05\n$")
+# Test parse of number value
+add_test(NAME TestNumberValue21 COMMAND ${THIS_TARGET} 2 t "0.5E3")
+set_property(TEST TestNumberValue21
+             PROPERTY PASS_REGULAR_EXPRESSION "^500\n$")
+
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue01 COMMAND ${THIS_TARGET} 2 f "f")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue02 COMMAND ${THIS_TARGET} 2 f "+-")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue03 COMMAND ${THIS_TARGET} 2 f "+e")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue04 COMMAND ${THIS_TARGET} 2 f "-e")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue05 COMMAND ${THIS_TARGET} 2 f "1a")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue06 COMMAND ${THIS_TARGET} 2 f "1.f")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue07 COMMAND ${THIS_TARGET} 2 f "1ex")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue08 COMMAND ${THIS_TARGET} 2 f "1e+-")
+# Test parse of invalid number value
+add_test(NAME TestInvalidNumberValue09 COMMAND ${THIS_TARGET} 2 f ".e")
+
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue COMMAND ${THIS_TARGET} 2 t "20  ")
+set_property(TEST TestWhitespaceAndNumberValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^20\n$")
+# Test parse of whitespace, terminator and number value
+add_test(NAME TestWhitespaceTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "20  ]" "]")
+set_property(TEST TestWhitespaceTerminatorAndNumberValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^20\n$")
+# Test parse of terminator and number value
+add_test(NAME TestTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "1e3]" "]")
+set_property(TEST TestTerminatorAndNumberValue
+             PROPERTY PASS_REGULAR_EXPRESSION "^1000\n$")
+# Test parse of invalid terminator and number value
+add_test(NAME TestInvalidTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 f "100]" ")")
+

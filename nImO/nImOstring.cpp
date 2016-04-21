@@ -136,7 +136,7 @@ nImO::String::equalTo(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -165,13 +165,23 @@ const
     return result;
 } // nImO::String::equalTo
 
+const char *
+nImO::String::getInitialCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char * initialChars = "\"'";
+
+    ODL_EXIT_S(initialChars); //####
+    return initialChars;
+} // nImO::String::getInitialCharacters
+
 bool
 nImO::String::greaterThan(const nImO::Value & other,
                           bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -207,7 +217,7 @@ nImO::String::greaterThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -242,7 +252,7 @@ nImO::String::lessThan(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -278,7 +288,7 @@ nImO::String::lessThanOrEqual(const nImO::Value & other,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", validComparison); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
     bool result;
 
     if (&other == this)
@@ -350,6 +360,28 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
 
+nImO::Value *
+nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
+                                   const size_t               fromIndex,
+                                   const char *               termChars,
+                                   size_t *                   updatedIndex)
+{
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
+    ODL_LL1("fromIndex = ", fromIndex); //####
+    ODL_S1("termChars = ", termChars); //####
+    //bool    done = false;
+    //bool    eatWhitespace = false;
+    //bool    valid = false;
+    Value * result = NULL;
+    size_t  localIndex = fromIndex;
+    int     aChar = inBuffer.getChar(localIndex++);
+    int     endChar = StringBuffer::getEndChar();
+
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::String::readFromStringBuffer
+ 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

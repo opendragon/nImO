@@ -38,6 +38,14 @@
 
 #include "nImOvalue.hpp"
 
+#include <nImO/nImOarray.hpp>
+#include <nImO/nImOboolean.hpp>
+#include <nImO/nImOmap.hpp>
+#include <nImO/nImOnumber.hpp>
+#include <nImO/nImOset.hpp>
+#include <nImO/nImOstring.hpp>
+#include <nImO/nImOstringBuffer.hpp>
+
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
@@ -59,6 +67,8 @@
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+nImO::Value::BufferReaderMap nImO::Value::gReaders;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -92,6 +102,96 @@ nImO::Value::~Value(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+nImO::Value::initialize(void)
+{
+    ODL_ENTER(); //####
+    const char * prefixes = Boolean::getInitialCharacters();
+  
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &Boolean::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    prefixes = Number::getInitialCharacters();
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &Number::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    prefixes = String::getInitialCharacters();
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &String::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    prefixes = Array::getInitialCharacters();
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &Array::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    prefixes = Map::getInitialCharacters();
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &Map::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    prefixes = Set::getInitialCharacters();
+    if (NULL != prefixes)
+    { 
+        for ( ; '\0' != *prefixes; ++prefixes)
+        {
+            BufferReaderValue aValue(*prefixes, &Set::readFromStringBuffer);
+
+            gReaders.insert(aValue);
+        } 
+    }
+    ODL_EXIT(); //####
+} // nImO::Value::initialize
+
+nImO::Value *
+nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
+                                  const size_t               fromIndex,
+                                  const char *               termChars,
+                                  size_t *                   updatedIndex)
+{
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
+    ODL_LL1("fromIndex = ", fromIndex); //####
+    ODL_S1("termChars = ", termChars); //####
+    //bool    done = false;
+    //bool    eatWhitespace = false;
+    //bool    valid = false;
+    Value * result = NULL;
+    size_t  localIndex = fromIndex;
+    int     aChar = inBuffer.getChar(localIndex++);
+    int     endChar = StringBuffer::getEndChar();
+
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Value::readFromStringBuffer
+ 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

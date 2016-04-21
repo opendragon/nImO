@@ -185,9 +185,40 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     //bool    valid = false;
     Value * result = NULL;
     size_t  localIndex = fromIndex;
-    int     aChar = inBuffer.getChar(localIndex++);
+    int     aChar = inBuffer.getChar(localIndex);
     int     endChar = StringBuffer::getEndChar();
 
+    // Skip over whitespace
+    for ( ; isspace(aChar); )
+    {
+        aChar = inBuffer.getChar(++localIndex);
+    }
+    if (endChar == aChar)
+    {
+        ODL_LOG("(endChar == aChar)"); //####
+    }
+    else
+    {
+        BufferReaderIterator match = gReaders.find(aChar);
+
+        if (gReaders.end() == match)
+        {
+            ODL_LOG("(gReaders.end() == match)"); //####
+        }
+        else
+        {
+            BufferReader handler = match->second;
+
+            if (NULL == handler)
+            {
+                ODL_LOG("(NULL == handler)"); //####
+            }
+            else
+            {
+                result = handler(inBuffer, localIndex, termChars, updatedIndex);
+            }
+        }
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Value::readFromStringBuffer

@@ -368,86 +368,33 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
     ODL_LL1("fromIndex = ", fromIndex); //####
     ODL_S1("termChars = ", termChars); //####
-    bool    done = false;
-    bool    eatWhitespace = false;
-    bool    valid = false;
-    Value * result = NULL;
-    size_t  localIndex = fromIndex;
-    int     aChar = inBuffer.getChar(localIndex++);
-    int     endChar = StringBuffer::getEndChar();
+    bool                candidateValue = false;
+    bool                done = false;
+    bool                eatWhitespace = false;
+    bool                valid = false;
+    Value *             result = NULL;
+    size_t              localIndex = fromIndex;
+    int                 aChar = inBuffer.getChar(localIndex++);
+    int                 endChar = StringBuffer::getEndChar();
+    const std::string * candidate;
 
     // Select which form of the value that is in the buffer:
-    if ((aChar == 'f') || (aChar == 'F'))
+    if (('f' == aChar) || ('F' == aChar))
     {
-        for (size_t ii = 1, len = kCanonicalFalse.length(); (! done); )
-        {
-            aChar = tolower(inBuffer.getChar(localIndex++));
-            if (endChar == aChar)
-            {
-                if (NULL == termChars)
-                {
-                    done = valid = true; // the character seen is the buffer end
-                }
-                else
-                {
-                    done = true; // terminator not seen
-                }
-            }
-            else if (eatWhitespace)
-            {
-                if (! isspace(aChar))
-                {
-                    if (NULL == termChars)
-                    {
-                        done = valid = true; // no terminators, but only whitespace after value
-                    }
-                    else if (NULL == strchr(termChars, aChar))
-                    {
-                        done = true; // the next character is unexpected        
-                    }
-                    else
-                    {
-                        done = valid = true; // terminator seen after the whitespace
-                    }
-                }
-            }
-            else if (kCanonicalFalse[ii] == aChar)
-            {
-                if (len == ++ii)
-                {
-                    // the last character of the reference value was seen, look for a terminator
-                    eatWhitespace = true;
-                }
-            }
-            else if (isspace(aChar))
-            {
-                // string ended via whitespace
-                eatWhitespace = true;
-            }
-            else if (NULL == termChars)
-            {
-                // no terminators, so this is likely not a valid string
-                done = true;
-            }
-            else if (NULL == strchr(termChars, aChar))
-            {
-                // not one of the terminators, so this is likely not a valid string
-                done = true;
-            }
-            else
-            {
-                // one of the terminators, so we can stop
-                done = valid = true;
-            }
-        }
-        if (valid)
-        {
-            result = new Boolean(false);
-        }
+        candidate = &kCanonicalFalse;
     }
-    else if ((aChar == 't') || (aChar == 'T'))
+    else if (('t' == aChar) || ('T' == aChar))
     {
-        for (size_t ii = 1, len = kCanonicalTrue.length(); (! done); )
+        candidate = &kCanonicalTrue;
+        candidateValue = true;
+    }
+    else
+    {
+        candidate = NULL;
+    }
+    if (NULL != candidate)
+    {
+        for (size_t ii = 1, len = candidate->length(); (! done); )
         {
             aChar = tolower(inBuffer.getChar(localIndex++));
             if (endChar == aChar)
@@ -479,7 +426,7 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     }
                 }
             }
-            else if (kCanonicalTrue[ii] == aChar)
+            else if ((*candidate)[ii] == aChar)
             {
                 if (len == ++ii)
                 {
@@ -510,7 +457,7 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
         }
         if (valid)
         {
-            result = new Boolean(true);
+            result = new Boolean(candidateValue);
         }
     }
     if ((NULL != result) && (NULL != updatedIndex))

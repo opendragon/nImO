@@ -379,6 +379,8 @@ set_property(TEST TestMinimalBooleanFalseValue
 add_test(NAME TestMinimalBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "t")
 set_property(TEST TestMinimalBooleanTrueValue
              PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
+# Test parse of invalid boolean value
+add_test(NAME TestInvalidBooleanValue COMMAND ${THIS_TARGET} 1 f "42")
 # Test parse of invalid boolean false value
 add_test(NAME TestInvalidBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "falze")
 # Test parse of invalid boolean true value
@@ -534,4 +536,21 @@ set_property(TEST TestTerminatorAndNumberValue
              PROPERTY PASS_REGULAR_EXPRESSION "^1000\n$")
 # Test parse of invalid terminator and number value
 add_test(NAME TestInvalidTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 f "100]" ")")
+
+# Test parse of string value
+add_test(NAME TestStringValue01 COMMAND ${THIS_TARGET} 3 t "'abc'")
+set_property(TEST TestStringValue01
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"abc\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue02 COMMAND ${THIS_TARGET} 3 t "\"abc\"")
+set_property(TEST TestStringValue02
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"abc\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue03 COMMAND ${THIS_TARGET} 3 t "\"\"")
+set_property(TEST TestStringValue03
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue04 COMMAND ${THIS_TARGET} 3 t "''")
+set_property(TEST TestStringValue04
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"\"\n$")
 

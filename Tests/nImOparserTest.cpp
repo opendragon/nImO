@@ -131,7 +131,7 @@ doTestParseBooleanValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = nImO::Boolean::readFromStringBuffer(buff, 0, delimiters);
+        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
 
         if ((NULL != readValue) == expected)
         {
@@ -152,9 +152,13 @@ doTestParseBooleanValue(const bool   expected,
                 cout << buff.getString(length) << endl;
                 result = 0;
             }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
             else
             {
-                ODL_LOG("! (readValue->isBoolean())"); //####
+                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -196,7 +200,7 @@ doTestParseNumberValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = nImO::Number::readFromStringBuffer(buff, 0, delimiters);
+        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
 
         if ((NULL != readValue) == expected)
         {
@@ -217,9 +221,13 @@ doTestParseNumberValue(const bool   expected,
                 cout << buff.getString(length) << endl;
                 result = 0;
             }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
             else
             {
-                ODL_LOG("! (readValue->isNumber())"); //####
+                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -236,6 +244,78 @@ doTestParseNumberValue(const bool   expected,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestParseNumberValue
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 03 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param inString The string to be used for the test.
+ @param delimiters The delimiters to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestParseStringValue(const bool   expected,
+                       const char * inString,
+                       const char * delimiters) // string values
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "delimiters = ", delimiters); //####
+    int result = 1;
+
+    try
+    {
+        nImO::StringBuffer buff;
+
+        buff.addString(inString);
+        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
+
+        if ((NULL != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("((NULL != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (readValue->isString())
+            {
+                size_t length;
+
+                buff.reset();
+                readValue->printToStringBuffer(buff);
+                cout << buff.getString(length) << endl;
+                result = 0;
+            }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
+            else
+            {
+                result = 0; // wrong type returned, but it was not expected to succeed
+            }
+            delete readValue;
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestParseStringValue
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -292,23 +372,9 @@ main(int      argc,
                         result = doTestParseNumberValue(expected, *(argv + 3), delimiters);
                         break;
 
-#if 0
                     case 3 :
-                        result = doTestParseFieldName(expected, *(argv + 3));
+                        result = doTestParseStringValue(expected, *(argv + 3), delimiters);
                         break;
-
-                    case 4 :
-                        result = doTestParseFieldWithValues(expected, *(argv + 3));
-                        break;
-
-                    case 5 :
-                        result = doTestParseConstraintList(expected, *(argv + 3));
-                        break;
-
-                    case 6 :
-                        result = doTestParseExpression(expected, *(argv + 3));
-                        break;
-#endif//0
 
                     default :
                         break;

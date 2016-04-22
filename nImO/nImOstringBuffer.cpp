@@ -350,14 +350,6 @@ nImO::StringBuffer::appendChars(const char * data,
 } // nImO::StringBuffer::appendChars
 
 int
-nImO::StringBuffer::getEndChar(void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_C(kEndCharacter); //####
-    return kEndCharacter;
-} // nImO::StringBuffer::getEndChar
-
-int
 nImO::StringBuffer::getChar(const size_t index)
 const
 {
@@ -366,29 +358,36 @@ const
 
     if (_buffers)
     {
-        size_t soFar = 0;
+        size_t maxSize = BufferChunk::getMaximumSize();
+        size_t chunkNumber = (index / maxSize);
+        size_t offset = (index % maxSize);
 
-        for (size_t ii = 0; (_numChunks > ii) && (index >= soFar); ++ii)
+        if (_numChunks > chunkNumber)
         {
-            BufferChunk * aChunk = _buffers[ii];
+            BufferChunk * aChunk = _buffers[chunkNumber];
 
             if (aChunk)
             {
-                size_t thisSize = aChunk->getDataSize();
-
-                if (index < (soFar + thisSize))
+                if (offset < aChunk->getDataSize())
                 {
                     const uint8_t * thisData = aChunk->getData();
 
-                    result = *(thisData + index - soFar);
+                    result = *(thisData + offset);
                 }
-                soFar += thisSize;
             }
-        }
+        } 
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::StringBuffer::getChar
+
+int
+nImO::StringBuffer::getEndChar(void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_C(kEndCharacter); //####
+    return kEndCharacter;
+} // nImO::StringBuffer::getEndChar
 
 size_t
 nImO::StringBuffer::getLength(void)
@@ -621,3 +620,29 @@ nImO::StringBuffer::reset(void)
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::ostream &
+nImO::operator <<(std::ostream       &       out,
+                  const nImO::StringBuffer & aBuffer)
+{
+    ODL_ENTER(); //###
+    ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
+//#if 0
+    for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
+    {
+        BufferChunk * aChunk = aBuffer._buffers[ii];
+
+        if (aChunk)
+        {
+           size_t nn = aChunk->getDataSize();
+
+           if (0 < nn)
+           {
+               out.write(reinterpret_cast<const char *>(aChunk->getData()), nn);
+           }
+        }
+    }
+//#endif//0
+    ODL_EXIT_P(&out); //####
+    return out;
+} // nImO::operator <<

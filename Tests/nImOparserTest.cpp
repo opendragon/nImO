@@ -145,11 +145,9 @@ doTestParseBooleanValue(const bool   expected,
         {
             if (readValue->isBoolean())
             {
-                size_t length;
-
                 buff.reset();
                 readValue->printToStringBuffer(buff);
-                cout << buff.getString(length) << endl;
+                cout << buff << endl;
                 result = 0;
             }
             else if (expected)
@@ -214,11 +212,9 @@ doTestParseNumberValue(const bool   expected,
         {
             if (readValue->isNumber())
             {
-                size_t length;
-
                 buff.reset();
                 readValue->printToStringBuffer(buff);
-                cout << buff.getString(length) << endl;
+                cout << buff << endl;
                 result = 0;
             }
             else if (expected)
@@ -286,11 +282,9 @@ doTestParseStringValue(const bool   expected,
         {
             if (readValue->isString())
             {
-                size_t length;
-
                 buff.reset();
                 readValue->printToStringBuffer(buff);
-                cout << buff.getString(length) << endl;
+                cout << buff << endl;
                 result = 0;
             }
             else if (expected)

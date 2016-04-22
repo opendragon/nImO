@@ -125,6 +125,14 @@ nImO::BufferChunk::appendData(const void * data,
     return *this;
 } // nImO::BufferChunk::appendData
 
+size_t
+nImO::BufferChunk::getMaximumSize(void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_LL(kBufferSize); //####
+    return kBufferSize;
+} // nImO::BufferChunk::getMaximumSize
+
 nImO::BufferChunk &
 nImO::BufferChunk::reset(void)
 {

@@ -158,6 +158,15 @@ namespace nImO
         const char *
         getString(size_t & length);
 
+        /*! @brief Insert a readable version of the buffer into an
+         output stream.
+         @param out The stream to be added to.
+         @param aBuffer The StringBuffer to be printed.
+         @returns The modified stream. */
+        friend std::ostream &
+        operator <<(std::ostream &       out,
+                    const StringBuffer & aBuffer);
+
         /*! @brief Prepare the buffer for reuse.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &

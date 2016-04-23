@@ -239,15 +239,11 @@ namespace nImO
         
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param inBuffer The buffer to be scanned.
-         @param fromIndex Where in the buffer to start.
-         @param termChars The expected termination characters - @c NULL is anything is legal.
-         @param updatedIndex The next location in the buffer to be processed.
+         @param position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
         static Value *
         readFromStringBuffer(const StringBuffer & inBuffer,
-                             const size_t         fromIndex = 0,
-                             const char *         termChars = NULL,
-                             size_t *             updatedIndex = NULL);
+                             size_t &             position);
  
         /*! @brief Return a reverse iterator pointing to the first element of the Array.
          @returns A reverse iterator pointing to the first element of the Array. */

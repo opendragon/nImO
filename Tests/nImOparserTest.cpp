@@ -114,16 +114,14 @@ catchSignal(int signal)
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
- @param delimiters The delimiters to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseBooleanValue(const bool   expected,
-                        const char * inString,
-                        const char * delimiters) // boolean values
+                        const char * inString) // boolean values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "delimiters = ", delimiters); //####
+    ODL_S1("inString = ", inString); //####
     int result = 1;
 
     try
@@ -131,7 +129,7 @@ doTestParseBooleanValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
+        nImO::Value * readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -181,16 +179,14 @@ doTestParseBooleanValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
- @param delimiters The delimiters to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue(const bool   expected,
-                       const char * inString,
-                       const char * delimiters) // number values
+                       const char * inString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "delimiters = ", delimiters); //####
+    ODL_S1("inString = ", inString); //####
     int result = 1;
 
     try
@@ -198,7 +194,7 @@ doTestParseNumberValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
+        nImO::Value * readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -251,16 +247,14 @@ doTestParseNumberValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
- @param delimiters The delimiters to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue(const bool   expected,
-                       const char * inString,
-                       const char * delimiters) // string values
+                       const char * inString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "delimiters = ", delimiters); //####
+    ODL_S1("inString = ", inString); //####
     int result = 1;
 
     try
@@ -268,7 +262,7 @@ doTestParseStringValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = nImO::Value::readFromStringBuffer(buff, 0, delimiters);
+        nImO::Value * readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -351,23 +345,22 @@ main(int      argc,
             ODL_LL1("selector <- ", selector); //####
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {
-                bool   expected = (('t' == *argv[2]) || ('T' == *argv[2]));
-                char * delimiters = ((3 < argc) ? *(argv + 4) : NULL);
+                bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
 
                 nImO::SetSignalHandlers(catchSignal);
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestParseBooleanValue(expected, *(argv + 3), delimiters);
+                        result = doTestParseBooleanValue(expected, *(argv + 3));
                         break;
 
                     case 2 :
-                        result = doTestParseNumberValue(expected, *(argv + 3), delimiters);
+                        result = doTestParseNumberValue(expected, *(argv + 3));
                         break;
 
                     case 3 :
-                        result = doTestParseStringValue(expected, *(argv + 3), delimiters);
+                        result = doTestParseStringValue(expected, *(argv + 3));
                         break;
 
                     default :

@@ -62,12 +62,11 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The size to use for the buffer. */
-static const size_t kBufferSize = 10000;
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
+
+const size_t nImO::BufferChunk::kBufferSize = 1000;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -124,14 +123,6 @@ nImO::BufferChunk::appendData(const void * data,
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::BufferChunk::appendData
-
-size_t
-nImO::BufferChunk::getMaximumSize(void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_LL(kBufferSize); //####
-    return kBufferSize;
-} // nImO::BufferChunk::getMaximumSize
 
 nImO::BufferChunk &
 nImO::BufferChunk::reset(void)

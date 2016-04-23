@@ -40,6 +40,7 @@
 
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOvalue.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -107,12 +108,11 @@ static const char * kCanonicalControl[] =
     "C-_" // 1F US
 }; // kCanonicalControl
 
-/*! @brief The value used to represent the end of the buffer. */
-static const int kEndCharacter = -1;
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
+
+const int nImO::StringBuffer::kEndCharacter = -1;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -349,6 +349,19 @@ nImO::StringBuffer::appendChars(const char * data,
     ODL_OBJEXIT(); //####
 } // nImO::StringBuffer::appendChars
 
+nImO::Value * nImO::StringBuffer::convertToValue(void)
+const
+{
+    ODL_OBJENTER(); //####
+    size_t  position = 0;
+    Value * result = Value::readFromStringBuffer(*this, position);
+    
+    //TBD -> handle implicit Array, check for correct termination --> kEndChar as the character at
+    // position, or nothing but whitespace and then kEndChar
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::StringBuffer::convertToValue
+
 int
 nImO::StringBuffer::getChar(const size_t index)
 const
@@ -358,15 +371,14 @@ const
 
     if (_buffers)
     {
-        size_t maxSize = BufferChunk::getMaximumSize();
-        size_t chunkNumber = (index / maxSize);
-        size_t offset = (index % maxSize);
+        size_t chunkNumber = (index / BufferChunk::kBufferSize);
+        size_t offset = (index % BufferChunk::kBufferSize);
 
         if (_numChunks > chunkNumber)
         {
             BufferChunk * aChunk = _buffers[chunkNumber];
 
-            if (aChunk)
+            if (NULL != aChunk)
             {
                 if (offset < aChunk->getDataSize())
                 {
@@ -381,14 +393,6 @@ const
     return result;
 } // nImO::StringBuffer::getChar
 
-int
-nImO::StringBuffer::getEndChar(void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_C(kEndCharacter); //####
-    return kEndCharacter;
-} // nImO::StringBuffer::getEndChar
-
 size_t
 nImO::StringBuffer::getLength(void)
 const
@@ -398,14 +402,12 @@ const
 
     if (_buffers)
     {
-        for (size_t ii = 0; _numChunks > ii; ++ii)
-        {
-            BufferChunk * aChunk = _buffers[ii];
+        BufferChunk * aChunk = _buffers[_numChunks - 1];
 
-            if (aChunk)
-            {
-                totalLength += aChunk->getDataSize();
-            }
+        totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
+        if (NULL != aChunk)
+        {
+            totalLength += aChunk->getDataSize();
         }
     }
     ODL_OBJEXIT_LL(totalLength); //####
@@ -431,7 +433,7 @@ nImO::StringBuffer::getString(size_t & length)
             {
                 BufferChunk * aChunk = _buffers[ii];
 
-                if (aChunk)
+                if (NULL != aChunk)
                 {
                     size_t nn = aChunk->getDataSize();
 
@@ -466,12 +468,10 @@ nImO::StringBuffer::processCharacters(const char * aString,
     ODL_LL1("length = ", length); //####
     // First, determine how many of each kind of quote character there are, and if there are
     // 'special' characters - control characters or characters with the high bit set
-    bool              hasSpecials = false;
-    size_t            numSingleQuotes = 0;
-    size_t            numDoubleQuotes = 0;
-    size_t            numEscapes = 0;
-    static const char doubleQuote = '"';
-    static const char singleQuote = '\'';
+    bool   hasSpecials = false;
+    size_t numSingleQuotes = 0;
+    size_t numDoubleQuotes = 0;
+    size_t numEscapes = 0;
 
     for (size_t ii = 0; length > ii; ++ii)
     {
@@ -481,11 +481,11 @@ nImO::StringBuffer::processCharacters(const char * aString,
         {
             hasSpecials = true;
         }
-        else if (singleQuote == aByte)
+        else if (kSingleQuote == aByte)
         {
             ++numSingleQuotes;
         }
-        else if (doubleQuote == aByte)
+        else if (kDoubleQuote == aByte)
         {
             ++numDoubleQuotes;
         }
@@ -496,7 +496,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
     }
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
-        char delimiter = ((numDoubleQuotes > numSingleQuotes) ? singleQuote : doubleQuote);
+        char delimiter = ((numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote);
 
         appendChars(&delimiter, sizeof(delimiter));
         for (size_t ii = 0; length > ii; ++ii)
@@ -535,7 +535,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
                         static const char metaDoubleQuote[] = { '2', '4', '2' };
                         static const char metaSingleQuote[] = { '2', '4', '7' };
 
-                        if (singleQuote == aByte)
+                        if (kSingleQuote == aByte)
                         {
                             appendChars(metaSingleQuote, sizeof(metaSingleQuote));
                         }
@@ -554,6 +554,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
                         {
                             const char * controlString = kCanonicalControl[aByte];
 
+                            appendChars(&kEscapeChar, sizeof(kEscapeChar));
                             appendChars(controlString, strlen(controlString) *
                                         sizeof(*controlString));
                         }
@@ -579,9 +580,9 @@ nImO::StringBuffer::processCharacters(const char * aString,
     else
     {
         // Nothing special
-        appendChars(&doubleQuote, sizeof(doubleQuote));
+        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
         appendChars(aString, length * sizeof(*aString));
-        appendChars(&doubleQuote, sizeof(doubleQuote));
+        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
     }
     ODL_EXIT(); //####
 } // nImO::StringBuffer::processCharacters
@@ -601,7 +602,7 @@ nImO::StringBuffer::reset(void)
         {
             BufferChunk * aChunk = _buffers[ii];
 
-            if (aChunk)
+            if (NULL != aChunk)
             {
                 delete aChunk;
             }
@@ -627,12 +628,11 @@ nImO::operator <<(std::ostream       &       out,
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
-//#if 0
     for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
     {
         BufferChunk * aChunk = aBuffer._buffers[ii];
 
-        if (aChunk)
+        if (NULL != aChunk)
         {
            size_t nn = aChunk->getDataSize();
 
@@ -642,7 +642,6 @@ nImO::operator <<(std::ostream       &       out,
            }
         }
     }
-//#endif//0
     ODL_EXIT_P(&out); //####
     return out;
 } // nImO::operator <<

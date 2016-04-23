@@ -172,30 +172,25 @@ nImO::Value::initialize(void)
 
 nImO::Value *
 nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                  const size_t               fromIndex,
-                                  const char *               termChars,
-                                  size_t *                   updatedIndex)
+                                  size_t &                   position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
-    ODL_LL1("fromIndex = ", fromIndex); //####
-    ODL_S1("termChars = ", termChars); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     //bool    done = false;
     //bool    eatWhitespace = false;
     //bool    valid = false;
     Value * result = NULL;
-    size_t  localIndex = fromIndex;
+    size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex);
-    int     endChar = StringBuffer::getEndChar();
 
     // Skip over whitespace
     for ( ; isspace(aChar); )
     {
         aChar = inBuffer.getChar(++localIndex);
     }
-    if (endChar == aChar)
+    if (StringBuffer::kEndCharacter == aChar)
     {
-        ODL_LOG("(endChar == aChar)"); //####
+        ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
     }
     else
     {
@@ -215,7 +210,11 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
-                result = handler(inBuffer, localIndex, termChars, updatedIndex);
+                result = handler(inBuffer, localIndex);
+                if (NULL != result)
+                {
+                    position = localIndex;
+                }
             }
         }
     }

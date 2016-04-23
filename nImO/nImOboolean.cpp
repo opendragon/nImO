@@ -360,22 +360,14 @@ const
 
 nImO::Value *
 nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                    const size_t               fromIndex,
-                                    const char *               termChars,
-                                    size_t *                   updatedIndex)
+                                    size_t &                   position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
-    ODL_LL1("fromIndex = ", fromIndex); //####
-    ODL_S1("termChars = ", termChars); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool                candidateValue = false;
-    bool                done = false;
-    bool                eatWhitespace = false;
-    bool                valid = false;
     Value *             result = NULL;
-    size_t              localIndex = fromIndex;
+    size_t              localIndex = position;
     int                 aChar = inBuffer.getChar(localIndex++);
-    int                 endChar = StringBuffer::getEndChar();
     const std::string * candidate;
 
     // Select which form of the value that is in the buffer:
@@ -394,75 +386,35 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     }
     if (NULL != candidate)
     {
+        bool done = false;
+
         for (size_t ii = 1, len = candidate->length(); (! done); )
         {
-            aChar = tolower(inBuffer.getChar(localIndex++));
-            if (endChar == aChar)
+            aChar = tolower(inBuffer.getChar(localIndex));
+            if (StringBuffer::kEndCharacter == aChar)
             {
-                if (NULL == termChars)
-                {
-                    done = valid = true; // the character seen is the buffer end
-                }
-                else
-                {
-                    done = true; // terminator not seen
-                }
-            }
-            else if (eatWhitespace)
-            {
-                if (! isspace(aChar))
-                {
-                    if (NULL == termChars)
-                    {
-                        done = valid = true; // no terminators, but only whitespace after value
-                    }
-                    else if (NULL == strchr(termChars, aChar))
-                    {
-                        done = true; // the next character is unexpected        
-                    }
-                    else
-                    {
-                        done = valid = true; // terminator seen after the whitespace
-                    }
-                }
+                done = true; // the character seen is the buffer end
             }
             else if ((*candidate)[ii] == aChar)
             {
+                ++localIndex;
                 if (len == ++ii)
                 {
-                    // the last character of the reference value was seen, look for a terminator
-                    eatWhitespace = true;
+                    // the last character of the reference value was seen
+                    done = true;
                 }
-            }
-            else if (isspace(aChar))
-            {
-                // string ended via whitespace
-                eatWhitespace = true;
-            }
-            else if (NULL == termChars)
-            {
-                // no terminators, so this is likely not a valid string
-                done = true;
-            }
-            else if (NULL == strchr(termChars, aChar))
-            {
-                // not one of the terminators, so this is likely not a valid string
-                done = true;
             }
             else
             {
-                // one of the terminators, so we can stop
-                done = valid = true;
+                // valid so far
+                done = true;
             }
         }
-        if (valid)
-        {
-            result = new Boolean(candidateValue);
-        }
+        result = new Boolean(candidateValue);
     }
-    if ((NULL != result) && (NULL != updatedIndex))
+    if (NULL != result)
     {
-        *updatedIndex = localIndex - 1;
+        position = localIndex;
     }
     ODL_EXIT_P(result); //####
     return result;

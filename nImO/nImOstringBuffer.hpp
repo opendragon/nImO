@@ -56,6 +56,7 @@
 namespace nImO
 {
     class BufferChunk;
+    class Value;
 
     /*! @brief The data constituting a string buffer. */
     class StringBuffer
@@ -132,6 +133,11 @@ namespace nImO
         StringBuffer &
         addTab(void);
 
+        /*! @brief Convert the buffer to a Value.
+         @returns The Value represented by the buffer contents. */
+        Value * convertToValue(void)
+        const;
+        
         /*! @brief Return the character found at a particular index.
          @param index The zero-based location in the buffer.
          @returns The character found at the provided index, or the 'end' character if the index
@@ -139,11 +145,6 @@ namespace nImO
         int
         getChar(const size_t index)
         const;
-
-        /*! @brief Return the character that is used to represent the end of the buffer.
-         @returns The character that represents the end of the buffer. */
-        static int
-        getEndChar(void);
 
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
@@ -208,6 +209,9 @@ namespace nImO
 
     public :
         // Public fields.
+
+        /*! @brief The value used to represent the end of the buffer. */
+        static const int kEndCharacter;
 
     protected :
         // Protected fields.

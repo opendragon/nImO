@@ -394,11 +394,11 @@ add_test(NAME TestWhitespaceAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  
 set_property(TEST TestWhitespaceAndBooleanTrueValue
              PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
 # Test parse of whitespace, terminator and boolean false value
-add_test(NAME TestWhitespaceTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  ]" "]")
+add_test(NAME TestWhitespaceTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  ]")
 set_property(TEST TestWhitespaceTerminatorAndBooleanFalseValue
              PROPERTY PASS_REGULAR_EXPRESSION "^false\n$")
 # Test parse of whitespace, terminator and boolean true value
-add_test(NAME TestWhitespaceTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  ]" "]")
+add_test(NAME TestWhitespaceTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  ]")
 set_property(TEST TestWhitespaceTerminatorAndBooleanTrueValue
              PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
 # Test parse of terminator and boolean false value
@@ -409,14 +409,6 @@ set_property(TEST TestTerminatorAndBooleanFalseValue
 add_test(NAME TestTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru]" "]")
 set_property(TEST TestTerminatorAndBooleanTrueValue
              PROPERTY PASS_REGULAR_EXPRESSION "^true\n$")
-# Test parse of invalid terminator and boolean false value
-add_test(NAME TestInvalidTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "fal]" ")")
-# Test parse of invalid terminator and boolean true value
-add_test(NAME TestInvalidTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "tru]" ")")
-# Test parse of missing terminator and boolean false value
-add_test(NAME TestMissingTerminatorAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "fal" ")")
-# Test parse of missing terminator and boolean true value
-add_test(NAME TestMissingTerminatorAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "tru" ")")
 
 # Test parse of number value
 add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0")
@@ -527,15 +519,13 @@ add_test(NAME TestWhitespaceAndNumberValue COMMAND ${THIS_TARGET} 2 t "20  ")
 set_property(TEST TestWhitespaceAndNumberValue
              PROPERTY PASS_REGULAR_EXPRESSION "^20\n$")
 # Test parse of whitespace, terminator and number value
-add_test(NAME TestWhitespaceTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "20  ]" "]")
+add_test(NAME TestWhitespaceTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "20  ]")
 set_property(TEST TestWhitespaceTerminatorAndNumberValue
              PROPERTY PASS_REGULAR_EXPRESSION "^20\n$")
 # Test parse of terminator and number value
-add_test(NAME TestTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "1e3]" "]")
+add_test(NAME TestTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 t "1e3]")
 set_property(TEST TestTerminatorAndNumberValue
              PROPERTY PASS_REGULAR_EXPRESSION "^1000\n$")
-# Test parse of invalid terminator and number value
-add_test(NAME TestInvalidTerminatorAndNumberValue COMMAND ${THIS_TARGET} 2 f "100]" ")")
 
 # Test parse of string value
 add_test(NAME TestStringValue01 COMMAND ${THIS_TARGET} 3 t "'abc'")
@@ -553,4 +543,57 @@ set_property(TEST TestStringValue03
 add_test(NAME TestStringValue04 COMMAND ${THIS_TARGET} 3 t "''")
 set_property(TEST TestStringValue04
              PROPERTY PASS_REGULAR_EXPRESSION "^\"\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue05 COMMAND ${THIS_TARGET} 3 t "\"\\\"\"")
+set_property(TEST TestStringValue05
+             PROPERTY PASS_REGULAR_EXPRESSION "^'\"'\n$")
+# Test parse of string value
+add_test(NAME TestStringValue06 COMMAND ${THIS_TARGET} 3 t "\"'\"")
+set_property(TEST TestStringValue06
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"'\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue07 COMMAND ${THIS_TARGET} 3 t "\"@\\a\\b\\t\\n\\v\\f\\r\\e\\s=\"")
+set_property(TEST TestStringValue07
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\a\\\\b\\\\t\\\\n\\\\v\\\\f\\\\r\\\\e =\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue08 COMMAND ${THIS_TARGET} 3 t "\"@\\007\\010\\011\\012\\013\\014\\015\\033\\040=\"")
+set_property(TEST TestStringValue08
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\a\\\\b\\\\t\\\\n\\\\v\\\\f\\\\r\\\\e =\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue09 COMMAND ${THIS_TARGET} 3 t "\"@\\C-g\\C-H\\C-i\\C-J\\C-k\\C-L\\C-m\\C-[=\"")
+set_property(TEST TestStringValue09
+             PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\a\\\\b\\\\t\\\\n\\\\v\\\\f\\\\r\\\\e=\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue10 COMMAND ${THIS_TARGET} 3 t "\"@\\cg\\cH\\ci\\cJ\\ck\\cL\\cm\\c[=\"")
+set_property(TEST TestStringValue10
+PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\a\\\\b\\\\t\\\\n\\\\v\\\\f\\\\r\\\\e=\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue11 COMMAND ${THIS_TARGET} 3 t "\"@\\M-!\\M-0\\M-A=\"")
+set_property(TEST TestStringValue11
+PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\M-!\\\\M-0\\\\M-A=\"\n$")
+# Test parse of string value
+add_test(NAME TestStringValue12 COMMAND ${THIS_TARGET} 3 t "\"@\\241\\260\\301=\"")
+set_property(TEST TestStringValue12
+PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\M-!\\\\M-0\\\\M-A=\"\n$")
+
+# Test parse of string value
+add_test(NAME TestStringValue13 COMMAND ${THIS_TARGET} 3 t "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\"")
+set_property(TEST TestStringValue13
+PROPERTY PASS_REGULAR_EXPRESSION "^\"@\\\\M-\\\\C-@\\\\M-\\\\C-_\\\\M-\\\\C-@\\\\M-\\\\C-_\\\\377=\"\n$")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

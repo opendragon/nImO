@@ -531,26 +531,20 @@ const
 
 nImO::Value *
 nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                   const size_t               fromIndex,
-                                   const char *               termChars,
-                                   size_t *                   updatedIndex)
+                                   size_t &                   position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
-    ODL_LL1("fromIndex = ", fromIndex); //####
-    ODL_S1("termChars = ", termChars); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     enum ScanState
     {
         kScanInitial,
         kScanIntegerDigitSeen,
         kScanFractionStartSeen,
         kScanExponentStart,
-        kScanExponentSeen,
-        kScanTrailingWhitespace
+        kScanExponentSeen
     }; // ScanState
 
     bool      done = false;
-    bool      eatWhitespace = false;
     bool      isDouble = false;
     bool      needsAdigit = false;
     bool      sawInitialMinus = false;
@@ -565,8 +559,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     int       fractionPower = 0;
     ScanState currentState = kScanInitial;
     Value *   result = NULL;
-    size_t    localIndex = fromIndex;
-    int       endChar = StringBuffer::getEndChar();
+    size_t    localIndex = position;
 
     for (int aChar; (! done); )
     {
@@ -623,39 +616,19 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 isDouble = true;
                 currentState = kScanExponentStart;
             }
-            else if (endChar == aChar)
+            else if (StringBuffer::kEndCharacter == aChar)
             {
-                if (NULL == termChars)
-                {
-                    done = valid = true; // the character seen is the buffer end
-                }
-                else
-                {
-                    done = true; // terminator not seen
-                }
+                done = valid = true; // the character seen is the buffer end
             }
             else if (isdigit(aChar))
             {
                 integerPart *= 10;
                 integerPart += aChar - '0';
             }
-            else if (isspace(aChar))
-            {
-                currentState = kScanTrailingWhitespace;
-            }
-            else if (NULL == termChars)
-            {
-                // no terminators, so this is likely not a valid string
-                done = true;
-            }
-            else if (NULL == strchr(termChars, aChar))
-            {
-                // not one of the terminators, so this is likely not a valid string
-                done = true;
-            }
             else
             {
-                // one of the terminators, so we can stop
+                // unexpected character seen, but valid so far
+                --localIndex;
                 done = valid = true;
             }
             break;
@@ -672,22 +645,15 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     currentState = kScanExponentStart;
                 }
             }
-            else if (endChar == aChar)
+            else if (StringBuffer::kEndCharacter == aChar)
             {
-                if (NULL == termChars)
+                if (needsAdigit)
                 {
-                    if (needsAdigit)
-                    {
-                        done = true; // decimal point with no trailing digits
-                    }
-                    else
-                    {
-                        done = valid = true; // the character seen is the buffer end
-                    }
+                    done = true; // decimal point with no trailing digits
                 }
                 else
                 {
-                    done = true; // terminator not seen
+                    done = valid = true; // the character seen is the buffer end
                 }
             }
             else if (isdigit(aChar))
@@ -705,18 +671,9 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 }
                 else
                 {
-                    currentState = kScanTrailingWhitespace;
+                    --localIndex;
+                    done = valid = true; // valid number followed by whitespace
                 }
-            }
-            else if (NULL == termChars)
-            {
-                // no terminators, so this is likely not a valid string
-                done = true;
-            }
-            else if (NULL == strchr(termChars, aChar))
-            {
-                // not one of the terminators, so this is likely not a valid string
-                done = true;
             }
             else if (needsAdigit)
             {
@@ -724,7 +681,8 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
-                // one of the terminators, so we can stop
+                // unexpected character, but valid so far
+                --localIndex;
                 done = valid = true;
             }
             break;
@@ -764,72 +722,21 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             break;
 
         case kScanExponentSeen :
-            if (endChar == aChar)
+            if (StringBuffer::kEndCharacter == aChar)
             {
-                if (NULL == termChars)
-                {
-                    done = valid = true; // the character seen is the buffer end
-                }
-                else
-                {
-                    done = true; // terminator not seen
-                }
+                --localIndex;
+                done = valid = true; // the character seen is the buffer end
             }
             else if (isdigit(aChar))
             {
                 exponent *= 10;
                 exponent += aChar - '0';
             }
-            else if (isspace(aChar))
-            {
-                currentState = kScanTrailingWhitespace;
-            }
-            else if (NULL == termChars)
-            {
-                // no terminators, so this is likely not a valid string
-                done = true;
-            }
-            else if (NULL == strchr(termChars, aChar))
-            {
-                // not one of the terminators, so this is likely not a valid string
-                done = true;
-            }
             else
             {
-                // one of the terminators, so we can stop
+                // unexpected character, but valid so far
+                --localIndex;
                 done = valid = true;
-            }
-            break;
-
-        case kScanTrailingWhitespace :
-            if (endChar == aChar)
-            {
-                if (NULL == termChars)
-                {
-                    done = valid = true; // the character seen is the buffer end
-                }
-                else
-                {
-                    done = true; // terminator not seen
-                }
-            }
-            else if (! isspace(aChar))
-            {
-                if (NULL == termChars)
-                {
-                    // no terminators, so this is likely not a valid string
-                    done = true;
-                }
-                else if (NULL == strchr(termChars, aChar))
-                {
-                    // not one of the terminators, so this is likely not a valid string
-                    done = true;
-                }
-                else
-                {
-                    // one of the terminators, so we can stop
-                    done = valid = true;
-                }
             }
             break;
 
@@ -873,10 +780,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
         {
             result = new Number(sawInitialMinus ? -integerPart : integerPart);
         }
-        if (NULL != updatedIndex)
-        {
-            *updatedIndex = localIndex - 1;
-        }
+        position = localIndex;
     }
     ODL_EXIT_P(result); //####
     return result;

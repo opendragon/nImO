@@ -113,11 +113,6 @@ namespace nImO
             return static_cast<size_t>(_write - _buffer);
         } // getDataSize
 
-        /*! @brief Return the maximum number of bytes in a chunk.
-         @returns The maximum number of bytes in a chunk. */
-        static size_t
-        getMaximumSize(void);
-
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
@@ -141,6 +136,9 @@ namespace nImO
 
     public :
         // Public fields.
+
+        /*! @brief The size to use for the buffer. */
+        static const size_t kBufferSize;
 
     protected :
         // Protected fields.

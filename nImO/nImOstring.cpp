@@ -362,22 +362,298 @@ const
 
 nImO::Value *
 nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                   const size_t               fromIndex,
-                                   const char *               termChars,
-                                   size_t *                   updatedIndex)
+                                   size_t &                   position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "updatedIndex = ", updatedIndex); //####
-    ODL_LL1("fromIndex = ", fromIndex); //####
-    ODL_S1("termChars = ", termChars); //####
-    //bool    done = false;
-    //bool    eatWhitespace = false;
-    //bool    valid = false;
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     Value * result = NULL;
-    size_t  localIndex = fromIndex;
+    size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
-    int     endChar = StringBuffer::getEndChar();
 
+    if ((kSingleQuote == aChar) || (kDoubleQuote == aChar))
+    {
+        enum ScanState
+        {
+            kScanNormal,
+            kScanSawEscape,
+            kScanSawEscapeOctal1,
+            kScanSawEscapeOctal2,
+            kScanSawEscapeSmallC,
+            kScanSawEscapeBigC,
+            kScanSawEscapeBigCminus,
+            kScanSawEscapeBigM,
+            kScanSawEscapeBigMminus,
+            kScanSawEscapeBigMminusEscape,
+            kScanSawEscapeBigMminusEscapeBigC,
+            kScanSawEscapeBigMminusEscapeBigCminus
+        }; // ScanState
+
+        bool                done = false;
+        bool                valid = false;
+        const char          delimiter = aChar;
+        int                 octalSum;
+        ScanState           state = kScanNormal;
+        StringBuffer        holding;
+        static const char * standardEscapes = "abtnvfres";
+        static const char * standardEscapesActual = "\a\b\t\n\v\f\r\e ";
+
+        for ( ; ! done; )
+        {
+            aChar = inBuffer.getChar(localIndex++);
+            if (StringBuffer::kEndCharacter == aChar)
+            {
+                ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+                done = true; // saw end of buffer before delimiter
+            }
+            else
+            {
+                switch (state)
+                {
+                case kScanNormal :
+                    if (delimiter == aChar)
+                    {
+                        done = valid = true; // ready to use
+                    }
+                    else if (kEscapeChar == aChar)
+                    {
+                        state = kScanSawEscape;
+                    }
+                    else
+                    {
+                        holding.addChar(aChar);
+                    }
+                    break;
+
+                case kScanSawEscape :
+                    if (delimiter == aChar)
+                    {
+                        holding.addChar(aChar);
+                        state = kScanNormal;
+                    }
+                    else
+                    {
+                        const char * whichEscape = strchr(standardEscapes, aChar);
+
+                        if (NULL == whichEscape)
+                        {
+                            switch (aChar)
+                            {
+                            case '0' :
+                            case '1' :
+                            case '2' :
+                            case '3' :
+                            case '4' :
+                            case '5' :
+                            case '6' :
+                            case '7' :
+                                octalSum = aChar - '0';
+                                state = kScanSawEscapeOctal1;
+                                break;
+
+                            case 'c' :
+                                state = kScanSawEscapeSmallC;
+                                break;
+
+                            case 'C' :
+                                state = kScanSawEscapeBigC;
+                                break;
+
+                            case 'M' :
+                                state = kScanSawEscapeBigM;
+                                break;
+
+                            default :
+                                ODL_LOG("default"); //####
+                                done = true; // unrecognized escape sequence
+                                break;
+
+                            }
+                        }
+                        else
+                        {
+                            const char * replacement = standardEscapesActual +
+                                                       (whichEscape - standardEscapes);
+
+                            holding.addChar(*replacement);
+                            state = kScanNormal;
+                        }
+                    }
+                    break;
+
+                case kScanSawEscapeOctal1 :
+                    switch (aChar)
+                    {
+                    case '0' :
+                    case '1' :
+                    case '2' :
+                    case '3' :
+                    case '4' :
+                    case '5' :
+                    case '6' :
+                    case '7' :
+                        octalSum *= 8;
+                        octalSum += aChar - '0';
+                        state = kScanSawEscapeOctal2;
+                        break;
+
+                    default :
+                        ODL_LOG("default"); //####
+                        done = true; // unrecognized escape sequence
+                        break;
+
+                    }
+                    break;
+
+                case kScanSawEscapeOctal2 :
+                    switch (aChar)
+                    {
+                    case '0' :
+                    case '1' :
+                    case '2' :
+                    case '3' :
+                    case '4' :
+                    case '5' :
+                    case '6' :
+                    case '7' :
+                        octalSum *= 8;
+                        octalSum += aChar - '0';
+                        holding.addChar(static_cast<char>(octalSum));
+                        state = kScanNormal;
+                        break;
+
+                    default :
+                        ODL_LOG("default"); //####
+                        done = true; // unrecognized escape sequence
+                        break;
+
+                    }
+                    break;
+
+                case kScanSawEscapeSmallC :
+                    aChar = toupper(aChar);
+                    if (('@' <= aChar) && ('_' >= aChar))
+                    {
+                        holding.addChar(aChar - '@');
+                        state = kScanNormal;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigC :
+                    if ('-' == aChar)
+                    {
+                        state = kScanSawEscapeBigCminus;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ('-' == aChar)"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigCminus :
+                    aChar = toupper(aChar);
+                    if (('@' <= aChar) && ('_' >= aChar))
+                    {
+                        holding.addChar(aChar - '@');
+                        state = kScanNormal;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigM :
+                    if ('-' == aChar)
+                    {
+                        state = kScanSawEscapeBigMminus;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ('-' == aChar)"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigMminus :
+                    if (kEscapeChar == aChar)
+                    {
+                        state = kScanSawEscapeBigMminusEscape;
+                    }
+                    else
+                    {
+                        holding.addChar(aChar | 0x080);
+                        state = kScanNormal;
+                    }
+                    break;
+
+                case kScanSawEscapeBigMminusEscape :
+                    if ('C' == aChar)
+                    {
+                        state = kScanSawEscapeBigMminusEscapeBigC;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ('C' == aChar)"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigMminusEscapeBigC :
+                    if ('-' == aChar)
+                    {
+                        state = kScanSawEscapeBigMminusEscapeBigCminus;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ('-' == aChar)"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                case kScanSawEscapeBigMminusEscapeBigCminus :
+                    aChar = toupper(aChar);
+                    if (('@' <= aChar) && ('_' >= aChar))
+                    {
+                        holding.addChar((aChar - '@') | 0x080);
+                        state = kScanNormal;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                        done = true; // unrecognized escape sequence
+                    }
+                    break;
+
+                default :
+                    ODL_LOG("default"); //####
+                    done = true; // unrecognized sequence
+                    break;
+
+                }
+            }
+        }
+        if (valid)
+        {
+            size_t length = 0;
+
+            result = new String(holding.getString(length));
+            if (NULL != result)
+            {
+                position = localIndex;
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! ((kSingleQuote == aChar) || (kDoubleQuote == aChar))"); //####
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::String::readFromStringBuffer

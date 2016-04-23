@@ -289,13 +289,16 @@ namespace nImO
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char kBlobSeparator;
 
-    /*! @brief The character that ends an array value. */
+    /*! @brief A character that brackets a string value. */
+    extern const char kDoubleQuote;
+    
+    /*! @brief The character that ends an Array value. */
     extern const char kEndArrayChar;
 
-    /*! @brief The character that ends a map value. */
+    /*! @brief The character that ends a Map value. */
     extern const char kEndMapChar;
 
-    /*! @brief The character that ends a set value. */
+    /*! @brief The character that ends a Set value. */
     extern const char kEndSetChar;
 
     /*! @brief The escape character. */
@@ -304,13 +307,16 @@ namespace nImO
     /*! @brief The character that separates a key from a value in a key/value pair. */
     extern const char kKeyValueSeparator;
 
-    /*! @brief The character that starts an array value. */
+    /*! @brief A character that brackets a string value. */
+    extern const char kSingleQuote;
+
+    /*! @brief The character that starts an Array value. */
     extern const char kStartArrayChar;
 
-    /*! @brief The character that starts a map value. */
+    /*! @brief The character that starts a Map value. */
     extern const char kStartMapChar;
 
-    /*! @brief The character that starts a set value. */
+    /*! @brief The character that starts a Set value. */
     extern const char kStartSetChar;
 
     /*! @brief The directory separator string; */

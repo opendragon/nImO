@@ -69,6 +69,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOset.cpp"
@@ -115,6 +116,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOset.hpp"
@@ -146,6 +148,7 @@ if(nImO_DO_SWIG)
         nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
         nImOmap.cpp nImOmap.hpp
+        nImOmessage.cpp nImOmessage.hpp
         nImOnumber.cpp nImOnumber.hpp
         nImOportArgumentDescriptor.cpp nImOportArgumentDescriptor.hpp
         nImOset.cpp nImOset.hpp

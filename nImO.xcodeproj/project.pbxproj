@@ -47,6 +47,8 @@
 		F6866F021CA4145E00849A76 /* nImOcontainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontainer.hpp; path = nImO/nImOcontainer.hpp; sourceTree = "<group>"; };
 		F6A3C2221CCD1BEC00CA5C76 /* nImOmessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessageTest.cpp; path = Tests/nImOmessageTest.cpp; sourceTree = "<group>"; };
 		F6A3C2231CCD1BEC00CA5C76 /* nImOmessageTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmessageTest.rc.in; path = Tests/nImOmessageTest.rc.in; sourceTree = "<group>"; };
+		F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessage.cpp; path = nImO/nImOmessage.cpp; sourceTree = "<group>"; };
+		F6A3C2251CCD3C7900CA5C76 /* nImOmessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOmessage.hpp; path = nImO/nImOmessage.hpp; sourceTree = "<group>"; };
 		F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Tests/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388F61C77F3D1004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Connect/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
@@ -264,6 +266,8 @@
 				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */,
+				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,
+				F6A3C2251CCD3C7900CA5C76 /* nImOmessage.hpp */,
 				F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */,
 				F6EE0AD61CA2C7F4004748ED /* nImOnumber.hpp */,
 				F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */,

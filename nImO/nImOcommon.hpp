@@ -89,7 +89,7 @@
 /*! @dir /nImO
  @brief The set of files that implement the %nImO framework. */
 
-/*! @dir /CommonTests
+/*! @dir /Tests
  @brief The set of files that provide test cases for the %nImO framework. */
 
 /*! @namespace nImO

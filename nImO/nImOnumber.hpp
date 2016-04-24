@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImO$file$_HPP_))
-# define nImO$file$_HPP_ /* Header guard */
+#if (! defined(nImOnumber_HPP_))
+# define nImOnumber_HPP_ /* Header guard */
 
 # include <nImO/nImOatom.hpp>
 

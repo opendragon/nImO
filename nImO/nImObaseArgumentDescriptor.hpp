@@ -231,13 +231,6 @@ namespace nImO
             return false;
         } // isExtra
 
-        /*! @fn virtual bool
-                isForFiles(bool & isForOutput)
-                const
-         @brief Return @c true if the argument is for file paths and @c false otherwise.
-         @param isForOutput Set to @c true if the argument is for output files and @c false
-         otherwise.
-         @returns @c true if the argument is for file paths and @c false otherwise. */
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.

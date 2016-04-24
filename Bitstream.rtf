@@ -14,57 +14,57 @@ Three kinds of data -\
 \
 Lead byte:\
 bit0..1\
-	00 signed integer [Enumerable]\
+	00 signed integer [Enumerable] \{0x00\}\
                 bit2=0 short value\
-                      bit3..7 (-32..31) [bit 3 is the sign bit]\
-                bit2=1 long value\
+                      bit3..7 (-16..15) [bit 3 is the sign bit]\
+                bit2=1 long value \{0x20\}\
                       bit3..4 Reserved (set to zero)\
                       bit5..7 number of bytes to follow-1 (1..8), MSB-first, sign extended from first byte [bit 0 of the first byte is the sign bit]\
-	01 floating-point [Not Enumerable]\
+	01 floating-point [Not Enumerable] \{0x40\}\
                 bit2=0 floats [32-bit] \{not currently used\}\
-                bit2=1 doubles [64-bit]\
+                bit2=1 doubles [64-bit] \{0x20\}\
                 bit3=0 short count of floating-point values to follow\
-                      bit4..7 (0..15)\
-                bit3=1 long count of floating-point values in next byte(s)\
+                      bit4..7 (1..16)\
+                bit3=1 long count of floating-point values in next byte(s) \{0x10\}\
                       bit4 Reserved (set to zero)\
                       bit5..7 number of bytes for count-1 (1..8) [floating-point values are MSB-first]\
-        10 string [Enumerable] / blob [Not Enumerable]\
+        10 string [Enumerable] / blob [Not Enumerable] \{0x80\}\
                 bit2=0 string\
-                bit2=1 blob\
+                bit2=1 blob \{0x20\}\
                 bit3=0 short length\
                       bit4..7 (0..15) not NULL-terminated\
-                bit3=1 long length in next byte(s)\
+                bit3=1 long length in next byte(s) \{0x10\}\
                       bit4 Reserved (set to zero)\
                       bit5..7 number of bytes for length-1 (1..8)\
-        11 other\
+        11 other \{0xC0\}\
                 bit2..3\
                        00 boolean [Enumerable]\
                              bit4..6 Reserved (set to zero)\
                              bit7=0 False\
                              bit7=1 True\
-                       01 start of container (sequence of values) [Not Enumerable]\
+                       01 start of container (sequence of values) [Not Enumerable] \{0x10\}\
                              bit4..5\
                                     00 array\
-                                    01 map\
-                                    10 set\
-                                    11 Reserved\
+                                    01 map \{0x04\}\
+                                    10 set \{0x08\}\
+                                    11 Reserved \{0x0C\}\
                              bit6 Reserved (set to zero)\
                              bit7=0 Empty\
                              bit7=1 Number of elements follows, as integer\
-                       10 end of container (sequence of values)\
+                       10 end of container (sequence of values) \{0x20\}\
                              bit4..5\
                                     00 array\
-                                    01 map\
-                                    10 set\
-                                    11 Reserved\
+                                    01 map \{0x04\}\
+                                    10 set \{0x08\}\
+                                    11 Reserved \{0x0C\}\
                              bit6 Reserved (set to zero)\
                              bit7=0 Empty\
                              bit7=1 Number of elements follows, as integer [must match container start]\
-                       11 start/end message\
+                       11 start/end message \{0x30\}\
                              bit4=0 start of message\
-                             bit4=1 end of message\
+                             bit4=1 end of message \{0x08\}\
                              bit5=0 Empty\
-                             bit5=1 Non-empty\
+                             bit5=1 Non-empty \{0x04\}\
                              bit6..7 expected first/last value in message if non-empty [top two bits of value type]\
 \
 note that there is no explicit restriction on the elements; for a map, the elements are expected to be a key / value pair, with the key being an Enumerable, but the format does not add this as a constraint\

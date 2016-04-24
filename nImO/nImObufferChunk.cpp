@@ -100,7 +100,7 @@ nImO::BufferChunk::~BufferChunk(void)
     ODL_OBJENTER(); //####
     delete _buffer;
     ODL_OBJEXIT(); //####
-} // BufferChunk::~BufferChunk
+} // nImO::BufferChunk::~BufferChunk
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

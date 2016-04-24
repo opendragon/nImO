@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstringBuffer.hpp
+//  File:       nImO/nImOmessage.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a string buffer.
+//  Contains:   The class declaration for a message.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-28
+//  Created:    2016-04-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOstringBuffer_HPP_))
-# define nImOstringBuffer_HPP_ /* Header guard */
+#if (! defined(nImOmessage_HPP_))
+# define nImOmessage_HPP_ /* Header guard */
 
 # include <nImO/nImOcommon.hpp>
 //# include <nImO/nImObufferChunk.hpp>
@@ -48,7 +48,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a string buffer. */
+ @brief The class declaration for a message. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -58,8 +58,8 @@ namespace nImO
     class BufferChunk;
     class Value;
 
-    /*! @brief The data constituting a string buffer. */
-    class StringBuffer
+    /*! @brief The data constituting a message. */
+    class Message
     {
     public :
         // Public type definitions.
@@ -74,64 +74,50 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        StringBuffer(void);
+        Message(void);
 
         /*! @brief The destructor. */
         virtual
-        ~StringBuffer(void);
+        ~Message(void);
 
+#if 0
         /*! @brief Add a boolean value to the buffer.
          @param aBool The value to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
+         @returns The message object so that cascading can be done. */
+        Message &
         addBool(const bool aBool);
 
         /*! @brief Add a sequence of bytes to the buffer.
          @param inBytes The bytes to be added.
          @param numBytes The number of bytes to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
+         @returns The message object so that cascading can be done. */
+        Message &
         addBytes(const uint8_t * inBytes,
                  const size_t    numBytes);
         
-        /*! @brief Add a character to the buffer.
-         @param aChar The character to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addChar(const char aChar);
-
         /*! @brief Add a character string representation of a floating-point value to the buffer.
          @param aDouble The value to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
+         @returns The message object so that cascading can be done. */
+        Message &
         addDouble(const double aDouble);
 
         /*! @brief Add a character string representation of an integer value to the buffer.
          @param aLong The value to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
+         @returns The message object so that cascading can be done. */
+        Message &
         addLong(const int64_t aLong);
 
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
-         @param addQuotes @c true if the string is to be delimited by quote characters.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addString(const char * aString,
-                  const bool   addQuotes = false);
+         @returns The message object so that cascading can be done. */
+        Message &
+        addString(const char * aString);
 
         /*! @brief Add a character string to the buffer.
          @param aString The value to add.
-         @param addQuotes @c true if the string is to be delimited by quote characters.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addString(const std::string & aString,
-                  const bool          addQuotes = false);
-
-        /*! @brief Add a horizontal tab character to the buffer.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addTab(void);
+         @returns The message object so that cascading can be done. */
+        Message &
+        addString(const std::string & aString);
 
         /*! @brief Convert the buffer to a Value.
          @returns The Value represented by the buffer contents. */
@@ -143,31 +129,28 @@ namespace nImO
          @returns The character found at the provided index, or the 'end' character if the index
          is not within the buffer. */
         int
-        getChar(const size_t index)
+        getByte(const size_t index)
         const;
-
+#endif//0
+        
+        /*! @brief Return a copy of the bytes in the buffer as well as the number of valid bytes
+         present.
+         @param length Set to the number of valid bytes in the buffer.
+         @returns A pointer to a copy of the bytes in the buffer. */
+        const uint8_t *
+        getBytes(size_t & length);
+        
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
         size_t
         getLength(void)
         const;
 
-        /*! @brief Return a copy of the characters in the buffer as well as the number of valid
-         characters present.
-         @param length Set to the number of valid characters in the buffer.
-         @returns A pointer to a copy of the characters in the buffer. */
-        const char *
-        getString(size_t & length);
-
-        friend std::ostream &
-        operator <<(std::ostream &       out,
-                    const StringBuffer & aBuffer);
-
-        /*! @brief Prepare the buffer for reuse.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
+        /*! @brief Prepare the message for reuse.
+         @returns The message object so that cascading can be done. */
+        Message &
         reset(void);
-
+        
     protected :
         // Protected methods.
 
@@ -176,33 +159,25 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param other The object to be copied. */
-        StringBuffer(const StringBuffer & other);
+        Message(const Message & other);
 
-        /*! @brief Add some characters to the buffer.
-         @param data The characters to be added.
-         @param numBytes The number of characters to add. */
+#if 0
+        /*! @brief Add some bytes to the buffer.
+         @param data The bytes to be added.
+         @param numBytes The number of bytes to add. */
         void
-        appendChars(const char * data,
-                    const size_t numBytes);
-
+        appendBytes(const uint8_t * data,
+                    const size_t    numBytes);
+#endif//0
+        
         /*! @brief The assignment operator.
          @param other The object to be copied.
          @returns The updated object. */
-        StringBuffer &
-        operator =(const StringBuffer & other);
-
-        /*! @brief Add quotes and escapes to a string.
-         @param aString The string to be processed.
-         @param length The length of the string. */
-        void
-        processCharacters(const char * aString,
-                          const size_t length);
+        Message &
+        operator =(const Message & other);
 
     public :
         // Public fields.
-
-        /*! @brief The value used to represent the end of the buffer. */
-        static const int kEndCharacter;
 
     protected :
         // Protected fields.
@@ -214,22 +189,13 @@ namespace nImO
         BufferChunk * * _buffers;
 
         /*! @brief The cached value of the buffer. */
-        char * _cachedOutput;
-
+        uint8_t * _cachedOutput;
+        
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
 
-    }; // StringBuffer
-
-    /*! @brief Insert a readable version of the buffer into an
-     output stream.
-     @param out The stream to be added to.
-     @param aBuffer The StringBuffer to be printed.
-     @returns The modified stream. */
-    std::ostream &
-    operator <<(std::ostream &       out,
-                const StringBuffer & aBuffer);
+    }; // Message
 
 } // nImO
 
-#endif // ! defined(nImOstringBuffer_HPP_)
+#endif // ! defined(nImOmessage_HPP_)

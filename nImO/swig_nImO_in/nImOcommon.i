@@ -18,6 +18,7 @@
 #include "nImOfilePathArgumentDescriptor.hpp"
 #include "nImOintArgumentDescriptor.hpp"
 #include "nImOmap.hpp"
+#include "nImOmessage.hpp"
 #include "nImOnumber.hpp"
 #include "nImOportArgumentDescriptor.hpp"
 #include "nImOset.hpp"

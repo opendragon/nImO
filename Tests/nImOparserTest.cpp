@@ -137,6 +137,7 @@ compareValueWithString(const nImO::Value & aValue,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseBooleanValue(const bool   expected,
@@ -209,6 +210,7 @@ doTestParseBooleanValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue(const bool   expected,
@@ -281,6 +283,7 @@ doTestParseNumberValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue(const bool   expected,
@@ -353,6 +356,7 @@ doTestParseStringValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseArrayValue(const bool   expected,
@@ -425,6 +429,7 @@ doTestParseArrayValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseSetValue(const bool   expected,
@@ -497,6 +502,7 @@ doTestParseSetValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseMapValue(const bool   expected,
@@ -569,6 +575,7 @@ doTestParseMapValue(const bool   expected,
 /*! @brief Perform a test case.
  @param expected @c true if the test is expected to succeed, and @c false otherwise.
  @param inString The string to be used for the test.
+ @param expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseImplicitArrayValue(const bool   expected,

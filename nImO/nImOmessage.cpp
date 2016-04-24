@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstringBuffer.cpp
+//  File:       nImO/nImOmessage.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a string buffer.
+//  Contains:   The class definition for a message.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-28
+//  Created:    2016-04-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOstringBuffer.hpp"
+#include "nImOmessage.hpp"
 
 #include <nImO/nImOarray.hpp>
 #include <nImO/nImOboolean.hpp>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a string buffer. */
+ @brief The class definition for a message. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -69,51 +69,174 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The size of a scratch buffer to use when formatting numeric values. */
-static const size_t kNumBuffSize = 100;
-
-/*! @brief The canonical names for control characters. */
-static const char * kCanonicalControl[] =
+/*! @brief The tag values for message contents. */
+enum DataKind
 {
-    "C-@", // 00 NUL
-    "C-A", // 01 SOH
-    "C-B", // 02 STX
-    "C-C", // 03 ETX
-    "C-D", // 04 EOT
-    "C-E", // 05 ENQ
-    "C-F", // 06 ACK
-    "a", // 07 BEL
-    "b", // 08 BS
-    "t", // 09 HT
-    "n", // 0A LF
-    "v", // 0B VT
-    "f", // 0C FF
-    "r", // 0D CR
-    "C-N", // 0E SO
-    "C-O", // 0F SI
-    "C-P", // 10 DLE
-    "C-Q", // 11 DC1
-    "C-R", // 12 DC2
-    "C-S", // 13 DC3
-    "C-T", // 14 DC4
-    "C-U", // 15 NAK
-    "C-V", // 16 SYN
-    "C-W", // 17 ETB
-    "C-X", // 18 CAN
-    "C-Y", // 19 EM
-    "C-Z", // 1A SUB
-    "e", // 1B ESC
-    "C-`", // 1C FS
-    "C-]", // 1D GS
-    "C-^", // 1E RS
-    "C-_" // 1F US
-}; // kCanonicalControl
+    /*! @brief The mask for the kind of data that follows. */
+    kKindMask = 0x00C0,
+    
+    /*! @brief The data that follows is a signed integer value. */
+    kKindSignedInteger = 0x0000,
+    
+        /*! @brief The mask for the size of the signed integer value. */
+        kKindSignedIntegerSizeMask = 0x0020,
+    
+        /*! @brief The signed integer value is in the range -16..15 and is contained within this
+         byte. */
+        kKindSignedIntegerShortValue = 0x0000,
+    
+            /*! @brief The mask for the value of the signed integer. */
+            kKindSignedIntegerShortValueValueMask = 0x001F,
+    
+        /*! @brief The signed integer value follows this byte. */
+        kKindSignedIntegerLongValue = 0x0020,
+    
+            /*! @brief The mask for the count of the number of bytes (1..8) that contain the signed
+             integer value.
+             Note that the count contained in the byte is one less than the actual count. */
+            kKindSignedIntegerLongValueCountMask = 0x0007,
+    
+    /*! @brief The data that follows is one or more floating-point values. */
+    kKindFloatingPoint = 0x0040,
+    
+        /*! @brief The mask for the size of the floating-point values. */
+        kKindFloatingPointSizeMask = 0x0020,
+    
+        /*! @brief The floating-point values are of type 'float' and occupy 32 bits. */
+        kKindFloatingPointFloatValue = 0x0000,
+    
+        /*! @brief The floating-point values are of type 'double' and occupy 64 bits. */
+        kKindFloatingPointDoubleValue = 0x0020,
+    
+        /*! @brief The mask for the size of the count of floating-point values. */
+        kKindFloatingPointCountMask = 0x0010,
+    
+        /*! @brief The count of the number of floating-point values is in the range 1..16 and is
+         contained within this byte.
+         Note that the count contained in the byte is one less than the actual count. */
+        kKindFloatingPointShortCount = 0x0000,
+    
+            /*! @brief The mask for the count of the number of floating-point values. */
+            kKindFloatingPointShortCountMask = 0x000F,
+    
+        /*! @brief The count of the number of floating-point values is contained in the next byte(s)
+         and the size of the count (1..8) is contained in this byte.
+         Note that the size of the count contained in the byte is one less than the actual size of
+         the count; the count itself is the actual count. */
+        kKindFloatingPointLongCount = 0x0010,
+    
+            /*! @brief The mask for the size of the count of floating-point values. */
+            kKindFloatingPointLongCountMask = 0x0007,
+    
+    /*! @brief The data that follows is a String or Blob. */
+    kKindStringOrBlob = 0x0080,
+    
+        /*! @brief The mask for the type of data - String or Blob. */
+        kKindStringOrBlobTypeMask = 0x0020,
+    
+        /*! @brief The data that follows is a non-@c NULL-terminated String. */
+        kKindStringOrBlobStringValue = 0x0000,
+    
+        /*! @brief The data that follows is a Blob. */
+        kKindStringOrBlobBlobValue = 0x0020,
+    
+        /*! @brief The mask for the length of the data that follows. */
+        kKindStringOrBlobLengthMask = 0x0010,
+    
+        /*! @brief The length of the data is in the range 0..15 and is contained within this
+         byte. */
+        kKindStringOrBlobShortLengthValue = 0x0000,
+
+            /*! @brief The mask for the length of the data. */
+            kKindStringOrBlobShortLengthMask = 0x000F,
+    
+        /*! @brief The length of the data is contained in the next byte(s). */
+        kKindStringOrBlobLongLengthValue = 0x0010,
+    
+            /*! @brief The mask for the count of the number of bytes (1..8) that contain the length
+             of the data.
+             Note that the count contained in the byte is one less than the actual count; the length
+             is the actual length. */
+            kKindStringOrBlobLongLengthMask = 0x0007,
+    
+    /*! @brief The data that follows is a Boolean or a Container. */
+    kKindOther = 0x00C0,
+    
+        /*! @brief The mask for the type of value that follows. */
+        kKindOtherTypeMask = 0x0030,
+    
+        /*! @brief The value is a Boolean. */
+        kKindOtherBoolean = 0x0000,
+    
+            /*! @brief The mask for the value of the Boolean. */
+            kKindOtherBooleanValueMask = 0x0001,
+    
+            /*! @brief The value is @c false. */
+            kKindOtherBooleanFalseValue = 0x0000,
+    
+            /*! @brief The value is @c true. */
+            kKindOtherBooleanTrueValue = 0x00001,
+    
+        /*! @brief The value that follows is a Container. */
+        kKindOtherContainerStart = 0x0010,
+    
+        /*! @brief The value that preceeded this was a Container. */
+        kKindOtherContainerEnd = 0x0020,
+    
+        /*! @brief The mask for the type of Container. */
+        kKindOtherContainerTypeMask = 0x000C,
+    
+        /*! @brief The container is an Array. */
+        kKindOtherContainerTypeArray = 0x0000,
+    
+        /*! @brief The container is a Map. */
+        kKindOtherContainerTypeMap = 0x0004,
+    
+        /*! @brief The container is a Set. */
+        kKindOtherContainerTypeSet = 0x0008,
+    
+        /*! @brief The mask for the empty / non-empty state of the Container. */
+        kKindOtherContainerEmptyMask = 0x0001,
+    
+        /*! @brief The Container is empty; no count of the number of elements follows. */
+        kKindOtherContainerEmptyValue = 0x0000,
+    
+        /*! @brief The Container is non-empty and the count of the number of elements follows, as a
+         signed integer value. */
+        kKindOtherContainerNonEmptyValue = 0x0001,
+    
+        /*! @brief The value that follows is a Message. */
+        kKindOtherMessage = 0x0030,
+    
+            /*! @brief The mask for the start / end state of the Message. */
+            kKindOtherMessageStartEndMask = 0x0008,
+    
+            /*! @brief The data that follows form a Message. */
+            kKindOtherMessageStartValue = 0x0000,
+    
+            /*! @brief The data that preceeded this was a Message. */
+            kKindOtherMessageEndValue = 0x0008,
+    
+            /*! @brief The mask for the empty / non-empty state of the Message. */
+            kKindOtherMessageEmptyMask = 0x0004,
+    
+            /*! @brief The Message is empty. */
+            kKindOtherMessageEmptyValue = 0x0000,
+    
+            /*! @brief The Message is non-empty; the type flag (top two-bits) of the first Value in
+             the Message, if the start of the Message or of the last Value in the Message, if the
+             end of the Message, is contained in the byte. */
+            kKindOtherMessageNonEmptyValue = 0x0004,
+    
+            /*! @brief The mask for the type of the immediately enclosed Value in the Message - the
+             first Value, if the start of the Message, and the last Value if the end of the
+             Message. */
+            kKindOtherMessageExpectedTypeMask = 0x0003
+}; // DataKind
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
-
-const int nImO::StringBuffer::kEndCharacter = -1;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -127,7 +250,7 @@ const int nImO::StringBuffer::kEndCharacter = -1;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StringBuffer::StringBuffer(void) :
+nImO::Message::Message(void) :
     _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1)
 {
     ODL_ENTER(); //####
@@ -135,9 +258,9 @@ nImO::StringBuffer::StringBuffer(void) :
     ODL_LL1("_numChunks <- ", _numChunks); //####
     *_buffers = new BufferChunk;
     ODL_EXIT_P(this); //####
-} // nImO::StringBuffer::StringBuffer
+} // nImO::Message::Message
 
-nImO::StringBuffer::~StringBuffer(void)
+nImO::Message::~Message(void)
 {
     ODL_OBJENTER(); //####
     delete _cachedOutput;
@@ -150,25 +273,26 @@ nImO::StringBuffer::~StringBuffer(void)
         delete _buffers;
     }
     ODL_OBJEXIT(); //####
-} // nImO::StringBuffer::~StringBuffer
+} // nImO::Message::~Message
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::StringBuffer &
-nImO::StringBuffer::addBool(const bool aBool)
+#if 0
+nImO::Message &
+nImO::Message::addBool(const bool aBool)
 {
     ODL_OBJENTER(); //####
     ODL_B1("aBool = ", aBool); //####
     addString(Boolean::getCanonicalRepresentation(aBool));
     ODL_EXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addBool
+} // nImO::Message::addBool
 
-nImO::StringBuffer &
-nImO::StringBuffer::addBytes(const uint8_t * inBytes,
-                             const size_t    numBytes)
+nImO::Message &
+nImO::Message::addBytes(const uint8_t * inBytes,
+                        const size_t    numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
@@ -186,22 +310,10 @@ nImO::StringBuffer::addBytes(const uint8_t * inBytes,
     addChar(kBlobSeparator);
     ODL_EXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addBytes
+} // nImO::Message::addBytes
 
-nImO::StringBuffer &
-nImO::StringBuffer::addChar(const char aChar)
-{
-    ODL_OBJENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
-    char temp = aChar;
-
-    appendChars(&temp, sizeof(temp));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addChar
-
-nImO::StringBuffer &
-nImO::StringBuffer::addDouble(const double aDouble)
+nImO::Message &
+nImO::Message::addDouble(const double aDouble)
 {
     ODL_OBJENTER(); //####
     ODL_D1("aDouble = ", aDouble); //####
@@ -216,10 +328,10 @@ nImO::StringBuffer::addDouble(const double aDouble)
     appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addDouble
+} // nImO::Message::addDouble
 
-nImO::StringBuffer &
-nImO::StringBuffer::addLong(const int64_t aLong)
+nImO::Message &
+nImO::Message::addLong(const int64_t aLong)
 {
     ODL_OBJENTER(); //####
     ODL_LL1("aLong = ", aLong); //####
@@ -230,65 +342,38 @@ nImO::StringBuffer::addLong(const int64_t aLong)
     appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addLong
+} // nImO::Message::addLong
 
-nImO::StringBuffer &
-nImO::StringBuffer::addString(const char * aString,
-                              const bool   addQuotes)
+nImO::Message &
+nImO::Message::addString(const char * aString)
 {
     ODL_OBJENTER(); //####
     ODL_S1("aString = ", aString); //####
-    ODL_B1("addQuotes = ", addQuotes); //####
     if (aString)
     {
         size_t length = strlen(aString);
 
-        if (addQuotes)
-        {
-            processCharacters(aString, length);
-        }
-        else
-        {
-            appendChars(aString, length * sizeof(*aString));
-        }
+        appendChars(aString, length * sizeof(*aString));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addString
+} // nImO::Message::addString
 
-nImO::StringBuffer &
-nImO::StringBuffer::addString(const std::string & aString,
-                              const bool          addQuotes)
+nImO::Message &
+nImO::Message::addString(const std::string & aString)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
-    ODL_B1("addQuotes = ", addQuotes); //####
     size_t length = aString.length();
 
-    if (addQuotes)
-    {
-        processCharacters(aString.c_str(), length);
-    }
-    else
-    {
-        appendChars(aString.c_str(), length * sizeof(*aString.c_str()));
-    }
+    appendChars(aString.c_str(), length * sizeof(*aString.c_str()));
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::addString
-
-nImO::StringBuffer &
-nImO::StringBuffer::addTab(void)
-{
-    ODL_OBJENTER(); //####
-    addChar('\t');
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addTab
+} // nImO::Message::addString
 
 void
-nImO::StringBuffer::appendChars(const char * data,
-                                const size_t numBytes)
+nImO::Message::appendBytes(const uint8_t * data,
+                           const size_t    numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -347,14 +432,14 @@ nImO::StringBuffer::appendChars(const char * data,
         }
     }
     ODL_OBJEXIT(); //####
-} // nImO::StringBuffer::appendChars
+} // nImO::Message::appendBytes
 
-nImO::Value * nImO::StringBuffer::convertToValue(void)
+nImO::Value * nImO::Message::convertToValue(void)
 const
 {
     ODL_OBJENTER(); //####
     size_t  position = 0;
-    Value * result = Value::readFromStringBuffer(*this, position);
+    Value * result = Value::readFrommessage(*this, position);
     
     ODL_P1("result <- ", result); //####
     if (result)
@@ -391,7 +476,7 @@ const
                     ODL_P1("holder <- ", holder); //####
                 }
                 holder->addValue(result);
-                result = Value::readFromStringBuffer(*this, position);
+                result = Value::readFrommessage(*this, position);
                 ODL_P1("result <- ", result); //####
                 if (! result)
                 {
@@ -423,10 +508,10 @@ const
     }
     ODL_OBJEXIT_P(result); //####
     return result;
-} // nImO::StringBuffer::convertToValue
+} // nImO::Message::convertToValue
 
 int
-nImO::StringBuffer::getChar(const size_t index)
+nImO::Message::getByte(const size_t index)
 const
 {
     ODL_OBJENTER(); //####
@@ -454,31 +539,11 @@ const
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
-} // nImO::StringBuffer::getChar
+} // nImO::Message::getByte
+#endif//0
 
-size_t
-nImO::StringBuffer::getLength(void)
-const
-{
-    ODL_OBJENTER(); //####
-    size_t totalLength = 0;
-
-    if (_buffers)
-    {
-        BufferChunk * aChunk = _buffers[_numChunks - 1];
-
-        totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
-        if (NULL != aChunk)
-        {
-            totalLength += aChunk->getDataSize();
-        }
-    }
-    ODL_OBJEXIT_LL(totalLength); //####
-    return totalLength;
-} // nImO::StringBuffer::getLength
-
-const char *
-nImO::StringBuffer::getString(size_t & length)
+const uint8_t *
+nImO::Message::getBytes(size_t & length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
@@ -487,10 +552,10 @@ nImO::StringBuffer::getString(size_t & length)
     {
         size_t cachedSize = getLength();
 
-        _cachedOutput = new char[cachedSize + 1];
+        _cachedOutput = new uint8_t[cachedSize + 1];
         if (_cachedOutput)
         {
-            char * walker = _cachedOutput;
+            uint8_t * walker = _cachedOutput;
 
             for (size_t ii = 0; _numChunks > ii; ++ii)
             {
@@ -513,138 +578,31 @@ nImO::StringBuffer::getString(size_t & length)
     }
     ODL_OBJEXIT_P(_cachedOutput); //####
     return _cachedOutput;
-} // getString
+} // getBytes
 
-void
-nImO::StringBuffer::processCharacters(const char * aString,
-                                      const size_t length)
+size_t
+nImO::Message::getLength(void)
+const
 {
-    ODL_ENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    ODL_LL1("length = ", length); //####
-    // First, determine how many of each kind of quote character there are, and if there are
-    // 'special' characters - control characters or characters with the high bit set
-    bool   hasSpecials = false;
-    size_t numSingleQuotes = 0;
-    size_t numDoubleQuotes = 0;
-    size_t numEscapes = 0;
-
-    for (size_t ii = 0; length > ii; ++ii)
+    ODL_OBJENTER(); //####
+    size_t totalLength = 0;
+    
+    if (_buffers)
     {
-        uint8_t aByte = static_cast<uint8_t>(aString[ii]);
-
-        if ((0x20 > aByte) || (0 != (aByte & 0x80)))
+        BufferChunk * aChunk = _buffers[_numChunks - 1];
+        
+        totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
+        if (NULL != aChunk)
         {
-            hasSpecials = true;
-        }
-        else if (kSingleQuote == aByte)
-        {
-            ++numSingleQuotes;
-        }
-        else if (kDoubleQuote == aByte)
-        {
-            ++numDoubleQuotes;
-        }
-        else if (kEscapeChar == aByte)
-        {
-            ++numEscapes;
+            totalLength += aChunk->getDataSize();
         }
     }
-    if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
-    {
-        char delimiter = ((numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote);
+    ODL_OBJEXIT_LL(totalLength); //####
+    return totalLength;
+} // nImO::Message::getLength
 
-        appendChars(&delimiter, sizeof(delimiter));
-        for (size_t ii = 0; length > ii; ++ii)
-        {
-            uint8_t aByte = static_cast<uint8_t>(aString[ii]);
-
-            if ((0x20 > aByte) || (0 != (aByte & 0x80)))
-            {
-                appendChars(&kEscapeChar, sizeof(kEscapeChar));
-                if (0x20 > aByte)
-                {
-                    const char * controlString = kCanonicalControl[aByte];
-
-                    appendChars(controlString, strlen(controlString) * sizeof(*controlString));
-                }
-                else
-                {
-                    aByte &= 0x07F;
-                    if (' ' == aByte)
-                    {
-                        // Meta-blank is very special
-                        static const char metaBlank[] = { '2', '4', '0' };
-
-                        appendChars(metaBlank, sizeof(metaBlank));
-                    }
-                    else if (0x7F == aByte)
-                    {
-                        // As is 0xFF
-                        static const char metaDel[] = { '3', '7', '7' };
-
-                        appendChars(metaDel, sizeof(metaDel));
-                    }
-                    else if (delimiter == aByte)
-                    {
-                        // Make sure that we don't break if there's a meta-quote of some form!
-                        static const char metaDoubleQuote[] = { '2', '4', '2' };
-                        static const char metaSingleQuote[] = { '2', '4', '7' };
-
-                        if (kSingleQuote == aByte)
-                        {
-                            appendChars(metaSingleQuote, sizeof(metaSingleQuote));
-                        }
-                        else
-                        {
-                            appendChars(metaDoubleQuote, sizeof(metaDoubleQuote));
-                        }
-                    }
-                    else
-                    {
-                        // 'Regular' meta characters
-                        static const char metaPrefix[] = { 'M', '-' };
-
-                        appendChars(metaPrefix, sizeof(metaPrefix));
-                        if (0x20 > aByte)
-                        {
-                            const char * controlString = kCanonicalControl[aByte];
-
-                            appendChars(&kEscapeChar, sizeof(kEscapeChar));
-                            appendChars(controlString, strlen(controlString) *
-                                        sizeof(*controlString));
-                        }
-                        else
-                        {
-                            appendChars(reinterpret_cast<const char *>(&aByte), sizeof(char));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // Handle normal escapes - nested delimiters and the escape character
-                if ((delimiter == aByte) || (kEscapeChar == aByte))
-                {
-                    appendChars(&kEscapeChar, sizeof(kEscapeChar));
-                }
-                appendChars(aString + ii, sizeof(*aString));
-            }
-        }
-        appendChars(&delimiter, sizeof(delimiter));
-    }
-    else
-    {
-        // Nothing special
-        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
-        appendChars(aString, length * sizeof(*aString));
-        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
-    }
-    ODL_EXIT(); //####
-} // nImO::StringBuffer::processCharacters
-
-nImO::StringBuffer &
-nImO::StringBuffer::reset(void)
+nImO::Message &
+nImO::Message::reset(void)
 {
     ODL_OBJENTER(); //####
     if (_cachedOutput)
@@ -672,32 +630,8 @@ nImO::StringBuffer::reset(void)
     _buffers[0]->reset();
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::StringBuffer::reset
+} // nImO::Message::reset
 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
-
-std::ostream &
-nImO::operator <<(std::ostream       &       out,
-                  const nImO::StringBuffer & aBuffer)
-{
-    ODL_ENTER(); //###
-    ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
-    for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
-    {
-        BufferChunk * aChunk = aBuffer._buffers[ii];
-
-        if (NULL != aChunk)
-        {
-           size_t nn = aChunk->getDataSize();
-
-           if (0 < nn)
-           {
-               out.write(reinterpret_cast<const char *>(aChunk->getData()), nn);
-           }
-        }
-    }
-    ODL_EXIT_P(&out); //####
-    return out;
-} // nImO::operator <<

@@ -401,13 +401,95 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    //bool    done = false;
-    //bool    eatWhitespace = false;
-    //bool    valid = false;
-    Value * result = NULL;
+    bool    done = false;
+    bool    valid = false;
+    Set *   result = new Set;
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
-
+    
+    ODL_P1("result <- ", result); //####
+    ODL_C1("aChar <- ", aChar); //####
+    ODL_LL1("localIndex <- ", localIndex); //####
+    if (kStartSetChar == aChar)
+    {
+        for ( ; ! done; )
+        {
+            // Skip whitespace
+            for (aChar = inBuffer.getChar(localIndex); isspace(aChar);
+                 aChar = inBuffer.getChar(++localIndex))
+            {
+                ODL_LL1("localIndex <- ", localIndex); //####
+                ODL_C1("aChar <- ", aChar); //####
+            }
+            ODL_LL1("localIndex = ", localIndex); //####
+            ODL_C1("aChar = ", aChar); //####
+            // Check for the closing bracket
+            if (StringBuffer::kEndCharacter == aChar)
+            {
+                ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+                done = true;
+            }
+            else if (kEndSetChar == aChar)
+            {
+                done = valid = true;
+            }
+            else
+            {
+                Value * element = Value::readFromStringBuffer(inBuffer, localIndex);
+                
+                ODL_LL1("localIndex <- ", localIndex); //####
+                if (NULL == element)
+                {
+                    ODL_LOG("(NULL == element)"); //####
+                    done = true;
+                }
+                else
+                {
+                    Enumerable elementType = element->enumerationType();
+                    
+                    if ((kEnumerableUnknown == elementType) ||
+                        (kEnumerableNotEnumerable == elementType))
+                    {
+                        ODL_LOG("((kEnumerableUnknown == elementType) || " //####
+                                "(kEnumerableNotEnumerable == elementType))"); //####
+                        delete element;
+                        done = true;
+                    }
+                    else if (0 < result->size())
+                    {
+                        if (result->_keyKind == elementType)
+                        {
+                            result->addValue(element);
+                        }
+                        else
+                        {
+                            ODL_LOG("! (result->_keyKind == elementType)"); //####
+                            delete element;
+                            done = true;
+                        }
+                    }
+                    else
+                    {
+                        result->addValue(element);
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (kStartSetChar == aChar)"); //####
+    }
+    if (valid)
+    {
+        position = localIndex + 1;
+    }
+    else
+    {
+        ODL_LOG("! (valid)"); //####
+        delete result;
+        result = NULL;
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Set::readFromStringBuffer

@@ -413,13 +413,127 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    //bool    done = false;
-    //bool    eatWhitespace = false;
-    //bool    valid = false;
-    Value * result = NULL;
+    bool    done = false;
+    bool    valid = false;
+    Map *   result = new Map;
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
-
+    
+    ODL_P1("result <- ", result); //####
+    ODL_C1("aChar <- ", aChar); //####
+    ODL_LL1("localIndex <- ", localIndex); //####
+    if (kStartMapChar == aChar)
+    {
+        for ( ; ! done; )
+        {
+            // Skip whitespace
+            for (aChar = inBuffer.getChar(localIndex); isspace(aChar);
+                 aChar = inBuffer.getChar(++localIndex))
+            {
+                ODL_LL1("localIndex <- ", localIndex); //####
+                ODL_C1("aChar <- ", aChar); //####
+            }
+            ODL_LL1("localIndex = ", localIndex); //####
+            ODL_C1("aChar = ", aChar); //####
+            // Check for the closing bracket
+            if (StringBuffer::kEndCharacter == aChar)
+            {
+                ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+                done = true;
+            }
+            else if (kEndMapChar == aChar)
+            {
+                done = valid = true;
+            }
+            else
+            {
+                Value * keyValue = Value::readFromStringBuffer(inBuffer, localIndex);
+                
+                ODL_LL1("localIndex <- ", localIndex); //####
+                if (NULL == keyValue)
+                {
+                    ODL_LOG("(NULL == keyValue)"); //####
+                    done = true;
+                }
+                else
+                {
+                    Enumerable elementType = keyValue->enumerationType();
+                    
+                    if ((kEnumerableUnknown == elementType) ||
+                        (kEnumerableNotEnumerable == elementType))
+                    {
+                        ODL_LOG("((kEnumerableUnknown == elementType) || " //####
+                                "(kEnumerableNotEnumerable == elementType))"); //####
+                        delete keyValue;
+                        keyValue = NULL;
+                        done = true;
+                    }
+                    else if (0 < result->size())
+                    {
+                        if (result->_keyKind != elementType)
+                        {
+                            ODL_LOG("(result->_keyKind != elementType)"); //####
+                            delete keyValue;
+                            keyValue = NULL;
+                            done = true;
+                        }
+                    }
+                }
+                if (NULL != keyValue)
+                {
+                    // Skip whitespace
+                    for (aChar = inBuffer.getChar(localIndex); isspace(aChar);
+                         aChar = inBuffer.getChar(++localIndex))
+                    {
+                        ODL_LL1("localIndex <- ", localIndex); //####
+                        ODL_C1("aChar <- ", aChar); //####
+                    }
+                    ODL_LL1("localIndex = ", localIndex); //####
+                    ODL_C1("aChar = ", aChar); //####
+                    // Check for the closing bracket
+                    if (StringBuffer::kEndCharacter == aChar)
+                    {
+                        ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+                        done = true;
+                    }
+                    else if (kEndMapChar == aChar)
+                    {
+                        ODL_LOG("(kEndMapChar == aChar)"); //####
+                        done = true;
+                    }
+                    else if (kKeyValueSeparator == aChar)
+                    {
+                        ++localIndex;
+                        Value * assocValue = Value::readFromStringBuffer(inBuffer, localIndex);
+                        
+                        if (NULL == assocValue)
+                        {
+                            ODL_LOG("(NULL == assocValue)"); //####
+                            done = true;
+                        }
+                        else
+                        {
+                            result->addValue(keyValue, assocValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (kStartMapChar == aChar)"); //####
+    }
+    if (valid)
+    {
+        position = localIndex + 1;
+    }
+    else
+    {
+        ODL_LOG("! (valid)"); //####
+        delete result;
+        result = NULL;
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Map::readFromStringBuffer

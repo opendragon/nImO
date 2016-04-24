@@ -358,6 +358,29 @@ const
     
     //TBD -> handle implicit Array, check for correct termination --> kEndChar as the character at
     // position, or nothing but whitespace and then kEndChar
+    if (result)
+    {
+        int aChar = getChar(position);
+
+        // Skip any whitespace after the value
+        ODL_C1("aChar <- ", aChar); //####
+        for ( ; isspace(aChar); )
+        {
+            aChar = getChar(++position);
+            ODL_C1("aChar <- ", aChar); //####
+            ODL_LL1("position <- ", position); //####
+        }
+        if (kEndCharacter != aChar)
+        {
+            ODL_LOG("(kEndCharacter != aChar)"); //####
+            delete result;
+            result = NULL;
+        }
+    }
+    else
+    {
+        ODL_LOG("! (result)"); //####
+    }
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::StringBuffer::convertToValue

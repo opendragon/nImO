@@ -2305,10 +2305,6 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark Global functions
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -6296,6 +6292,10 @@ doTestStringSetSearches(const char * launchPath,
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)
 
 /*! @brief The entry point for unit tests of the %nImO common classes.
 

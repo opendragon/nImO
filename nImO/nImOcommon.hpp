@@ -152,13 +152,24 @@ namespace nImO
 {
     // Type definitions.
 
+    /*! @brief Whether a Value is enumerable. */
     enum Enumerable
     {
+        /*! @brief It is not known if the Value is enumerable. */
         kEnumerableUnknown,
+        
+        /*! @brief The Value is a Boolean and therefore enumerable. */
         kEnumerableBoolean,
+        
+        /*! @brief The Value is an integer and therefore enumerable. */
         kEnumerableInteger,
+        
+        /*! @brief The Value is a String and therefore enumerable. */
         kEnumerableString,
+        
+        /*! @brief The Value is not enumerable. */
         kEnumerableNotEnumerable
+        
     }; // Enumerable
 
     /*! @brief The format for the output from command-line tools. */

@@ -107,6 +107,32 @@ catchSignal(int signal)
     exit(1);
 } // catchSignal
 
+/*! @brief Compare a Value object with a string.
+ @param aValue The object to be compared.
+ @param aString The string to be compared to.
+ @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ the object representation as a string. */
+static int
+compareValueWithString(const nImO::Value & aValue,
+                       const char *        aString)
+{
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
+    nImO::StringBuffer buff;
+    int                result;
+    size_t             length;
+    
+    aValue.printToStringBuffer(buff);
+    result = strcmp(buff.getString(length), aString);
+#if 0
+    cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
+    cerr << "result: " << result << endl;
+#endif //0
+    ODL_EXIT_LL(result); //####
+    return result;
+} // compareValueWithString
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
@@ -117,11 +143,12 @@ catchSignal(int signal)
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseBooleanValue(const bool   expected,
-                        const char * inString) // boolean values
+                        const char * inString,
+                        const char * expectedString) // boolean values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
 
     try
@@ -143,10 +170,18 @@ doTestParseBooleanValue(const bool   expected,
         {
             if (readValue->isBoolean())
             {
-                buff.reset();
-                readValue->printToStringBuffer(buff);
-                cout << buff << endl;
-                result = 0;
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
+//                buff.reset();
+//                readValue->printToStringBuffer(buff);
+//                cout << buff << endl;
+//                result = 0;
             }
             else if (expected)
             {
@@ -182,11 +217,12 @@ doTestParseBooleanValue(const bool   expected,
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue(const bool   expected,
-                       const char * inString) // number values
+                       const char * inString,
+                       const char * expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
 
     try
@@ -208,10 +244,14 @@ doTestParseNumberValue(const bool   expected,
         {
             if (readValue->isNumber())
             {
-                buff.reset();
-                readValue->printToStringBuffer(buff);
-                cout << buff << endl;
-                result = 0;
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
             }
             else if (expected)
             {
@@ -236,9 +276,6 @@ doTestParseNumberValue(const bool   expected,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestParseNumberValue
-#if defined(__APPLE__)
-# pragma mark Global functions
-#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
@@ -250,11 +287,12 @@ doTestParseNumberValue(const bool   expected,
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue(const bool   expected,
-                       const char * inString) // string values
+                       const char * inString,
+                       const char * expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
 
     try
@@ -276,10 +314,14 @@ doTestParseStringValue(const bool   expected,
         {
             if (readValue->isString())
             {
-                buff.reset();
-                readValue->printToStringBuffer(buff);
-                cout << buff << endl;
-                result = 0;
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
             }
             else if (expected)
             {
@@ -304,6 +346,217 @@ doTestParseStringValue(const bool   expected,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestParseStringValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 04 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param inString The string to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestParseArrayValue(const bool   expected,
+                      const char * inString,
+                      const char * expectedString) // array values
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer buff;
+        
+        buff.addString(inString);
+        nImO::Value * readValue = buff.convertToValue();
+        
+        if ((NULL != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (readValue->isArray())
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
+            }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
+            else
+            {
+                result = 0; // wrong type returned, but it was not expected to succeed
+            }
+            delete readValue;
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestParseArrayValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 05 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param inString The string to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestParseSetValue(const bool   expected,
+                    const char * inString,
+                    const char * expectedString) // set values
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer buff;
+        
+        buff.addString(inString);
+        nImO::Value * readValue = buff.convertToValue();
+        
+        if ((NULL != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (readValue->isSet())
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
+            }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
+            else
+            {
+                result = 0; // wrong type returned, but it was not expected to succeed
+            }
+            delete readValue;
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestParseSetValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 06 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param inString The string to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestParseMapValue(const bool   expected,
+                    const char * inString,
+                    const char * expectedString) // map values
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result = 1;
+    
+    try
+    {
+        nImO::StringBuffer buff;
+        
+        buff.addString(inString);
+        nImO::Value * readValue = buff.convertToValue();
+        
+        if ((NULL != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (readValue->isMap())
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                }
+            }
+            else if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+            }
+            else
+            {
+                result = 0; // wrong type returned, but it was not expected to succeed
+            }
+            delete readValue;
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestParseMapValue
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -336,7 +589,7 @@ main(int      argc,
     try
     {
         nImO::Initialize(progName);
-        if (2 < --argc)
+        if (3 < --argc)
         {
             const char * startPtr = argv[1];
             char *       endPtr;
@@ -352,17 +605,29 @@ main(int      argc,
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestParseBooleanValue(expected, *(argv + 3));
+                        result = doTestParseBooleanValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 2 :
-                        result = doTestParseNumberValue(expected, *(argv + 3));
+                        result = doTestParseNumberValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 3 :
-                        result = doTestParseStringValue(expected, *(argv + 3));
+                        result = doTestParseStringValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
+                    case 4 :
+                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+
+                    case 5 :
+                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+                        
+                    case 6 :
+                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+                        
                     default :
                         break;
 

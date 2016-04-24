@@ -114,7 +114,7 @@ const char nImO::kStartArrayChar = '(';
 
 const char nImO::kStartMapChar = '{';
 
-const char nImO::kStartSetChar = ']';
+const char nImO::kStartSetChar = '[';
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_

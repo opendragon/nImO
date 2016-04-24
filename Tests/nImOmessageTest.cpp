@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       Tests/nImOparserTest.cpp
+//  File:       Tests/nImOmessageTest.cpp
 //
 //  Project:    nImO
 //
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-04-13
+//  Created:    2016-04-24
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -130,6 +130,7 @@ compareValueWithString(const nImO::Value & aValue,
     return result;
 } // compareValueWithString
 
+#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
@@ -174,13 +175,15 @@ doTestParseBooleanValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
+//                buff.reset();
+//                readValue->printToStringBuffer(buff);
+//                cout << buff << endl;
+//                result = 0;
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -246,13 +249,11 @@ doTestParseNumberValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -318,13 +319,11 @@ doTestParseStringValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -390,13 +389,11 @@ doTestParseArrayValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -462,13 +459,11 @@ doTestParseSetValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -534,13 +529,11 @@ doTestParseMapValue(const bool   expected,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
                 }
             }
             else if (expected)
             {
                 ODL_LOG("(expected)"); //####
-                result = 1;
             }
             else
             {
@@ -561,78 +554,7 @@ doTestParseMapValue(const bool   expected,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestParseMapValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseImplicitArrayValue(const bool   expected,
-                              const char * inString,
-                              const char * expectedString) // implicit array values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-    
-    try
-    {
-        nImO::StringBuffer buff;
-        
-        buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
-        
-        if ((NULL != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((NULL != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (readValue->isArray())
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
-            }
-            delete readValue;
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_L(result); //####
-    return result;
-} // doTestParseImplicitArrayValue
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -681,6 +603,7 @@ main(int      argc,
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
+#if 0
                     case 1 :
                         result = doTestParseBooleanValue(expected, *(argv + 3), *(argv + 4));
                         break;
@@ -704,10 +627,7 @@ main(int      argc,
                     case 6 :
                         result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
                         break;
-                        
-                    case 7 :
-                        result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
-                        break;
+#endif//0
                         
                     default :
                         break;

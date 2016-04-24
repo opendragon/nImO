@@ -571,6 +571,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             {
                if (sawInitialMinus || sawInitialPlus)
                {
+                   ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
                    done = true; // more than one sign character
                }
                else
@@ -582,6 +583,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             {
                if (sawInitialMinus || sawInitialPlus)
                {
+                   ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
                    done = true; // more than one sign character
                }
                else
@@ -601,6 +603,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
+                ODL_LOG("! (isdigit(aChar))"); //####
                 done = true; // unexpected character
             }
             break;
@@ -616,9 +619,11 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 isDouble = true;
                 currentState = kScanExponentStart;
             }
-            else if (StringBuffer::kEndCharacter == aChar)
+            else if (isLegalTerminator(aChar))
             {
-                done = valid = true; // the character seen is the buffer end
+                // unexpected character seen, but valid so far
+                --localIndex;
+                done = valid = true;
             }
             else if (isdigit(aChar))
             {
@@ -627,9 +632,8 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
-                // unexpected character seen, but valid so far
-                --localIndex;
-                done = valid = true;
+                ODL_LOG("! (isDigit(aChar))"); //####
+                done = true;
             }
             break;
 
@@ -645,15 +649,17 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     currentState = kScanExponentStart;
                 }
             }
-            else if (StringBuffer::kEndCharacter == aChar)
+            else if (isLegalTerminator(aChar))
             {
                 if (needsAdigit)
                 {
+                    ODL_LOG("(needsAdigit)"); //####
                     done = true; // decimal point with no trailing digits
                 }
                 else
                 {
-                    done = valid = true; // the character seen is the buffer end
+                    --localIndex;
+                    done = valid = true; // the character seen is the end of the value
                 }
             }
             else if (isdigit(aChar))
@@ -663,27 +669,10 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 fractionPart += aChar - '0';
                 ++fractionPower;
             }
-            else if (isspace(aChar))
-            {
-                if (needsAdigit)
-                {
-                    done = true; // decimal point with no trailing digits
-                }
-                else
-                {
-                    --localIndex;
-                    done = valid = true; // valid number followed by whitespace
-                }
-            }
-            else if (needsAdigit)
-            {
-                done = true; // decimal point with no trailing digits
-            }
             else
             {
-                // unexpected character, but valid so far
-                --localIndex;
-                done = valid = true;
+                ODL_LOG("! (isDigit(aChar))"); //####
+                done = true; // decimal point with no trailing digits
             }
             break;
 
@@ -692,6 +681,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             {
                if (sawExponentMinus || sawExponentPlus)
                {
+                   ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
                    done = true; // more than one sign character
                }
                else
@@ -703,6 +693,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             {
                if (sawExponentMinus || sawExponentPlus)
                {
+                   ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
                    done = true; // more than one sign character
                }
                else
@@ -717,12 +708,13 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
+                ODL_LOG("! (isdigit(aChar))"); //####
                 done = true; // unexpected character
             }
             break;
 
         case kScanExponentSeen :
-            if (StringBuffer::kEndCharacter == aChar)
+            if (isLegalTerminator(aChar))
             {
                 --localIndex;
                 done = valid = true; // the character seen is the buffer end
@@ -734,9 +726,8 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
-                // unexpected character, but valid so far
-                --localIndex;
-                done = valid = true;
+                ODL_LOG("! (isDigit(aChar))"); //####
+                done = true;
             }
             break;
 

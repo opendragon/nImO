@@ -124,10 +124,7 @@ compareValueWithString(const nImO::Value & aValue,
 
     aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
-#if 0
-    cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
-    cerr << "result: " << result << endl;
-#endif //0
+    ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString
@@ -1233,7 +1230,7 @@ doTestStringBufferWithEmptyBlob(const char * launchPath,
 
         if (stuff)
         {
-            stuff->addBlob(NULL, 0);
+            stuff->addBytes(NULL, 0);
             size_t       length;
             const char * resultString = stuff->getString(length);
             const char * expectedString = "%0%%";
@@ -1310,7 +1307,7 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
 
                     smallBlob[ii] = aByte;
                 }
-                stuff->addBlob(smallBlob, kSmallTestSize);
+                stuff->addBytes(smallBlob, kSmallTestSize);
                 size_t            length;
                 const char *      resultString = stuff->getString(length);
                 std::string       expectedString("%");
@@ -1408,7 +1405,7 @@ doTestStringBufferWithBigBlob(const char * launchPath,
 
                     bigBlob[ii] = aByte;
                 }
-                stuff->addBlob(bigBlob, kBigTestSize);
+                stuff->addBytes(bigBlob, kBigTestSize);
                 size_t            length;
                 const char *      resultString = stuff->getString(length);
                 std::string       expectedString("%");

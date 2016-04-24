@@ -387,13 +387,14 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     if (NULL != candidate)
     {
         bool done = false;
+        bool valid = false;
 
-        for (size_t ii = 1, len = candidate->length(); (! done); )
+        for (size_t ii = 1, len = candidate->length(); ! done; )
         {
             aChar = tolower(inBuffer.getChar(localIndex));
-            if (StringBuffer::kEndCharacter == aChar)
+            if (isLegalTerminator(aChar))
             {
-                done = true; // the character seen is the buffer end
+                done = valid = true; // the character seen is the buffer end
             }
             else if ((*candidate)[ii] == aChar)
             {
@@ -401,6 +402,7 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 if (len == ++ii)
                 {
                     // the last character of the reference value was seen
+                    valid = isLegalTerminator(inBuffer.getChar(localIndex));
                     done = true;
                 }
             }
@@ -410,7 +412,10 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 done = true;
             }
         }
-        result = new Boolean(candidateValue);
+        if (valid)
+        {
+            result = new Boolean(candidateValue);
+        }
     }
     if (NULL != result)
     {

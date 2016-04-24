@@ -80,20 +80,20 @@ namespace nImO
         virtual
         ~StringBuffer(void);
 
-        /*! @brief Add a sequence of bytes to the buffer.
-         @param inBytes The bytes to be added.
-         @param numBytes The number of bytes to add.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addBlob(const uint8_t * inBytes,
-                const size_t    numBytes);
-
         /*! @brief Add a boolean value to the buffer.
          @param aBool The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addBool(const bool aBool);
 
+        /*! @brief Add a sequence of bytes to the buffer.
+         @param inBytes The bytes to be added.
+         @param numBytes The number of bytes to add.
+         @returns The StringBuffer object so that cascading can be done. */
+        StringBuffer &
+        addBytes(const uint8_t * inBytes,
+                 const size_t    numBytes);
+        
         /*! @brief Add a character to the buffer.
          @param aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
@@ -189,10 +189,6 @@ namespace nImO
         void
         appendChars(const char * data,
                     const size_t numBytes);
-
-        /*! @brief Set up the parse tables. */
-        void
-        initReadTables(void);
 
         /*! @brief The assignment operator.
          @param other The object to be copied.

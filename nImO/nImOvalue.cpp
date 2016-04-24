@@ -70,6 +70,8 @@
 
 nImO::Value::BufferReaderMap nImO::Value::gReaders;
 
+std::string nImO::Value::gTerminators;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -167,8 +169,48 @@ nImO::Value::initialize(void)
             gReaders.insert(aValue);
         } 
     }
+    const char * suffixes = Array::getTerminalCharacters();
+    
+    gTerminators = StringBuffer::kEndCharacter;
+    if (NULL != suffixes)
+    {
+        gTerminators += suffixes;
+    }
+    suffixes = Map::getTerminalCharacters();
+    if (NULL != suffixes)
+    {
+        gTerminators += suffixes;
+    }
+    suffixes = Set::getTerminalCharacters();
+    if (NULL != suffixes)
+    {
+        gTerminators += suffixes;
+    }
     ODL_EXIT(); //####
 } // nImO::Value::initialize
+
+bool
+nImO::Value::isLegalTerminator(const char aChar)
+{
+    ODL_ENTER(); //####
+    ODL_C1("aChar = ", aChar); //####
+    bool result;
+    
+    if (isspace(aChar))
+    {
+        result = true;
+    }
+    else if (std::string::npos == gTerminators.find(aChar))
+    {
+        result = false;
+    }
+    else
+    {
+        result = true;
+    }
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::Value::isLegalTerminator
 
 nImO::Value *
 nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,

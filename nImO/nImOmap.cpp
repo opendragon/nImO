@@ -260,11 +260,21 @@ const char *
 nImO::Map::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "{";
+    static const char initialChars[] = { kStartMapChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Map::getInitialCharacters
+
+const char *
+nImO::Map::getTerminalCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char terminalChars[] = { kEndMapChar, kKeyValueSeparator, '\0' };
+    
+    ODL_EXIT_S(terminalChars); //####
+    return terminalChars;
+} // nImO::Map::getTerminalCharacters
 
 bool
 nImO::Map::greaterThan(const nImO::Value & other,

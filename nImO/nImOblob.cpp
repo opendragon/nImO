@@ -415,7 +415,7 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    outBuffer.addBlob(_value, _size);
+    outBuffer.addBytes(_value, _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::printToStringBuffer
 

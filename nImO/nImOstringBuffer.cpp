@@ -38,6 +38,7 @@
 
 #include "nImOstringBuffer.hpp"
 
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOvalue.hpp>
@@ -133,7 +134,6 @@ nImO::StringBuffer::StringBuffer(void) :
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
     ODL_LL1("_numChunks <- ", _numChunks); //####
     *_buffers = new BufferChunk;
-    initReadTables();
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
@@ -157,28 +157,6 @@ nImO::StringBuffer::~StringBuffer(void)
 #endif // defined(__APPLE__)
 
 nImO::StringBuffer &
-nImO::StringBuffer::addBlob(const uint8_t * inBytes,
-                            const size_t    numBytes)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("inBytes = ", inBytes); //####
-    ODL_LL1("numBytes = ", numBytes); //####
-    static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-    addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
-    for (size_t ii = 0; numBytes > ii; ++ii)
-    {
-        uint8_t aByte = inBytes[ii];
-
-        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
-    }
-    addChar(kBlobSeparator);
-    ODL_EXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addBlob
-
-nImO::StringBuffer &
 nImO::StringBuffer::addBool(const bool aBool)
 {
     ODL_OBJENTER(); //####
@@ -187,6 +165,28 @@ nImO::StringBuffer::addBool(const bool aBool)
     ODL_EXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBool
+
+nImO::StringBuffer &
+nImO::StringBuffer::addBytes(const uint8_t * inBytes,
+                             const size_t    numBytes)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("inBytes = ", inBytes); //####
+    ODL_LL1("numBytes = ", numBytes); //####
+    static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
+        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+    
+    addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
+    for (size_t ii = 0; numBytes > ii; ++ii)
+    {
+        uint8_t aByte = inBytes[ii];
+        
+        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
+    }
+    addChar(kBlobSeparator);
+    ODL_EXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::addBytes
 
 nImO::StringBuffer &
 nImO::StringBuffer::addChar(const char aChar)
@@ -356,23 +356,63 @@ const
     size_t  position = 0;
     Value * result = Value::readFromStringBuffer(*this, position);
     
-    //TBD -> handle implicit Array, check for correct termination --> kEndChar as the character at
-    // position, or nothing but whitespace and then kEndChar
+    ODL_P1("result <- ", result); //####
     if (result)
     {
-        int aChar = getChar(position);
-
-        // Skip any whitespace after the value
-        ODL_C1("aChar <- ", aChar); //####
-        for ( ; isspace(aChar); )
+        bool    done = false;
+        bool    valid = true;
+        Array * holder = NULL;
+        
+        for ( ; ! done; )
         {
-            aChar = getChar(++position);
+            int aChar = getChar(position);
+            
+            // Skip any whitespace after the value
             ODL_C1("aChar <- ", aChar); //####
-            ODL_LL1("position <- ", position); //####
+            for ( ; isspace(aChar); )
+            {
+                aChar = getChar(++position);
+                ODL_C1("aChar <- ", aChar); //####
+                ODL_LL1("position <- ", position); //####
+            }
+            if (kEndCharacter == aChar)
+            {
+                if (holder)
+                {
+                    holder->addValue(result);
+                }
+                done = true;
+            }
+            else
+            {
+                if (NULL == holder)
+                {
+                    holder = new Array;
+                    ODL_P1("holder <- ", holder); //####
+                }
+                holder->addValue(result);
+                result = Value::readFromStringBuffer(*this, position);
+                ODL_P1("result <- ", result); //####
+                if (! result)
+                {
+                    ODL_LOG("(! result)"); //####
+                    valid = false;
+                    done = true;
+                }
+            }
         }
-        if (kEndCharacter != aChar)
+        if (valid)
         {
-            ODL_LOG("(kEndCharacter != aChar)"); //####
+            if (holder)
+            {
+                result = holder;
+                ODL_P1("result <- ", result); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (valid)"); //####
+            delete holder;
             delete result;
             result = NULL;
         }
@@ -474,13 +514,6 @@ nImO::StringBuffer::getString(size_t & length)
     ODL_OBJEXIT_P(_cachedOutput); //####
     return _cachedOutput;
 } // getString
-
-void
-nImO::StringBuffer::initReadTables(void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT(); //####
-} // nImO::StringBuffer::initReadTables
 
 void
 nImO::StringBuffer::processCharacters(const char * aString,

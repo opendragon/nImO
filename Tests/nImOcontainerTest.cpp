@@ -127,10 +127,7 @@ compareValueWithString(const nImO::Value & aValue,
 
     aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
-#if 0
-    cerr << "got: '" << buff.getString(length) << "', expected: '" << aString << "'" << endl;
-    cerr << "result: " << result << endl;
-#endif //0
+    ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString

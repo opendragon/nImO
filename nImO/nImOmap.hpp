@@ -194,6 +194,11 @@ namespace nImO
         static const char *
         getInitialCharacters(void);
 
+        /*! @brief Return the characters that can appear as the end of a Map.
+         @returns The characters that can appear as the end of a Map. */
+        static const char *
+        getTerminalCharacters(void);
+        
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if

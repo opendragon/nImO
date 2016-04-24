@@ -16,6 +16,8 @@ Tests/nImOcommonTest
 Tests/nImOcommonTest.rc
 Tests/nImOcontainerTest
 Tests/nImOcontainerTest.rc
+Tests/nImOmessageTest
+Tests/nImOmessageTest.rc
 Tests/nImOparserTest
 Tests/nImOparserTest.rc
 Version/nImOversion

@@ -412,7 +412,8 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 case kScanNormal :
                     if (delimiter == aChar)
                     {
-                        done = valid = true; // ready to use
+                        valid = isLegalTerminator(inBuffer.getChar(localIndex));
+                        done = true; // possibly ready to use
                     }
                     else if (kEscapeChar == aChar)
                     {
@@ -648,6 +649,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             {
                 position = localIndex;
             }
+        }
+        else
+        {
+            ODL_LOG("! (valid)"); //####
         }
     }
     else

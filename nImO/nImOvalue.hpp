@@ -349,6 +349,12 @@ namespace nImO
         /*! @brief The constructor. */
         Value(void);
 
+        /*! @brief Returns @c true if the character can appear immediately after a Value in a
+         string.
+         @param aChar The character of interest.
+         @returns @c true if the character can appear immediately after a Value in a string. */
+        static bool isLegalTerminator(const char aChar);
+        
     private :
         // Private methods.
 
@@ -363,6 +369,9 @@ namespace nImO
 
         /*! @brief The table of StringBuffer readers. */
         static BufferReaderMap gReaders;
+        
+        /*! @brief The legal terminating characters for a Value. */
+        static std::string gTerminators;
 
     }; // Value
 

@@ -207,11 +207,21 @@ const char *
 nImO::Array::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "(";
+    static const char initialChars[] = { kStartArrayChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Array::getInitialCharacters
+
+const char *
+nImO::Array::getTerminalCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char terminalChars[] = { kEndArrayChar, '\0' };
+    
+    ODL_EXIT_S(terminalChars); //####
+    return terminalChars;
+} // nImO::Array::getTerminalCharacters
 
 bool
 nImO::Array::greaterThan(const nImO::Value & other,

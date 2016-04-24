@@ -252,11 +252,21 @@ const char *
 nImO::Set::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "[";
+    static const char initialChars[] = { kStartSetChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Set::getInitialCharacters
+
+const char *
+nImO::Set::getTerminalCharacters(void)
+{
+    ODL_ENTER(); //####
+    static const char terminalChars[] = { kEndSetChar, '\0' };
+    
+    ODL_EXIT_S(terminalChars); //####
+    return terminalChars;
+} // nImO::Set::getTerminalCharacters
 
 bool
 nImO::Set::greaterThan(const nImO::Value & other,

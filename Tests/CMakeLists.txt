@@ -476,7 +476,7 @@ add_test(NAME TestStringValue12 COMMAND ${THIS_TARGET} 3 t "\"@\\241\\260\\301=\
          "\"@\\M-!\\M-0\\M-A=\"")
 # Test parse of string value
 add_test(NAME TestStringValue13 COMMAND ${THIS_TARGET} 3 t "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\""
-         "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\"")
+         "\"@\\M-\\C-@\\M-\\C-_\\M-\\C-@\\M-\\C-_\\377=\"")
 
 # Test parse of string value
 add_test(NAME TestInvalidStringValue01 COMMAND ${THIS_TARGET} 3 f "'abc" "")
@@ -525,6 +525,12 @@ add_test(NAME TestInvalidArrayValue02 COMMAND ${THIS_TARGET} 4 f "(]" "")
 add_test(NAME TestInvalidArrayValue03 COMMAND ${THIS_TARGET} 4 f "( 42 " "")
 # Test parse of array value
 add_test(NAME TestInvalidArrayValue04 COMMAND ${THIS_TARGET} 4 f "(12 'abc' t" "")
+# Test parse of array value
+add_test(NAME TestInvalidArrayValue05 COMMAND ${THIS_TARGET} 4 f "(12t)" "")
+# Test parse of array value
+add_test(NAME TestInvalidArrayValue06 COMMAND ${THIS_TARGET} 4 f "(t'abc')" "")
+# Test parse of array value
+add_test(NAME TestInvalidArrayValue07 COMMAND ${THIS_TARGET} 4 f "('abc'12)" "")
 
 # Test parse of set value
 add_test(NAME TestSetValue01 COMMAND ${THIS_TARGET} 5 t "[ ]" "[ ]")
@@ -583,3 +589,53 @@ add_test(NAME TestInvalidMapValue04 COMMAND ${THIS_TARGET} 6 f "{" "")
 add_test(NAME TestInvalidMapValue05 COMMAND ${THIS_TARGET} 6 f "{)" "")
 # Test parse of map value
 add_test(NAME TestInvalidMapValue06 COMMAND ${THIS_TARGET} 6 f "{ 42 " "")
+
+# Test parse of implicit array
+add_test(NAME TestImplicitArrayValue01 COMMAND ${THIS_TARGET} 7 t "1 2" "( 1 2 )")
+# Test parse of implicit array
+add_test(NAME TestImplicitArrayValue02 COMMAND ${THIS_TARGET} 7 t "1 t" "( 1 true )")
+# Test parse of implicit array
+add_test(NAME TestImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 t "'abc' 2" "( \"abc\" 2 )")
+# Test parse of implicit array
+add_test(NAME TestImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 t "(1 2) 3" "( ( 1 2 ) 3 )")
+
+# Test parse of implicit array
+add_test(NAME TestInvalidImplicitArrayValue01 COMMAND ${THIS_TARGET} 7 f "1 (" "")
+# Test parse of implicit array
+add_test(NAME TestInvalidImplicitArrayValue02 COMMAND ${THIS_TARGET} 7 f "1 tx" "")
+# Test parse of implicit array
+add_test(NAME TestInvalidImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 f "'abc' 2f" "")
+# Test parse of implicit array
+add_test(NAME TestInvalidImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 f "(1 2) {" "")
+
+set(THIS_TARGET nImOmessageTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else(WIN32)
+    set(VERS_RESOURCE "")
+endif(WIN32)
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImOmessageTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+if(APPLE)
+add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                   libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                   libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
+endif(APPLE)

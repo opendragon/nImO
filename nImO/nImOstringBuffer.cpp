@@ -128,19 +128,23 @@ const int nImO::StringBuffer::kEndCharacter = -1;
 #endif // defined(__APPLE__)
 
 nImO::StringBuffer::StringBuffer(void) :
-    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1)
+    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1), _cachedIsFirstBuffer(false)
 {
     ODL_ENTER(); //####
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
     ODL_LL1("_numChunks <- ", _numChunks); //####
-    *_buffers = new BufferChunk;
+    ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
+    *_buffers = new BufferChunk(true);
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
 nImO::StringBuffer::~StringBuffer(void)
 {
     ODL_OBJENTER(); //####
-    delete _cachedOutput;
+    if (! _cachedIsFirstBuffer)
+    {
+        delete[] _cachedOutput;
+    }
     if (_buffers)
     {
         for (size_t ii = 0; _numChunks > ii; ++ii)
@@ -299,7 +303,10 @@ nImO::StringBuffer::appendChars(const char * data,
 
         if (_cachedOutput)
         {
-            delete[] _cachedOutput;
+            if (! _cachedIsFirstBuffer)
+            {
+                delete[] _cachedOutput;
+            }
             _cachedOutput = NULL;
         }
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
@@ -316,7 +323,7 @@ nImO::StringBuffer::appendChars(const char * data,
             {
                 BufferChunk * prevChunk = lastChunk;
 
-                lastChunk = new BufferChunk;
+                lastChunk = new BufferChunk(true);
                 if (lastChunk)
                 {
                     BufferChunk * * newBuffers = new BufferChunk *[_numChunks + 1];
@@ -485,30 +492,40 @@ nImO::StringBuffer::getString(size_t & length)
     length = 0;
     if (! _cachedOutput)
     {
-        size_t cachedSize = getLength();
-
-        _cachedOutput = new char[cachedSize + 1];
-        if (_cachedOutput)
+        if (1 < _numChunks)
         {
-            char * walker = _cachedOutput;
-
-            for (size_t ii = 0; _numChunks > ii; ++ii)
+            size_t cachedSize = getLength();
+    
+            _cachedOutput = new char[cachedSize + 1];
+            if (_cachedOutput)
             {
-                BufferChunk * aChunk = _buffers[ii];
-
-                if (NULL != aChunk)
+                char * walker = _cachedOutput;
+    
+                for (size_t ii = 0; _numChunks > ii; ++ii)
                 {
-                    size_t nn = aChunk->getDataSize();
-
-                    if (0 < nn)
+                    BufferChunk * aChunk = _buffers[ii];
+    
+                    if (NULL != aChunk)
                     {
-                        memcpy(walker, aChunk->getData(), nn);
-                        walker += nn;
+                        size_t nn = aChunk->getDataSize();
+    
+                        if (0 < nn)
+                        {
+                            memcpy(walker, aChunk->getData(), nn);
+                            walker += nn;
+                        }
                     }
                 }
+                *walker = '\0';
+                length = cachedSize;
+                _cachedIsFirstBuffer = false;
             }
-            *walker = '\0';
-            length = cachedSize;
+        }
+        else
+        {
+            _cachedOutput = reinterpret_cast<char *>(const_cast<uint8_t *>(_buffers[0]->getData()));
+            length = _buffers[0]->getDataSize();
+            _cachedIsFirstBuffer = true;
         }
     }
     ODL_OBJEXIT_P(_cachedOutput); //####
@@ -649,7 +666,10 @@ nImO::StringBuffer::reset(void)
     ODL_OBJENTER(); //####
     if (_cachedOutput)
     {
-        delete[] _cachedOutput;
+        if (! _cachedIsFirstBuffer)
+        {
+            delete[] _cachedOutput;
+        }
         _cachedOutput = NULL;
     }
     if (1 < _numChunks)

@@ -23,7 +23,7 @@ bit0..1\
 	01 floating-point (double) [Not Enumerable] \{0x40\}\
                 bit2=0 short count-1 of floating-point values to follow\
                       bit3..7 (1..32)\
-                bit2=1 long count of floating-point values in next byte(s) \{0x20\}\
+                bit2=1 long count-1 of floating-point values in next byte(s) \{0x20\}\
                       bit3..4 Reserved (set to zero)\
                       bit5..7 number of bytes for count-1 (1..8) [floating-point values (double) are MSB-first]\
         10 string [Enumerable] / blob [Not Enumerable] \{0x80\}\
@@ -48,7 +48,7 @@ bit0..1\
                                     11 Reserved \{0x0C\}\
                              bit6 Reserved (set to zero)\
                              bit7=0 Empty\
-                             bit7=1 Number of elements follows, as integer\
+                             bit7=1 Non-empty, number of elements-15 follows, as signed integer \{0x01\}; note that the value is offset by -16 as negative counts are not possible\
                        10 end of container (sequence of values) \{0x20\}\
                              bit4..5\
                                     00 array\
@@ -57,7 +57,7 @@ bit0..1\
                                     11 Reserved \{0x0C\}\
                              bit6 Reserved (set to zero)\
                              bit7=0 Empty\
-                             bit7=1 Number of elements follows, as integer [must match container start]\
+                             bit7=1 Non-empty \{0x01\}\
                        11 start/end message \{0x30\}\
                              bit4=0 start of message\
                              bit4=1 end of message \{0x08\}\
@@ -84,8 +84,7 @@ True is 11000001 [0301]\
 -13 is 00010011 [0023]\
 144 is 00100001 [0041] 00000000 [0000] 10010000 [0220]\
 -144 is 00100001 [0041] 11111111 [0377] 01110000 [0160]\
-1.23 2.34 4.56 is 01000010 [0102] fb(1.23) fb(2.34) fb(4.56), if float, where fb(x) is the binary representation of the float value x;\
-                            01100010 [0142] fd(1.23) fd(2.34) fd(4.56), if double, where fd(x) is the binary representation of the double value x\
+1.23 2.34 4.56 is 01000010 [0102] fd(1.23) fd(2.34) fd(4.56), where fd(x) is the binary representation of the double value x\
 "" is 10000000 [0200]\
 "abc" is 1000 0011 b('a') b('b') b('c'), where b(x) is the binary representation of the character x\
 "abcde abcde abcde abcde abcde abcde " is 10010000 [0220] 00100100 [0044] b('a') b('b') b('c') b('d') b('e') b(' ') \'85 b('e') b(' ')\
@@ -99,9 +98,9 @@ Numeric values are always signed.\
 A single double is 12.5% longer, two doubles are 6.25% longer, three doubles are 4.2% longer, et cetera; a single float is 25% longer, two floats are 12.5% longer, three floats are 8.3% longer, et cetera.\
 4-byte longs use between 1 and 5 bytes, so either 75% reduction, 50% reduction, 25% reduction, no difference or 25% increase in length, short strings are the same length, medium strings are 3% longer, long strings are 0.7% longer, et cetera, assuming that the NULL is considered as part of the string.\
 \
-Note that there is no explicit restriction on the type of the values in a dictionary or the values in a list, but dictionary keys must be 'enumerable' - that is, reproducibly washable, like integers or strings.\
+Note that there is no explicit restriction on the type of the values in a dictionary or the values in a list, but dictionary keys must be 'enumerable' - like booleans, integers or strings.\
 Singular values may appear as either singular lists or 'bare' but multiple values are bracketed by SOL and EOL.\
 All values, whether singular or structures, are followed by EOM.\
 Multiple SOMs may be used for framing.\
-Dictionary elements are unordered, with the key always preceding the value - there is no need for a tag or marker for which is which, and there must be an even number of values between SOD and EOD.\
+Map elements are ordered, with the key always preceding the value - there is no need for a tag or marker for which is which, and there must be an even number of values between SOD and EOD.\
 }

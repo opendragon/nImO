@@ -218,6 +218,9 @@ namespace nImO
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
 
+        /*! @brief @c true if _cachedOutput just points to the first buffer. */
+        bool _cachedIsFirstBuffer;
+
     }; // StringBuffer
 
     /*! @brief Insert a readable version of the buffer into an

@@ -161,7 +161,7 @@ doTestEmptyBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -223,7 +223,7 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -297,7 +297,7 @@ doTestFilledBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -397,7 +397,7 @@ doTestOverfilledBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -497,7 +497,7 @@ doTestBufferChunkReset(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk;
+        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {

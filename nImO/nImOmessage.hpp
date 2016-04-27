@@ -222,6 +222,9 @@ namespace nImO
         /*! @brief @c true if the message has been closed and can be interrogated. */
         bool _closed;
 
+        /*! @brief @c true if _cachedOutput just points to the first buffer. */
+        bool _cachedIsFirstBuffer;
+
     }; // Message
 
 } // nImO

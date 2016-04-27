@@ -87,19 +87,24 @@ using namespace nImO;
 
 nImO::Message::Message(void) :
     _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1), _headerAdded(false),
-    _closed(false)
+    _closed(false), _cachedIsFirstBuffer(false)
 {
     ODL_ENTER(); //####
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
     ODL_LL1("_numChunks <- ", _numChunks); //####
-    *_buffers = new BufferChunk;
+    ODL_B3("_headerAdded <- ", _headerAdded, "_closed <- ", _closed, //####
+           "_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
+    *_buffers = new BufferChunk(false);
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
 nImO::Message::~Message(void)
 {
     ODL_OBJENTER(); //####
-    delete _cachedOutput;
+    if (! _cachedIsFirstBuffer)
+    {
+        delete[] _cachedOutput;
+    }
     if (_buffers)
     {
         for (size_t ii = 0; _numChunks > ii; ++ii)
@@ -225,7 +230,10 @@ nImO::Message::appendBytes(const uint8_t * data,
 
         if (_cachedOutput)
         {
-            delete[] _cachedOutput;
+            if (! _cachedIsFirstBuffer)
+            {
+                delete[] _cachedOutput;
+            }
             _cachedOutput = NULL;
         }
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
@@ -242,7 +250,7 @@ nImO::Message::appendBytes(const uint8_t * data,
             {
                 BufferChunk * prevChunk = lastChunk;
 
-                lastChunk = new BufferChunk;
+                lastChunk = new BufferChunk(false);
                 if (lastChunk)
                 {
                     BufferChunk * * newBuffers = new BufferChunk *[_numChunks + 1];
@@ -425,30 +433,45 @@ nImO::Message::getBytes(size_t & length)
     {
         if (! _cachedOutput)
         {
-            size_t cachedSize = getLength();
-    
-            _cachedOutput = new uint8_t[cachedSize + 1];
-            if (_cachedOutput)
+            if (1 < _numChunks)
             {
-                uint8_t * walker = _cachedOutput;
-    
-                for (size_t ii = 0; _numChunks > ii; ++ii)
+                size_t cachedSize = getLength();
+
+                if (0 < cachedSize)
                 {
-                    BufferChunk * aChunk = _buffers[ii];
-    
-                    if (NULL != aChunk)
+                    _cachedOutput = new uint8_t[cachedSize];
+                    if (_cachedOutput)
                     {
-                        size_t nn = aChunk->getDataSize();
-    
-                        if (0 < nn)
+                        uint8_t * walker = _cachedOutput;
+            
+                        for (size_t ii = 0; _numChunks > ii; ++ii)
                         {
-                            memcpy(walker, aChunk->getData(), nn);
-                            walker += nn;
+                            BufferChunk * aChunk = _buffers[ii];
+            
+                            if (NULL != aChunk)
+                            {
+                                size_t nn = aChunk->getDataSize();
+            
+                                if (0 < nn)
+                                {
+                                    memcpy(walker, aChunk->getData(), nn);
+                                    walker += nn;
+                                }
+                            }
                         }
+                        length = cachedSize;
+                        _cachedIsFirstBuffer = false;
                     }
                 }
-                *walker = '\0';
-                length = cachedSize;
+            }
+            else
+            {
+                length = _buffers[0]->getDataSize();
+                if (0 < length)
+                {
+                    _cachedOutput = const_cast<uint8_t *>(_buffers[0]->getData());
+                    _cachedIsFirstBuffer = true;
+                }
             }
         }
         result = _cachedOutput;
@@ -501,7 +524,10 @@ nImO::Message::reset(void)
     ODL_OBJENTER(); //####
     if (_cachedOutput)
     {
-        delete[] _cachedOutput;
+        if (! _cachedIsFirstBuffer)
+        {
+            delete[] _cachedOutput;
+        }
         _cachedOutput = NULL;
     }
     if (1 < _numChunks)

@@ -80,17 +80,22 @@ const size_t nImO::BufferChunk::kBufferSize = 1000;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::BufferChunk::BufferChunk(void) :
-    _buffer(NULL), _bufferEnd(NULL), _write(NULL)
+nImO::BufferChunk::BufferChunk(const bool addPadding) :
+    _buffer(NULL), _bufferEnd(NULL), _write(NULL), _padded(addPadding)
 {
     ODL_ENTER(); //####
-    _buffer = new uint8_t[kBufferSize];
+    ODL_B1("addPadding = ", addPadding); //####
+    _buffer = new uint8_t[kBufferSize + (addPadding ? 1 : 0)];
     ODL_P1("_buffer <- ", _buffer); //####
     if (_buffer)
     {
         _write = _buffer;
         _bufferEnd = _buffer + kBufferSize;
         ODL_P2("_bufferEnd <- ", _bufferEnd, "_write <- ", _write); //####
+        if (_padded)
+        {
+            *_write = 0;
+        }
     }
     ODL_EXIT_P(this); //####
 } // nImO::BufferChunk::BufferChunk
@@ -119,6 +124,10 @@ nImO::BufferChunk::appendData(const void * data,
     {
         memcpy(_write, data, actualCount);
         _write += actualCount;
+        if (_padded)
+        {
+            *_write = 0;
+        }
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -129,6 +138,10 @@ nImO::BufferChunk::reset(void)
 {
     ODL_OBJENTER(); //####
     _write = _buffer;
+    if (_padded)
+    {
+        *_write = 0;
+    }
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::BufferChunk::reset

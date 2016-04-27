@@ -276,7 +276,9 @@ namespace nImO
             kKindOtherContainerEmptyValue = 0x0000,
         
             /*! @brief The Container is non-empty and the count of the number of elements
-             follows, as a signed integer value. */
+             follows, as a signed integer value, if this is the 'start' tag.
+             Note that the number of elements is offset by -15, as a negative count of
+             elements is not possible. */
             kKindOtherContainerNonEmptyValue = 0x0001,
         
             /*! @brief The value that follows is a Message. */
@@ -330,7 +332,7 @@ namespace nImO
         /*! @brief The Value is a Boolean and therefore enumerable. */
         kEnumerableBoolean,
         
-        /*! @brief The Value is an integer and therefore enumerable. */
+        /*! @brief The Value is a signed integer and therefore enumerable. */
         kEnumerableInteger,
         
         /*! @brief The Value is a String and therefore enumerable. */

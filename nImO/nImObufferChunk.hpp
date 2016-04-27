@@ -69,8 +69,11 @@ namespace nImO
     public :
         // Public methods.
 
-        /*! @brief The constructor. */
-        BufferChunk(void);
+        /*! @brief The constructor.
+         @param addPadding @c true if a single byte of padding is added to each buffer.
+         The padding is to support direct access to a chunk as a @c NULL-terminated
+         string. */
+        BufferChunk(const bool addPadding);
 
         /*! @brief The destructor. */
         virtual
@@ -154,6 +157,9 @@ namespace nImO
 
         /*! @brief The next byte to write in the internal buffer. */
         uint8_t * _write;
+
+        /*! @brief @c true if the buffer has an extra byte. */
+        bool _padded;
 
     }; // BufferChunk
 

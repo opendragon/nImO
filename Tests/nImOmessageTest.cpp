@@ -45,7 +45,7 @@
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
-//#include <odl/ODEnableLogging.h>
+#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
 #if defined(__APPLE__)

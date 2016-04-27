@@ -39,7 +39,8 @@
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOnumber.hpp>
+#include <nImO/nImOdouble.hpp>
+#include <nImO/nImOinteger.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -1163,7 +1164,8 @@ doTestBigStringBuffer(const char * launchPath,
             if ((bigLength * kBigTestSize) == length)
             {
                 result = 0;
-                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii, resultString += bigLength)
+                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii);
+                     ++ii, resultString += bigLength)
                 {
                     if (0 != memcmp(bigString, resultString, bigLength))
                     {
@@ -1303,7 +1305,8 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^
+                                                         ii);
 
                     smallBlob[ii] = aByte;
                 }
@@ -1690,9 +1693,9 @@ doTestBooleanValue(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultNumberValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // default number value
+doTestDefaultIntegerValue(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // default integer value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1707,18 +1710,18 @@ doTestDefaultNumberValue(const char * launchPath,
 
     try
     {
-        nImO::Number * stuff = new nImO::Number;
+        nImO::Integer * stuff = new nImO::Integer;
 
         if (stuff)
         {
-            if ((0 == compareValueWithString(*stuff, "0")) && (! stuff->isFloat()))
+            if ((0 == compareValueWithString(*stuff, "0")) && stuff->isInteger())
             {
                 result = 0;
             }
             else
             {
                 ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && "//####
-                        "(! stuff->isFloat()))"); //####
+                        "stuff->IsInteger())"); //####
             }
             delete stuff;
         }
@@ -1734,7 +1737,7 @@ doTestDefaultNumberValue(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestDefaultNumberValue
+} // doTestDefaultIntegerValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1779,7 +1782,7 @@ doTestNumberValue(const char * launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::Number * stuff = new nImO::Number(intValue);
+                nImO::Integer * stuff = new nImO::Integer(intValue);
 
                 if (stuff)
                 {
@@ -1804,7 +1807,7 @@ doTestNumberValue(const char * launchPath,
 
                 if ((startPtr != endPtr) && (! *endPtr))
                 {
-                    nImO::Number * stuff = new nImO::Number(floatValue);
+                    nImO::Double * stuff = new nImO::Double(floatValue);
 
                     if (stuff)
                     {
@@ -2408,17 +2411,17 @@ doTestIntegerCopyAndAssign(const char * launchPath,
         static const int64_t value1 = -1234;
         static const int64_t value2 = 0;
         static const int64_t value3 = 2345;
-        nImO::Number negativeStuff(value1);
-        nImO::Number zeroStuff(value2);
-        nImO::Number positiveStuff(value3);
+        nImO::Integer negativeStuff(value1);
+        nImO::Integer zeroStuff(value2);
+        nImO::Integer positiveStuff(value3);
 
         if ((value1 == negativeStuff.getIntegerValue()) &&
             (value2 == zeroStuff.getIntegerValue()) &&
             (value3 == positiveStuff.getIntegerValue()))
         {
-            nImO::Number negativeCopy(negativeStuff);
-            nImO::Number zeroCopy(zeroStuff);
-            nImO::Number positiveCopy(positiveStuff);
+            nImO::Integer negativeCopy(negativeStuff);
+            nImO::Integer zeroCopy(zeroStuff);
+            nImO::Integer positiveCopy(positiveStuff);
 
             if ((negativeCopy.getIntegerValue() == negativeStuff.getIntegerValue()) &&
                 (zeroCopy.getIntegerValue() == zeroStuff.getIntegerValue()) &&
@@ -2503,17 +2506,17 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
         static const double value1 = -1234.5;
         static const double value2 = 0.0;
         static const double value3 = 2345.6;
-        nImO::Number negativeStuff(value1);
-        nImO::Number zeroStuff(value2);
-        nImO::Number positiveStuff(value3);
+        nImO::Double negativeStuff(value1);
+        nImO::Double zeroStuff(value2);
+        nImO::Double positiveStuff(value3);
 
         if ((value1 == negativeStuff.getDoubleValue()) &&
             (value2 == zeroStuff.getDoubleValue()) &&
             (value3 == positiveStuff.getDoubleValue()))
         {
-            nImO::Number negativeCopy(negativeStuff);
-            nImO::Number zeroCopy(zeroStuff);
-            nImO::Number positiveCopy(positiveStuff);
+            nImO::Double negativeCopy(negativeStuff);
+            nImO::Double zeroCopy(zeroStuff);
+            nImO::Double positiveCopy(positiveStuff);
 
             if ((negativeCopy.getDoubleValue() == negativeStuff.getDoubleValue()) &&
                 (zeroCopy.getDoubleValue() == zeroStuff.getDoubleValue()) &&
@@ -2703,24 +2706,16 @@ doTestBlobCopyAndAssign(const char * launchPath,
             const uint8_t * bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
-            for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+            if (0 == result)
             {
-                if (smallValue[ii] != smallBlob[ii])
-                {
-                    ODL_LOG("(smallValue[ii] != smallBlob[ii])"); //####
-                    result = 1;
-                }
+                result = memcmp(smallValue, smallBlob, kSmallTestSize);
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
-                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                if (0 == result)
                 {
-                    if (bigValue[ii] != bigBlob[ii])
-                    {
-                        ODL_LOG("(bigValue[ii] != bigBlob[ii])"); //####
-                        result = 1;
-                    }
+                    result = memcmp(bigValue, bigBlob, kBigTestSize);
                 }
             }
             if (0 == result)
@@ -2732,24 +2727,16 @@ doTestBlobCopyAndAssign(const char * launchPath,
                 smallValue = smallCopy.getValue(smallLength);
                 bigValue = bigCopy.getValue(bigLength);
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
-                for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+                if (0 == result)
                 {
-                    if (smallValue[ii] != smallBlob[ii])
-                    {
-                        ODL_LOG("(smallValue[ii] != smallBlob[ii])"); //####
-                        result = 1;
-                    }
+                    result = memcmp(smallValue, smallBlob, kSmallTestSize);
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
-                    for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                    if (0 == result)
                     {
-                        if (bigValue[ii] != bigBlob[ii])
-                        {
-                            ODL_LOG("(bigValue[ii] != bigBlob[ii])"); //####
-                            result = 1;
-                        }
+                        result = memcmp(bigValue, bigBlob, kBigTestSize);
                     }
                 }
                 if (0 == result)
@@ -2760,24 +2747,16 @@ doTestBlobCopyAndAssign(const char * launchPath,
                     smallValue = smallCopy.getValue(smallLength);
                     bigValue = bigCopy.getValue(bigLength);
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
-                    for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii)
+                    if (0 == result)
                     {
-                        if (smallValue[ii] != bigBlob[ii])
-                        {
-                            ODL_LOG("(smallValue[ii] != bigBlob[ii])"); //####
-                            result = 1;
-                        }
+                        result = memcmp(smallValue, bigBlob, kBigTestSize);
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
-                        for (size_t ii = 0; (0 == result) && (kSmallTestSize > ii); ++ii)
+                        if (0 == result)
                         {
-                            if (bigValue[ii] != smallBlob[ii])
-                            {
-                                ODL_LOG("(bigValue[ii] != smallBlob[ii])"); //####
-                                result = 1;
-                            }
+                            result = memcmp(bigValue, smallBlob, kSmallTestSize);
                         }
                     }
                 }
@@ -3084,9 +3063,9 @@ doTestValidNumberCompares(const char * launchPath,
 
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number leftValue(testSet1[ii]._leftValue);
-            nImO::Number rightValue(testSet1[ii]._rightValue);
+            bool          valid = false;
+            nImO::Integer leftValue(testSet1[ii]._leftValue);
+            nImO::Integer rightValue(testSet1[ii]._rightValue);
 
             if (testSet1[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3157,9 +3136,9 @@ doTestValidNumberCompares(const char * launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number leftValue(testSet2[ii]._leftValue);
-            nImO::Number rightValue(testSet2[ii]._rightValue);
+            bool          valid = false;
+            nImO::Integer leftValue(testSet2[ii]._leftValue);
+            nImO::Double  rightValue(testSet2[ii]._rightValue);
 
             if (testSet2[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3230,9 +3209,9 @@ doTestValidNumberCompares(const char * launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTests3 > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number leftValue(testSet3[ii]._leftValue);
-            nImO::Number rightValue(testSet3[ii]._rightValue);
+            bool          valid = false;
+            nImO::Double  leftValue(testSet3[ii]._leftValue);
+            nImO::Integer rightValue(testSet3[ii]._rightValue);
 
             if (testSet3[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3304,8 +3283,8 @@ doTestValidNumberCompares(const char * launchPath,
         for (size_t ii = 0; (0 == result) && (numTests4 > ii); ++ii)
         {
             bool         valid = false;
-            nImO::Number leftValue(testSet4[ii]._leftValue);
-            nImO::Number rightValue(testSet4[ii]._rightValue);
+            nImO::Double leftValue(testSet4[ii]._leftValue);
+            nImO::Double rightValue(testSet4[ii]._rightValue);
 
             if (testSet4[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -4264,7 +4243,7 @@ main(int      argc,
                         break;
 
                     case 52 :
-                        result = doTestDefaultNumberValue(*argv, argc - 1, argv + 2);
+                        result = doTestDefaultIntegerValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 53 :

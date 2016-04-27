@@ -73,6 +73,7 @@ namespace nImO
         Connector(void);
 
         /*! @brief The destructor. */
+        virtual
         ~Connector(void);
 
     protected :

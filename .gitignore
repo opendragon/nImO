@@ -33,3 +33,5 @@ nImO/swig_nImO_out_python
 odl/swig_odl_out_csharp
 odl/swig_odl_out_python
 Doxygen_output
+dumpHexOfFloat
+dumpHexOfFloat.cpp

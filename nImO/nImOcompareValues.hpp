@@ -73,6 +73,7 @@ namespace nImO
         CompareValues(void);
 
         /*! @brief The destructor. */
+        virtual
         ~CompareValues(void);
 
         /*! @brief Compare two Values, returning @c true if the first is less than the second.

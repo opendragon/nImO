@@ -338,18 +338,32 @@ nImO::Array::operator =(const nImO::Array & other)
 } // nImO::Array::operator=
 
 void
-nImO::Array::printToStringBuffer(nImO::StringBuffer & outBuffer)
+nImO::Array::printToStringBuffer(nImO::StringBuffer & outBuffer,
+                                 const bool           squished)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    bool first = true;
+
     outBuffer.addChar(kStartArrayChar);
-    outBuffer.addChar(' ');
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         Value * aValue = *walker;
-        
-        aValue->printToStringBuffer(outBuffer);
+  
+        if (NULL != aValue)
+        { 
+            if ((! squished) || (! first))
+            { 
+                outBuffer.addChar(' ');
+            }
+            aValue->printToStringBuffer(outBuffer, squished);
+            first = false;
+        }
+    }
+    if (! squished)
+    {
         outBuffer.addChar(' ');
     }
     outBuffer.addChar(kEndArrayChar);
@@ -429,6 +443,15 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     return result;
 } // nImO::Array::readFromStringBuffer
  
+void
+nImO::Array::writeToMessage(Message & outMessage)
+const
+{
+    ODL_ENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_EXIT(); //####
+} // nImO::Array::writeToMessage
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

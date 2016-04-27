@@ -4,10 +4,7 @@
 \margl1440\margr1440\vieww18080\viewh14440\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 add SOM as a variant with EOM;\
-each message is prefixed by k>0 SOMs\
-\
-need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;\
+\f0\fs24 \cf0 need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;\
 the issue is that multiple outgoing and incoming connections must be supported, both TCP and UDP\
 \
 it appears that both a TCP and a UDP socket can be opened with the same port; perhaps the TCP connection can be used as a transient control port\
@@ -28,18 +25,4 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
 * nImOversion \'97 reports the versions of the libraries\
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
-\
-\pard\pardeftab720\sl360\partightenfactor0
-\cf0 \expnd0\expndtw0\kerning0
-Operations -\
-\pard\pardeftab720\sl280\partightenfactor0
-\cf0 stream insert operator: uses toString()\
-for lists, arrays: add element, remove element, check for value\
-for sequences (lists, arrays, maps, sets): number of elements\
-for maps: add key/value, get value by key, get keys, check for key\
-for sets: add key, check for key\
-for integers, floating point, boolean, strings: isEnumerable (false for floating point)\
-\
-static bool Value::fromString(const std:string & input, Value & result) -> true if conversion succeeds;\
-use Boolean::fromString, et cetera\
 }

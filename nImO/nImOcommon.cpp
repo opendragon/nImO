@@ -161,6 +161,20 @@ localCatcher(int signal)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
+void
+nImO::D2B(const double    inValue,
+          NumberAsBytes & outString)
+{
+    ODL_ENTER(); //####
+    ODL_D1("inValue = ", inValue); //####
+    ODL_P1("outString = ", &outString); //####
+    double  inValueCopy = inValue;
+    int64_t inValueAsInt = *reinterpret_cast<int64_t *>(&inValueCopy);
+
+    I2B(inValueAsInt, outString);
+    ODL_EXIT(); //####
+} // D2B
+
 #if 0
 void
 Common::DumpContactToLog(const char *              tag,
@@ -287,6 +301,65 @@ nImO::GetRandomChannelName(const std::string & channelRoot)
 {
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
+
+size_t
+nImO::I2B(const int64_t   inValue,
+          NumberAsBytes & outString)
+{
+    ODL_ENTER(); //####
+    ODL_LL1("inValue = ", inValue); //####
+    ODL_P1("outString = ", &outString); //####
+    int64_t workValue = inValue;
+    size_t  length = 0;
+
+    for (size_t ii = sizeof(inValue); 0 < ii; --ii)
+    {
+        outString[ii - 1] = (0x0FF & workValue);
+        workValue >>= 8;
+    } 
+    if (0 <= inValue)
+    {
+        for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
+        {
+            if (0x00 != outString[ii])
+            {
+                length = sizeof(inValue) - ii;
+            }
+        }
+        // Correct for the MSB having the sign bit set
+        if (0 < length)
+        {
+            uint8_t aByte = outString[sizeof(inValue) - length];
+
+            if (0x00 != (0x080 & aByte))
+            {
+                ++length;
+            }
+        }
+    }
+    else
+    {
+        for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
+        {
+            if (0xFF != outString[ii])
+            {
+                length = sizeof(inValue) - ii;
+            }
+        }
+        // Correct for the MSB not having the sign bit set
+        if (0 < length)
+        {
+            uint8_t aByte = outString[sizeof(inValue) - length];
+
+            if (0x00 == (0x080 & aByte))
+            {
+                ++length;
+            }
+        }
+    }
+    ODL_EXIT_LL(length); //####
+    return length;
+} // nImO::I2B
 
 #if (! MAC_OR_LINUX_)
 # pragma warning(push)

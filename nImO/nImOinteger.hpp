@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOblob.hpp
+//  File:       nImO/nImOinteger.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO 'blob' values.
+//  Contains:   The class declaration for nImO numeric values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-22
+//  Created:    2016-04-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOblob_HPP_))
-# define nImOblob_HPP_ /* Header guard */
+#if (! defined(nImOinteger_HPP_))
+# define nImOinteger_HPP_ /* Header guard */
 
-# include <nImO/nImOvalue.hpp>
+# include <nImO/nImOnumber.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO 'blob' values. */
+ @brief The class declaration for %nImO numeric values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide binary data with unknown structure. */
-    class Blob : public Value
+    /*! @brief A class to provide numeric values. */
+    class Integer : public Number
     {
     public :
         // Public type definitions.
@@ -67,33 +67,40 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        typedef Value inherited;
+        typedef Number inherited;
 
-    public :
+        public :
         // Public methods.
 
         /*! @brief The constructor. */
-        Blob(void);
+        Integer(void);
 
         /*! @brief The constructor.
-         @param data The data to be placed in the object.
-         @param size The number of bytes in the data. */
-        Blob(const uint8_t * data,
-             const size_t    size);
+          @param initialValue The initial value for the object. */
+        explicit Integer(const int64_t initialValue);
 
         /*! @brief The copy constructor.
          @param other The object to be copied. */
-        Blob(const Blob & other);
+        Integer(const Integer & other);
 
         /*! @brief The destructor. */
         virtual
-        ~Blob(void);
+        ~Integer(void);
 
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
         clone(void)
         const;
+
+        /*! @brief Return the enumeraton type of an object.
+         @returns The enumeration type of an object. */
+        virtual inline Enumerable
+        enumerationType(void)
+        const
+        {
+            return kEnumerableInteger;
+        } // enumerationType
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -105,23 +112,22 @@ namespace nImO
                 bool &        validComparison)
         const;
 
+        /*! @brief Return the value of the object.
+         @returns The value of the object. */
+        inline int64_t getIntegerValue(void)
+        const
+        {
+            return _intValue;
+        } // getIntegerValue
+
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
         virtual inline uint8_t
         getTypeTag(void)
         const
         {
-            return kKindOtherMessageExpectedStringOrBlobValue;
+            return kKindOtherMessageExpectedSignedIntegerValue;
         } // getTypeTag
-
-        /*! @brief Return the value of the object.
-         @returns The value of the object. */
-        inline const uint8_t * getValue(size_t & length)
-        const
-        {
-            length = _size;
-            return _value;
-        } // getValue
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -143,14 +149,14 @@ namespace nImO
                            bool &        validComparison)
         const;
 
-        /*! @brief Return @c true if the object is a Blob.
-         @returns @c true if the object is a Blob and @c false otherwise. */
+        /*! @brief Return @c true if the object is an Integer.
+         @returns @c true if the object is an Integer and @c false otherwise. */
         virtual inline bool
-        isBlob(void)
+        isInteger(void)
         const
         {
             return true;
-        } // isBlob
+        } // isInteger
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -175,8 +181,14 @@ namespace nImO
         /*! @brief The assignment operator.
          @param other The object to be copied.
          @returns The updated object. */
-        Blob &
-        operator =(const Blob & other);
+        Integer &
+        operator =(const Integer & other);
+
+        /*! @brief The assignment operator.
+         @param value The value to be assigned.
+         @returns The updated object. */
+        Integer &
+        operator =(const int64_t value);
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param outBuffer The buffer to be appended to.
@@ -199,10 +211,6 @@ namespace nImO
     private :
         // Private methods.
 
-        /*! @brief Remove all entries. */
-        void
-        removeAllEntries(void);
-
     public :
         // Public fields.
 
@@ -212,14 +220,11 @@ namespace nImO
     private :
         // Private fields.
 
-        /*! @brief The associated value. */
-        uint8_t * _value;
+        /*! @brief The associated value, if it is floating point. */
+        int64_t _intValue;
 
-        /*! @brief The size of the associated value. */
-        size_t _size;
-
-    }; // Blob
+    }; // Integer
 
 } // nImO
 
-#endif // ! defined(nImOblob_HPP_)
+#endif // ! defined(nImOinteger_HPP_)

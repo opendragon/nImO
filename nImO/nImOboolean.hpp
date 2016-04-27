@@ -84,6 +84,7 @@ namespace nImO
         Boolean(const Boolean & other);
 
         /*! @brief The destructor. */
+        virtual
         ~Boolean(void);
 
         /*! @brief Return a copy of the object.
@@ -121,6 +122,15 @@ namespace nImO
          @returns The characters that can appear as the start of a Boolean. */
         static const char *
         getInitialCharacters(void);
+
+        /*! @brief Return the type tag for the Value for use with Messages.
+         @returns The type tag for the Value for use with Messages. */
+        virtual inline uint8_t
+        getTypeTag(void)
+        const
+        {
+            return kKindOtherMessageExpectedOtherValue;
+        } // getTypeTag
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
@@ -192,9 +202,12 @@ namespace nImO
         operator =(const bool value);
 
         /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
+         @param outBuffer The buffer to be appended to.
+         @param squished @c true if the output has no unnecessary characters and @c false if it
+         is as readable as possible. */
         virtual void
-        printToStringBuffer(StringBuffer & outBuffer)
+        printToStringBuffer(StringBuffer & outBuffer,
+                            const bool     squished = false)
         const;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
@@ -205,6 +218,12 @@ namespace nImO
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t  &            position);
  
+        /*! @brief Add a binary representation of the object to the message.
+         @param outMessage The Message to be appended to. */
+        virtual void
+        writeToMessage(Message & outMessage)
+        const;
+
     protected :
         // Protected methods.
 

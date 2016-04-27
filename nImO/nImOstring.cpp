@@ -38,6 +38,7 @@
 
 #include "nImOstring.hpp"
 
+#include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -351,11 +352,13 @@ nImO::String::operator =(const char * value)
 } // nImO::String::operator=
 
 void
-nImO::String::printToStringBuffer(nImO::StringBuffer & outBuffer)
+nImO::String::printToStringBuffer(nImO::StringBuffer & outBuffer,
+                                  const bool           squished)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
     outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
@@ -663,6 +666,62 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     return result;
 } // nImO::String::readFromStringBuffer
  
+void
+nImO::String::writeToMessage(Message & outMessage)
+const
+{
+    ODL_ENTER(); //####
+    ODL_P1("message = ", &message); //####
+    size_t length = _value.length();
+
+    if (0 < length)
+    {
+        ODL_LOG("(0 < length)"); //####
+        if (15 < length)
+        {
+            ODL_LOG("(15 < length)"); //####
+            NumberAsBytes numBuff;
+            size_t        numBytes = I2B(length, numBuff);
+
+            if (0 < numBytes)
+            {
+                ODL_LOG("(0 < numBytes)"); //####
+                uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
+                                kKindStringOrBlobLongLengthValue +
+                                (kKindStringOrBlobLongLengthMask & (numBytes - 1));
+
+                outMessage.appendBytes(&stuff, sizeof(stuff));
+                outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
+            }
+        }
+        else
+        {
+            ODL_LOG("! (15 < length)"); //####
+            uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
+                            kKindStringOrBlobShortLengthValue +
+                            (kKindStringOrBlobShortLengthMask & length);
+
+            outMessage.appendBytes(&stuff, sizeof(stuff));
+        }
+        for (size_t ii = 0; length > ii; ++ii)
+        {
+            uint8_t stuff = _value.at(ii);
+
+            outMessage.appendBytes(&stuff, sizeof(stuff));
+        }
+    }
+    else
+    {
+        ODL_LOG("! (0 < length)"); //####
+        uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
+                        kKindStringOrBlobShortLengthValue +
+                        (kKindStringOrBlobShortLengthMask & 0);
+
+        outMessage.appendBytes(&stuff, sizeof(stuff));
+    }
+    ODL_EXIT(); //####
+} // nImO::String::writeToMessage
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

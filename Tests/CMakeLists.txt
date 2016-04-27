@@ -141,7 +141,7 @@ add_test(NAME TestFalseBooleanValue COMMAND ${THIS_TARGET} 51 0 "false")
 # Test true boolean value
 add_test(NAME TestTrueBooleanValue COMMAND ${THIS_TARGET} 51 1 "true")
 # Test default number value
-add_test(NAME TestDefaultNumberValue COMMAND ${THIS_TARGET} 52)
+add_test(NAME TestDefaultIntegerValue COMMAND ${THIS_TARGET} 52)
 # Test integer number value
 add_test(NAME TestIntegerNumberValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
 # Test floating point number value
@@ -639,3 +639,90 @@ add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -c
                    libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
 endif(APPLE)
+
+# Test empty message
+add_test(NAME TestEmptyMessage COMMAND ${THIS_TARGET} 1)
+# Test message with boolean
+add_test(NAME TestBooleanMessage COMMAND ${THIS_TARGET} 2)
+# Test message with tiny integer
+add_test(NAME TestTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
+# Test message with short integer 
+add_test(NAME TestShortIntegerMessage COMMAND ${THIS_TARGET} 4)
+# Test message with medium integer
+add_test(NAME TestMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
+# Test message with big integer 
+add_test(NAME TestBigIntegerMessage COMMAND ${THIS_TARGET} 6)
+# Test message with empty string
+add_test(NAME TestEmptyStringMessage COMMAND ${THIS_TARGET} 7)
+# Test message with short string
+add_test(NAME TestShortStringMessage COMMAND ${THIS_TARGET} 8)
+# Test message with medium string
+add_test(NAME TestMediumStringMessage COMMAND ${THIS_TARGET} 9)
+# Test message with empty blob
+add_test(NAME TestEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
+# Test message with short blob
+add_test(NAME TestShortBlobMessage COMMAND ${THIS_TARGET} 11)
+# Test message with medium blob
+add_test(NAME TestMediumBlobMessage COMMAND ${THIS_TARGET} 12)
+# Test message with single float
+add_test(NAME TestSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+
+# Test message with empty array
+add_test(NAME TestEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+# Test message with empty map
+add_test(NAME TestEmptyMapMessage COMMAND ${THIS_TARGET} 101)
+# Test message with empty set
+add_test(NAME TestEmptySetMessage COMMAND ${THIS_TARGET} 102)
+
+# Test message with array with one boolean
+add_test(NAME TestArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 112)
+# Test message with array with one integer
+add_test(NAME TestArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 113)
+# Test message with array with one double
+add_test(NAME TestArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 114)
+# Test message with array with one string
+add_test(NAME TestArrayWithOneStringMessage COMMAND ${THIS_TARGET} 115)
+# Test message with array with one blob
+add_test(NAME TestArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 116)
+# Test message with array with one empty array
+add_test(NAME TestArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 117)
+# Test message with array with one empty map
+add_test(NAME TestArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 118)
+# Test message with array with one empty set
+add_test(NAME TestArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 119)
+
+# Test message with array with two booleans
+add_test(NAME TestArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
+# Test message with array with two integers
+add_test(NAME TestArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
+# Test message with array with two doubles
+add_test(NAME TestArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
+# Test message with array with two strings
+add_test(NAME TestArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
+# Test message with array with two blobs
+add_test(NAME TestArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
+# Test message with array with two empty arrays
+add_test(NAME TestArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
+# Test message with array with two empty maps
+add_test(NAME TestArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
+# Test message with array with two empty sets
+add_test(NAME TestArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
+# Test message with array with empty array and empty map
+add_test(NAME TestArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
+# Test message with array with empty map and empty set
+add_test(NAME TestArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
+# Test message with array with empty set and empty array
+add_test(NAME TestArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+
+# Test message with boolean map
+add_test(NAME TestBooleanMapMessage COMMAND ${THIS_TARGET} 150)
+# Test message with integer map
+add_test(NAME TestIntegerMapMessage COMMAND ${THIS_TARGET} 151)
+# Test message with string map
+add_test(NAME TestStringMapMessage COMMAND ${THIS_TARGET} 152)
+# Test message with boolean set
+add_test(NAME TestBooleanSetMessage COMMAND ${THIS_TARGET} 153)
+# Test message with integer set
+add_test(NAME TestIntegerSetMessage COMMAND ${THIS_TARGET} 154)
+# Test message with string set
+add_test(NAME TestStringSetMessage COMMAND ${THIS_TARGET} 155)

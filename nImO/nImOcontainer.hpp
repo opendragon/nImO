@@ -76,6 +76,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The destructor. */
+        virtual
         ~Container(void);
 
         /*! @brief Return @c true if the object is a container.

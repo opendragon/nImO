@@ -20,14 +20,12 @@ bit0..1\
                 bit2=1 long value \{0x20\}\
                       bit3..4 Reserved (set to zero)\
                       bit5..7 number of bytes to follow-1 (1..8), MSB-first, sign extended from first byte [bit 0 of the first byte is the sign bit]\
-	01 floating-point [Not Enumerable] \{0x40\}\
-                bit2=0 floats [32-bit] \{not currently used\}\
-                bit2=1 doubles [64-bit] \{0x20\}\
-                bit3=0 short count of floating-point values to follow\
-                      bit4..7 (1..16)\
-                bit3=1 long count of floating-point values in next byte(s) \{0x10\}\
-                      bit4 Reserved (set to zero)\
-                      bit5..7 number of bytes for count-1 (1..8) [floating-point values are MSB-first]\
+	01 floating-point (double) [Not Enumerable] \{0x40\}\
+                bit2=0 short count-1 of floating-point values to follow\
+                      bit3..7 (1..32)\
+                bit2=1 long count of floating-point values in next byte(s) \{0x20\}\
+                      bit3..4 Reserved (set to zero)\
+                      bit5..7 number of bytes for count-1 (1..8) [floating-point values (double) are MSB-first]\
         10 string [Enumerable] / blob [Not Enumerable] \{0x80\}\
                 bit2=0 string\
                 bit2=1 blob \{0x20\}\

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOblob.cpp
+//  File:       nImO/nImOinteger.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO 'blob' values.
+//  Contains:   The class definition for nImO numeric values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-22
+//  Created:    2016-04-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOblob.hpp"
+#include "nImOinteger.hpp"
 
+#include <nImO/nImOcommon.hpp>
+#include <nImO/nImOdouble.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
@@ -50,7 +52,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO 'blob' values. */
+ @brief The class definition for %nImO numeric values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -71,82 +73,6 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Compare two byte sequences.
- @param leftValue A pointer to the left sequence.
- @param leftSize The number of bytes in the left sequence.
- @param rightValue A pointer to the right sequence.
- @param rightSize The number of bytes in the right sequence.
- @returns @c 1 if the left sequence is lexicographically greater than
- the right sequence, @c 0 if they are the same sequence and @c -1 if
- the left sequence is lexicographically less than the right sequence. */
-static int
-compareBytes(const uint8_t * leftValue,
-             const size_t    leftSize,
-             const uint8_t * rightValue,
-             const size_t    rightSize)
-{
-    ODL_ENTER(); //####
-    int result;
-
-    if (0 == leftSize)
-    {
-        if (0 == rightSize)
-        {
-            result = 0; // Both are empty
-        }
-        else
-        {
-            result = -1; // Left is empty, right is not
-        }
-    }
-    else if (0 == rightSize)
-    {
-        result = 1; // Right is empty, left is not
-    }
-    else
-    {
-        size_t firstCount;
-
-        if (leftSize > rightSize)
-        {
-            firstCount = rightSize;
-        }
-        else
-        {
-            firstCount = leftSize;
-        }
-        result = 0;
-        for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
-        {
-            uint8_t leftByte = leftValue[ii];
-            uint8_t rightByte = rightValue[ii];
-
-            if (leftByte > rightByte)
-            {
-                result = 1; // Left sequence is greater
-            }
-            else if (leftByte < rightByte)
-            {
-                result = -1; // Right sequence is greater
-            }
-        }
-        if (0 == result)
-        {
-            // The shorter sequence is a prefix of the longer sequence
-            if (leftSize > rightSize)
-            {
-                result = 1; // Left sequence is longer
-            }
-            else if (leftSize < rightSize)
-            {
-                result = -1; // Right sequence is longer
-            }
-        }
-    }
-    ODL_EXIT_LL(result); //####
-    return result;
-} // compareBytes
-
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -155,68 +81,53 @@ compareBytes(const uint8_t * leftValue,
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Blob::Blob(void) :
-    inherited(), _value(NULL), _size(0)
+nImO::Integer::Integer(void) :
+    inherited(), _intValue(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::Blob::Blob
+} // nImO::Integer::Integer
 
-nImO::Blob::Blob(const uint8_t * data,
-                 const size_t    size) :
-    inherited(), _value(NULL), _size(0)
+nImO::Integer::Integer(const int64_t initialValue) :
+    inherited(), _intValue(initialValue)
 {
     ODL_ENTER(); //####
-    ODL_P1("datat = ", data); //####
-    ODL_LL1("size = ", size); //####
-    if (data && (0 < size))
-    {
-        _size = size;
-        _value = new uint8_t[_size];
-        memcpy(_value, data, _size);
-    }
+    ODL_LL1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
-} // nImO::Blob::Blob
+} // nImO::Integer::Integer
 
-nImO::Blob::Blob(const nImO::Blob & other) :
-    inherited(), _value(NULL), _size(0)
+nImO::Integer::Integer(const nImO::Integer & other) :
+    inherited(), _intValue(other._intValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    if (0 < other._size)
-    {
-        _size = other._size;
-        _value = new uint8_t[_size];
-        memcpy(_value, other._value, _size);
-    }
     ODL_EXIT_P(this); //####
-} // nImO::Blob::Blob
+} // nImO::Integer::Integer
 
-nImO::Blob::~Blob(void)
+nImO::Integer::~Integer(void)
 {
     ODL_OBJENTER(); //####
-    removeAllEntries();
     ODL_OBJEXIT(); //####
-} // nImO::Blob::~Blob
+} // nImO::Integer::~Integer
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 nImO::Value *
-nImO::Blob::clone(void)
+nImO::Integer::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    Blob * result = new Blob(*this);
+    Integer * result = new Integer(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
-} // nImO::Blob::copy
+} // nImO::Integer::copy
 
 bool
-nImO::Blob::equalTo(const nImO::Value & other,
-                    bool &              validComparison)
+nImO::Integer::equalTo(const nImO::Value & other,
+                       bool &              validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -225,32 +136,142 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
+    else if (other.isDouble())
     {
-        const Blob & otherRef = static_cast<const Blob &>(other);
+        ODL_LOG("(other.isDouble())"); //####
+        const Double & otherRef = static_cast<const Double &>(other);
 
-        result = (0 == compareBytes(_value, _size, otherRef._value, otherRef._size));
+        result = (_intValue == otherRef.getDoubleValue());
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isInteger())
+    {
+        ODL_LOG("(other.isInteger())"); //####
+        const Integer & otherRef = static_cast<const Integer &>(other);
+
+        result = (_intValue == otherRef._intValue);
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.equalTo(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Blob::equalTo
+} // nImO::Integer::equalTo
 
 bool
-nImO::Blob::greaterThan(const nImO::Value & other,
+nImO::Integer::greaterThan(const nImO::Value & other,
+                           bool &              validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result;
+
+    if (&other == this)
+    {
+        ODL_LOG("(&other == this)"); //####
+        result = false;
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isDouble())
+    {
+        ODL_LOG("(other.isDouble())"); //####
+        const Double & otherRef = static_cast<const Double &>(other);
+
+        result = (_intValue > otherRef.getDoubleValue());
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isInteger())
+    {
+        ODL_LOG("(other.isInteger())"); //####
+        const Integer & otherRef = static_cast<const Integer &>(other);
+
+        result = (_intValue > otherRef._intValue);
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isContainer())
+    {
+        ODL_LOG("(other.isContainer())"); //####
+        result = other.lessThan(*this, validComparison);
+    }
+    else
+    {
+        ODL_LOG("! (other.isContainer())"); //####
+        result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Integer::greaterThan
+
+bool
+nImO::Integer::greaterThanOrEqual(const nImO::Value & other,
+                                  bool &              validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    bool result;
+
+    if (&other == this)
+    {
+        ODL_LOG("(&other == this)"); //####
+        result = validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isDouble())
+    {
+        ODL_LOG("(other.isDouble())"); //####
+        const Double & otherRef = static_cast<const Double &>(other);
+
+        result = (_intValue >= otherRef.getDoubleValue());
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isInteger())
+    {
+        ODL_LOG("(other.isInteger())"); //####
+        const Integer & otherRef = static_cast<const Integer &>(other);
+
+        result = (_intValue >= otherRef._intValue);
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isContainer())
+    {
+        ODL_LOG("(other.isContainer())"); //####
+        result = other.lessThanOrEqual(*this, validComparison);
+    }
+    else
+    {
+        ODL_LOG("! (other.isContainer())"); //####
+        result = validComparison = false;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Integer::greaterThanOrEqual
+
+bool
+nImO::Integer::lessThan(const nImO::Value & other,
                         bool &              validComparison)
 const
 {
@@ -260,33 +281,46 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = false;
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
+    else if (other.isDouble())
     {
-        const Blob & otherRef = static_cast<const Blob &>(other);
+        ODL_LOG("(other.isDouble())"); //####
+        const Double & otherRef = static_cast<const Double &>(other);
 
-        result = (0 < compareBytes(_value, _size, otherRef._value, otherRef._size));
+        result = (_intValue < otherRef.getDoubleValue());
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isInteger())
+    {
+        ODL_LOG("(other.isInteger())"); //####
+        const Integer & otherRef = static_cast<const Integer &>(other);
+
+        result = (_intValue < otherRef._intValue);
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
-        result = other.lessThan(*this, validComparison);
+        ODL_LOG("(other.isContainer())"); //####
+        result = other.greaterThan(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Blob::greaterThan
+} // nImO::Integer::lessThan
 
 bool
-nImO::Blob::greaterThanOrEqual(const nImO::Value & other,
+nImO::Integer::lessThanOrEqual(const nImO::Value & other,
                                bool &              validComparison)
 const
 {
@@ -296,190 +330,110 @@ const
 
     if (&other == this)
     {
+        ODL_LOG("(&other == this)"); //####
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
+    else if (other.isDouble())
     {
-        const Blob & otherRef = static_cast<const Blob &>(other);
+        ODL_LOG("(other.isDouble())"); //####
+        const Double & otherRef = static_cast<const Double &>(other);
 
-        result = (0 <= compareBytes(_value, _size, otherRef._value, otherRef._size));
+        result = (_intValue <= otherRef.getDoubleValue());
+        validComparison = true;
+        ODL_B1("validComparison <- ", validComparison); //####
+    }
+    else if (other.isInteger())
+    {
+        ODL_LOG("(other.isInteger())"); //####
+        const Integer & otherRef = static_cast<const Integer &>(other);
+
+        result = (_intValue <= otherRef._intValue);
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
     else if (other.isContainer())
     {
-        result = other.lessThanOrEqual(*this, validComparison);
-    }
-    else
-    {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // nImO::Blob::greaterThanOrEqual
-
-bool
-nImO::Blob::lessThan(const nImO::Value & other,
-                     bool &              validComparison)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
-
-    if (&other == this)
-    {
-        result = false;
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 > compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThan(*this, validComparison);
-    }
-    else
-    {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // nImO::Blob::lessThan
-
-bool
-nImO::Blob::lessThanOrEqual(const nImO::Value & other,
-                            bool &              validComparison)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
-
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 >= compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
+        ODL_LOG("(other.isContainer())"); //####
         result = other.greaterThanOrEqual(*this, validComparison);
     }
     else
     {
+        ODL_LOG("! (other.isContainer())"); //####
         result = validComparison = false;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Blob::lessThanOrEqual
+} // nImO::Integer::lessThanOrEqual
 
-nImO::Blob &
-nImO::Blob::operator =(const nImO::Blob & other)
+nImO::Integer &
+nImO::Integer::operator =(const nImO::Integer & other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        removeAllEntries();
-        if (0 < other._size)
-        {
-            _size = other._size;
-            _value = new uint8_t[_size];
-            memcpy(_value, other._value, _size);
-        }
+        _intValue = other._intValue;
     }
-    ODL_OBJEXIT_P(this);
+    ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::Blob::operator=
+} // nImO::Integer::operator=
+
+nImO::Integer &
+nImO::Integer::operator =(const int64_t value)
+{
+    ODL_OBJENTER(); //####
+    ODL_LL1("value = ", value); //####
+    _intValue = value;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Integer::operator=
 
 void
-nImO::Blob::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                                const bool           squished)
+nImO::Integer::printToStringBuffer(nImO::StringBuffer & outBuffer,
+                                   const bool           squished)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    outBuffer.addBytes(_value, _size);
+    outBuffer.addLong(_intValue);
     ODL_OBJEXIT(); //####
-} // nImO::Blob::printToStringBuffer
+} // nImO::Integer::printToStringBuffer
 
 void
-nImO::Blob::removeAllEntries(void)
-{
-    ODL_OBJENTER(); //####
-    delete[] _value;
-    _size = 0;
-    _value = NULL;
-    ODL_OBJEXIT(); //####
-} // nImO::Blob::removeAllEntries
-
-void
-nImO::Blob::writeToMessage(Message & outMessage)
+nImO::Integer::writeToMessage(Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    if (0 < _size)
+    if ((-16 <= _intValue) && (15 >= _intValue))
     {
-        ODL_LOG("(0 < _size)"); //####
-        if (15 < _size)
-        {
-            ODL_LOG("(15 < _size)"); //####
-            NumberAsBytes numBuff;
-            size_t        numBytes = I2B(_size, numBuff);
-
-            if (0 < numBytes)
-            {
-                ODL_LOG("(0 < numBytes)"); //####
-                uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
-                                kKindStringOrBlobLongLengthValue +
-                                (kKindStringOrBlobLongLengthMask & (numBytes - 1));
-
-                outMessage.appendBytes(&stuff, sizeof(stuff));
-                outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
-            }
-        }
-        else
-        {
-            ODL_LOG("! (15 < _size)"); //####
-            uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
-                            kKindStringOrBlobShortLengthValue +
-                            (kKindStringOrBlobShortLengthMask & _size);
-
-            outMessage.appendBytes(&stuff, sizeof(stuff));
-        }
-        outMessage.appendBytes(_value, _size);
-    }
-    else
-    {
-        ODL_LOG("! (0 < _size)"); //####
-        uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
-                        kKindStringOrBlobShortLengthValue +
-                        (kKindStringOrBlobShortLengthMask & 0);
+        ODL_LOG("((-16 <= _intValue) && (15 >= _intValue))"); //####
+        uint8_t stuff = kKindSignedInteger + kKindSignedIntegerShortValue +
+                        (_intValue & kKindSignedIntegerShortValueValueMask);
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
+    else
+    {
+        ODL_LOG("! ((-16 <= _intValue) && (15 >= _intValue))"); //####
+        NumberAsBytes numBuff;
+        size_t        numBytes = I2B(_intValue, numBuff);
+
+        if (0 < numBytes)
+        {
+            ODL_LOG("(0 < numBytes)"); //####
+            uint8_t stuff = kKindSignedInteger + kKindSignedIntegerLongValue +
+                            ((numBytes - 1) & kKindSignedIntegerLongValueCountMask);
+
+            outMessage.appendBytes(&stuff, sizeof(stuff));
+            outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
+        }
+    }
     ODL_OBJEXIT(); //####
-} // nImO::Blob::writeToMessage
+} // nImO::Integer::writeToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

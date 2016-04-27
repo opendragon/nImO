@@ -64,10 +64,12 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcontainer.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOdouble.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
@@ -111,10 +113,12 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcontainer.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOdouble.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
@@ -143,10 +147,12 @@ if(nImO_DO_SWIG)
         nImOcompareValues.cpp nImOcompareValues.hpp
         nImOconnector.cpp nImOconnector.hpp
         nImOcontainer.cpp nImOcontainer.hpp
+        nImOdouble.cpp nImOdouble.hpp
         nImOdoubleArgumentDescriptor.cpp nImOdoubleArgumentDescriptor.hpp
         nImOextraArgumentDescriptor.cpp nImOextraArgumentDescriptor.hpp
         nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
+        nImOinteger.cpp nImOinteger.hpp
         nImOmap.cpp nImOmap.hpp
         nImOmessage.cpp nImOmessage.hpp
         nImOnumber.cpp nImOnumber.hpp

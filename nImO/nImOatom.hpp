@@ -73,6 +73,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The destructor. */
+        virtual
         ~Atom(void);
 
     protected :

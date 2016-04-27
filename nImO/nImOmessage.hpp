@@ -40,7 +40,6 @@
 # define nImOmessage_HPP_ /* Header guard */
 
 # include <nImO/nImOcommon.hpp>
-//# include <nImO/nImObufferChunk.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -79,6 +78,18 @@ namespace nImO
         /*! @brief The destructor. */
         virtual
         ~Message(void);
+
+        /*! @brief Add some bytes to the buffer.
+         @param data The bytes to be added.
+         @param numBytes The number of bytes to add. */
+        void
+        appendBytes(const uint8_t * data,
+                    const size_t    numBytes);
+        
+        /*! @brief Close the Message, completing its contents.
+         @returns The message object so that cascading can be done. */
+        Message &
+        close(void);
 
 #if 0
         /*! @brief Add a boolean value to the buffer.
@@ -146,10 +157,30 @@ namespace nImO
         getLength(void)
         const;
 
+        /*! @brief Return @c true if the Message is closed and @c false otherwise.
+         @returns @c true if the Message is closed and @c false otherwise. */
+        inline bool
+        isClosed(void)
+        const
+        {
+            return _closed;
+        } // isClosed
+
+        /*! @brief Open the Message, so that data can be added.
+         @returns The message object so that cascading can be done. */
+        Message &
+        open(void);
+
         /*! @brief Prepare the message for reuse.
          @returns The message object so that cascading can be done. */
         Message &
         reset(void);
+
+        /*! @brief Set the contents of the message.
+         @param theValue The value to be put in the message.
+         @returns The message object so that cascading can be done. */
+        Message &
+        setValue(const Value & theValue);
         
     protected :
         // Protected methods.
@@ -161,15 +192,6 @@ namespace nImO
          @param other The object to be copied. */
         Message(const Message & other);
 
-#if 0
-        /*! @brief Add some bytes to the buffer.
-         @param data The bytes to be added.
-         @param numBytes The number of bytes to add. */
-        void
-        appendBytes(const uint8_t * data,
-                    const size_t    numBytes);
-#endif//0
-        
         /*! @brief The assignment operator.
          @param other The object to be copied.
          @returns The updated object. */
@@ -193,6 +215,12 @@ namespace nImO
         
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
+
+        /*! @brief @c true if the initial header bytes are present in the buffer. */
+        bool _headerAdded;
+
+        /*! @brief @c true if the message has been closed and can be interrogated. */
+        bool _closed;
 
     }; // Message
 

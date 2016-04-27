@@ -38,6 +38,7 @@
 
 #include "nImOmap.hpp"
 
+#include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -395,22 +396,39 @@ nImO::Map::operator =(const nImO::Map & other)
 } // nImO::Map::operator=
 
 void
-nImO::Map::printToStringBuffer(nImO::StringBuffer & outBuffer)
+nImO::Map::printToStringBuffer(nImO::StringBuffer & outBuffer,
+                               const bool           squished)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    bool first = true;
+
     outBuffer.addChar(kStartMapChar);
-    outBuffer.addChar(' ');
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         MapValue aValue = *walker;
-        
+
+        if ((! squished) || (! first))
+        {       
+            outBuffer.addChar(' ');
+        }
         aValue.first->printToStringBuffer(outBuffer);
-        outBuffer.addChar(' ');
+        if (! squished)
+        {
+            outBuffer.addChar(' ');
+        }
         outBuffer.addChar(kKeyValueSeparator);
-        outBuffer.addChar(' ');
+        if (! squished)
+        {
+            outBuffer.addChar(' ');
+        }
         aValue.second->printToStringBuffer(outBuffer);
+        first = false;
+    }
+    if (! squished)
+    {
         outBuffer.addChar(' ');
     }
     outBuffer.addChar(kEndMapChar);
@@ -548,6 +566,15 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     return result;
 } // nImO::Map::readFromStringBuffer
  
+void
+nImO::Map::writeToMessage(Message & outMessage)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Map::writeToMessage
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

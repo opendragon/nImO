@@ -6,7 +6,8 @@
 \pard\pardeftab720\sl360\partightenfactor0
 
 \f0\fs28 \cf0 \expnd0\expndtw0\kerning0
-<message> ::= <sp>* <value> <sp>*; ## note - no implicit arrays\
+<out-message> ::= <sp>* <value>? <sp>*;\
+<in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
 <value> ::= <atom> | <container> | <blob>;\
 <atom> ::= <sign>? <unsigned-number> | <string> | <boolean>;\
 <container> ::= <map> | <array> | <set>;\

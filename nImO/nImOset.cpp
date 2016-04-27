@@ -38,6 +38,7 @@
 
 #include "nImOset.hpp"
 
+#include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -387,18 +388,32 @@ nImO::Set::operator =(const nImO::Set & other)
 } // nImO::Set::operator=
 
 void
-nImO::Set::printToStringBuffer(nImO::StringBuffer & outBuffer)
+nImO::Set::printToStringBuffer(nImO::StringBuffer & outBuffer,
+                               const bool           squished)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    bool first = true;
+
     outBuffer.addChar(kStartSetChar);
-    outBuffer.addChar(' ');
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         Value * aValue = *walker;
-        
-        aValue->printToStringBuffer(outBuffer);
+
+        if (NULL != aValue)
+        {
+            if ((! squished) || (! first))
+            {        
+                outBuffer.addChar(' ');
+            }
+            aValue->printToStringBuffer(outBuffer);
+            first = false;
+        }
+    }
+    if (! squished)
+    {
         outBuffer.addChar(' ');
     }
     outBuffer.addChar(kEndSetChar);
@@ -504,6 +519,15 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     return result;
 } // nImO::Set::readFromStringBuffer
  
+void
+nImO::Set::writeToMessage(Message & outMessage)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Set::writeToMessage
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

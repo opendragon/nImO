@@ -69,171 +69,6 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The tag values for message contents. */
-enum DataKind
-{
-    /*! @brief The mask for the kind of data that follows. */
-    kKindMask = 0x00C0,
-    
-    /*! @brief The data that follows is a signed integer value. */
-    kKindSignedInteger = 0x0000,
-    
-        /*! @brief The mask for the size of the signed integer value. */
-        kKindSignedIntegerSizeMask = 0x0020,
-    
-        /*! @brief The signed integer value is in the range -16..15 and is contained within this
-         byte. */
-        kKindSignedIntegerShortValue = 0x0000,
-    
-            /*! @brief The mask for the value of the signed integer. */
-            kKindSignedIntegerShortValueValueMask = 0x001F,
-    
-        /*! @brief The signed integer value follows this byte. */
-        kKindSignedIntegerLongValue = 0x0020,
-    
-            /*! @brief The mask for the count of the number of bytes (1..8) that contain the signed
-             integer value.
-             Note that the count contained in the byte is one less than the actual count. */
-            kKindSignedIntegerLongValueCountMask = 0x0007,
-    
-    /*! @brief The data that follows is one or more floating-point values. */
-    kKindFloatingPoint = 0x0040,
-    
-        /*! @brief The mask for the size of the floating-point values. */
-        kKindFloatingPointSizeMask = 0x0020,
-    
-        /*! @brief The floating-point values are of type 'float' and occupy 32 bits. */
-        kKindFloatingPointFloatValue = 0x0000,
-    
-        /*! @brief The floating-point values are of type 'double' and occupy 64 bits. */
-        kKindFloatingPointDoubleValue = 0x0020,
-    
-        /*! @brief The mask for the size of the count of floating-point values. */
-        kKindFloatingPointCountMask = 0x0010,
-    
-        /*! @brief The count of the number of floating-point values is in the range 1..16 and is
-         contained within this byte.
-         Note that the count contained in the byte is one less than the actual count. */
-        kKindFloatingPointShortCount = 0x0000,
-    
-            /*! @brief The mask for the count of the number of floating-point values. */
-            kKindFloatingPointShortCountMask = 0x000F,
-    
-        /*! @brief The count of the number of floating-point values is contained in the next byte(s)
-         and the size of the count (1..8) is contained in this byte.
-         Note that the size of the count contained in the byte is one less than the actual size of
-         the count; the count itself is the actual count. */
-        kKindFloatingPointLongCount = 0x0010,
-    
-            /*! @brief The mask for the size of the count of floating-point values. */
-            kKindFloatingPointLongCountMask = 0x0007,
-    
-    /*! @brief The data that follows is a String or Blob. */
-    kKindStringOrBlob = 0x0080,
-    
-        /*! @brief The mask for the type of data - String or Blob. */
-        kKindStringOrBlobTypeMask = 0x0020,
-    
-        /*! @brief The data that follows is a non-@c NULL-terminated String. */
-        kKindStringOrBlobStringValue = 0x0000,
-    
-        /*! @brief The data that follows is a Blob. */
-        kKindStringOrBlobBlobValue = 0x0020,
-    
-        /*! @brief The mask for the length of the data that follows. */
-        kKindStringOrBlobLengthMask = 0x0010,
-    
-        /*! @brief The length of the data is in the range 0..15 and is contained within this
-         byte. */
-        kKindStringOrBlobShortLengthValue = 0x0000,
-
-            /*! @brief The mask for the length of the data. */
-            kKindStringOrBlobShortLengthMask = 0x000F,
-    
-        /*! @brief The length of the data is contained in the next byte(s). */
-        kKindStringOrBlobLongLengthValue = 0x0010,
-    
-            /*! @brief The mask for the count of the number of bytes (1..8) that contain the length
-             of the data.
-             Note that the count contained in the byte is one less than the actual count; the length
-             is the actual length. */
-            kKindStringOrBlobLongLengthMask = 0x0007,
-    
-    /*! @brief The data that follows is a Boolean or a Container. */
-    kKindOther = 0x00C0,
-    
-        /*! @brief The mask for the type of value that follows. */
-        kKindOtherTypeMask = 0x0030,
-    
-        /*! @brief The value is a Boolean. */
-        kKindOtherBoolean = 0x0000,
-    
-            /*! @brief The mask for the value of the Boolean. */
-            kKindOtherBooleanValueMask = 0x0001,
-    
-            /*! @brief The value is @c false. */
-            kKindOtherBooleanFalseValue = 0x0000,
-    
-            /*! @brief The value is @c true. */
-            kKindOtherBooleanTrueValue = 0x00001,
-    
-        /*! @brief The value that follows is a Container. */
-        kKindOtherContainerStart = 0x0010,
-    
-        /*! @brief The value that preceeded this was a Container. */
-        kKindOtherContainerEnd = 0x0020,
-    
-        /*! @brief The mask for the type of Container. */
-        kKindOtherContainerTypeMask = 0x000C,
-    
-        /*! @brief The container is an Array. */
-        kKindOtherContainerTypeArray = 0x0000,
-    
-        /*! @brief The container is a Map. */
-        kKindOtherContainerTypeMap = 0x0004,
-    
-        /*! @brief The container is a Set. */
-        kKindOtherContainerTypeSet = 0x0008,
-    
-        /*! @brief The mask for the empty / non-empty state of the Container. */
-        kKindOtherContainerEmptyMask = 0x0001,
-    
-        /*! @brief The Container is empty; no count of the number of elements follows. */
-        kKindOtherContainerEmptyValue = 0x0000,
-    
-        /*! @brief The Container is non-empty and the count of the number of elements follows, as a
-         signed integer value. */
-        kKindOtherContainerNonEmptyValue = 0x0001,
-    
-        /*! @brief The value that follows is a Message. */
-        kKindOtherMessage = 0x0030,
-    
-            /*! @brief The mask for the start / end state of the Message. */
-            kKindOtherMessageStartEndMask = 0x0008,
-    
-            /*! @brief The data that follows form a Message. */
-            kKindOtherMessageStartValue = 0x0000,
-    
-            /*! @brief The data that preceeded this was a Message. */
-            kKindOtherMessageEndValue = 0x0008,
-    
-            /*! @brief The mask for the empty / non-empty state of the Message. */
-            kKindOtherMessageEmptyMask = 0x0004,
-    
-            /*! @brief The Message is empty. */
-            kKindOtherMessageEmptyValue = 0x0000,
-    
-            /*! @brief The Message is non-empty; the type flag (top two-bits) of the first Value in
-             the Message, if the start of the Message or of the last Value in the Message, if the
-             end of the Message, is contained in the byte. */
-            kKindOtherMessageNonEmptyValue = 0x0004,
-    
-            /*! @brief The mask for the type of the immediately enclosed Value in the Message - the
-             first Value, if the start of the Message, and the last Value if the end of the
-             Message. */
-            kKindOtherMessageExpectedTypeMask = 0x0003
-}; // DataKind
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -251,7 +86,8 @@ enum DataKind
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1)
+    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1), _headerAdded(false),
+    _closed(false)
 {
     ODL_ENTER(); //####
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
@@ -370,6 +206,7 @@ nImO::Message::addString(const std::string & aString)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::addString
+#endif//0
 
 void
 nImO::Message::appendBytes(const uint8_t * data,
@@ -378,9 +215,13 @@ nImO::Message::appendBytes(const uint8_t * data,
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
     ODL_LL1("numBytes = ", numBytes); //####
-    if (data && (0 < numBytes))
+    if (_closed)
     {
-        const char * walker = data;
+        ODL_LOG("(_closed)"); //####
+    }
+    else if (data && (0 < numBytes))
+    {
+        const uint8_t * walker = data;
 
         if (_cachedOutput)
         {
@@ -434,6 +275,36 @@ nImO::Message::appendBytes(const uint8_t * data,
     ODL_OBJEXIT(); //####
 } // nImO::Message::appendBytes
 
+nImO::Message &
+nImO::Message::close(void)
+{
+    ODL_OBJENTER(); //####
+    if (_closed)
+    {
+        ODL_LOG("(_closed)"); //####
+    }
+    else
+    {
+        if (! _headerAdded)
+        {
+            static const uint8_t emptyMessage[] =
+            {
+                kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +
+                  kKindOtherMessageEmptyValue,
+                kKindOther + kKindOtherMessage + kKindOtherMessageEndValue +
+                  kKindOtherMessageEmptyValue
+            };
+            const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
+
+            appendBytes(emptyMessage, emptyMessageLength);
+        }
+        _closed = true;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Message::close
+
+#if 0
 nImO::Value * nImO::Message::convertToValue(void)
 const
 {
@@ -547,37 +418,43 @@ nImO::Message::getBytes(size_t & length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
+    const uint8_t * result = NULL;
+
     length = 0;
-    if (! _cachedOutput)
+    if (_closed)
     {
-        size_t cachedSize = getLength();
-
-        _cachedOutput = new uint8_t[cachedSize + 1];
-        if (_cachedOutput)
+        if (! _cachedOutput)
         {
-            uint8_t * walker = _cachedOutput;
-
-            for (size_t ii = 0; _numChunks > ii; ++ii)
+            size_t cachedSize = getLength();
+    
+            _cachedOutput = new uint8_t[cachedSize + 1];
+            if (_cachedOutput)
             {
-                BufferChunk * aChunk = _buffers[ii];
-
-                if (NULL != aChunk)
+                uint8_t * walker = _cachedOutput;
+    
+                for (size_t ii = 0; _numChunks > ii; ++ii)
                 {
-                    size_t nn = aChunk->getDataSize();
-
-                    if (0 < nn)
+                    BufferChunk * aChunk = _buffers[ii];
+    
+                    if (NULL != aChunk)
                     {
-                        memcpy(walker, aChunk->getData(), nn);
-                        walker += nn;
+                        size_t nn = aChunk->getDataSize();
+    
+                        if (0 < nn)
+                        {
+                            memcpy(walker, aChunk->getData(), nn);
+                            walker += nn;
+                        }
                     }
                 }
+                *walker = '\0';
+                length = cachedSize;
             }
-            *walker = '\0';
-            length = cachedSize;
         }
+        result = _cachedOutput;
     }
-    ODL_OBJEXIT_P(_cachedOutput); //####
-    return _cachedOutput;
+    ODL_OBJEXIT_P(result); //####
+    return result;
 } // getBytes
 
 size_t
@@ -587,19 +464,36 @@ const
     ODL_OBJENTER(); //####
     size_t totalLength = 0;
     
-    if (_buffers)
+    if (_closed)
     {
-        BufferChunk * aChunk = _buffers[_numChunks - 1];
-        
-        totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
-        if (NULL != aChunk)
+        if (_buffers)
         {
-            totalLength += aChunk->getDataSize();
+            BufferChunk * aChunk = _buffers[_numChunks - 1];
+            
+            totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
+            if (NULL != aChunk)
+            {
+                totalLength += aChunk->getDataSize();
+            }
         }
+    }
+    else
+    {
+        ODL_LOG("! (_closed)"); //####
     }
     ODL_OBJEXIT_LL(totalLength); //####
     return totalLength;
 } // nImO::Message::getLength
+
+nImO::Message &
+nImO::Message::open(void)
+{
+    ODL_OBJENTER(); //####
+    reset();
+    _headerAdded = _closed = false;
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Message::open
 
 nImO::Message &
 nImO::Message::reset(void)
@@ -631,6 +525,37 @@ nImO::Message::reset(void)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::reset
+
+nImO::Message &
+nImO::Message::setValue(const Value & theValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("theValue = ", &theValue); //####
+
+    if (_closed)
+    {
+        ODL_LOG("(_closed)"); //####
+    }
+    else
+    {
+        if (_headerAdded)
+        {
+            reset();
+        }
+        uint8_t typeTag = theValue.getTypeTag();
+        uint8_t headerByte = kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +
+                             kKindOtherMessageNonEmptyValue + typeTag;
+        uint8_t trailerByte = kKindOther + kKindOtherMessage + kKindOtherMessageEndValue +
+                              kKindOtherMessageNonEmptyValue + typeTag;
+
+        appendBytes(&headerByte, sizeof(headerByte));
+        _headerAdded = true;
+        theValue.writeToMessage(*this);
+        appendBytes(&trailerByte, sizeof(trailerByte));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Message::setValue
 
 #if defined(__APPLE__)
 # pragma mark Global functions

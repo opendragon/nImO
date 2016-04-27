@@ -40,8 +40,9 @@
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOdouble.hpp>
+#include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmap.hpp>
-#include <nImO/nImOnumber.hpp>
 #include <nImO/nImOset.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
@@ -115,6 +116,29 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
+compareValueWithSquishedString(const nImO::Value & aValue,
+                               const char *        aString)
+{
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
+    nImO::StringBuffer buff;
+    int                result;
+    size_t             length;
+
+    aValue.printToStringBuffer(buff, true);
+    result = strcmp(buff.getString(length), aString);
+    ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
+    ODL_EXIT_LL(result); //####
+    return result;
+} // compareValueWithSquishedString
+
+/*! @brief Compare a Value object with a string.
+ @param aValue The object to be compared.
+ @param aString The string to be compared to.
+ @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ the object representation as a string. */
+static int
 compareValueWithString(const nImO::Value & aValue,
                        const char *        aString)
 {
@@ -167,6 +191,10 @@ doTestEmptyArrayValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar, nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, '\0'
@@ -179,6 +207,15 @@ doTestEmptyArrayValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -234,6 +271,12 @@ doTestSingularArrayValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar,
+                    '1', '2', '3', '.', '4', '5',
+                nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ',
@@ -241,7 +284,7 @@ doTestSingularArrayValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Number(123.45));
+            stuff->addValue(new nImO::Double(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -249,6 +292,15 @@ doTestSingularArrayValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -304,6 +356,15 @@ doTestSmallArrayValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar,
+                    '1', '2', '3', '.', '4', '5', ' ',
+                    't', 'r', 'u', 'e', ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                    '4', '2',
+                nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ',
@@ -314,10 +375,10 @@ doTestSmallArrayValue(const char * launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Number(123.45));
+            stuff->addValue(new nImO::Double(123.45));
             stuff->addValue(new nImO::Boolean(true));
             stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Integer(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -325,6 +386,15 @@ doTestSmallArrayValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -384,20 +454,29 @@ doTestBigArrayValue(const char * launchPath,
 
             if (bigBlob)
             {
+                std::string expectedSquishedString;
                 std::string expectedString;
                 char        numBuff[10];
 
+                expectedSquishedString += nImO::kStartArrayChar;
                 expectedString += nImO::kStartArrayChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
 
+                    if (0 != ii)
+                    {
+                        expectedSquishedString += ' ';
+                    }
                     bigBlob[ii] = aByte;
-                    stuff->addValue(new nImO::Number(static_cast<int64_t>(aByte)));
+                    stuff->addValue(new nImO::Integer(aByte));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
                     expectedString += numBuff;
+                    snprintf(numBuff, sizeof(numBuff), "%d", aByte);
+                    expectedSquishedString += numBuff;
                 }
+                expectedSquishedString += nImO::kEndArrayChar;
                 expectedString += nImO::kEndArrayChar;
                 if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
@@ -406,6 +485,15 @@ doTestBigArrayValue(const char * launchPath,
                 else
                 {
                     ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                }
+                if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                            "expectedSquishedString))"); //####
                 }
             }
             delete stuff;
@@ -462,6 +550,10 @@ doTestEmptyMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar, nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ', nImO::kEndMapChar, '\0'
@@ -474,6 +566,15 @@ doTestEmptyMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -529,6 +630,13 @@ doTestSingularBooleanMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                        '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -536,7 +644,8 @@ doTestSingularBooleanMapValue(const char * launchPath,
                         '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+
+            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -544,6 +653,15 @@ doTestSingularBooleanMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -599,14 +717,21 @@ doTestSingularIntegerMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Number(123.45));
+
+            stuff->addValue(new nImO::Integer(42),
+                            new nImO::Double(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -614,6 +739,15 @@ doTestSingularIntegerMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -669,6 +803,13 @@ doTestSingularStringMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                        nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -676,7 +817,8 @@ doTestSingularStringMapValue(const char * launchPath,
                         nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
+
+            stuff->addValue(new nImO::String("charlie"), new nImO::Double(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -684,6 +826,15 @@ doTestSingularStringMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -739,6 +890,14 @@ doTestSmallBooleanMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    'f', 'a', 'l', 's', 'e', nImO::kKeyValueSeparator, '4', '2', ' ',
+                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                    '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -747,9 +906,10 @@ doTestSmallBooleanMapValue(const char * launchPath,
                     '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
+
+            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
             stuff->addValue(new nImO::Boolean(false),
-                            new nImO::Number(static_cast<int64_t>(42)));
+                            new nImO::Integer(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -757,6 +917,15 @@ doTestSmallBooleanMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -812,6 +981,14 @@ doTestSmallIntegerMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '1', '2', nImO::kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
+                    '1', '7', nImO::kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ' ',
+                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -820,12 +997,13 @@ doTestSmallIntegerMapValue(const char * launchPath,
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Number(123.45));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)),
-                            new nImO::Number(12.345));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)),
-                            new nImO::Number(1234.5));
+
+            stuff->addValue(new nImO::Integer(42),
+                            new nImO::Double(123.45));
+            stuff->addValue(new nImO::Integer(17),
+                            new nImO::Double(12.345));
+            stuff->addValue(new nImO::Integer(12),
+                            new nImO::Double(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -833,6 +1011,15 @@ doTestSmallIntegerMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -888,6 +1075,17 @@ doTestSmallStringMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', nImO::kKeyValueSeparator,
+                        '1', '2', '3', '4', '.', '5', ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', nImO::kKeyValueSeparator,
+                        '1', '2', '3', '.', '4', '5', ' ',
+                    '"', 'l', 'i', 'm', 'a', '"', nImO::kKeyValueSeparator,
+                        '1', '2', '.', '3', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -899,9 +1097,10 @@ doTestSmallStringMapValue(const char * launchPath,
                         '1', '2', '.', '3', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::String("delta"), new nImO::Number(123.45));
-            stuff->addValue(new nImO::String("lima"), new nImO::Number(12.345));
-            stuff->addValue(new nImO::String("charlie"), new nImO::Number(1234.5));
+
+            stuff->addValue(new nImO::String("delta"), new nImO::Double(123.45));
+            stuff->addValue(new nImO::String("lima"), new nImO::Double(12.345));
+            stuff->addValue(new nImO::String("charlie"), new nImO::Double(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -909,6 +1108,15 @@ doTestSmallStringMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -964,6 +1172,10 @@ doTestEmptySetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar, nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ', nImO::kEndSetChar, '\0'
@@ -976,6 +1188,15 @@ doTestEmptySetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1031,6 +1252,12 @@ doTestSingularBooleanSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    't', 'r', 'u', 'e',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1046,6 +1273,15 @@ doTestSingularBooleanSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1101,6 +1337,12 @@ doTestSingularIntegerSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '4', '2',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1108,7 +1350,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Integer(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1116,6 +1358,15 @@ doTestSingularIntegerSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1171,6 +1422,12 @@ doTestSingularStringSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1186,6 +1443,15 @@ doTestSingularStringSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1241,6 +1507,13 @@ doTestSmallBooleanSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    'f', 'a', 'l', 's', 'e', ' ',
+                    't', 'r', 'u', 'e',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1260,6 +1533,15 @@ doTestSmallBooleanSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1315,6 +1597,15 @@ doTestSmallIntegerSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '1', '2', ' ',
+                    '1', '7', ' ',
+                    '4', '2', ' ',
+                    '1', '2', '3',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1325,14 +1616,14 @@ doTestSmallIntegerSetValue(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(123)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(123)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(17)));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(12)));
+            stuff->addValue(new nImO::Integer(123));
+            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(new nImO::Integer(17));
+            stuff->addValue(new nImO::Integer(12));
+            stuff->addValue(new nImO::Integer(123));
+            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(new nImO::Integer(17));
+            stuff->addValue(new nImO::Integer(12));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1340,6 +1631,15 @@ doTestSmallIntegerSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1395,6 +1695,15 @@ doTestSmallStringSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
+                    '"', 'b', 'e', 't', 'a', '"', ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
+                    '"', 'g', 'a', 'm', 'm', 'a', '"',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -1420,6 +1729,15 @@ doTestSmallStringSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1475,6 +1793,12 @@ doTestArrayWithArrayValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar,
+                    nImO::kStartArrayChar, nImO::kEndArrayChar,
+                nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ',
@@ -1490,6 +1814,15 @@ doTestArrayWithArrayValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1545,6 +1878,12 @@ doTestArrayWithMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar,
+                    nImO::kStartMapChar, nImO::kEndMapChar,
+                nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ',
@@ -1560,6 +1899,15 @@ doTestArrayWithMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1615,6 +1963,12 @@ doTestArrayWithSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartArrayChar,
+                    nImO::kStartSetChar, nImO::kEndSetChar,
+                nImO::kEndArrayChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartArrayChar, ' ',
@@ -1630,6 +1984,15 @@ doTestArrayWithSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1685,6 +2048,13 @@ doTestMapWithArrayValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '4', '2', nImO::kKeyValueSeparator,
+                        nImO::kStartArrayChar, nImO::kEndArrayChar,
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -1692,8 +2062,8 @@ doTestMapWithArrayValue(const char * launchPath,
                         nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Array());
+
+            stuff->addValue(new nImO::Integer(42), new nImO::Array());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1701,6 +2071,15 @@ doTestMapWithArrayValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1756,6 +2135,13 @@ doTestMapWithMapValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '4', '2', nImO::kKeyValueSeparator,
+                        nImO::kStartMapChar, nImO::kEndMapChar,
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -1763,7 +2149,8 @@ doTestMapWithMapValue(const char * launchPath,
                         nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Map());
+
+            stuff->addValue(new nImO::Integer(42), new nImO::Map());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1771,6 +2158,15 @@ doTestMapWithMapValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1826,6 +2222,13 @@ doTestMapWithSetValue(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '4', '2', nImO::kKeyValueSeparator,
+                        nImO::kStartSetChar, nImO::kEndSetChar,
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -1833,7 +2236,8 @@ doTestMapWithSetValue(const char * launchPath,
                         nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)), new nImO::Set());
+
+            stuff->addValue(new nImO::Integer(42), new nImO::Set());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1841,6 +2245,15 @@ doTestMapWithSetValue(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1896,6 +2309,13 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                        '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -1903,11 +2323,11 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
                         '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Number(12.345));
-            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
-            stuff->addValue(new nImO::String("zebra"), new nImO::Number(1234.5));
+
+            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
+            stuff->addValue(new nImO::Integer(42), new nImO::Double(12.345));
+            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
+            stuff->addValue(new nImO::String("zebra"), new nImO::Double(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1915,6 +2335,15 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -1970,17 +2399,23 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
                     '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Number(123.45));
-            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
-            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
-            stuff->addValue(new nImO::String("zebra"), new nImO::Number(1234.5));
+
+            stuff->addValue(new nImO::Integer(42), new nImO::Double(123.45));
+            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
+            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
+            stuff->addValue(new nImO::String("zebra"), new nImO::Double(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1988,6 +2423,15 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -2043,6 +2487,13 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartMapChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                    nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                nImO::kEndMapChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartMapChar, ' ',
@@ -2050,11 +2501,11 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
                     nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 nImO::kEndMapChar, '\0'
             };
-            stuff->addValue(new nImO::String("charlie"), new nImO::Number(123.45));
-            stuff->addValue(new nImO::Boolean(true), new nImO::Number(123.45));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)),
-                            new nImO::Number(12.345));
-            stuff->addValue(new nImO::Number(19.77), new nImO::Number(1.2345));
+
+            stuff->addValue(new nImO::String("charlie"), new nImO::Double(123.45));
+            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
+            stuff->addValue(new nImO::Integer(42), new nImO::Double(12.345));
+            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2062,6 +2513,15 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -2117,6 +2577,12 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    't', 'r', 'u', 'e',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -2125,8 +2591,8 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
             };
 
             stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
+            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(new nImO::Double(19.77));
             stuff->addValue(new nImO::String("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -2135,6 +2601,15 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -2190,6 +2665,12 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '4', '2',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -2197,9 +2678,9 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
+            stuff->addValue(new nImO::Integer(42));
             stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(19.77));
+            stuff->addValue(new nImO::Double(19.77));
             stuff->addValue(new nImO::String("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
@@ -2208,6 +2689,15 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -2263,6 +2753,12 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 
         if (stuff)
         {
+            static const char expectedSquishedString[] =
+            {
+                nImO::kStartSetChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                nImO::kEndSetChar, '\0'
+            };
             static const char expectedString[] =
             {
                 nImO::kStartSetChar, ' ',
@@ -2272,8 +2768,8 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 
             stuff->addValue(new nImO::String("charlie"));
             stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Number(static_cast<int64_t>(42)));
-            stuff->addValue(new nImO::Number(19.77));
+            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(new nImO::Double(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2281,6 +2777,15 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
             else
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
             }
             delete stuff;
         }
@@ -2711,15 +3216,15 @@ doTestValidArrayCompares(const char * launchPath,
             const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
     
             stuff.clear();
-            stuff.addValue(new nImO::Number(123.45));
-            stuff.addValue(new nImO::Number(200.0));
-            stuff.addValue(new nImO::Number(-25.0));
-            stuff.addValue(new nImO::Number(-60.0));
-            stuff.addValue(new nImO::Number(0.0));
+            stuff.addValue(new nImO::Double(123.45));
+            stuff.addValue(new nImO::Double(200.0));
+            stuff.addValue(new nImO::Double(-25.0));
+            stuff.addValue(new nImO::Double(-60.0));
+            stuff.addValue(new nImO::Double(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::Number aValue(testSet3l[ii]._testValue);
+                nImO::Double aValue(testSet3l[ii]._testValue);
                 
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -2787,7 +3292,7 @@ doTestValidArrayCompares(const char * launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::Number aValue(testSet3r[ii]._testValue);
+                nImO::Double aValue(testSet3r[ii]._testValue);
                 
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3498,15 +4003,15 @@ doTestValidIntegerMapCompares(const char * launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Map          stuff;
 
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(123)), new nImO::String("abc"));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(200)), new nImO::String("def"));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(-25)), new nImO::String("ghi"));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(-60)), new nImO::String("jkl"));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(0)), new nImO::String("mno"));
+        stuff.addValue(new nImO::Integer(123), new nImO::String("abc"));
+        stuff.addValue(new nImO::Integer(200), new nImO::String("def"));
+        stuff.addValue(new nImO::Integer(-25), new nImO::String("ghi"));
+        stuff.addValue(new nImO::Integer(-60), new nImO::String("jkl"));
+        stuff.addValue(new nImO::Integer(0), new nImO::String("mno"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number aValue(testSet1l[ii]._testValue);
+            bool          valid = false;
+            nImO::Integer aValue(testSet1l[ii]._testValue);
             
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -3573,8 +4078,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number aValue(testSet1r[ii]._testValue);
+            bool          valid = false;
+            nImO::Integer aValue(testSet1r[ii]._testValue);
             
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4325,15 +4830,15 @@ doTestValidIntegerSetCompares(const char * launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Set          stuff;
 
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(123)));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(200)));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(-25)));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(-60)));
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(0)));
+        stuff.addValue(new nImO::Integer(123));
+        stuff.addValue(new nImO::Integer(200));
+        stuff.addValue(new nImO::Integer(-25));
+        stuff.addValue(new nImO::Integer(-60));
+        stuff.addValue(new nImO::Integer(0));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number aValue(testSet1l[ii]._testValue);
+            bool          valid = false;
+            nImO::Integer aValue(testSet1l[ii]._testValue);
             
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -4400,8 +4905,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool         valid = false;
-            nImO::Number aValue(testSet1r[ii]._testValue);
+            bool          valid = false;
+            nImO::Integer aValue(testSet1r[ii]._testValue);
             
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4733,13 +5238,14 @@ doTestInvalidArrayCompares(const char * launchPath,
         bool          valid = false;
         nImO::Array   leftValue;
         nImO::Boolean rightValue1;
-        nImO::Number  rightValue2;
+        nImO::Double  rightValue2;
         nImO::String  rightValue3;
         nImO::Blob    rightValue4;
         nImO::Array   rightValue5;
         nImO::Map     rightValue6;
         nImO::Set     rightValue7;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        nImO::Integer rightValue8;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7, &rightValue8 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean);
@@ -4851,13 +5357,14 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
     {
         bool          valid = false;
         nImO::Map     leftValue;
-        nImO::Number  rightValue1;
+        nImO::Integer rightValue1;
         nImO::String  rightValue2;
         nImO::Blob    rightValue3;
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Double  rightValue7;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean(false), new nImO::String("false"));
@@ -4977,12 +5484,9 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
         nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(42)),
-                           new nImO::Number(123.45));
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(17)),
-                           new nImO::Number(12.345));
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(12)),
-                           new nImO::Number(1234.5));
+        leftValue.addValue(new nImO::Integer(42), new nImO::Double(123.45));
+        leftValue.addValue(new nImO::Integer(17), new nImO::Double(12.345));
+        leftValue.addValue(new nImO::Integer(12), new nImO::Double(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value & aRightValue = *rightValues[ii];
@@ -5089,13 +5593,14 @@ doTestInvalidStringMapCompares(const char * launchPath,
     {
         bool          valid = false;
         nImO::Map     leftValue;
-        nImO::Number  rightValue1;
+        nImO::Double  rightValue1;
         nImO::Boolean rightValue2;
         nImO::Blob    rightValue3;
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Integer rightValue7;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::String("abc"), new nImO::String("123"));
@@ -5207,13 +5712,14 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
     {
         bool          valid = false;
         nImO::Set     leftValue;
-        nImO::Number  rightValue1;
+        nImO::Double  rightValue1;
         nImO::String  rightValue2;
         nImO::Blob    rightValue3;
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Integer rightValue7;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean(false));
@@ -5333,9 +5839,9 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
         nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(42)));
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(17)));
-        leftValue.addValue(new nImO::Number(static_cast<int64_t>(12)));
+        leftValue.addValue(new nImO::Integer(42));
+        leftValue.addValue(new nImO::Integer(17));
+        leftValue.addValue(new nImO::Integer(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value & aRightValue = *rightValues[ii];
@@ -5442,13 +5948,14 @@ doTestInvalidStringSetCompares(const char * launchPath,
     {
         bool          valid = false;
         nImO::Set     leftValue;
-        nImO::Number  rightValue1;
+        nImO::Double  rightValue1;
         nImO::Boolean rightValue2;
         nImO::Blob    rightValue3;
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Integer rightValue7;
+        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::String("abc"));
@@ -5735,7 +6242,7 @@ doTestBooleanMapSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number());
+            iter = stuff.find(nImO::Integer());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -5800,8 +6307,8 @@ doTestIntegerMapSearches(const char * launchPath,
         nImO::String *      string17 = new nImO::String("17");
         nImO::String *      string12;
 
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(17)), string17);
-        iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+        stuff.addValue(new nImO::Integer(17), string17);
+        iter = stuff.find(nImO::Integer(12));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -5809,7 +6316,7 @@ doTestIntegerMapSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(17)));
+            iter = stuff.find(nImO::Integer(17));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -5823,7 +6330,7 @@ doTestIntegerMapSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            iter = stuff.find(nImO::Integer(12));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -5833,8 +6340,8 @@ doTestIntegerMapSearches(const char * launchPath,
         if (0 == result)
         {
             string12 = new nImO::String("12");
-            stuff.addValue(new nImO::Number(static_cast<int64_t>(12)), string12);
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            stuff.addValue(new nImO::Integer(12), string12);
+            iter = stuff.find(nImO::Integer(12));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -5970,7 +6477,7 @@ doTestStringMapSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number());
+            iter = stuff.find(nImO::Integer());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6061,7 +6568,7 @@ doTestBooleanSetSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number());
+            iter = stuff.find(nImO::Integer());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6124,8 +6631,8 @@ doTestIntegerSetSearches(const char * launchPath,
         nImO::Set           stuff;
         nImO::Set::iterator iter;
 
-        stuff.addValue(new nImO::Number(static_cast<int64_t>(17)));
-        iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+        stuff.addValue(new nImO::Integer(17));
+        iter = stuff.find(nImO::Integer(12));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6133,7 +6640,7 @@ doTestIntegerSetSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(17)));
+            iter = stuff.find(nImO::Integer(17));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6142,7 +6649,7 @@ doTestIntegerSetSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            iter = stuff.find(nImO::Integer(12));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6151,8 +6658,8 @@ doTestIntegerSetSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(new nImO::Number(static_cast<int64_t>(12)));
-            iter = stuff.find(nImO::Number(static_cast<int64_t>(12)));
+            stuff.addValue(new nImO::Integer(12));
+            iter = stuff.find(nImO::Integer(12));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6270,7 +6777,7 @@ doTestStringSetSearches(const char * launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Number());
+            iter = stuff.find(nImO::Integer());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####

@@ -40,7 +40,6 @@
 # define nImOstringBuffer_HPP_ /* Header guard */
 
 # include <nImO/nImOcommon.hpp>
-//# include <nImO/nImObufferChunk.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

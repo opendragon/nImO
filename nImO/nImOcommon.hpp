@@ -55,7 +55,7 @@
 # include <cmath>
 # include <csignal>
 # include <cstdlib>
-//# include <cstring>
+# include <cstring>
 # include <iostream>
 # include <list>
 # include <map>
@@ -152,6 +152,175 @@ namespace nImO
 {
     // Type definitions.
 
+    /*! @brief The tag values for message contents. */
+    enum DataKind
+    {
+        /*! @brief The mask for the kind of data that follows. */
+        kKindMask = 0x00C0,
+        
+        /*! @brief The data that follows is a signed integer value. */
+        kKindSignedInteger = 0x0000,
+        
+            /*! @brief The mask for the size of the signed integer value. */
+            kKindSignedIntegerSizeMask = 0x0020,
+        
+            /*! @brief The signed integer value is in the range -16..15 and is contained
+             within this byte. */
+            kKindSignedIntegerShortValue = 0x0000,
+        
+                /*! @brief The mask for the value of the signed integer. */
+                kKindSignedIntegerShortValueValueMask = 0x001F,
+        
+            /*! @brief The signed integer value follows this byte. */
+            kKindSignedIntegerLongValue = 0x0020,
+        
+                /*! @brief The mask for the count of the number of bytes (1..8) that contain
+                 the signed integer value.
+                 Note that the count contained in the byte is one less than the actual count. */
+                kKindSignedIntegerLongValueCountMask = 0x0007,
+        
+        /*! @brief The data that follows is one or more floating-point values. */
+        kKindFloatingPoint = 0x0040,
+        
+            /*! @brief The mask for the size of the count of floating-point values. */
+            kKindFloatingPointCountMask = 0x0020,
+        
+            /*! @brief The count of the number of floating-point values is in the range 1..16
+             and is contained within this byte.
+             Note that the count contained in the byte is one less than the actual count. */
+            kKindFloatingPointShortCount = 0x0000,
+        
+                /*! @brief The mask for the count of the number of floating-point values. */
+                kKindFloatingPointShortCountMask = 0x001F,
+        
+            /*! @brief The count of the number of floating-point values is contained in the
+             next byte(s) and the size of the count (1..8) is contained in this byte.
+             Note that the size of the count contained in the byte is one less than the actual
+             size of the count; the count itself is the actual count. */
+            kKindFloatingPointLongCount = 0x0020,
+        
+                /*! @brief The mask for the size of the count of floating-point values. */
+                kKindFloatingPointLongCountMask = 0x0007,
+        
+        /*! @brief The data that follows is a String or Blob. */
+        kKindStringOrBlob = 0x0080,
+        
+            /*! @brief The mask for the type of data - String or Blob. */
+            kKindStringOrBlobTypeMask = 0x0020,
+        
+            /*! @brief The data that follows is a non-@c NULL-terminated String. */
+            kKindStringOrBlobStringValue = 0x0000,
+        
+            /*! @brief The data that follows is a Blob. */
+            kKindStringOrBlobBlobValue = 0x0020,
+        
+            /*! @brief The mask for the length of the data that follows. */
+            kKindStringOrBlobLengthMask = 0x0010,
+        
+            /*! @brief The length of the data is in the range 0..15 and is contained within
+             this byte. */
+            kKindStringOrBlobShortLengthValue = 0x0000,
+    
+                /*! @brief The mask for the length of the data. */
+                kKindStringOrBlobShortLengthMask = 0x000F,
+        
+            /*! @brief The length of the data is contained in the next byte(s). */
+            kKindStringOrBlobLongLengthValue = 0x0010,
+        
+                /*! @brief The mask for the count of the number of bytes (1..8) that contain
+                 the length of the data.
+                 Note that the count contained in the byte is one less than the actual count;
+                 the length is the actual length. */
+                kKindStringOrBlobLongLengthMask = 0x0007,
+        
+        /*! @brief The data that follows is a Boolean or a Container. */
+        kKindOther = 0x00C0,
+        
+            /*! @brief The mask for the type of value that follows. */
+            kKindOtherTypeMask = 0x0030,
+        
+            /*! @brief The value is a Boolean. */
+            kKindOtherBoolean = 0x0000,
+        
+                /*! @brief The mask for the value of the Boolean. */
+                kKindOtherBooleanValueMask = 0x0001,
+        
+                /*! @brief The value is @c false. */
+                kKindOtherBooleanFalseValue = 0x0000,
+        
+                /*! @brief The value is @c true. */
+                kKindOtherBooleanTrueValue = 0x00001,
+        
+            /*! @brief The value that follows is a Container. */
+            kKindOtherContainerStart = 0x0010,
+        
+            /*! @brief The value that preceeded this was a Container. */
+            kKindOtherContainerEnd = 0x0020,
+        
+            /*! @brief The mask for the type of Container. */
+            kKindOtherContainerTypeMask = 0x000C,
+        
+            /*! @brief The container is an Array. */
+            kKindOtherContainerTypeArray = 0x0000,
+        
+            /*! @brief The container is a Map. */
+            kKindOtherContainerTypeMap = 0x0004,
+        
+            /*! @brief The container is a Set. */
+            kKindOtherContainerTypeSet = 0x0008,
+        
+            /*! @brief The mask for the empty / non-empty state of the Container. */
+            kKindOtherContainerEmptyMask = 0x0001,
+        
+            /*! @brief The Container is empty; no count of the number of elements follows. */
+            kKindOtherContainerEmptyValue = 0x0000,
+        
+            /*! @brief The Container is non-empty and the count of the number of elements
+             follows, as a signed integer value. */
+            kKindOtherContainerNonEmptyValue = 0x0001,
+        
+            /*! @brief The value that follows is a Message. */
+            kKindOtherMessage = 0x0030,
+        
+                /*! @brief The mask for the start / end state of the Message. */
+                kKindOtherMessageStartEndMask = 0x0008,
+        
+                /*! @brief The data that follows form a Message. */
+                kKindOtherMessageStartValue = 0x0000,
+        
+                /*! @brief The data that preceeded this was a Message. */
+                kKindOtherMessageEndValue = 0x0008,
+        
+                /*! @brief The mask for the empty / non-empty state of the Message. */
+                kKindOtherMessageEmptyMask = 0x0004,
+        
+                /*! @brief The Message is empty. */
+                kKindOtherMessageEmptyValue = 0x0000,
+        
+                /*! @brief The Message is non-empty; the type flag (top two-bits) of the first
+                 Value in the Message, if the start of the Message or of the last Value in the
+                 Message, if the end of the Message, is contained in the byte. */
+                kKindOtherMessageNonEmptyValue = 0x0004,
+        
+                /*! @brief The mask for the type of the immediately enclosed Value in the
+                 Message - the first Value, if the start of the Message, and the last Value if
+                 the end of the Message. */
+                kKindOtherMessageExpectedTypeMask = 0x0003,
+
+                /*! @brief The enclosed value in the Message is a signed integer. */
+                kKindOtherMessageExpectedSignedIntegerValue = 0x0000,
+                
+                /*! @brief The enclosed value in the Message is a float-point number. */
+                kKindOtherMessageExpectedFloatingPointValue = 0x0001,
+
+                /*! @brief The enclosed value in the Message is a String or Blob. */
+                kKindOtherMessageExpectedStringOrBlobValue = 0x0002,
+
+                /*! @brief The enclosed value in the Message is a Boolean or Container. */
+                kKindOtherMessageExpectedOtherValue = 0x0003
+
+    }; // DataKind
+
     /*! @brief Whether a Value is enumerable. */
     enum Enumerable
     {
@@ -193,6 +362,9 @@ namespace nImO
     // Forward reference.
     class BaseArgumentDescriptor;
 
+    /*! @brief A byte array that is the same size as an integer. */
+    typedef uint8_t NumberAsBytes[sizeof(int64_t)];
+
     /*! @brief A sequence of argument descriptors. */
     typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
 
@@ -205,6 +377,15 @@ namespace nImO
     typedef std::vector<std::string> StringVector;
 
     // Methods.
+
+    /*! @brief Convert a floating-point value into a set of bytes and return the minimum
+     number of bytes needed to represent the value.
+     @param inValue The number to be converted.
+     @param outString The byte string to be filled.
+     @returns The minimum number of bytes needed to represent the value. */
+    void
+    D2B(const double    inValue,
+        NumberAsBytes & outString);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
@@ -220,6 +401,15 @@ namespace nImO
      @returns A random string of hexadecimal digits. */
     std::string
     GetRandomHexString(void);
+
+    /*! @brief Convert an integer value into a set of bytes and return the minimum
+     number of bytes needed to represent the value.
+     @param inValue The number to be converted.
+     @param outString The byte string to be filled.
+     @returns The minimum number of bytes needed to represent the value. */
+    size_t
+    I2B(const int64_t   inValue,
+        NumberAsBytes & outString);
 
     /*! @brief Perform initialization of internal resources.
      @param progName The name of the executing program.

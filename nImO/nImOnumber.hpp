@@ -75,97 +75,14 @@ namespace nImO
         /*! @brief The constructor. */
         Number(void);
 
-        /*! @brief The constructor.
-          @param initialValue The initial value for the object. */
-        explicit Number(const int64_t initialValue);
-
-        /*! @brief The constructor.
-          @param initialValue The initial value for the object. */
-        explicit Number(const double initialValue);
-
-        /*! @brief The copy constructor.
-         @param other The object to be copied. */
-        Number(const Number & other);
-
         /*! @brief The destructor. */
+        virtual
         ~Number(void);
-
-        /*! @brief Return a copy of the object.
-         @returns Returns a copy of the object. */
-        virtual Value *
-        clone(void)
-        const;
-
-        /*! @brief Return the enumeraton type of an object.
-         @returns The enumeration type of an object. */
-        virtual inline Enumerable
-        enumerationType(void)
-        const
-        {
-            return (_valueIsFloat ? kEnumerableNotEnumerable : kEnumerableInteger);
-        } // enumerationType
-
-        /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
-        equalTo(const Value & other,
-                bool &        validComparison)
-        const;
-
-        /*! @brief Return the value of the object.
-         @returns The value of the object. */
-        inline double getDoubleValue(void)
-        const
-        {
-            return (_valueIsFloat ? _floatValue : _intValue);
-        } // getDoubleValue
 
         /*! @brief Return the characters that can appear as the start of a Number.
          @returns The characters that can appear as the start of a Number. */
         static const char *
         getInitialCharacters(void);
-
-        /*! @brief Return the value of the object.
-         @returns The value of the object. */
-        inline int64_t getIntegerValue(void)
-        const
-        {
-            return (_valueIsFloat ? static_cast<int64_t>(_floatValue) : _intValue);
-        } // getIntegerValue
-
-        /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
-        greaterThan(const Value & other,
-                    bool &        validComparison)
-        const;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
-        greaterThanOrEqual(const Value & other,
-                           bool &        validComparison)
-        const;
-
-        /*! @brief Returns @c true if the associated value is a floating-point number and @c false
-         otherwise.
-         @returns @c true if the associated value is a floating-point number and @c false
-         otherwise. */
-        inline bool
-        isFloat(void)
-        const
-        {
-            return _valueIsFloat;
-        } // isFloat
 
         /*! @brief Return @c true if the object is a Number.
          @returns @c true if the object is a Number and @c false otherwise. */
@@ -176,50 +93,6 @@ namespace nImO
             return true;
         } // isNumber
 
-        /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
-        lessThan(const Value & other,
-                 bool &        validComparison)
-        const;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
-        lessThanOrEqual(const Value & other,
-                        bool &        validComparison)
-        const;
-
-        /*! @brief The assignment operator.
-         @param other The object to be copied.
-         @returns The updated object. */
-        Number &
-        operator =(const Number & other);
-
-        /*! @brief The assignment operator.
-         @param value The value to be assigned.
-         @returns The updated object. */
-        Number &
-        operator =(const double value);
-
-        /*! @brief The assignment operator.
-         @param value The value to be assigned.
-         @returns The updated object. */
-        Number &
-        operator =(const int64_t value);
-
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
-        virtual void
-        printToStringBuffer(StringBuffer & outBuffer)
-        const;
-        
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param inBuffer The buffer to be scanned.
          @param position Where in the buffer to start.
@@ -242,16 +115,6 @@ namespace nImO
 
     private :
         // Private fields.
-
-        /*! @brief The associated value, if it is floating point. */
-        int64_t _intValue;
-
-        /*! @brief The associated value, if it is an integer. */
-        double _floatValue;
-
-        /*! @brief @c true if the associated value is a floating-point number and @c false
-         otherwise. */
-        bool _valueIsFloat;
 
     }; // Number
 

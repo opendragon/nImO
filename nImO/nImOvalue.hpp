@@ -54,6 +54,7 @@
 
 namespace nImO
 {
+    class Message;
     class StringBuffer;
 
     /*! @brief A class to provide general value behaviours. */
@@ -89,6 +90,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The destructor. */
+        virtual
         ~Value(void);
 
         /*! @brief Return a copy of the object.
@@ -122,6 +124,15 @@ namespace nImO
             validComparison = (&other == this);
             return (&other == this);
         } // equalTo
+
+        /*! @brief Return the type tag for the Value for use with Messages.
+         @returns The type tag for the Value for use with Messages. */
+        virtual inline uint8_t
+        getTypeTag(void)
+        const
+        {
+            return 0;
+        } // getTypeTag
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -190,6 +201,24 @@ namespace nImO
         {
             return false;
         } // isContainer
+
+        /*! @brief Return @c true if the object is a Double.
+         @returns @c true if the object is a Double and @c false otherwise. */
+        virtual inline bool
+        isDouble(void)
+        const
+        {
+            return false;
+        } // isDouble
+
+        /*! @brief Return @c true if the object is an Integer.
+         @returns @c true if the object is an Integer and @c false otherwise. */
+        virtual inline bool
+        isInteger(void)
+        const
+        {
+            return false;
+        } // isInteger
 
         /*! @brief Return @c true if the object is a Map.
          @returns @c true if the object is a Map and @c false otherwise. */
@@ -328,9 +357,12 @@ namespace nImO
         } // operator !=
 
         /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to. */
+         @param outBuffer The buffer to be appended to.
+         @param squished @c true if the output has no unnecessary characters and @c false if it
+         is as readable as possible. */
         virtual inline void
-        printToStringBuffer(StringBuffer & outBuffer)
+        printToStringBuffer(StringBuffer & outBuffer,
+                            const bool     squished = false)
         const
         {
         } // printToStringBuffer
@@ -342,6 +374,14 @@ namespace nImO
         static Value *
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t &             position);
+
+        /*! @brief Add a binary representation of the object to the message.
+         @param outMessage The Message to be appended to. */
+        virtual inline void
+        writeToMessage(Message & outMessage)
+        const
+        {
+        } // writeToMessage
  
     protected :
         // Protected methods.

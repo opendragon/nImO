@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       Tests/nImOmessageTest.cpp
+//  File:       Tests/nImOmessageExtractTest.cpp
 //
 //  Project:    nImO
 //
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-04-24
+//  Created:    2016-04-28
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -137,6 +137,7 @@ compareValueWithString(const nImO::Value & aValue,
 } // compareValueWithString
 #endif//0
 
+#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
@@ -4722,6 +4723,7 @@ doTestStringSetMessage(const char * launchPath,
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4767,6 +4769,7 @@ main(int      argc,
                 nImO::SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
+#if 0
                     case 1 :
                         result = doTestEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -4934,7 +4937,7 @@ main(int      argc,
                     case 165 :
                         result = doTestStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
-
+#endif//0
                     default :
                         break;
 
@@ -4947,7 +4950,7 @@ main(int      argc,
         }
         else
         {
-            ODL_LOG("! (2 < --argc)"); //####
+            ODL_LOG("! (0 < --argc)"); //####
         }
     }
     catch (...)

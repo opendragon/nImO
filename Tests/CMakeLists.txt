@@ -608,7 +608,7 @@ add_test(NAME TestInvalidImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 f "'abc' 
 # Test parse of implicit array
 add_test(NAME TestInvalidImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 f "(1 2) {" "")
 
-set(THIS_TARGET nImOmessageTest)
+set(THIS_TARGET nImOmessageInsertTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -623,7 +623,7 @@ configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOmessageTest.cpp
+               nImOmessageInsertTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -641,90 +641,123 @@ add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -c
 endif(APPLE)
 
 # Test empty message
-add_test(NAME TestEmptyMessage COMMAND ${THIS_TARGET} 1)
+add_test(NAME TestInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
 # Test message with boolean
-add_test(NAME TestBooleanMessage COMMAND ${THIS_TARGET} 2)
+add_test(NAME TestInsertBooleanMessage COMMAND ${THIS_TARGET} 2)
 # Test message with tiny integer
-add_test(NAME TestTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
+add_test(NAME TestInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
 # Test message with short integer 
-add_test(NAME TestShortIntegerMessage COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestInsertShortIntegerMessage COMMAND ${THIS_TARGET} 4)
 # Test message with medium integer
-add_test(NAME TestMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
+add_test(NAME TestInsertMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
 # Test message with big integer 
-add_test(NAME TestBigIntegerMessage COMMAND ${THIS_TARGET} 6)
+add_test(NAME TestInsertBigIntegerMessage COMMAND ${THIS_TARGET} 6)
 # Test message with empty string
-add_test(NAME TestEmptyStringMessage COMMAND ${THIS_TARGET} 7)
+add_test(NAME TestInsertEmptyStringMessage COMMAND ${THIS_TARGET} 7)
 # Test message with short string
-add_test(NAME TestShortStringMessage COMMAND ${THIS_TARGET} 8)
+add_test(NAME TestInsertShortStringMessage COMMAND ${THIS_TARGET} 8)
 # Test message with medium string
-add_test(NAME TestMediumStringMessage COMMAND ${THIS_TARGET} 9)
+add_test(NAME TestInsertMediumStringMessage COMMAND ${THIS_TARGET} 9)
 # Test message with empty blob
-add_test(NAME TestEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
+add_test(NAME TestInsertEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
 # Test message with short blob
-add_test(NAME TestShortBlobMessage COMMAND ${THIS_TARGET} 11)
+add_test(NAME TestInsertShortBlobMessage COMMAND ${THIS_TARGET} 11)
 # Test message with medium blob
-add_test(NAME TestMediumBlobMessage COMMAND ${THIS_TARGET} 12)
+add_test(NAME TestInsertMediumBlobMessage COMMAND ${THIS_TARGET} 12)
 # Test message with single float
-add_test(NAME TestSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+add_test(NAME TestInsertSingleFloatMessage COMMAND ${THIS_TARGET} 13)
 
 # Test message with empty array
-add_test(NAME TestEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+add_test(NAME TestInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
 # Test message with empty map
-add_test(NAME TestEmptyMapMessage COMMAND ${THIS_TARGET} 101)
+add_test(NAME TestInsertEmptyMapMessage COMMAND ${THIS_TARGET} 101)
 # Test message with empty set
-add_test(NAME TestEmptySetMessage COMMAND ${THIS_TARGET} 102)
+add_test(NAME TestInsertEmptySetMessage COMMAND ${THIS_TARGET} 102)
 
 # Test message with array with one boolean
-add_test(NAME TestArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 110)
+add_test(NAME TestInsertArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 110)
 # Test message with array with one integer
-add_test(NAME TestArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
+add_test(NAME TestInsertArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
 # Test message with array with one double
-add_test(NAME TestArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 112)
+add_test(NAME TestInsertArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 112)
 # Test message with array with one string
-add_test(NAME TestArrayWithOneStringMessage COMMAND ${THIS_TARGET} 113)
+add_test(NAME TestInsertArrayWithOneStringMessage COMMAND ${THIS_TARGET} 113)
 # Test message with array with one blob
-add_test(NAME TestArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 114)
+add_test(NAME TestInsertArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 114)
 # Test message with array with one empty array
-add_test(NAME TestArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 115)
+add_test(NAME TestInsertArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 115)
 # Test message with array with one empty map
-add_test(NAME TestArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
+add_test(NAME TestInsertArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
 # Test message with array with one empty set
-add_test(NAME TestArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
+add_test(NAME TestInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
 
 # Test message with array with two booleans
-add_test(NAME TestArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
+add_test(NAME TestInsertArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
 # Test message with array with two integers
-add_test(NAME TestArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
+add_test(NAME TestInsertArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
 # Test message with array with two doubles
-add_test(NAME TestArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
+add_test(NAME TestInsertArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
 # Test message with array with two strings
-add_test(NAME TestArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
+add_test(NAME TestInsertArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
 # Test message with array with two blobs
-add_test(NAME TestArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
+add_test(NAME TestInsertArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
 # Test message with array with two empty arrays
-add_test(NAME TestArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
+add_test(NAME TestInsertArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
 # Test message with array with two empty maps
-add_test(NAME TestArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
+add_test(NAME TestInsertArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
 # Test message with array with two empty sets
-add_test(NAME TestArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
+add_test(NAME TestInsertArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
 # Test message with array with empty array and empty map
-add_test(NAME TestArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
+add_test(NAME TestInsertArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
 # Test message with array with empty map and empty set
-add_test(NAME TestArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
+add_test(NAME TestInsertArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
 # Test message with array with empty set and empty array
-add_test(NAME TestArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+add_test(NAME TestInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
 # Test message with array with many doubles
-add_test(NAME TestArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
+add_test(NAME TestInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
 
 # Test message with boolean map
-add_test(NAME TestBooleanMapMessage COMMAND ${THIS_TARGET} 160)
+add_test(NAME TestInsertBooleanMapMessage COMMAND ${THIS_TARGET} 160)
 # Test message with integer map
-add_test(NAME TestIntegerMapMessage COMMAND ${THIS_TARGET} 161)
+add_test(NAME TestInsertIntegerMapMessage COMMAND ${THIS_TARGET} 161)
 # Test message with string map
-add_test(NAME TestStringMapMessage COMMAND ${THIS_TARGET} 162)
+add_test(NAME TestInsertStringMapMessage COMMAND ${THIS_TARGET} 162)
 # Test message with boolean set
-add_test(NAME TestBooleanSetMessage COMMAND ${THIS_TARGET} 163)
+add_test(NAME TestInsertBooleanSetMessage COMMAND ${THIS_TARGET} 163)
 # Test message with integer set
-add_test(NAME TestIntegerSetMessage COMMAND ${THIS_TARGET} 164)
+add_test(NAME TestInsertIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
-add_test(NAME TestStringSetMessage COMMAND ${THIS_TARGET} 165)
+add_test(NAME TestInsertStringSetMessage COMMAND ${THIS_TARGET} 165)
+
+set(THIS_TARGET nImOmessageExtractTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else(WIN32)
+    set(VERS_RESOURCE "")
+endif(WIN32)
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImOmessageExtractTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+if(APPLE)
+add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                   libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                   libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
+endif(APPLE)
+

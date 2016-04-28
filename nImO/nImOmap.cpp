@@ -38,6 +38,7 @@
 
 #include "nImOmap.hpp"
 
+#include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
@@ -272,7 +273,7 @@ nImO::Map::getTerminalCharacters(void)
 {
     ODL_ENTER(); //####
     static const char terminalChars[] = { kEndMapChar, kKeyValueSeparator, '\0' };
-    
+
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Map::getTerminalCharacters
@@ -411,7 +412,7 @@ const
         MapValue aValue = *walker;
 
         if ((! squished) || (! first))
-        {       
+        {
             outBuffer.addChar(' ');
         }
         aValue.first->printToStringBuffer(outBuffer);
@@ -446,7 +447,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     Map *   result = new Map;
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
-    
+
     ODL_P1("result <- ", result); //####
     ODL_C1("aChar <- ", aChar); //####
     ODL_LL1("localIndex <- ", localIndex); //####
@@ -476,7 +477,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             else
             {
                 Value * keyValue = Value::readFromStringBuffer(inBuffer, localIndex);
-                
+
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == keyValue)
                 {
@@ -486,7 +487,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 else
                 {
                     Enumerable elementType = keyValue->enumerationType();
-                    
+
                     if ((kEnumerableUnknown == elementType) ||
                         (kEnumerableNotEnumerable == elementType))
                     {
@@ -533,7 +534,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     {
                         ++localIndex;
                         Value * assocValue = Value::readFromStringBuffer(inBuffer, localIndex);
-                        
+
                         if (NULL == assocValue)
                         {
                             ODL_LOG("(NULL == assocValue)"); //####
@@ -565,13 +566,48 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Map::readFromStringBuffer
- 
+
 void
-nImO::Map::writeToMessage(Message & outMessage)
+nImO::Map::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
+    if (0 < inherited2::size())
+    {
+        ODL_LOG("(0 < inherited2::size())"); //####
+        uint8_t startMap = kKindOther + kKindOtherContainerStart +
+                             kKindOtherContainerTypeMap +
+                             kKindOtherContainerNonEmptyValue;
+        uint8_t endMap = kKindOther + kKindOtherContainerEnd +
+                           kKindOtherContainerTypeMap +
+                           kKindOtherContainerNonEmptyValue;
+        Integer count(inherited2::size() + kKindIntegerShortValueMinValue - 1);
+
+        outMessage.appendBytes(&startMap, sizeof(startMap));
+        count.writeToMessage(outMessage);
+        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        {
+            MapValue aValue = *walker;
+
+            aValue.first->writeToMessage(outMessage);
+            aValue.second->writeToMessage(outMessage);
+        }
+        outMessage.appendBytes(&endMap, sizeof(endMap)); 
+    }
+    else
+    {
+        ODL_LOG("! (0 < inherited2::size())"); //####
+        static const uint8_t stuff[] =
+        {
+            kKindOther + kKindOtherContainerStart + kKindOtherContainerTypeMap +
+              kKindOtherContainerEmptyValue,
+            kKindOther + kKindOtherContainerEnd + kKindOtherContainerTypeMap +
+              kKindOtherContainerEmptyValue
+        };
+
+        outMessage.appendBytes(stuff, sizeof(stuff));
+    }
     ODL_OBJEXIT(); //####
 } // nImO::Map::writeToMessage
 

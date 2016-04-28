@@ -92,7 +92,7 @@ namespace nImO
         StringBuffer &
         addBytes(const uint8_t * inBytes,
                  const size_t    numBytes);
-        
+
         /*! @brief Add a character to the buffer.
          @param aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
@@ -136,7 +136,7 @@ namespace nImO
          @returns The Value represented by the buffer contents. */
         Value * convertToValue(void)
         const;
-        
+
         /*! @brief Return the character found at a particular index.
          @param index The zero-based location in the buffer.
          @returns The character found at the provided index, or the 'end' character if the index
@@ -215,6 +215,9 @@ namespace nImO
         /*! @brief The cached value of the buffer. */
         char * _cachedOutput;
 
+        /*! @brief The cached value of the length of the buffer. */
+        size_t _cachedLength;
+        
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
 

@@ -122,7 +122,7 @@ compareValueWithString(const nImO::Value & aValue,
     nImO::StringBuffer buff;
     int                result;
     size_t             length;
-    
+
     aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
     ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
@@ -367,14 +367,14 @@ doTestParseArrayValue(const bool   expected,
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer buff;
-        
+
         buff.addString(inString);
         nImO::Value * readValue = buff.convertToValue();
-        
+
         if ((NULL != readValue) == expected)
         {
             result = 0;
@@ -440,14 +440,14 @@ doTestParseSetValue(const bool   expected,
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer buff;
-        
+
         buff.addString(inString);
         nImO::Value * readValue = buff.convertToValue();
-        
+
         if ((NULL != readValue) == expected)
         {
             result = 0;
@@ -513,14 +513,14 @@ doTestParseMapValue(const bool   expected,
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer buff;
-        
+
         buff.addString(inString);
         nImO::Value * readValue = buff.convertToValue();
-        
+
         if ((NULL != readValue) == expected)
         {
             result = 0;
@@ -586,14 +586,14 @@ doTestParseImplicitArrayValue(const bool   expected,
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     int result = 1;
-    
+
     try
     {
         nImO::StringBuffer buff;
-        
+
         buff.addString(inString);
         nImO::Value * readValue = buff.convertToValue();
-        
+
         if ((NULL != readValue) == expected)
         {
             result = 0;
@@ -707,15 +707,15 @@ main(int      argc,
                     case 5 :
                         result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
                         break;
-                        
+
                     case 6 :
                         result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
                         break;
-                        
+
                     case 7 :
                         result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
                         break;
-                        
+
                     default :
                         break;
 

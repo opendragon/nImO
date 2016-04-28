@@ -38,6 +38,7 @@
 
 #include "nImOset.hpp"
 
+#include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
@@ -264,7 +265,7 @@ nImO::Set::getTerminalCharacters(void)
 {
     ODL_ENTER(); //####
     static const char terminalChars[] = { kEndSetChar, '\0' };
-    
+
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Set::getTerminalCharacters
@@ -405,7 +406,7 @@ const
         if (NULL != aValue)
         {
             if ((! squished) || (! first))
-            {        
+            {
                 outBuffer.addChar(' ');
             }
             aValue->printToStringBuffer(outBuffer);
@@ -431,7 +432,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     Set *   result = new Set;
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
-    
+
     ODL_P1("result <- ", result); //####
     ODL_C1("aChar <- ", aChar); //####
     ODL_LL1("localIndex <- ", localIndex); //####
@@ -461,7 +462,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             else
             {
                 Value * element = Value::readFromStringBuffer(inBuffer, localIndex);
-                
+
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == element)
                 {
@@ -471,7 +472,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                 else
                 {
                     Enumerable elementType = element->enumerationType();
-                    
+
                     if ((kEnumerableUnknown == elementType) ||
                         (kEnumerableNotEnumerable == elementType))
                     {
@@ -518,13 +519,50 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Set::readFromStringBuffer
- 
+
 void
-nImO::Set::writeToMessage(Message & outMessage)
+nImO::Set::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
+    if (0 < inherited2::size())
+    {
+        ODL_LOG("(0 < inherited2::size())"); //####
+        uint8_t startSet = kKindOther + kKindOtherContainerStart +
+                             kKindOtherContainerTypeSet +
+                             kKindOtherContainerNonEmptyValue;
+        uint8_t endSet = kKindOther + kKindOtherContainerEnd +
+                           kKindOtherContainerTypeSet +
+                           kKindOtherContainerNonEmptyValue;
+        Integer count(inherited2::size() + kKindIntegerShortValueMinValue - 1);
+
+        outMessage.appendBytes(&startSet, sizeof(startSet));
+        count.writeToMessage(outMessage);
+        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        {
+            Value * aValue = *walker;
+
+            if (aValue)
+            {
+                aValue->writeToMessage(outMessage);
+            }
+        }
+        outMessage.appendBytes(&endSet, sizeof(endSet)); 
+    }
+    else
+    {
+        ODL_LOG("! (0 < inherited2::size())"); //####
+        static const uint8_t stuff[] =
+        {
+            kKindOther + kKindOtherContainerStart + kKindOtherContainerTypeSet +
+              kKindOtherContainerEmptyValue,
+            kKindOther + kKindOtherContainerEnd + kKindOtherContainerTypeSet +
+              kKindOtherContainerEmptyValue
+        };
+
+        outMessage.appendBytes(stuff, sizeof(stuff));
+    }
     ODL_OBJEXIT(); //####
 } // nImO::Set::writeToMessage
 

@@ -199,7 +199,7 @@ namespace nImO
          @returns The characters that can appear as the end of a Map. */
         static const char *
         getTerminalCharacters(void);
-        
+
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
         virtual inline uint8_t
@@ -272,15 +272,15 @@ namespace nImO
         printToStringBuffer(StringBuffer & outBuffer,
                             const bool     squished = false)
         const;
-        
+
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param inBuffer The buffer to be scanned.
          @param position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t &             position);
- 
+
         /*! @brief Returns the number of elements in the Map.
          @returns The number of elements in the Map. */
         inline size_t

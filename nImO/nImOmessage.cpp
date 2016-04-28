@@ -86,12 +86,12 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _numChunks(1), _headerAdded(false),
-    _closed(false), _cachedIsFirstBuffer(false)
+    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _cachedLength(0), _numChunks(1),
+    _headerAdded(false), _closed(false), _cachedIsFirstBuffer(false)
 {
     ODL_ENTER(); //####
     ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
-    ODL_LL1("_numChunks <- ", _numChunks); //####
+    ODL_LL2("_cachedLength <-", _cachedLength, "_numChunks <- ", _numChunks); //####
     ODL_B3("_headerAdded <- ", _headerAdded, "_closed <- ", _closed, //####
            "_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
     *_buffers = new BufferChunk(false);
@@ -140,12 +140,12 @@ nImO::Message::addBytes(const uint8_t * inBytes,
     ODL_LL1("numBytes = ", numBytes); //####
     static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
         '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-    
+
     addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
         uint8_t aByte = inBytes[ii];
-        
+
         addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
     }
     addChar(kBlobSeparator);
@@ -235,6 +235,7 @@ nImO::Message::appendBytes(const uint8_t * data,
                 delete[] _cachedOutput;
             }
             _cachedOutput = NULL;
+            ODL_P1("_cachedOutput <- ", _cachedOutput); //####
         }
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
         {
@@ -319,18 +320,18 @@ const
     ODL_OBJENTER(); //####
     size_t  position = 0;
     Value * result = Value::readFrommessage(*this, position);
-    
+
     ODL_P1("result <- ", result); //####
     if (result)
     {
         bool    done = false;
         bool    valid = true;
         Array * holder = NULL;
-        
+
         for ( ; ! done; )
         {
             int aChar = getChar(position);
-            
+
             // Skip any whitespace after the value
             ODL_C1("aChar <- ", aChar); //####
             for ( ; isspace(aChar); )
@@ -414,7 +415,7 @@ const
                     result = *(thisData + offset);
                 }
             }
-        } 
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -429,9 +430,15 @@ nImO::Message::getBytes(size_t & length)
     const uint8_t * result = NULL;
 
     length = 0;
+    ODL_LL1("length <- ", length); //####
     if (_closed)
     {
-        if (! _cachedOutput)
+        if (_cachedOutput)
+        {
+            length = _cachedLength;
+            ODL_LL1("length <- ", length); //####
+        }
+        else
         {
             if (1 < _numChunks)
             {
@@ -440,18 +447,19 @@ nImO::Message::getBytes(size_t & length)
                 if (0 < cachedSize)
                 {
                     _cachedOutput = new uint8_t[cachedSize];
+                    ODL_P1("_cachedOutput <- ", _cachedOutput); //####
                     if (_cachedOutput)
                     {
                         uint8_t * walker = _cachedOutput;
-            
+
                         for (size_t ii = 0; _numChunks > ii; ++ii)
                         {
                             BufferChunk * aChunk = _buffers[ii];
-            
+
                             if (NULL != aChunk)
                             {
                                 size_t nn = aChunk->getDataSize();
-            
+
                                 if (0 < nn)
                                 {
                                     memcpy(walker, aChunk->getData(), nn);
@@ -460,19 +468,26 @@ nImO::Message::getBytes(size_t & length)
                             }
                         }
                         length = cachedSize;
+                        ODL_LL1("length <- ", length); //####
                         _cachedIsFirstBuffer = false;
+                        ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
                     }
                 }
             }
             else
             {
                 length = _buffers[0]->getDataSize();
+                ODL_LL1("length <- ", length); //####
                 if (0 < length)
                 {
                     _cachedOutput = const_cast<uint8_t *>(_buffers[0]->getData());
+                    ODL_P1("_cachedOutput <- ", _cachedOutput); //####
                     _cachedIsFirstBuffer = true;
+                    ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
                 }
             }
+            _cachedLength = length;
+            ODL_LL1("_cachedLength <- ", _cachedLength); //####
         }
         result = _cachedOutput;
     }
@@ -486,13 +501,13 @@ const
 {
     ODL_OBJENTER(); //####
     size_t totalLength = 0;
-    
+
     if (_closed)
     {
         if (_buffers)
         {
             BufferChunk * aChunk = _buffers[_numChunks - 1];
-            
+
             totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
             if (NULL != aChunk)
             {
@@ -529,6 +544,7 @@ nImO::Message::reset(void)
             delete[] _cachedOutput;
         }
         _cachedOutput = NULL;
+        ODL_P1("_cachedOutput <- ", _cachedOutput); //####
     }
     if (1 < _numChunks)
     {
@@ -553,7 +569,7 @@ nImO::Message::reset(void)
 } // nImO::Message::reset
 
 nImO::Message &
-nImO::Message::setValue(const Value & theValue)
+nImO::Message::setValue(const nImO::Value & theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####

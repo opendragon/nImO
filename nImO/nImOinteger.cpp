@@ -403,7 +403,7 @@ const
 } // nImO::Integer::printToStringBuffer
 
 void
-nImO::Integer::writeToMessage(Message & outMessage)
+nImO::Integer::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####
@@ -411,8 +411,8 @@ const
     if ((-16 <= _intValue) && (15 >= _intValue))
     {
         ODL_LOG("((-16 <= _intValue) && (15 >= _intValue))"); //####
-        uint8_t stuff = kKindSignedInteger + kKindSignedIntegerShortValue +
-                        (_intValue & kKindSignedIntegerShortValueValueMask);
+        uint8_t stuff = kKindInteger + kKindIntegerShortValue +
+                        (_intValue & kKindIntegerShortValueValueMask);
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
@@ -425,8 +425,8 @@ const
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            uint8_t stuff = kKindSignedInteger + kKindSignedIntegerLongValue +
-                            ((numBytes - 1) & kKindSignedIntegerLongValueCountMask);
+            uint8_t stuff = kKindInteger + kKindIntegerLongValue +
+                            ((numBytes - 1) & kKindIntegerLongValueCountMask);
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
             outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

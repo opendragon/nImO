@@ -316,7 +316,7 @@ nImO::I2B(const int64_t   inValue,
     {
         outString[ii - 1] = (0x0FF & workValue);
         workValue >>= 8;
-    } 
+    }
     if (0 <= inValue)
     {
         for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)

@@ -109,68 +109,68 @@ nImO::Value::initialize(void)
 {
     ODL_ENTER(); //####
     const char * prefixes = Boolean::getInitialCharacters();
-  
+
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &Boolean::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     prefixes = Number::getInitialCharacters();
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &Number::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     prefixes = String::getInitialCharacters();
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &String::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     prefixes = Array::getInitialCharacters();
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &Array::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     prefixes = Map::getInitialCharacters();
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &Map::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     prefixes = Set::getInitialCharacters();
     if (NULL != prefixes)
-    { 
+    {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
             BufferReaderValue aValue(*prefixes, &Set::readFromStringBuffer);
 
             gReaders.insert(aValue);
-        } 
+        }
     }
     const char * suffixes = Array::getTerminalCharacters();
-    
+
     gTerminators = StringBuffer::kEndCharacter;
     if (NULL != suffixes)
     {
@@ -195,7 +195,7 @@ nImO::Value::isLegalTerminator(const char aChar)
     ODL_ENTER(); //####
     ODL_C1("aChar = ", aChar); //####
     bool result;
-    
+
     if (isspace(aChar))
     {
         result = true;
@@ -263,7 +263,7 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Value::readFromStringBuffer
- 
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

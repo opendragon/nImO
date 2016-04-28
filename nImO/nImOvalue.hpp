@@ -65,11 +65,11 @@ namespace nImO
 
     protected :
         // Protected type definitions.
-       
+
     private :
         // Private type definitions.
-        
-        /*! @brief The function pointer for StringBuffer readers. */ 
+
+        /*! @brief The function pointer for StringBuffer readers. */
         typedef Value * (*BufferReader)
             (const StringBuffer & inBuffer,
              size_t &             position);
@@ -79,7 +79,7 @@ namespace nImO
 
         /*! @brief The non-const iterator for BufferReaderMaps. */
         typedef BufferReaderMap::iterator BufferReaderIterator;
-        
+
         /*! @brief The return result from the insert method. */
         typedef std::pair<BufferReaderMap::iterator, bool> BufferReaderInsertResult;
 
@@ -366,11 +366,11 @@ namespace nImO
         const
         {
         } // printToStringBuffer
-        
+
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param inBuffer The buffer to be scanned.
          @param position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */       
+         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t &             position);
@@ -382,7 +382,7 @@ namespace nImO
         const
         {
         } // writeToMessage
- 
+
     protected :
         // Protected methods.
 
@@ -394,7 +394,7 @@ namespace nImO
          @param aChar The character of interest.
          @returns @c true if the character can appear immediately after a Value in a string. */
         static bool isLegalTerminator(const char aChar);
-        
+
     private :
         // Private methods.
 
@@ -409,7 +409,7 @@ namespace nImO
 
         /*! @brief The table of StringBuffer readers. */
         static BufferReaderMap gReaders;
-        
+
         /*! @brief The legal terminating characters for a Value. */
         static std::string gTerminators;
 

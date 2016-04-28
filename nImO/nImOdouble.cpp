@@ -402,7 +402,7 @@ const
 } // nImO::Double::printToStringBuffer
 
 void
-nImO::Double::writeToMessage(Message & outMessage)
+nImO::Double::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####
@@ -410,13 +410,62 @@ const
     NumberAsBytes numBuff;
 
     D2B(_floatValue, numBuff);
-    uint8_t stuff = kKindFloatingPoint + kKindFloatingPointShortCount +
-                    ((1 - 1) & kKindFloatingPointShortCountMask);
+    uint8_t stuff = kKindDouble + kKindDoubleShortCount +
+                    ((1 - kKindDoubleShortCountMinValue) & kKindDoubleShortCountMask);
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     outMessage.appendBytes(numBuff, sizeof(numBuff));
     ODL_OBJEXIT(); //####
 } // nImO::Double::writeToMessage
+
+void
+nImO::Double::writeValuesToMessage(std::queue<double> & values,
+                                   nImO::Message &      outMessage)
+{
+    ODL_ENTER(); //####
+    ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####
+    NumberAsBytes numBuff;
+    size_t        numValues = values.size();
+
+    // First, the count.
+    if (0 < numValues)
+    {
+        ODL_LOG("(0 < numValues)"); //####
+        if (kKindDoubleShortCountMaxValue < numValues)
+        {
+            ODL_LOG("(kKindDoubleShortCountMaxValue < numValues)"); //####
+            size_t numBytes = I2B(numValues, numBuff);
+
+            if (0 < numBytes)
+            {
+                ODL_LOG("(0 < numBytes)"); //####
+                uint8_t countTag = kKindDouble + kKindDoubleLongCount +
+                                   (kKindDoubleLongCountMask & (numBytes - 1));
+
+                outMessage.appendBytes(&countTag, sizeof(countTag));
+                outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
+            }
+        }
+        else
+        {
+            ODL_LOG("! (kKindDoubleShortCountMaxValue < numValues)"); //####
+            uint8_t countTag = kKindDouble + kKindDoubleShortCount +
+                               ((numValues - kKindDoubleShortCountMinValue) &
+                                kKindDoubleShortCountMask);
+
+            outMessage.appendBytes(&countTag, sizeof(countTag));
+        }
+        // And now the values.
+        for ( ; ! values.empty(); values.pop())
+        {
+            double aValue = values.front();
+
+            D2B(aValue, numBuff);
+            outMessage.appendBytes(numBuff, sizeof(numBuff));
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::Double::writeValuesToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

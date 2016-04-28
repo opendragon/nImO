@@ -85,7 +85,7 @@ namespace nImO
         void
         appendBytes(const uint8_t * data,
                     const size_t    numBytes);
-        
+
         /*! @brief Close the Message, completing its contents.
          @returns The message object so that cascading can be done. */
         Message &
@@ -105,7 +105,7 @@ namespace nImO
         Message &
         addBytes(const uint8_t * inBytes,
                  const size_t    numBytes);
-        
+
         /*! @brief Add a character string representation of a floating-point value to the buffer.
          @param aDouble The value to add.
          @returns The message object so that cascading can be done. */
@@ -134,7 +134,7 @@ namespace nImO
          @returns The Value represented by the buffer contents. */
         Value * convertToValue(void)
         const;
-        
+
         /*! @brief Return the character found at a particular index.
          @param index The zero-based location in the buffer.
          @returns The character found at the provided index, or the 'end' character if the index
@@ -143,14 +143,14 @@ namespace nImO
         getByte(const size_t index)
         const;
 #endif//0
-        
+
         /*! @brief Return a copy of the bytes in the buffer as well as the number of valid bytes
          present.
          @param length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         const uint8_t *
         getBytes(size_t & length);
-        
+
         /*! @brief Return the number of valid characters in the buffer.
          @returns The number of valid characters in the buffer. */
         size_t
@@ -181,7 +181,7 @@ namespace nImO
          @returns The message object so that cascading can be done. */
         Message &
         setValue(const Value & theValue);
-        
+
     protected :
         // Protected methods.
 
@@ -212,6 +212,9 @@ namespace nImO
 
         /*! @brief The cached value of the buffer. */
         uint8_t * _cachedOutput;
+
+        /*! @brief The cached value of the length of the buffer. */
+        size_t _cachedLength;
         
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;

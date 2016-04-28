@@ -1041,7 +1041,7 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithFloatingPoint(const char * launchPath,
+doTestStringBufferWithDouble(const char * launchPath,
                                     const int    argc,
                                     char * *     argv) // string buffer with floating point
 {
@@ -1111,7 +1111,7 @@ doTestStringBufferWithFloatingPoint(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestStringBufferWithFloatingPoint
+} // doTestStringBufferWithDouble
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -2486,7 +2486,7 @@ doTestIntegerCopyAndAssign(const char * launchPath,
  @param argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFloatingPointCopyAndAssign(const char * launchPath,
+doTestDoubleCopyAndAssign(const char * launchPath,
                                  const int    argc,
                                  char * *     argv) // floating point copy and assign
 {
@@ -2562,7 +2562,7 @@ doTestFloatingPointCopyAndAssign(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestFloatingPointCopyAndAssign
+} // doTestDoubleCopyAndAssign
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -4211,7 +4211,7 @@ main(int      argc,
                         break;
 
                     case 16 :
-                        result = doTestStringBufferWithFloatingPoint(*argv, argc - 1, argv + 2);
+                        result = doTestStringBufferWithDouble(*argv, argc - 1, argv + 2);
                         break;
 
                     case 17 :
@@ -4283,7 +4283,7 @@ main(int      argc,
                         break;
 
                     case 62 :
-                        result = doTestFloatingPointCopyAndAssign(*argv, argc - 1, argv + 2);
+                        result = doTestDoubleCopyAndAssign(*argv, argc - 1, argv + 2);
                         break;
 
                     case 63 :

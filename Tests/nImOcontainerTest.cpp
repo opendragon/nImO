@@ -2875,7 +2875,7 @@ doTestValidArrayCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -2943,7 +2943,7 @@ doTestValidArrayCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -3032,7 +3032,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2l[ii]._testValue);
-                
+
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
                     ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -3100,7 +3100,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2r[ii]._testValue);
-                
+
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
                     ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -3181,7 +3181,7 @@ doTestValidArrayCompares(const char * launchPath,
                 bool   _equalToResult;
                 bool   _equalToValid;
             }; // testNumbers
-    
+
             static testNumbers testSet3l[] =
             {
                 // test <            >            <=           >=           ==
@@ -3214,7 +3214,7 @@ doTestValidArrayCompares(const char * launchPath,
                 { 300,  true,  true, false, true, true,  true, false, true, false, true }
             };
             const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
-    
+
             stuff.clear();
             stuff.addValue(new nImO::Double(123.45));
             stuff.addValue(new nImO::Double(200.0));
@@ -3225,7 +3225,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool         valid = false;
                 nImO::Double aValue(testSet3l[ii]._testValue);
-                
+
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
                     ODL_LOG("(testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -3293,7 +3293,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool         valid = false;
                 nImO::Double aValue(testSet3r[ii]._testValue);
-                
+
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
                     ODL_LOG("(testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -3374,7 +3374,7 @@ doTestValidArrayCompares(const char * launchPath,
                 bool         _equalToResult;
                 bool         _equalToValid;
             }; // testStrings
-    
+
             static testStrings testSet4l[] =
             {
                 // test  <            >            <=           >=           ==
@@ -3395,7 +3395,7 @@ doTestValidArrayCompares(const char * launchPath,
                 { "zzz", true,  true, false, true, true,  true, false, true, false, true }
             };
             const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
-    
+
             stuff.clear();
             stuff.addValue(new nImO::String("abc"));
             stuff.addValue(new nImO::String("def"));
@@ -3404,7 +3404,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool         valid = false;
                 nImO::String aValue(testSet4l[ii]._testValue);
-                
+
                 if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
                     ODL_LOG("(testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -3472,7 +3472,7 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 bool         valid = false;
                 nImO::String aValue(testSet4r[ii]._testValue);
-                
+
                 if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
                     ODL_LOG("(testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -3619,7 +3619,7 @@ doTestValidBooleanMapCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -3687,7 +3687,7 @@ doTestValidBooleanMapCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -3776,7 +3776,7 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2l[ii]._testValue);
-                
+
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
                     ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -3844,7 +3844,7 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2r[ii]._testValue);
-                
+
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
                     ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -4012,7 +4012,7 @@ doTestValidIntegerMapCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Integer aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -4080,7 +4080,7 @@ doTestValidIntegerMapCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Integer aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -4232,7 +4232,7 @@ doTestValidStringMapCompares(const char * launchPath,
         {
             bool         valid = false;
             nImO::String aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -4300,7 +4300,7 @@ doTestValidStringMapCompares(const char * launchPath,
         {
             bool         valid = false;
             nImO::String aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -4446,7 +4446,7 @@ doTestValidBooleanSetCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -4514,7 +4514,7 @@ doTestValidBooleanSetCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Boolean aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -4603,7 +4603,7 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2l[ii]._testValue);
-                
+
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
                     ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -4671,7 +4671,7 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 bool          valid = false;
                 nImO::Boolean aValue(testSet2r[ii]._testValue);
-                
+
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
                     ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -4839,7 +4839,7 @@ doTestValidIntegerSetCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Integer aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -4907,7 +4907,7 @@ doTestValidIntegerSetCompares(const char * launchPath,
         {
             bool          valid = false;
             nImO::Integer aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
@@ -5059,7 +5059,7 @@ doTestValidStringSetCompares(const char * launchPath,
         {
             bool         valid = false;
             nImO::String aValue(testSet1l[ii]._testValue);
-            
+
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
                 ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
@@ -5127,7 +5127,7 @@ doTestValidStringSetCompares(const char * launchPath,
         {
             bool         valid = false;
             nImO::String aValue(testSet1r[ii]._testValue);
-            
+
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
                 ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####

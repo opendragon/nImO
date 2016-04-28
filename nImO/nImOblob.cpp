@@ -433,7 +433,7 @@ nImO::Blob::removeAllEntries(void)
 } // nImO::Blob::removeAllEntries
 
 void
-nImO::Blob::writeToMessage(Message & outMessage)
+nImO::Blob::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_OBJENTER(); //####

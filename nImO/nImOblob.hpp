@@ -186,7 +186,7 @@ namespace nImO
         printToStringBuffer(StringBuffer & outBuffer,
                             const bool     squished = false)
         const;
-        
+
         /*! @brief Add a binary representation of the object to the message.
          @param outMessage The Message to be appended to. */
         virtual void

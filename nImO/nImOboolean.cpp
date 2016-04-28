@@ -429,7 +429,7 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 } // nImO::Boolean::readFromStringBuffer
 
 void
-nImO::Boolean::writeToMessage(Message & outMessage)
+nImO::Boolean::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_ENTER(); //####

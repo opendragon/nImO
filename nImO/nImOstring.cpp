@@ -665,9 +665,9 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::String::readFromStringBuffer
- 
+
 void
-nImO::String::writeToMessage(Message & outMessage)
+nImO::String::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_ENTER(); //####

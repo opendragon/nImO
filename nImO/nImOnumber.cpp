@@ -319,7 +319,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
         if (isDouble)
         {
             double fullNumber;
-            
+
             if (0 == exponent)
             {
                 fullNumber = integerPart + (fractionPart / std::pow(10.0, fractionPower));
@@ -354,7 +354,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Number::readFromStringBuffer
- 
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

@@ -126,7 +126,7 @@ namespace nImO
         getTypeTag(void)
         const
         {
-            return kKindOtherMessageExpectedFloatingPointValue;
+            return kKindOtherMessageExpectedDoubleValue;
         } // getTypeTag
 
         /*! @brief Return the relative ordering of two Values.
@@ -198,12 +198,19 @@ namespace nImO
         printToStringBuffer(StringBuffer & outBuffer,
                             const bool     squished = false)
         const;
-        
+
         /*! @brief Add a binary representation of the object to the message.
          @param outMessage The Message to be appended to. */
         virtual void
         writeToMessage(Message & outMessage)
         const;
+
+        /*! @brief Add the binary representation of a sequence of values to the message.
+         @param values The values to be added.
+         @param outMessage The Message to be appended to. */
+        static void
+        writeValuesToMessage(std::queue<double> & values,
+                             Message &            outMessage);
 
     protected :
         // Protected methods.

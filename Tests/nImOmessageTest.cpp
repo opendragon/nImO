@@ -36,16 +36,19 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <niMo/nImOarray.hpp>
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOmap.hpp>
 #include <nImO/nImOmessage.hpp>
+#include <nImO/nImOset.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
-#include <odl/ODEnableLogging.h>
+//#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
 #if defined(__APPLE__)
@@ -125,7 +128,7 @@ compareValueWithString(const nImO::Value & aValue,
     nImO::StringBuffer buff;
     int                result;
     size_t             length;
-    
+
     aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);
     ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
@@ -135,7 +138,7 @@ compareValueWithString(const nImO::Value & aValue,
 #endif//0
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 01 ***
+# pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -171,9 +174,11 @@ doTestEmptyMessage(const char * launchPath,
         {
             static const uint8_t expectedBytes[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageEmptyValue,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageEmptyValue
@@ -220,7 +225,7 @@ doTestEmptyMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 02 ***
+# pragma mark *** Test Case 002 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -256,12 +261,15 @@ doTestBooleanMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForTrue[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Boolean
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
                   nImO::DataKind::kKindOtherBooleanTrueValue,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -271,12 +279,15 @@ doTestBooleanMessage(const char * launchPath,
                                               sizeof(*expectedBytesForTrue));
             static const uint8_t expectedBytesForFalse[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Boolean
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
                   nImO::DataKind::kKindOtherBooleanFalseValue,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -337,7 +348,7 @@ doTestBooleanMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
+# pragma mark *** Test Case 003 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -373,46 +384,55 @@ doTestTinyIntegerMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMinus12[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerShortValue +
-                  (-12 & nImO::DataKind::kKindSignedIntegerShortValueValueMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  (-12 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedMinus12Count = (sizeof(expectedBytesForMinus12) /
                                                  sizeof(*expectedBytesForMinus12));
             static const uint8_t expectedBytesForZero[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerShortValue +
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
                   0,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedZeroCount = (sizeof(expectedBytesForZero) /
                                               sizeof(*expectedBytesForZero));
             static const uint8_t expectedBytesForPlus12[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerShortValue +
-                  (12 & nImO::DataKind::kKindSignedIntegerShortValueValueMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  (12 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedPlus12Count = (sizeof(expectedBytesForPlus12) /
                                                 sizeof(*expectedBytesForPlus12));
@@ -486,7 +506,7 @@ doTestTinyIntegerMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
+# pragma mark *** Test Case 004 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -522,33 +542,39 @@ doTestShortIntegerMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMinus144[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((2 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((2 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0xFF, 0x70,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedMinus144Count = (sizeof(expectedBytesForMinus144) /
                                                   sizeof(*expectedBytesForMinus144));
             static const uint8_t expectedBytesForPlus144[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((2 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((2 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0x00, 0x90,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedPlus144Count = (sizeof(expectedBytesForPlus144) /
                                                  sizeof(*expectedBytesForPlus144));
@@ -605,7 +631,7 @@ doTestShortIntegerMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 005 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -641,33 +667,39 @@ doTestMediumIntegerMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMinus1234567[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((3 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((3 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0xED, 0x29, 0x79,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedMinus1234567Count = (sizeof(expectedBytesForMinus1234567) /
                                                       sizeof(*expectedBytesForMinus1234567));
             static const uint8_t expectedBytesForPlus1234567[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((3 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((3 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0x12, 0xD6, 0x87,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedPlus1234567Count = (sizeof(expectedBytesForPlus1234567) /
                                                      sizeof(*expectedBytesForPlus1234567));
@@ -702,7 +734,8 @@ doTestMediumIntegerMessage(const char * launchPath,
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && (expectedPlus1234567Count == length))"); //####
+                    ODL_LOG("! ((NULL != contents) && " //####
+                            "(expectedPlus1234567Count == length))"); //####
                 }
             }
             delete stuff;
@@ -725,7 +758,7 @@ doTestMediumIntegerMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 006 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -761,33 +794,39 @@ doTestBigIntegerMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMinusBigNumber[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((6 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((6 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedMinusBigNumberCount = (sizeof(expectedBytesForMinusBigNumber) /
                                                         sizeof(*expectedBytesForMinusBigNumber));
             static const uint8_t expectedBytesForPlusBigNumber[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue,
-                nImO::DataKind::kKindSignedInteger + nImO::DataKind::kKindSignedIntegerLongValue +
-                  ((6 - 1) & nImO::DataKind::kKindSignedIntegerLongValueCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((6 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
                 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedSignedIntegerValue
+                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
             };
             const size_t expectedPlusBigNumberCount = (sizeof(expectedBytesForPlusBigNumber) /
                                                        sizeof(*expectedBytesForPlusBigNumber));
@@ -823,7 +862,8 @@ doTestBigIntegerMessage(const char * launchPath,
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && (expectedPlusBigNumberCount == length))"); //####
+                    ODL_LOG("! ((NULL != contents) && " //####
+                            "(expectedPlusBigNumberCount == length))"); //####
                 }
             }
             delete stuff;
@@ -846,7 +886,7 @@ doTestBigIntegerMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
+# pragma mark *** Test Case 007 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -882,13 +922,16 @@ doTestEmptyStringMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForEmptyString[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // String
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
                   nImO::DataKind::kKindStringOrBlobShortLengthValue +
                   (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -932,7 +975,7 @@ doTestEmptyStringMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 08 ***
+# pragma mark *** Test Case 008 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -968,14 +1011,17 @@ doTestShortStringMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForShortString[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // String
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
                   nImO::DataKind::kKindStringOrBlobShortLengthValue +
                   (6 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
                 'a', 'b', 'c', 'd', 'e', 'f',
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -1019,7 +1065,7 @@ doTestShortStringMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 09 ***
+# pragma mark *** Test Case 009 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1055,10 +1101,12 @@ doTestMediumStringMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMediumString[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // String
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
                   nImO::DataKind::kKindStringOrBlobLongLengthValue +
                   ((1 - 1) & nImO::DataKind::kKindStringOrBlobLongLengthMask),
@@ -1070,6 +1118,7 @@ doTestMediumStringMessage(const char * launchPath,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -1113,7 +1162,7 @@ doTestMediumStringMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 10 ***
+# pragma mark *** Test Case 010 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1149,13 +1198,16 @@ doTestEmptyBlobMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForEmptyBlob[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // Blob
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
                   nImO::DataKind::kKindStringOrBlobShortLengthValue +
                   (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -1199,7 +1251,7 @@ doTestEmptyBlobMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 11 ***
+# pragma mark *** Test Case 011 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1235,14 +1287,17 @@ doTestShortBlobMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForShortBlob[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // Blob
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
                   nImO::DataKind::kKindStringOrBlobShortLengthValue +
                   (6 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -1291,7 +1346,7 @@ doTestShortBlobMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 12 ***
+# pragma mark *** Test Case 012 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1327,10 +1382,12 @@ doTestMediumBlobMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForMediumBlob[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                // Blob
                 nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
                   nImO::DataKind::kKindStringOrBlobLongLengthValue +
                   ((1 - 1) & nImO::DataKind::kKindStringOrBlobLongLengthMask),
@@ -1342,6 +1399,7 @@ doTestMediumBlobMessage(const char * launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
@@ -1396,7 +1454,7 @@ doTestMediumBlobMessage(const char * launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 13 ***
+# pragma mark *** Test Case 013 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -1432,33 +1490,41 @@ doTestSingleFloatMessage(const char * launchPath,
         {
             static const uint8_t expectedBytesForPlus42Point5[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedFloatingPointValue,
-                nImO::DataKind::kKindFloatingPoint + nImO::DataKind::kKindFloatingPointShortCount +
-                  (0 & nImO::DataKind::kKindFloatingPointShortCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue,
+                // Double
+                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
+                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
+                    nImO::DataKind::kKindDoubleShortCountMask),
                 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedFloatingPointValue
+                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue
             };
             const size_t expectedPlus42Point5Count = (sizeof(expectedBytesForPlus42Point5) /
                                                       sizeof(*expectedBytesForPlus42Point5));
             static const uint8_t expectedBytesForMinus42Point5[] =
             {
+                // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageStartValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedFloatingPointValue,
-                nImO::DataKind::kKindFloatingPoint + nImO::DataKind::kKindFloatingPointShortCount +
-                  (0 & nImO::DataKind::kKindFloatingPointShortCountMask),
+                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue,
+                // Double
+                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
+                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
+                    nImO::DataKind::kKindDoubleShortCountMask),
                 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
+                // End of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedFloatingPointValue
+                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue
             };
             const size_t expectedMinus42Point5Count = (sizeof(expectedBytesForMinus42Point5) /
                                                       sizeof(*expectedBytesForMinus42Point5));
@@ -1493,7 +1559,8 @@ doTestSingleFloatMessage(const char * launchPath,
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && (expectedMinus42Point5Count == length))"); //####
+                    ODL_LOG("! ((NULL != contents) && " //####
+                            "(expectedMinus42Point5Count == length))"); //####
                 }
             }
             delete stuff;
@@ -1511,6 +1578,3147 @@ doTestSingleFloatMessage(const char * launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestSingleFloatMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 100 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyArrayMessage(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // empty array message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForEmptyArray[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedEmptyArrayCount = (sizeof(expectedBytesForEmptyArray) /
+                                                    sizeof(*expectedBytesForEmptyArray));
+            nImO::Array emptyArray;
+
+            stuff->open();
+            stuff->setValue(emptyArray);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedEmptyArrayCount == length))
+            {
+                result = memcmp(expectedBytesForEmptyArray, contents, expectedEmptyArrayCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedEmptyArrayCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestEmptyArrayMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 101 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyMapMessage(const char * launchPath,
+                      const int    argc,
+                      char * *     argv) // empty map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForEmptyMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedEmptyMapCount = (sizeof(expectedBytesForEmptyMap) /
+                                                  sizeof(*expectedBytesForEmptyMap));
+            nImO::Map emptyMap;
+
+            stuff->open();
+            stuff->setValue(emptyMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedEmptyMapCount == length))
+            {
+                result = memcmp(expectedBytesForEmptyMap, contents, expectedEmptyMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedEmptyMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestEmptyMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 102 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptySetMessage(const char * launchPath,
+                      const int    argc,
+                      char * *     argv) // empty set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForEmptySet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedEmptySetCount = (sizeof(expectedBytesForEmptySet) /
+                                                  sizeof(*expectedBytesForEmptySet));
+            nImO::Set emptySet;
+
+            stuff->open();
+            stuff->setValue(emptySet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedEmptySetCount == length))
+            {
+                result = memcmp(expectedBytesForEmptySet, contents, expectedEmptySetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedEmptySetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestEmptySetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 110 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneBooleanMessage(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // array with one boolean message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneBoolean[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Boolean
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
+                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneBooleanCount = (sizeof(expectedBytesForArrayOneBoolean) /
+                                                         sizeof(*expectedBytesForArrayOneBoolean));
+            nImO::Array arrayOneBoolean;
+
+            arrayOneBoolean.addValue(new nImO::Boolean);
+            stuff->open();
+            stuff->setValue(arrayOneBoolean);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneBooleanCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneBoolean, contents, expectedArrayOneBooleanCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneBooleanCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneBooleanMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 111 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneIntegerMessage(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // array with one integer message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneInteger[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  0,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneIntegerCount = (sizeof(expectedBytesForArrayOneInteger) /
+                                                         sizeof(*expectedBytesForArrayOneInteger));
+            nImO::Array arrayOneInteger;
+
+            arrayOneInteger.addValue(new nImO::Integer);
+            stuff->open();
+            stuff->setValue(arrayOneInteger);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneIntegerCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneInteger, contents, expectedArrayOneIntegerCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneIntegerCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneIntegerMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 112 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneDoubleMessage(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // array with one double message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneDouble[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Double
+                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
+                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
+                    nImO::DataKind::kKindDoubleShortCountMask),
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneDoubleCount = (sizeof(expectedBytesForArrayOneDouble) /
+                                                        sizeof(*expectedBytesForArrayOneDouble));
+            nImO::Array arrayOneDouble;
+
+            arrayOneDouble.addValue(new nImO::Double);
+            stuff->open();
+            stuff->setValue(arrayOneDouble);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneDoubleCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneDouble, contents, expectedArrayOneDoubleCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneDoubleCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneDoubleMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 113 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneStringMessage(const char * launchPath,
+                            const int    argc,
+                            char * *     argv) // array with one string message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneString[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // String
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneStringCount = (sizeof(expectedBytesForArrayOneString) /
+                                                        sizeof(*expectedBytesForArrayOneString));
+            nImO::Array arrayOneString;
+
+            arrayOneString.addValue(new nImO::String);
+            stuff->open();
+            stuff->setValue(arrayOneString);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneStringCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneString, contents, expectedArrayOneStringCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneStringCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneStringMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 114 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneBlobMessage(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // array with one blob message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneBlob[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Blob
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneBlobCount = (sizeof(expectedBytesForArrayOneBlob) /
+                                                      sizeof(*expectedBytesForArrayOneBlob));
+            nImO::Array arrayOneBlob;
+
+            arrayOneBlob.addValue(new nImO::Blob);
+            stuff->open();
+            stuff->setValue(arrayOneBlob);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneBlobCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneBlob, contents, expectedArrayOneBlobCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneBlobCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneBlobMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 115 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneArrayMessage(const char * launchPath,
+                           const int    argc,
+                           char * *     argv) // array with one array message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneArray[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneArrayCount = (sizeof(expectedBytesForArrayOneArray) /
+                                                       sizeof(*expectedBytesForArrayOneArray));
+            nImO::Array arrayOneArray;
+
+            arrayOneArray.addValue(new nImO::Array);
+            stuff->open();
+            stuff->setValue(arrayOneArray);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneArrayCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneArray, contents, expectedArrayOneArrayCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneArrayCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneArrayMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 116 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneMapMessage(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // array with one map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneMapCount = (sizeof(expectedBytesForArrayOneMap) /
+                                                     sizeof(*expectedBytesForArrayOneMap));
+            nImO::Array arrayOneMap;
+
+            arrayOneMap.addValue(new nImO::Map);
+            stuff->open();
+            stuff->setValue(arrayOneMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneMapCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneMap, contents, expectedArrayOneMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 117 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneSetMessage(const char * launchPath,
+                         const int    argc,
+                         char * *     argv) // array with one set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneSetCount = (sizeof(expectedBytesForArrayOneSet) /
+                                                     sizeof(*expectedBytesForArrayOneSet));
+            nImO::Array arrayOneSet;
+
+            arrayOneSet.addValue(new nImO::Set);
+            stuff->open();
+            stuff->setValue(arrayOneSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneSetCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneSet, contents, expectedArrayOneSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneSetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 130 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoBooleansMessage(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // array with two booleans message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoBoolean[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Boolean
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
+                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                // Boolean
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
+                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoBooleanCount = (sizeof(expectedBytesForArrayTwoBoolean) /
+                                                         sizeof(*expectedBytesForArrayTwoBoolean));
+            nImO::Array arrayTwoBoolean;
+
+            arrayTwoBoolean.addValue(new nImO::Boolean);
+            arrayTwoBoolean.addValue(new nImO::Boolean);
+            stuff->open();
+            stuff->setValue(arrayTwoBoolean);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoBooleanCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoBoolean, contents, expectedArrayTwoBooleanCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoBooleanCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoBooleansMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 131 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoIntegersMessage(const char * launchPath,
+                              const int    argc,
+                              char * *     argv) // array with two integers message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoInteger[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  0,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  0,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoIntegerCount = (sizeof(expectedBytesForArrayTwoInteger) /
+                                                         sizeof(*expectedBytesForArrayTwoInteger));
+            nImO::Array arrayTwoInteger;
+
+            arrayTwoInteger.addValue(new nImO::Integer);
+            arrayTwoInteger.addValue(new nImO::Integer);
+            stuff->open();
+            stuff->setValue(arrayTwoInteger);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoIntegerCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoInteger, contents, expectedArrayTwoIntegerCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoIntegerCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoIntegersMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 132 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoDoublesMessage(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // array with two doubles message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoDouble[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Double
+                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
+                  ((2 - nImO::DataKind::kKindDoubleShortCountMinValue) &
+                    nImO::DataKind::kKindDoubleShortCountMask),
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoDoubleCount = (sizeof(expectedBytesForArrayTwoDouble) /
+                                                        sizeof(*expectedBytesForArrayTwoDouble));
+            nImO::Array arrayTwoDouble;
+
+            arrayTwoDouble.addValue(new nImO::Double);
+            arrayTwoDouble.addValue(new nImO::Double);
+            stuff->open();
+            stuff->setValue(arrayTwoDouble);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoDoubleCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoDouble, contents, expectedArrayTwoDoubleCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoDoubleCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoDoublesMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 133 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoStringsMessage(const char * launchPath,
+                             const int    argc,
+                             char * *     argv) // array with two strings message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoString[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // String
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // String
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoStringCount = (sizeof(expectedBytesForArrayTwoString) /
+                                                        sizeof(*expectedBytesForArrayTwoString));
+            nImO::Array arrayTwoString;
+
+            arrayTwoString.addValue(new nImO::String);
+            arrayTwoString.addValue(new nImO::String);
+            stuff->open();
+            stuff->setValue(arrayTwoString);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoStringCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoString, contents, expectedArrayTwoStringCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoStringCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoStringsMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 134 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoBlobsMessage(const char * launchPath,
+                           const int    argc,
+                           char * *     argv) // array with two blobs message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoBlob[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Blob
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // Blob
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoBlobCount = (sizeof(expectedBytesForArrayTwoBlob) /
+                                                      sizeof(*expectedBytesForArrayTwoBlob));
+            nImO::Array arrayTwoBlob;
+
+            arrayTwoBlob.addValue(new nImO::Blob);
+            arrayTwoBlob.addValue(new nImO::Blob);
+            stuff->open();
+            stuff->setValue(arrayTwoBlob);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoBlobCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoBlob, contents, expectedArrayTwoBlobCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoBlobCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoBlobsMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 135 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoArraysMessage(const char * launchPath,
+                            const int    argc,
+                            char * *     argv) // array with two arrays message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoArray[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoArrayCount = (sizeof(expectedBytesForArrayTwoArray) /
+                                                       sizeof(*expectedBytesForArrayTwoArray));
+            nImO::Array arrayTwoArray;
+
+            arrayTwoArray.addValue(new nImO::Array);
+            arrayTwoArray.addValue(new nImO::Array);
+            stuff->open();
+            stuff->setValue(arrayTwoArray);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoArrayCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoArray, contents, expectedArrayTwoArrayCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoArrayCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoArraysMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 136 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoMapsMessage(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // array with two maps message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoMapCount = (sizeof(expectedBytesForArrayTwoMap) /
+                                                     sizeof(*expectedBytesForArrayTwoMap));
+            nImO::Array arrayTwoMap;
+
+            arrayTwoMap.addValue(new nImO::Map);
+            arrayTwoMap.addValue(new nImO::Map);
+            stuff->open();
+            stuff->setValue(arrayTwoMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoMapCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoMap, contents, expectedArrayTwoMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoMapsMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 137 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayTwoSetsMessage(const char * launchPath,
+                          const int    argc,
+                          char * *     argv) // array with two sets message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayTwoSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayTwoSetCount = (sizeof(expectedBytesForArrayTwoSet) /
+                                                     sizeof(*expectedBytesForArrayTwoSet));
+            nImO::Array arrayTwoSet;
+
+            arrayTwoSet.addValue(new nImO::Set);
+            arrayTwoSet.addValue(new nImO::Set);
+            stuff->open();
+            stuff->setValue(arrayTwoSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayTwoSetCount == length))
+            {
+                result = memcmp(expectedBytesForArrayTwoSet, contents, expectedArrayTwoSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayTwoSetsMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 138 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneArrayOneMapMessage(const char * launchPath,
+                                 const int    argc,
+                                 char * *     argv) // array with array and map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneArrayOneMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneArrayOneMapCount = (sizeof(expectedBytesForArrayOneArrayOneMap) /
+                                                             sizeof(*expectedBytesForArrayOneArrayOneMap));
+            nImO::Array arrayOneArrayOneMap;
+
+            arrayOneArrayOneMap.addValue(new nImO::Array);
+            arrayOneArrayOneMap.addValue(new nImO::Map);
+            stuff->open();
+            stuff->setValue(arrayOneArrayOneMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneArrayOneMapCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneArrayOneMap, contents, expectedArrayOneArrayOneMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneArrayOneMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneArrayOneMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 139 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneMapOneSetMessage(const char * launchPath,
+                               const int    argc,
+                               char * *     argv) // array with map and set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneMapOneSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneMapOneSetCount = (sizeof(expectedBytesForArrayOneMapOneSet) /
+                                                           sizeof(*expectedBytesForArrayOneMapOneSet));
+            nImO::Array arrayOneMapOneSet;
+
+            arrayOneMapOneSet.addValue(new nImO::Map);
+            arrayOneMapOneSet.addValue(new nImO::Set);
+            stuff->open();
+            stuff->setValue(arrayOneMapOneSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneMapOneSetCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneMapOneSet, contents, expectedArrayOneMapOneSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneMapOneSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneMapOneSetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 140 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayOneSetOneArrayMessage(const char * launchPath,
+                                 const int    argc,
+                                 char * *     argv) // array with set and array message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForArrayOneSetOneArray[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayOneSetOneArrayCount = (sizeof(expectedBytesForArrayOneSetOneArray) /
+                                                             sizeof(*expectedBytesForArrayOneSetOneArray));
+            nImO::Array arrayOneSetOneArray;
+
+            arrayOneSetOneArray.addValue(new nImO::Set);
+            arrayOneSetOneArray.addValue(new nImO::Array);
+            stuff->open();
+            stuff->setValue(arrayOneSetOneArray);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayOneSetOneArrayCount == length))
+            {
+                result = memcmp(expectedBytesForArrayOneSetOneArray, contents, expectedArrayOneSetOneArrayCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedArrayOneSetOneArrayCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayOneSetOneArrayMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 141 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayWithManyDoublesMessage(const char * launchPath,
+                                  const int    argc,
+                                  char * *     argv) // array with many doubles message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            const size_t         numValues = 43;
+            static const uint8_t expectedBytesForArrayManyDoubles[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
+                  ((1 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                numValues + nImO::DataKind::kKindIntegerShortValueMinValue - 1,
+                // Double
+                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleLongCount +
+                  ((1 - 1) & nImO::DataKind::kKindDoubleLongCountMask),
+                numValues,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
+                0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1
+                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2
+                0x40, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 3
+                0x40, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 4
+                0x40, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5
+                0x40, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 6
+                0x40, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 7
+                0x40, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 8
+                0x40, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 9
+                0x40, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 10
+                0x40, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 11
+                0x40, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 12
+                0x40, 0x2A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 13
+                0x40, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 14
+                0x40, 0x2E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 15
+                0x40, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16
+                0x40, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 17
+                0x40, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 18
+                0x40, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 19
+                0x40, 0x34, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 20
+                0x40, 0x35, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 21
+                0x40, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 22
+                0x40, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 23
+                0x40, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 24
+                0x40, 0x39, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 25
+                0x40, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 26
+                0x40, 0x3B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 27
+                0x40, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 28
+                0x40, 0x3D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 29
+                0x40, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 30
+                0x40, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 31
+                0x40, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 32
+                0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 33
+                0x40, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 34
+                0x40, 0x41, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 35
+                0x40, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 36
+                0x40, 0x42, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 37
+                0x40, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 38
+                0x40, 0x43, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 39
+                0x40, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 40
+                0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
+                0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
+                // End of Array
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeArray +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedArrayManyDoublesCount = (sizeof(expectedBytesForArrayManyDoubles) /
+                                                          sizeof(*expectedBytesForArrayManyDoubles));
+            nImO::Array arrayManyDoubles;
+
+            for (size_t ii = 0; numValues > ii; ++ii)
+            {
+                arrayManyDoubles.addValue(new nImO::Double(ii));
+            }
+            stuff->open();
+            stuff->setValue(arrayManyDoubles);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedArrayManyDoublesCount == length))
+            {
+                result = memcmp(expectedBytesForArrayManyDoubles, contents,
+                                expectedArrayManyDoublesCount);
+                ODL_LL1("result <- ", result); //####
+                if (0 != result)
+                {
+                    size_t jj = 0;
+                    
+                    for (size_t ii = 0; expectedArrayManyDoublesCount > ii; ++ii)
+                    {
+                        if (expectedBytesForArrayManyDoubles[ii] != contents[ii])
+                        {
+                            jj = ii;
+                            ODL_LL1("jj <- ", jj); //####
+                            break;
+                        }
+                    }
+                    if (8 > jj)
+                    {
+                        jj = 8;
+                    }
+                    ODL_PACKET("expected", reinterpret_cast<const char *>(expectedBytesForArrayManyDoubles + jj - 8), 24); //####
+                    ODL_PACKET("contents", reinterpret_cast<const char *>(contents + jj - 8), 24); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayManyDoublesCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestArrayWithManyDoublesMessage
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 160 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanMapMessage(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // boolean map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForBooleanMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Boolean
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
+                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedBooleanMapCount = (sizeof(expectedBytesForBooleanMap) /
+                                                    sizeof(*expectedBytesForBooleanMap));
+            nImO::Map booleanMap;
+
+            booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
+            stuff->open();
+            stuff->setValue(booleanMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedBooleanMapCount == length))
+            {
+                result = memcmp(expectedBytesForBooleanMap, contents, expectedBooleanMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedBooleanMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 161 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerMapMessage(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // integer map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForIntegerMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  0,
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedIntegerMapCount = (sizeof(expectedBytesForIntegerMap) /
+                                                    sizeof(*expectedBytesForIntegerMap));
+            nImO::Map integerMap;
+
+            integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
+            stuff->open();
+            stuff->setValue(integerMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedIntegerMapCount == length))
+            {
+                result = memcmp(expectedBytesForIntegerMap, contents, expectedIntegerMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedIntegerMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 162 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringMapMessage(const char * launchPath,
+                       const int    argc,
+                       char * *     argv) // integer map message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForStringMap[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // String
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                // End of Map
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeMap +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedStringMapCount = (sizeof(expectedBytesForStringMap) /
+                                                   sizeof(*expectedBytesForStringMap));
+            nImO::Map stringMap;
+
+            stringMap.addValue(new nImO::String, new nImO::Integer(13));
+            stuff->open();
+            stuff->setValue(stringMap);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedStringMapCount == length))
+            {
+                result = memcmp(expectedBytesForStringMap, contents, expectedStringMapCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedStringMapCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringMapMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 163 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestBooleanSetMessage(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // boolean set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForBooleanSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Boolean
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
+                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedBooleanSetCount = (sizeof(expectedBytesForBooleanSet) /
+                                                    sizeof(*expectedBytesForBooleanSet));
+            nImO::Set booleanSet;
+
+            booleanSet.addValue(new nImO::Boolean);
+            stuff->open();
+            stuff->setValue(booleanSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedBooleanSetCount == length))
+            {
+                result = memcmp(expectedBytesForBooleanSet, contents, expectedBooleanSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedBooleanSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestBooleanSetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 164 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerSetMessage(const char * launchPath,
+                        const int    argc,
+                        char * *     argv) // integer set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForIntegerSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // Signed Integer
+                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                  0,
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedIntegerSetCount = (sizeof(expectedBytesForIntegerSet) /
+                                                    sizeof(*expectedBytesForIntegerSet));
+            nImO::Set integerSet;
+
+            integerSet.addValue(new nImO::Integer);
+            stuff->open();
+            stuff->setValue(integerSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedIntegerSetCount == length))
+            {
+                result = memcmp(expectedBytesForIntegerSet, contents, expectedIntegerSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedIntegerSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestIntegerSetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 165 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param launchPath The command-line name used to launch the service.
+ @param argc The number of arguments in 'argv'.
+ @param argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestStringSetMessage(const char * launchPath,
+                       const int    argc,
+                       char * *     argv) // integer set message
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        nImO::Message * stuff = new nImO::Message;
+
+        if (stuff)
+        {
+            static const uint8_t expectedBytesForStringSet[] =
+            {
+                // Start of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageStartValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                // Start of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // Signed Integer
+                nImO::DataKind::kKindInteger +
+                  nImO::DataKind::kKindIntegerShortValue +
+                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
+                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                // String
+                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
+                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                // End of Set
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
+                  nImO::DataKind::kKindOtherContainerTypeSet +
+                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                // End of Message
+                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
+                  nImO::DataKind::kKindOtherMessageEndValue +
+                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
+                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+            };
+            const size_t expectedStringSetCount = (sizeof(expectedBytesForStringSet) /
+                                                   sizeof(*expectedBytesForStringSet));
+            nImO::Set stringSet;
+
+            stringSet.addValue(new nImO::String);
+            stuff->open();
+            stuff->setValue(stringSet);
+            stuff->close();
+            size_t          length = 0;
+            const uint8_t * contents = stuff->getBytes(length);
+
+            if ((NULL != contents) && (expectedStringSetCount == length))
+            {
+                result = memcmp(expectedBytesForStringSet, contents, expectedStringSetCount);
+            }
+            else
+            {
+                ODL_LOG("! ((NULL != contents) && (expectedStringSetCount == length))"); //####
+            }
+            delete stuff;
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestStringSetMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1611,70 +4819,124 @@ main(int      argc,
                         result = doTestSingleFloatMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    default :
+                    case 100 :
+                        result = doTestEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
-#if 0
-# Test message with empty array
-add_test(NAME TestEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
-# Test message with empty map
-add_test(NAME TestEmptyMapMessage COMMAND ${THIS_TARGET} 101)
-# Test message with empty set
-add_test(NAME TestEmptySetMessage COMMAND ${THIS_TARGET} 102)
+                    case 101 :
+                        result = doTestEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        break;
 
-# Test message with array with one boolean
-add_test(NAME TestArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 112)
-# Test message with array with one integer
-add_test(NAME TestArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 113)
-# Test message with array with one double
-add_test(NAME TestArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 114)
-# Test message with array with one string
-add_test(NAME TestArrayWithOneStringMessage COMMAND ${THIS_TARGET} 115)
-# Test message with array with one blob
-add_test(NAME TestArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 116)
-# Test message with array with one empty array
-add_test(NAME TestArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 117)
-# Test message with array with one empty map
-add_test(NAME TestArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 118)
-# Test message with array with one empty set
-add_test(NAME TestArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 119)
+                    case 102 :
+                        result = doTestEmptySetMessage(*argv, argc - 1, argv + 2);
+                        break;
 
-# Test message with array with two booleans
-add_test(NAME TestArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
-# Test message with array with two integers
-add_test(NAME TestArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
-# Test message with array with two doubles
-add_test(NAME TestArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
-# Test message with array with two strings
-add_test(NAME TestArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
-# Test message with array with two blobs
-add_test(NAME TestArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
-# Test message with array with two empty arrays
-add_test(NAME TestArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
-# Test message with array with two empty maps
-add_test(NAME TestArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
-# Test message with array with two empty sets
-add_test(NAME TestArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
-# Test message with array with empty array and empty map
-add_test(NAME TestArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
-# Test message with array with empty map and empty set
-add_test(NAME TestArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
-# Test message with array with empty set and empty array
-add_test(NAME TestArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+                    case 110 :
+                        result = doTestArrayOneBooleanMessage(*argv, argc - 1, argv + 2);
+                        break;
 
-# Test message with boolean map
-add_test(NAME TestBooleanMapMessage COMMAND ${THIS_TARGET} 150)
-# Test message with integer map
-add_test(NAME TestIntegerMapMessage COMMAND ${THIS_TARGET} 151)
-# Test message with string map
-add_test(NAME TestStringMapMessage COMMAND ${THIS_TARGET} 152)
-# Test message with boolean set
-add_test(NAME TestBooleanSetMessage COMMAND ${THIS_TARGET} 153)
-# Test message with integer set
-add_test(NAME TestIntegerSetMessage COMMAND ${THIS_TARGET} 154)
-# Test message with string set
-add_test(NAME TestStringSetMessage COMMAND ${THIS_TARGET} 155)
-#endif//0
+                    case 111 :
+                        result = doTestArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 112 :
+                        result = doTestArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 113 :
+                        result = doTestArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 114 :
+                        result = doTestArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 115 :
+                        result = doTestArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 116 :
+                        result = doTestArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 117 :
+                        result = doTestArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 130 :
+                        result = doTestArrayTwoBooleansMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 131 :
+                        result = doTestArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 132 :
+                        result = doTestArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 133 :
+                        result = doTestArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 134 :
+                        result = doTestArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 135 :
+                        result = doTestArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 136 :
+                        result = doTestArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 137 :
+                        result = doTestArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 138 :
+                        result = doTestArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 139 :
+                        result = doTestArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 140 :
+                        result = doTestArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 141 :
+                        result = doTestArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 160 :
+                        result = doTestBooleanMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 161 :
+                        result = doTestIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 162 :
+                        result = doTestStringMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 163 :
+                        result = doTestBooleanSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 164 :
+                        result = doTestIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 165 :
+                        result = doTestStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    default :
+                        break;
 
                 }
                 if (result)

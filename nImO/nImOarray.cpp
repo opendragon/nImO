@@ -38,6 +38,9 @@
 
 #include "nImOarray.hpp"
 
+#include <nImO/nImOdouble.hpp>
+#include <nImO/nImOinteger.hpp>
+#include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -218,7 +221,7 @@ nImO::Array::getTerminalCharacters(void)
 {
     ODL_ENTER(); //####
     static const char terminalChars[] = { kEndArrayChar, '\0' };
-    
+
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Array::getTerminalCharacters
@@ -351,11 +354,11 @@ const
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         Value * aValue = *walker;
-  
+
         if (NULL != aValue)
-        { 
+        {
             if ((! squished) || (! first))
-            { 
+            {
                 outBuffer.addChar(' ');
             }
             aValue->printToStringBuffer(outBuffer, squished);
@@ -411,7 +414,7 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             else
             {
                 Value * element = Value::readFromStringBuffer(inBuffer, localIndex);
-                
+
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == element)
                 {
@@ -442,13 +445,62 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Array::readFromStringBuffer
- 
+
 void
-nImO::Array::writeToMessage(Message & outMessage)
+nImO::Array::writeToMessage(nImO::Message & outMessage)
 const
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
+    if (0 < inherited2::size())
+    {
+        ODL_LOG("(0 < inherited2::size())"); //####
+        uint8_t            startArray = kKindOther + kKindOtherContainerStart +
+                                        kKindOtherContainerTypeArray +
+                                        kKindOtherContainerNonEmptyValue;
+        uint8_t            endArray = kKindOther + kKindOtherContainerEnd +
+                                      kKindOtherContainerTypeArray +
+                                      kKindOtherContainerNonEmptyValue;
+        Integer            count(inherited2::size() + kKindIntegerShortValueMinValue - 1);
+        std::queue<double> doublesSeen;
+
+        outMessage.appendBytes(&startArray, sizeof(startArray));
+        count.writeToMessage(outMessage);
+        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        {
+            Value * aValue = *walker;
+
+            if (aValue)
+            {
+                // Check for sequences of Double values
+                if (aValue->isDouble())
+                {
+                    doublesSeen.push(reinterpret_cast<Double *>(aValue)->getDoubleValue());
+                }
+                else
+                {
+                    Double::writeValuesToMessage(doublesSeen, outMessage);
+                    aValue->writeToMessage(outMessage);
+                }
+            }
+        }
+        // Write out any held Double values
+        Double::writeValuesToMessage(doublesSeen, outMessage);
+        outMessage.appendBytes(&endArray, sizeof(endArray)); 
+    }
+    else
+    {
+        ODL_LOG("! (0 < inherited2::size())"); //####
+        static const uint8_t stuff[] =
+        {
+            kKindOther + kKindOtherContainerStart + kKindOtherContainerTypeArray +
+              kKindOtherContainerEmptyValue,
+            kKindOther + kKindOtherContainerEnd + kKindOtherContainerTypeArray +
+              kKindOtherContainerEmptyValue
+        };
+
+        outMessage.appendBytes(stuff, sizeof(stuff));
+    }
     ODL_EXIT(); //####
 } // nImO::Array::writeToMessage
 

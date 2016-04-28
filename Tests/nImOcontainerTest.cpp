@@ -2890,7 +2890,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -2903,7 +2904,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -2914,9 +2916,11 @@ doTestValidArrayCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -2929,7 +2933,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -2958,7 +2963,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -2971,7 +2977,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -2982,9 +2989,11 @@ doTestValidArrayCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -2997,7 +3006,8 @@ doTestValidArrayCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -3035,7 +3045,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2l[ii]._lessThanValid != valid)
@@ -3047,7 +3058,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
+                                "aValue.greaterThan(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanValid != valid)
@@ -3058,9 +3070,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
+                                                                                       valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
+                                "aValue.lessThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._lessThanOrEqualValid != valid)
@@ -3071,9 +3085,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                             valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
+                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
@@ -3086,7 +3102,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._equalToValid != valid)
@@ -3103,7 +3120,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2r[ii]._lessThanValid != valid)
@@ -3115,7 +3133,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
+                                "stuff.greaterThan(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanValid != valid)
@@ -3126,9 +3145,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
+                                                                                      valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
+                                "stuff.lessThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._lessThanOrEqualValid != valid)
@@ -3139,9 +3160,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                            valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
+                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
@@ -3154,7 +3177,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._equalToValid != valid)
@@ -3228,7 +3252,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet3l[ii]._lessThanValid != valid)
@@ -3240,7 +3265,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet3l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThanResult != " //####
+                                "aValue.greaterThan(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3l[ii]._greaterThanValid != valid)
@@ -3251,9 +3277,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
+                                                                                       valid))
                     {
-                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualResult != " //####
+                                "aValue.lessThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3l[ii]._lessThanOrEqualValid != valid)
@@ -3264,9 +3292,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                             valid))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualResult != " //####
+                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3l[ii]._greaterThanOrEqualValid != valid)
@@ -3279,7 +3309,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet3l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                     {
-                        ODL_LOG("(testSet3l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        ODL_LOG("(testSet3l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet3l[ii]._equalToValid != valid)
@@ -3296,7 +3327,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet3r[ii]._lessThanValid != valid)
@@ -3308,7 +3340,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet3r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                     {
-                        ODL_LOG("(testSet3r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        ODL_LOG("(testSet3r[ii]._greaterThanResult != " //####
+                                "stuff.greaterThan(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3r[ii]._greaterThanValid != valid)
@@ -3319,9 +3352,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
+                                                                                      valid))
                     {
-                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualResult != " //####
+                                "stuff.lessThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3r[ii]._lessThanOrEqualValid != valid)
@@ -3332,9 +3367,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                            valid))
                     {
-                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualResult != " //####
+                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet3r[ii]._greaterThanOrEqualValid != valid)
@@ -3347,7 +3384,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet3r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                     {
-                        ODL_LOG("(testSet3r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        ODL_LOG("(testSet3r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet3r[ii]._equalToValid != valid)
@@ -3407,7 +3445,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet4l[ii]._lessThanValid != valid)
@@ -3419,7 +3458,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet4l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThanResult != " //####
+                                "aValue.greaterThan(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4l[ii]._greaterThanValid != valid)
@@ -3430,9 +3470,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
+                                                                                       valid))
                     {
-                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualResult != " //####
+                                "aValue.lessThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4l[ii]._lessThanOrEqualValid != valid)
@@ -3443,9 +3485,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                             valid))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualResult != " //####
+                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4l[ii]._greaterThanOrEqualValid != valid)
@@ -3458,7 +3502,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet4l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                     {
-                        ODL_LOG("(testSet4l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        ODL_LOG("(testSet4l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet4l[ii]._equalToValid != valid)
@@ -3475,7 +3520,8 @@ doTestValidArrayCompares(const char * launchPath,
 
                 if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet4r[ii]._lessThanValid != valid)
@@ -3487,7 +3533,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet4r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                     {
-                        ODL_LOG("(testSet4r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        ODL_LOG("(testSet4r[ii]._greaterThanResult != " //####
+                                "stuff.greaterThan(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4r[ii]._greaterThanValid != valid)
@@ -3498,9 +3545,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
+                                                                                      valid))
                     {
-                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualResult != " //####
+                                "stuff.lessThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4r[ii]._lessThanOrEqualValid != valid)
@@ -3511,9 +3560,11 @@ doTestValidArrayCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                            valid))
                     {
-                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualResult != " //####
+                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet4r[ii]._greaterThanOrEqualValid != valid)
@@ -3526,7 +3577,8 @@ doTestValidArrayCompares(const char * launchPath,
                 {
                     if (testSet4r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                     {
-                        ODL_LOG("(testSet4r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        ODL_LOG("(testSet4r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet4r[ii]._equalToValid != valid)
@@ -3634,7 +3686,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -3647,7 +3700,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -3658,9 +3712,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -3673,7 +3729,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -3702,7 +3759,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -3715,7 +3773,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -3726,9 +3785,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -3741,7 +3802,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -3779,7 +3841,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2l[ii]._lessThanValid != valid)
@@ -3791,7 +3854,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
+                                "aValue.greaterThan(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanValid != valid)
@@ -3802,9 +3866,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
+                                                                                       valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
+                                "aValue.lessThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._lessThanOrEqualValid != valid)
@@ -3815,9 +3881,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                             valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
+                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
@@ -3830,7 +3898,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._equalToValid != valid)
@@ -3847,7 +3916,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2r[ii]._lessThanValid != valid)
@@ -3859,7 +3929,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
+                                "stuff.greaterThan(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanValid != valid)
@@ -3870,9 +3941,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
+                                                                                      valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
+                                "stuff.lessThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._lessThanOrEqualValid != valid)
@@ -3883,9 +3956,11 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                            valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
+                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
@@ -3898,7 +3973,8 @@ doTestValidBooleanMapCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._equalToValid != valid)
@@ -4027,7 +4103,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -4040,7 +4117,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -4051,9 +4129,11 @@ doTestValidIntegerMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -4066,7 +4146,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -4095,7 +4176,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -4108,7 +4190,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -4119,9 +4202,11 @@ doTestValidIntegerMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -4134,7 +4219,8 @@ doTestValidIntegerMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -4247,7 +4333,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -4260,7 +4347,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -4271,9 +4359,11 @@ doTestValidStringMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -4286,7 +4376,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -4315,7 +4406,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -4328,7 +4420,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -4339,9 +4432,11 @@ doTestValidStringMapCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -4354,7 +4449,8 @@ doTestValidStringMapCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -4461,7 +4557,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -4474,7 +4571,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -4485,9 +4583,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -4500,7 +4600,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -4529,7 +4630,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -4542,7 +4644,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -4553,9 +4656,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -4568,7 +4673,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -4606,7 +4712,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2l[ii]._lessThanValid != valid)
@@ -4618,7 +4725,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
+                                "aValue.greaterThan(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanValid != valid)
@@ -4629,9 +4737,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
+                                                                                       valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
+                                "aValue.lessThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._lessThanOrEqualValid != valid)
@@ -4642,9 +4752,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                             valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
+                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
@@ -4657,7 +4769,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 {
                     if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2l[ii]._equalToValid != valid)
@@ -4674,7 +4787,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet2r[ii]._lessThanValid != valid)
@@ -4686,7 +4800,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
+                                "stuff.greaterThan(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanValid != valid)
@@ -4697,9 +4812,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
+                                                                                      valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
+                                "stuff.lessThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._lessThanOrEqualValid != valid)
@@ -4710,9 +4827,11 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                            valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
+                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
@@ -4725,7 +4844,8 @@ doTestValidBooleanSetCompares(const char * launchPath,
                 {
                     if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                                "valid))"); //####
                         result = 1;
                     }
                     else if (testSet2r[ii]._equalToValid != valid)
@@ -4854,7 +4974,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -4867,7 +4988,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -4878,9 +5000,11 @@ doTestValidIntegerSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -4893,7 +5017,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -4922,7 +5047,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != " //####
+                            "stuff.greaterThan(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -4935,7 +5061,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -4946,9 +5073,11 @@ doTestValidIntegerSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -4961,7 +5090,8 @@ doTestValidIntegerSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -5074,7 +5204,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanValid != valid)
@@ -5087,7 +5218,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
+                            "aValue.lessThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._lessThanOrEqualValid != valid)
@@ -5098,9 +5230,11 @@ doTestValidStringSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
+                                                                                         valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
+                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
@@ -5113,7 +5247,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1l[ii]._equalToValid != valid)
@@ -5142,7 +5277,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanValid != valid)
@@ -5155,7 +5291,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
+                            "stuff.lessThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._lessThanOrEqualValid != valid)
@@ -5166,9 +5303,11 @@ doTestValidStringSetCompares(const char * launchPath,
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
+                                                                                        valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
+                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
@@ -5181,7 +5320,8 @@ doTestValidStringSetCompares(const char * launchPath,
             {
                 if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))"); //####
+                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
+                            "valid))"); //####
                     result = 1;
                 }
                 else if (testSet1r[ii]._equalToValid != valid)
@@ -5245,7 +5385,11 @@ doTestInvalidArrayCompares(const char * launchPath,
         nImO::Map     rightValue6;
         nImO::Set     rightValue7;
         nImO::Integer rightValue8;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7, &rightValue8 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4,
+            &rightValue5, &rightValue6, &rightValue7, &rightValue8
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean);
@@ -5364,7 +5508,11 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Double  rightValue7;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean(false), new nImO::String("false"));
@@ -5481,7 +5629,10 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Integer(42), new nImO::Double(123.45));
@@ -5600,7 +5751,11 @@ doTestInvalidStringMapCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::String("abc"), new nImO::String("123"));
@@ -5719,7 +5874,11 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Boolean(false));
@@ -5836,7 +5995,10 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::Integer(42));
@@ -5955,7 +6117,11 @@ doTestInvalidStringSetCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6, &rightValue7 };
+        nImO::Value * rightValues[] =
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7
+        };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(new nImO::String("abc"));
@@ -6139,9 +6305,11 @@ doTestArrayIndices(const char * launchPath,
         }
         if (0 == result)
         {
-            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || (stuff.at(2) != aStringValue))
+            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) ||
+                (stuff.at(2) != aStringValue))
             {
-                ODL_LOG("((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || (stuff.at(2) != aStringValue))"); //####
+                ODL_LOG("((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || " //####
+                        "(stuff.at(2) != aStringValue))"); //####
                 result = 1;
             }
         }

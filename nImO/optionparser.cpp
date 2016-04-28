@@ -1051,7 +1051,8 @@ PrintUsageImplementation::LineWrapper::process(IStringWriter & write,
                 {
                     // everything <= 0xC1 (yes, even 0xC1 itself) is not a valid UTF-8 start byte
                     // int __builtin_clz (unsigned int x)
-                    // Returns the number of leading 0-bits in x, starting at the most significant bit
+                    // Returns the number of leading 0-bits in x, starting at the most significant
+                    // bit
                     unsigned mask = (static_cast<unsigned>(-1) >> __builtin_clz(ch ^ 0xff));
 
                     ch = ch & mask; // mask out length bits, we don't verify their correctness
@@ -1086,7 +1087,8 @@ PrintUsageImplementation::LineWrapper::process(IStringWriter & write,
                 output(write, data, len);
                 len = 0;
             }
-            else // if (maxi < len)  at least 1 character (data[maxi] that is) doesn't fit on the line
+            else // if (maxi < len)  at least 1 character (data[maxi] that is) doesn't fit on the
+                // line
             {
                 int ii;
 
@@ -1188,9 +1190,10 @@ PrintUsageImplementation::printUsage(IStringWriter &    write,
                         upmax(lastcolumn, part.column());
                         if (part.screenLength() < overlong_column_threshold)
                         {
-                            // We don't let rows that don't use table separators (\t or \v) influence
-                            // the width of column 0. This allows the user to interject section headers
-                            // or explanatory paragraphs that do not participate in the table layout.
+                            // We don't let rows that don't use table separators (\t or \v)
+                            // influence the width of column 0. This allows the user to interject
+                            // section headers or explanatory paragraphs that do not participate in
+                            // the table layout.
                             if ((part.column() > 0) || (part.line() > 0) ||
                                 ('\t' == part.data()[part.length()]) ||
                                 ('\v' == part.data()[part.length()]))

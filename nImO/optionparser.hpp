@@ -89,24 +89,29 @@
  *
  * @par Download:
  * Tarball with examples and test programs:
- * <a style="font-size:larger;font-weight:bold" href="http://sourceforge.net/projects/optionparser/files/optionparser-1.3.tar.gz/download">optionparser-1.3.tar.gz</a> @n
+ * <a style="font-size:larger;font-weight:bold"
+ href="http://sourceforge.net/projects/optionparser/files/optionparser-1.3.tar.gz/download">
+ optionparser-1.3.tar.gz</a> @n
  * Just the header (this is all you really need):
- * <a style="font-size:larger;font-weight:bold" href="http://optionparser.sourceforge.net/optionparser.h">optionparser.h</a>
+ * <a style="font-size:larger;font-weight:bold"
+ href="http://optionparser.sourceforge.net/optionparser.h">optionparser.h</a>
  *
  * @par Changelog:
  * <b>Version 1.3:</b> Compatible with Microsoft Visual C++. @n
- * <b>Version 1.2:</b> Added @ref Option_::Option::namelen "Option::namelen" and removed the extraction
- *                     of short option characters into a special buffer. @n
- *                     Changed @ref Option_::Arg::Optional "Arg::Optional" to accept arguments if they are attached
- *                     rather than separate. This is what GNU getopt() does and how POSIX recommends
- *                     utilities should interpret their arguments.@n
+ * <b>Version 1.2:</b> Added @ref Option_::Option::namelen "Option::namelen" and removed the
+ *                     extraction of short option characters into a special buffer. @n
+ *                     Changed @ref Option_::Arg::Optional "Arg::Optional" to accept arguments if
+ *                     they are attached rather than separate. This is what GNU getopt() does and
+ *                     how POSIX recommends utilities should interpret their arguments.@n
  * <b>Version 1.1:</b> Optional mode with argument reordering as done by GNU getopt(), so that
  *                     options and non-options can be mixed. See
  *                     @ref Option_::Parser::parse() "Parser::parse()".
  *
  * @par Feedback:
- * Send questions, bug reports, feature requests etc. to: <tt><b>optionparser-feedback<span id="antispam">&nbsp;(a)&nbsp;</span>lists.sourceforge.net</b></tt>
- * @htmlonly <script type="text/javascript">document.getElementById("antispam").innerHTML="@"</script> @endhtmlonly
+ * Send questions, bug reports, feature requests etc. to: <tt><b>optionparser-feedback<span
+ id="antispam">&nbsp;(a)&nbsp;</span>lists.sourceforge.net</b></tt>
+ * @htmlonly <script type="text/javascript">document.getElementById("antispam").innerHTML="@"
+ </script> @endhtmlonly
  *
  *
  * @par Example program:
@@ -177,7 +182,8 @@
  *     accepted, too.
  * @li a long option may take an argument either separate (<code> --option arg </code>) or
  *     attached (<code> --option=arg </code>). In the attached form the equals sign is mandatory.
- * @li an empty string can be passed as an attached long option argument: <code> --option-name= </code>.
+ * @li an empty string can be passed as an attached long option argument:
+ *     <code> --option-name= </code>.
  *     Note the distinction between an empty string as argument and no argument at all.
  * @li an empty string is permitted as separate argument to both long and short options.
  * @li Arguments to both short and long options may start with a @c '-' character. E.g.
@@ -243,14 +249,16 @@ namespace Option_
         ARG_NONE,
         //! The argument is acceptable for the option.
         ARG_OK,
-        //! The argument is not acceptable but that's non-fatal because the option's argument is optional.
+        //! The argument is not acceptable but that's non-fatal because the option's argument is
+        // optional.
         ARG_IGNORE,
         //! The argument is not acceptable and that's fatal.
         ARG_ILLEGAL
     }; // ArgStatus
 
     /**
-     * @brief Signature of functions that check if an argument is valid for a certain type of option.
+     * @brief Signature of functions that check if an argument is valid for a certain type of
+     * option.
      *
      * Every Option has such a function assigned in its Descriptor.
      * @code
@@ -498,7 +506,8 @@ namespace Option_
          * This value is the number of bytes (not characters!) that are part of the actual name.
          *
          * For a short option, this length is always 1. For a long option this length is always
-         * at least 2 if single minus long options are permitted and at least 3 if they are disabled.
+         * at least 2 if single minus long options are permitted and at least 3 if they are
+         * disabled.
          *
          * @note
          * In the pathological case of a minus within a short option group (e.g. @c -xf-z), this
@@ -515,8 +524,9 @@ namespace Option_
          * @brief Returns Descriptor::type of this Option's Descriptor, or 0 if this Option
          * is invalid (unused).
          *
-         * Because this method (and last(), too) can be used even on unused Options with desc==0, you can (provided
-         * you arrange your types properly) switch on type() without testing validity first.
+         * Because this method (and last(), too) can be used even on unused Options with desc==0,
+         * you can (provided you arrange your types properly) switch on type() without testing
+         * validity first.
          * @code
          * enum OptionType { UNUSED=0, DISABLED=0, ENABLED=1 };
          * enum OptionIndex { FOO };
@@ -549,8 +559,8 @@ namespace Option_
         } // index
 
         /**
-         * @brief Returns the number of times this Option (or others with the same Descriptor::index)
-         * occurs in the argument vector.
+         * @brief Returns the number of times this Option (or others with the same
+         * Descriptor::index) occurs in the argument vector.
          *
          * This corresponds to the number of elements in the linked list this Option is part of.
          * It doesn't matter on which element you call count(). The return value is always the same.
@@ -614,10 +624,10 @@ namespace Option_
          * option itself.
          *
          * @par Tip:
-         * If you have options with opposite meanings (e.g. @c --enable-foo and @c --disable-foo), you
-         * can assign them the same Descriptor::index to get them into the same list. Distinguish them by
-         * Descriptor::type and all you have to do is check <code> last()->type() </code> to get
-         * the state listed last on the command line.
+         * If you have options with opposite meanings (e.g. @c --enable-foo and @c --disable-foo),
+         * you can assign them the same Descriptor::index to get them into the same list.
+         * Distinguish them by Descriptor::type and all you have to do is check
+         * <code> last()->type() </code> to get the state listed last on the command line.
          */
         inline Option * last(void)
         {
@@ -766,7 +776,8 @@ namespace Option_
     private :
         /**
          * @internal
-         * @brief Sets the fields of this Option to the given values (extracting @c name if necessary).
+         * @brief Sets the fields of this Option to the given values (extracting @c name if
+         * necessary).
          *
          * If @c name_ points at a character other than '-' it will be assumed to refer to a
          * short option and @ref namelen will be set to 1. Otherwise the length will extend to
@@ -1096,57 +1107,62 @@ namespace Option_
         /**
          * @brief Parses the given argument vector.
          *
-         * @param gnu if true, parse() will not stop at the first non-option argument. Instead it will
-         *            reorder arguments so that all non-options are at the end. This is the default behaviour
-         *            of GNU getopt() but is not conforming to POSIX. @n
-         *            Note, that once the argument vector has been reordered, the @c gnu flag will have
-         *            no further effect on this argument vector. So it is enough to pass @c gnu==true when
-         *            creating Stats.
-         * @param usage Array of Descriptor objects that describe the options to support. The last entry
-         *              of this array must have 0 in all fields.
-         * @param argc The number of elements from @c argv that are to be parsed. If you pass -1, the number
-         *             will be determined automatically. In that case the @c argv list must end with a NULL
-         *             pointer.
-         * @param argv The arguments to be parsed. If you pass -1 as @c argc the last pointer in the @c argv
-         *             list must be NULL to mark the end.
-         * @param options Each entry is the first element of a linked list of Options. Each new option
-         *                that is parsed will be appended to the list specified by that Option's
-         *                Descriptor::index. If an entry is not yet used (i.e. the Option is invalid),
-         *                it will be replaced rather than appended to. @n
-         *                The minimum length of this array is the greatest Descriptor::index value that
-         *                occurs in @c usage @e PLUS ONE.
-         * @param buffer Each argument that is successfully parsed (including unknown arguments, if they
-         *        have a Descriptor whose CheckArg does not return @ref ARG_ILLEGAL) will be stored in this
-         *        array. parse() scans the array for the first invalid entry and begins writing at that
-         *        index. You can pass @c bufmax to limit the number of options stored.
-         * @param min_abbr_len Passing a value <code> min_abbr_len > 0 </code> enables abbreviated long
-         *               options. The parser will match a prefix of a long option as if it was
-         *               the full long option (e.g. @c --foob=10 will be interpreted as if it was
-         *               @c --foobar=10 ), as long as the prefix has at least @c min_abbr_len characters
-         *               (not counting the @c -- ) and is unambiguous.
-         *               @n Be careful if combining @c min_abbr_len=1 with @c single_minus_longopt=true
-         *               because the ambiguity check does not consider short options and abbreviated
-         *               single minus long options will take precedence over short options.
-         * @param single_minus_longopt Passing @c true for this option allows long options to begin with
-         *               a single minus. The double minus form will still be recognized. Note that
-         *               single minus long options take precedence over short options and short option
-         *               groups. E.g. @c -file would be interpreted as @c --file and not as
-         *               <code> -f -i -l -e </code> (assuming a long option named @c "file" exists).
+         * @param gnu if true, parse() will not stop at the first non-option argument. Instead it
+         *            will reorder arguments so that all non-options are at the end. This is the
+         *            default behaviour of GNU getopt() but is not conforming to POSIX. @n
+         *            Note, that once the argument vector has been reordered, the @c gnu flag will
+         *            have no further effect on this argument vector. So it is enough to pass
+         *            @c gnu==true when creating Stats.
+         * @param usage Array of Descriptor objects that describe the options to support. The last
+         *              entry of this array must have 0 in all fields.
+         * @param argc The number of elements from @c argv that are to be parsed. If you pass -1,
+         *             the number will be determined automatically. In that case the @c argv list
+         *             must end with a NULL pointer.
+         * @param argv The arguments to be parsed. If you pass -1 as @c argc the last pointer in the
+         *             @c argv list must be NULL to mark the end.
+         * @param options Each entry is the first element of a linked list of Options. Each new
+         *                option that is parsed will be appended to the list specified by that
+         *                Option's Descriptor::index. If an entry is not yet used (i.e. the Option
+         *                is invalid), it will be replaced rather than appended to. @n
+         *                The minimum length of this array is the greatest Descriptor::index value
+         *                that occurs in @c usage @e PLUS ONE.
+         * @param buffer Each argument that is successfully parsed (including unknown arguments, if
+         *               they have a Descriptor whose CheckArg does not return @ref ARG_ILLEGAL)
+         *               will be stored in this array. parse() scans the array for the first invalid
+         *               entry and begins writing at that index. You can pass @c bufmax to limit the
+         *               number of options stored.
+         * @param min_abbr_len Passing a value <code> min_abbr_len > 0 </code> enables abbreviated
+         *                     long options. The parser will match a prefix of a long option as if
+         *                     it was the full long option (e.g. @c --foob=10 will be interpreted as
+         *                     if it was @c --foobar=10 ), as long as the prefix has at least
+         *                     @c min_abbr_len characters (not counting the @c -- ) and is
+         *                     unambiguous.@n
+         *                     Be careful if combining @c min_abbr_len=1 with
+         *                     @c single_minus_longopt=true because the ambiguity check does not
+         *                     consider short options and abbreviated single minus long options will
+         *                     take precedence over short options.
+         * @param single_minus_longopt Passing @c true for this option allows long options to begin
+         *                             with a single minus. The double minus form will still be
+         *                             recognized. Note that single minus long options take
+         *                             precedence over short options and short option groups. E.g.
+         *                             @c -file would be interpreted as @c --file and not as
+         *                             <code> -f -i -l -e </code> (assuming a long option named
+         *                             @c "file" exists).
          * @param bufmax The greatest index in the @c buffer[] array that parse() will write to is
-         *               @c bufmax-1. If there are more options, they will be processed (in particular
-         *               their CheckArg will be called) but not stored. @n
+         *               @c bufmax-1. If there are more options, they will be processed (in
+         *               particular their CheckArg will be called) but not stored. @n
          *               If you used Stats::buffer_max to dimension this array, you can pass
          *               -1 (or not pass @c bufmax at all) which tells parse() that the buffer is
          *               "large enough".
          * @attention
-         * Remember that @c options and @c buffer store Option @e objects, not pointers. Therefore it
-         * is not possible for the same object to be in both arrays. For those options that are found in
-         * both @c buffer[] and @c options[] the respective objects are independent copies. And only the
-         * objects in @c options[] are properly linked via Option::next() and Option::prev().
-         * You can iterate over @c buffer[] to
-         * process all options in the order they appear in the argument vector, but if you want access to
-         * the other Options with the same Descriptor::index, then you @e must access the linked list via
-         * @c options[]. You can get the linked list in options from a buffer object via something like
+         * Remember that @c options and @c buffer store Option @e objects, not pointers. Therefore
+         * it is not possible for the same object to be in both arrays. For those options that are
+         * found in both @c buffer[] and @c options[] the respective objects are independent copies.
+         * And only the objects in @c options[] are properly linked via Option::next() and
+         * Option::prev(). You can iterate over @c buffer[] to process all options in the order they
+         * appear in the argument vector, but if you want access to the other Options with the same
+         * Descriptor::index, then you @e must access the linked list via @c options[]. You can get
+         * the linked list in options from a buffer object via something like
          * @c options[buffer[i].index()].
          */
         void parse(const bool         gnu,
@@ -1194,8 +1210,8 @@ namespace Option_
          * @brief Returns the number of valid Option objects in @c buffer[].
          *
          * @note
-         * @li The returned value always reflects the number of Options in the buffer[] array used for
-         * the most recent call to parse().
+         * @li The returned value always reflects the number of Options in the buffer[] array used
+         * for the most recent call to parse().
          * @li The count (and the buffer[]) includes unknown options if they are collected
          * (see Descriptor::longopt).
          */
@@ -1243,7 +1259,8 @@ namespace Option_
         } // nonOptions
 
         /**
-         * @brief Returns <b><code>nonOptions()[i]</code></b> (@e without checking if i is in range!).
+         * @brief Returns <b><code>nonOptions()[i]</code></b> (@e without checking if i is in
+         * range!).
          */
         inline const char * nonOption(const int ii)
         const
@@ -1313,9 +1330,11 @@ namespace Option_
          *
          * Returns true iff @c st1 and @c st2 have a common
          * prefix with the following properties:
-         * @li (if min > 0) its length is at least @c min characters or the same length as @c st1 (whichever is smaller).
+         * @li (if min > 0) its length is at least @c min characters or the same length as @c st1
+         * (whichever is smaller).
          * @li (if min <= 0) its length is the same as that of @c st1
-         * @li within @c st2 the character following the common prefix is either '=' or end-of-string.
+         * @li within @c st2 the character following the common prefix is either '=' or
+         * end-of-string.
          *
          * Examples:
          * @code
@@ -1517,8 +1536,8 @@ namespace Option_
 
         /**
          * @internal
-         * @brief Encapsulates a function with the signature <code>func(fd, string, size)</code> (the
-         * signature of the @c write() system call)
+         * @brief Encapsulates a function with the signature <code>func(fd, string, size)</code>
+         * (the signature of the @c write() system call)
          * where fd can be initialized from an int, string from a const char* and size from an int.
          */
         template<typename Syscall> struct SyscallWriter : public IStringWriter
@@ -1683,8 +1702,8 @@ namespace Option_
             void restartTable(void);
 
             /**
-             * @brief Moves iteration to the next row (if any). Has to be called once after each call to
-             * @ref nextTable() to move to the 1st row of the table.
+             * @brief Moves iteration to the next row (if any). Has to be called once after each
+             * call to @ref nextTable() to move to the 1st row of the table.
              * @retval false if moving to next row failed because no further row exists.
              */
             bool nextRow(void);
@@ -1695,8 +1714,8 @@ namespace Option_
             void restartRow(void);
 
             /**
-             * @brief Moves iteration to the next part (if any). Has to be called once after each call to
-             * @ref nextRow() to move to the 1st part of the row.
+             * @brief Moves iteration to the next part (if any). Has to be called once after each
+             * call to @ref nextRow() to move to the 1st part of the row.
              * @retval false if moving to next part failed because no further part exists.
              *
              * See @ref LinePartIterator for details about the iteration.
@@ -1720,11 +1739,13 @@ namespace Option_
             inline int line(void)
             const
             {
-                return target_line_in_block; // NOT line_in_block !!! It would be wrong if !hit_target_line
+                return target_line_in_block; // NOT line_in_block !!! It would be wrong if
+                // !hit_target_line
             } // line
 
             /**
-             * @brief Returns the length of the part pointed to by @ref data() in raw chars (not UTF-8 characters).
+             * @brief Returns the length of the part pointed to by @ref data() in raw chars (not
+             * UTF-8 characters).
              */
             inline int length(void)
             const
@@ -2053,10 +2074,10 @@ namespace Option_
      *     This differs from the way functors are passed to e.g. the STL algorithms.
      * @li All printUsage() templates are tiny wrappers around a shared non-template implementation.
      *     So there's no penalty for using different versions in the same program.
-     * @li printUsage() always interprets Descriptor::help as UTF-8 and always produces UTF-8-encoded
-     *     output. If your system uses a different charset, you must do your own conversion. You
-     *     may also need to change the font of the console to see non-ASCII characters properly.
-     *     This is particularly true for Windows.
+     * @li printUsage() always interprets Descriptor::help as UTF-8 and always produces
+     *     UTF-8-encoded output. If your system uses a different charset, you must do your own
+     *     conversion. You may also need to change the font of the console to see non-ASCII
+     *     characters properly. This is particularly true for Windows.
      * @li @b Security @b warning: Do not insert untrusted strings (such as user-supplied arguments)
      *     into the usage. printUsage() has no protection against malicious UTF-8 sequences.
      *
@@ -2066,12 +2087,12 @@ namespace Option_
      *        in actual characters, not bytes. printUsage() supports UTF-8 in @c help and will
      *        count multi-byte UTF-8 sequences properly. Asian wide characters are counted
      *        as 2 characters.
-     * @param last_column_min_percent (0-100) The minimum percentage of @c width that should be available
-     *        for the last column (which typically contains the textual explanation of an option).
-     *        If less space is available, the last column will be printed on its own line, indented
-     *        according to @c last_column_own_line_max_percent.
-     * @param last_column_own_line_max_percent (0-100) If the last column is printed on its own line due to
-     *        less than @c last_column_min_percent of the width being available, then only
+     * @param last_column_min_percent (0-100) The minimum percentage of @c width that should be
+     *        available for the last column (which typically contains the textual explanation of an
+     *        option). If less space is available, the last column will be printed on its own line,
+     *        indented according to @c last_column_own_line_max_percent.
+     * @param last_column_own_line_max_percent (0-100) If the last column is printed on its own line
+     *        due to less than @c last_column_min_percent of the width being available, then only
      *        @c last_column_own_line_max_percent of the extra line(s) will be used for the
      *        last column's text. This ensures an indentation. See example below.
      *

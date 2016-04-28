@@ -16,6 +16,8 @@ Tests/nImOcommonTest
 Tests/nImOcommonTest.rc
 Tests/nImOcontainerTest
 Tests/nImOcontainerTest.rc
+Tests/nImOmessageExtractTest
+Tests/nImOmessageExtractTest.rc
 Tests/nImOmessageInsertTest
 Tests/nImOmessageInsertTest.rc
 Tests/nImOmessageTest

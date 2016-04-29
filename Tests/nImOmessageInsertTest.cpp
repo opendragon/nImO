@@ -1913,11 +1913,13 @@ doTestInsertArrayOneBooleanMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneBooleanCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneBoolean, contents, expectedArrayOneBooleanCount);
+                result = memcmp(expectedBytesForArrayOneBoolean, contents,
+                                expectedArrayOneBooleanCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayOneBooleanCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayOneBooleanCount == length))"); //####
             }
             delete stuff;
         }
@@ -2015,11 +2017,13 @@ doTestInsertArrayOneIntegerMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneIntegerCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneInteger, contents, expectedArrayOneIntegerCount);
+                result = memcmp(expectedBytesForArrayOneInteger, contents,
+                                expectedArrayOneIntegerCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayOneIntegerCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayOneIntegerCount == length))"); //####
             }
             delete stuff;
         }
@@ -2119,7 +2123,8 @@ doTestInsertArrayOneDoubleMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneDoubleCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneDouble, contents, expectedArrayOneDoubleCount);
+                result = memcmp(expectedBytesForArrayOneDouble, contents,
+                                expectedArrayOneDoubleCount);
             }
             else
             {
@@ -2222,7 +2227,8 @@ doTestInsertArrayOneStringMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneStringCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneString, contents, expectedArrayOneStringCount);
+                result = memcmp(expectedBytesForArrayOneString, contents,
+                                expectedArrayOneStringCount);
             }
             else
             {
@@ -2432,7 +2438,8 @@ doTestInsertArrayOneArrayMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneArrayCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneArray, contents, expectedArrayOneArrayCount);
+                result = memcmp(expectedBytesForArrayOneArray, contents,
+                                expectedArrayOneArrayCount);
             }
             else
             {
@@ -2752,11 +2759,13 @@ doTestInsertArrayTwoBooleansMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayTwoBooleanCount == length))
             {
-                result = memcmp(expectedBytesForArrayTwoBoolean, contents, expectedArrayTwoBooleanCount);
+                result = memcmp(expectedBytesForArrayTwoBoolean, contents,
+                                expectedArrayTwoBooleanCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoBooleanCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayTwoBooleanCount == length))"); //####
             }
             delete stuff;
         }
@@ -2858,11 +2867,13 @@ doTestInsertArrayTwoIntegersMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayTwoIntegerCount == length))
             {
-                result = memcmp(expectedBytesForArrayTwoInteger, contents, expectedArrayTwoIntegerCount);
+                result = memcmp(expectedBytesForArrayTwoInteger, contents,
+                                expectedArrayTwoIntegerCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayTwoIntegerCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayTwoIntegerCount == length))"); //####
             }
             delete stuff;
         }
@@ -2964,7 +2975,8 @@ doTestInsertArrayTwoDoublesMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayTwoDoubleCount == length))
             {
-                result = memcmp(expectedBytesForArrayTwoDouble, contents, expectedArrayTwoDoubleCount);
+                result = memcmp(expectedBytesForArrayTwoDouble, contents,
+                                expectedArrayTwoDoubleCount);
             }
             else
             {
@@ -3072,7 +3084,8 @@ doTestInsertArrayTwoStringsMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayTwoStringCount == length))
             {
-                result = memcmp(expectedBytesForArrayTwoString, contents, expectedArrayTwoStringCount);
+                result = memcmp(expectedBytesForArrayTwoString, contents,
+                                expectedArrayTwoStringCount);
             }
             else
             {
@@ -3296,7 +3309,8 @@ doTestInsertArrayTwoArraysMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayTwoArrayCount == length))
             {
-                result = memcmp(expectedBytesForArrayTwoArray, contents, expectedArrayTwoArrayCount);
+                result = memcmp(expectedBytesForArrayTwoArray, contents,
+                                expectedArrayTwoArrayCount);
             }
             else
             {
@@ -3630,8 +3644,9 @@ doTestInsertArrayOneArrayOneMapMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneArrayOneMapCount = (sizeof(expectedBytesForArrayOneArrayOneMap) /
-                                                             sizeof(*expectedBytesForArrayOneArrayOneMap));
+            const size_t expectedArrayOneArrayOneMapCount =
+                                                    (sizeof(expectedBytesForArrayOneArrayOneMap) /
+                                                     sizeof(*expectedBytesForArrayOneArrayOneMap));
             nImO::Array arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(new nImO::Array);
@@ -3644,11 +3659,13 @@ doTestInsertArrayOneArrayOneMapMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneArrayOneMapCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneArrayOneMap, contents, expectedArrayOneArrayOneMapCount);
+                result = memcmp(expectedBytesForArrayOneArrayOneMap, contents,
+                                expectedArrayOneArrayOneMapCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayOneArrayOneMapCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayOneArrayOneMapCount == length))"); //####
             }
             delete stuff;
         }
@@ -3746,8 +3763,9 @@ doTestInsertArrayOneMapOneSetMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneMapOneSetCount = (sizeof(expectedBytesForArrayOneMapOneSet) /
-                                                           sizeof(*expectedBytesForArrayOneMapOneSet));
+            const size_t expectedArrayOneMapOneSetCount =
+                                                        (sizeof(expectedBytesForArrayOneMapOneSet) /
+                                                        sizeof(*expectedBytesForArrayOneMapOneSet));
             nImO::Array arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(new nImO::Map);
@@ -3760,11 +3778,13 @@ doTestInsertArrayOneMapOneSetMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneMapOneSetCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneMapOneSet, contents, expectedArrayOneMapOneSetCount);
+                result = memcmp(expectedBytesForArrayOneMapOneSet, contents,
+                                expectedArrayOneMapOneSetCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayOneMapOneSetCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " //####
+                        "(expectedArrayOneMapOneSetCount == length))"); //####
             }
             delete stuff;
         }
@@ -3862,8 +3882,9 @@ doTestInsertArrayOneSetOneArrayMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneSetOneArrayCount = (sizeof(expectedBytesForArrayOneSetOneArray) /
-                                                             sizeof(*expectedBytesForArrayOneSetOneArray));
+            const size_t expectedArrayOneSetOneArrayCount =
+                                                    (sizeof(expectedBytesForArrayOneSetOneArray) /
+                                                     sizeof(*expectedBytesForArrayOneSetOneArray));
             nImO::Array arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(new nImO::Set);
@@ -3876,11 +3897,13 @@ doTestInsertArrayOneSetOneArrayMessage(const char * launchPath,
 
             if ((NULL != contents) && (expectedArrayOneSetOneArrayCount == length))
             {
-                result = memcmp(expectedBytesForArrayOneSetOneArray, contents, expectedArrayOneSetOneArrayCount);
+                result = memcmp(expectedBytesForArrayOneSetOneArray, contents,
+                                expectedArrayOneSetOneArrayCount);
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedArrayOneSetOneArrayCount == length))"); //####
+                ODL_LOG("! ((NULL != contents) && " ..####
+                        "(expectedArrayOneSetOneArrayCount == length))"); //####
             }
             delete stuff;
         }
@@ -4010,7 +4033,7 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
             const size_t expectedArrayManyDoublesCount = (sizeof(expectedBytesForArrayManyDoubles) /
-                                                          sizeof(*expectedBytesForArrayManyDoubles));
+                                                        sizeof(*expectedBytesForArrayManyDoubles));
             nImO::Array arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -4040,13 +4063,8 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
                             ODL_LL1("jj <- ", jj); //####
                             break;
                         }
+                        
                     }
-                    if (8 > jj)
-                    {
-                        jj = 8;
-                    }
-                    ODL_PACKET("expected", reinterpret_cast<const char *>(expectedBytesForArrayManyDoubles + jj - 8), 24); //####
-                    ODL_PACKET("contents", reinterpret_cast<const char *>(contents + jj - 8), 24); //####
                 }
             }
             else

@@ -202,7 +202,13 @@ ExtraArgumentDescriptor::toString(void)
 bool
 ExtraArgumentDescriptor::validate(const std::string & value)
 {
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(value)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_OBJENTER(); //####
+    ODL_P1("value = ", &value); //####
     _valid = true;
     ODL_B1("_valid <- ", _valid); //####
     ODL_OBJEXIT_B(_valid); //####

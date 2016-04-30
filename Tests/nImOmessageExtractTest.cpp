@@ -58,9 +58,6 @@
 #endif // defined(__APPLE__)
 /*! @file
  @brief The test driver for the unit tests of the %nImO common library. */
-
-/*! @namespace nImO::Test
- @brief The classes used for unit testing of the %nImO classes. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,11 +78,15 @@ using std::endl;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+#if 0
 /*! @brief The number of elements in a small test. */
 static const size_t kSmallTestSize = 100;
+#endif//0
 
+#if 0
 /*! @brief The number of elements in a big test. */
 static const size_t kBigTestSize = 100000;
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Local functions

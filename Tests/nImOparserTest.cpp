@@ -76,12 +76,6 @@ using std::endl;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The number of elements in a small test. */
-static const size_t kSmallTestSize = 100;
-
-/*! @brief The number of elements in a big test. */
-static const size_t kBigTestSize = 100000;
-
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)

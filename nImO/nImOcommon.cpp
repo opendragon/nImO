@@ -77,8 +77,10 @@ using std::endl;
 /*! @brief @c true once the random number generator is seeded. */
 static bool lRandomSeeded = false;
 
+#if 0
 /*! @brief The maximum integer that we wish to use for generated random values. */
 static const int kMaxRandom = 123456789;
+#endif//0
 
 #if 0
 /*! @brief @c true if the executable is running or ready-to-run and @c false otherwise. */
@@ -133,6 +135,11 @@ const std::string nImO::kDirectorySeparator = "\\";
 static void
 localCatcher(int signal)
 {
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(signal)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
 #if 0

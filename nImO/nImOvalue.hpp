@@ -144,6 +144,9 @@ namespace nImO
                     bool &        validComparison)
         const
         {
+# if MAC_OR_LINUX_
+#  pragma unused(other)
+# endif // MAC_OR_LINUX_
             validComparison = false;
             return false;
         } // greaterThan
@@ -266,6 +269,9 @@ namespace nImO
                  bool &        validComparison)
         const
         {
+# if MAC_OR_LINUX_
+#  pragma unused(other)
+# endif // MAC_OR_LINUX_
             validComparison = false;
             return false;
         } // lessThan
@@ -365,6 +371,9 @@ namespace nImO
                             const bool     squished = false)
         const
         {
+# if MAC_OR_LINUX_
+#  pragma unused(outBuffer,squished)
+# endif // MAC_OR_LINUX_
         } // printToStringBuffer
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
@@ -381,6 +390,9 @@ namespace nImO
         writeToMessage(Message & outMessage)
         const
         {
+# if MAC_OR_LINUX_
+#  pragma unused(outMessage)
+# endif // MAC_OR_LINUX_
         } // writeToMessage
 
     protected :

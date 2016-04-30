@@ -394,6 +394,11 @@ nImO::Double::printToStringBuffer(nImO::StringBuffer & outBuffer,
                                   const bool           squished)
 const
 {
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(squished)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####

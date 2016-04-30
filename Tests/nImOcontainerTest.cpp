@@ -57,9 +57,6 @@
 #endif // defined(__APPLE__)
 /*! @file
  @brief The test driver for the unit tests of the %nImO common library. */
-
-/*! @namespace nImO::Test
- @brief The classes used for unit testing of the %nImO classes. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,9 +75,6 @@ using std::endl;
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
-
-/*! @brief The number of elements in a small test. */
-static const size_t kSmallTestSize = 100;
 
 /*! @brief The number of elements in a big test. */
 static const size_t kBigTestSize = 100000;
@@ -176,7 +170,7 @@ doTestEmptyArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -256,7 +250,7 @@ doTestSingularArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -341,7 +335,7 @@ doTestSmallArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -435,7 +429,7 @@ doTestBigArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -535,7 +529,7 @@ doTestEmptyMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -615,7 +609,7 @@ doTestSingularBooleanMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -702,7 +696,7 @@ doTestSingularIntegerMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -788,7 +782,7 @@ doTestSingularStringMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -875,7 +869,7 @@ doTestSmallBooleanMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -966,7 +960,7 @@ doTestSmallIntegerMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1060,7 +1054,7 @@ doTestSmallStringMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1157,7 +1151,7 @@ doTestEmptySetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1237,7 +1231,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1322,7 +1316,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1407,7 +1401,7 @@ doTestSingularStringSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1492,7 +1486,7 @@ doTestSmallBooleanSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1582,7 +1576,7 @@ doTestSmallIntegerSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1680,7 +1674,7 @@ doTestSmallStringSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1778,7 +1772,7 @@ doTestArrayWithArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1863,7 +1857,7 @@ doTestArrayWithMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1948,7 +1942,7 @@ doTestArrayWithSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2033,7 +2027,7 @@ doTestMapWithArrayValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2120,7 +2114,7 @@ doTestMapWithMapValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2207,7 +2201,7 @@ doTestMapWithSetValue(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2294,7 +2288,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2384,7 +2378,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2472,7 +2466,7 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2562,7 +2556,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2650,7 +2644,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2738,7 +2732,7 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2826,7 +2820,7 @@ doTestValidArrayCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -3622,7 +3616,7 @@ doTestValidBooleanMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -4018,7 +4012,7 @@ doTestValidIntegerMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -4263,7 +4257,7 @@ doTestValidStringMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -4493,7 +4487,7 @@ doTestValidBooleanSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -4889,7 +4883,7 @@ doTestValidIntegerSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5134,7 +5128,7 @@ doTestValidStringSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5364,7 +5358,7 @@ doTestInvalidArrayCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5488,7 +5482,7 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5610,7 +5604,7 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5731,7 +5725,7 @@ doTestInvalidStringMapCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5854,7 +5848,7 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -5976,7 +5970,7 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6097,7 +6091,7 @@ doTestInvalidStringSetCompares(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6220,7 +6214,7 @@ doTestArrayIndices(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6346,7 +6340,7 @@ doTestBooleanMapSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6459,7 +6453,7 @@ doTestIntegerMapSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6572,7 +6566,7 @@ doTestStringMapSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6685,7 +6679,7 @@ doTestBooleanSetSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6785,7 +6779,7 @@ doTestIntegerSetSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -6885,7 +6879,7 @@ doTestStringSetSearches(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####

@@ -45,10 +45,11 @@
 <array> ::= '(' <sp>* <value-list>? <sp>* ')'; ## empty arrays allowed\
 <set> ::= '[' <sp>* <atom-list>? <sp>* ']'; ## empty sets allowed and floating-point numbers can't be keys\
 <atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
-<blob> ::= '%' <unsigned-integer> '%' <byte>+ '%'; ## number of values == leading integer, > 0\
+<blob> ::= '%' <unsigned-integer> '%' <byte>* '%'; ## number of values == leading integer, >= 0\
 <byte> ::= <hex-digit> <hex-digit>;\
 <hex-digit> ::= \\d | 'a' .. 'f'; ## case-insensitive\
 \
-## when generating output, insert single spaces wherever <sp>+ or <sp>* appear in these patterns\
+## when generating output, insert single spaces wherever <sp>+ or <sp>* appear in these patterns,\
+## unless 'squashed' output is requested\
 \
 }

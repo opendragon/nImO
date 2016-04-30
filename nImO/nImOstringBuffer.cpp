@@ -178,8 +178,11 @@ nImO::StringBuffer::addBytes(const uint8_t * inBytes,
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
     ODL_LL1("numBytes = ", numBytes); //####
-    static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+    static const char hexDigits[16] =
+    {
+        '0', '1', '2', '3', '4', '5', '6', '7',
+        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    };
 
     addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
     for (size_t ii = 0; numBytes > ii; ++ii)

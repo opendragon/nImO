@@ -162,6 +162,15 @@ namespace nImO
             return inherited2::end();
         } // end
 
+        /*! @brief Return a reverse iterator pointing to the first element of the Array.
+         @returns A reverse iterator pointing to the first element of the Array. */
+        inline const_reverse_iterator
+        rbegin(void)
+        const
+        {
+            return inherited2::rbegin();
+        } // rbegin
+        
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -267,15 +276,6 @@ namespace nImO
          @returns A reverse iterator pointing to the first element of the Array. */
         inline reverse_iterator
         rbegin(void)
-        {
-            return inherited2::rbegin();
-        } // rbegin
-
-        /*! @brief Return a reverse iterator pointing to the first element of the Array.
-         @returns A reverse iterator pointing to the first element of the Array. */
-        inline const_reverse_iterator
-        rbegin(void)
-        const
         {
             return inherited2::rbegin();
         } // rbegin

@@ -918,7 +918,7 @@ nImO::ProcessStandardUtilitiesOptions(const int           argc,
     ODL_ENTER(); //####
     ODL_L2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-              "flavour = ", &flavour, "arguments = ", arguments); //####
+           "flavour = ", &flavour, "arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
     ODL_B1("ignoreFlavours = ", ignoreFlavours); //####

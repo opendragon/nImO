@@ -99,12 +99,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief A TAB character. */
-# define CHAR_TAB_                  "\t"
-
-/*! @brief A NEWLINE character. */
-# define CHAR_NEWLINE_              "\n"
-
 /*! @brief A DOUBLEQUOTE character. */
 # define CHAR_DOUBLEQUOTE_          "\""
 

@@ -95,7 +95,7 @@ IntArgumentDescriptor::IntArgumentDescriptor(const std::string & argName,
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
     ODL_LL3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, //####
-               "maximumValue = ", maximumValue); //####
+            "maximumValue = ", maximumValue); //####
     ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
     ODL_EXIT_P(this); //####
 } // IntArgumentDescriptor::IntArgumentDescriptor

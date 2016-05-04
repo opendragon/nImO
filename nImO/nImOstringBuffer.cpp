@@ -113,8 +113,6 @@ static const char * kCanonicalControl[] =
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const int nImO::StringBuffer::kEndCharacter = -1;
-
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -128,32 +126,15 @@ const int nImO::StringBuffer::kEndCharacter = -1;
 #endif // defined(__APPLE__)
 
 nImO::StringBuffer::StringBuffer(void) :
-    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _cachedLength(0), _numChunks(1),
-    _cachedIsFirstBuffer(false)
+    inherited(true)
 {
     ODL_ENTER(); //####
-    ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
-    ODL_LL2("_cachedLength <-", _cachedLength, "_numChunks <- ", _numChunks); //####
-    ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-    *_buffers = new BufferChunk(true);
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
 nImO::StringBuffer::~StringBuffer(void)
 {
     ODL_OBJENTER(); //####
-    if (! _cachedIsFirstBuffer)
-    {
-        delete[] _cachedOutput;
-    }
-    if (_buffers)
-    {
-        for (size_t ii = 0; _numChunks > ii; ++ii)
-        {
-            delete _buffers[ii];
-        }
-        delete _buffers;
-    }
     ODL_OBJEXIT(); //####
 } // nImO::StringBuffer::~StringBuffer
 
@@ -201,9 +182,9 @@ nImO::StringBuffer::addChar(const char aChar)
 {
     ODL_OBJENTER(); //####
     ODL_C1("aChar = ", aChar); //####
-    char temp = aChar;
+    uint8_t temp = aChar;
 
-    appendChars(&temp, sizeof(temp));
+    inherited::appendBytes(&temp, sizeof(temp));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addChar
@@ -221,7 +202,8 @@ nImO::StringBuffer::addDouble(const double aDouble)
     sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
 #endif // ! MAC_OR_LINUX_
     ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
+    inherited::appendBytes(reinterpret_cast<uint8_t *>(numBuff),
+                           strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addDouble
@@ -235,7 +217,8 @@ nImO::StringBuffer::addLong(const int64_t aLong)
 
     snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
     ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
+    inherited::appendBytes(reinterpret_cast<uint8_t *>(numBuff),
+                           strlen(numBuff) * sizeof(numBuff[0]));
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addLong
@@ -257,7 +240,8 @@ nImO::StringBuffer::addString(const char * aString,
         }
         else
         {
-            appendChars(aString, length * sizeof(*aString));
+            inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString),
+                                   length * sizeof(*aString));
         }
     }
     ODL_OBJEXIT_P(this); //####
@@ -279,7 +263,8 @@ nImO::StringBuffer::addString(const std::string & aString,
     }
     else
     {
-        appendChars(aString.c_str(), length * sizeof(*aString.c_str()));
+        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString.c_str()),
+                               length * sizeof(*aString.c_str()));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -293,73 +278,6 @@ nImO::StringBuffer::addTab(void)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addTab
-
-void
-nImO::StringBuffer::appendChars(const char * data,
-                                const size_t numBytes)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("data = ", data); //####
-    ODL_LL1("numBytes = ", numBytes); //####
-    if (data && (0 < numBytes))
-    {
-        const char * walker = data;
-
-        if (_cachedOutput)
-        {
-            if (! _cachedIsFirstBuffer)
-            {
-                delete[] _cachedOutput;
-            }
-            _cachedOutput = NULL;
-            ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-        }
-        for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
-        {
-            BufferChunk * lastChunk = _buffers[_numChunks - 1];
-            size_t        available = lastChunk->getAvailableBytes();
-
-            if (bytesLeft <= available)
-            {
-                lastChunk->appendData(walker, bytesLeft * sizeof(*data));
-                bytesLeft = 0;
-            }
-            else
-            {
-                BufferChunk * prevChunk = lastChunk;
-
-                lastChunk = new BufferChunk(true);
-                if (lastChunk)
-                {
-                    BufferChunk * * newBuffers = new BufferChunk *[_numChunks + 1];
-
-                    if (newBuffers)
-                    {
-                        memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
-                        delete[] _buffers;
-                        _buffers = newBuffers;
-                        ODL_P1("_buffers <- ", _buffers); //####
-                        _buffers[_numChunks++] = lastChunk;
-                        ODL_LL1("_numChunks <- ", _numChunks); //####
-                        prevChunk->appendData(walker, available);
-                        walker += available;
-                        bytesLeft -= available;
-                    }
-                    else
-                    {
-                        delete lastChunk;
-                        bytesLeft = 0;
-                    }
-                }
-                else
-                {
-                    bytesLeft = 0;
-                }
-            }
-        }
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::StringBuffer::appendChars
 
 nImO::Value * nImO::StringBuffer::convertToValue(void)
 const
@@ -387,7 +305,7 @@ const
                 ODL_C1("aChar <- ", aChar); //####
                 ODL_LL1("position <- ", position); //####
             }
-            if (kEndCharacter == aChar)
+            if (kEndToken == aChar)
             {
                 if (holder)
                 {
@@ -437,120 +355,6 @@ const
     return result;
 } // nImO::StringBuffer::convertToValue
 
-int
-nImO::StringBuffer::getChar(const size_t index)
-const
-{
-    ODL_OBJENTER(); //####
-    int result = kEndCharacter;
-
-    if (_buffers)
-    {
-        size_t chunkNumber = (index / BufferChunk::kBufferSize);
-        size_t offset = (index % BufferChunk::kBufferSize);
-
-        if (_numChunks > chunkNumber)
-        {
-            BufferChunk * aChunk = _buffers[chunkNumber];
-
-            if (NULL != aChunk)
-            {
-                if (offset < aChunk->getDataSize())
-                {
-                    const uint8_t * thisData = aChunk->getData();
-
-                    result = *(thisData + offset);
-                }
-            }
-        }
-    }
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // nImO::StringBuffer::getChar
-
-size_t
-nImO::StringBuffer::getLength(void)
-const
-{
-    ODL_OBJENTER(); //####
-    size_t totalLength = 0;
-
-    if (_buffers)
-    {
-        BufferChunk * aChunk = _buffers[_numChunks - 1];
-
-        totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
-        if (NULL != aChunk)
-        {
-            totalLength += aChunk->getDataSize();
-        }
-    }
-    ODL_OBJEXIT_LL(totalLength); //####
-    return totalLength;
-} // nImO::StringBuffer::getLength
-
-const char *
-nImO::StringBuffer::getString(size_t & length)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("length = ", &length); //####
-    if (_cachedOutput)
-    {
-        length = _cachedLength;
-        ODL_LL1("length <- ", length); //####
-    }
-    else
-    {
-        length = 0;
-        ODL_LL1("length <- ", length); //####
-        if (1 < _numChunks)
-        {
-            size_t cachedSize = getLength();
-
-            _cachedOutput = new char[cachedSize + 1];
-            ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-            if (_cachedOutput)
-            {
-                char * walker = _cachedOutput;
-
-                for (size_t ii = 0; _numChunks > ii; ++ii)
-                {
-                    BufferChunk * aChunk = _buffers[ii];
-
-                    if (NULL != aChunk)
-                    {
-                        size_t nn = aChunk->getDataSize();
-
-                        if (0 < nn)
-                        {
-                            memcpy(walker, aChunk->getData(), nn);
-                            walker += nn;
-                        }
-                    }
-                }
-                *walker = '\0';
-                length = cachedSize;
-                ODL_LL1("length <- ", length); //####
-                _cachedIsFirstBuffer = false;
-                ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-            }
-        }
-        else
-        {
-            _cachedOutput = reinterpret_cast<char *>(const_cast<uint8_t *>(_buffers[0]->getData()));
-            ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-            length = _buffers[0]->getDataSize();
-            ODL_LL1("length <- ", length); //####
-            _cachedIsFirstBuffer = true;
-            ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-        }
-        _cachedLength = length;
-        ODL_LL1("_cachedLength <- ", _cachedLength); //####
-    }
-    ODL_OBJEXIT_P(_cachedOutput); //####
-    return _cachedOutput;
-} // getString
-
 void
 nImO::StringBuffer::processCharacters(const char * aString,
                                       const size_t length)
@@ -588,21 +392,22 @@ nImO::StringBuffer::processCharacters(const char * aString,
     }
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
-        char delimiter = ((numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote);
+        uint8_t delimiter = ((numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote);
 
-        appendChars(&delimiter, sizeof(delimiter));
+        inherited::appendBytes(&delimiter, sizeof(delimiter));
         for (size_t ii = 0; length > ii; ++ii)
         {
             uint8_t aByte = static_cast<uint8_t>(aString[ii]);
 
             if ((0x20 > aByte) || (0 != (aByte & 0x80)))
             {
-                appendChars(&kEscapeChar, sizeof(kEscapeChar));
+                inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
                     const char * controlString = kCanonicalControl[aByte];
 
-                    appendChars(controlString, strlen(controlString) * sizeof(*controlString));
+                    inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
+                                           strlen(controlString) * sizeof(*controlString));
                 }
                 else
                 {
@@ -610,49 +415,49 @@ nImO::StringBuffer::processCharacters(const char * aString,
                     if (' ' == aByte)
                     {
                         // Meta-blank is very special
-                        static const char metaBlank[] = { '2', '4', '0' };
+                        static const uint8_t metaBlank[] = { '2', '4', '0' };
 
-                        appendChars(metaBlank, sizeof(metaBlank));
+                        inherited::appendBytes(metaBlank, sizeof(metaBlank));
                     }
                     else if (0x7F == aByte)
                     {
                         // As is 0xFF
-                        static const char metaDel[] = { '3', '7', '7' };
+                        static const uint8_t metaDel[] = { '3', '7', '7' };
 
-                        appendChars(metaDel, sizeof(metaDel));
+                        inherited::appendBytes(metaDel, sizeof(metaDel));
                     }
                     else if (delimiter == aByte)
                     {
                         // Make sure that we don't break if there's a meta-quote of some form!
-                        static const char metaDoubleQuote[] = { '2', '4', '2' };
-                        static const char metaSingleQuote[] = { '2', '4', '7' };
+                        static const uint8_t metaDoubleQuote[] = { '2', '4', '2' };
+                        static const uint8_t metaSingleQuote[] = { '2', '4', '7' };
 
                         if (kSingleQuote == aByte)
                         {
-                            appendChars(metaSingleQuote, sizeof(metaSingleQuote));
+                            inherited::appendBytes(metaSingleQuote, sizeof(metaSingleQuote));
                         }
                         else
                         {
-                            appendChars(metaDoubleQuote, sizeof(metaDoubleQuote));
+                            inherited::appendBytes(metaDoubleQuote, sizeof(metaDoubleQuote));
                         }
                     }
                     else
                     {
                         // 'Regular' meta characters
-                        static const char metaPrefix[] = { 'M', '-' };
+                        static const uint8_t metaPrefix[] = { 'M', '-' };
 
-                        appendChars(metaPrefix, sizeof(metaPrefix));
+                        inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)
                         {
                             const char * controlString = kCanonicalControl[aByte];
 
-                            appendChars(&kEscapeChar, sizeof(kEscapeChar));
-                            appendChars(controlString, strlen(controlString) *
-                                        sizeof(*controlString));
+                            inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
+                            inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
+                                                   strlen(controlString) * sizeof(*controlString));
                         }
                         else
                         {
-                            appendChars(reinterpret_cast<const char *>(&aByte), sizeof(char));
+                            inherited::appendBytes(&aByte, sizeof(aByte));
                         }
                     }
                 }
@@ -662,57 +467,24 @@ nImO::StringBuffer::processCharacters(const char * aString,
                 // Handle normal escapes - nested delimiters and the escape character
                 if ((delimiter == aByte) || (kEscapeChar == aByte))
                 {
-                    appendChars(&kEscapeChar, sizeof(kEscapeChar));
+                    inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 }
-                appendChars(aString + ii, sizeof(*aString));
+                inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString + ii),
+                                       sizeof(*aString));
             }
         }
-        appendChars(&delimiter, sizeof(delimiter));
+        inherited::appendBytes(&delimiter, sizeof(delimiter));
     }
     else
     {
         // Nothing special
-        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
-        appendChars(aString, length * sizeof(*aString));
-        appendChars(&kDoubleQuote, sizeof(kDoubleQuote));
+        inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
+        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString),
+                               length * sizeof(*aString));
+        inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
     }
     ODL_EXIT(); //####
 } // nImO::StringBuffer::processCharacters
-
-nImO::StringBuffer &
-nImO::StringBuffer::reset(void)
-{
-    ODL_OBJENTER(); //####
-    if (_cachedOutput)
-    {
-        if (! _cachedIsFirstBuffer)
-        {
-            delete[] _cachedOutput;
-        }
-        _cachedOutput = NULL;
-        ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-    }
-    if (1 < _numChunks)
-    {
-        for (size_t ii = 1; _numChunks > ii; ++ii)
-        {
-            BufferChunk * aChunk = _buffers[ii];
-
-            if (NULL != aChunk)
-            {
-                delete aChunk;
-            }
-        }
-        BufferChunk * firstChunk = *_buffers;
-
-        delete[] _buffers;
-        _buffers = new BufferChunk *[1];
-        *_buffers = firstChunk;
-    }
-    _buffers[0]->reset();
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::reset
 
 #if defined(__APPLE__)
 # pragma mark Global functions

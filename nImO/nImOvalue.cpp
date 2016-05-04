@@ -39,7 +39,10 @@
 #include "nImOvalue.hpp"
 
 #include <nImO/nImOarray.hpp>
+#include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
+#include <nImO/nImOdouble.hpp>
+#include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmap.hpp>
 #include <nImO/nImOnumber.hpp>
 #include <nImO/nImOset.hpp>
@@ -67,6 +70,8 @@
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+nImO::Value::ExtractorMap nImO::Value::gExtractors;
 
 nImO::Value::BufferReaderMap nImO::Value::gReaders;
 
@@ -103,6 +108,29 @@ nImO::Value::~Value(void)
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::Value::addToExtractionMap(const uint8_t          aByte,
+                                const uint8_t          aMask,
+                                nImO::Value::Extractor theExtractor)
+{
+    ODL_ENTER(); //####
+    ODL_LL2("aByte = ", aByte, "aMask = ", aMask); //####
+    ODL_P1("theExtractor = ", theExtractor); //####
+    if ((0 != aMask) && (NULL != theExtractor))
+    {
+        for (uint8_t ii = 0; 255 > ii; ++ii)
+        {
+            if (aByte == (aMask & ii))
+            {
+                ExtractorMap::value_type keyValue(ii, theExtractor);
+                
+                gExtractors.insert(keyValue);
+            }
+        }        
+    }
+    ODL_EXIT(); //####
+} // addToExtractionMap
 
 void
 nImO::Value::initialize(void)
@@ -171,7 +199,7 @@ nImO::Value::initialize(void)
     }
     const char * suffixes = Array::getTerminalCharacters();
 
-    gTerminators = StringBuffer::kEndCharacter;
+    gTerminators = StringBuffer::kEndToken;
     if (NULL != suffixes)
     {
         gTerminators += suffixes;
@@ -186,6 +214,26 @@ nImO::Value::initialize(void)
     {
         gTerminators += suffixes;
     }
+    uint8_t   aByte = 0;
+    uint8_t   aMask = 0;
+    Extractor theExtractor = NULL;
+
+    Array::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Blob::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Boolean::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Double::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Integer::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Map::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    Set::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    String::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
     ODL_EXIT(); //####
 } // nImO::Value::initialize
 
@@ -230,9 +278,9 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     {
         aChar = inBuffer.getChar(++localIndex);
     }
-    if (StringBuffer::kEndCharacter == aChar)
+    if (StringBuffer::kEndToken == aChar)
     {
-        ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+        ODL_LOG("(StringBuffer::kEndToken == aChar)"); //####
     }
     else
     {

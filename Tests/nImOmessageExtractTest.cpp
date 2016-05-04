@@ -138,7 +138,6 @@ compareValueWithString(const nImO::Value & aValue,
 } // compareValueWithString
 #endif//0
 
-#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
@@ -159,7 +158,7 @@ doTestEmptyMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -174,7 +173,8 @@ doTestEmptyMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytes[] =
+            ODL_LOG("(stuff)"); //####
+            static const uint8_t bytesToInsert[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -185,27 +185,35 @@ doTestEmptyMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageEndValue +
                   nImO::DataKind::kKindOtherMessageEmptyValue
             };
-            const size_t    expectedCount = (sizeof(expectedBytes) / sizeof(*expectedBytes));
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
+            const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue = stuff->getValue(status);
 
-            stuff->open();
-            if ((NULL != contents) || (0 != length))
+            if ((NULL == extractedValue) && (nImO::kReadInvalid == status))
             {
-                ODL_LOG("((NULL != contents) || (0 != length))"); //####
-            }
-            else
-            {
+                ODL_LOG("((NULL == extractedValue) && (nImO::kReadInvalid == status))"); //####
+                stuff->open(true);
                 stuff->close();
-                contents = stuff->getBytes(length);
-                if ((NULL != contents) && (expectedCount == length))
+                stuff->open(false);
+                stuff->appendBytes(bytesToInsert, insertionCount);
+                extractedValue = stuff->getValue(status);
+                stuff->close();
+                if ((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == status))
                 {
-                    result = memcmp(expectedBytes, contents, expectedCount);
+                    ODL_LOG("((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
+                            "status))"); //####
+                    result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && (expectedCount == length))"); //####
+                    ODL_LOG("! ((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
+                            "status))"); //####
                 }
+                stuff->reset();
+            }
+            else
+            {
+                ODL_LOG("! ((NULL == extractedValue) && (nImO::kReadInvalid == status))"); //####
             }
             delete stuff;
         }
@@ -226,6 +234,7 @@ doTestEmptyMessage(const char * launchPath,
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
+#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
 #endif // defined(__APPLE__)
@@ -4770,11 +4779,11 @@ main(int      argc,
                 nImO::SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
-#if 0
                     case 1 :
                         result = doTestEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
+#if 0
                     case 2 :
                         result = doTestBooleanMessage(*argv, argc - 1, argv + 2);
                         break;

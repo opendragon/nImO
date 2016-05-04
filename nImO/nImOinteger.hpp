@@ -112,6 +112,15 @@ namespace nImO
                 bool &        validComparison)
         const;
 
+        /*! @brief Get the extraction information for Integer objects.
+         @param aByte The byte value that indicates the start of a Integer value.
+         @param aMask The mask to apply to a lead byte.
+         @param theExtractor The function to perform when the lead byte is seen. */
+        static void
+        getExtractionInfo(uint8_t &   aByte,
+                          uint8_t &   aMask,
+                          Extractor & theExtractor);
+
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         inline int64_t getIntegerValue(void)
@@ -211,6 +220,24 @@ namespace nImO
     private :
         // Private methods.
 
+        /*! @brief Extracts Value objects from a Message.
+         Note that the parentValue argument is normally @c NULL, and is used for handling multiple
+         floating-point numbers in a sequence; if a series of Double values are extracted, they are
+         directly added to the Array and the last Value is returned as the result of the function;
+         for all other Value objects, the (single) Value that is extracted is added to the Array to
+         simplify the logic, as well as being returned.
+         @param theMessage The Message being processed.
+         @param position The location of the next byte to be processed.
+         @param status Whether the extraction was successful.
+         @param parentValue A pointer to the Value that will contain the new object.
+         @returns @c NULL if there is a problem with the extraction and non-@c NULL if
+         a Value was found and processed. */
+        static Value *
+        extractValue(Message &    theMessage,
+                     size_t &           position,
+                     ReadStatus & status,
+                     Array *      parentValue);
+        
     public :
         // Public fields.
 

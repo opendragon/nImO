@@ -69,6 +69,36 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The lead byte for an empty Message. */
+static const uint8_t kInitEmptyMessageValue = (nImO::DataKind::kKindOther |
+                                               nImO::DataKind::kKindOtherMessage |
+                                               nImO::DataKind::kKindOtherMessageStartValue |
+                                               nImO::DataKind::kKindOtherMessageEmptyValue);
+
+/*! @brief The mask byte for checking lead/trailing bytes for Messages. */
+static const uint8_t kInitTermMessageMask = (nImO::DataKind::kKindMask |
+                                             nImO::DataKind::kKindOtherTypeMask |
+                                             nImO::DataKind::kKindOtherMessageStartEndMask |
+                                             nImO::DataKind::kKindOtherMessageEmptyMask);
+
+/*! @brief The trailing byte for an empty Message. */
+static const uint8_t kTermEmptyMessageValue = (nImO::DataKind::kKindOther |
+                                               nImO::DataKind::kKindOtherMessage |
+                                               nImO::DataKind::kKindOtherMessageEndValue |
+                                               nImO::DataKind::kKindOtherMessageEmptyValue);
+
+/*! @brief The lead byte for a non-empty Message. */
+static const uint8_t kInitNonEmptyMessageValue = (nImO::DataKind::kKindOther |
+                                                  nImO::DataKind::kKindOtherMessage |
+                                                  nImO::DataKind::kKindOtherMessageStartValue |
+                                                  nImO::DataKind::kKindOtherMessageNonEmptyValue);
+
+/*! @brief The trailing byte for a non-empty Message. */
+static const uint8_t kTermNonEmptyMessageValue = (nImO::DataKind::kKindOther |
+                                                  nImO::DataKind::kKindOtherMessage |
+                                                  nImO::DataKind::kKindOtherMessageEndValue |
+                                                  nImO::DataKind::kKindOtherMessageNonEmptyValue);
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -86,33 +116,17 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    _buffers(new BufferChunk *[1]), _cachedOutput(NULL), _cachedLength(0), _numChunks(1),
-    _headerAdded(false), _closed(false), _cachedIsFirstBuffer(false)
+    inherited(false), _readPosition(0), _state(kMessageStateUnknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
-    ODL_P2("_buffers <- ", _buffers, "_cachedOutput <- ", _cachedOutput); //####
-    ODL_LL2("_cachedLength <-", _cachedLength, "_numChunks <- ", _numChunks); //####
-    ODL_B3("_headerAdded <- ", _headerAdded, "_closed <- ", _closed, //####
-           "_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-    *_buffers = new BufferChunk(false);
+    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", _state); //####
+    ODL_B1("_headerAdded <- ", _headerAdded); //####
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
 nImO::Message::~Message(void)
 {
     ODL_OBJENTER(); //####
-    if (! _cachedIsFirstBuffer)
-    {
-        delete[] _cachedOutput;
-    }
-    if (_buffers)
-    {
-        for (size_t ii = 0; _numChunks > ii; ++ii)
-        {
-            delete _buffers[ii];
-        }
-        delete _buffers;
-    }
     ODL_OBJEXIT(); //####
 } // nImO::Message::~Message
 
@@ -120,180 +134,17 @@ nImO::Message::~Message(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-#if 0
-nImO::Message &
-nImO::Message::addBool(const bool aBool)
-{
-    ODL_OBJENTER(); //####
-    ODL_B1("aBool = ", aBool); //####
-    addString(Boolean::getCanonicalRepresentation(aBool));
-    ODL_EXIT_P(this); //####
-    return *this;
-} // nImO::Message::addBool
-
-nImO::Message &
-nImO::Message::addBytes(const uint8_t * inBytes,
-                        const size_t    numBytes)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("inBytes = ", inBytes); //####
-    ODL_LL1("numBytes = ", numBytes); //####
-    static const char hexDigits[16] = { '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-    addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
-    for (size_t ii = 0; numBytes > ii; ++ii)
-    {
-        uint8_t aByte = inBytes[ii];
-
-        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
-    }
-    addChar(kBlobSeparator);
-    ODL_EXIT_P(this); //####
-    return *this;
-} // nImO::Message::addBytes
-
-nImO::Message &
-nImO::Message::addDouble(const double aDouble)
-{
-    ODL_OBJENTER(); //####
-    ODL_D1("aDouble = ", aDouble); //####
-    char numBuff[kNumBuffSize];
-
-#if MAC_OR_LINUX_
-    snprintf(numBuff, sizeof(numBuff), "%g", aDouble);
-#else // ! MAC_OR_LINUX_
-    sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
-#endif // ! MAC_OR_LINUX_
-    ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Message::addDouble
-
-nImO::Message &
-nImO::Message::addLong(const int64_t aLong)
-{
-    ODL_OBJENTER(); //####
-    ODL_LL1("aLong = ", aLong); //####
-    char numBuff[kNumBuffSize];
-
-    snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
-    ODL_S1("numBuff <- ", numBuff); //####
-    appendChars(numBuff, strlen(numBuff) * sizeof(numBuff[0]));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Message::addLong
-
-nImO::Message &
-nImO::Message::addString(const char * aString)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    if (aString)
-    {
-        size_t length = strlen(aString);
-
-        appendChars(aString, length * sizeof(*aString));
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Message::addString
-
-nImO::Message &
-nImO::Message::addString(const std::string & aString)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1s("aString = ", aString); //####
-    size_t length = aString.length();
-
-    appendChars(aString.c_str(), length * sizeof(*aString.c_str()));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Message::addString
-#endif//0
-
-void
-nImO::Message::appendBytes(const uint8_t * data,
-                           const size_t    numBytes)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("data = ", data); //####
-    ODL_LL1("numBytes = ", numBytes); //####
-    if (_closed)
-    {
-        ODL_LOG("(_closed)"); //####
-    }
-    else if (data && (0 < numBytes))
-    {
-        const uint8_t * walker = data;
-
-        if (_cachedOutput)
-        {
-            if (! _cachedIsFirstBuffer)
-            {
-                delete[] _cachedOutput;
-            }
-            _cachedOutput = NULL;
-            ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-        }
-        for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
-        {
-            BufferChunk * lastChunk = _buffers[_numChunks - 1];
-            size_t        available = lastChunk->getAvailableBytes();
-
-            if (bytesLeft <= available)
-            {
-                lastChunk->appendData(walker, bytesLeft * sizeof(*data));
-                bytesLeft = 0;
-            }
-            else
-            {
-                BufferChunk * prevChunk = lastChunk;
-
-                lastChunk = new BufferChunk(false);
-                if (lastChunk)
-                {
-                    BufferChunk * * newBuffers = new BufferChunk *[_numChunks + 1];
-
-                    if (newBuffers)
-                    {
-                        memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
-                        delete[] _buffers;
-                        _buffers = newBuffers;
-                        ODL_P1("_buffers <- ", _buffers); //####
-                        _buffers[_numChunks++] = lastChunk;
-                        ODL_LL1("_numChunks <- ", _numChunks); //####
-                        prevChunk->appendData(walker, available);
-                        walker += available;
-                        bytesLeft -= available;
-                    }
-                    else
-                    {
-                        delete lastChunk;
-                        bytesLeft = 0;
-                    }
-                }
-                else
-                {
-                    bytesLeft = 0;
-                }
-            }
-        }
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::Message::appendBytes
-
 nImO::Message &
 nImO::Message::close(void)
 {
     ODL_OBJENTER(); //####
-    if (_closed)
+    switch (_state)
     {
-        ODL_LOG("(_closed)"); //####
-    }
-    else
-    {
+    case kMessageStateOpenForReading :
+        // TBD
+        break;
+
+    case kMessageStateOpenForWriting :
         if (! _headerAdded)
         {
             static const uint8_t emptyMessage[] =
@@ -307,189 +158,37 @@ nImO::Message::close(void)
 
             appendBytes(emptyMessage, emptyMessageLength);
         }
-        _closed = true;
+        break;
+
+    default :
+        break;
+
     }
+    _state = kMessageStateClosed;
+    ODL_LL1("_state <- ", _state); //####
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::close
-
-#if 0
-nImO::Value * nImO::Message::convertToValue(void)
-const
-{
-    ODL_OBJENTER(); //####
-    size_t  position = 0;
-    Value * result = Value::readFrommessage(*this, position);
-
-    ODL_P1("result <- ", result); //####
-    if (result)
-    {
-        bool    done = false;
-        bool    valid = true;
-        Array * holder = NULL;
-
-        for ( ; ! done; )
-        {
-            int aChar = getChar(position);
-
-            // Skip any whitespace after the value
-            ODL_C1("aChar <- ", aChar); //####
-            for ( ; isspace(aChar); )
-            {
-                aChar = getChar(++position);
-                ODL_C1("aChar <- ", aChar); //####
-                ODL_LL1("position <- ", position); //####
-            }
-            if (kEndCharacter == aChar)
-            {
-                if (holder)
-                {
-                    holder->addValue(result);
-                }
-                done = true;
-            }
-            else
-            {
-                if (NULL == holder)
-                {
-                    holder = new Array;
-                    ODL_P1("holder <- ", holder); //####
-                }
-                holder->addValue(result);
-                result = Value::readFrommessage(*this, position);
-                ODL_P1("result <- ", result); //####
-                if (! result)
-                {
-                    ODL_LOG("(! result)"); //####
-                    valid = false;
-                    done = true;
-                }
-            }
-        }
-        if (valid)
-        {
-            if (holder)
-            {
-                result = holder;
-                ODL_P1("result <- ", result); //####
-            }
-        }
-        else
-        {
-            ODL_LOG("! (valid)"); //####
-            delete holder;
-            delete result;
-            result = NULL;
-        }
-    }
-    else
-    {
-        ODL_LOG("! (result)"); //####
-    }
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Message::convertToValue
-
-int
-nImO::Message::getByte(const size_t index)
-const
-{
-    ODL_OBJENTER(); //####
-    int result = kEndCharacter;
-
-    if (_buffers)
-    {
-        size_t chunkNumber = (index / BufferChunk::kBufferSize);
-        size_t offset = (index % BufferChunk::kBufferSize);
-
-        if (_numChunks > chunkNumber)
-        {
-            BufferChunk * aChunk = _buffers[chunkNumber];
-
-            if (NULL != aChunk)
-            {
-                if (offset < aChunk->getDataSize())
-                {
-                    const uint8_t * thisData = aChunk->getData();
-
-                    result = *(thisData + offset);
-                }
-            }
-        }
-    }
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // nImO::Message::getByte
-#endif//0
 
 const uint8_t *
 nImO::Message::getBytes(size_t & length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
-    const uint8_t * result = NULL;
+    const uint8_t * result;
 
-    length = 0;
-    ODL_LL1("length <- ", length); //####
-    if (_closed)
+    if (kMessageStateClosed == _state)
     {
-        if (_cachedOutput)
-        {
-            length = _cachedLength;
-            ODL_LL1("length <- ", length); //####
-        }
-        else
-        {
-            if (1 < _numChunks)
-            {
-                size_t cachedSize = getLength();
-
-                if (0 < cachedSize)
-                {
-                    _cachedOutput = new uint8_t[cachedSize];
-                    ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-                    if (_cachedOutput)
-                    {
-                        uint8_t * walker = _cachedOutput;
-
-                        for (size_t ii = 0; _numChunks > ii; ++ii)
-                        {
-                            BufferChunk * aChunk = _buffers[ii];
-
-                            if (NULL != aChunk)
-                            {
-                                size_t nn = aChunk->getDataSize();
-
-                                if (0 < nn)
-                                {
-                                    memcpy(walker, aChunk->getData(), nn);
-                                    walker += nn;
-                                }
-                            }
-                        }
-                        length = cachedSize;
-                        ODL_LL1("length <- ", length); //####
-                        _cachedIsFirstBuffer = false;
-                        ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-                    }
-                }
-            }
-            else
-            {
-                length = _buffers[0]->getDataSize();
-                ODL_LL1("length <- ", length); //####
-                if (0 < length)
-                {
-                    _cachedOutput = const_cast<uint8_t *>(_buffers[0]->getData());
-                    ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-                    _cachedIsFirstBuffer = true;
-                    ODL_B1("_cachedIsFirstBuffer <- ", _cachedIsFirstBuffer); //####
-                }
-            }
-            _cachedLength = length;
-            ODL_LL1("_cachedLength <- ", _cachedLength); //####
-        }
-        result = _cachedOutput;
+        lock();
+        result = inherited::getBytes(length);
+        unlock();
+    }
+    else
+    {
+        ODL_LOG("! (kMessageStateClosed == _state)"); //####
+        result = NULL;
+        length = 0;
+        ODL_LL1("length <- ", length); //####
     }
     ODL_OBJEXIT_P(result); //####
     return result;
@@ -500,70 +199,254 @@ nImO::Message::getLength(void)
 const
 {
     ODL_OBJENTER(); //####
-    size_t totalLength = 0;
+    size_t totalLength;
 
-    if (_closed)
+    if (kMessageStateClosed == _state)
     {
-        if (_buffers)
-        {
-            BufferChunk * aChunk = _buffers[_numChunks - 1];
-
-            totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
-            if (NULL != aChunk)
-            {
-                totalLength += aChunk->getDataSize();
-            }
-        }
+        totalLength = inherited::getLength();
     }
     else
     {
-        ODL_LOG("! (_closed)"); //####
+        ODL_LOG("! (kMessageStateClosed == _state)"); //####
+        totalLength = 0;
     }
     ODL_OBJEXIT_LL(totalLength); //####
     return totalLength;
 } // nImO::Message::getLength
 
-nImO::Message &
-nImO::Message::open(void)
+nImO::Value *
+nImO::Message::getValue(nImO::ReadStatus & status)
 {
     ODL_OBJENTER(); //####
+    ODL_P1("status = ", &status); //####
+    Value * result = NULL;
+
+    if (kMessageStateOpenForReading == _state)
+    {
+        size_t  savedPosition = _readPosition;
+        int     aByte = getByte(_readPosition);
+   
+        ODL_LL1("aByte <- ", aByte); //#### 
+        if (kEndToken == aByte)
+        {
+            ODL_LOG("(kEndToken == aByte)"); //####
+            status = kReadIncomplete;
+            _readPosition = savedPosition;
+            ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+        }
+        else
+        {
+            if (kInitEmptyMessageValue == (aByte & kInitTermMessageMask))
+            {
+                aByte = getByte(++_readPosition);
+                ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                if (kEndToken == aByte)
+                {
+                    ODL_LOG("(kEndToken == aByte)"); //####
+                    status = kReadIncomplete;
+                    _readPosition = savedPosition;
+                    ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+                }
+                else if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
+                {
+                    aByte = getByte(++_readPosition);
+                    ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                    if (kEndToken == aByte)
+                    {
+                        ODL_LOG("(kEndToken == aByte)"); //####
+                        status = kReadSuccessfulAtEnd;
+                        ODL_LL1("status <- ", status); //####
+                    }
+                    else
+                    {
+                        ODL_LOG("! (kEndToken == aByte)"); //####
+                        status = kReadSuccessful;
+                        ODL_LL1("status <- ", status); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                    status = kReadInvalid;
+                    ODL_LL1("status <- ", status); //####
+                }
+            }
+            else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+            {
+                uint8_t initTag = (aByte & kKindOtherMessageExpectedTypeMask);
+    
+                aByte = getByte(++_readPosition);
+                ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                if (kEndToken == aByte)
+                {
+                    ODL_LOG("(kEndToken == aByte)"); //####
+                    status = kReadIncomplete;
+                    _readPosition = savedPosition;
+                    ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+                }
+                else
+                {
+                    ODL_LOG("! (kEndToken == aByte)"); //####
+                    uint8_t nextTag = ((aByte >> kKindOtherMessageExpectedTypeShift) &
+                                       kKindOtherMessageExpectedTypeMask);
+    
+                    if (nextTag == initTag)
+                    {
+//TBD - dispatch via the 'nextTag' value and set 'result'
+    
+                        if (NULL == result)
+                        {
+                            ODL_LOG("(NULL == result)"); //####
+                            status = kReadInvalid;
+                            ODL_LL1("status <- ", status); //####
+                        }
+                        else
+                        {
+                            aByte = getByte(++_readPosition);
+                            ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                            if (kEndToken == aByte)
+                            {
+                                ODL_LOG("(kEndToken == aByte)"); //####
+                                status = kReadIncomplete;
+                                _readPosition = savedPosition;
+                                ODL_LL2("status <- ", status, "_readPosition <- ", //####
+                                        _readPosition); //####
+                                delete result;
+                                result = NULL;
+                            }
+                            else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+                            {
+                                nextTag = ((aByte >> kKindOtherMessageExpectedTypeShift) &
+                                           kKindOtherMessageExpectedTypeMask);
+                                if (nextTag == initTag)
+                                {
+                                    aByte = getByte(++_readPosition);
+                                    ODL_LL2("aByte <- ", aByte, "_readPosition <- ", //####
+                                            _readPosition); //####
+                                    if (kEndToken == aByte)
+                                    {
+                                        ODL_LOG("(kEndToken == aByte)"); //####
+                                        status = kReadSuccessfulAtEnd;
+                                        ODL_LL1("status <- ", status); //####
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (kEndToken == aByte)"); //####
+                                        status = kReadSuccessful;
+                                        ODL_LL1("status <- ", status); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (nextTag == initTag)"); //####
+                                    status = kReadInvalid;
+                                    ODL_LL1("status <- ", status); //####
+                                    delete result;
+                                    result = NULL;
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (kTermNonEmptyMessageValue == " //####
+                                        "(aByte & kInitTermMessageMask))"); //####
+                                status = kReadInvalid;
+                                ODL_LL1("status <- ", status); //####
+                                delete result;
+                                result = NULL;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nextTag == initTag)"); //####
+                        status = kReadInvalid;
+                        ODL_LL1("status <- ", status); //####
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                status = kReadInvalid;
+                ODL_LL1("status <- ", status); //####
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (kMessageStateOpenForReading == _state)"); //####
+        status = kReadInvalid;
+        ODL_LL1("status <- ", status); //####
+    }
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Message::getValue
+#if 0
+define initial byte, initial byte mask, terminal byte, terminal byte mask for messages (and then other objects) [as local constants]; fetch a byte -
+     1) if it is EOF, exit with the status set for empty / unexpected
+     2) if it is not EOF, mask it with the initial byte mask for empty and compare with the initial byte for empty
+     2.0) if it matches, advance the position, fetch a byte
+     2.0.0) if it is EOF, exit with the status set for incomplete
+     2.0.1) if it is not EOF, mask it with the terminal byte mask for empty and compare with the terminal byte for empty
+     2.0.1.0) if it matches, advance the position and check for EOF
+     2.0.1.0.1) if at EOF, exit with the status set to complete and EOF
+     2.0.1.0.2) if not at EOF, exit with the status set to complete
+     2.0.1.1) if it does not match, exit with the status set for invalid
+     2.1) if it does not match, mask if with the initial byte mask for non-empty and compare with the initial byte for non-empty
+     2.1.0) if it matches, record the type bits, advance the position, fetch a byte
+     2.1.0.1) compare the type bits with the recorded bits
+     2.1.0.1.0) if the bits don't match, exit with the status set for invalid
+2.1.0.1.1) look up the byte in the dispatch table
+2.1.0.1.2) if it is NULL, exit with the status set for invalid
+2.1.0.1.3) if it is non-NULL, execute the function from the dispatch table, which will process one or more bytes and return a pointer
+     2.1.0.1.4) if the pointer is NULL, exit with the status set for invalid
+     2.1.0.1.5) if the pointer is non-NULL, advance the position, fetch a byte
+     2.1.0.1.6) if it is EOF, exit with the status set for incomplete
+     2.1.0.1.7) if it is not EOF, mask it with the terminal byte mask for non-empty and compare with the terminal byte for non-empty and compare the type bits with the recorded bits
+     2.1.0.1.8) if they match, advance the position and check for EOF
+     2.1.0.1.8.0) if at EOF, exit with the status set to complete and EOF
+     2.1.0.1.8.1) if not at EOF, exit with the status set to complete
+     2.1.0.1.9) if they do not match, exit with the status set for invalid
+     2.1.1) if it does not match, exit with the status set for invalid
+#endif//0
+
+void
+nImO::Message::lock(void)
+{
+    ODL_OBJENTER(); //####
+//TBD
+    ODL_OBJEXIT(); //####
+} // nImO::Message::lock
+
+nImO::Message &
+nImO::Message::open(const bool forWriting)
+{
+    ODL_OBJENTER(); //####
+    ODL_B1("forWriting = ", forWriting); //####
+    if (forWriting)
+    {
+        _state = kMessageStateOpenForWriting;
+    }
+    else
+    {
+        _state = kMessageStateOpenForReading;
+    }
     reset();
-    _headerAdded = _closed = false;
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::open
 
-nImO::Message &
+nImO::ChunkArray &
 nImO::Message::reset(void)
 {
     ODL_OBJENTER(); //####
-    if (_cachedOutput)
-    {
-        if (! _cachedIsFirstBuffer)
-        {
-            delete[] _cachedOutput;
-        }
-        _cachedOutput = NULL;
-        ODL_P1("_cachedOutput <- ", _cachedOutput); //####
-    }
-    if (1 < _numChunks)
-    {
-        for (size_t ii = 1; _numChunks > ii; ++ii)
-        {
-            BufferChunk * aChunk = _buffers[ii];
-
-            if (NULL != aChunk)
-            {
-                delete aChunk;
-            }
-        }
-        BufferChunk * firstChunk = *_buffers;
-
-        delete[] _buffers;
-        _buffers = new BufferChunk *[1];
-        *_buffers = firstChunk;
-    }
-    _buffers[0]->reset();
+    lock();
+    inherited::reset();
+    _headerAdded = false;
+    ODL_B1("_headerAdded -> ", _headerAdded); //####
+    _readPosition = 0;
+    ODL_LL1("_readPosition <- ", _readPosition); //####
+    unlock();
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::reset
@@ -573,17 +456,10 @@ nImO::Message::setValue(const nImO::Value & theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####
-
-    if (_closed)
+    reset();
+    if (kMessageStateOpenForWriting == _state)
     {
-        ODL_LOG("(_closed)"); //####
-    }
-    else
-    {
-        if (_headerAdded)
-        {
-            reset();
-        }
+        lock();
         uint8_t typeTag = theValue.getTypeTag();
         uint8_t headerByte = kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +
                              kKindOtherMessageNonEmptyValue + typeTag;
@@ -592,12 +468,26 @@ nImO::Message::setValue(const nImO::Value & theValue)
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;
+        ODL_B1("_headerAdded <- ", _headerAdded); //####
         theValue.writeToMessage(*this);
         appendBytes(&trailerByte, sizeof(trailerByte));
+        unlock();
+    }
+    else
+    {
+        ODL_LOG("! (kMessageStateOpenForWriting == _state)"); //####
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::setValue
+
+void
+nImO::Message::unlock(void)
+{
+    ODL_OBJENTER(); //####
+//TBD
+    ODL_OBJEXIT(); //####
+} // nImO::Message::unlock
 
 #if defined(__APPLE__)
 # pragma mark Global functions

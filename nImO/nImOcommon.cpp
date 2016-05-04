@@ -98,15 +98,11 @@ static yarp::os::impl::Logger * lLogger = NULL;
 
 const char nImO::kBlobSeparator = '%';
 
-const char nImO::kDoubleQuote = '"';
-
 const char nImO::kEndArrayChar = ')';
 
 const char nImO::kEndMapChar = '}';
 
 const char nImO::kEndSetChar = ']';
-
-const char nImO::kEscapeChar = '\\';
 
 const char nImO::kKeyValueSeparator = '>';
 
@@ -117,6 +113,10 @@ const char nImO::kStartArrayChar = '(';
 const char nImO::kStartMapChar = '{';
 
 const char nImO::kStartSetChar = '[';
+
+const uint8_t nImO::kDoubleQuote = '"';
+
+const uint8_t nImO::kEscapeChar = '\\';
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_

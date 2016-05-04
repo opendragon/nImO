@@ -153,7 +153,7 @@ doTestInsertEmptyMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
-            stuff->open();
+            stuff->open(true);
             if ((NULL != contents) || (0 != length))
             {
                 ODL_LOG("((NULL != contents) || (0 != length))"); //####
@@ -264,7 +264,7 @@ doTestInsertBooleanMessage(const char * launchPath,
             nImO::Boolean falseValue(false);
             nImO::Boolean trueValue(true);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(trueValue);
             stuff->close();
             size_t          length = 0;
@@ -280,7 +280,7 @@ doTestInsertBooleanMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(falseValue);
                 stuff->close();
                 length = 0;
@@ -406,7 +406,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             nImO::Integer zeroValue(0);
             nImO::Integer plus12Value(12);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(minus12Value);
             stuff->close();
             size_t          length = 0;
@@ -422,7 +422,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(zeroValue);
                 stuff->close();
                 length = 0;
@@ -438,7 +438,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(plus12Value);
                 stuff->close();
                 length = 0;
@@ -547,7 +547,7 @@ doTestInsertShortIntegerMessage(const char * launchPath,
             nImO::Integer minus144Value(-144);
             nImO::Integer plus144Value(144);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(minus144Value);
             stuff->close();
             size_t          length = 0;
@@ -563,7 +563,7 @@ doTestInsertShortIntegerMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(plus144Value);
                 stuff->close();
                 length = 0;
@@ -672,7 +672,7 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
             nImO::Integer minus1234567Value(-1234567);
             nImO::Integer plus1234567Value(1234567);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(minus1234567Value);
             stuff->close();
             size_t          length = 0;
@@ -688,7 +688,7 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(plus1234567Value);
                 stuff->close();
                 length = 0;
@@ -799,7 +799,7 @@ doTestInsertBigIntegerMessage(const char * launchPath,
             nImO::Integer minusBigNumberValue(-20015998343868);
             nImO::Integer plusBigNumberValue(20015998343868);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(minusBigNumberValue);
             stuff->close();
             size_t          length = 0;
@@ -816,7 +816,7 @@ doTestInsertBigIntegerMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(plusBigNumberValue);
                 stuff->close();
                 length = 0;
@@ -907,7 +907,7 @@ doTestInsertEmptyStringMessage(const char * launchPath,
                                                      sizeof(*expectedBytesForEmptyString));
             nImO::String emptyStringValue("");
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(emptyStringValue);
             stuff->close();
             size_t          length = 0;
@@ -997,7 +997,7 @@ doTestInsertShortStringMessage(const char * launchPath,
                                                      sizeof(*expectedBytesForShortString));
             nImO::String shortStringValue("abcdef");
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(shortStringValue);
             stuff->close();
             size_t          length = 0;
@@ -1094,7 +1094,7 @@ doTestInsertMediumStringMessage(const char * launchPath,
                                                      sizeof(*expectedBytesForMediumString));
             nImO::String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(mediumStringValue);
             stuff->close();
             size_t          length = 0;
@@ -1183,7 +1183,7 @@ doTestInsertEmptyBlobMessage(const char * launchPath,
                                                    sizeof(*expectedBytesForEmptyBlob));
             nImO::Blob emptyBlobValue;
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(emptyBlobValue);
             stuff->close();
             size_t          length = 0;
@@ -1278,7 +1278,7 @@ doTestInsertShortBlobMessage(const char * launchPath,
             const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
             nImO::Blob   shortBlobValue(actualData, actualDataCount);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(shortBlobValue);
             stuff->close();
             size_t          length = 0;
@@ -1386,7 +1386,7 @@ doTestInsertMediumBlobMessage(const char * launchPath,
             const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
             nImO::Blob mediumBlobValue(actualData, actualDataCount);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(mediumBlobValue);
             stuff->close();
             size_t          length = 0;
@@ -1497,7 +1497,7 @@ doTestInsertSingleFloatMessage(const char * launchPath,
             nImO::Double plus42Point5(42.5);
             nImO::Double minus42Point5(-42.5);
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(plus42Point5);
             stuff->close();
             size_t          length = 0;
@@ -1513,7 +1513,7 @@ doTestInsertSingleFloatMessage(const char * launchPath,
             }
             if (0 == result)
             {
-                stuff->open();
+                stuff->open(true);
                 stuff->setValue(minus42Point5);
                 stuff->close();
                 length = 0;
@@ -1608,7 +1608,7 @@ doTestInsertEmptyArrayMessage(const char * launchPath,
                                                     sizeof(*expectedBytesForEmptyArray));
             nImO::Array emptyArray;
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(emptyArray);
             stuff->close();
             size_t          length = 0;
@@ -1701,7 +1701,7 @@ doTestInsertEmptyMapMessage(const char * launchPath,
                                                   sizeof(*expectedBytesForEmptyMap));
             nImO::Map emptyMap;
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(emptyMap);
             stuff->close();
             size_t          length = 0;
@@ -1794,7 +1794,7 @@ doTestInsertEmptySetMessage(const char * launchPath,
                                                   sizeof(*expectedBytesForEmptySet));
             nImO::Set emptySet;
 
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(emptySet);
             stuff->close();
             size_t          length = 0;
@@ -1896,7 +1896,7 @@ doTestInsertArrayOneBooleanMessage(const char * launchPath,
             nImO::Array arrayOneBoolean;
 
             arrayOneBoolean.addValue(new nImO::Boolean);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneBoolean);
             stuff->close();
             size_t          length = 0;
@@ -2000,7 +2000,7 @@ doTestInsertArrayOneIntegerMessage(const char * launchPath,
             nImO::Array arrayOneInteger;
 
             arrayOneInteger.addValue(new nImO::Integer);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneInteger);
             stuff->close();
             size_t          length = 0;
@@ -2106,7 +2106,7 @@ doTestInsertArrayOneDoubleMessage(const char * launchPath,
             nImO::Array arrayOneDouble;
 
             arrayOneDouble.addValue(new nImO::Double);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneDouble);
             stuff->close();
             size_t          length = 0;
@@ -2210,7 +2210,7 @@ doTestInsertArrayOneStringMessage(const char * launchPath,
             nImO::Array arrayOneString;
 
             arrayOneString.addValue(new nImO::String);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneString);
             stuff->close();
             size_t          length = 0;
@@ -2314,7 +2314,7 @@ doTestInsertArrayOneBlobMessage(const char * launchPath,
             nImO::Array arrayOneBlob;
 
             arrayOneBlob.addValue(new nImO::Blob);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneBlob);
             stuff->close();
             size_t          length = 0;
@@ -2421,7 +2421,7 @@ doTestInsertArrayOneArrayMessage(const char * launchPath,
             nImO::Array arrayOneArray;
 
             arrayOneArray.addValue(new nImO::Array);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneArray);
             stuff->close();
             size_t          length = 0;
@@ -2529,7 +2529,7 @@ doTestInsertArrayOneMapMessage(const char * launchPath,
             nImO::Array arrayOneMap;
 
             arrayOneMap.addValue(new nImO::Map);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneMap);
             stuff->close();
             size_t          length = 0;
@@ -2636,7 +2636,7 @@ doTestInsertArrayOneSetMessage(const char * launchPath,
             nImO::Array arrayOneSet;
 
             arrayOneSet.addValue(new nImO::Set);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneSet);
             stuff->close();
             size_t          length = 0;
@@ -2742,7 +2742,7 @@ doTestInsertArrayTwoBooleansMessage(const char * launchPath,
 
             arrayTwoBoolean.addValue(new nImO::Boolean);
             arrayTwoBoolean.addValue(new nImO::Boolean);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoBoolean);
             stuff->close();
             size_t          length = 0;
@@ -2850,7 +2850,7 @@ doTestInsertArrayTwoIntegersMessage(const char * launchPath,
 
             arrayTwoInteger.addValue(new nImO::Integer);
             arrayTwoInteger.addValue(new nImO::Integer);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoInteger);
             stuff->close();
             size_t          length = 0;
@@ -2958,7 +2958,7 @@ doTestInsertArrayTwoDoublesMessage(const char * launchPath,
 
             arrayTwoDouble.addValue(new nImO::Double);
             arrayTwoDouble.addValue(new nImO::Double);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoDouble);
             stuff->close();
             size_t          length = 0;
@@ -3067,7 +3067,7 @@ doTestInsertArrayTwoStringsMessage(const char * launchPath,
 
             arrayTwoString.addValue(new nImO::String);
             arrayTwoString.addValue(new nImO::String);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoString);
             stuff->close();
             size_t          length = 0;
@@ -3176,7 +3176,7 @@ doTestInsertArrayTwoBlobsMessage(const char * launchPath,
 
             arrayTwoBlob.addValue(new nImO::Blob);
             arrayTwoBlob.addValue(new nImO::Blob);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoBlob);
             stuff->close();
             size_t          length = 0;
@@ -3292,7 +3292,7 @@ doTestInsertArrayTwoArraysMessage(const char * launchPath,
 
             arrayTwoArray.addValue(new nImO::Array);
             arrayTwoArray.addValue(new nImO::Array);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoArray);
             stuff->close();
             size_t          length = 0;
@@ -3409,7 +3409,7 @@ doTestInsertArrayTwoMapsMessage(const char * launchPath,
 
             arrayTwoMap.addValue(new nImO::Map);
             arrayTwoMap.addValue(new nImO::Map);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoMap);
             stuff->close();
             size_t          length = 0;
@@ -3525,7 +3525,7 @@ doTestInsertArrayTwoSetsMessage(const char * launchPath,
 
             arrayTwoSet.addValue(new nImO::Set);
             arrayTwoSet.addValue(new nImO::Set);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayTwoSet);
             stuff->close();
             size_t          length = 0;
@@ -3642,7 +3642,7 @@ doTestInsertArrayOneArrayOneMapMessage(const char * launchPath,
 
             arrayOneArrayOneMap.addValue(new nImO::Array);
             arrayOneArrayOneMap.addValue(new nImO::Map);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneArrayOneMap);
             stuff->close();
             size_t          length = 0;
@@ -3761,7 +3761,7 @@ doTestInsertArrayOneMapOneSetMessage(const char * launchPath,
 
             arrayOneMapOneSet.addValue(new nImO::Map);
             arrayOneMapOneSet.addValue(new nImO::Set);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneMapOneSet);
             stuff->close();
             size_t          length = 0;
@@ -3880,7 +3880,7 @@ doTestInsertArrayOneSetOneArrayMessage(const char * launchPath,
 
             arrayOneSetOneArray.addValue(new nImO::Set);
             arrayOneSetOneArray.addValue(new nImO::Array);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayOneSetOneArray);
             stuff->close();
             size_t          length = 0;
@@ -4031,7 +4031,7 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
             {
                 arrayManyDoubles.addValue(new nImO::Double(ii));
             }
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(arrayManyDoubles);
             stuff->close();
             size_t          length = 0;
@@ -4156,7 +4156,7 @@ doTestInsertBooleanMapMessage(const char * launchPath,
             nImO::Map booleanMap;
 
             booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(booleanMap);
             stuff->close();
             size_t          length = 0;
@@ -4261,7 +4261,7 @@ doTestInsertIntegerMapMessage(const char * launchPath,
             nImO::Map integerMap;
 
             integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(integerMap);
             stuff->close();
             size_t          length = 0;
@@ -4367,7 +4367,7 @@ doTestInsertStringMapMessage(const char * launchPath,
             nImO::Map stringMap;
 
             stringMap.addValue(new nImO::String, new nImO::Integer(13));
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(stringMap);
             stuff->close();
             size_t          length = 0;
@@ -4469,7 +4469,7 @@ doTestInsertBooleanSetMessage(const char * launchPath,
             nImO::Set booleanSet;
 
             booleanSet.addValue(new nImO::Boolean);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(booleanSet);
             stuff->close();
             size_t          length = 0;
@@ -4571,7 +4571,7 @@ doTestInsertIntegerSetMessage(const char * launchPath,
             nImO::Set integerSet;
 
             integerSet.addValue(new nImO::Integer);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(integerSet);
             stuff->close();
             size_t          length = 0;
@@ -4674,7 +4674,7 @@ doTestInsertStringSetMessage(const char * launchPath,
             nImO::Set stringSet;
 
             stringSet.addValue(new nImO::String);
-            stuff->open();
+            stuff->open(true);
             stuff->setValue(stringSet);
             stuff->close();
             size_t          length = 0;

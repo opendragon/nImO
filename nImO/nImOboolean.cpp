@@ -164,6 +164,21 @@ const
     return result;
 } // nImO::Boolean::equalTo
 
+nImO::Value *
+nImO::Boolean::extractValue(nImO::Message &    theMessage,
+                            size_t &           position,
+                            nImO::ReadStatus & status,
+                            nImO::Array *      parentValue)
+{
+    ODL_ENTER(); //####
+    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
+           "parentValue = ", parentValue); //####
+    Value * result = NULL;
+    
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Boolean::extractValue
+
 const std::string &
 nImO::Boolean::getCanonicalRepresentation(const bool aValue)
 {
@@ -173,6 +188,19 @@ nImO::Boolean::getCanonicalRepresentation(const bool aValue)
     ODL_EXIT_P(&result); //####
     return result;
 } // nImO::Boolean::getCanonicalRepresentation
+
+void
+nImO::Boolean::getExtractionInfo(uint8_t &                aByte,
+                                 uint8_t &                aMask,
+                                 nImO::Value::Extractor & theExtractor)
+{
+    ODL_ENTER(); //####
+    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    aByte = (kKindOther | kKindOtherBoolean);
+    aMask = (kKindMask | kKindOtherTypeMask);
+    theExtractor = extractValue;
+    ODL_EXIT(); //####
+} // nImO::Boolean::getExtractionInfo
 
 const char *
 nImO::Boolean::getInitialCharacters(void)

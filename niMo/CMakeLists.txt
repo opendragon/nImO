@@ -60,6 +60,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOboolean.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcommon.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
@@ -109,6 +110,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOboolean.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcommon.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
@@ -143,6 +145,7 @@ if(nImO_DO_SWIG)
         nImOboolean.cpp nImOboolean.hpp
         nImObufferChunk.cpp nImObufferChunk.hpp
         nImOchannelArgumentDescriptor.cpp nImOchannelArgumentDescriptor.hpp
+        nImOchunkArray.cpp nImOchunkArray.hpp
         nImOcommon.cpp nImOcommon.hpp
         nImOcompareValues.cpp nImOcompareValues.hpp
         nImOconnector.cpp nImOconnector.hpp

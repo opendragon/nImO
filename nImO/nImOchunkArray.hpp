@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOmessage.hpp
+//  File:       nImO/nImOchunkArray.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a Message.
+//  Contains:   The class declaration for a string buffer.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-04-24
+//  Created:    2016-05-03
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOmessage_HPP_))
-# define nImOmessage_HPP_ /* Header guard */
+#if (! defined(nImOchunkArray_HPP_))
+# define nImOchunkArray_HPP_ /* Header guard */
 
-# include <nImO/nImOchunkArray.hpp>
+# include <nImO/nImOcommon.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a Message. */
+ @brief The class declaration for an array of chunks. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -57,8 +57,8 @@ namespace nImO
     class BufferChunk;
     class Value;
 
-    /*! @brief The data constituting a Message. */
-    class Message : public ChunkArray
+    /*! @brief The data constituting an array of chunks. */
+    class ChunkArray
     {
     public :
         // Public type definitions.
@@ -69,23 +69,23 @@ namespace nImO
     private :
         // Private type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        typedef ChunkArray inherited;
-
     public :
         // Public methods.
 
-        /*! @brief The constructor. */
-        Message(void);
+        /*! @brief The constructor.
+         @param padWithNull @c true if the data needs to be @c NULL-terminated. */
+        ChunkArray(const bool padWithNull = false);
 
         /*! @brief The destructor. */
         virtual
-        ~Message(void);
+        ~ChunkArray(void);
 
-        /*! @brief Close the Message, completing its contents.
-         @returns The Message object so that cascading can be done. */
-        Message &
-        close(void);
+        /*! @brief Add some bytes to the buffer.
+         @param data The bytes to be added.
+         @param numBytes The number of bytes to add. */
+        void
+        appendBytes(const uint8_t * data,
+                    const size_t    numBytes);
 
         /*! @brief Return a copy of the bytes in the buffer as well as the number of valid
          bytes present.
@@ -102,74 +102,68 @@ namespace nImO
         getLength(void)
         const;
 
-        /*! @brief Return the next Value in the Message.
-         @param status Whether the Value was complete.
-         @returns The next Value in the Message or @c NULL if the Value cannot be retrieved. */
-        Value *
-        getValue(ReadStatus & status);
-
-        /*! @brief Open the Message, so that data can be read or written.
-         @param forWriting @c true if the Message is being written to and @c false if it's being
-         read.
-         @returns The Message object so that cascading can be done. */
-        Message &
-        open(const bool forWriting);
-
-        /*! @brief Prepare the Message for reuse.
-         @returns The Message object so that cascading can be done. */
+        /*! @brief Prepare the buffer for reuse.
+         @returns The ChunkArray object so that cascading can be done. */
         virtual ChunkArray &
         reset(void);
-        
-        /*! @brief Set the contents of the Message.
-         @param theValue The value to be put in the Message.
-         @returns The Message object so that cascading can be done. */
-        Message &
-        setValue(const Value & theValue);
 
     protected :
         // Protected methods.
+
+        /*! @brief Return the byte found at a particular index.
+         @param index The zero-based location in the buffer.
+         @returns The byte found at the provided index, or the 'end' token if the index is not
+         within the buffer. */
+        int
+        getByte(const size_t index)
+        const;
 
     private :
         // Private methods.
 
         /*! @brief The copy constructor.
          @param other The object to be copied. */
-        Message(const Message & other);
-
-        /*! @brief Acquire the object. */
-        void
-        lock(void);
+        ChunkArray(const ChunkArray & other);
 
         /*! @brief The assignment operator.
          @param other The object to be copied.
          @returns The updated object. */
-        Message &
-        operator =(const Message & other);
-
-        /*! @brief Release the object. */
-        void
-        unlock(void);
+        ChunkArray &
+        operator =(const ChunkArray & other);
 
     public :
         // Public fields.
 
+        /*! @brief The value used to represent the end of the buffer. */
+        static const int kEndToken;
+
     protected :
         // Protected fields.
+
+        /*! @brief The internal buffers used to hold the assembled text. */
+        BufferChunk * * _buffers;
+
+        /*! @brief The number of buffer chunks being used. */
+        size_t _numChunks;
 
     private :
         // Private fields.
 
-        /*! @brief The position of the next byte being read. */
-        size_t _readPosition;
+        /*! @brief The cached value of the buffer. */
+        uint8_t * _cachedOutput;
 
-        /*! @brief The state of the object. */
-        MessageState _state;
+        /*! @brief The cached value of the length of the buffer. */
+        size_t _cachedLength;
+        
+        /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
+         @c false otherwise. */
+        bool _buffersArePadded;
 
-        /*! @brief @c true if the initial header bytes are present in the buffer. */
-        bool _headerAdded;
+        /*! @brief @c true if _cachedOutput just points to the first buffer. */
+        bool _cachedIsFirstBuffer;
 
-    }; // Message
+    }; // ChunkArray
 
 } // nImO
 
-#endif // ! defined(nImOmessage_HPP_)
+#endif // ! defined(nImOchunkArray_HPP_)

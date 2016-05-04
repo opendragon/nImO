@@ -118,6 +118,8 @@
 		F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = optionparser.cpp; path = nImO/optionparser.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ADE1CA2C7F4004748ED /* optionparser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = optionparser.hpp; path = nImO/optionparser.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ADF1CA2C7F4004748ED /* nImOcommon.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = nImOcommon.i; path = nImO/swig_nImO_in/nImOcommon.i; sourceTree = SOURCE_ROOT; };
+		F6F238531CD96F290005554A /* nImOchunkArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchunkArray.cpp; path = nImO/nImOchunkArray.cpp; sourceTree = "<group>"; };
+		F6F238541CD96F290005554A /* nImOchunkArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOchunkArray.hpp; path = nImO/nImOchunkArray.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -254,6 +256,8 @@
 				F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */,
 				F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */,
 				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.hpp */,
+				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
+				F6F238541CD96F290005554A /* nImOchunkArray.hpp */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
 				F6EE0ACA1CA2C7F4004748ED /* nImOcommon.hpp */,
 				F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */,

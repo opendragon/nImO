@@ -147,7 +147,7 @@ namespace nImO
 {
     // Type definitions.
 
-    /*! @brief The tag values for message contents. */
+    /*! @brief The tag values for Message contents. */
     enum DataKind
     {
         /*! @brief The mask for the kind of data that follows. */
@@ -322,6 +322,10 @@ namespace nImO
                  the end of the Message. */
                 kKindOtherMessageExpectedTypeMask = 0x0003,
 
+                /*! @brief The number of positions to right-shift the type of a tag to align with
+                 the Message type value. */
+                kKindOtherMessageExpectedTypeShift = 6,
+
                 /*! @brief The enclosed value in the Message is a signed integer. */
                 kKindOtherMessageExpectedIntegerValue = 0x0000,
 
@@ -356,6 +360,23 @@ namespace nImO
 
     }; // Enumerable
 
+    /*! @brief The state of a Message. */
+    enum MessageState
+    {
+        /*! @brief The Message is neither open nor closed. */
+        kMessageStateUnknown,
+
+        /*! @brief The Message has been opened for reading. */
+        kMessageStateOpenForReading,
+
+        /*! @brief The Message has been opened for writing. */
+        kMessageStateOpenForWriting,
+
+        /*! @brief The Message has been closed. */
+        kMessageStateClosed
+
+    }; // MessageState
+
     /*! @brief The format for the output from command-line tools. */
     enum OutputFlavour
     {
@@ -373,6 +394,24 @@ namespace nImO
         kOutputFlavourUnknown = 0x7FFFFFFF
 
     }; // OutputFlavour
+
+    /*! @brief The status of a read operation on a Message. */
+    enum ReadStatus
+    {
+        /*! @brief Reading from the Message was successful; a @c NULL result indicates and empty
+        Message. */
+        kReadSuccessful,
+
+        /*! @brief Reading from the Message was successful and all data was processed. */
+        kReadSuccessfulAtEnd,
+
+        /*! @brief The Message was incomplete and more data is needed. */
+        kReadIncomplete,
+
+        /*! @brief Invalid data was found in the Message and reading is not possible. */
+        kReadInvalid
+
+    }; // ReadStatus
 
     // Forward reference.
     class BaseArgumentDescriptor;
@@ -505,9 +544,6 @@ namespace nImO
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char kBlobSeparator;
 
-    /*! @brief A character that brackets a string value. */
-    extern const char kDoubleQuote;
-
     /*! @brief The character that ends an Array value. */
     extern const char kEndArrayChar;
 
@@ -516,9 +552,6 @@ namespace nImO
 
     /*! @brief The character that ends a Set value. */
     extern const char kEndSetChar;
-
-    /*! @brief The escape character. */
-    extern const char kEscapeChar;
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
     extern const char kKeyValueSeparator;
@@ -534,6 +567,12 @@ namespace nImO
 
     /*! @brief The character that starts a Set value. */
     extern const char kStartSetChar;
+
+    /*! @brief A character that brackets a string value. */
+    extern const uint8_t kDoubleQuote;
+
+    /*! @brief The escape character. */
+    extern const uint8_t kEscapeChar;
 
     /*! @brief The directory separator string; */
     extern const std::string kDirectorySeparator;

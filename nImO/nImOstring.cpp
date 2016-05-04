@@ -166,6 +166,34 @@ const
     return result;
 } // nImO::String::equalTo
 
+nImO::Value *
+nImO::String::extractValue(nImO::Message &    theMessage,
+                           size_t &           position,
+                           nImO::ReadStatus & status,
+                           nImO::Array *      parentValue)
+{
+    ODL_ENTER(); //####
+    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
+           "parentValue = ", parentValue); //####
+    Value * result = NULL;
+    
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::String::extractValue
+
+void
+nImO::String::getExtractionInfo(uint8_t &                aByte,
+                                uint8_t &                aMask,
+                                nImO::Value::Extractor & theExtractor)
+{
+    ODL_ENTER(); //####
+    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    aByte = (kKindStringOrBlob | kKindStringOrBlobStringValue);
+    aMask = (kKindMask | kKindStringOrBlobTypeMask);
+    theExtractor = extractValue;
+    ODL_EXIT(); //####
+} // nImO::String::getExtractionInfo
+
 const char *
 nImO::String::getInitialCharacters(void)
 {
@@ -408,9 +436,9 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
         for ( ; ! done; )
         {
             aChar = inBuffer.getChar(localIndex++);
-            if (StringBuffer::kEndCharacter == aChar)
+            if (StringBuffer::kEndToken == aChar)
             {
-                ODL_LOG("(StringBuffer::kEndCharacter == aChar)"); //####
+                ODL_LOG("(StringBuffer::kEndToken == aChar)"); //####
                 done = true; // saw end of buffer before delimiter
             }
             else

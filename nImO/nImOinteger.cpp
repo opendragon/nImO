@@ -173,6 +173,34 @@ const
     return result;
 } // nImO::Integer::equalTo
 
+nImO::Value *
+nImO::Integer::extractValue(nImO::Message &    theMessage,
+                            size_t &           position,
+                            nImO::ReadStatus & status,
+                            nImO::Array *      parentValue)
+{
+    ODL_ENTER(); //####
+    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
+           "parentValue = ", parentValue); //####
+    Value * result = NULL;
+    
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Integer::extractValue
+
+void
+nImO::Integer::getExtractionInfo(uint8_t &                aByte,
+                                 uint8_t &                aMask,
+                                 nImO::Value::Extractor & theExtractor)
+{
+    ODL_ENTER(); //####
+    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    aByte = kKindInteger;
+    aMask = kKindMask;
+    theExtractor = extractValue;
+    ODL_EXIT(); //####
+} // nImO::Integer::getExtractionInfo
+
 bool
 nImO::Integer::greaterThan(const nImO::Value & other,
                            bool &              validComparison)

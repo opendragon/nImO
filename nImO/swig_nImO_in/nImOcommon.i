@@ -9,6 +9,7 @@
 #include "nImOboolean.hpp"
 #include "nImObufferChunk.hpp"
 #include "nImOchannelArgumentDescriptor.hpp"
+#include "nImOchunkArray.hpp"
 #include "nImOcommon.hpp"
 #include "nImOcompareValues.hpp"
 #include "nImOconnector.hpp"

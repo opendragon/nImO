@@ -761,3 +761,6 @@ add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -c
 
 endif(APPLE)
 
+# Test empty message
+add_test(NAME TestExtractEmptyMessage COMMAND ${THIS_TARGET} 1)
+

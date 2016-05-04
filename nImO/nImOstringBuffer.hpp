@@ -39,7 +39,7 @@
 #if (! defined(nImOstringBuffer_HPP_))
 # define nImOstringBuffer_HPP_ /* Header guard */
 
-# include <nImO/nImOcommon.hpp>
+# include <nImO/nImOchunkArray.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -54,11 +54,10 @@
 
 namespace nImO
 {
-    class BufferChunk;
     class Value;
 
     /*! @brief The data constituting a string buffer. */
-    class StringBuffer
+    class StringBuffer : public ChunkArray
     {
     public :
         // Public type definitions.
@@ -68,6 +67,9 @@ namespace nImO
 
     private :
         // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        typedef ChunkArray inherited;
 
     public :
         // Public methods.
@@ -141,31 +143,26 @@ namespace nImO
          @param index The zero-based location in the buffer.
          @returns The character found at the provided index, or the 'end' character if the index
          is not within the buffer. */
-        int
+        inline int
         getChar(const size_t index)
-        const;
-
-        /*! @brief Return the number of valid characters in the buffer.
-         @returns The number of valid characters in the buffer. */
-        size_t
-        getLength(void)
-        const;
+        const
+        {
+            return inherited::getByte(index);
+        } // getChar
 
         /*! @brief Return a copy of the characters in the buffer as well as the number of valid
          characters present.
          @param length Set to the number of valid characters in the buffer.
          @returns A pointer to a copy of the characters in the buffer. */
-        const char *
-        getString(size_t & length);
+        inline const char *
+        getString(size_t & length)
+        {
+            return reinterpret_cast<const char *>(inherited::getBytes(length));
+        } // getString
 
         friend std::ostream &
         operator <<(std::ostream &       out,
                     const StringBuffer & aBuffer);
-
-        /*! @brief Prepare the buffer for reuse.
-         @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        reset(void);
 
     protected :
         // Protected methods.
@@ -176,13 +173,6 @@ namespace nImO
         /*! @brief The copy constructor.
          @param other The object to be copied. */
         StringBuffer(const StringBuffer & other);
-
-        /*! @brief Add some characters to the buffer.
-         @param data The characters to be added.
-         @param numBytes The number of characters to add. */
-        void
-        appendChars(const char * data,
-                    const size_t numBytes);
 
         /*! @brief The assignment operator.
          @param other The object to be copied.
@@ -200,29 +190,11 @@ namespace nImO
     public :
         // Public fields.
 
-        /*! @brief The value used to represent the end of the buffer. */
-        static const int kEndCharacter;
-
     protected :
         // Protected fields.
 
     private :
         // Private fields.
-
-        /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk * * _buffers;
-
-        /*! @brief The cached value of the buffer. */
-        char * _cachedOutput;
-
-        /*! @brief The cached value of the length of the buffer. */
-        size_t _cachedLength;
-        
-        /*! @brief The number of buffer chunks being used. */
-        size_t _numChunks;
-
-        /*! @brief @c true if _cachedOutput just points to the first buffer. */
-        bool _cachedIsFirstBuffer;
 
     }; // StringBuffer
 

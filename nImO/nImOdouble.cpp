@@ -38,6 +38,7 @@
 
 #include "nImOdouble.hpp"
 
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
@@ -173,16 +174,26 @@ const
 } // nImO::Double::equalTo
 
 nImO::Value *
-nImO::Double::extractValue(nImO::Message &    theMessage,
-                           size_t &           position,
-                           nImO::ReadStatus & status,
-                           nImO::Array *      parentValue)
+nImO::Double::extractValue(const nImO::Message & theMessage,
+                           const int             leadByte,
+                           size_t &              position,
+                           nImO::ReadStatus &    status,
+                           nImO::Array *         parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
+    ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
     
+#if 0
+// The following is not right, given that multiple Doubles can be present
+    if ((NULL != parentValue) && (NULL != result))
+    {
+        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        parentValue->addValue(result);
+    }
+#endif//0
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Double::extractValue

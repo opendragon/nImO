@@ -116,7 +116,7 @@ nImO::Value::addToExtractionMap(const uint8_t          aByte,
 {
     ODL_ENTER(); //####
     ODL_LL2("aByte = ", aByte, "aMask = ", aMask); //####
-    ODL_P1("theExtractor = ", theExtractor); //####
+    ODL_P1("theExtractor = ", &theExtractor); //####
     if ((0 != aMask) && (NULL != theExtractor))
     {
         for (uint8_t ii = 0; 255 > ii; ++ii)
@@ -131,6 +131,46 @@ nImO::Value::addToExtractionMap(const uint8_t          aByte,
     }
     ODL_EXIT(); //####
 } // addToExtractionMap
+
+nImO::Value *
+nImO::Value::getValueFromMessage(const nImO::Message & inMessage,
+                                 size_t &              position,
+                                 const int             leadByte,
+                                 nImO::ReadStatus &    status,
+                                 nImO::Array *         parent)
+{
+    ODL_ENTER(); //####
+    ODL_P4("inMessage = ", &inMessage, "position = ", &position, "status = ", &status,
+           "parent = ", parent); //####
+    ODL_XL1("leadByte = ", leadByte); //####
+    Value *              result = NULL;
+    ExtractorMapIterator match = gExtractors.find(static_cast<uint8_t>(leadByte));
+
+    if (gExtractors.end() == match)
+    {
+        ODL_LOG("(gExtractors.end() == match)"); //####
+        status = kReadInvalid;
+        ODL_LL1("status <- ", status); //####
+    }
+    else
+    {
+        Extractor handler = match->second;
+
+        if (NULL == handler)
+        {
+            ODL_LOG("(NULL == handler)"); //####
+            status = kReadInvalid;
+            ODL_LL1("status <- ", status); //####
+        }
+        else
+        {
+            result = handler(inMessage, leadByte, position, status, parent);
+            ODL_P1("result <- ", result); //####
+        }
+    }
+    ODL_EXIT_P(result); //####
+    return result;
+} // nImO::Value::getValueFromMessage
 
 void
 nImO::Value::initialize(void)
@@ -266,9 +306,6 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    //bool    done = false;
-    //bool    eatWhitespace = false;
-    //bool    valid = false;
     Value * result = NULL;
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex);

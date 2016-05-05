@@ -763,4 +763,90 @@ endif(APPLE)
 
 # Test empty message
 add_test(NAME TestExtractEmptyMessage COMMAND ${THIS_TARGET} 1)
+# Test message with boolean
+add_test(NAME TestExtractBooleanMessage COMMAND ${THIS_TARGET} 2)
+# Test message with tiny integer
+add_test(NAME TestExtractTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
+# Test message with short integer 
+add_test(NAME TestExtractShortIntegerMessage COMMAND ${THIS_TARGET} 4)
+# Test message with medium integer
+add_test(NAME TestExtractMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
+# Test message with big integer 
+add_test(NAME TestExtractBigIntegerMessage COMMAND ${THIS_TARGET} 6)
+# Test message with empty string
+add_test(NAME TestExtractEmptyStringMessage COMMAND ${THIS_TARGET} 7)
+# Test message with short string
+add_test(NAME TestExtractShortStringMessage COMMAND ${THIS_TARGET} 8)
+# Test message with medium string
+add_test(NAME TestExtractMediumStringMessage COMMAND ${THIS_TARGET} 9)
+# Test message with empty blob
+add_test(NAME TestExtractEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
+# Test message with short blob
+add_test(NAME TestExtractShortBlobMessage COMMAND ${THIS_TARGET} 11)
+# Test message with medium blob
+add_test(NAME TestExtractMediumBlobMessage COMMAND ${THIS_TARGET} 12)
+# Test message with single float
+add_test(NAME TestExtractSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+
+# Test message with empty array
+add_test(NAME TestExtractEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+# Test message with empty map
+add_test(NAME TestExtractEmptyMapMessage COMMAND ${THIS_TARGET} 101)
+# Test message with empty set
+add_test(NAME TestExtractEmptySetMessage COMMAND ${THIS_TARGET} 102)
+
+# Test message with array with one boolean
+add_test(NAME TestExtractArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 110)
+# Test message with array with one integer
+add_test(NAME TestExtractArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
+# Test message with array with one double
+add_test(NAME TestExtractArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 112)
+# Test message with array with one string
+add_test(NAME TestExtractArrayWithOneStringMessage COMMAND ${THIS_TARGET} 113)
+# Test message with array with one blob
+add_test(NAME TestExtractArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 114)
+# Test message with array with one empty array
+add_test(NAME TestExtractArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 115)
+# Test message with array with one empty map
+add_test(NAME TestExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
+# Test message with array with one empty set
+add_test(NAME TestExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
+
+# Test message with array with two booleans
+add_test(NAME TestExtractArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
+# Test message with array with two integers
+add_test(NAME TestExtractArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
+# Test message with array with two doubles
+add_test(NAME TestExtractArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
+# Test message with array with two strings
+add_test(NAME TestExtractArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
+# Test message with array with two blobs
+add_test(NAME TestExtractArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
+# Test message with array with two empty arrays
+add_test(NAME TestExtractArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
+# Test message with array with two empty maps
+add_test(NAME TestExtractArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
+# Test message with array with two empty sets
+add_test(NAME TestExtractArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
+# Test message with array with empty array and empty map
+add_test(NAME TestExtractArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
+# Test message with array with empty map and empty set
+add_test(NAME TestExtractArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
+# Test message with array with empty set and empty array
+add_test(NAME TestExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+# Test message with array with many doubles
+add_test(NAME TestExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
+
+# Test message with boolean map
+add_test(NAME TestExtractBooleanMapMessage COMMAND ${THIS_TARGET} 160)
+# Test message with integer map
+add_test(NAME TestExtractIntegerMapMessage COMMAND ${THIS_TARGET} 161)
+# Test message with string map
+add_test(NAME TestExtractStringMapMessage COMMAND ${THIS_TARGET} 162)
+# Test message with boolean set
+add_test(NAME TestExtractBooleanSetMessage COMMAND ${THIS_TARGET} 163)
+# Test message with integer set
+add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
+# Test message with string set
+add_test(NAME TestExtractStringSetMessage COMMAND ${THIS_TARGET} 165)
 

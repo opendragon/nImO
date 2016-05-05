@@ -168,9 +168,42 @@ localCatcher(int signal)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
+double
+nImO::B2D(const nImO::NumberAsBytes & inString)
+{
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
+    int64_t inValueCopy = B2I(inString, sizeof(inValueCopy));
+    double  result = *reinterpret_cast<double *>(&inValueCopy);
+
+    ODL_EXIT_D(result); //####
+    return result;
+} // nImO::B2D
+
+int64_t
+nImO::B2I(const nImO::NumberAsBytes & inString,
+          const size_t                numBytes)
+{
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
+    ODL_LL1("numBytes = ", numBytes); //####
+    bool            isNegative = (0 != (0x080 & inString[0]));
+    const uint8_t * walker = inString;
+    int64_t         result = (isNegative ? -1 : 0);
+
+    for (size_t ii = 0; numBytes > ii; ++ii)
+    {
+        uint8_t aByte = *walker++;
+
+        result = ((result << 8) | aByte);
+    }
+    ODL_EXIT_LL(result); //####
+    return result;
+} // nImO::B2I
+
 void
-nImO::D2B(const double    inValue,
-          NumberAsBytes & outString)
+nImO::D2B(const double          inValue,
+          nImO::NumberAsBytes & outString)
 {
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
@@ -180,7 +213,7 @@ nImO::D2B(const double    inValue,
 
     I2B(inValueAsInt, outString);
     ODL_EXIT(); //####
-} // D2B
+} // nImO::D2B
 
 #if 0
 void
@@ -310,8 +343,8 @@ nImO::GetRandomChannelName(const std::string & channelRoot)
 } // nImO::GetRandomChannelName
 
 size_t
-nImO::I2B(const int64_t   inValue,
-          NumberAsBytes & outString)
+nImO::I2B(const int64_t         inValue,
+          nImO::NumberAsBytes & outString)
 {
     ODL_ENTER(); //####
     ODL_LL1("inValue = ", inValue); //####
@@ -430,7 +463,7 @@ nImO::Initialize(const std::string & progName)
 #endif // ! MAC_OR_LINUX_
 
 void
-nImO::SetSignalHandlers(SignalHandler theHandler)
+nImO::SetSignalHandlers(nImO::SignalHandler theHandler)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -905,15 +938,15 @@ nImO::OutputDescription(std::ostream &     outStream,
 #endif//0
 
 bool
-nImO::ProcessStandardUtilitiesOptions(const int           argc,
-                                      char * *            argv,
-                                      DescriptorVector &  argumentDescriptions,
-                                      const std::string & utilityDescription,
-                                      const int           year,
-                                      const char *        copyrightHolder,
-                                      OutputFlavour &     flavour,
-                                      const bool          ignoreFlavours,
-                                      StringVector *      arguments)
+nImO::ProcessStandardUtilitiesOptions(const int                argc,
+                                      char * *                 argv,
+                                      nImO::DescriptorVector & argumentDescriptions,
+                                      const std::string &      utilityDescription,
+                                      const int                year,
+                                      const char *             copyrightHolder,
+                                      nImO::OutputFlavour &    flavour,
+                                      const bool               ignoreFlavours,
+                                      nImO::StringVector *     arguments)
 {
     ODL_ENTER(); //####
     ODL_L2("argc = ", argc, "year = ", year); //####

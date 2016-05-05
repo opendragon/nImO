@@ -38,6 +38,7 @@
 
 #include "nImOinteger.hpp"
 
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOcommon.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOmessage.hpp>
@@ -174,16 +175,74 @@ const
 } // nImO::Integer::equalTo
 
 nImO::Value *
-nImO::Integer::extractValue(nImO::Message &    theMessage,
-                            size_t &           position,
-                            nImO::ReadStatus & status,
-                            nImO::Array *      parentValue)
+nImO::Integer::extractValue(const nImO::Message & theMessage,
+                            const int             leadByte,
+                            size_t &              position,
+                            nImO::ReadStatus &    status,
+                            nImO::Array *         parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
+    ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
-    
+    bool    isShort = (kKindIntegerShortValue == (kKindIntegerSizeMask & leadByte));
+
+    ++position; // We will always accept the lead byte
+    if (isShort)
+    {
+        ODL_LOG("(isShort)"); //####
+        uint8_t shortBits = (kKindIntegerShortValueValueMask & leadByte);
+        bool    isNegative = (kKindIntegerShortValueSignBit ==
+                               (kKindIntegerShortValueSignBit & leadByte));
+
+        if (isNegative)
+        {
+            ODL_LOG("(isNegative)"); //####
+            int64_t tempValue = (-1 & (~ kKindIntegerShortValueValueMask));
+
+            result = new Integer(tempValue | shortBits);
+        }
+        else
+        {
+            ODL_LOG("! (isNegative)"); //####
+            result = new Integer(shortBits);
+        }
+        status = kReadSuccessful;
+    }
+    else
+    {
+        ODL_LOG("! (isShort)"); //####
+        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+        NumberAsBytes holder;
+        bool          okSoFar = true;
+
+        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        {
+            int aByte = theMessage.getByte(position);
+
+            if (Message::kEndToken == aByte)
+            {
+                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                okSoFar = false;
+            }
+            else
+            {
+                holder[ii] = static_cast<uint8_t>(aByte);
+                ++position;
+            }
+        }
+        if (okSoFar)
+        {
+            result = new Integer(B2I(holder, size));
+            status = kReadSuccessful;
+        }
+    }
+    if ((NULL != parentValue) && (NULL != result))
+    {
+        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        parentValue->addValue(result);
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Integer::extractValue

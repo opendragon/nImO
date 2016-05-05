@@ -38,6 +38,7 @@
 
 #include "nImOboolean.hpp"
 
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
@@ -164,20 +165,42 @@ const
     return result;
 } // nImO::Boolean::equalTo
 
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
 nImO::Value *
-nImO::Boolean::extractValue(nImO::Message &    theMessage,
-                            size_t &           position,
-                            nImO::ReadStatus & status,
-                            nImO::Array *      parentValue)
+nImO::Boolean::extractValue(const nImO::Message & theMessage,
+                            const int             leadByte,
+                            size_t &              position,
+                            nImO::ReadStatus &    status,
+                            nImO::Array *         parentValue)
 {
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(theMessage)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
-    Value * result = NULL;
-    
+    ODL_XL1("leadByte = ", leadByte); //####
+    Value * result = new Boolean(kKindOtherBooleanTrueValue ==
+                                 (kKindOtherBooleanValueMask & leadByte));
+
+    ++position; // We will always accept the lead byte
+    status = kReadSuccessful;
+    if ((NULL != parentValue) && (NULL != result))
+    {
+        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        parentValue->addValue(result);
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Boolean::extractValue
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
 
 const std::string &
 nImO::Boolean::getCanonicalRepresentation(const bool aValue)

@@ -179,6 +179,7 @@ nImO::Message::getBytes(size_t & length)
 
     if (kMessageStateClosed == _state)
     {
+        ODL_LOG("(kMessageStateClosed == _state)"); //####
         lock();
         result = inherited::getBytes(length);
         unlock();
@@ -203,6 +204,7 @@ const
 
     if (kMessageStateClosed == _state)
     {
+        ODL_LOG("(kMessageStateClosed == _state)"); //####
         totalLength = inherited::getLength();
     }
     else
@@ -223,10 +225,11 @@ nImO::Message::getValue(nImO::ReadStatus & status)
 
     if (kMessageStateOpenForReading == _state)
     {
+        ODL_LOG("(kMessageStateOpenForReading == _state)"); //####
         size_t  savedPosition = _readPosition;
         int     aByte = getByte(_readPosition);
    
-        ODL_LL1("aByte <- ", aByte); //#### 
+        ODL_XL1("aByte <- ", aByte); //#### 
         if (kEndToken == aByte)
         {
             ODL_LOG("(kEndToken == aByte)"); //####
@@ -274,7 +277,8 @@ nImO::Message::getValue(nImO::ReadStatus & status)
             else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
                 uint8_t initTag = (aByte & kKindOtherMessageExpectedTypeMask);
-    
+
+                ODL_XL1("initTag <- ", initTag); //####
                 aByte = getByte(++_readPosition);
                 ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
                 if (kEndToken == aByte)
@@ -289,11 +293,14 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                     ODL_LOG("! (kEndToken == aByte)"); //####
                     uint8_t nextTag = ((aByte >> kKindOtherMessageExpectedTypeShift) &
                                        kKindOtherMessageExpectedTypeMask);
-    
+
+                    ODL_XL1("nextTag <- ", nextTag); //####
                     if (nextTag == initTag)
                     {
-//TBD - dispatch via the 'nextTag' value and set 'result'
-    
+                        result = Value::getValueFromMessage(*this, _readPosition, aByte, status,
+                                                            NULL);
+                        ODL_P1("result <- ", result); //####
+                        ODL_LL2("_readPosition <- ", _readPosition, "status <- ", status); //####
                         if (NULL == result)
                         {
                             ODL_LOG("(NULL == result)"); //####
@@ -302,8 +309,8 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                         }
                         else
                         {
-                            aByte = getByte(++_readPosition);
-                            ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                            aByte = getByte(_readPosition);
+                            ODL_XL1("aByte <- ", aByte); //####
                             if (kEndToken == aByte)
                             {
                                 ODL_LOG("(kEndToken == aByte)"); //####
@@ -313,11 +320,12 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                                         _readPosition); //####
                                 delete result;
                                 result = NULL;
+                                ODL_P1("result <- ", result); //####
                             }
                             else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
                             {
-                                nextTag = ((aByte >> kKindOtherMessageExpectedTypeShift) &
-                                           kKindOtherMessageExpectedTypeMask);
+                                nextTag = (aByte & kKindOtherMessageExpectedTypeMask);
+                                ODL_XL1("nextTag <- ", nextTag); //####
                                 if (nextTag == initTag)
                                 {
                                     aByte = getByte(++_readPosition);
@@ -343,6 +351,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                                     ODL_LL1("status <- ", status); //####
                                     delete result;
                                     result = NULL;
+                                    ODL_P1("result <- ", result); //####
                                 }
                             }
                             else
@@ -353,6 +362,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                                 ODL_LL1("status <- ", status); //####
                                 delete result;
                                 result = NULL;
+                                ODL_P1("result <- ", result); //####
                             }
                         }
                     }
@@ -381,34 +391,6 @@ nImO::Message::getValue(nImO::ReadStatus & status)
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Message::getValue
-#if 0
-define initial byte, initial byte mask, terminal byte, terminal byte mask for messages (and then other objects) [as local constants]; fetch a byte -
-     1) if it is EOF, exit with the status set for empty / unexpected
-     2) if it is not EOF, mask it with the initial byte mask for empty and compare with the initial byte for empty
-     2.0) if it matches, advance the position, fetch a byte
-     2.0.0) if it is EOF, exit with the status set for incomplete
-     2.0.1) if it is not EOF, mask it with the terminal byte mask for empty and compare with the terminal byte for empty
-     2.0.1.0) if it matches, advance the position and check for EOF
-     2.0.1.0.1) if at EOF, exit with the status set to complete and EOF
-     2.0.1.0.2) if not at EOF, exit with the status set to complete
-     2.0.1.1) if it does not match, exit with the status set for invalid
-     2.1) if it does not match, mask if with the initial byte mask for non-empty and compare with the initial byte for non-empty
-     2.1.0) if it matches, record the type bits, advance the position, fetch a byte
-     2.1.0.1) compare the type bits with the recorded bits
-     2.1.0.1.0) if the bits don't match, exit with the status set for invalid
-2.1.0.1.1) look up the byte in the dispatch table
-2.1.0.1.2) if it is NULL, exit with the status set for invalid
-2.1.0.1.3) if it is non-NULL, execute the function from the dispatch table, which will process one or more bytes and return a pointer
-     2.1.0.1.4) if the pointer is NULL, exit with the status set for invalid
-     2.1.0.1.5) if the pointer is non-NULL, advance the position, fetch a byte
-     2.1.0.1.6) if it is EOF, exit with the status set for incomplete
-     2.1.0.1.7) if it is not EOF, mask it with the terminal byte mask for non-empty and compare with the terminal byte for non-empty and compare the type bits with the recorded bits
-     2.1.0.1.8) if they match, advance the position and check for EOF
-     2.1.0.1.8.0) if at EOF, exit with the status set to complete and EOF
-     2.1.0.1.8.1) if not at EOF, exit with the status set to complete
-     2.1.0.1.9) if they do not match, exit with the status set for invalid
-     2.1.1) if it does not match, exit with the status set for invalid
-#endif//0
 
 void
 nImO::Message::lock(void)
@@ -431,6 +413,7 @@ nImO::Message::open(const bool forWriting)
     {
         _state = kMessageStateOpenForReading;
     }
+    ODL_LL1("_state <- ", _state); //####
     reset();
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -459,6 +442,7 @@ nImO::Message::setValue(const nImO::Value & theValue)
     reset();
     if (kMessageStateOpenForWriting == _state)
     {
+        ODL_LOG("(kMessageStateOpenForWriting == _state)"); //####
         lock();
         uint8_t typeTag = theValue.getTypeTag();
         uint8_t headerByte = kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +

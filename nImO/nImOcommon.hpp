@@ -172,6 +172,9 @@ namespace nImO
                 /*! @brief The maximum value representable in a short signed integer. */
                 kKindIntegerShortValueMaxValue = 15,
 
+                /*! @brief The position of the sign bit in the short signed integer. */
+                kKindIntegerShortValueSignBit = 0x0010,
+
             /*! @brief The signed integer value follows this byte. */
             kKindIntegerLongValue = 0x0020,
 
@@ -432,11 +435,23 @@ namespace nImO
 
     // Methods.
 
-    /*! @brief Convert a floating-point value into a set of bytes and return the minimum
-     number of bytes needed to represent the value.
+    /*! @brief Convert a set of bytes into a floating-point value.
+     @param inString The byte string to be processed.
+     @returns The floating-point value stored in the bytes. */
+    double
+    B2D(const NumberAsBytes & inString);
+
+    /*! @brief Convert a set of bytes into an integer value.
+     @param inString The byte string to be processed.
+     @param numBytes The number of bytes to be processed.
+     @returns The integer value stored in the bytes. */
+    int64_t
+    B2I(const NumberAsBytes & inString,
+        const size_t          numBytes);
+
+    /*! @brief Convert a floating-point value into a set of bytes.
      @param inValue The number to be converted.
-     @param outString The byte string to be filled.
-     @returns The minimum number of bytes needed to represent the value. */
+     @param outString The byte string to be filled. */
     void
     D2B(const double    inValue,
         NumberAsBytes & outString);

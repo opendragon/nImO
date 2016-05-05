@@ -87,6 +87,14 @@ namespace nImO
         appendBytes(const uint8_t * data,
                     const size_t    numBytes);
 
+        /*! @brief Return the byte found at a particular index.
+         @param index The zero-based location in the buffer.
+         @returns The byte found at the provided index, or the 'end' token if the index is not
+         within the buffer. */
+        int
+        getByte(const size_t index)
+        const;
+
         /*! @brief Return a copy of the bytes in the buffer as well as the number of valid
          bytes present.
          Note that the returned pointer may become invalid at any time, so it should be either
@@ -109,14 +117,6 @@ namespace nImO
 
     protected :
         // Protected methods.
-
-        /*! @brief Return the byte found at a particular index.
-         @param index The zero-based location in the buffer.
-         @returns The byte found at the provided index, or the 'end' token if the index is not
-         within the buffer. */
-        int
-        getByte(const size_t index)
-        const;
 
     private :
         // Private methods.

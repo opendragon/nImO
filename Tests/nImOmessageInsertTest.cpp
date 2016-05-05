@@ -150,6 +150,7 @@ doTestInsertEmptyMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageEmptyValue
             };
             const size_t    expectedCount = (sizeof(expectedBytes) / sizeof(*expectedBytes));
+            ODL_PACKET("expectedBytes", expectedBytes, expectedCount); //####
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
@@ -162,6 +163,7 @@ doTestInsertEmptyMessage(const char * launchPath,
             {
                 stuff->close();
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedCount == length))
                 {
                     result = memcmp(expectedBytes, contents, expectedCount);
@@ -243,6 +245,7 @@ doTestInsertBooleanMessage(const char * launchPath,
             };
             const size_t expectedTrueCount = (sizeof(expectedBytesForTrue) /
                                               sizeof(*expectedBytesForTrue));
+            ODL_PACKET("expectedBytesForTrue", expectedBytesForTrue, expectedTrueCount); //####
             static const uint8_t expectedBytesForFalse[] =
             {
                 // Start of Message
@@ -261,6 +264,7 @@ doTestInsertBooleanMessage(const char * launchPath,
             };
             const size_t expectedFalseCount = (sizeof(expectedBytesForFalse) /
                                                sizeof(*expectedBytesForFalse));
+            ODL_PACKET("expectedBytesForFalse", expectedBytesForFalse, expectedFalseCount); //####
             nImO::Boolean falseValue(false);
             nImO::Boolean trueValue(true);
 
@@ -270,6 +274,7 @@ doTestInsertBooleanMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedTrueCount == length))
             {
                 result = memcmp(expectedBytesForTrue, contents, expectedTrueCount);
@@ -285,6 +290,7 @@ doTestInsertBooleanMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedFalseCount == length))
                 {
                     result = memcmp(expectedBytesForFalse, contents, expectedFalseCount);
@@ -292,6 +298,7 @@ doTestInsertBooleanMessage(const char * launchPath,
                 else
                 {
                     ODL_LOG("! ((NULL != contents) && (expectedFalseCount == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -308,7 +315,7 @@ doTestInsertBooleanMessage(const char * launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertEmptyMessage
+} // doTestInsertBooleanMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -366,6 +373,8 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             };
             const size_t expectedMinus12Count = (sizeof(expectedBytesForMinus12) /
                                                  sizeof(*expectedBytesForMinus12));
+            ODL_PACKET("expectedBytesForMinus12", expectedBytesForMinus12, //####
+                       expectedMinus12Count); //####
             static const uint8_t expectedBytesForZero[] =
             {
                 // Start of Message
@@ -384,6 +393,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             };
             const size_t expectedZeroCount = (sizeof(expectedBytesForZero) /
                                               sizeof(*expectedBytesForZero));
+            ODL_PACKET("expectedBytesForZero", expectedBytesForZero, expectedZeroCount); //####
             static const uint8_t expectedBytesForPlus12[] =
             {
                 // Start of Message
@@ -402,6 +412,8 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             };
             const size_t expectedPlus12Count = (sizeof(expectedBytesForPlus12) /
                                                 sizeof(*expectedBytesForPlus12));
+            ODL_PACKET("expectedBytesForPlus12", expectedBytesForPlus12, //####
+                       expectedPlus12Count); //####
             nImO::Integer minus12Value(-12);
             nImO::Integer zeroValue(0);
             nImO::Integer plus12Value(12);
@@ -412,6 +424,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMinus12Count == length))
             {
                 result = memcmp(expectedBytesForMinus12, contents, expectedMinus12Count);
@@ -427,6 +440,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedZeroCount == length))
                 {
                     result = memcmp(expectedBytesForZero, contents, expectedZeroCount);
@@ -434,6 +448,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
                 else
                 {
                     ODL_LOG("! ((NULL != contents) && (expectedZeroCount == length))"); //####
+                    result = 1;
                 }
             }
             if (0 == result)
@@ -443,6 +458,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedPlus12Count == length))
                 {
                     result = memcmp(expectedBytesForPlus12, contents, expectedPlus12Count);
@@ -450,6 +466,7 @@ doTestInsertTinyIntegerMessage(const char * launchPath,
                 else
                 {
                     ODL_LOG("! ((NULL != contents) && (expectedPlus12Count == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -525,6 +542,8 @@ doTestInsertShortIntegerMessage(const char * launchPath,
             };
             const size_t expectedMinus144Count = (sizeof(expectedBytesForMinus144) /
                                                   sizeof(*expectedBytesForMinus144));
+            ODL_PACKET("expectedBytesForMinus144", expectedBytesForMinus144, //####
+                       expectedMinus144Count); //####
             static const uint8_t expectedBytesForPlus144[] =
             {
                 // Start of Message
@@ -544,6 +563,8 @@ doTestInsertShortIntegerMessage(const char * launchPath,
             };
             const size_t expectedPlus144Count = (sizeof(expectedBytesForPlus144) /
                                                  sizeof(*expectedBytesForPlus144));
+            ODL_PACKET("expectedBytesForPlus144", expectedBytesForPlus144, //####
+                       expectedPlus144Count); //####
             nImO::Integer minus144Value(-144);
             nImO::Integer plus144Value(144);
 
@@ -553,6 +574,7 @@ doTestInsertShortIntegerMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMinus144Count == length))
             {
                 result = memcmp(expectedBytesForMinus144, contents, expectedMinus144Count);
@@ -568,6 +590,7 @@ doTestInsertShortIntegerMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedPlus144Count == length))
                 {
                     result = memcmp(expectedBytesForPlus144, contents, expectedPlus144Count);
@@ -575,6 +598,7 @@ doTestInsertShortIntegerMessage(const char * launchPath,
                 else
                 {
                     ODL_LOG("! ((NULL != contents) && (expectedPlus144Count == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -650,6 +674,8 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
             };
             const size_t expectedMinus1234567Count = (sizeof(expectedBytesForMinus1234567) /
                                                       sizeof(*expectedBytesForMinus1234567));
+            ODL_PACKET("expectedBytesForMinus1234567", expectedBytesForMinus1234567, //####
+                       expectedMinus1234567Count); //####
             static const uint8_t expectedBytesForPlus1234567[] =
             {
                 // Start of Message
@@ -669,6 +695,8 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
             };
             const size_t expectedPlus1234567Count = (sizeof(expectedBytesForPlus1234567) /
                                                      sizeof(*expectedBytesForPlus1234567));
+            ODL_PACKET("expectedBytesForPlus1234567", expectedBytesForPlus1234567, //####
+                       expectedPlus1234567Count); //####
             nImO::Integer minus1234567Value(-1234567);
             nImO::Integer plus1234567Value(1234567);
 
@@ -678,6 +706,7 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMinus1234567Count == length))
             {
                 result = memcmp(expectedBytesForMinus1234567, contents, expectedMinus1234567Count);
@@ -693,6 +722,7 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedPlus1234567Count == length))
                 {
                     result = memcmp(expectedBytesForPlus1234567, contents,
@@ -702,6 +732,7 @@ doTestInsertMediumIntegerMessage(const char * launchPath,
                 {
                     ODL_LOG("! ((NULL != contents) && " //####
                             "(expectedPlus1234567Count == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -777,6 +808,8 @@ doTestInsertBigIntegerMessage(const char * launchPath,
             };
             const size_t expectedMinusBigNumberCount = (sizeof(expectedBytesForMinusBigNumber) /
                                                         sizeof(*expectedBytesForMinusBigNumber));
+            ODL_PACKET("expectedBytesForMinusBigNumber", expectedBytesForMinusBigNumber, //####
+                       expectedMinusBigNumberCount); //####
             static const uint8_t expectedBytesForPlusBigNumber[] =
             {
                 // Start of Message
@@ -796,6 +829,8 @@ doTestInsertBigIntegerMessage(const char * launchPath,
             };
             const size_t expectedPlusBigNumberCount = (sizeof(expectedBytesForPlusBigNumber) /
                                                        sizeof(*expectedBytesForPlusBigNumber));
+            ODL_PACKET("expectedBytesForPlusBigNumber", expectedBytesForPlusBigNumber, //####
+                       expectedPlusBigNumberCount); //####
             nImO::Integer minusBigNumberValue(-20015998343868);
             nImO::Integer plusBigNumberValue(20015998343868);
 
@@ -805,6 +840,7 @@ doTestInsertBigIntegerMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMinusBigNumberCount == length))
             {
                 result = memcmp(expectedBytesForMinusBigNumber, contents,
@@ -821,6 +857,7 @@ doTestInsertBigIntegerMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedPlusBigNumberCount == length))
                 {
                     result = memcmp(expectedBytesForPlusBigNumber, contents,
@@ -830,6 +867,7 @@ doTestInsertBigIntegerMessage(const char * launchPath,
                 {
                     ODL_LOG("! ((NULL != contents) && " //####
                             "(expectedPlusBigNumberCount == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -905,6 +943,8 @@ doTestInsertEmptyStringMessage(const char * launchPath,
             };
             const size_t expectedEmptyStringCount = (sizeof(expectedBytesForEmptyString) /
                                                      sizeof(*expectedBytesForEmptyString));
+            ODL_PACKET("expectedBytesForEmptyString", expectedBytesForEmptyString, //####
+                       expectedEmptyStringCount); //####
             nImO::String emptyStringValue("");
 
             stuff->open(true);
@@ -913,6 +953,7 @@ doTestInsertEmptyStringMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedEmptyStringCount == length))
             {
                 result = memcmp(expectedBytesForEmptyString, contents, expectedEmptyStringCount);
@@ -995,6 +1036,8 @@ doTestInsertShortStringMessage(const char * launchPath,
             };
             const size_t expectedShortStringCount = (sizeof(expectedBytesForShortString) /
                                                      sizeof(*expectedBytesForShortString));
+            ODL_PACKET("expectedBytesForShortString", expectedBytesForShortString, //####
+                       expectedShortStringCount); //####
             nImO::String shortStringValue("abcdef");
 
             stuff->open(true);
@@ -1003,6 +1046,7 @@ doTestInsertShortStringMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedShortStringCount == length))
             {
                 result = memcmp(expectedBytesForShortString, contents, expectedShortStringCount);
@@ -1092,6 +1136,8 @@ doTestInsertMediumStringMessage(const char * launchPath,
             };
             const size_t expectedMediumStringCount = (sizeof(expectedBytesForMediumString) /
                                                      sizeof(*expectedBytesForMediumString));
+            ODL_PACKET("expectedBytesForMediumString", expectedBytesForMediumString, //####
+                       expectedMediumStringCount); //####
             nImO::String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             stuff->open(true);
@@ -1100,6 +1146,7 @@ doTestInsertMediumStringMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMediumStringCount == length))
             {
                 result = memcmp(expectedBytesForMediumString, contents, expectedMediumStringCount);
@@ -1181,6 +1228,8 @@ doTestInsertEmptyBlobMessage(const char * launchPath,
             };
             const size_t expectedEmptyBlobCount = (sizeof(expectedBytesForEmptyBlob) /
                                                    sizeof(*expectedBytesForEmptyBlob));
+            ODL_PACKET("expectedBytesForEmptyBlob", expectedBytesForEmptyBlob, //####
+                       expectedEmptyBlobCount); //####
             nImO::Blob emptyBlobValue;
 
             stuff->open(true);
@@ -1189,6 +1238,7 @@ doTestInsertEmptyBlobMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedEmptyBlobCount == length))
             {
                 result = memcmp(expectedBytesForEmptyBlob, contents, expectedEmptyBlobCount);
@@ -1271,6 +1321,8 @@ doTestInsertShortBlobMessage(const char * launchPath,
             };
             const size_t expectedShortBlobCount = (sizeof(expectedBytesForShortBlob) /
                                                    sizeof(*expectedBytesForShortBlob));
+            ODL_PACKET("expectedBytesForShortBlob", expectedBytesForShortBlob, //####
+                       expectedShortBlobCount); //####
             static const uint8_t actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
@@ -1284,6 +1336,7 @@ doTestInsertShortBlobMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedShortBlobCount == length))
             {
                 result = memcmp(expectedBytesForShortBlob, contents, expectedShortBlobCount);
@@ -1373,6 +1426,8 @@ doTestInsertMediumBlobMessage(const char * launchPath,
             };
             const size_t expectedMediumBlobCount = (sizeof(expectedBytesForMediumBlob) /
                                                     sizeof(*expectedBytesForMediumBlob));
+            ODL_PACKET("expectedBytesForMediumBlob", expectedBytesForMediumBlob, //####
+                       expectedMediumBlobCount); //####
             static const uint8_t actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1392,6 +1447,7 @@ doTestInsertMediumBlobMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedMediumBlobCount == length))
             {
                 result = memcmp(expectedBytesForMediumBlob, contents, expectedMediumBlobCount);
@@ -1474,6 +1530,8 @@ doTestInsertSingleFloatMessage(const char * launchPath,
             };
             const size_t expectedPlus42Point5Count = (sizeof(expectedBytesForPlus42Point5) /
                                                       sizeof(*expectedBytesForPlus42Point5));
+            ODL_PACKET("expectedBytesForPlus42Point5", expectedBytesForPlus42Point5, //####
+                       expectedPlus42Point5Count); //####
             static const uint8_t expectedBytesForMinus42Point5[] =
             {
                 // Start of Message
@@ -1494,6 +1552,8 @@ doTestInsertSingleFloatMessage(const char * launchPath,
             };
             const size_t expectedMinus42Point5Count = (sizeof(expectedBytesForMinus42Point5) /
                                                       sizeof(*expectedBytesForMinus42Point5));
+            ODL_PACKET("expectedBytesForMinus42Point5", expectedBytesForMinus42Point5, //####
+                       expectedMinus42Point5Count); //####
             nImO::Double plus42Point5(42.5);
             nImO::Double minus42Point5(-42.5);
 
@@ -1503,6 +1563,7 @@ doTestInsertSingleFloatMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedPlus42Point5Count == length))
             {
                 result = memcmp(expectedBytesForPlus42Point5, contents, expectedPlus42Point5Count);
@@ -1518,6 +1579,7 @@ doTestInsertSingleFloatMessage(const char * launchPath,
                 stuff->close();
                 length = 0;
                 contents = stuff->getBytes(length);
+                ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedMinus42Point5Count == length))
                 {
                     result = memcmp(expectedBytesForMinus42Point5, contents,
@@ -1527,6 +1589,7 @@ doTestInsertSingleFloatMessage(const char * launchPath,
                 {
                     ODL_LOG("! ((NULL != contents) && " //####
                             "(expectedMinus42Point5Count == length))"); //####
+                    result = 1;
                 }
             }
             delete stuff;
@@ -1606,6 +1669,8 @@ doTestInsertEmptyArrayMessage(const char * launchPath,
             };
             const size_t expectedEmptyArrayCount = (sizeof(expectedBytesForEmptyArray) /
                                                     sizeof(*expectedBytesForEmptyArray));
+            ODL_PACKET("expectedBytesForEmptyArray", expectedBytesForEmptyArray, //####
+                       expectedEmptyArrayCount); //####
             nImO::Array emptyArray;
 
             stuff->open(true);
@@ -1614,6 +1679,7 @@ doTestInsertEmptyArrayMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedEmptyArrayCount == length))
             {
                 result = memcmp(expectedBytesForEmptyArray, contents, expectedEmptyArrayCount);
@@ -1699,6 +1765,8 @@ doTestInsertEmptyMapMessage(const char * launchPath,
             };
             const size_t expectedEmptyMapCount = (sizeof(expectedBytesForEmptyMap) /
                                                   sizeof(*expectedBytesForEmptyMap));
+            ODL_PACKET("expectedBytesForEmptyMap", expectedBytesForEmptyMap, //####
+                       expectedEmptyMapCount); //####
             nImO::Map emptyMap;
 
             stuff->open(true);
@@ -1707,6 +1775,7 @@ doTestInsertEmptyMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedEmptyMapCount == length))
             {
                 result = memcmp(expectedBytesForEmptyMap, contents, expectedEmptyMapCount);
@@ -1792,6 +1861,8 @@ doTestInsertEmptySetMessage(const char * launchPath,
             };
             const size_t expectedEmptySetCount = (sizeof(expectedBytesForEmptySet) /
                                                   sizeof(*expectedBytesForEmptySet));
+            ODL_PACKET("expectedBytesForEmptySet", expectedBytesForEmptySet, //####
+                       expectedEmptySetCount); //####
             nImO::Set emptySet;
 
             stuff->open(true);
@@ -1800,6 +1871,7 @@ doTestInsertEmptySetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedEmptySetCount == length))
             {
                 result = memcmp(expectedBytesForEmptySet, contents, expectedEmptySetCount);
@@ -1893,6 +1965,8 @@ doTestInsertArrayOneBooleanMessage(const char * launchPath,
             };
             const size_t expectedArrayOneBooleanCount = (sizeof(expectedBytesForArrayOneBoolean) /
                                                          sizeof(*expectedBytesForArrayOneBoolean));
+            ODL_PACKET("expectedBytesForArrayOneBoolean", expectedBytesForArrayOneBoolean, //####
+                       expectedArrayOneBooleanCount); //####
             nImO::Array arrayOneBoolean;
 
             arrayOneBoolean.addValue(new nImO::Boolean);
@@ -1902,6 +1976,7 @@ doTestInsertArrayOneBooleanMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneBooleanCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneBoolean, contents,
@@ -1997,6 +2072,8 @@ doTestInsertArrayOneIntegerMessage(const char * launchPath,
             };
             const size_t expectedArrayOneIntegerCount = (sizeof(expectedBytesForArrayOneInteger) /
                                                          sizeof(*expectedBytesForArrayOneInteger));
+            ODL_PACKET("expectedBytesForArrayOneInteger", expectedBytesForArrayOneInteger, //####
+                       expectedArrayOneIntegerCount); //####
             nImO::Array arrayOneInteger;
 
             arrayOneInteger.addValue(new nImO::Integer);
@@ -2006,6 +2083,7 @@ doTestInsertArrayOneIntegerMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneIntegerCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneInteger, contents,
@@ -2103,6 +2181,8 @@ doTestInsertArrayOneDoubleMessage(const char * launchPath,
             };
             const size_t expectedArrayOneDoubleCount = (sizeof(expectedBytesForArrayOneDouble) /
                                                         sizeof(*expectedBytesForArrayOneDouble));
+            ODL_PACKET("expectedBytesForArrayOneDouble", expectedBytesForArrayOneDouble, //####
+                       expectedArrayOneDoubleCount); //####
             nImO::Array arrayOneDouble;
 
             arrayOneDouble.addValue(new nImO::Double);
@@ -2112,6 +2192,7 @@ doTestInsertArrayOneDoubleMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneDoubleCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneDouble, contents,
@@ -2207,6 +2288,8 @@ doTestInsertArrayOneStringMessage(const char * launchPath,
             };
             const size_t expectedArrayOneStringCount = (sizeof(expectedBytesForArrayOneString) /
                                                         sizeof(*expectedBytesForArrayOneString));
+            ODL_PACKET("expectedBytesForArrayOneString", expectedBytesForArrayOneString, //####
+                       expectedArrayOneStringCount); //####
             nImO::Array arrayOneString;
 
             arrayOneString.addValue(new nImO::String);
@@ -2216,6 +2299,7 @@ doTestInsertArrayOneStringMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneStringCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneString, contents,
@@ -2311,6 +2395,8 @@ doTestInsertArrayOneBlobMessage(const char * launchPath,
             };
             const size_t expectedArrayOneBlobCount = (sizeof(expectedBytesForArrayOneBlob) /
                                                       sizeof(*expectedBytesForArrayOneBlob));
+            ODL_PACKET("expectedBytesForArrayOneBlob", expectedBytesForArrayOneBlob, //####
+                       expectedArrayOneBlobCount); //####
             nImO::Array arrayOneBlob;
 
             arrayOneBlob.addValue(new nImO::Blob);
@@ -2320,6 +2406,7 @@ doTestInsertArrayOneBlobMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneBlobCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneBlob, contents, expectedArrayOneBlobCount);
@@ -2418,6 +2505,8 @@ doTestInsertArrayOneArrayMessage(const char * launchPath,
             };
             const size_t expectedArrayOneArrayCount = (sizeof(expectedBytesForArrayOneArray) /
                                                        sizeof(*expectedBytesForArrayOneArray));
+            ODL_PACKET("expectedBytesForArrayOneArray", expectedBytesForArrayOneArray, //####
+                       expectedArrayOneArrayCount); //####
             nImO::Array arrayOneArray;
 
             arrayOneArray.addValue(new nImO::Array);
@@ -2427,6 +2516,7 @@ doTestInsertArrayOneArrayMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneArrayCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneArray, contents,
@@ -2526,6 +2616,8 @@ doTestInsertArrayOneMapMessage(const char * launchPath,
             };
             const size_t expectedArrayOneMapCount = (sizeof(expectedBytesForArrayOneMap) /
                                                      sizeof(*expectedBytesForArrayOneMap));
+            ODL_PACKET("expectedBytesForArrayOneMap", expectedBytesForArrayOneMap, //####
+                       expectedArrayOneMapCount); //####
             nImO::Array arrayOneMap;
 
             arrayOneMap.addValue(new nImO::Map);
@@ -2535,6 +2627,7 @@ doTestInsertArrayOneMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneMapCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneMap, contents, expectedArrayOneMapCount);
@@ -2633,6 +2726,8 @@ doTestInsertArrayOneSetMessage(const char * launchPath,
             };
             const size_t expectedArrayOneSetCount = (sizeof(expectedBytesForArrayOneSet) /
                                                      sizeof(*expectedBytesForArrayOneSet));
+            ODL_PACKET("expectedBytesForArrayOneSet", expectedBytesForArrayOneSet, //####
+                       expectedArrayOneSetCount); //####
             nImO::Array arrayOneSet;
 
             arrayOneSet.addValue(new nImO::Set);
@@ -2642,6 +2737,7 @@ doTestInsertArrayOneSetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneSetCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneSet, contents, expectedArrayOneSetCount);
@@ -2738,6 +2834,8 @@ doTestInsertArrayTwoBooleansMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoBooleanCount = (sizeof(expectedBytesForArrayTwoBoolean) /
                                                          sizeof(*expectedBytesForArrayTwoBoolean));
+            ODL_PACKET("expectedBytesForArrayTwoBoolean", expectedBytesForArrayTwoBoolean, //####
+                       expectedArrayTwoBooleanCount); //####
             nImO::Array arrayTwoBoolean;
 
             arrayTwoBoolean.addValue(new nImO::Boolean);
@@ -2748,6 +2846,7 @@ doTestInsertArrayTwoBooleansMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoBooleanCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoBoolean, contents,
@@ -2846,6 +2945,8 @@ doTestInsertArrayTwoIntegersMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoIntegerCount = (sizeof(expectedBytesForArrayTwoInteger) /
                                                          sizeof(*expectedBytesForArrayTwoInteger));
+            ODL_PACKET("expectedBytesForArrayTwoInteger", expectedBytesForArrayTwoInteger, //####
+                       expectedArrayTwoIntegerCount); //####
             nImO::Array arrayTwoInteger;
 
             arrayTwoInteger.addValue(new nImO::Integer);
@@ -2856,6 +2957,7 @@ doTestInsertArrayTwoIntegersMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoIntegerCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoInteger, contents,
@@ -2954,6 +3056,8 @@ doTestInsertArrayTwoDoublesMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoDoubleCount = (sizeof(expectedBytesForArrayTwoDouble) /
                                                         sizeof(*expectedBytesForArrayTwoDouble));
+            ODL_PACKET("expectedBytesForArrayTwoDouble", expectedBytesForArrayTwoDouble, //####
+                       expectedArrayTwoDoubleCount); //####
             nImO::Array arrayTwoDouble;
 
             arrayTwoDouble.addValue(new nImO::Double);
@@ -2964,6 +3068,7 @@ doTestInsertArrayTwoDoublesMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoDoubleCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoDouble, contents,
@@ -3063,6 +3168,8 @@ doTestInsertArrayTwoStringsMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoStringCount = (sizeof(expectedBytesForArrayTwoString) /
                                                         sizeof(*expectedBytesForArrayTwoString));
+            ODL_PACKET("expectedBytesForArrayTwoString", expectedBytesForArrayTwoString, //####
+                       expectedArrayTwoStringCount); //####
             nImO::Array arrayTwoString;
 
             arrayTwoString.addValue(new nImO::String);
@@ -3073,6 +3180,7 @@ doTestInsertArrayTwoStringsMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoStringCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoString, contents,
@@ -3172,6 +3280,8 @@ doTestInsertArrayTwoBlobsMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoBlobCount = (sizeof(expectedBytesForArrayTwoBlob) /
                                                       sizeof(*expectedBytesForArrayTwoBlob));
+            ODL_PACKET("expectedBytesForArrayTwoBlob", expectedBytesForArrayTwoBlob, //####
+                       expectedArrayTwoBlobCount); //####
             nImO::Array arrayTwoBlob;
 
             arrayTwoBlob.addValue(new nImO::Blob);
@@ -3182,6 +3292,7 @@ doTestInsertArrayTwoBlobsMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoBlobCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoBlob, contents, expectedArrayTwoBlobCount);
@@ -3288,6 +3399,8 @@ doTestInsertArrayTwoArraysMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoArrayCount = (sizeof(expectedBytesForArrayTwoArray) /
                                                        sizeof(*expectedBytesForArrayTwoArray));
+            ODL_PACKET("expectedBytesForArrayTwoArray", expectedBytesForArrayTwoArray, //####
+                       expectedArrayTwoArrayCount); //####
             nImO::Array arrayTwoArray;
 
             arrayTwoArray.addValue(new nImO::Array);
@@ -3298,6 +3411,7 @@ doTestInsertArrayTwoArraysMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoArrayCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoArray, contents,
@@ -3405,6 +3519,8 @@ doTestInsertArrayTwoMapsMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoMapCount = (sizeof(expectedBytesForArrayTwoMap) /
                                                      sizeof(*expectedBytesForArrayTwoMap));
+            ODL_PACKET("expectedBytesForArrayTwoMap", expectedBytesForArrayTwoMap, //####
+                       expectedArrayTwoMapCount); //####
             nImO::Array arrayTwoMap;
 
             arrayTwoMap.addValue(new nImO::Map);
@@ -3415,6 +3531,7 @@ doTestInsertArrayTwoMapsMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoMapCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoMap, contents, expectedArrayTwoMapCount);
@@ -3521,6 +3638,8 @@ doTestInsertArrayTwoSetsMessage(const char * launchPath,
             };
             const size_t expectedArrayTwoSetCount = (sizeof(expectedBytesForArrayTwoSet) /
                                                      sizeof(*expectedBytesForArrayTwoSet));
+            ODL_PACKET("expectedBytesForArrayTwoSet", expectedBytesForArrayTwoSet, //####
+                       expectedArrayTwoSetCount); //####
             nImO::Array arrayTwoSet;
 
             arrayTwoSet.addValue(new nImO::Set);
@@ -3531,6 +3650,7 @@ doTestInsertArrayTwoSetsMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayTwoSetCount == length))
             {
                 result = memcmp(expectedBytesForArrayTwoSet, contents, expectedArrayTwoSetCount);
@@ -3638,6 +3758,9 @@ doTestInsertArrayOneArrayOneMapMessage(const char * launchPath,
             const size_t expectedArrayOneArrayOneMapCount =
                                                     (sizeof(expectedBytesForArrayOneArrayOneMap) /
                                                      sizeof(*expectedBytesForArrayOneArrayOneMap));
+            ODL_PACKET("expectedBytesForArrayOneArrayOneMap", //####
+                       expectedBytesForArrayOneArrayOneMap, //####
+                       expectedArrayOneArrayOneMapCount); //####
             nImO::Array arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(new nImO::Array);
@@ -3648,6 +3771,7 @@ doTestInsertArrayOneArrayOneMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneArrayOneMapCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneArrayOneMap, contents,
@@ -3757,6 +3881,9 @@ doTestInsertArrayOneMapOneSetMessage(const char * launchPath,
             const size_t expectedArrayOneMapOneSetCount =
                                                         (sizeof(expectedBytesForArrayOneMapOneSet) /
                                                         sizeof(*expectedBytesForArrayOneMapOneSet));
+            ODL_PACKET("expectedBytesForArrayOneMapOneSet", //####
+                       expectedBytesForArrayOneMapOneSet, //####
+                       expectedArrayOneMapOneSetCount); //####
             nImO::Array arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(new nImO::Map);
@@ -3767,6 +3894,7 @@ doTestInsertArrayOneMapOneSetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneMapOneSetCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneMapOneSet, contents,
@@ -3876,6 +4004,9 @@ doTestInsertArrayOneSetOneArrayMessage(const char * launchPath,
             const size_t expectedArrayOneSetOneArrayCount =
                                                     (sizeof(expectedBytesForArrayOneSetOneArray) /
                                                      sizeof(*expectedBytesForArrayOneSetOneArray));
+            ODL_PACKET("expectedBytesForArrayOneSetOneArray", //####
+                       expectedBytesForArrayOneSetOneArray, //####
+                       expectedArrayOneSetOneArrayCount); //####
             nImO::Array arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(new nImO::Set);
@@ -3886,6 +4017,7 @@ doTestInsertArrayOneSetOneArrayMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayOneSetOneArrayCount == length))
             {
                 result = memcmp(expectedBytesForArrayOneSetOneArray, contents,
@@ -4025,6 +4157,9 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
             };
             const size_t expectedArrayManyDoublesCount = (sizeof(expectedBytesForArrayManyDoubles) /
                                                         sizeof(*expectedBytesForArrayManyDoubles));
+            ODL_PACKET("expectedBytesForArrayManyDoubles", //####
+                       expectedBytesForArrayManyDoubles, //####
+                       expectedArrayManyDoublesCount); //####
             nImO::Array arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -4037,6 +4172,7 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedArrayManyDoublesCount == length))
             {
                 result = memcmp(expectedBytesForArrayManyDoubles, contents,
@@ -4153,6 +4289,8 @@ doTestInsertBooleanMapMessage(const char * launchPath,
             };
             const size_t expectedBooleanMapCount = (sizeof(expectedBytesForBooleanMap) /
                                                     sizeof(*expectedBytesForBooleanMap));
+            ODL_PACKET("expectedBytesForBooleanMap", expectedBytesForBooleanMap, //####
+                       expectedBooleanMapCount); //####
             nImO::Map booleanMap;
 
             booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
@@ -4162,6 +4300,7 @@ doTestInsertBooleanMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedBooleanMapCount == length))
             {
                 result = memcmp(expectedBytesForBooleanMap, contents, expectedBooleanMapCount);
@@ -4258,6 +4397,8 @@ doTestInsertIntegerMapMessage(const char * launchPath,
             };
             const size_t expectedIntegerMapCount = (sizeof(expectedBytesForIntegerMap) /
                                                     sizeof(*expectedBytesForIntegerMap));
+            ODL_PACKET("expectedBytesForIntegerMap", expectedBytesForIntegerMap, //####
+                       expectedIntegerMapCount); //####
             nImO::Map integerMap;
 
             integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
@@ -4267,6 +4408,7 @@ doTestInsertIntegerMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedIntegerMapCount == length))
             {
                 result = memcmp(expectedBytesForIntegerMap, contents, expectedIntegerMapCount);
@@ -4364,6 +4506,8 @@ doTestInsertStringMapMessage(const char * launchPath,
             };
             const size_t expectedStringMapCount = (sizeof(expectedBytesForStringMap) /
                                                    sizeof(*expectedBytesForStringMap));
+            ODL_PACKET("expectedBytesForStringMap", expectedBytesForStringMap, //####
+                       expectedStringMapCount); //####
             nImO::Map stringMap;
 
             stringMap.addValue(new nImO::String, new nImO::Integer(13));
@@ -4373,6 +4517,7 @@ doTestInsertStringMapMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedStringMapCount == length))
             {
                 result = memcmp(expectedBytesForStringMap, contents, expectedStringMapCount);
@@ -4466,6 +4611,8 @@ doTestInsertBooleanSetMessage(const char * launchPath,
             };
             const size_t expectedBooleanSetCount = (sizeof(expectedBytesForBooleanSet) /
                                                     sizeof(*expectedBytesForBooleanSet));
+            ODL_PACKET("expectedBytesForBooleanSet", expectedBytesForBooleanSet, //####
+                       expectedBooleanSetCount); //####
             nImO::Set booleanSet;
 
             booleanSet.addValue(new nImO::Boolean);
@@ -4475,6 +4622,7 @@ doTestInsertBooleanSetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedBooleanSetCount == length))
             {
                 result = memcmp(expectedBytesForBooleanSet, contents, expectedBooleanSetCount);
@@ -4568,6 +4716,8 @@ doTestInsertIntegerSetMessage(const char * launchPath,
             };
             const size_t expectedIntegerSetCount = (sizeof(expectedBytesForIntegerSet) /
                                                     sizeof(*expectedBytesForIntegerSet));
+            ODL_PACKET("expectedBytesForIntegerSet", expectedBytesForIntegerSet, //####
+                       expectedIntegerSetCount); //####
             nImO::Set integerSet;
 
             integerSet.addValue(new nImO::Integer);
@@ -4577,6 +4727,7 @@ doTestInsertIntegerSetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedIntegerSetCount == length))
             {
                 result = memcmp(expectedBytesForIntegerSet, contents, expectedIntegerSetCount);
@@ -4671,6 +4822,8 @@ doTestInsertStringSetMessage(const char * launchPath,
             };
             const size_t expectedStringSetCount = (sizeof(expectedBytesForStringSet) /
                                                    sizeof(*expectedBytesForStringSet));
+            ODL_PACKET("expectedBytesForStringSet", expectedBytesForStringSet, //####
+                       expectedStringSetCount); //####
             nImO::Set stringSet;
 
             stringSet.addValue(new nImO::String);
@@ -4680,6 +4833,7 @@ doTestInsertStringSetMessage(const char * launchPath,
             size_t          length = 0;
             const uint8_t * contents = stuff->getBytes(length);
 
+            ODL_PACKET("contents", contents, length); //####
             if ((NULL != contents) && (expectedStringSetCount == length))
             {
                 result = memcmp(expectedBytesForStringSet, contents, expectedStringSetCount);

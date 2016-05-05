@@ -74,16 +74,18 @@ namespace nImO
          for all other Value objects, the (single) Value that is extracted is added to the Array to
          simplify the logic, as well as being returned.
          @param theMessage The Message being processed.
+         @param leadByte The initial byte of the Value.
          @param position The location of the next byte to be processed.
          @param status Whether the extraction was successful.
          @param parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
         typedef Value * (* Extractor)
-           (Message &    theMessage,
-            size_t &     position,
-            ReadStatus & status,
-            Array *      parentValue);
+           (const Message & theMessage,
+            const int       leadByte,
+            size_t &        position,
+            ReadStatus &    status,
+            Array *         parentValue);
 
     private :
         // Private type definitions.
@@ -107,6 +109,9 @@ namespace nImO
 
         /*! @brief The map from bytes to Extractors. */
         typedef std::map<uint8_t, Extractor> ExtractorMap;
+
+        /*! @brief The non-const iterator for ExtractorMaps. */
+        typedef ExtractorMap::iterator ExtractorMapIterator;
 
     public :
         // Public methods.
@@ -155,6 +160,21 @@ namespace nImO
         {
             return 0;
         } // getTypeTag
+
+        /*! @brief Extract a Value for a Message.
+         @param inMessage The Message containing the Value.
+         @param position The position in the Message where the Value starts.
+         @param leadByte The initial byte of the Value representation.
+         @param status The status of the extraction operation.
+         @param parent A pointer to the Value that will contain the new object.
+         @returns @c NULL if the Value was not successfully extracted and non-@c NULL on
+         success. */
+        static Value *
+        getValueFromMessage(const Message & inMessage,
+                            size_t &        position,
+                            const int       leadByte,
+                            ReadStatus &    status,
+                            Array *         parent);
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.

@@ -38,6 +38,7 @@
 
 #include "nImOstring.hpp"
 
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringbuffer.hpp>
 
@@ -167,16 +168,23 @@ const
 } // nImO::String::equalTo
 
 nImO::Value *
-nImO::String::extractValue(nImO::Message &    theMessage,
-                           size_t &           position,
-                           nImO::ReadStatus & status,
-                           nImO::Array *      parentValue)
+nImO::String::extractValue(const nImO::Message & theMessage,
+                           const int             leadByte,
+                           size_t &              position,
+                           nImO::ReadStatus &    status,
+                           nImO::Array *         parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
+    ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
     
+    if ((NULL != parentValue) && (NULL != result))
+    {
+        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        parentValue->addValue(result);
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::String::extractValue

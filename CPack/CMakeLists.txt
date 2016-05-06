@@ -57,7 +57,7 @@ set(CPACK_COMPONENT_GROUP_CORE_DESCRIPTION "The core nImO libraries and executab
 set(CPACK_COMPONENT_GROUP_CORE_BOLD_TITLE ON)
 set(CPACK_COMPONENT_GROUP_OPTIONAL_DESCRIPTION
     "Example applications, manuals and source code for the libraries and standard applications")
-	
+
 set(CPACK_COMPONENTS_ALL applications exampleapps headers libraries sourcecode manuals)
 
 #end General Packaging stuff

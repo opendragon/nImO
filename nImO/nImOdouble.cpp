@@ -126,6 +126,27 @@ const
 } // nImO::Double::copy
 
 bool
+nImO::Double::deeplyEqualTo(const nImO::Value & other)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result = (&other == this);
+    
+    if (! result)
+    {
+        const Double * otherPtr = other.asDouble();
+        
+        if (NULL != otherPtr)
+        {
+            result = (_floatValue == otherPtr->_floatValue);
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Double::deeplyEqualTo
+
+bool
 nImO::Double::equalTo(const nImO::Value & other,
                       bool &              validComparison)
 const
@@ -140,34 +161,39 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isDouble())
-    {
-        ODL_LOG("(other.isDouble())"); //####
-        const Double & otherRef = static_cast<const Double &>(other);
-
-        result = (_floatValue == otherRef._floatValue);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isInteger())
-    {
-        ODL_LOG("(other.isInteger())"); //####
-        const Integer & otherRef = static_cast<const Integer &>(other);
-
-        result = (_floatValue == otherRef.getIntegerValue());
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        ODL_LOG("(other.isContainer())"); //####
-        result = other.equalTo(*this, validComparison);
-    }
     else
     {
-        ODL_LOG("! (other.isContainer())"); //####
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Double * doublePtr = other.asDouble();
+        
+        if (NULL == doublePtr)
+        {
+            const Integer * intPtr = other.asInteger();
+            
+            if (NULL == intPtr)
+            {
+                if (NULL == other.asContainer())
+                {
+                    result = validComparison = false;
+                    ODL_B1("validComparison <- ", validComparison); //####
+                }
+                else
+                {
+                    result = other.equalTo(*this, validComparison);
+                }
+            }
+            else
+            {
+                result = (_floatValue == intPtr->getIntegerValue());
+                validComparison = true;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+        }
+        else
+        {
+            result = (_floatValue == doublePtr->_floatValue);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -185,15 +211,97 @@ nImO::Double::extractValue(const nImO::Message & theMessage,
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
-    
-#if 0
-// The following is not right, given that multiple Doubles can be present
-    if ((NULL != parentValue) && (NULL != result))
+    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask & leadByte));
+    int64_t howMany;
+
+    ++position; // We will always accept the lead byte
+    ODL_LL1("position <- ", position); //####
+    if (isShort)
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
-        parentValue->addValue(result);
+        howMany = (kKindDoubleShortCountMask & leadByte) + 1;
+        ODL_LL1("howMany <- ", howMany);
     }
-#endif//0
+    else
+    {
+        size_t        size = (kKindDoubleLongCountMask & leadByte) + 1;
+        NumberAsBytes holder;
+        bool          okSoFar = true;
+
+        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        {
+            int aByte = theMessage.getByte(position);
+
+            if (Message::kEndToken == aByte)
+            {
+                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                status = kReadIncomplete;
+                ODL_LL1("status <- ", status); //####
+                okSoFar = false;
+            }
+            else
+            {
+                holder[ii] = static_cast<uint8_t>(aByte);
+                ++position;
+                ODL_LL1("position <- ", position); //####
+            }
+        }
+        if (okSoFar)
+        {
+            howMany = B2I(holder, size);
+            ODL_LL1("howMany <- ", howMany);
+        }
+        else
+        {
+            howMany = 0;
+        }
+    }
+    if (0 < howMany)
+    {
+        bool          okSoFar = ((1 == howMany) || (NULL != parentValue));
+        NumberAsBytes holder;
+
+        status = kReadInvalid;
+        ODL_LL1("status <- ", status); //####
+        for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
+        {
+            for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
+            {
+                int aByte = theMessage.getByte(position);
+
+                if (Message::kEndToken == aByte)
+                {
+                    ODL_LOG("(Message::kEndToken == aByte)"); //####
+                    status = kReadIncomplete;
+                    ODL_LL1("status <- ", status); //####
+                    okSoFar = false;
+                }
+                else
+                {
+                    holder[jj] = static_cast<uint8_t>(aByte);
+                    ++position;
+                    ODL_LL1("position <- ", position); //####
+                }
+            }
+            if (okSoFar)
+            {
+                result = new Double(B2D(holder));
+                if ((NULL != parentValue) && (NULL != result))
+                {
+                    ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+                    parentValue->addValue(result);
+                }
+            }
+            else
+            {
+                result = NULL;
+            }
+        }
+        if (okSoFar)
+        {
+            status = kReadSuccessful;
+            ODL_LL1("status <- ", status); //####
+        }
+    }
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Double::extractValue
@@ -227,34 +335,39 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isDouble())
-    {
-        ODL_LOG("(other.isDouble())"); //####
-        const Double & otherRef = static_cast<const Double &>(other);
-
-        result = (_floatValue > otherRef._floatValue);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isInteger())
-    {
-        ODL_LOG("(other.isInteger())"); //####
-        const Integer & otherRef = static_cast<const Integer &>(other);
-
-        result = (_floatValue > otherRef.getIntegerValue());
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        ODL_LOG("(other.isContainer())"); //####
-        result = other.lessThan(*this, validComparison);
-    }
     else
     {
-        ODL_LOG("! (other.isContainer())"); //####
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Double * doublePtr = other.asDouble();
+        
+        if (NULL == doublePtr)
+        {
+            const Integer * intPtr = other.asInteger();
+            
+            if (NULL == intPtr)
+            {
+                if (NULL == other.asContainer())
+                {
+                    result = validComparison = false;
+                    ODL_B1("validComparison <- ", validComparison); //####
+                }
+                else
+                {
+                    result = other.lessThan(*this, validComparison);
+                }
+            }
+            else
+            {
+                result = (_floatValue > intPtr->getIntegerValue());
+                validComparison = true;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+        }
+        else
+        {
+            result = (_floatValue > doublePtr->_floatValue);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -275,34 +388,39 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isDouble())
-    {
-        ODL_LOG("(other.isDouble())"); //####
-        const Double & otherRef = static_cast<const Double &>(other);
-
-        result = (_floatValue >= otherRef._floatValue);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isInteger())
-    {
-        ODL_LOG("(other.isInteger())"); //####
-        const Integer & otherRef = static_cast<const Integer &>(other);
-
-        result = (_floatValue >= otherRef.getIntegerValue());
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        ODL_LOG("(other.isContainer())"); //####
-        result = other.lessThanOrEqual(*this, validComparison);
-    }
     else
     {
-        ODL_LOG("! (other.isContainer())"); //####
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Double * doublePtr = other.asDouble();
+        
+        if (NULL == doublePtr)
+        {
+            const Integer * intPtr = other.asInteger();
+            
+            if (NULL == intPtr)
+            {
+                if (NULL == other.asContainer())
+                {
+                    result = validComparison = false;
+                    ODL_B1("validComparison <- ", validComparison); //####
+                }
+                else
+                {
+                    result = other.lessThanOrEqual(*this, validComparison);
+                }
+            }
+            else
+            {
+                result = (_floatValue >= intPtr->getIntegerValue());
+                validComparison = true;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+        }
+        else
+        {
+            result = (_floatValue >= doublePtr->_floatValue);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -324,34 +442,39 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isDouble())
-    {
-        ODL_LOG("(other.isDouble())"); //####
-        const Double & otherRef = static_cast<const Double &>(other);
-
-        result = (_floatValue < otherRef._floatValue);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isInteger())
-    {
-        ODL_LOG("(other.isInteger())"); //####
-        const Integer & otherRef = static_cast<const Integer &>(other);
-
-        result = (_floatValue < otherRef.getIntegerValue());
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        ODL_LOG("(other.isContainer())"); //####
-        result = other.greaterThan(*this, validComparison);
-    }
     else
     {
-        ODL_LOG("! (other.isContainer())"); //####
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Double * doublePtr = other.asDouble();
+        
+        if (NULL == doublePtr)
+        {
+            const Integer * intPtr = other.asInteger();
+            
+            if (NULL == intPtr)
+            {
+                if (NULL == other.asContainer())
+                {
+                    result = validComparison = false;
+                    ODL_B1("validComparison <- ", validComparison); //####
+                }
+                else
+                {
+                    result = other.greaterThan(*this, validComparison);
+                }
+            }
+            else
+            {
+                result = (_floatValue < intPtr->getIntegerValue());
+                validComparison = true;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+        }
+        else
+        {
+            result = (_floatValue < doublePtr->_floatValue);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -372,34 +495,39 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isDouble())
-    {
-        ODL_LOG("(other.isDouble())"); //####
-        const Double & otherRef = static_cast<const Double &>(other);
-
-        result = (_floatValue <= otherRef._floatValue);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isInteger())
-    {
-        ODL_LOG("(other.isInteger())"); //####
-        const Integer & otherRef = static_cast<const Integer &>(other);
-
-        result = (_floatValue <= otherRef.getIntegerValue());
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        ODL_LOG("(other.isContainer())"); //####
-        result = other.greaterThanOrEqual(*this, validComparison);
-    }
     else
     {
-        ODL_LOG("! (other.isContainer())"); //####
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Double * doublePtr = other.asDouble();
+        
+        if (NULL == doublePtr)
+        {
+            const Integer * intPtr = other.asInteger();
+            
+            if (NULL == intPtr)
+            {
+                if (NULL == other.asContainer())
+                {
+                    result = validComparison = false;
+                    ODL_B1("validComparison <- ", validComparison); //####
+                }
+                else
+                {
+                    result = other.greaterThanOrEqual(*this, validComparison);
+                }
+            }
+            else
+            {
+                result = (_floatValue <= intPtr->getIntegerValue());
+                validComparison = true;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+        }
+        else
+        {
+            result = (_floatValue <= doublePtr->_floatValue);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;

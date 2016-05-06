@@ -160,7 +160,19 @@ doTestParseBooleanValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isBoolean())
+            if (NULL == readValue->asBoolean())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -171,15 +183,6 @@ doTestParseBooleanValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -233,7 +236,19 @@ doTestParseNumberValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isNumber())
+            if (NULL == readValue->asNumber())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -244,15 +259,6 @@ doTestParseNumberValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -306,7 +312,19 @@ doTestParseStringValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isString())
+            if (NULL == readValue->asString())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -317,15 +335,6 @@ doTestParseStringValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -379,7 +388,19 @@ doTestParseArrayValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isArray())
+            if (NULL == readValue->asArray())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -390,15 +411,6 @@ doTestParseArrayValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -452,7 +464,19 @@ doTestParseSetValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isSet())
+            if (NULL == readValue->asSet())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -463,15 +487,6 @@ doTestParseSetValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -525,7 +540,19 @@ doTestParseMapValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isMap())
+            if (NULL == readValue->asMap())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -536,15 +563,6 @@ doTestParseMapValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }
@@ -598,7 +616,19 @@ doTestParseImplicitArrayValue(const bool   expected,
         }
         if (readValue)
         {
-            if (readValue->isArray())
+            if (NULL == readValue->asArray())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
             {
                 if (0 == compareValueWithString(*readValue, expectedString))
                 {
@@ -609,15 +639,6 @@ doTestParseImplicitArrayValue(const bool   expected,
                     ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
                     result = 1;
                 }
-            }
-            else if (expected)
-            {
-                ODL_LOG("(expected)"); //####
-                result = 1;
-            }
-            else
-            {
-                result = 0; // wrong type returned, but it was not expected to succeed
             }
             delete readValue;
         }

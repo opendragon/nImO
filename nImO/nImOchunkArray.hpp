@@ -154,7 +154,7 @@ namespace nImO
 
         /*! @brief The cached value of the length of the buffer. */
         size_t _cachedLength;
-        
+
         /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
          @c false otherwise. */
         bool _buffersArePadded;

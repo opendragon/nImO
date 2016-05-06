@@ -1716,14 +1716,14 @@ doTestDefaultIntegerValue(const char * launchPath,
 
         if (stuff)
         {
-            if ((0 == compareValueWithString(*stuff, "0")) && stuff->isInteger())
+            if ((0 == compareValueWithString(*stuff, "0")) && (NULL != stuff->asInteger()))
             {
                 result = 0;
             }
             else
             {
-                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && "//####
-                        "stuff->IsInteger())"); //####
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && " //####
+                        "(NULL != stuff->asInteger()))"); //####
             }
             delete stuff;
         }

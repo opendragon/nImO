@@ -89,12 +89,28 @@ namespace nImO
         virtual
         ~Blob(void);
 
+        /*! @brief Return non-@c NULL if the object is a Blob.
+         @returns Non-@c NULL if the object is a Blob and @c NULL otherwise. */
+        virtual inline const Blob *
+        asBlob(void)
+        const
+        {
+            return this;
+        } // asBlob
+        
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
         clone(void)
         const;
 
+        /*! @brief Return @c true if two Values are structurally identical.
+         @param other The Value to be compared with.
+         @returns @c true if the two Values are structurally identical. */
+        virtual bool
+        deeplyEqualTo(const Value & other)
+        const;
+        
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -125,7 +141,8 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        inline const uint8_t * getValue(size_t & length)
+        inline const uint8_t *
+        getValue(size_t & length)
         const
         {
             length = _size;
@@ -151,15 +168,6 @@ namespace nImO
         greaterThanOrEqual(const Value & other,
                            bool &        validComparison)
         const;
-
-        /*! @brief Return @c true if the object is a Blob.
-         @returns @c true if the object is a Blob and @c false otherwise. */
-        virtual inline bool
-        isBlob(void)
-        const
-        {
-            return true;
-        } // isBlob
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -227,7 +235,7 @@ namespace nImO
                      size_t &        position,
                      ReadStatus &    status,
                      Array *         parentValue);
-        
+
         /*! @brief Remove all entries. */
         void
         removeAllEntries(void);

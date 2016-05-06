@@ -4181,7 +4181,7 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
                 if (0 != result)
                 {
                     size_t jj = 0;
-                    
+
                     for (size_t ii = 0; expectedArrayManyDoublesCount > ii; ++ii)
                     {
                         if (expectedBytesForArrayManyDoubles[ii] != contents[ii])
@@ -4190,7 +4190,7 @@ doTestInsertArrayWithManyDoublesMessage(const char * launchPath,
                             ODL_LL1("jj <- ", jj); //####
                             break;
                         }
-                        
+
                     }
                 }
             }

@@ -79,19 +79,19 @@ namespace nImO
         virtual
         ~Number(void);
 
+        /*! @brief Return non-@c NULL if the object is a Number.
+         @returns Non-@c NULL if the object is a Number and @c NULL otherwise. */
+        virtual inline const Number *
+        asNumber(void)
+        const
+        {
+            return this;
+        } // asNumber
+        
         /*! @brief Return the characters that can appear as the start of a Number.
          @returns The characters that can appear as the start of a Number. */
         static const char *
         getInitialCharacters(void);
-
-        /*! @brief Return @c true if the object is a Number.
-         @returns @c true if the object is a Number and @c false otherwise. */
-        virtual inline bool
-        isNumber(void)
-        const
-        {
-            return true;
-        } // isNumber
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param inBuffer The buffer to be scanned.

@@ -216,6 +216,27 @@ const
 } // nImO::Blob::copy
 
 bool
+nImO::Blob::deeplyEqualTo(const nImO::Value & other)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result = (&other == this);
+    
+    if (! result)
+    {
+        const Blob * otherPtr = other.asBlob();
+        
+        if (NULL != otherPtr)
+        {
+            result = (0 == compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Blob::deeplyEqualTo
+
+bool
 nImO::Blob::equalTo(const nImO::Value & other,
                     bool &              validComparison)
 const
@@ -229,22 +250,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 == compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.equalTo(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Blob * otherPtr = other.asBlob();
+
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.equalTo(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (0 == compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -261,8 +288,90 @@ nImO::Blob::extractValue(const nImO::Message & theMessage,
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result = NULL;
+    Value * result;
+    bool    isShort = (kKindStringOrBlobShortLengthValue ==
+                       (kKindStringOrBlobLengthMask & leadByte));
+    size_t  numBytes = 0;
     
+    ++position; // We will always accept the lead byte
+    ODL_LL1("position <- ", position); //####
+    if (isShort)
+    {
+        ODL_LOG("(isShort)"); //####
+        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
+        status = kReadSuccessful;
+        ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+    }
+    else
+    {
+        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+        NumberAsBytes holder;
+        bool          okSoFar = true;
+        
+        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        {
+            int aByte = theMessage.getByte(position);
+            
+            if (Message::kEndToken == aByte)
+            {
+                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                status = kReadIncomplete;
+                ODL_LL1("status = ", status); //####
+                okSoFar = false;
+            }
+            else
+            {
+                holder[ii] = static_cast<uint8_t>(aByte);
+                ++position;
+                ODL_LL1("position <- ", position); //####
+            }
+        }
+        if (okSoFar)
+        {
+            numBytes = B2I(holder, size);
+            status = kReadSuccessful;
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+        }
+    }
+    if (0 < numBytes)
+    {
+        uint8_t * holder = new uint8_t[numBytes];
+        bool      okSoFar = (NULL != holder);
+        
+        for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
+        {
+            int aByte = theMessage.getByte(position);
+            
+            if (Message::kEndToken == aByte)
+            {
+                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                status = kReadIncomplete;
+                ODL_LL1("status <- ", status); //####
+                okSoFar = false;
+            }
+            else
+            {
+                holder[ii] = static_cast<uint8_t>(aByte);
+                ++position;
+                ODL_LL1("position <- ", position); //####
+            }
+        }
+        if (okSoFar)
+        {
+            result = new Blob(holder, numBytes);
+            status = kReadSuccessful;
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+        }
+        else
+        {
+            result = NULL;
+        }
+        delete[] holder;
+    }
+    else
+    {
+        result = new Blob;
+    }
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
@@ -300,22 +409,28 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 < compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThan(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Blob * otherPtr = other.asBlob();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.lessThan(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (0 < compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -335,22 +450,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 <= compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThanOrEqual(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Blob * otherPtr = other.asBlob();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.lessThanOrEqual(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (0 <= compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -371,22 +492,28 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 > compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThan(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Blob * otherPtr = other.asBlob();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.greaterThan(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (0 > compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -406,22 +533,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBlob())
-    {
-        const Blob & otherRef = static_cast<const Blob &>(other);
-
-        result = (0 >= compareBytes(_value, _size, otherRef._value, otherRef._size));
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThanOrEqual(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Blob * otherPtr = other.asBlob();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.greaterThanOrEqual(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (0 >= compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

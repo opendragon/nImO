@@ -55,7 +55,16 @@
 namespace nImO
 {
     class Array;
+    class Blob;
+    class Boolean;
+    class Container;
+    class Double;
+    class Integer;
+    class Map;
     class Message;
+    class Number;
+    class Set;
+    class String;
     class StringBuffer;
 
     /*! @brief A class to provide general value behaviours. */
@@ -120,6 +129,96 @@ namespace nImO
         virtual
         ~Value(void);
 
+        /*! @brief Return non-@c NULL if the object is an Array.
+         @returns Non-@c NULL if the object is an Array and @c NULL otherwise. */
+        virtual inline const Array *
+        asArray(void)
+        const
+        {
+            return NULL;
+        } // asArray
+        
+        /*! @brief Return non-@c NULL if the object is a Blob.
+         @returns Non-@c NULL if the object is a Blob and @c NULL otherwise. */
+        virtual inline const Blob *
+        asBlob(void)
+        const
+        {
+            return NULL;
+        } // asBlob
+        
+        /*! @brief Return non-@c NULL if the object is a Boolean.
+         @returns Non-@c NULL if the object is a Boolean and @c NULL otherwise. */
+        virtual inline const Boolean *
+        asBoolean(void)
+        const
+        {
+            return NULL;
+        } // asBoolean
+        
+        /*! @brief Return non-@c NULL if the object is a Container.
+         @returns Non-@c NULL if the object is a Container and @c NULL otherwise. */
+        virtual inline const Container *
+        asContainer(void)
+        const
+        {
+            return NULL;
+        } // asContainer
+        
+        /*! @brief Return non-@c NULL if the object is a Double.
+         @returns Non-@c NULL if the object is a Double and @c NULL otherwise. */
+        virtual inline const Double *
+        asDouble(void)
+        const
+        {
+            return NULL;
+        } // asDouble
+        
+        /*! @brief Return non-@c NULL if the object is an Integer.
+         @returns Non-@c NULL if the object is an Integer and @c NULL otherwise. */
+        virtual inline const Integer *
+        asInteger(void)
+        const
+        {
+            return NULL;
+        } // asInteger
+        
+        /*! @brief Return non-@c NULL if the object is a Map.
+         @returns Non-@c NULL if the object is a Map and @c NULL otherwise. */
+        virtual inline const Map *
+        asMap(void)
+        const
+        {
+            return NULL;
+        } // asMap
+        
+        /*! @brief Return non-@c NULL if the object is a Number.
+         @returns Non-@c NULL if the object is a Number and @c NULL otherwise. */
+        virtual inline const Number *
+        asNumber(void)
+        const
+        {
+            return NULL;
+        } // asNumber
+        
+        /*! @brief Return non-@c NULL if the object is a Set.
+         @returns Non-@c NULL if the object is a Set and @c NULL otherwise. */
+        virtual inline const Set *
+        asSet(void)
+        const
+        {
+            return NULL;
+        } // asSet
+        
+        /*! @brief Return non-@c NULL if the object is a String.
+         @returns Non-@c NULL if the object is a String and @c NULL otherwise. */
+        virtual inline const String *
+        asString(void)
+        const
+        {
+            return NULL;
+        } // asString
+        
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual inline Value *
@@ -128,6 +227,16 @@ namespace nImO
         {
             return NULL;
         } // copy
+
+        /*! @brief Return @c true if two Values are structurally identical.
+         @param other The Value to be compared with.
+         @returns @c true if the two Values are structurally identical. */
+        virtual inline bool
+        deeplyEqualTo(const Value & other)
+        const
+        {
+            return (&other == this);
+        } // deeplyEqualTo
 
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
@@ -210,96 +319,6 @@ namespace nImO
         /*! @brief Set up the global structures used. */
         static void
         initialize(void);
-
-        /*! @brief Return @c true if the object is an Array.
-         @returns @c true if the object is an Array and @c false otherwise. */
-        virtual inline bool
-        isArray(void)
-        const
-        {
-            return false;
-        } // isArray
-
-        /*! @brief Return @c true if the object is a Blob.
-         @returns @c true if the object is a Blob and @c false otherwise. */
-        virtual inline bool
-        isBlob(void)
-        const
-        {
-            return false;
-        } // isBlob
-
-        /*! @brief Return @c true if the object is a Boolean.
-         @returns @c true if the object is a Boolean and @c false otherwise. */
-        virtual inline bool
-        isBoolean(void)
-        const
-        {
-            return false;
-        } // isBoolean
-
-        /*! @brief Return @c true if the object is a Container.
-         @returns @c true if the object is a Container and @c false otherwise. */
-        virtual inline bool
-        isContainer(void)
-        const
-        {
-            return false;
-        } // isContainer
-
-        /*! @brief Return @c true if the object is a Double.
-         @returns @c true if the object is a Double and @c false otherwise. */
-        virtual inline bool
-        isDouble(void)
-        const
-        {
-            return false;
-        } // isDouble
-
-        /*! @brief Return @c true if the object is an Integer.
-         @returns @c true if the object is an Integer and @c false otherwise. */
-        virtual inline bool
-        isInteger(void)
-        const
-        {
-            return false;
-        } // isInteger
-
-        /*! @brief Return @c true if the object is a Map.
-         @returns @c true if the object is a Map and @c false otherwise. */
-        virtual inline bool
-        isMap(void)
-        const
-        {
-            return false;
-        } // isMap
-
-        /*! @brief Return @c true if the object is a Number.
-         @returns @c true if the object is a Number and @c false otherwise. */
-        virtual inline bool
-        isNumber(void)
-        const
-        {
-            return false;
-        } // isNumber
-
-        /*! @brief Return @c true if the object is a Set.
-         @returns @c true if the object is a Set and @c false otherwise. */
-        virtual inline bool
-        isSet(void)
-        const
-        {
-            return false;
-        } // isSet
-
-        /*! @brief Return @c true if the object is a String.
-         @returns @c true if the object is a String and @c false otherwise. */
-        virtual inline bool
-        isString(void)
-        const
-        {
-            return false;
-        } // isString
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -426,7 +445,7 @@ namespace nImO
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t &             position);
 
-        /*! @brief Add a binary representation of the object to the message.
+        /*! @brief Add a binary representation of the object to the Message.
          @param outMessage The Message to be appended to. */
         virtual inline void
         writeToMessage(Message & outMessage)
@@ -443,11 +462,30 @@ namespace nImO
         /*! @brief The constructor. */
         Value(void);
 
+        /*! @brief Extracts an integer value from a Message.
+         @param theMessage The Message being processed.
+         @param leadByte The initial byte from the Message.
+         @param position The location of the next byte to be processed.
+         @param status Whether the extraction was successful.
+         @returns Zero if there is a problem with the extraction. */
+        static int64_t
+        extractInt64FromMessage(const Message & theMessage,
+                                const int       leadByte,
+                                size_t &        position,
+                                ReadStatus &    status);
+
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
          @param aChar The character of interest.
          @returns @c true if the character can appear immediately after a Value in a string. */
         static bool isLegalTerminator(const char aChar);
+
+        /*! @brief Add a binary representation of an integer to the Message.
+         @param outMessage The Message to be appended to.
+         @param outValue The integer to be appended. */
+        static void
+        writeInt64ToMessage(Message &     outMessage,
+                            const int64_t outValue);
 
     private :
         // Private methods.

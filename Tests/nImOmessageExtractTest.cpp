@@ -217,6 +217,10 @@ doTestEmptyMessage(const char * launchPath,
             else
             {
                 ODL_LOG("! ((NULL == extractedValue) && (nImO::kReadInvalid == status))"); //####
+                if (NULL != extractedValue)
+                {
+                    delete extractedValue;
+                }
             }
             delete stuff;
         }
@@ -328,16 +332,13 @@ doTestBooleanMessage(const char * launchPath,
             {
                 if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    bool valid = false;
-                    bool sameValue = extractedValue->equalTo(trueValue, valid);
-    
-                    if (valid && sameValue)
+                    if (extractedValue->deeplyEqualTo(trueValue))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (valid && sameValue)"); //####
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(trueValue))"); //####
                     }
                 }
                 else
@@ -362,12 +363,9 @@ doTestBooleanMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(falseValue, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(falseValue))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(falseValue))"); //####
                             result = 1;
                         }
                     }
@@ -511,16 +509,13 @@ doTestTinyIntegerMessage(const char * launchPath,
             {
                 if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    bool valid = false;
-                    bool sameValue = extractedValue->equalTo(minus12Value, valid);
-    
-                    if (valid && sameValue)
+                    if (extractedValue->deeplyEqualTo(minus12Value))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (valid && sameValue)"); //####
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(minus12Value))"); //####
                     }
                 }
                 else
@@ -545,12 +540,9 @@ doTestTinyIntegerMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(zeroValue, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(zeroValue))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(zeroValue))"); //####
                             result = 1;
                         }
                     }
@@ -578,12 +570,9 @@ doTestTinyIntegerMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(plus12Value, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(plus12Value))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(plus12Value))"); //####
                             result = 1;
                         }
                     }
@@ -709,16 +698,13 @@ doTestShortIntegerMessage(const char * launchPath,
             {
                 if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    bool valid = false;
-                    bool sameValue = extractedValue->equalTo(minus144Value, valid);
-    
-                    if (valid && sameValue)
+                    if (extractedValue->deeplyEqualTo(minus144Value))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (valid && sameValue)"); //####
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(minus144Value))"); //####
                     }
                 }
                 else
@@ -743,12 +729,9 @@ doTestShortIntegerMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(plus144Value, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(plus144Value))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(plus144Value))"); //####
                             result = 1;
                         }
                     }
@@ -874,16 +857,13 @@ doTestMediumIntegerMessage(const char * launchPath,
             {
                 if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    bool valid = false;
-                    bool sameValue = extractedValue->equalTo(minus1234567Value, valid);
-    
-                    if (valid && sameValue)
+                    if (extractedValue->deeplyEqualTo(minus1234567Value))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (valid && sameValue)"); //####
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(minus1234567Value))"); //####
                     }
                 }
                 else
@@ -908,12 +888,9 @@ doTestMediumIntegerMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(plus1234567Value, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(plus1234567Value))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(plus1234567Value))"); //####
                             result = 1;
                         }
                     }
@@ -1039,16 +1016,13 @@ doTestBigIntegerMessage(const char * launchPath,
             {
                 if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    bool valid = false;
-                    bool sameValue = extractedValue->equalTo(minusBigNumberValue, valid);
-    
-                    if (valid && sameValue)
+                    if (extractedValue->deeplyEqualTo(minusBigNumberValue))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (valid && sameValue)"); //####
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(minusBigNumberValue))"); //####
                     }
                 }
                 else
@@ -1073,12 +1047,9 @@ doTestBigIntegerMessage(const char * launchPath,
                 {
                     if (nImO::kReadSuccessfulAtEnd == status)
                     {
-                        bool valid = false;
-                        bool sameValue = extractedValue->equalTo(plusBigNumberValue, valid);
-        
-                        if ((! valid) || (! sameValue))
+                        if (! extractedValue->deeplyEqualTo(plusBigNumberValue))
                         {
-                            ODL_LOG("((! valid) || (! sameValue))"); //####
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(plusBigNumberValue))"); //####
                             result = 1;
                         }
                     }
@@ -1109,7 +1080,6 @@ doTestBigIntegerMessage(const char * launchPath,
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
-#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 007 ***
 #endif // defined(__APPLE__)
@@ -1130,7 +1100,7 @@ doTestEmptyStringMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1145,7 +1115,7 @@ doTestEmptyStringMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForEmptyString[] =
+            static const uint8_t insertedBytesForEmptyString[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1162,23 +1132,39 @@ doTestEmptyStringMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedEmptyStringCount = (sizeof(expectedBytesForEmptyString) /
-                                                     sizeof(*expectedBytesForEmptyString));
-            nImO::String emptyStringValue("");
-
-            stuff->open();
-            stuff->setValue(emptyStringValue);
+            const size_t     insertedEmptyStringCount = (sizeof(insertedBytesForEmptyString) /
+                                                         sizeof(*insertedBytesForEmptyString));
+            nImO::String     emptyStringValue("");
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForEmptyString, insertedEmptyStringCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedEmptyStringCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForEmptyString, contents, expectedEmptyStringCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedEmptyStringCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(emptyStringValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(emptyStringValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1219,7 +1205,7 @@ doTestShortStringMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1234,7 +1220,7 @@ doTestShortStringMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForShortString[] =
+            static const uint8_t insertedBytesForShortString[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1252,23 +1238,39 @@ doTestShortStringMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedShortStringCount = (sizeof(expectedBytesForShortString) /
-                                                     sizeof(*expectedBytesForShortString));
-            nImO::String shortStringValue("abcdef");
-
-            stuff->open();
-            stuff->setValue(shortStringValue);
+            const size_t     insertedShortStringCount = (sizeof(insertedBytesForShortString) /
+                                                         sizeof(*insertedBytesForShortString));
+            nImO::String     shortStringValue("abcdef");
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForShortString, insertedShortStringCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedShortStringCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForShortString, contents, expectedShortStringCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedShortStringCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(shortStringValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(shortStringValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1309,7 +1311,7 @@ doTestMediumStringMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1324,7 +1326,7 @@ doTestMediumStringMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForMediumString[] =
+            static const uint8_t insertedBytesForMediumString[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1349,23 +1351,39 @@ doTestMediumStringMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedMediumStringCount = (sizeof(expectedBytesForMediumString) /
-                                                     sizeof(*expectedBytesForMediumString));
-            nImO::String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
-
-            stuff->open();
-            stuff->setValue(mediumStringValue);
+            const size_t     insertedMediumStringCount = (sizeof(insertedBytesForMediumString) /
+                                                          sizeof(*insertedBytesForMediumString));
+            nImO::String     mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForMediumString, insertedMediumStringCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedMediumStringCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForMediumString, contents, expectedMediumStringCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedMediumStringCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(mediumStringValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(mediumStringValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1406,7 +1424,7 @@ doTestEmptyBlobMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1421,7 +1439,7 @@ doTestEmptyBlobMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForEmptyBlob[] =
+            static const uint8_t insertedBytesForEmptyBlob[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1438,23 +1456,39 @@ doTestEmptyBlobMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedEmptyBlobCount = (sizeof(expectedBytesForEmptyBlob) /
-                                                   sizeof(*expectedBytesForEmptyBlob));
-            nImO::Blob emptyBlobValue;
-
-            stuff->open();
-            stuff->setValue(emptyBlobValue);
+            const size_t     insertedEmptyBlobCount = (sizeof(insertedBytesForEmptyBlob) /
+                                                       sizeof(*insertedBytesForEmptyBlob));
+            nImO::Blob       emptyBlobValue;
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForEmptyBlob, insertedEmptyBlobCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedEmptyBlobCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForEmptyBlob, contents, expectedEmptyBlobCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedEmptyBlobCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(emptyBlobValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(emptyBlobValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1495,7 +1529,7 @@ doTestShortBlobMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1510,7 +1544,7 @@ doTestShortBlobMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForShortBlob[] =
+            static const uint8_t insertedBytesForShortBlob[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1528,28 +1562,44 @@ doTestShortBlobMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedShortBlobCount = (sizeof(expectedBytesForShortBlob) /
-                                                   sizeof(*expectedBytesForShortBlob));
+            const size_t insertedShortBlobCount = (sizeof(insertedBytesForShortBlob) /
+                                                   sizeof(*insertedBytesForShortBlob));
             static const uint8_t actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            nImO::Blob   shortBlobValue(actualData, actualDataCount);
-
-            stuff->open();
-            stuff->setValue(shortBlobValue);
+            const size_t     actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            nImO::Blob       shortBlobValue(actualData, actualDataCount);
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForShortBlob, insertedShortBlobCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedShortBlobCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForShortBlob, contents, expectedShortBlobCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedShortBlobCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(shortBlobValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(shortBlobValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1590,7 +1640,7 @@ doTestMediumBlobMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1605,7 +1655,7 @@ doTestMediumBlobMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForMediumBlob[] =
+            static const uint8_t insertedBytesForMediumBlob[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1630,8 +1680,8 @@ doTestMediumBlobMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedMediumBlobCount = (sizeof(expectedBytesForMediumBlob) /
-                                                    sizeof(*expectedBytesForMediumBlob));
+            const size_t insertedMediumBlobCount = (sizeof(insertedBytesForMediumBlob) /
+                                                    sizeof(*insertedBytesForMediumBlob));
             static const uint8_t actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1642,22 +1692,38 @@ doTestMediumBlobMessage(const char * launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            nImO::Blob mediumBlobValue(actualData, actualDataCount);
-
-            stuff->open();
-            stuff->setValue(mediumBlobValue);
+            const size_t     actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            nImO::Blob       mediumBlobValue(actualData, actualDataCount);
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
+            
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForMediumBlob, insertedMediumBlobCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedMediumBlobCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForMediumBlob, contents, expectedMediumBlobCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedMediumBlobCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(mediumBlobValue))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(mediumBlobValue))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1698,7 +1764,7 @@ doTestSingleFloatMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1713,7 +1779,7 @@ doTestSingleFloatMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForPlus42Point5[] =
+            static const uint8_t insertedBytesForPlus42Point5[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1731,9 +1797,9 @@ doTestSingleFloatMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedDoubleValue
             };
-            const size_t expectedPlus42Point5Count = (sizeof(expectedBytesForPlus42Point5) /
-                                                      sizeof(*expectedBytesForPlus42Point5));
-            static const uint8_t expectedBytesForMinus42Point5[] =
+            const size_t insertedPlus42Point5Count = (sizeof(insertedBytesForPlus42Point5) /
+                                                      sizeof(*insertedBytesForPlus42Point5));
+            static const uint8_t insertedBytesForMinus42Point5[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1751,41 +1817,68 @@ doTestSingleFloatMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedDoubleValue
             };
-            const size_t expectedMinus42Point5Count = (sizeof(expectedBytesForMinus42Point5) /
-                                                      sizeof(*expectedBytesForMinus42Point5));
-            nImO::Double plus42Point5(42.5);
-            nImO::Double minus42Point5(-42.5);
+            const size_t     insertedMinus42Point5Count = (sizeof(insertedBytesForMinus42Point5) /
+                                                           sizeof(*insertedBytesForMinus42Point5));
+            nImO::Double     plus42Point5(42.5);
+            nImO::Double     minus42Point5(-42.5);
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
 
-            stuff->open();
-            stuff->setValue(plus42Point5);
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForPlus42Point5, insertedPlus42Point5Count);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedPlus42Point5Count == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForPlus42Point5, contents, expectedPlus42Point5Count);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedPlus42Point5Count == length))"); //####
-            }
-            if (0 == result)
-            {
-                stuff->open();
-                stuff->setValue(minus42Point5);
-                stuff->close();
-                length = 0;
-                contents = stuff->getBytes(length);
-                if ((NULL != contents) && (expectedMinus42Point5Count == length))
+                if (nImO::kReadSuccessfulAtEnd == status)
                 {
-                    result = memcmp(expectedBytesForMinus42Point5, contents,
-                                    expectedMinus42Point5Count);
+                    if (extractedValue->deeplyEqualTo(plus42Point5))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(plus42Point5))"); //####
+                    }
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && " //####
-                            "(expectedMinus42Point5Count == length))"); //####
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
+            }
+            if (0 == result)
+            {
+                stuff->open(false);
+                stuff->appendBytes(insertedBytesForMinus42Point5, insertedMinus42Point5Count);
+                extractedValue = stuff->getValue(status);
+                ODL_P1("extractedValue <- ", extractedValue); //####
+                stuff->close();
+                if (NULL == extractedValue)
+                {
+                    ODL_LOG("(NULL == extractedValue)"); //####
+                }
+                else
+                {
+                    if (nImO::kReadSuccessfulAtEnd == status)
+                    {
+                        if (! extractedValue->deeplyEqualTo(minus42Point5))
+                        {
+                            ODL_LOG("(! extractedValue->deeplyEqualTo(minus42Point5))"); //####
+                            result = 1;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                        result = 1;
+                    }
+                    delete extractedValue;
                 }
             }
             delete stuff;
@@ -1827,7 +1920,7 @@ doTestEmptyArrayMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1842,7 +1935,7 @@ doTestEmptyArrayMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForEmptyArray[] =
+            static const uint8_t insertedBytesForEmptyArray[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1863,23 +1956,39 @@ doTestEmptyArrayMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptyArrayCount = (sizeof(expectedBytesForEmptyArray) /
-                                                    sizeof(*expectedBytesForEmptyArray));
-            nImO::Array emptyArray;
+            const size_t     insertedEmptyArrayCount = (sizeof(insertedBytesForEmptyArray) /
+                                                        sizeof(*insertedBytesForEmptyArray));
+            nImO::Array      emptyArray;
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
 
-            stuff->open();
-            stuff->setValue(emptyArray);
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForEmptyArray, insertedEmptyArrayCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedEmptyArrayCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForEmptyArray, contents, expectedEmptyArrayCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedEmptyArrayCount == length))"); //####
+                if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(emptyArray))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(emptyArray))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -1920,7 +2029,7 @@ doTestEmptyMapMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -1935,7 +2044,7 @@ doTestEmptyMapMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForEmptyMap[] =
+            static const uint8_t insertedBytesForEmptyMap[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -1956,23 +2065,43 @@ doTestEmptyMapMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptyMapCount = (sizeof(expectedBytesForEmptyMap) /
-                                                  sizeof(*expectedBytesForEmptyMap));
-            nImO::Map emptyMap;
+            const size_t     insertedEmptyMapCount = (sizeof(insertedBytesForEmptyMap) /
+                                                      sizeof(*insertedBytesForEmptyMap));
+            nImO::Map        emptyMap;
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
 
-            stuff->open();
-            stuff->setValue(emptyMap);
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForEmptyMap, insertedEmptyMapCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedEmptyMapCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForEmptyMap, contents, expectedEmptyMapCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedEmptyMapCount == length))"); //####
+                if (NULL == extractedValue->asMap())
+                {
+                    ODL_LOG("(NULL == extractedValue->asMap())"); //####
+                }
+                else if (nImO::kReadSuccessfulAtEnd == status)
+                {
+                    if (extractedValue->deeplyEqualTo(emptyMap))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (extractedValue->deeplyEqualTo(emptyMap))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -2013,7 +2142,7 @@ doTestEmptySetMessage(const char * launchPath,
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
-#  pragma unused(launchPath)
+#  pragma unused(launchPath,argc,argv)
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
@@ -2028,7 +2157,7 @@ doTestEmptySetMessage(const char * launchPath,
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForEmptySet[] =
+            static const uint8_t insertedBytesForEmptySet[] =
             {
                 // Start of Message
                 nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
@@ -2049,23 +2178,46 @@ doTestEmptySetMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptySetCount = (sizeof(expectedBytesForEmptySet) /
-                                                  sizeof(*expectedBytesForEmptySet));
-            nImO::Set emptySet;
+            const size_t     insertedEmptySetCount = (sizeof(insertedBytesForEmptySet) /
+                                                      sizeof(*insertedBytesForEmptySet));
+            nImO::Set        emptySet;
+            nImO::ReadStatus status;
+            nImO::Value *    extractedValue;
 
-            stuff->open();
-            stuff->setValue(emptySet);
+            stuff->open(false);
+            stuff->appendBytes(insertedBytesForEmptySet, insertedEmptySetCount);
+            extractedValue = stuff->getValue(status);
+            ODL_P1("extractedValue <- ", extractedValue); //####
             stuff->close();
-            size_t          length = 0;
-            const uint8_t * contents = stuff->getBytes(length);
-
-            if ((NULL != contents) && (expectedEmptySetCount == length))
+            if (NULL == extractedValue)
             {
-                result = memcmp(expectedBytesForEmptySet, contents, expectedEmptySetCount);
+                ODL_LOG("(NULL == extractedValue)"); //####
             }
             else
             {
-                ODL_LOG("! ((NULL != contents) && (expectedEmptySetCount == length))"); //####
+                if (NULL == extractedValue->asSet())
+                {
+                    ODL_LOG("(NULL == extractedValue->i\asSet())"); //####
+                }
+                else
+                {
+                    if (nImO::kReadSuccessfulAtEnd == status)
+                    {
+                        if (extractedValue->deeplyEqualTo(emptySet))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (extractedValue->deeplyEqualTo(emptySet))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nImO::kReadSuccessfulAtEnd == status)"); //####
+                    }
+                }
+                delete extractedValue;
             }
             delete stuff;
         }
@@ -2086,6 +2238,7 @@ doTestEmptySetMessage(const char * launchPath,
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
+#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
@@ -4281,7 +4434,7 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
                 if (0 != result)
                 {
                     size_t jj = 0;
-                    
+
                     for (size_t ii = 0; expectedArrayManyDoublesCount > ii; ++ii)
                     {
                         if (expectedBytesForArrayManyDoubles[ii] != contents[ii])
@@ -4295,8 +4448,12 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
                     {
                         jj = 8;
                     }
-                    ODL_PACKET("expected", reinterpret_cast<const char *>(expectedBytesForArrayManyDoubles + jj - 8), 24); //####
-                    ODL_PACKET("contents", reinterpret_cast<const char *>(contents + jj - 8), 24); //####
+                    ODL_PACKET("expected", //####
+                               reinterpret_cast<const char *>(//####
+                                                          expectedBytesForArrayManyDoubles + //####
+                                                              jj - 8), 24); //####
+                    ODL_PACKET("contents", //####
+                               reinterpret_cast<const char *>(contents + jj - 8), 24); //####
                 }
             }
             else
@@ -5017,7 +5174,6 @@ main(int      argc,
                         result = doTestBigIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
-#if 0
                     case 7 :
                         result = doTestEmptyStringMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -5058,6 +5214,7 @@ main(int      argc,
                         result = doTestEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
+#if 0
                     case 110 :
                         result = doTestArrayOneBooleanMessage(*argv, argc - 1, argv + 2);
                         break;

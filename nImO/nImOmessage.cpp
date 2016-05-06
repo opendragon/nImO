@@ -228,7 +228,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
         ODL_LOG("(kMessageStateOpenForReading == _state)"); //####
         size_t  savedPosition = _readPosition;
         int     aByte = getByte(_readPosition);
-   
+
         ODL_XL1("aByte <- ", aByte); //#### 
         if (kEndToken == aByte)
         {

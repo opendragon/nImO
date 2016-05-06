@@ -131,6 +131,27 @@ const
 } // nImO::Boolean::copy
 
 bool
+nImO::Boolean::deeplyEqualTo(const nImO::Value & other)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result = (&other == this);
+
+    if (! result)
+    {
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL != otherPtr)
+        {
+            result = (_value == otherPtr->_value);
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Boolean::deeplyEqualTo
+
+bool
 nImO::Boolean::equalTo(const nImO::Value & other,
                        bool &              validComparison)
 const
@@ -144,22 +165,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBoolean())
-    {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
-
-        result = (_value == otherRef._value);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.equalTo(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.equalTo(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (_value == otherPtr->_value);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -190,6 +217,7 @@ nImO::Boolean::extractValue(const nImO::Message & theMessage,
 
     ++position; // We will always accept the lead byte
     status = kReadSuccessful;
+    ODL_LL2("position <- ", position, "status <- ", status); //####
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
@@ -250,22 +278,28 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBoolean())
-    {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
-
-        result = (_value > otherRef._value);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThan(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.lessThan(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (_value > otherPtr->_value);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -285,22 +319,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBoolean())
-    {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
-
-        result = (_value >= otherRef._value);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.lessThanOrEqual(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.lessThanOrEqual(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (_value >= otherPtr->_value);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -321,22 +361,28 @@ const
         validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBoolean())
-    {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
-
-        result = (_value < otherRef._value);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThan(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.greaterThan(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (_value < otherPtr->_value);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;
@@ -356,22 +402,28 @@ const
         result = validComparison = true;
         ODL_B1("validComparison <- ", validComparison); //####
     }
-    else if (other.isBoolean())
-    {
-        const Boolean & otherRef = static_cast<const Boolean &>(other);
-
-        result = (_value <= otherRef._value);
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else if (other.isContainer())
-    {
-        result = other.greaterThanOrEqual(*this, validComparison);
-    }
     else
     {
-        result = validComparison = false;
-        ODL_B1("validComparison <- ", validComparison); //####
+        const Boolean * otherPtr = other.asBoolean();
+        
+        if (NULL == otherPtr)
+        {
+            if (NULL == other.asContainer())
+            {
+                result = validComparison = false;
+                ODL_B1("validComparison <- ", validComparison); //####
+            }
+            else
+            {
+                result = other.greaterThanOrEqual(*this, validComparison);
+            }
+        }
+        else
+        {
+            result = (_value <= otherPtr->_value);
+            validComparison = true;
+            ODL_B1("validComparison <- ", validComparison); //####
+        }
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

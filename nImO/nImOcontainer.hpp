@@ -79,15 +79,15 @@ namespace nImO
         virtual
         ~Container(void);
 
-        /*! @brief Return @c true if the object is a container.
-         @returns @c true if the object is a container and @c false otherwise. */
-        virtual inline bool
-        isContainer(void)
+        /*! @brief Return non-@c NULL if the object is a Container.
+         @returns Non-@c NULL if the object is a Container and @c NULL otherwise. */
+        virtual inline const Container *
+        asContainer(void)
         const
         {
-            return true;
-        } // isContainer
-
+            return this;
+        } // asContainer
+        
     protected :
         // Protected methods.
 

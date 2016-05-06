@@ -187,6 +187,22 @@ const
 } // nImO::Set::copy
 
 bool
+nImO::Set::deeplyEqualTo(const nImO::Value & other)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    bool result = (&other == this);
+    
+    if (! result)
+    {
+        //TBD
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Set::deeplyEqualTo
+
+bool
 nImO::Set::equalTo(const nImO::Value & other,
                    bool &              validComparison)
 const
@@ -224,7 +240,49 @@ nImO::Set::extractValue(const nImO::Message & theMessage,
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
-    
+    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+
+    ++position; // We will always accept the lead byte
+    ODL_LL1("position <- ", position); //####
+    if (isEmpty)
+    {
+        ODL_LOG("(isEmpty)"); //####
+        int aByte = theMessage.getByte(position);
+
+        if (Message::kEndToken == aByte)
+        {
+            ODL_LOG("(Message::kEndToken == aByte)"); //####
+            status = kReadIncomplete;
+            ODL_LL1("status <- ", status); //####
+        }
+        else
+        {
+            ODL_LOG("! (Message::kEndToken == aByte)"); //####
+            static const uint8_t endMarker = (kKindOther + kKindOtherContainerEnd +
+                                              kKindOtherContainerTypeSet +
+                                              kKindOtherContainerEmptyValue);
+
+            if (endMarker == aByte)
+            {
+                ODL_LOG("(endMarker == aByte)"); //####
+                result = new Set;
+                status = kReadSuccessful;
+                ++position;
+                ODL_LL2("status <- ", status, "position <- ", position); //####
+            }
+            else
+            {
+                ODL_LOG("! (endMarker == aByte)"); //####
+                status = kReadInvalid;
+                ODL_LL1("status <- ", status); //####
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (isEmpty)"); //####
+//TBD
+    }
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
@@ -571,10 +629,9 @@ const
         uint8_t endSet = kKindOther + kKindOtherContainerEnd +
                            kKindOtherContainerTypeSet +
                            kKindOtherContainerNonEmptyValue;
-        Integer count(inherited2::size() + kKindIntegerShortValueMinValue - 1);
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
-        count.writeToMessage(outMessage);
+        writeInt64ToMessage(outMessage, inherited2::size() + kKindIntegerShortValueMinValue - 1);
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
             Value * aValue = *walker;

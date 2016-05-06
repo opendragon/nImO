@@ -119,7 +119,7 @@ namespace nImO
          @returns The Message object so that cascading can be done. */
         virtual ChunkArray &
         reset(void);
-        
+
         /*! @brief Set the contents of the Message.
          @param theValue The value to be put in the Message.
          @returns The Message object so that cascading can be done. */

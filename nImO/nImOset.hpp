@@ -116,6 +116,15 @@ namespace nImO
         InsertResult
         addValue(Value * val);
 
+        /*! @brief Return non-@c NULL if the object is a Set.
+         @returns Non-@c NULL if the object is a Set and @c NULL otherwise. */
+        virtual inline const Set *
+        asSet(void)
+        const
+        {
+            return this;
+        } // asSet
+        
         /*! @brief Return an iterator pointing to the first element of the Array.
          @returns An iterator pointing to the first element of the Array. */
         inline iterator
@@ -143,6 +152,13 @@ namespace nImO
         clone(void)
         const;
 
+        /*! @brief Return @c true if two Values are structurally identical.
+         @param other The Value to be compared with.
+         @returns @c true if the two Values are structurally identical. */
+        virtual bool
+        deeplyEqualTo(const Value & other)
+        const;
+        
         /*! @brief Return an iterator pointing past the last element of the Array.
          @returns An iterator pointing past the last element of the Array. */
         inline iterator
@@ -233,15 +249,6 @@ namespace nImO
                            bool &        validComparison)
         const;
 
-        /*! @brief Return @c true if the object is a Set.
-         @returns @c true if the object is a Set and @c false otherwise. */
-        virtual inline bool
-        isSet(void)
-        const
-        {
-            return true;
-        } // isSet
-
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
          @param validComparison @c true if the Values were comparable and @c false otherwise; if
@@ -330,7 +337,7 @@ namespace nImO
                      size_t &        position,
                      ReadStatus &    status,
                      Array *         parentValue);
-        
+
     public :
         // Public fields.
 

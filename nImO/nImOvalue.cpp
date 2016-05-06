@@ -44,6 +44,7 @@
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmap.hpp>
+#include <nImO/nImOmessage.hpp>
 #include <nImO/nImOnumber.hpp>
 #include <nImO/nImOset.hpp>
 #include <nImO/nImOstring.hpp>
@@ -124,13 +125,95 @@ nImO::Value::addToExtractionMap(const uint8_t          aByte,
             if (aByte == (aMask & ii))
             {
                 ExtractorMap::value_type keyValue(ii, theExtractor);
-                
+
                 gExtractors.insert(keyValue);
             }
         }        
     }
     ODL_EXIT(); //####
 } // addToExtractionMap
+
+int64_t
+nImO::Value::extractInt64FromMessage(const nImO::Message & theMessage,
+                                     const int             leadByte,
+                                     size_t &              position,
+                                     nImO::ReadStatus &    status)
+{
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
+    ODL_XL1("leadByte = ", leadByte); //####
+    int64_t result = 0;
+
+    if (kKindInteger == (leadByte & kKindMask))
+    {
+        bool isShort = (kKindIntegerShortValue == (kKindIntegerSizeMask & leadByte));
+
+        ++position; // We can accept the lead byte
+        ODL_LL1("position <- ", position); //####
+        if (isShort)
+        {
+            ODL_LOG("(isShort)"); //####
+            uint8_t shortBits = (kKindIntegerShortValueValueMask & leadByte);
+            bool    isNegative = (kKindIntegerShortValueSignBit ==
+                                  (kKindIntegerShortValueSignBit & leadByte));
+
+            if (isNegative)
+            {
+                ODL_LOG("(isNegative)"); //####
+                int64_t tempValue = (-1 & (~ kKindIntegerShortValueValueMask));
+
+                result = (tempValue | shortBits);
+            }
+            else
+            {
+                ODL_LOG("! (isNegative)"); //####
+                result = shortBits;
+            }
+            status = kReadSuccessful;
+            ODL_LL1("status <- ", status); //####
+        }
+        else
+        {
+            ODL_LOG("! (isShort)"); //####
+            size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+            NumberAsBytes holder;
+            bool          okSoFar = true;
+
+            for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+            {
+                int aByte = theMessage.getByte(position);
+
+                if (Message::kEndToken == aByte)
+                {
+                    ODL_LOG("(Message::kEndToken == aByte)"); //####
+                    status = kReadIncomplete;
+                    ODL_LL1("status <- ", status); //####
+                    okSoFar = false;
+                }
+                else
+                {
+                    holder[ii] = static_cast<uint8_t>(aByte);
+                    ++position;
+                    ODL_LL1("position <- ", position); //####
+                }
+            }
+            if (okSoFar)
+            {
+                result = B2I(holder, size);
+                status = kReadSuccessful;
+                ODL_LL1("status <- ", status); //####
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (kKindInteger == (leadByte & kKindMask))"); //####
+        status = kReadInvalid;
+        ODL_LL1("status <- ", status); //####
+    }
+    ODL_EXIT_LL(result); //####
+    return result;
+} // nImO::Value::extractInt64FromMessage
 
 nImO::Value *
 nImO::Value::getValueFromMessage(const nImO::Message & inMessage,
@@ -348,6 +431,40 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     ODL_EXIT_P(result); //####
     return result;
 } // nImO::Value::readFromStringBuffer
+
+void
+nImO::Value::writeInt64ToMessage(nImO::Message & outMessage,
+                                 const int64_t   outValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_LL1("outValue = ", outValue); //####
+    if ((-16 <= outValue) && (15 >= outValue))
+    {
+        ODL_LOG("((-16 <= outValue) && (15 >= outValue))"); //####
+        uint8_t stuff = kKindInteger + kKindIntegerShortValue +
+                        (outValue & kKindIntegerShortValueValueMask);
+
+        outMessage.appendBytes(&stuff, sizeof(stuff));
+    }
+    else
+    {
+        ODL_LOG("! ((-16 <= outValue) && (15 >= outValue))"); //####
+        NumberAsBytes numBuff;
+        size_t        numBytes = I2B(outValue, numBuff);
+
+        if (0 < numBytes)
+        {
+            ODL_LOG("(0 < numBytes)"); //####
+            uint8_t stuff = kKindInteger + kKindIntegerLongValue +
+                            ((numBytes - 1) & kKindIntegerLongValueCountMask);
+
+            outMessage.appendBytes(&stuff, sizeof(stuff));
+            outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::Value::writeInt64ToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

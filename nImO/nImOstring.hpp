@@ -91,12 +91,28 @@ namespace nImO
          @param initialValue The initial value for the object. */
         explicit String(const char * initialValue);
 
+        /*! @brief Return non-@c NULL if the object is a String.
+         @returns Non-@c NULL if the object is a String and @c NULL otherwise. */
+        virtual inline const String *
+        asString(void)
+        const
+        {
+            return this;
+        } // asString
+        
         /*! @brief Return a copy of the object.
          @returns Returns a copy of the object. */
         virtual Value *
         clone(void)
         const;
 
+        /*! @brief Return @c true if two Values are structurally identical.
+         @param other The Value to be compared with.
+         @returns @c true if the two Values are structurally identical. */
+        virtual bool
+        deeplyEqualTo(const Value & other)
+        const;
+        
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
@@ -166,15 +182,6 @@ namespace nImO
         greaterThanOrEqual(const Value & other,
                            bool &        validComparison)
         const;
-
-        /*! @brief Return @c true if the object is a String.
-         @returns @c true if the object is a String and @c false otherwise. */
-        virtual inline bool
-        isString(void)
-        const
-        {
-            return true;
-        } // isString
 
         /*! @brief Return the relative ordering of two Values.
          @param other The Value to be compared with.
@@ -262,7 +269,7 @@ namespace nImO
                      size_t &        position,
                      ReadStatus &    status,
                      Array *         parentValue);
-        
+
     public :
         // Public fields.
 

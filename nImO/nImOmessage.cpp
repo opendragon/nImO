@@ -304,8 +304,6 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                         if (NULL == result)
                         {
                             ODL_LOG("(NULL == result)"); //####
-                            status = kReadInvalid;
-                            ODL_LL1("status <- ", status); //####
                         }
                         else
                         {

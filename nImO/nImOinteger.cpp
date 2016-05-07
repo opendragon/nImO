@@ -211,7 +211,7 @@ nImO::Integer::extractValue(const nImO::Message & theMessage,
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result = NULL;
+    Value * result;
     int64_t holder = extractInt64FromMessage(theMessage, leadByte, position, status);
 
     if (kReadSuccessful == status)
@@ -221,6 +221,7 @@ nImO::Integer::extractValue(const nImO::Message & theMessage,
     else
     {
         ODL_LOG("! (kReadSuccessful == status)"); //####
+        result = NULL;
     }
     if ((NULL != parentValue) && (NULL != result))
     {

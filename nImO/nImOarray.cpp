@@ -190,7 +190,29 @@ const
     
     if (! result)
     {
-//TBD
+        const Array * otherPtr = other.asArray();
+        
+        if (otherPtr && (size() == otherPtr->size()))
+        {
+            const_iterator thisWalker(inherited2::begin());
+            const_iterator otherWalker(otherPtr->inherited2::begin());
+
+            for (result = true; result && (thisWalker != inherited2::end());
+                 ++thisWalker, ++otherWalker)
+            {
+                Value * thisValue = *thisWalker;
+                Value * otherValue = *otherWalker;
+                
+                if ((NULL != thisValue) && (NULL != otherValue))
+                {
+                    result = thisValue->deeplyEqualTo(*otherValue);
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -235,14 +257,15 @@ nImO::Array::extractValue(const nImO::Message & theMessage,
     ODL_XL1("leadByte = ", leadByte); //####
     Value * result = NULL;
     bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+    int     aByte;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isEmpty)
     {
         ODL_LOG("(isEmpty)"); //####
-        int aByte = theMessage.getByte(position);
-
+        aByte = theMessage.getByte(position);
+        ODL_XL1("aByte <- ", aByte); //####
         if (Message::kEndToken == aByte)
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
@@ -275,7 +298,119 @@ nImO::Array::extractValue(const nImO::Message & theMessage,
     else
     {
         ODL_LOG("! (isEmpty)"); //####
-//TBD
+        aByte = theMessage.getByte(position);
+        ODL_XL1("aByte <- ", aByte); //####
+        if (Message::kEndToken == aByte)
+        {
+            ODL_LOG("(Message::kEndToken == aByte)"); //####
+            status = kReadIncomplete;
+            ODL_LL1("status <- ", status); //####
+        }
+        else
+        {
+            ODL_LOG("! (Message::kEndToken == aByte)"); //####
+            int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
+
+            if (kReadSuccessful == status)
+            {
+                ODL_LOG("(kReadSuccessful == status)"); //####
+                elementCount -= kKindIntegerShortValueMinValue - 1;
+                ODL_LL1("elementCount <- ", elementCount); //####
+                if (0 >= elementCount)
+                {
+                    ODL_LOG("(0 >= elementCount)"); //####
+                    status = kReadInvalid;
+                    ODL_LL1("status <- ", status); //####
+                }
+                else
+                {
+                    Array * anArray = new Array;
+
+                    result = anArray;
+                    if (NULL == result)
+                    {
+                        ODL_LOG("(NULL == result)"); //####
+                        status = kReadInvalid;
+                        ODL_LL1("status <- ", status); //####
+                    }
+                    else
+                    {
+                        bool okSoFar = true;
+
+                        for ( ; okSoFar && (elementCount > static_cast<int64_t>(anArray->size())); )
+                        {
+                            aByte = theMessage.getByte(position);
+                            ODL_XL1("aByte <- ", aByte); //####
+                            if (Message::kEndToken == aByte)
+                            {
+                                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                                status = kReadIncomplete;
+                                okSoFar = false;
+                            }
+                            else
+                            {
+                                Value * aValue = getValueFromMessage(theMessage, position, aByte,
+                                                                     status, anArray);
+
+                                // Note that it is the responsibility of the extractor to add to
+                                // this Array, so it's not correct for this loop to perform an
+                                // append operation.
+                                if (NULL == aValue)
+                                {
+                                    ODL_LOG("(NULL == aValue)"); //####
+                                    okSoFar = false;
+                                }
+                            }
+                        }
+                        if (okSoFar)
+                        {
+                            aByte = theMessage.getByte(position);
+                            ODL_XL1("aByte <- ", aByte); //####
+                            if (Message::kEndToken == aByte)
+                            {
+                                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                                status = kReadIncomplete;
+                                ODL_LL1("status <- ", status); //####
+                                okSoFar = false;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (Message::kEndToken == aByte)"); //####
+                                static const uint8_t endMarker = (kKindOther +
+                                                                  kKindOtherContainerEnd +
+                                                                  kKindOtherContainerTypeArray +
+                                                                  kKindOtherContainerNonEmptyValue);
+                    
+                                if (endMarker == aByte)
+                                {
+                                    ODL_LOG("(endMarker == aByte)"); //####
+                                    status = kReadSuccessful;
+                                    ++position;
+                                    ODL_LL2("status <- ", status, "position <- ", position); //####
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (endMarker == aByte)"); //####
+                                    status = kReadInvalid;
+                                    ODL_LL1("status <- ", status); //####
+                                    okSoFar = false;
+                                }
+                            }
+                        }
+                        if (! okSoFar)
+                        {
+                            ODL_LOG("(! okSoFar)"); //####
+                            delete result;
+                            result = NULL;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (kReadSuccessful == status)"); //####
+            }
+        }
     }
     if ((NULL != parentValue) && (NULL != result))
     {

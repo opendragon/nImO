@@ -75,10 +75,10 @@ namespace nImO
     public :
 
         /*! @brief The constructor.
-         @param argName The name of the command-line argument.
-         @param argDescription A description of the command-line argument.
-         @param argMode The mode of the command-line argument.
-         @param defaultValue The default value for the command-line argument. */
+         @param[in] argName The name of the command-line argument.
+         @param[in] argDescription A description of the command-line argument.
+         @param[in] argMode The mode of the command-line argument.
+         @param[in] defaultValue The default value for the command-line argument. */
         BoolArgumentDescriptor(const std::string & argName,
                                const std::string & argDescription,
                                const ArgumentMode  argMode,
@@ -107,7 +107,7 @@ namespace nImO
         } // isBoolean
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param inString The input string in 'arguments' format.
+         @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
         static BaseArgumentDescriptor *
         parseArgString(const std::string & inString);
@@ -122,12 +122,12 @@ namespace nImO
     private :
 
         /*! @brief The copy constructor.
-         @param other The object to be copied. */
+         @param[in] other The object to be copied. */
         BoolArgumentDescriptor(const BoolArgumentDescriptor & other);
 
 #if 0
         /*! @brief Add the processed value to a bottle.
-         @param container The bottle to be modified. */
+         @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle(yarp::os::Bottle & container);
 #endif//0
@@ -143,7 +143,7 @@ namespace nImO
         getProcessedValue(void);
 
         /*! @brief The assignment operator.
-         @param other The object to be copied.
+         @param[in] other The object to be copied.
          @returns The updated object. */
         BoolArgumentDescriptor &
         operator =(const BoolArgumentDescriptor & other);
@@ -158,7 +158,7 @@ namespace nImO
         toString(void);
 
         /*! @brief Check an input value against the constraints of the descriptor.
-         @param value The value to be checked.
+         @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
@@ -184,7 +184,7 @@ namespace nImO
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
         /*! @brief Filler to pad to alignment boundary */
-        char _filler[7];
+        char _filler[6];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

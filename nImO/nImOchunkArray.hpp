@@ -73,7 +73,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor.
-         @param padWithNull @c true if the data needs to be @c NULL-terminated. */
+         @param[in] padWithNull @c true if the data needs to be @c NULL-terminated. */
         ChunkArray(const bool padWithNull = false);
 
         /*! @brief The destructor. */
@@ -81,14 +81,14 @@ namespace nImO
         ~ChunkArray(void);
 
         /*! @brief Add some bytes to the buffer.
-         @param data The bytes to be added.
-         @param numBytes The number of bytes to add. */
+         @param[in] data The bytes to be added.
+         @param[in] numBytes The number of bytes to add. */
         void
         appendBytes(const uint8_t * data,
                     const size_t    numBytes);
 
         /*! @brief Return the byte found at a particular index.
-         @param index The zero-based location in the buffer.
+         @param[in] index The zero-based location in the buffer.
          @returns The byte found at the provided index, or the 'end' token if the index is not
          within the buffer. */
         int
@@ -99,7 +99,7 @@ namespace nImO
          bytes present.
          Note that the returned pointer may become invalid at any time, so it should be either
          used immediately or copied.
-         @param length Set to the number of valid bytes in the buffer.
+         @param[out] length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
         getBytes(size_t & length);
@@ -122,11 +122,11 @@ namespace nImO
         // Private methods.
 
         /*! @brief The copy constructor.
-         @param other The object to be copied. */
+         @param[in] other The object to be copied. */
         ChunkArray(const ChunkArray & other);
 
         /*! @brief The assignment operator.
-         @param other The object to be copied.
+         @param[in] other The object to be copied.
          @returns The updated object. */
         ChunkArray &
         operator =(const ChunkArray & other);

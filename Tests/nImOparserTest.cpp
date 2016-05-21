@@ -81,7 +81,7 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The signal handler to catch requests to stop the service.
- @param signal The signal being handled. */
+ @param[in] signal The signal being handled. */
 static void
 catchSignal(int signal)
 {
@@ -102,8 +102,8 @@ catchSignal(int signal)
 } // catchSignal
 
 /*! @brief Compare a Value object with a string.
- @param aValue The object to be compared.
- @param aString The string to be compared to.
+ @param[in] aValue The object to be compared.
+ @param[in] aString The string to be compared to.
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
@@ -129,9 +129,9 @@ compareValueWithString(const nImO::Value & aValue,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseBooleanValue(const bool   expected,
@@ -205,9 +205,9 @@ doTestParseBooleanValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue(const bool   expected,
@@ -281,9 +281,9 @@ doTestParseNumberValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue(const bool   expected,
@@ -357,9 +357,9 @@ doTestParseStringValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseArrayValue(const bool   expected,
@@ -433,9 +433,9 @@ doTestParseArrayValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseSetValue(const bool   expected,
@@ -509,9 +509,9 @@ doTestParseSetValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseMapValue(const bool   expected,
@@ -585,9 +585,9 @@ doTestParseMapValue(const bool   expected,
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param expected @c true if the test is expected to succeed, and @c false otherwise.
- @param inString The string to be used for the test.
- @param expectedString The expected output from the test.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseImplicitArrayValue(const bool   expected,
@@ -665,8 +665,8 @@ doTestParseImplicitArrayValue(const bool   expected,
  The first argument is the test number, the second argument is the name of the channel to be used
  with the test, the optional third argument is the machine to connect to and the optional fourth
  argument is the port number to be used. Output depends on the test being run.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used with the unit tests.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main(int      argc,

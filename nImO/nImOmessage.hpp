@@ -91,7 +91,7 @@ namespace nImO
          bytes present.
          Note that the returned pointer may become invalid at any time, so it should be either
          used immediately or copied.
-         @param length Set to the number of valid bytes in the buffer.
+         @param[out] length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
         getBytes(size_t & length);
@@ -103,13 +103,13 @@ namespace nImO
         const;
 
         /*! @brief Return the next Value in the Message.
-         @param status Whether the Value was complete.
+         @param[out] status Whether the Value was complete.
          @returns The next Value in the Message or @c NULL if the Value cannot be retrieved. */
         Value *
         getValue(ReadStatus & status);
 
         /*! @brief Open the Message, so that data can be read or written.
-         @param forWriting @c true if the Message is being written to and @c false if it's being
+         @param[in] forWriting @c true if the Message is being written to and @c false if it's being
          read.
          @returns The Message object so that cascading can be done. */
         Message &
@@ -121,7 +121,7 @@ namespace nImO
         reset(void);
 
         /*! @brief Set the contents of the Message.
-         @param theValue The value to be put in the Message.
+         @param[in] theValue The value to be put in the Message.
          @returns The Message object so that cascading can be done. */
         Message &
         setValue(const Value & theValue);
@@ -133,7 +133,7 @@ namespace nImO
         // Private methods.
 
         /*! @brief The copy constructor.
-         @param other The object to be copied. */
+         @param[in] other The object to be copied. */
         Message(const Message & other);
 
         /*! @brief Acquire the object. */
@@ -141,7 +141,7 @@ namespace nImO
         lock(void);
 
         /*! @brief The assignment operator.
-         @param other The object to be copied.
+         @param[in] other The object to be copied.
          @returns The updated object. */
         Message &
         operator =(const Message & other);

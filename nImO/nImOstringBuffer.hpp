@@ -82,48 +82,48 @@ namespace nImO
         ~StringBuffer(void);
 
         /*! @brief Add a boolean value to the buffer.
-         @param aBool The value to add.
+         @param[in] aBool The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addBool(const bool aBool);
 
         /*! @brief Add a sequence of bytes to the buffer.
-         @param inBytes The bytes to be added.
-         @param numBytes The number of bytes to add.
+         @param[in] inBytes The bytes to be added.
+         @param[in] numBytes The number of bytes to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addBytes(const uint8_t * inBytes,
                  const size_t    numBytes);
 
         /*! @brief Add a character to the buffer.
-         @param aChar The character to add.
+         @param[in] aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addChar(const char aChar);
 
         /*! @brief Add a character string representation of a floating-point value to the buffer.
-         @param aDouble The value to add.
+         @param[in] aDouble The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addDouble(const double aDouble);
 
         /*! @brief Add a character string representation of an integer value to the buffer.
-         @param aLong The value to add.
+         @param[in] aLong The value to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addLong(const int64_t aLong);
 
         /*! @brief Add a character string to the buffer.
-         @param aString The value to add.
-         @param addQuotes @c true if the string is to be delimited by quote characters.
+         @param[in] aString The value to add.
+         @param[in] addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addString(const char * aString,
                   const bool   addQuotes = false);
 
         /*! @brief Add a character string to the buffer.
-         @param aString The value to add.
-         @param addQuotes @c true if the string is to be delimited by quote characters.
+         @param[in] aString The value to add.
+         @param[in] addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addString(const std::string & aString,
@@ -140,7 +140,7 @@ namespace nImO
         const;
 
         /*! @brief Return the character found at a particular index.
-         @param index The zero-based location in the buffer.
+         @param[in] index The zero-based location in the buffer.
          @returns The character found at the provided index, or the 'end' character if the index
          is not within the buffer. */
         inline int
@@ -152,7 +152,7 @@ namespace nImO
 
         /*! @brief Return a copy of the characters in the buffer as well as the number of valid
          characters present.
-         @param length Set to the number of valid characters in the buffer.
+         @param[in,out] length Set to the number of valid characters in the buffer.
          @returns A pointer to a copy of the characters in the buffer. */
         inline const char *
         getString(size_t & length)
@@ -171,18 +171,18 @@ namespace nImO
         // Private methods.
 
         /*! @brief The copy constructor.
-         @param other The object to be copied. */
+         @param[in] other The object to be copied. */
         StringBuffer(const StringBuffer & other);
 
         /*! @brief The assignment operator.
-         @param other The object to be copied.
+         @param[in] other The object to be copied.
          @returns The updated object. */
         StringBuffer &
         operator =(const StringBuffer & other);
 
         /*! @brief Add quotes and escapes to a string.
-         @param aString The string to be processed.
-         @param length The length of the string. */
+         @param[in] aString The string to be processed.
+         @param[in] length The length of the string. */
         void
         processCharacters(const char * aString,
                           const size_t length);
@@ -200,8 +200,8 @@ namespace nImO
 
     /*! @brief Insert a readable version of the buffer into an
      output stream.
-     @param out The stream to be added to.
-     @param aBuffer The StringBuffer to be printed.
+     @param[in,out] out The stream to be added to.
+     @param[in] aBuffer The StringBuffer to be printed.
      @returns The modified stream. */
     std::ostream &
     operator <<(std::ostream &       out,

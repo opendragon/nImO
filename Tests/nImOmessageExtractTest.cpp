@@ -93,7 +93,7 @@ static const size_t kBigTestSize = 100000;
 #endif // defined(__APPLE__)
 
 /*! @brief The signal handler to catch requests to stop the service.
- @param signal The signal being handled. */
+ @param[in] signal The signal being handled. */
 static void
 catchSignal(int signal)
 {
@@ -114,10 +114,10 @@ catchSignal(int signal)
 } // catchSignal
 
 /*! @brief Extract a Value from a Message and verify what was stored.
- @param stuff The Message to be modified.
- @param insertedContents The data to be added to the Message.
- @param insertedSize The size of the data added to the Message.
- @param expectedValue The expected Value from the Message.
+ @param[in,out] stuff The Message to be modified.
+ @param[in] insertedContents The data to be added to the Message.
+ @param[in] insertedSize The size of the data added to the Message.
+ @param[in] expectedValue The expected Value from the Message.
  @returns Zero on success and non-zero on failure. */
 static int
 extractValueAndCheck(nImO::Message &     stuff,
@@ -208,9 +208,9 @@ extractValueAndCheck(nImO::Message &     stuff,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessage(const char * launchPath,
@@ -311,9 +311,9 @@ doTestEmptyMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBooleanMessage(const char * launchPath,
@@ -411,9 +411,9 @@ doTestBooleanMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestTinyIntegerMessage(const char * launchPath,
@@ -535,9 +535,9 @@ doTestTinyIntegerMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestShortIntegerMessage(const char * launchPath,
@@ -637,9 +637,9 @@ doTestShortIntegerMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumIntegerMessage(const char * launchPath,
@@ -739,9 +739,9 @@ doTestMediumIntegerMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigIntegerMessage(const char * launchPath,
@@ -841,9 +841,9 @@ doTestBigIntegerMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringMessage(const char * launchPath,
@@ -918,9 +918,9 @@ doTestEmptyStringMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestShortStringMessage(const char * launchPath,
@@ -996,9 +996,9 @@ doTestShortStringMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumStringMessage(const char * launchPath,
@@ -1081,9 +1081,9 @@ doTestMediumStringMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBlobMessage(const char * launchPath,
@@ -1158,9 +1158,9 @@ doTestEmptyBlobMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestShortBlobMessage(const char * launchPath,
@@ -1241,9 +1241,9 @@ doTestShortBlobMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumBlobMessage(const char * launchPath,
@@ -1337,9 +1337,9 @@ doTestMediumBlobMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingleFloatMessage(const char * launchPath,
@@ -1441,9 +1441,9 @@ doTestSingleFloatMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayMessage(const char * launchPath,
@@ -1522,9 +1522,9 @@ doTestEmptyArrayMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapMessage(const char * launchPath,
@@ -1603,9 +1603,9 @@ doTestEmptyMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetMessage(const char * launchPath,
@@ -1684,9 +1684,9 @@ doTestEmptySetMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneBooleanMessage(const char * launchPath,
@@ -1774,9 +1774,9 @@ doTestArrayOneBooleanMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneIntegerMessage(const char * launchPath,
@@ -1864,9 +1864,9 @@ doTestArrayOneIntegerMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneDoubleMessage(const char * launchPath,
@@ -1956,9 +1956,9 @@ doTestArrayOneDoubleMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneStringMessage(const char * launchPath,
@@ -2047,9 +2047,9 @@ doTestArrayOneStringMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneBlobMessage(const char * launchPath,
@@ -2138,9 +2138,9 @@ doTestArrayOneBlobMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayMessage(const char * launchPath,
@@ -2233,9 +2233,9 @@ doTestArrayOneArrayMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapMessage(const char * launchPath,
@@ -2328,9 +2328,9 @@ doTestArrayOneMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetMessage(const char * launchPath,
@@ -2423,9 +2423,9 @@ doTestArrayOneSetMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoBooleansMessage(const char * launchPath,
@@ -2517,9 +2517,9 @@ doTestArrayTwoBooleansMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoIntegersMessage(const char * launchPath,
@@ -2575,8 +2575,9 @@ doTestArrayTwoIntegersMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoIntegersCount = (sizeof(insertedBytesForArrayTwoIntegers) /
-                                                          sizeof(*insertedBytesForArrayTwoIntegers));
+            const size_t insertedArrayTwoIntegersCount =
+                                                     (sizeof(insertedBytesForArrayTwoIntegers) /
+                                                      sizeof(*insertedBytesForArrayTwoIntegers));
             nImO::Array  arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(new nImO::Integer);
@@ -2611,9 +2612,9 @@ doTestArrayTwoIntegersMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoDoublesMessage(const char * launchPath,
@@ -2705,9 +2706,9 @@ doTestArrayTwoDoublesMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoStringsMessage(const char * launchPath,
@@ -2801,9 +2802,9 @@ doTestArrayTwoStringsMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoBlobsMessage(const char * launchPath,
@@ -2897,9 +2898,9 @@ doTestArrayTwoBlobsMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoArraysMessage(const char * launchPath,
@@ -3001,9 +3002,9 @@ doTestArrayTwoArraysMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoMapsMessage(const char * launchPath,
@@ -3105,9 +3106,9 @@ doTestArrayTwoMapsMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoSetsMessage(const char * launchPath,
@@ -3209,9 +3210,9 @@ doTestArrayTwoSetsMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayOneMapMessage(const char * launchPath,
@@ -3277,8 +3278,9 @@ doTestArrayOneArrayOneMapMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneArrayOneMapCount = (sizeof(insertedBytesForArrayOneArrayOneMap) /
-                                                             sizeof(*insertedBytesForArrayOneArrayOneMap));
+            const size_t insertedArrayOneArrayOneMapCount =
+                                                    (sizeof(insertedBytesForArrayOneArrayOneMap) /
+                                                     sizeof(*insertedBytesForArrayOneArrayOneMap));
             nImO::Array  arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(new nImO::Array);
@@ -3313,9 +3315,9 @@ doTestArrayOneArrayOneMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapOneSetMessage(const char * launchPath,
@@ -3381,8 +3383,9 @@ doTestArrayOneMapOneSetMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneMapOneSetCount = (sizeof(insertedBytesForArrayOneMapOneSet) /
-                                                           sizeof(*insertedBytesForArrayOneMapOneSet));
+            const size_t insertedArrayOneMapOneSetCount =
+                                                      (sizeof(insertedBytesForArrayOneMapOneSet) /
+                                                       sizeof(*insertedBytesForArrayOneMapOneSet));
             nImO::Array  arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(new nImO::Map);
@@ -3417,9 +3420,9 @@ doTestArrayOneMapOneSetMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetOneArrayMessage(const char * launchPath,
@@ -3485,8 +3488,9 @@ doTestArrayOneSetOneArrayMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneSetOneArrayCount = (sizeof(insertedBytesForArrayOneSetOneArray) /
-                                                             sizeof(*insertedBytesForArrayOneSetOneArray));
+            const size_t insertedArrayOneSetOneArrayCount =
+                                                    (sizeof(insertedBytesForArrayOneSetOneArray) /
+                                                     sizeof(*insertedBytesForArrayOneSetOneArray));
             nImO::Array  arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(new nImO::Set);
@@ -3521,9 +3525,9 @@ doTestArrayOneSetOneArrayMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithManyDoublesMessage(const char * launchPath,
@@ -3620,8 +3624,9 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
                   nImO::DataKind::kKindOtherMessageNonEmptyValue +
                   nImO::DataKind::kKindOtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayManyDoublesCount = (sizeof(insertedBytesForArrayManyDoubles) /
-                                                          sizeof(*insertedBytesForArrayManyDoubles));
+            const size_t insertedArrayManyDoublesCount =
+                                                     (sizeof(insertedBytesForArrayManyDoubles) /
+                                                      sizeof(*insertedBytesForArrayManyDoubles));
             nImO::Array  arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -3659,9 +3664,9 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBooleanMapMessage(const char * launchPath,
@@ -3752,9 +3757,9 @@ doTestBooleanMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapMessage(const char * launchPath,
@@ -3845,9 +3850,9 @@ doTestIntegerMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapMessage(const char * launchPath,
@@ -3939,9 +3944,9 @@ doTestStringMapMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBooleanSetMessage(const char * launchPath,
@@ -4029,9 +4034,9 @@ doTestBooleanSetMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetMessage(const char * launchPath,
@@ -4119,9 +4124,9 @@ doTestIntegerSetMessage(const char * launchPath,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
- @param launchPath The command-line name used to launch the service.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used for the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetMessage(const char * launchPath,
@@ -4210,8 +4215,8 @@ doTestStringSetMessage(const char * launchPath,
  The first argument is the test number, the second argument is the name of the channel to be used
  with the test, the optional third argument is the machine to connect to and the optional fourth
  argument is the port number to be used. Output depends on the test being run.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used with the unit tests.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main(int      argc,

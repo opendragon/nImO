@@ -426,7 +426,7 @@ namespace nImO
     typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
 
     /*! @brief A pointer to a handler for system signals.
-     @param theSignal The signal of interest. */
+     @param[in] theSignal The signal of interest. */
     typedef void (* SignalHandler)
        (int theSignal);
 
@@ -436,22 +436,22 @@ namespace nImO
     // Methods.
 
     /*! @brief Convert a set of bytes into a floating-point value.
-     @param inString The byte string to be processed.
+     @param[in] inString The byte string to be processed.
      @returns The floating-point value stored in the bytes. */
     double
     B2D(const NumberAsBytes & inString);
 
     /*! @brief Convert a set of bytes into an integer value.
-     @param inString The byte string to be processed.
-     @param numBytes The number of bytes to be processed.
+     @param[in] inString The byte string to be processed.
+     @param[in] numBytes The number of bytes to be processed.
      @returns The integer value stored in the bytes. */
     int64_t
     B2I(const NumberAsBytes & inString,
         const size_t          numBytes);
 
     /*! @brief Convert a floating-point value into a set of bytes.
-     @param inValue The number to be converted.
-     @param outString The byte string to be filled. */
+     @param[in] inValue The number to be converted.
+     @param[out] outString The byte string to be filled. */
     void
     D2B(const double    inValue,
         NumberAsBytes & outString);
@@ -473,22 +473,22 @@ namespace nImO
 
     /*! @brief Convert an integer value into a set of bytes and return the minimum
      number of bytes needed to represent the value.
-     @param inValue The number to be converted.
-     @param outString The byte string to be filled.
+     @param[in] inValue The number to be converted.
+     @param[out] outString The byte string to be filled.
      @returns The minimum number of bytes needed to represent the value. */
     size_t
     I2B(const int64_t   inValue,
         NumberAsBytes & outString);
 
     /*! @brief Perform initialization of internal resources.
-     @param progName The name of the executing program.
+     @param[in] progName The name of the executing program.
 
      Should be called in the main() function of each application or service. */
     void
     Initialize(const std::string & progName);
 
     /*! @brief Return the name of a signal.
-     @param theSignal The signal of interest.
+     @param[in] theSignal The signal of interest.
      @returns A string description of the signal. */
     const char *
     NameOfSignal(const int theSignal);
@@ -502,15 +502,15 @@ namespace nImO
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--vers'displays the version and copyright information and returns
      @c false.
-     @param argc The number of arguments in 'argv'.
-     @param argv The arguments to be used with the utility.
-     @param argumentDescriptions Descriptions of the arguments to the adapter.
-     @param utilityDescription A description of the utility.
-     @param year The copyright year for the calling application.
-     @param copyrightHolder The name of the entity holding the copyright to the utility.
-     @param flavour Set if the -j or -t options are seen.
-     @param ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
-     @param arguments If non-@c NULL, returns the arguments for the utility.
+     @param[in] argc The number of arguments in 'argv'.
+     @param[in] argv The arguments to be used with the utility.
+     @param[in,out] argumentDescriptions Descriptions of the arguments to the adapter.
+     @param[in] utilityDescription A description of the utility.
+     @param[in] year The copyright year for the calling application.
+     @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
+     @param[in,out] flavour Set if the -j or -t options are seen.
+     @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
+     @param[in] arguments If non-@c NULL, returns the arguments for the utility.
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
     ProcessStandardUtilitiesOptions(const int           argc,
@@ -524,15 +524,15 @@ namespace nImO
                                     StringVector *      arguments = NULL);
 
     /*! @brief Return a string with special characters escaped.
-     @param inString The string to be processed.
-     @param allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
+     @param[in] inString The string to be processed.
+     @param[in] allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
      @returns A string with special characters escaped. */
     std::string
     SanitizeString(const std::string & inString,
                    const bool          allowDoubleQuotes = false);
 
     /*! @brief Connect the standard signals to a handler.
-     @param theHandler The new handler for the signals. */
+     @param[in] theHandler The new handler for the signals. */
     void
     SetSignalHandlers(SignalHandler theHandler);
 
@@ -545,8 +545,8 @@ namespace nImO
     ShutDownCatcher(void);
 
     /*! @brief Checks a network port number for validity.
-     @param aPort The port number to be checked.
-     @param systemAllowed @c true if system port numbers are valid and @c false otherwise.
+     @param[in] aPort The port number to be checked.
+     @param[in] systemAllowed @c true if system port numbers are valid and @c false otherwise.
      @returns @c true if the port number is valid and @c false otherwise. */
     inline bool
     ValidPortNumber(const int  aPort,

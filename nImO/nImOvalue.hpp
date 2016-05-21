@@ -82,11 +82,11 @@ namespace nImO
          directly added to the Array and the last Value is returned as the result of the function;
          for all other Value objects, the (single) Value that is extracted is added to the Array to
          simplify the logic, as well as being returned.
-         @param theMessage The Message being processed.
-         @param leadByte The initial byte of the Value.
-         @param position The location of the next byte to be processed.
-         @param status Whether the extraction was successful.
-         @param parentValue A pointer to the Value that will contain the new object.
+         @param[in] theMessage The Message being processed.
+         @param[in] leadByte The initial byte of the Value.
+         @param[in,out] position The location of the next byte to be processed.
+         @param[out] status Whether the extraction was successful.
+         @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
         typedef Value * (* Extractor)
@@ -99,7 +99,10 @@ namespace nImO
     private :
         // Private type definitions.
 
-        /*! @brief The function pointer for StringBuffer readers. */
+        /*! @brief The function pointer for StringBuffer readers.
+         @param[in] inBuffer TBD
+         @param[in,out] position TBD
+         @returns TBD */
         typedef Value * (*BufferReader)
             (const StringBuffer & inBuffer,
              size_t &             position);
@@ -229,7 +232,7 @@ namespace nImO
         } // copy
 
         /*! @brief Return @c true if two Values are structurally identical.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual inline bool
         deeplyEqualTo(const Value & other)
@@ -248,9 +251,9 @@ namespace nImO
         } // enumerationType
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
+         @param[in] other The Value to be compared with.
+         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
+         if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
         equalTo(const Value & other,
@@ -271,11 +274,11 @@ namespace nImO
         } // getTypeTag
 
         /*! @brief Extract a Value for a Message.
-         @param inMessage The Message containing the Value.
-         @param position The position in the Message where the Value starts.
-         @param leadByte The initial byte of the Value representation.
-         @param status The status of the extraction operation.
-         @param parent A pointer to the Value that will contain the new object.
+         @param[in] inMessage The Message containing the Value.
+         @param[in,out] position The position in the Message where the Value starts.
+         @param[in] leadByte The initial byte of the Value representation.
+         @param[out] status The status of the extraction operation.
+         @param[in] parent A pointer to the Value that will contain the new object.
          @returns @c NULL if the Value was not successfully extracted and non-@c NULL on
          success. */
         static Value *
@@ -286,9 +289,9 @@ namespace nImO
                             Array *         parent);
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
+         @param[in] other The Value to be compared with.
+         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
+         if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
         greaterThan(const Value & other,
@@ -303,9 +306,9 @@ namespace nImO
         } // greaterThan
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
+         @param[in] other The Value to be compared with.
+         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
+         if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
         greaterThanOrEqual(const Value & other,
@@ -321,9 +324,9 @@ namespace nImO
         initialize(void);
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
+         @param[in] other The Value to be compared with.
+         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
+         if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
         lessThan(const Value & other,
@@ -338,9 +341,9 @@ namespace nImO
         } // lessThan
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
-         @param validComparison @c true if the Values were comparable and @c false otherwise; if
-         @c false, the returned value should be ignored.
+         @param[in] other The Value to be compared with.
+         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
+         if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
         lessThanOrEqual(const Value & other,
@@ -352,7 +355,7 @@ namespace nImO
         } // lessThanOrEqual
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator <(const Value & other)
@@ -364,7 +367,7 @@ namespace nImO
         } // operator <
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator >(const Value & other)
@@ -376,7 +379,7 @@ namespace nImO
         } // operator >
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator <=(const Value & other)
@@ -388,7 +391,7 @@ namespace nImO
         } // operator <=
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator >=(const Value & other)
@@ -400,7 +403,7 @@ namespace nImO
         } // operator >=
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator ==(const Value & other)
@@ -412,7 +415,7 @@ namespace nImO
         } // operator ==
 
         /*! @brief Return the relative ordering of two Values.
-         @param other The Value to be compared with.
+         @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
         operator !=(const Value & other)
@@ -424,8 +427,8 @@ namespace nImO
         } // operator !=
 
         /*! @brief Add a readable representation of the object to the buffer.
-         @param outBuffer The buffer to be appended to.
-         @param squished @c true if the output has no unnecessary characters and @c false if it
+         @param[in,out] outBuffer The buffer to be appended to.
+         @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual inline void
         printToStringBuffer(StringBuffer & outBuffer,
@@ -438,15 +441,15 @@ namespace nImO
         } // printToStringBuffer
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
-         @param inBuffer The buffer to be scanned.
-         @param position Where in the buffer to start.
+         @param[in] inBuffer The buffer to be scanned.
+         @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
         readFromStringBuffer(const StringBuffer & inBuffer,
                              size_t &             position);
 
         /*! @brief Add a binary representation of the object to the Message.
-         @param outMessage The Message to be appended to. */
+         @param[in,out] outMessage The Message to be appended to. */
         virtual inline void
         writeToMessage(Message & outMessage)
         const
@@ -463,10 +466,10 @@ namespace nImO
         Value(void);
 
         /*! @brief Extracts an integer value from a Message.
-         @param theMessage The Message being processed.
-         @param leadByte The initial byte from the Message.
-         @param position The location of the next byte to be processed.
-         @param status Whether the extraction was successful.
+         @param[in] theMessage The Message being processed.
+         @param[in] leadByte The initial byte from the Message.
+         @param[in,out] position The location of the next byte to be processed.
+         @param[out] status Whether the extraction was successful.
          @returns Zero if there is a problem with the extraction. */
         static int64_t
         extractInt64FromMessage(const Message & theMessage,
@@ -476,13 +479,13 @@ namespace nImO
 
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
-         @param aChar The character of interest.
+         @param[in] aChar The character of interest.
          @returns @c true if the character can appear immediately after a Value in a string. */
         static bool isLegalTerminator(const char aChar);
 
         /*! @brief Add a binary representation of an integer to the Message.
-         @param outMessage The Message to be appended to.
-         @param outValue The integer to be appended. */
+         @param[in,out] outMessage The Message to be appended to.
+         @param[in] outValue The integer to be appended. */
         static void
         writeInt64ToMessage(Message &     outMessage,
                             const int64_t outValue);
@@ -491,10 +494,9 @@ namespace nImO
         // Private methods.
 
         /*! @brief Update the Extractor map with the given values.
-         @param theMap The map to be updated.
-         @param aByte The basic value to be used as the index.
-         @param aMask The bits of interest in the value.
-         @param theExtractor The function to be recorded. */
+         @param[in] aByte The basic value to be used as the index.
+         @param[in] aMask The bits of interest in the value.
+         @param[in] theExtractor The function to be recorded. */
         static void
         addToExtractionMap(const uint8_t aByte,
                            const uint8_t aMask,

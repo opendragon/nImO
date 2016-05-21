@@ -70,7 +70,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor.
-         @param addPadding @c true if a single byte of padding is added to each buffer.
+         @param[in] addPadding @c true if a single byte of padding is added to each buffer.
          The padding is to support direct access to a chunk as a @c NULL-terminated
          string. */
         BufferChunk(const bool addPadding);
@@ -80,8 +80,8 @@ namespace nImO
         ~BufferChunk(void);
 
         /*! @brief Add a sequence of bytes to the chunk.
-         @param data The bytes to be added.
-         @param numBytes The number of bytes to add.
+         @param[in] data The bytes to be added.
+         @param[in] numBytes The number of bytes to add.
 
          Note that if there is insufficient space, the added data will be truncated.
          @returns The BufferChunk object so that cascading can be done. */
@@ -128,11 +128,11 @@ namespace nImO
         // Private methods.
 
         /*! @brief The copy constructor.
-         @param other The object to be copied. */
+         @param[in] other The object to be copied. */
         BufferChunk(const BufferChunk & other);
 
         /*! @brief The assignment operator.
-         @param other The object to be copied.
+         @param[in] other The object to be copied.
          @returns The updated object. */
         BufferChunk &
         operator =(const BufferChunk & other);

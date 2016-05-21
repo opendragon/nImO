@@ -73,10 +73,10 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Compare two byte sequences.
- @param leftValue A pointer to the left sequence.
- @param leftSize The number of bytes in the left sequence.
- @param rightValue A pointer to the right sequence.
- @param rightSize The number of bytes in the right sequence.
+ @param[in] leftValue A pointer to the left sequence.
+ @param[in] leftSize The number of bytes in the left sequence.
+ @param[in] rightValue A pointer to the right sequence.
+ @param[in] rightSize The number of bytes in the right sequence.
  @returns @c 1 if the left sequence is lexicographically greater than
  the right sequence, @c 0 if they are the same sequence and @c -1 if
  the left sequence is lexicographically less than the right sequence. */

@@ -39,3 +39,8 @@ odl/swig_odl_out_python
 Doxygen_output
 dumpHexOfFloat
 dumpHexOfFloat.cpp
+cmake_install.cmake
+CMakeCache.txt
+CTestTestfile.cmake
+install_manifest.txt
+CMakeFiles

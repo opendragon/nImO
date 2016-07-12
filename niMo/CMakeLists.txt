@@ -132,7 +132,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOvalue.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
         DESTINATION include/nImO
-	COMPONENT headers)
+    COMPONENT headers)
 
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES swig_nImO_in/nImOcommon.i

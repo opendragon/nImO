@@ -201,6 +201,43 @@ nImO::B2I(const nImO::NumberAsBytes & inString,
     return result;
 } // nImO::B2I
 
+size_t
+nImO::CompareBytes(const void * first,
+                   const void * second,
+                   const size_t numBytes)
+{
+    ODL_ENTER(); //####
+    ODL_P2("first = ", first, "second = ", second); //####
+    ODL_LL1("numBytes = ", numBytes); //####
+    size_t result;
+
+    if (memcmp(first, second, numBytes))
+    {
+        const uint8_t * firstWalker = static_cast<const uint8_t *>(first);
+        const uint8_t * secondWalker = static_cast<const uint8_t *>(second);
+
+        for (size_t ii = 0; numBytes > ii; ++ii)
+        {
+            uint8_t firstByte = *firstWalker++;
+            uint8_t secondByte = *secondWalker++;
+
+            if (firstByte != secondByte)
+            {
+                ODL_LL1("mismatch at index: ", ii); //####
+                result = ii + 1;
+                break;
+            }
+
+        }
+    }
+    else
+    {
+        result = 0;
+    }
+    ODL_EXIT_LL(result); //####
+    return result;
+} // nImO::CompareBytes
+
 void
 nImO::D2B(const double          inValue,
           nImO::NumberAsBytes & outString)
@@ -347,7 +384,7 @@ nImO::I2B(const int64_t         inValue,
           nImO::NumberAsBytes & outString)
 {
     ODL_ENTER(); //####
-    ODL_LL1("inValue = ", inValue); //####
+    ODL_XL1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
     int64_t workValue = inValue;
     size_t  length = 0;

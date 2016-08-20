@@ -178,7 +178,8 @@ endif(WIN32)
 set(nImO_LINK_LIBRARIES nImOcommon odLogging ${BONJOUR_LIB})
 
 if(LINUX)
-    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)
+#    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)
+    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread)
 endif(LINUX)
 
 add_subdirectory(Connect)

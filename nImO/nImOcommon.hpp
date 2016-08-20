@@ -449,6 +449,17 @@ namespace nImO
     B2I(const NumberAsBytes & inString,
         const size_t          numBytes);
 
+    /*! @brief Compare two byte strings.
+     @param[in] first The first byte string.
+     @param[in] second The second byte string.
+     @param[in] numBytes The number of bytes to be compared.
+     @returns @c 0 if the two byte strings are identical or the positive index (1-origin) where the
+     two byte strings differ. */
+    size_t
+    CompareBytes(const void * first,
+                 const void * second,
+                 const size_t numBytes);
+
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */
@@ -471,8 +482,8 @@ namespace nImO
     std::string
     GetRandomHexString(void);
 
-    /*! @brief Convert an integer value into a set of bytes and return the minimum
-     number of bytes needed to represent the value.
+    /*! @brief Convert an integer value into a set of bytes and return the minimum number of bytes
+     needed to represent the value.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled.
      @returns The minimum number of bytes needed to represent the value. */

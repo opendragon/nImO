@@ -46,6 +46,7 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <stdio.h>
 #include <inttypes.h>
 
 #if defined(__APPLE__)

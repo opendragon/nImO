@@ -41,7 +41,7 @@
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
 #include <nImO/nImOmessage.hpp>
-#include <nImO/nImOstringbuffer.hpp>
+#include <nImO/nImOstringBuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
@@ -692,7 +692,8 @@ const
         std::queue<double> doublesSeen;
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
-        writeInt64ToMessage(outMessage, inherited2::size() + kKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, inherited2::size() +
+                            static_cast<int64_t>(kKindIntegerShortValueMinValue - 1));
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
             Value * aValue = *walker;

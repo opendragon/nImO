@@ -1169,9 +1169,10 @@ doTestBigStringBuffer(const char * launchPath,
                 for (size_t ii = 0; (0 == result) && (kBigTestSize > ii);
                      ++ii, resultString += bigLength)
                 {
-                    if (0 != memcmp(bigString, resultString, bigLength))
+                    if (0 != nImO::CompareBytes(bigString, resultString, bigLength))
                     {
-                        ODL_LOG("(0 != memcmp(bigString, resultString, bigLength))"); //####
+                        ODL_LOG("(0 != nImO::CompareBytes(bigString, resultString, " //####
+                                "bigLength))"); //####
                         result = 1;
                     }
                 }
@@ -2723,14 +2724,14 @@ doTestBlobCopyAndAssign(const char * launchPath,
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = memcmp(smallValue, smallBlob, kSmallTestSize);
+                result = nImO::CompareBytes(smallValue, smallBlob, kSmallTestSize);
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = memcmp(bigValue, bigBlob, kBigTestSize);
+                    result = nImO::CompareBytes(bigValue, bigBlob, kBigTestSize);
                 }
             }
             if (0 == result)
@@ -2744,14 +2745,14 @@ doTestBlobCopyAndAssign(const char * launchPath,
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = memcmp(smallValue, smallBlob, kSmallTestSize);
+                    result = nImO::CompareBytes(smallValue, smallBlob, kSmallTestSize);
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = memcmp(bigValue, bigBlob, kBigTestSize);
+                        result = nImO::CompareBytes(bigValue, bigBlob, kBigTestSize);
                     }
                 }
                 if (0 == result)
@@ -2764,14 +2765,14 @@ doTestBlobCopyAndAssign(const char * launchPath,
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = memcmp(smallValue, bigBlob, kBigTestSize);
+                        result = nImO::CompareBytes(smallValue, bigBlob, kBigTestSize);
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = memcmp(bigValue, smallBlob, kSmallTestSize);
+                            result = nImO::CompareBytes(bigValue, smallBlob, kSmallTestSize);
                         }
                     }
                 }

@@ -70,34 +70,34 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const uint8_t kInitEmptyMessageValue = (nImO::DataKind::kKindOther |
-                                               nImO::DataKind::kKindOtherMessage |
-                                               nImO::DataKind::kKindOtherMessageStartValue |
-                                               nImO::DataKind::kKindOtherMessageEmptyValue);
+static const uint8_t kInitEmptyMessageValue = (nImO::kKindOther |
+                                               nImO::kKindOtherMessage |
+                                               nImO::kKindOtherMessageStartValue |
+                                               nImO::kKindOtherMessageEmptyValue);
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
-static const uint8_t kInitTermMessageMask = (nImO::DataKind::kKindMask |
-                                             nImO::DataKind::kKindOtherTypeMask |
-                                             nImO::DataKind::kKindOtherMessageStartEndMask |
-                                             nImO::DataKind::kKindOtherMessageEmptyMask);
+static const uint8_t kInitTermMessageMask = (nImO::kKindMask |
+                                             nImO::kKindOtherTypeMask |
+                                             nImO::kKindOtherMessageStartEndMask |
+                                             nImO::kKindOtherMessageEmptyMask);
 
 /*! @brief The trailing byte for an empty Message. */
-static const uint8_t kTermEmptyMessageValue = (nImO::DataKind::kKindOther |
-                                               nImO::DataKind::kKindOtherMessage |
-                                               nImO::DataKind::kKindOtherMessageEndValue |
-                                               nImO::DataKind::kKindOtherMessageEmptyValue);
+static const uint8_t kTermEmptyMessageValue = (nImO::kKindOther |
+                                               nImO::kKindOtherMessage |
+                                               nImO::kKindOtherMessageEndValue |
+                                               nImO::kKindOtherMessageEmptyValue);
 
 /*! @brief The lead byte for a non-empty Message. */
-static const uint8_t kInitNonEmptyMessageValue = (nImO::DataKind::kKindOther |
-                                                  nImO::DataKind::kKindOtherMessage |
-                                                  nImO::DataKind::kKindOtherMessageStartValue |
-                                                  nImO::DataKind::kKindOtherMessageNonEmptyValue);
+static const uint8_t kInitNonEmptyMessageValue = (nImO::kKindOther |
+                                                  nImO::kKindOtherMessage |
+                                                  nImO::kKindOtherMessageStartValue |
+                                                  nImO::kKindOtherMessageNonEmptyValue);
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const uint8_t kTermNonEmptyMessageValue = (nImO::DataKind::kKindOther |
-                                                  nImO::DataKind::kKindOtherMessage |
-                                                  nImO::DataKind::kKindOtherMessageEndValue |
-                                                  nImO::DataKind::kKindOtherMessageNonEmptyValue);
+static const uint8_t kTermNonEmptyMessageValue = (nImO::kKindOther |
+                                                  nImO::kKindOtherMessage |
+                                                  nImO::kKindOtherMessageEndValue |
+                                                  nImO::kKindOtherMessageNonEmptyValue);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

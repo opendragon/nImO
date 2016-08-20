@@ -42,7 +42,9 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#if (! MAC_OR_LINUX_)
+#if MAC_OR_LINUX_
+# include <unistd.h>
+#else // ! MAC_OR_LINUX_
 # include <io.h>
 #endif // ! MAC_OR_LINUX_
 

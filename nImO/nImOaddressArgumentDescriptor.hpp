@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOAddressArgumentDescriptor.hpp
+//  File:       nImO/nImOaddressArgumentDescriptor.hpp
 //
 //  Project:    nImO
 //

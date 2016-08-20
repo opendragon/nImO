@@ -50,6 +50,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <stdio.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <niMo/nImOarray.hpp>
+#include <nImO/nImOarray.hpp>
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
@@ -238,13 +238,13 @@ doTestEmptyMessage(const char * launchPath,
             static const uint8_t bytesToInsert[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageEmptyValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageEmptyValue
             };
             const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
@@ -340,36 +340,36 @@ doTestBooleanMessage(const char * launchPath,
             static const uint8_t insertedBytesForTrue[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanTrueValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanTrueValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedTrueCount = (sizeof(insertedBytesForTrue) /
                                               sizeof(*insertedBytesForTrue));
             static const uint8_t insertedBytesForFalse[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t  insertedFalseCount = (sizeof(insertedBytesForFalse) /
                                                 sizeof(*insertedBytesForFalse));
@@ -440,54 +440,54 @@ doTestTinyIntegerMessage(const char * launchPath,
             static const uint8_t insertedBytesForMinus12[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
-                  (-12 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                  (-12 & nImO::kKindIntegerShortValueValueMask),
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus12Count = (sizeof(insertedBytesForMinus12) /
                                                  sizeof(*insertedBytesForMinus12));
             static const uint8_t insertedBytesForZero[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t insertedZeroCount = (sizeof(insertedBytesForZero) /
                                               sizeof(*insertedBytesForZero));
             static const uint8_t insertedBytesForPlus12[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
-                  (12 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                  (12 & nImO::kKindIntegerShortValueValueMask),
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus12Count = (sizeof(insertedBytesForPlus12) /
                                                  sizeof(*insertedBytesForPlus12));
@@ -564,38 +564,38 @@ doTestShortIntegerMessage(const char * launchPath,
             static const uint8_t insertedBytesForMinus144[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((2 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((2 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0xFF, 0x70,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus144Count = (sizeof(insertedBytesForMinus144) /
                                                   sizeof(*insertedBytesForMinus144));
             static const uint8_t insertedBytesForPlus144[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((2 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((2 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0x00, 0x90,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus144Count = (sizeof(insertedBytesForPlus144) /
                                                   sizeof(*insertedBytesForPlus144));
@@ -666,38 +666,38 @@ doTestMediumIntegerMessage(const char * launchPath,
             static const uint8_t insertedBytesForMinus1234567[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((3 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((3 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0xED, 0x29, 0x79,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus1234567Count = (sizeof(insertedBytesForMinus1234567) /
                                                       sizeof(*insertedBytesForMinus1234567));
             static const uint8_t insertedBytesForPlus1234567[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((3 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((3 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0x12, 0xD6, 0x87,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus1234567Count = (sizeof(insertedBytesForPlus1234567) /
                                                       sizeof(*insertedBytesForPlus1234567));
@@ -768,38 +768,38 @@ doTestBigIntegerMessage(const char * launchPath,
             static const uint8_t insertedBytesForMinusBigNumber[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((6 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((6 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t insertedMinusBigNumberCount = (sizeof(insertedBytesForMinusBigNumber) /
                                                         sizeof(*insertedBytesForMinusBigNumber));
             static const uint8_t insertedBytesForPlusBigNumber[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((6 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((6 - 1) & nImO::kKindIntegerLongValueCountMask),
                 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedIntegerValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlusBigNumberCount = (sizeof(insertedBytesForPlusBigNumber) /
                                                         sizeof(*insertedBytesForPlusBigNumber));
@@ -870,19 +870,19 @@ doTestEmptyStringMessage(const char * launchPath,
             static const uint8_t insertedBytesForEmptyString[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedEmptyStringCount = (sizeof(insertedBytesForEmptyString) /
                                                      sizeof(*insertedBytesForEmptyString));
@@ -947,20 +947,20 @@ doTestShortStringMessage(const char * launchPath,
             static const uint8_t insertedBytesForShortString[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (6 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (6 & nImO::kKindStringOrBlobShortLengthMask),
                 'a', 'b', 'c', 'd', 'e', 'f',
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedShortStringCount = (sizeof(insertedBytesForShortString) /
                                                      sizeof(*insertedBytesForShortString));
@@ -1025,14 +1025,14 @@ doTestMediumStringMessage(const char * launchPath,
             static const uint8_t insertedBytesForMediumString[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) & nImO::DataKind::kKindStringOrBlobLongLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobLongLengthValue +
+                  ((1 - 1) & nImO::kKindStringOrBlobLongLengthMask),
                 42,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
@@ -1042,10 +1042,10 @@ doTestMediumStringMessage(const char * launchPath,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedMediumStringCount = (sizeof(insertedBytesForMediumString) /
                                                       sizeof(*insertedBytesForMediumString));
@@ -1110,19 +1110,19 @@ doTestEmptyBlobMessage(const char * launchPath,
             static const uint8_t insertedBytesForEmptyBlob[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedEmptyBlobCount = (sizeof(insertedBytesForEmptyBlob) /
                                                    sizeof(*insertedBytesForEmptyBlob));
@@ -1187,20 +1187,20 @@ doTestShortBlobMessage(const char * launchPath,
             static const uint8_t insertedBytesForShortBlob[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (6 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (6 & nImO::kKindStringOrBlobShortLengthMask),
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedShortBlobCount = (sizeof(insertedBytesForShortBlob) /
                                                    sizeof(*insertedBytesForShortBlob));
@@ -1270,14 +1270,14 @@ doTestMediumBlobMessage(const char * launchPath,
             static const uint8_t insertedBytesForMediumBlob[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) & nImO::DataKind::kKindStringOrBlobLongLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobLongLengthValue +
+                  ((1 - 1) & nImO::kKindStringOrBlobLongLengthMask),
                 42,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1287,10 +1287,10 @@ doTestMediumBlobMessage(const char * launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedStringOrBlobValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedMediumBlobCount = (sizeof(insertedBytesForMediumBlob) /
                                                     sizeof(*insertedBytesForMediumBlob));
@@ -1366,40 +1366,40 @@ doTestSingleFloatMessage(const char * launchPath,
             static const uint8_t insertedBytesForPlus42Point5[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedDoubleValue,
                 // Double
-                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
-                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
-                    nImO::DataKind::kKindDoubleShortCountMask),
+                nImO::kKindDouble + nImO::kKindDoubleShortCount +
+                  ((1 - nImO::kKindDoubleShortCountMinValue) &
+                    nImO::kKindDoubleShortCountMask),
                 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedDoubleValue
             };
             const size_t insertedPlus42Point5Count = (sizeof(insertedBytesForPlus42Point5) /
                                                       sizeof(*insertedBytesForPlus42Point5));
             static const uint8_t insertedBytesForMinus42Point5[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedDoubleValue,
                 // Double
-                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
-                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
-                    nImO::DataKind::kKindDoubleShortCountMask),
+                nImO::kKindDouble + nImO::kKindDoubleShortCount +
+                  ((1 - nImO::kKindDoubleShortCountMinValue) &
+                    nImO::kKindDoubleShortCountMask),
                 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedDoubleValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedDoubleValue
             };
             const size_t insertedMinus42Point5Count = (sizeof(insertedBytesForMinus42Point5) /
                                                        sizeof(*insertedBytesForMinus42Point5));
@@ -1470,23 +1470,23 @@ doTestEmptyArrayMessage(const char * launchPath,
             static const uint8_t insertedBytesForEmptyArray[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedEmptyArrayCount = (sizeof(insertedBytesForEmptyArray) /
                                                     sizeof(*insertedBytesForEmptyArray));
@@ -1551,23 +1551,23 @@ doTestEmptyMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForEmptyMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedEmptyMapCount = (sizeof(insertedBytesForEmptyMap) /
                                                   sizeof(*insertedBytesForEmptyMap));
@@ -1632,23 +1632,23 @@ doTestEmptySetMessage(const char * launchPath,
             static const uint8_t insertedBytesForEmptySet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedEmptySetCount = (sizeof(insertedBytesForEmptySet) /
                                                   sizeof(*insertedBytesForEmptySet));
@@ -1713,31 +1713,31 @@ doTestArrayOneBooleanMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneBoolean[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneBooleanCount = (sizeof(insertedBytesForArrayOneBoolean) /
                                                          sizeof(*insertedBytesForArrayOneBoolean));
@@ -1803,31 +1803,31 @@ doTestArrayOneIntegerMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneInteger[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneIntegerCount = (sizeof(insertedBytesForArrayOneInteger) /
                                                          sizeof(*insertedBytesForArrayOneInteger));
@@ -1893,33 +1893,33 @@ doTestArrayOneDoubleMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneDouble[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Double
-                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
-                  ((1 - nImO::DataKind::kKindDoubleShortCountMinValue) &
-                    nImO::DataKind::kKindDoubleShortCountMask),
+                nImO::kKindDouble + nImO::kKindDoubleShortCount +
+                  ((1 - nImO::kKindDoubleShortCountMinValue) &
+                    nImO::kKindDoubleShortCountMask),
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneDoubleCount = (sizeof(insertedBytesForArrayOneDouble) /
                                                         sizeof(*insertedBytesForArrayOneDouble));
@@ -1985,32 +1985,32 @@ doTestArrayOneStringMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneString[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneStringCount = (sizeof(insertedBytesForArrayOneString) /
                                                         sizeof(*insertedBytesForArrayOneString));
@@ -2076,32 +2076,32 @@ doTestArrayOneBlobMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneBlob[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneBlobCount = (sizeof(insertedBytesForArrayOneBlob) /
                                                       sizeof(*insertedBytesForArrayOneBlob));
@@ -2167,36 +2167,36 @@ doTestArrayOneArrayMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneArray[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneArrayCount = (sizeof(insertedBytesForArrayOneArray) /
                                                        sizeof(*insertedBytesForArrayOneArray));
@@ -2262,36 +2262,36 @@ doTestArrayOneMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneMapCount = (sizeof(insertedBytesForArrayOneMap) /
                                                      sizeof(*insertedBytesForArrayOneMap));
@@ -2357,36 +2357,36 @@ doTestArrayOneSetMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneSet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneSetCount = (sizeof(insertedBytesForArrayOneSet) /
                                                      sizeof(*insertedBytesForArrayOneSet));
@@ -2452,34 +2452,34 @@ doTestArrayTwoBooleansMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoBooleans[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoBooleansCount = (sizeof(insertedBytesForArrayTwoBooleans) /
                                                          sizeof(*insertedBytesForArrayTwoBooleans));
@@ -2546,34 +2546,34 @@ doTestArrayTwoIntegersMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoIntegers[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoIntegersCount =
                                                      (sizeof(insertedBytesForArrayTwoIntegers) /
@@ -2641,34 +2641,34 @@ doTestArrayTwoDoublesMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoDoubles[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Double
-                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleShortCount +
-                  ((2 - nImO::DataKind::kKindDoubleShortCountMinValue) &
-                    nImO::DataKind::kKindDoubleShortCountMask),
+                nImO::kKindDouble + nImO::kKindDoubleShortCount +
+                  ((2 - nImO::kKindDoubleShortCountMinValue) &
+                    nImO::kKindDoubleShortCountMask),
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoDoublesCount = (sizeof(insertedBytesForArrayTwoDoubles) /
                                                          sizeof(*insertedBytesForArrayTwoDoubles));
@@ -2735,36 +2735,36 @@ doTestArrayTwoStringsMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoStrings[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoStringsCount = (sizeof(insertedBytesForArrayTwoStrings) /
                                                          sizeof(*insertedBytesForArrayTwoStrings));
@@ -2831,36 +2831,36 @@ doTestArrayTwoBlobsMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoBlobs[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // Blob
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobBlobValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoBlobsCount = (sizeof(insertedBytesForArrayTwoBlobs) /
                                                        sizeof(*insertedBytesForArrayTwoBlobs));
@@ -2927,44 +2927,44 @@ doTestArrayTwoArraysMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoArrays[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoArraysCount = (sizeof(insertedBytesForArrayTwoArrays) /
                                                         sizeof(*insertedBytesForArrayTwoArrays));
@@ -3031,44 +3031,44 @@ doTestArrayTwoMapsMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoMaps[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoMapsCount = (sizeof(insertedBytesForArrayTwoMaps) /
                                                       sizeof(*insertedBytesForArrayTwoMaps));
@@ -3135,44 +3135,44 @@ doTestArrayTwoSetsMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayTwoSets[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoSetsCount = (sizeof(insertedBytesForArrayTwoSets) /
                                                       sizeof(*insertedBytesForArrayTwoSets));
@@ -3239,44 +3239,44 @@ doTestArrayOneArrayOneMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneArrayOneMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneArrayOneMapCount =
                                                     (sizeof(insertedBytesForArrayOneArrayOneMap) /
@@ -3344,44 +3344,44 @@ doTestArrayOneMapOneSetMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneMapOneSet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneMapOneSetCount =
                                                       (sizeof(insertedBytesForArrayOneMapOneSet) /
@@ -3449,44 +3449,44 @@ doTestArrayOneSetOneArrayMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayOneSetOneArray[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((2 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerEmptyValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerEmptyValue,
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneSetOneArrayCount =
                                                     (sizeof(insertedBytesForArrayOneSetOneArray) /
@@ -3555,21 +3555,21 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
             static const uint8_t insertedBytesForArrayManyDoubles[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerLongValue +
-                  ((1 - 1) & nImO::DataKind::kKindIntegerLongValueCountMask),
-                numValues + nImO::DataKind::kKindIntegerShortValueMinValue - 1,
+                nImO::kKindInteger + nImO::kKindIntegerLongValue +
+                  ((1 - 1) & nImO::kKindIntegerLongValueCountMask),
+                numValues + nImO::kKindIntegerShortValueMinValue - 1,
                 // Double
-                nImO::DataKind::kKindDouble + nImO::DataKind::kKindDoubleLongCount +
-                  ((1 - 1) & nImO::DataKind::kKindDoubleLongCountMask),
+                nImO::kKindDouble + nImO::kKindDoubleLongCount +
+                  ((1 - 1) & nImO::kKindDoubleLongCountMask),
                 numValues,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
                 0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1
@@ -3615,14 +3615,14 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
                 0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
                 0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
                 // End of Array
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeArray +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeArray +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedArrayManyDoublesCount =
                                                      (sizeof(insertedBytesForArrayManyDoubles) /
@@ -3693,34 +3693,34 @@ doTestBooleanMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForBooleanMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
-                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                  (13 & nImO::kKindIntegerShortValueValueMask),
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedBooleanMapCount = (sizeof(insertedBytesForBooleanMap) /
                                                     sizeof(*insertedBytesForBooleanMap));
@@ -3786,34 +3786,34 @@ doTestIntegerMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForIntegerMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
-                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                  (13 & nImO::kKindIntegerShortValueValueMask),
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedIntegerMapCount = (sizeof(insertedBytesForIntegerMap) /
                                                     sizeof(*insertedBytesForIntegerMap));
@@ -3879,35 +3879,35 @@ doTestStringMapMessage(const char * launchPath,
             static const uint8_t insertedBytesForStringMap[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
-                  (13 & nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                  (13 & nImO::kKindIntegerShortValueValueMask),
                 // End of Map
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeMap +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeMap +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedStringMapCount = (sizeof(insertedBytesForStringMap) /
                                                    sizeof(*insertedBytesForStringMap));
@@ -3973,31 +3973,31 @@ doTestBooleanSetMessage(const char * launchPath,
             static const uint8_t insertedBytesForBooleanSet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Boolean
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherBoolean +
-                  nImO::DataKind::kKindOtherBooleanFalseValue,
+                nImO::kKindOther + nImO::kKindOtherBoolean +
+                  nImO::kKindOtherBooleanFalseValue,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedBooleanSetCount = (sizeof(insertedBytesForBooleanSet) /
                                                     sizeof(*insertedBytesForBooleanSet));
@@ -4063,31 +4063,31 @@ doTestIntegerSetMessage(const char * launchPath,
             static const uint8_t insertedBytesForIntegerSet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // Signed Integer
-                nImO::DataKind::kKindInteger + nImO::DataKind::kKindIntegerShortValue +
+                nImO::kKindInteger + nImO::kKindIntegerShortValue +
                   0,
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedIntegerSetCount = (sizeof(insertedBytesForIntegerSet) /
                                                     sizeof(*insertedBytesForIntegerSet));
@@ -4153,32 +4153,32 @@ doTestStringSetMessage(const char * launchPath,
             static const uint8_t insertedBytesForStringSet[] =
             {
                 // Start of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageStartValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue,
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageStartValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue,
                 // Start of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerStart +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerStart +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
-                nImO::DataKind::kKindInteger +
-                  nImO::DataKind::kKindIntegerShortValue +
-                  ((1 + nImO::DataKind::kKindIntegerShortValueMinValue - 1) &
-                    nImO::DataKind::kKindIntegerShortValueValueMask),
+                nImO::kKindInteger +
+                  nImO::kKindIntegerShortValue +
+                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
+                    nImO::kKindIntegerShortValueValueMask),
                 // String
-                nImO::DataKind::kKindStringOrBlob + nImO::DataKind::kKindStringOrBlobStringValue +
-                  nImO::DataKind::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::DataKind::kKindStringOrBlobShortLengthMask),
+                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
+                  nImO::kKindStringOrBlobShortLengthValue +
+                  (0 & nImO::kKindStringOrBlobShortLengthMask),
                 // End of Set
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherContainerEnd +
-                  nImO::DataKind::kKindOtherContainerTypeSet +
-                  nImO::DataKind::kKindOtherContainerNonEmptyValue,
+                nImO::kKindOther + nImO::kKindOtherContainerEnd +
+                  nImO::kKindOtherContainerTypeSet +
+                  nImO::kKindOtherContainerNonEmptyValue,
                 // End of Message
-                nImO::DataKind::kKindOther + nImO::DataKind::kKindOtherMessage +
-                  nImO::DataKind::kKindOtherMessageEndValue +
-                  nImO::DataKind::kKindOtherMessageNonEmptyValue +
-                  nImO::DataKind::kKindOtherMessageExpectedOtherValue
+                nImO::kKindOther + nImO::kKindOtherMessage +
+                  nImO::kKindOtherMessageEndValue +
+                  nImO::kKindOtherMessageNonEmptyValue +
+                  nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t insertedStringSetCount = (sizeof(insertedBytesForStringSet) /
                                                    sizeof(*insertedBytesForStringSet));

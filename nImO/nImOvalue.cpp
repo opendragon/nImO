@@ -439,9 +439,11 @@ nImO::Value::writeInt64ToMessage(nImO::Message & outMessage,
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_LL1("outValue = ", outValue); //####
-    if ((-16 <= outValue) && (15 >= outValue))
+    if ((kKindIntegerShortValueMinValue <= outValue) &&
+        (kKindIntegerShortValueMaxValue >= outValue))
     {
-        ODL_LOG("((-16 <= outValue) && (15 >= outValue))"); //####
+        ODL_LOG("((kKindIntegerShortValueMinValue <= outValue) && " //####
+                "(kKindIntegerShortValueMaxValue >= outValue))"); //####
         uint8_t stuff = kKindInteger + kKindIntegerShortValue +
                         (outValue & kKindIntegerShortValueValueMask);
 
@@ -449,7 +451,8 @@ nImO::Value::writeInt64ToMessage(nImO::Message & outMessage,
     }
     else
     {
-        ODL_LOG("! ((-16 <= outValue) && (15 >= outValue))"); //####
+        ODL_LOG("! ((kKindIntegerShortValueMinValue <= outValue) && " //####
+                "(kKindIntegerShortValueMaxValue >= outValue))"); //####
         NumberAsBytes numBuff;
         size_t        numBytes = I2B(outValue, numBuff);
 

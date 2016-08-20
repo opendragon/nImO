@@ -40,7 +40,7 @@
 
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
-#include <nImO/nImOstringbuffer.hpp>
+#include <nImO/nImOstringBuffer.hpp>
 
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>

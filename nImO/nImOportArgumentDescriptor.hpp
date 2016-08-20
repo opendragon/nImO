@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOPortArgumentDescriptor.h
+//  File:       nImO/nImOportArgumentDescriptor.h
 //
 //  Project:    nImO
 //

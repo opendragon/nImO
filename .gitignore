@@ -44,3 +44,5 @@ CMakeCache.txt
 CTestTestfile.cmake
 install_manifest.txt
 CMakeFiles
+Monitor/nImOmonitor
+Monitor/nImOmonitor.rc

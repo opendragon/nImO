@@ -27,6 +27,10 @@
 		F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOportArgumentDescriptor.hpp; path = nImO/nImOportArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringArgumentDescriptor.cpp; path = nImO/nImOstringArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringArgumentDescriptor.hpp; path = nImO/nImOstringArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F666302E1E3AD67000CAD88F /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Monitor/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmonitor.rc.in; path = Monitor/nImOmonitor.rc.in; sourceTree = SOURCE_ROOT; };
+		F66630301E3AD67000CAD88F /* nImOmonitorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmonitorMain.cpp; path = Monitor/nImOmonitorMain.cpp; sourceTree = SOURCE_ROOT; };
+		F66630311E3AD67000CAD88F /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Monitor/resource.h; sourceTree = SOURCE_ROOT; };
 		F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringBuffer.hpp; path = nImO/nImOstringBuffer.hpp; sourceTree = SOURCE_ROOT; };
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
@@ -123,6 +127,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		F666302D1E3AD65000CAD88F /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				F666302E1E3AD67000CAD88F /* CMakeLists.txt */,
+				F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */,
+				F66630301E3AD67000CAD88F /* nImOmonitorMain.cpp */,
+				F66630311E3AD67000CAD88F /* resource.h */,
+			);
+			name = Monitor;
+			sourceTree = SOURCE_ROOT;
+		};
 		F6747F911CA70BB40070B240 /* odl */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +170,7 @@
 				F6B388EF1C77F2AA004B2D42 /* Disconnect */,
 				F6B388F01C77F2B4004B2D42 /* Info */,
 				F6B388F11C77F2BC004B2D42 /* List */,
+				F666302D1E3AD65000CAD88F /* Monitor */,
 				F6B388F21C77F2E0004B2D42 /* nImO */,
 				F6747F911CA70BB40070B240 /* odl */,
 				F6B388F31C77F2EF004B2D42 /* Read */,

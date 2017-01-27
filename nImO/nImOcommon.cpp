@@ -209,7 +209,7 @@ nImO::CompareBytes(const void * first,
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
     ODL_LL1("numBytes = ", numBytes); //####
-    size_t result;
+    size_t result = 0;
 
     if (memcmp(first, second, numBytes))
     {
@@ -229,10 +229,6 @@ nImO::CompareBytes(const void * first,
             }
 
         }
-    }
-    else
-    {
-        result = 0;
     }
     ODL_EXIT_LL(result); //####
     return result;
@@ -261,7 +257,7 @@ Common::DumpContactToLog(const char *              tag,
     if (lLogger)
     {
         std::stringstream buff;
-        std::string        message("tag = ");
+        std::string       message("tag = ");
 
         buff << aContact.getPort();
         message += tag;

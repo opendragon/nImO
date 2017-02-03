@@ -169,7 +169,7 @@ localCatcher(int signal)
 #endif // defined(__APPLE__)
 
 double
-nImO::B2D(const nImO::NumberAsBytes & inString)
+nImO::B2D(const nImO::NumberAsBytes &inString)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -181,15 +181,15 @@ nImO::B2D(const nImO::NumberAsBytes & inString)
 } // nImO::B2D
 
 int64_t
-nImO::B2I(const nImO::NumberAsBytes & inString,
-          const size_t                numBytes)
+nImO::B2I(const nImO::NumberAsBytes &inString,
+          const size_t              numBytes)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
     ODL_LL1("numBytes = ", numBytes); //####
-    bool            isNegative = (0 != (0x080 & inString[0]));
-    const uint8_t * walker = inString;
-    int64_t         result = (isNegative ? -1 : 0);
+    bool          isNegative = (0 != (0x080 &inString[0]));
+    const uint8_t *walker = inString;
+    int64_t       result = (isNegative ? -1 : 0);
 
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
@@ -202,8 +202,8 @@ nImO::B2I(const nImO::NumberAsBytes & inString,
 } // nImO::B2I
 
 size_t
-nImO::CompareBytes(const void * first,
-                   const void * second,
+nImO::CompareBytes(const void   *first,
+                   const void   *second,
                    const size_t numBytes)
 {
     ODL_ENTER(); //####
@@ -213,8 +213,8 @@ nImO::CompareBytes(const void * first,
 
     if (memcmp(first, second, numBytes))
     {
-        const uint8_t * firstWalker = static_cast<const uint8_t *>(first);
-        const uint8_t * secondWalker = static_cast<const uint8_t *>(second);
+        const uint8_t *firstWalker = static_cast<const uint8_t *>(first);
+        const uint8_t *secondWalker = static_cast<const uint8_t *>(second);
 
         for (size_t ii = 0; numBytes > ii; ++ii)
         {
@@ -235,8 +235,8 @@ nImO::CompareBytes(const void * first,
 } // nImO::CompareBytes
 
 void
-nImO::D2B(const double          inValue,
-          nImO::NumberAsBytes & outString)
+nImO::D2B(const double        inValue,
+          nImO::NumberAsBytes &outString)
 {
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
@@ -250,8 +250,8 @@ nImO::D2B(const double          inValue,
 
 #if 0
 void
-Common::DumpContactToLog(const char *              tag,
-                         const yarp::os::Contact & aContact)
+Common::DumpContactToLog(const char              *tag,
+                         const yarp::os::Contact &aContact)
 {
 #if MAC_OR_LINUX_
     if (lLogger)
@@ -324,7 +324,7 @@ Common::GetLogger(void)
 #endif //0
 
 std::string
-nImO::GetRandomChannelName(const char * channelRoot)
+nImO::GetRandomChannelName(const char *channelRoot)
 {
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####
@@ -333,11 +333,11 @@ nImO::GetRandomChannelName(const char * channelRoot)
     try
     {
         bool              hasLeadingSlash = false;
-        const char *      stringToUse;
+        const char        *stringToUse;
 #if 0
         int               randNumb = static_cast<int>(yarp::os::Random::uniform() * kMaxRandom);
 #else//0
-        int randNumb = 17;
+        int               randNumb = 17;
 #endif//0
         std::stringstream buff;
 
@@ -370,14 +370,14 @@ nImO::GetRandomChannelName(const char * channelRoot)
 } // nImO::GetRandomChannelName
 
 std::string
-nImO::GetRandomChannelName(const std::string & channelRoot)
+nImO::GetRandomChannelName(const std::string &channelRoot)
 {
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
 
 size_t
-nImO::I2B(const int64_t         inValue,
-          nImO::NumberAsBytes & outString)
+nImO::I2B(const int64_t       inValue,
+          nImO::NumberAsBytes &outString)
 {
     ODL_ENTER(); //####
     ODL_XL1("inValue = ", inValue); //####
@@ -387,7 +387,7 @@ nImO::I2B(const int64_t         inValue,
 
     for (size_t ii = sizeof(inValue); 0 < ii; --ii)
     {
-        outString[ii - 1] = (0x0FF & workValue);
+        outString[ii - 1] = (0x0FF &workValue);
         workValue >>= 8;
     }
     if (0 <= inValue)
@@ -404,7 +404,7 @@ nImO::I2B(const int64_t         inValue,
         {
             uint8_t aByte = outString[sizeof(inValue) - length];
 
-            if (0x00 != (0x080 & aByte))
+            if (0x00 != (0x080 &aByte))
             {
                 ++length;
             }
@@ -424,7 +424,7 @@ nImO::I2B(const int64_t         inValue,
         {
             uint8_t aByte = outString[sizeof(inValue) - length];
 
-            if (0x00 == (0x080 & aByte))
+            if (0x00 == (0x080 &aByte))
             {
                 ++length;
             }
@@ -439,7 +439,7 @@ nImO::I2B(const int64_t         inValue,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Initialize(const std::string & progName)
+nImO::Initialize(const std::string &progName)
 {
 #if ((! defined(MpM_ChattyStart)) && (! defined(ODL_ENABLE_LOGGING_)))
 # if MAC_OR_LINUX_
@@ -580,7 +580,7 @@ nImO::SetUpCatcher(void)
 #if 0
 #if MAC_OR_LINUX_
 void
-Common::SetUpLogger(const std::string & progName)
+Common::SetUpLogger(const std::string &progName)
 {
     ODL_ENTER(); //####
     lLogger = new yarp::os::impl::Logger(progName.c_str());
@@ -714,8 +714,8 @@ nImO::IsRunning(void)
 } // nImO::IsRunning
 
 bool
-nImO::ListIsReallyDictionary(const yarp::os::Bottle & aList,
-                               yarp::os::Property &     aDictionary)
+nImO::ListIsReallyDictionary(const yarp::os::Bottle &aList,
+                             yarp::os::Property     &aDictionary)
 {
     ODL_ENTER(); //####
     ODL_P2("aList = ", &aList, "aDictionary = ", &aDictionary); //####
@@ -729,7 +729,7 @@ nImO::ListIsReallyDictionary(const yarp::os::Bottle & aList,
 
         if (anEntry.isList())
         {
-            yarp::os::Bottle * entryAsList = anEntry.asList();
+            yarp::os::Bottle *entryAsList = anEntry.asList();
 
             if (entryAsList)
             {
@@ -775,7 +775,7 @@ nImO::ListIsReallyDictionary(const yarp::os::Bottle & aList,
 const char *
 nImO::NameOfSignal(const int theSignal)
 {
-    const char * result;
+    const char *result;
 
 #if MAC_OR_LINUX_
     switch (theSignal)
@@ -943,13 +943,13 @@ nImO::NameOfSignal(const int theSignal)
 
 #if 0
 void
-nImO::OutputDescription(std::ostream &     outStream,
-                          const char *       heading,
-                          const std::string & description)
+nImO::OutputDescription(std::ostream      &outStream,
+                        const char        *heading,
+                        const std::string &description)
 {
-    size_t     descriptionLength = description.length();
-    size_t     indentSize = strlen(heading);
-    size_t     pieceStart = 0;
+    size_t      descriptionLength = description.length();
+    size_t      indentSize = strlen(heading);
+    size_t      pieceStart = 0;
     std::string blanks(indentSize, ' ');
     std::string indent(heading);
 
@@ -971,15 +971,15 @@ nImO::OutputDescription(std::ostream &     outStream,
 #endif//0
 
 bool
-nImO::ProcessStandardUtilitiesOptions(const int                argc,
-                                      char * *                 argv,
-                                      nImO::DescriptorVector & argumentDescriptions,
-                                      const std::string &      utilityDescription,
-                                      const int                year,
-                                      const char *             copyrightHolder,
-                                      nImO::OutputFlavour &    flavour,
-                                      const bool               ignoreFlavours,
-                                      nImO::StringVector *     arguments)
+nImO::ProcessStandardUtilitiesOptions(const int              argc,
+                                      char                   **argv,
+                                      nImO::DescriptorVector &argumentDescriptions,
+                                      const std::string      &utilityDescription,
+                                      const int              year,
+                                      const char             *copyrightHolder,
+                                      nImO::OutputFlavour    &flavour,
+                                      const bool             ignoreFlavours,
+                                      nImO::StringVector     *arguments)
 {
     ODL_ENTER(); //####
     ODL_L2("argc = ", argc, "year = ", year); //####
@@ -998,27 +998,27 @@ nImO::ProcessStandardUtilitiesOptions(const int                argc,
         kOptionVERSION
     }; // optionIndex
 
-    bool                  keepGoing = true;
-    Option_::Descriptor   firstDescriptor(kOptionUNKNOWN, 0, "", "", Option_::Arg::None, NULL);
-    Option_::Descriptor   helpDescriptor(kOptionHELP, 0, "h", "help", Option_::Arg::None,
-                                         T_("  --help, -h    Print usage and exit"));
-    Option_::Descriptor   infoDescriptor(kOptionINFO, 0, "i", "info", Option_::Arg::None,
-                                         T_("  --info, -i    Print type and description and exit"));
-    Option_::Descriptor   jsonDescriptor(kOptionJSON, 0, "j", "json", Option_::Arg::None,
-                                         T_("  --json, -j    Generate output in JSON format") );
-    Option_::Descriptor   tabsDescriptor(kOptionTABS, 0, "t", "tabs", Option_::Arg::None,
-                                         T_("  --tabs, -t    Generate output in tab-delimited "
-                                            "format"));
-    Option_::Descriptor   versionDescriptor(kOptionVERSION, 0, "v", "vers", Option_::Arg::None,
-                                            T_("  --vers, -v    Print version information and "
-                                               "exit"));
-    Option_::Descriptor   lastDescriptor(0, 0, NULL, NULL, NULL, NULL);
-    Option_::Descriptor   usage[7];
-    Option_::Descriptor * usageWalker = usage;
-    int                   argcWork = argc;
-    char * *              argvWork = argv;
-    std::string           usageString("USAGE: ");
-    std::string           argList(ArgumentsToArgString(argumentDescriptions));
+    bool                keepGoing = true;
+    Option_::Descriptor firstDescriptor(kOptionUNKNOWN, 0, "", "", Option_::Arg::None, NULL);
+    Option_::Descriptor helpDescriptor(kOptionHELP, 0, "h", "help", Option_::Arg::None,
+                                       T_("  --help, -h    Print usage and exit"));
+    Option_::Descriptor infoDescriptor(kOptionINFO, 0, "i", "info", Option_::Arg::None,
+                                       T_("  --info, -i    Print type and description and exit"));
+    Option_::Descriptor jsonDescriptor(kOptionJSON, 0, "j", "json", Option_::Arg::None,
+                                       T_("  --json, -j    Generate output in JSON format") );
+    Option_::Descriptor tabsDescriptor(kOptionTABS, 0, "t", "tabs", Option_::Arg::None,
+                                       T_("  --tabs, -t    Generate output in tab-delimited "
+                                          "format"));
+    Option_::Descriptor versionDescriptor(kOptionVERSION, 0, "v", "vers", Option_::Arg::None,
+                                          T_("  --vers, -v    Print version information and "
+                                             "exit"));
+    Option_::Descriptor lastDescriptor(0, 0, NULL, NULL, NULL, NULL);
+    Option_::Descriptor usage[7];
+    Option_::Descriptor *usageWalker = usage;
+    int                 argcWork = argc;
+    char                **argvWork = argv;
+    std::string         usageString("USAGE: ");
+    std::string         argList(ArgumentsToArgString(argumentDescriptions));
 
     flavour = kOutputFlavourNormal;
     usageString += *argv;
@@ -1061,11 +1061,11 @@ nImO::ProcessStandardUtilitiesOptions(const int                argc,
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats    stats(usage, argcWork, argvWork);
-    Option_::Option * options = new Option_::Option[stats.options_max];
-    Option_::Option * buffer = new Option_::Option[stats.buffer_max];
-    Option_::Parser   parse(usage, argcWork, argvWork, options, buffer, 1);
-    std::string       badArgs;
+    Option_::Stats  stats(usage, argcWork, argvWork);
+    Option_::Option *options = new Option_::Option[stats.options_max];
+    Option_::Option *buffer = new Option_::Option[stats.buffer_max];
+    Option_::Parser parse(usage, argcWork, argvWork, options, buffer, 1);
+    std::string     badArgs;
 
     if (parse.error())
     {
@@ -1120,8 +1120,8 @@ nImO::ProcessStandardUtilitiesOptions(const int                argc,
 } // nImO::ProcessStandardUtilitiesOptions
 
 std::string
-nImO::SanitizeString(const std::string & inString,
-                     const bool          allowDoubleQuotes)
+nImO::SanitizeString(const std::string &inString,
+                     const bool        allowDoubleQuotes)
 {
     ODL_ENTER(); //####
     ODL_S1s("channelRoot = ", inString); //####

@@ -92,8 +92,8 @@ namespace nImO
          @param[in] numBytes The number of bytes to add.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
-        addBytes(const uint8_t * inBytes,
-                 const size_t    numBytes);
+        addBytes(const uint8_t *inBytes,
+                 const size_t  numBytes);
 
         /*! @brief Add a character to the buffer.
          @param[in] aChar The character to add.
@@ -118,16 +118,16 @@ namespace nImO
          @param[in] addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
-        addString(const char * aString,
-                  const bool   addQuotes = false);
+        addString(const char *aString,
+                  const bool addQuotes = false);
 
         /*! @brief Add a character string to the buffer.
          @param[in] aString The value to add.
          @param[in] addQuotes @c true if the string is to be delimited by quote characters.
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
-        addString(const std::string & aString,
-                  const bool          addQuotes = false);
+        addString(const std::string &aString,
+                  const bool        addQuotes = false);
 
         /*! @brief Add a horizontal tab character to the buffer.
          @returns The StringBuffer object so that cascading can be done. */
@@ -136,7 +136,7 @@ namespace nImO
 
         /*! @brief Convert the buffer to a Value.
          @returns The Value represented by the buffer contents. */
-        Value * convertToValue(void)
+        Value *convertToValue(void)
         const;
 
         /*! @brief Return the character found at a particular index.
@@ -155,14 +155,14 @@ namespace nImO
          @param[in,out] length Set to the number of valid characters in the buffer.
          @returns A pointer to a copy of the characters in the buffer. */
         inline const char *
-        getString(size_t & length)
+        getString(size_t &length)
         {
             return reinterpret_cast<const char *>(inherited::getBytes(length));
         } // getString
 
         friend std::ostream &
-        operator <<(std::ostream &       out,
-                    const StringBuffer & aBuffer);
+        operator <<(std::ostream       &out,
+                    const StringBuffer &aBuffer);
 
     protected :
         // Protected methods.
@@ -172,19 +172,19 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        StringBuffer(const StringBuffer & other);
+        StringBuffer(const StringBuffer &other);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         StringBuffer &
-        operator =(const StringBuffer & other);
+        operator =(const StringBuffer &other);
 
         /*! @brief Add quotes and escapes to a string.
          @param[in] aString The string to be processed.
          @param[in] length The length of the string. */
         void
-        processCharacters(const char * aString,
+        processCharacters(const char   *aString,
                           const size_t length);
 
     public :
@@ -204,8 +204,8 @@ namespace nImO
      @param[in] aBuffer The StringBuffer to be printed.
      @returns The modified stream. */
     std::ostream &
-    operator <<(std::ostream &       out,
-                const StringBuffer & aBuffer);
+    operator <<(std::ostream       &out,
+                const StringBuffer &aBuffer);
 
 } // nImO
 

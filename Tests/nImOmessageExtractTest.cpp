@@ -120,10 +120,10 @@ catchSignal(int signal)
  @param[in] expectedValue The expected Value from the Message.
  @returns Zero on success and non-zero on failure. */
 static int
-extractValueAndCheck(nImO::Message &     stuff,
-                     const uint8_t *     insertedContents,
-                     const size_t        insertedSize,
-                     const nImO::Value & expectedValue)
+extractValueAndCheck(nImO::Message     &stuff,
+                     const uint8_t     *insertedContents,
+                     const size_t      insertedSize,
+                     const nImO::Value &expectedValue)
 {
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
@@ -136,7 +136,7 @@ extractValueAndCheck(nImO::Message &     stuff,
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
     nImO::ReadStatus status = nImO::kReadInvalid;
-    nImO::Value *    extractedValue = stuff.getValue(status);
+    nImO::Value      *extractedValue = stuff.getValue(status);
 
     ODL_P1("extractedValue <- ", extractedValue); //####
     ODL_LL1("status <- ", status); //####
@@ -213,9 +213,9 @@ extractValueAndCheck(nImO::Message &     stuff,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMessage(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // empty message
+doTestEmptyMessage(const char *launchPath,
+                   const int  argc,
+                   char       **argv) // empty message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -230,7 +230,7 @@ doTestEmptyMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -249,7 +249,7 @@ doTestEmptyMessage(const char * launchPath,
             const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
             nImO::ReadStatus status;
-            nImO::Value *    extractedValue = stuff->getValue(status);
+            nImO::Value      *extractedValue = stuff->getValue(status);
 
             ODL_P1("extractedValue <- ", extractedValue); //####
             if ((NULL == extractedValue) && (nImO::kReadInvalid == status))
@@ -316,9 +316,9 @@ doTestEmptyMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMessage(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // boolean message
+doTestBooleanMessage(const char *launchPath,
+                     const int  argc,
+                     char       **argv) // boolean message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -333,7 +333,7 @@ doTestBooleanMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -416,9 +416,9 @@ doTestBooleanMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestTinyIntegerMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // tiny integer message
+doTestTinyIntegerMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // tiny integer message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -433,7 +433,7 @@ doTestTinyIntegerMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -446,7 +446,7 @@ doTestTinyIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (-12 & nImO::kKindIntegerShortValueValueMask),
+                  (-12 &nImO::kKindIntegerShortValueValueMask),
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
                   nImO::kKindOtherMessageEndValue +
@@ -482,7 +482,7 @@ doTestTinyIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (12 & nImO::kKindIntegerShortValueValueMask),
+                  (12 &nImO::kKindIntegerShortValueValueMask),
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
                   nImO::kKindOtherMessageEndValue +
@@ -540,9 +540,9 @@ doTestTinyIntegerMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortIntegerMessage(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // short integer message
+doTestShortIntegerMessage(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // short integer message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -557,7 +557,7 @@ doTestShortIntegerMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -570,7 +570,7 @@ doTestShortIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((2 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((2 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0xFF, 0x70,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -589,7 +589,7 @@ doTestShortIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((2 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((2 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0x00, 0x90,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -642,9 +642,9 @@ doTestShortIntegerMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumIntegerMessage(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // medium integer message
+doTestMediumIntegerMessage(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // medium integer message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -659,7 +659,7 @@ doTestMediumIntegerMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -672,7 +672,7 @@ doTestMediumIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((3 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((3 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0xED, 0x29, 0x79,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -691,7 +691,7 @@ doTestMediumIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((3 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((3 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0x12, 0xD6, 0x87,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -744,9 +744,9 @@ doTestMediumIntegerMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigIntegerMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // big integer message
+doTestBigIntegerMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // big integer message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -761,7 +761,7 @@ doTestBigIntegerMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -774,7 +774,7 @@ doTestBigIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((6 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((6 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -793,7 +793,7 @@ doTestBigIntegerMessage(const char * launchPath,
                   nImO::kKindOtherMessageExpectedIntegerValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((6 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((6 - 1) &nImO::kKindIntegerLongValueCountMask),
                 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -846,9 +846,9 @@ doTestBigIntegerMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // empty string message
+doTestEmptyStringMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // empty string message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -863,7 +863,7 @@ doTestEmptyStringMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -877,7 +877,7 @@ doTestEmptyStringMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
                   nImO::kKindOtherMessageEndValue +
@@ -923,9 +923,9 @@ doTestEmptyStringMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortStringMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // short string message
+doTestShortStringMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // short string message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -940,7 +940,7 @@ doTestShortStringMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -954,7 +954,7 @@ doTestShortStringMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (6 & nImO::kKindStringOrBlobShortLengthMask),
+                  (6 &nImO::kKindStringOrBlobShortLengthMask),
                 'a', 'b', 'c', 'd', 'e', 'f',
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -1001,9 +1001,9 @@ doTestShortStringMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumStringMessage(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // medium string message
+doTestMediumStringMessage(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // medium string message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1018,7 +1018,7 @@ doTestMediumStringMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1032,7 +1032,7 @@ doTestMediumStringMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) & nImO::kKindStringOrBlobLongLengthMask),
+                  ((1 - 1) &nImO::kKindStringOrBlobLongLengthMask),
                 42,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
@@ -1086,9 +1086,9 @@ doTestMediumStringMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBlobMessage(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // empty blob message
+doTestEmptyBlobMessage(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // empty blob message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1103,7 +1103,7 @@ doTestEmptyBlobMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1117,7 +1117,7 @@ doTestEmptyBlobMessage(const char * launchPath,
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
                   nImO::kKindOtherMessageEndValue +
@@ -1163,9 +1163,9 @@ doTestEmptyBlobMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortBlobMessage(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // short blob message
+doTestShortBlobMessage(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // short blob message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1180,7 +1180,7 @@ doTestShortBlobMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1194,7 +1194,7 @@ doTestShortBlobMessage(const char * launchPath,
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (6 & nImO::kKindStringOrBlobShortLengthMask),
+                  (6 &nImO::kKindStringOrBlobShortLengthMask),
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 // End of Message
                 nImO::kKindOther + nImO::kKindOtherMessage +
@@ -1246,9 +1246,9 @@ doTestShortBlobMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumBlobMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // medium blob message
+doTestMediumBlobMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // medium blob message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1263,7 +1263,7 @@ doTestMediumBlobMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1277,7 +1277,7 @@ doTestMediumBlobMessage(const char * launchPath,
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) & nImO::kKindStringOrBlobLongLengthMask),
+                  ((1 - 1) &nImO::kKindStringOrBlobLongLengthMask),
                 42,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1342,9 +1342,9 @@ doTestMediumBlobMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingleFloatMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // single float message
+doTestSingleFloatMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // single float message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1359,7 +1359,7 @@ doTestSingleFloatMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1446,9 +1446,9 @@ doTestSingleFloatMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // empty array message
+doTestEmptyArrayMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // empty array message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1463,7 +1463,7 @@ doTestEmptyArrayMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1527,9 +1527,9 @@ doTestEmptyArrayMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapMessage(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // empty map message
+doTestEmptyMapMessage(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // empty map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1544,7 +1544,7 @@ doTestEmptyMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1608,9 +1608,9 @@ doTestEmptyMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetMessage(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // empty set message
+doTestEmptySetMessage(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // empty set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1625,7 +1625,7 @@ doTestEmptySetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1689,9 +1689,9 @@ doTestEmptySetMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneBooleanMessage(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // array with one boolean message
+doTestArrayOneBooleanMessage(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // array with one boolean message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1706,7 +1706,7 @@ doTestArrayOneBooleanMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1779,9 +1779,9 @@ doTestArrayOneBooleanMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneIntegerMessage(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // array with one integer message
+doTestArrayOneIntegerMessage(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // array with one integer message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1796,7 +1796,7 @@ doTestArrayOneIntegerMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1869,9 +1869,9 @@ doTestArrayOneIntegerMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneDoubleMessage(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // array with one double message
+doTestArrayOneDoubleMessage(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // array with one double message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1886,7 +1886,7 @@ doTestArrayOneDoubleMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -1961,9 +1961,9 @@ doTestArrayOneDoubleMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneStringMessage(const char * launchPath,
-                            const int    argc,
-                            char * *     argv) // array with one string message
+doTestArrayOneStringMessage(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // array with one string message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1978,7 +1978,7 @@ doTestArrayOneStringMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2001,7 +2001,7 @@ doTestArrayOneStringMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeArray +
@@ -2052,9 +2052,9 @@ doTestArrayOneStringMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneBlobMessage(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // array with one blob message
+doTestArrayOneBlobMessage(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // array with one blob message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2069,7 +2069,7 @@ doTestArrayOneBlobMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2092,7 +2092,7 @@ doTestArrayOneBlobMessage(const char * launchPath,
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeArray +
@@ -2143,9 +2143,9 @@ doTestArrayOneBlobMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayMessage(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // array with one array message
+doTestArrayOneArrayMessage(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // array with one array message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2160,7 +2160,7 @@ doTestArrayOneArrayMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2238,9 +2238,9 @@ doTestArrayOneArrayMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // array with one map message
+doTestArrayOneMapMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // array with one map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2255,7 +2255,7 @@ doTestArrayOneMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2333,9 +2333,9 @@ doTestArrayOneMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetMessage(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // array with one set message
+doTestArrayOneSetMessage(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // array with one set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2350,7 +2350,7 @@ doTestArrayOneSetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2428,9 +2428,9 @@ doTestArrayOneSetMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoBooleansMessage(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // array with two booleans message
+doTestArrayTwoBooleansMessage(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // array with two booleans message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2445,7 +2445,7 @@ doTestArrayTwoBooleansMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2522,9 +2522,9 @@ doTestArrayTwoBooleansMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoIntegersMessage(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // array with two integers message
+doTestArrayTwoIntegersMessage(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // array with two integers message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2539,7 +2539,7 @@ doTestArrayTwoIntegersMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2617,9 +2617,9 @@ doTestArrayTwoIntegersMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoDoublesMessage(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // array with two doubles message
+doTestArrayTwoDoublesMessage(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // array with two doubles message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2634,7 +2634,7 @@ doTestArrayTwoDoublesMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2711,9 +2711,9 @@ doTestArrayTwoDoublesMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoStringsMessage(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // array with two strings message
+doTestArrayTwoStringsMessage(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // array with two strings message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2728,7 +2728,7 @@ doTestArrayTwoStringsMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2751,11 +2751,11 @@ doTestArrayTwoStringsMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeArray +
@@ -2807,9 +2807,9 @@ doTestArrayTwoStringsMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoBlobsMessage(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // array with two blobs message
+doTestArrayTwoBlobsMessage(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // array with two blobs message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2824,7 +2824,7 @@ doTestArrayTwoBlobsMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -2847,11 +2847,11 @@ doTestArrayTwoBlobsMessage(const char * launchPath,
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // Blob
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Array
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeArray +
@@ -2903,9 +2903,9 @@ doTestArrayTwoBlobsMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoArraysMessage(const char * launchPath,
-                            const int    argc,
-                            char * *     argv) // array with two arrays message
+doTestArrayTwoArraysMessage(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // array with two arrays message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2920,7 +2920,7 @@ doTestArrayTwoArraysMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3007,9 +3007,9 @@ doTestArrayTwoArraysMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoMapsMessage(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // array with two maps message
+doTestArrayTwoMapsMessage(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // array with two maps message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3024,7 +3024,7 @@ doTestArrayTwoMapsMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3111,9 +3111,9 @@ doTestArrayTwoMapsMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoSetsMessage(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // array with two sets message
+doTestArrayTwoSetsMessage(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // array with two sets message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3128,7 +3128,7 @@ doTestArrayTwoSetsMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3215,9 +3215,9 @@ doTestArrayTwoSetsMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayOneMapMessage(const char * launchPath,
-                                 const int    argc,
-                                 char * *     argv) // array with array and map message
+doTestArrayOneArrayOneMapMessage(const char *launchPath,
+                                 const int  argc,
+                                 char       **argv) // array with array and map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3232,7 +3232,7 @@ doTestArrayOneArrayOneMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3320,9 +3320,9 @@ doTestArrayOneArrayOneMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapOneSetMessage(const char * launchPath,
-                               const int    argc,
-                               char * *     argv) // array with map and set message
+doTestArrayOneMapOneSetMessage(const char *launchPath,
+                               const int  argc,
+                               char       **argv) // array with map and set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3337,7 +3337,7 @@ doTestArrayOneMapOneSetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3425,9 +3425,9 @@ doTestArrayOneMapOneSetMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetOneArrayMessage(const char * launchPath,
-                                 const int    argc,
-                                 char * *     argv) // array with set and array message
+doTestArrayOneSetOneArrayMessage(const char *launchPath,
+                                 const int  argc,
+                                 char       **argv) // array with set and array message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3442,7 +3442,7 @@ doTestArrayOneSetOneArrayMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3530,9 +3530,9 @@ doTestArrayOneSetOneArrayMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithManyDoublesMessage(const char * launchPath,
-                                  const int    argc,
-                                  char * *     argv) // array with many doubles message
+doTestArrayWithManyDoublesMessage(const char *launchPath,
+                                  const int  argc,
+                                  char       **argv) // array with many doubles message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3547,7 +3547,7 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3565,11 +3565,11 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
                   nImO::kKindOtherContainerNonEmptyValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((1 - 1) & nImO::kKindIntegerLongValueCountMask),
+                  ((1 - 1) &nImO::kKindIntegerLongValueCountMask),
                 numValues + nImO::kKindIntegerShortValueMinValue - 1,
                 // Double
                 nImO::kKindDouble + nImO::kKindDoubleLongCount +
-                  ((1 - 1) & nImO::kKindDoubleLongCountMask),
+                  ((1 - 1) &nImO::kKindDoubleLongCountMask),
                 numValues,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
                 0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1
@@ -3669,9 +3669,9 @@ doTestArrayWithManyDoublesMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMapMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // boolean map message
+doTestBooleanMapMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // boolean map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3686,7 +3686,7 @@ doTestBooleanMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3711,7 +3711,7 @@ doTestBooleanMapMessage(const char * launchPath,
                   nImO::kKindOtherBooleanFalseValue,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 & nImO::kKindIntegerShortValueValueMask),
+                  (13 &nImO::kKindIntegerShortValueValueMask),
                 // End of Map
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeMap +
@@ -3762,9 +3762,9 @@ doTestBooleanMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // integer map message
+doTestIntegerMapMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // integer map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3779,7 +3779,7 @@ doTestIntegerMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3804,7 +3804,7 @@ doTestIntegerMapMessage(const char * launchPath,
                   0,
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 & nImO::kKindIntegerShortValueValueMask),
+                  (13 &nImO::kKindIntegerShortValueValueMask),
                 // End of Map
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeMap +
@@ -3855,9 +3855,9 @@ doTestIntegerMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapMessage(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // integer map message
+doTestStringMapMessage(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // integer map message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3872,7 +3872,7 @@ doTestStringMapMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -3895,10 +3895,10 @@ doTestStringMapMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // Signed Integer
                 nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 & nImO::kKindIntegerShortValueValueMask),
+                  (13 &nImO::kKindIntegerShortValueValueMask),
                 // End of Map
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeMap +
@@ -3949,9 +3949,9 @@ doTestStringMapMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanSetMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // boolean set message
+doTestBooleanSetMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // boolean set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3966,7 +3966,7 @@ doTestBooleanSetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -4039,9 +4039,9 @@ doTestBooleanSetMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetMessage(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // integer set message
+doTestIntegerSetMessage(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // integer set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4056,7 +4056,7 @@ doTestIntegerSetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -4129,9 +4129,9 @@ doTestIntegerSetMessage(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetMessage(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // integer set message
+doTestStringSetMessage(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // integer set message
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4146,7 +4146,7 @@ doTestStringSetMessage(const char * launchPath,
 
     try
     {
-        nImO::Message * stuff = new nImO::Message;
+        nImO::Message *stuff = new nImO::Message;
 
         if (stuff)
         {
@@ -4169,7 +4169,7 @@ doTestStringSetMessage(const char * launchPath,
                 // String
                 nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
                   nImO::kKindStringOrBlobShortLengthValue +
-                  (0 & nImO::kKindStringOrBlobShortLengthMask),
+                  (0 &nImO::kKindStringOrBlobShortLengthMask),
                 // End of Set
                 nImO::kKindOther + nImO::kKindOtherContainerEnd +
                   nImO::kKindOtherContainerTypeSet +
@@ -4219,8 +4219,8 @@ doTestStringSetMessage(const char * launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int      argc,
-     char * * argv)
+main(int  argc,
+     char **argv)
 {
     std::string progName(*argv);
 
@@ -4240,9 +4240,9 @@ main(int      argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char * startPtr = argv[1];
-            char *       endPtr;
-            int          selector = strtol(startPtr, &endPtr, 10);
+            const char *startPtr = argv[1];
+            char       *endPtr;
+            int        selector = strtol(startPtr, &endPtr, 10);
 
             ODL_LL1("selector <- ", selector); //####
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))

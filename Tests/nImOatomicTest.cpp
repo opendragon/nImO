@@ -113,8 +113,8 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value & aValue,
-                       const char *        aString)
+compareValueWithString(const nImO::Value &aValue,
+                       const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -144,9 +144,9 @@ compareValueWithString(const nImO::Value & aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBufferChunk(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // empty buffer chunk
+doTestEmptyBufferChunk(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // empty buffer chunk
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -161,7 +161,7 @@ doTestEmptyBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
+        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -206,9 +206,9 @@ doTestEmptyBufferChunk(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkWithSingleByte(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // buffer chunk with 1 byte of data
+doTestBufferChunkWithSingleByte(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // buffer chunk with 1 byte of data
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -223,16 +223,16 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
+        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                const uint8_t * storedData = stuff->getData();
+                const uint8_t *storedData = stuff->getData();
 
                 if (storedData && (data == *storedData))
                 {
@@ -280,9 +280,9 @@ doTestBufferChunkWithSingleByte(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFilledBufferChunk(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // buffer chunk filled with data
+doTestFilledBufferChunk(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // buffer chunk filled with data
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -297,7 +297,7 @@ doTestFilledBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
+        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -305,17 +305,17 @@ doTestFilledBufferChunk(const char * launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
 
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    uint8_t newData = static_cast<uint8_t>((data + ii) &0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t * storedData = stuff->getData();
+                    const uint8_t *storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -323,7 +323,7 @@ doTestFilledBufferChunk(const char * launchPath,
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) &0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -380,9 +380,9 @@ doTestFilledBufferChunk(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestOverfilledBufferChunk(const char * launchPath,
-                            const int    argc,
-                            char * *     argv) // buffer chunk overfilled with data
+doTestOverfilledBufferChunk(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // buffer chunk overfilled with data
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -397,7 +397,7 @@ doTestOverfilledBufferChunk(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
+        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
@@ -405,17 +405,17 @@ doTestOverfilledBufferChunk(const char * launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
 
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    uint8_t newData = static_cast<uint8_t>((data + ii) &0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t * storedData = stuff->getData();
+                    const uint8_t *storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -423,7 +423,7 @@ doTestOverfilledBufferChunk(const char * launchPath,
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) &0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -480,9 +480,9 @@ doTestOverfilledBufferChunk(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkReset(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // resetting buffer chunk
+doTestBufferChunkReset(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // resetting buffer chunk
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -497,11 +497,11 @@ doTestBufferChunkReset(const char * launchPath,
 
     try
     {
-        nImO::BufferChunk * stuff = new nImO::BufferChunk(false);
+        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff) & 0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -553,9 +553,9 @@ doTestBufferChunkReset(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringBuffer(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // empty string buffer
+doTestEmptyStringBuffer(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // empty string buffer
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -570,14 +570,14 @@ doTestEmptyStringBuffer(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
             if (0 == stuff->getLength())
             {
-                size_t       length = 0;
-                const char * outString = stuff->getString(length);
+                size_t     length = 0;
+                const char *outString = stuff->getString(length);
 
                 if (outString)
                 {
@@ -632,9 +632,9 @@ doTestEmptyStringBuffer(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithCharacters(const char * launchPath,
-                                 const int    argc,
-                                 char * *     argv) // string buffer with character string
+doTestStringBufferWithCharacters(const char *launchPath,
+                                 const int  argc,
+                                 char       **argv) // string buffer with character string
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -651,10 +651,10 @@ doTestStringBufferWithCharacters(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char *         inString = *argv;
-            const char *         outString = argv[1];
-            size_t               outLength = strlen(outString);
-            nImO::StringBuffer * stuff = new nImO::StringBuffer;
+            const char         *inString = *argv;
+            const char         *outString = argv[1];
+            size_t             outLength = strlen(outString);
+            nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
             if (stuff)
             {
@@ -663,7 +663,7 @@ doTestStringBufferWithCharacters(const char * launchPath,
 
                 if (resultLength == outLength)
                 {
-                    const char * resultString = stuff->getString(resultLength);
+                    const char *resultString = stuff->getString(resultLength);
 
                     if (resultString && (0 == strcmp(resultString, outString)))
                     {
@@ -717,9 +717,9 @@ doTestStringBufferWithCharacters(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithBoolean(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // string buffer with boolean
+doTestStringBufferWithBoolean(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // string buffer with boolean
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -736,22 +736,22 @@ doTestStringBufferWithBoolean(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char * outString = argv[1];
-            const char * startPtr = *argv;
-            char *       endPtr;
-            int          value = strtol(startPtr, &endPtr, 10);
+            const char *outString = argv[1];
+            const char *startPtr = *argv;
+            char       *endPtr;
+            int        value = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+                nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
                 if (stuff)
                 {
                     bool asBool = (0 != value);
 
                     stuff->addBool(asBool);
-                    size_t       length;
-                    const char * resultString = stuff->getString(length);
+                    size_t     length;
+                    const char *resultString = stuff->getString(length);
 
                     if (0 == strcmp(outString, resultString))
                     {
@@ -800,9 +800,9 @@ doTestStringBufferWithBoolean(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithInteger(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // string buffer with integer
+doTestStringBufferWithInteger(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // string buffer with integer
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -819,20 +819,20 @@ doTestStringBufferWithInteger(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char * outString = argv[1];
-            const char * startPtr = *argv;
-            char *       endPtr;
-            int          value = strtol(startPtr, &endPtr, 10);
+            const char *outString = argv[1];
+            const char *startPtr = *argv;
+            char       *endPtr;
+            int        value = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+                nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
                 if (stuff)
                 {
                     stuff->addLong(value);
-                    size_t       length;
-                    const char * resultString = stuff->getString(length);
+                    size_t     length;
+                    const char *resultString = stuff->getString(length);
 
                     if (0 == strcmp(outString, resultString))
                     {
@@ -881,9 +881,9 @@ doTestStringBufferWithInteger(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithString(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // string buffer with string
+doTestStringBufferWithString(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // string buffer with string
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -900,10 +900,10 @@ doTestStringBufferWithString(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char *         inString = *argv;
-            const char *         outString = argv[1];
-            size_t               outLength = strlen(outString);
-            nImO::StringBuffer * stuff = new nImO::StringBuffer;
+            const char         *inString = *argv;
+            const char         *outString = argv[1];
+            size_t             outLength = strlen(outString);
+            nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
             if (stuff)
             {
@@ -912,7 +912,7 @@ doTestStringBufferWithString(const char * launchPath,
 
                 if (resultLength == outLength)
                 {
-                    const char * resultString = stuff->getString(resultLength);
+                    const char *resultString = stuff->getString(resultLength);
 
                     if (resultString && (0 == strcmp(resultString, outString)))
                     {
@@ -966,9 +966,9 @@ doTestStringBufferWithString(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSpecialCharacters(const char * launchPath,
-                                        const int    argc,
-                                        char * *     argv) // string buffer with special chars
+doTestStringBufferWithSpecialCharacters(const char *launchPath,
+                                        const int  argc,
+                                        char       **argv) // string buffer with special chars
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -983,10 +983,10 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
 
     try
     {
-        const char *         inString = "abc\tdef\f\rghi\302";
-        const char *         outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t               outLength = strlen(outString);
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        const char         *inString = "abc\tdef\f\rghi\302";
+        const char         *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t             outLength = strlen(outString);
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
@@ -995,7 +995,7 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
 
             if (resultLength == outLength)
             {
-                const char * resultString = stuff->getString(resultLength);
+                const char *resultString = stuff->getString(resultLength);
 
                 if (resultString && (0 == strcmp(resultString, outString)))
                 {
@@ -1043,9 +1043,9 @@ doTestStringBufferWithSpecialCharacters(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithDouble(const char * launchPath,
-                                    const int    argc,
-                                    char * *     argv) // string buffer with floating point
+doTestStringBufferWithDouble(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // string buffer with floating point
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1062,20 +1062,20 @@ doTestStringBufferWithDouble(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char * outString = argv[1];
-            const char * startPtr = *argv;
-            char *       endPtr;
-            double       value = strtod(startPtr, &endPtr);
+            const char *outString = argv[1];
+            const char *startPtr = *argv;
+            char       *endPtr;
+            double     value = strtod(startPtr, &endPtr);
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::StringBuffer * stuff = new nImO::StringBuffer;
+                nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
                 if (stuff)
                 {
                     stuff->addDouble(value);
-                    size_t       length;
-                    const char * resultString = stuff->getString(length);
+                    size_t     length;
+                    const char *resultString = stuff->getString(length);
 
                     for (result = 0; *outString && *resultString; ++outString, ++resultString)
                     {
@@ -1132,9 +1132,9 @@ doTestStringBufferWithDouble(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigStringBuffer(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // big string buffer
+doTestBigStringBuffer(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // big string buffer
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1149,19 +1149,19 @@ doTestBigStringBuffer(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
-            const char * bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
-            size_t       bigLength = strlen(bigString);
+            const char *bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
+            size_t     bigLength = strlen(bigString);
 
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
                 stuff->addString(bigString);
             }
-            size_t       length = 0;
-            const char * resultString = stuff->getString(length);
+            size_t     length = 0;
+            const char *resultString = stuff->getString(length);
 
             if ((bigLength * kBigTestSize) == length)
             {
@@ -1214,9 +1214,9 @@ doTestBigStringBuffer(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithEmptyBlob(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // string buffer with empty blob
+doTestStringBufferWithEmptyBlob(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // string buffer with empty blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1231,14 +1231,14 @@ doTestStringBufferWithEmptyBlob(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
             stuff->addBytes(NULL, 0);
-            size_t       length;
-            const char * resultString = stuff->getString(length);
-            const char * expectedString = "%0%%";
+            size_t     length;
+            const char *resultString = stuff->getString(length);
+            const char *expectedString = "%0%%";
 
             if (0 == strcmp(resultString, expectedString))
             {
@@ -1281,9 +1281,9 @@ doTestStringBufferWithEmptyBlob(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSmallBlob(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // string buffer with simple blob
+doTestStringBufferWithSmallBlob(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // string buffer with simple blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1298,11 +1298,11 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
-            uint8_t * smallBlob = new uint8_t[kSmallTestSize];
+            uint8_t *smallBlob = new uint8_t[kSmallTestSize];
 
             if (smallBlob)
             {
@@ -1315,7 +1315,7 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
                 }
                 stuff->addBytes(smallBlob, kSmallTestSize);
                 size_t            length;
-                const char *      resultString = stuff->getString(length);
+                const char        *resultString = stuff->getString(length);
                 std::string       expectedString("%");
                 std::stringstream buff;
 
@@ -1326,8 +1326,8 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
+                    char        lowByte = hexDigits[aByte &0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1380,9 +1380,9 @@ doTestStringBufferWithSmallBlob(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithBigBlob(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // string buffer with big blob
+doTestStringBufferWithBigBlob(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // string buffer with big blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1397,11 +1397,11 @@ doTestStringBufferWithBigBlob(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
+            uint8_t *bigBlob = new uint8_t[kBigTestSize];
 
             if (bigBlob)
             {
@@ -1413,7 +1413,7 @@ doTestStringBufferWithBigBlob(const char * launchPath,
                 }
                 stuff->addBytes(bigBlob, kBigTestSize);
                 size_t            length;
-                const char *      resultString = stuff->getString(length);
+                const char        *resultString = stuff->getString(length);
                 std::string       expectedString("%");
                 std::stringstream buff;
 
@@ -1424,8 +1424,8 @@ doTestStringBufferWithBigBlob(const char * launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
+                    char        lowByte = hexDigits[aByte &0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1478,9 +1478,9 @@ doTestStringBufferWithBigBlob(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferReset(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // resetting string buffer
+doTestStringBufferReset(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // resetting string buffer
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1495,7 +1495,7 @@ doTestStringBufferReset(const char * launchPath,
 
     try
     {
-        nImO::StringBuffer * stuff = new nImO::StringBuffer;
+        nImO::StringBuffer *stuff = new nImO::StringBuffer;
 
         if (stuff)
         {
@@ -1505,7 +1505,7 @@ doTestStringBufferReset(const char * launchPath,
 
             if (0 == resultLength)
             {
-                const char * resultString = stuff->getString(resultLength);
+                const char *resultString = stuff->getString(resultLength);
 
                 if (resultString && (0 == strlen(resultString)))
                 {
@@ -1553,9 +1553,9 @@ doTestStringBufferReset(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultBooleanValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // default boolean value
+doTestDefaultBooleanValue(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // default boolean value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1570,7 +1570,7 @@ doTestDefaultBooleanValue(const char * launchPath,
 
     try
     {
-        nImO::Boolean * stuff = new nImO::Boolean;
+        nImO::Boolean *stuff = new nImO::Boolean;
 
         if (stuff)
         {
@@ -1615,9 +1615,9 @@ doTestDefaultBooleanValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanValue(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // boolean values
+doTestBooleanValue(const char *launchPath,
+                   const int  argc,
+                   char       **argv) // boolean values
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1634,14 +1634,14 @@ doTestBooleanValue(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char * outString = argv[1];
-            const char * startPtr = *argv;
-            char *       endPtr;
-            int          value = strtol(startPtr, &endPtr, 10);
+            const char *outString = argv[1];
+            const char *startPtr = *argv;
+            char       *endPtr;
+            int        value = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                nImO::Boolean * stuff = new nImO::Boolean(0 != value);
+                nImO::Boolean *stuff = new nImO::Boolean(0 != value);
 
                 if (stuff)
                 {
@@ -1696,9 +1696,9 @@ doTestBooleanValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultIntegerValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // default integer value
+doTestDefaultIntegerValue(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // default integer value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1713,7 +1713,7 @@ doTestDefaultIntegerValue(const char * launchPath,
 
     try
     {
-        nImO::Integer * stuff = new nImO::Integer;
+        nImO::Integer *stuff = new nImO::Integer;
 
         if (stuff)
         {
@@ -1759,9 +1759,9 @@ doTestDefaultIntegerValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNumberValue(const char * launchPath,
-                  const int    argc,
-                  char * *     argv) // number values
+doTestNumberValue(const char *launchPath,
+                  const int  argc,
+                  char       **argv) // number values
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1778,14 +1778,14 @@ doTestNumberValue(const char * launchPath,
     {
         if (1 < argc)
         {
-            const char * outString = argv[1];
-            const char * startPtr = *argv;
-            char *       endPtr;
-            int64_t      intValue = strtol(startPtr, &endPtr, 10);
+            const char *outString = argv[1];
+            const char *startPtr = *argv;
+            char       *endPtr;
+            int64_t    intValue = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::Integer * stuff = new nImO::Integer(intValue);
+                nImO::Integer *stuff = new nImO::Integer(intValue);
 
                 if (stuff)
                 {
@@ -1810,7 +1810,7 @@ doTestNumberValue(const char * launchPath,
 
                 if ((startPtr != endPtr) && (! *endPtr))
                 {
-                    nImO::Double * stuff = new nImO::Double(floatValue);
+                    nImO::Double *stuff = new nImO::Double(floatValue);
 
                     if (stuff)
                     {
@@ -1866,9 +1866,9 @@ doTestNumberValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultStringValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // default string value
+doTestDefaultStringValue(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // default string value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1883,7 +1883,7 @@ doTestDefaultStringValue(const char * launchPath,
 
     try
     {
-        nImO::String * stuff = new nImO::String;
+        nImO::String *stuff = new nImO::String;
 
         if (stuff)
         {
@@ -1928,9 +1928,9 @@ doTestDefaultStringValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValue(const char * launchPath,
-                  const int    argc,
-                  char * *     argv) // string values
+doTestStringValue(const char *launchPath,
+                  const int  argc,
+                  char       **argv) // string values
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1947,7 +1947,7 @@ doTestStringValue(const char * launchPath,
     {
         if (1 < argc)
         {
-            nImO::String * stuff = new nImO::String(*argv);
+            nImO::String *stuff = new nImO::String(*argv);
 
             if (stuff)
             {
@@ -1997,9 +1997,9 @@ doTestStringValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValueWithEscapes(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // string value with escapes
+doTestStringValueWithEscapes(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // string value with escapes
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2014,9 +2014,9 @@ doTestStringValueWithEscapes(const char * launchPath,
 
     try
     {
-        const char *   inString = "abc\tdef\f\rghi\302";
-        const char *   outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        nImO::String * stuff = new nImO::String(inString);
+        const char   *inString = "abc\tdef\f\rghi\302";
+        const char   *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        nImO::String *stuff = new nImO::String(inString);
 
         if (stuff)
         {
@@ -2061,9 +2061,9 @@ doTestStringValueWithEscapes(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultBlobValue(const char * launchPath,
-                       const int    argc,
-                       char * *     argv) // default blob
+doTestDefaultBlobValue(const char *launchPath,
+                       const int  argc,
+                       char       **argv) // default blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2078,7 +2078,7 @@ doTestDefaultBlobValue(const char * launchPath,
 
     try
     {
-        nImO::Blob * stuff = new nImO::Blob;
+        nImO::Blob *stuff = new nImO::Blob;
 
         if (stuff)
         {
@@ -2123,9 +2123,9 @@ doTestDefaultBlobValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBlobValue(const char * launchPath,
-                     const int    argc,
-                     char * *     argv) // small blob
+doTestSmallBlobValue(const char *launchPath,
+                     const int  argc,
+                     char       **argv) // small blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2140,7 +2140,7 @@ doTestSmallBlobValue(const char * launchPath,
 
     try
     {
-        uint8_t * smallBlob = new uint8_t[kSmallTestSize];
+        uint8_t *smallBlob = new uint8_t[kSmallTestSize];
 
         if (smallBlob)
         {
@@ -2150,7 +2150,7 @@ doTestSmallBlobValue(const char * launchPath,
 
                 smallBlob[ii] = aByte;
             }
-            nImO::Blob * stuff = new nImO::Blob(smallBlob, kSmallTestSize);
+            nImO::Blob *stuff = new nImO::Blob(smallBlob, kSmallTestSize);
 
             if (stuff)
             {
@@ -2164,8 +2164,8 @@ doTestSmallBlobValue(const char * launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
+                    char        lowByte = hexDigits[aByte &0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -2219,9 +2219,9 @@ doTestSmallBlobValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigBlobValue(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // big blob
+doTestBigBlobValue(const char *launchPath,
+                   const int  argc,
+                   char       **argv) // big blob
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2236,7 +2236,7 @@ doTestBigBlobValue(const char * launchPath,
 
     try
     {
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
+        uint8_t *bigBlob = new uint8_t[kBigTestSize];
 
         if (bigBlob)
         {
@@ -2246,7 +2246,7 @@ doTestBigBlobValue(const char * launchPath,
 
                 bigBlob[ii] = aByte;
             }
-            nImO::Blob * stuff = new nImO::Blob(bigBlob, kBigTestSize);
+            nImO::Blob *stuff = new nImO::Blob(bigBlob, kBigTestSize);
 
             if (stuff)
             {
@@ -2260,8 +2260,8 @@ doTestBigBlobValue(const char * launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
+                    char        lowByte = hexDigits[aByte &0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -2315,9 +2315,9 @@ doTestBigBlobValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanCopyAndAssign(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // boolean copy and assign
+doTestBooleanCopyAndAssign(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // boolean copy and assign
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2396,9 +2396,9 @@ doTestBooleanCopyAndAssign(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerCopyAndAssign(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // integer copy and assign
+doTestIntegerCopyAndAssign(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // integer copy and assign
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2497,9 +2497,9 @@ doTestIntegerCopyAndAssign(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDoubleCopyAndAssign(const char * launchPath,
-                                 const int    argc,
-                                 char * *     argv) // floating point copy and assign
+doTestDoubleCopyAndAssign(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // floating point copy and assign
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2597,9 +2597,9 @@ doTestDoubleCopyAndAssign(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringCopyAndAssign(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // string copy and assign
+doTestStringCopyAndAssign(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // string copy and assign
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2680,9 +2680,9 @@ doTestStringCopyAndAssign(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBlobCopyAndAssign(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // blob copy and assign
+doTestBlobCopyAndAssign(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // blob copy and assign
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2697,8 +2697,8 @@ doTestBlobCopyAndAssign(const char * launchPath,
 
     try
     {
-        uint8_t * bigBlob = new uint8_t[kBigTestSize];
-        uint8_t * smallBlob = new uint8_t[kSmallTestSize];
+        uint8_t *bigBlob = new uint8_t[kBigTestSize];
+        uint8_t *smallBlob = new uint8_t[kSmallTestSize];
 
         if (bigBlob && smallBlob)
         {
@@ -2718,8 +2718,8 @@ doTestBlobCopyAndAssign(const char * launchPath,
             nImO::Blob bigStuff(bigBlob, kBigTestSize);
             size_t smallLength = 0;
             size_t bigLength = 0;
-            const uint8_t * smallValue = smallStuff.getValue(smallLength);
-            const uint8_t * bigValue = bigStuff.getValue(bigLength);
+            const uint8_t *smallValue = smallStuff.getValue(smallLength);
+            const uint8_t *bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
@@ -2807,9 +2807,9 @@ doTestBlobCopyAndAssign(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanCompares(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // valid boolean compares
+doTestValidBooleanCompares(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // valid boolean compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2957,9 +2957,9 @@ doTestValidBooleanCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidNumberCompares(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // valid number compares
+doTestValidNumberCompares(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // valid number compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3431,9 +3431,9 @@ doTestValidNumberCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringCompares(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // valid string compares
+doTestValidStringCompares(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // valid string compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3450,8 +3450,8 @@ doTestValidStringCompares(const char * launchPath,
     {
         struct tests
         {
-            const char * _leftValue;
-            const char * _rightValue;
+            const char *_leftValue;
+            const char *_rightValue;
             bool _lessThanResult;
             bool _lessThanValid;
             bool _greaterThanResult;
@@ -3585,9 +3585,9 @@ doTestValidStringCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBlobCompares(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // valid blob compares
+doTestValidBlobCompares(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // valid blob compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3604,8 +3604,8 @@ doTestValidBlobCompares(const char * launchPath,
     {
         struct tests
         {
-            const nImO::Blob * _leftValue;
-            const nImO::Blob * _rightValue;
+            const nImO::Blob *_leftValue;
+            const nImO::Blob *_rightValue;
             bool _lessThanResult;
             bool _lessThanValid;
             bool _greaterThanResult;
@@ -3644,9 +3644,9 @@ doTestValidBlobCompares(const char * launchPath,
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            bool               valid = false;
-            const nImO::Blob & leftValue = *testSet[ii]._leftValue;
-            const nImO::Blob & rightValue = *testSet[ii]._rightValue;
+            bool             valid = false;
+            const nImO::Blob &leftValue = *testSet[ii]._leftValue;
+            const nImO::Blob &rightValue = *testSet[ii]._rightValue;
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3749,9 +3749,9 @@ doTestValidBlobCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanCompares(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // invalid boolean compares
+doTestInvalidBooleanCompares(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // invalid boolean compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3771,12 +3771,12 @@ doTestInvalidBooleanCompares(const char * launchPath,
         nImO::Number  rightValue1;
         nImO::String  rightValue2;
         nImO::Blob    rightValue3;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3861,9 +3861,9 @@ doTestInvalidBooleanCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidNumberCompares(const char * launchPath,
-                            const int    argc,
-                            char * *     argv) // invalid number compares
+doTestInvalidNumberCompares(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // invalid number compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3883,12 +3883,12 @@ doTestInvalidNumberCompares(const char * launchPath,
         nImO::Boolean rightValue1;
         nImO::String  rightValue2;
         nImO::Blob    rightValue3;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3973,9 +3973,9 @@ doTestInvalidNumberCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringCompares(const char * launchPath,
-                            const int    argc,
-                            char * *     argv) // invalid string compares
+doTestInvalidStringCompares(const char *launchPath,
+                            const int  argc,
+                            char       **argv) // invalid string compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3995,12 +3995,12 @@ doTestInvalidStringCompares(const char * launchPath,
         nImO::Boolean rightValue1;
         nImO::Number  rightValue2;
         nImO::Blob    rightValue3;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -4085,9 +4085,9 @@ doTestInvalidStringCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBlobCompares(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // invalid blob compares
+doTestInvalidBlobCompares(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // invalid blob compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4107,12 +4107,12 @@ doTestInvalidBlobCompares(const char * launchPath,
         nImO::Boolean rightValue1;
         nImO::Number  rightValue2;
         nImO::String  rightValue3;
-        nImO::Value * rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -4196,8 +4196,8 @@ doTestInvalidBlobCompares(const char * launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int      argc,
-     char * * argv)
+main(int  argc,
+     char **argv)
 {
     std::string progName(*argv);
 
@@ -4217,9 +4217,9 @@ main(int      argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char * startPtr = argv[1];
-            char *       endPtr;
-            int          selector = strtol(startPtr, &endPtr, 10);
+            const char *startPtr = argv[1];
+            char       *endPtr;
+            int        selector = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {

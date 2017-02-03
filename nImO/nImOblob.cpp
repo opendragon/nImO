@@ -81,10 +81,10 @@
  the right sequence, @c 0 if they are the same sequence and @c -1 if
  the left sequence is lexicographically less than the right sequence. */
 static int
-compareBytes(const uint8_t * leftValue,
-             const size_t    leftSize,
-             const uint8_t * rightValue,
-             const size_t    rightSize)
+compareBytes(const uint8_t *leftValue,
+             const size_t  leftSize,
+             const uint8_t *rightValue,
+             const size_t  rightSize)
 {
     ODL_ENTER(); //####
     int result;
@@ -163,8 +163,8 @@ nImO::Blob::Blob(void) :
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
-nImO::Blob::Blob(const uint8_t * data,
-                 const size_t    size) :
+nImO::Blob::Blob(const uint8_t *data,
+                 const size_t  size) :
     inherited(), _value(NULL), _size(0)
 {
     ODL_ENTER(); //####
@@ -179,7 +179,7 @@ nImO::Blob::Blob(const uint8_t * data,
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
-nImO::Blob::Blob(const nImO::Blob & other) :
+nImO::Blob::Blob(const nImO::Blob &other) :
     inherited(), _value(NULL), _size(0)
 {
     ODL_ENTER(); //####
@@ -209,14 +209,14 @@ nImO::Blob::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    Blob * result = new Blob(*this);
+    Blob *result = new Blob(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Blob::copy
 
 bool
-nImO::Blob::deeplyEqualTo(const nImO::Value & other)
+nImO::Blob::deeplyEqualTo(const nImO::Value &other)
 const
 {
     ODL_OBJENTER(); //####
@@ -225,7 +225,7 @@ const
     
     if (! result)
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
         
         if (NULL != otherPtr)
         {
@@ -237,8 +237,8 @@ const
 } // nImO::Blob::deeplyEqualTo
 
 bool
-nImO::Blob::equalTo(const nImO::Value & other,
-                    bool &              validComparison)
+nImO::Blob::equalTo(const nImO::Value &other,
+                    bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -252,7 +252,7 @@ const
     }
     else
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
 
         if (NULL == otherPtr)
         {
@@ -278,33 +278,33 @@ const
 } // nImO::Blob::equalTo
 
 nImO::Value *
-nImO::Blob::extractValue(const nImO::Message & theMessage,
-                         const int             leadByte,
-                         size_t &              position,
-                         nImO::ReadStatus &    status,
-                         nImO::Array *         parentValue)
+nImO::Blob::extractValue(const nImO::Message &theMessage,
+                         const int           leadByte,
+                         size_t              &position,
+                         nImO::ReadStatus    &status,
+                         nImO::Array         *parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result;
-    bool    isShort = (kKindStringOrBlobShortLengthValue ==
-                       (kKindStringOrBlobLengthMask & leadByte));
-    size_t  numBytes = 0;
+    Value  *result;
+    bool   isShort = (kKindStringOrBlobShortLengthValue ==
+                      (kKindStringOrBlobLengthMask &leadByte));
+    size_t numBytes = 0;
     
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
+        numBytes = (kKindStringOrBlobShortLengthMask &leadByte);
         status = kReadSuccessful;
         ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
     }
     else
     {
-        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+        size_t        size = (kKindIntegerLongValueCountMask &leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -335,8 +335,8 @@ nImO::Blob::extractValue(const nImO::Message & theMessage,
     }
     if (0 < numBytes)
     {
-        uint8_t * holder = new uint8_t[numBytes];
-        bool      okSoFar = (NULL != holder);
+        uint8_t *holder = new uint8_t[numBytes];
+        bool    okSoFar = (NULL != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -382,9 +382,9 @@ nImO::Blob::extractValue(const nImO::Message & theMessage,
 } // nImO::Blob::extractValue
 
 void
-nImO::Blob::getExtractionInfo(uint8_t &                aByte,
-                              uint8_t &                aMask,
-                              nImO::Value::Extractor & theExtractor)
+nImO::Blob::getExtractionInfo(uint8_t                &aByte,
+                              uint8_t                &aMask,
+                              nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -395,8 +395,8 @@ nImO::Blob::getExtractionInfo(uint8_t &                aByte,
 } // nImO::Blob::getExtractionInfo
 
 bool
-nImO::Blob::greaterThan(const nImO::Value & other,
-                        bool &              validComparison)
+nImO::Blob::greaterThan(const nImO::Value &other,
+                        bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -411,7 +411,7 @@ const
     }
     else
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
         
         if (NULL == otherPtr)
         {
@@ -437,8 +437,8 @@ const
 } // nImO::Blob::greaterThan
 
 bool
-nImO::Blob::greaterThanOrEqual(const nImO::Value & other,
-                               bool &              validComparison)
+nImO::Blob::greaterThanOrEqual(const nImO::Value &other,
+                               bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -452,7 +452,7 @@ const
     }
     else
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
         
         if (NULL == otherPtr)
         {
@@ -478,8 +478,8 @@ const
 } // nImO::Blob::greaterThanOrEqual
 
 bool
-nImO::Blob::lessThan(const nImO::Value & other,
-                     bool &              validComparison)
+nImO::Blob::lessThan(const nImO::Value &other,
+                     bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -494,7 +494,7 @@ const
     }
     else
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
         
         if (NULL == otherPtr)
         {
@@ -520,8 +520,8 @@ const
 } // nImO::Blob::lessThan
 
 bool
-nImO::Blob::lessThanOrEqual(const nImO::Value & other,
-                            bool &              validComparison)
+nImO::Blob::lessThanOrEqual(const nImO::Value &other,
+                            bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -535,7 +535,7 @@ const
     }
     else
     {
-        const Blob * otherPtr = other.asBlob();
+        const Blob *otherPtr = other.asBlob();
         
         if (NULL == otherPtr)
         {
@@ -561,7 +561,7 @@ const
 } // nImO::Blob::lessThanOrEqual
 
 nImO::Blob &
-nImO::Blob::operator =(const nImO::Blob & other)
+nImO::Blob::operator =(const nImO::Blob &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -580,8 +580,8 @@ nImO::Blob::operator =(const nImO::Blob & other)
 } // nImO::Blob::operator=
 
 void
-nImO::Blob::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                                const bool           squished)
+nImO::Blob::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                                const bool         squished)
 const
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -607,7 +607,7 @@ nImO::Blob::removeAllEntries(void)
 } // nImO::Blob::removeAllEntries
 
 void
-nImO::Blob::writeToMessage(nImO::Message & outMessage)
+nImO::Blob::writeToMessage(nImO::Message &outMessage)
 const
 {
     ODL_OBJENTER(); //####
@@ -626,7 +626,7 @@ const
                 ODL_LOG("(0 < numBytes)"); //####
                 uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
                                 kKindStringOrBlobLongLengthValue +
-                                (kKindStringOrBlobLongLengthMask & (numBytes - 1));
+                                (kKindStringOrBlobLongLengthMask &(numBytes - 1));
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -637,7 +637,7 @@ const
             ODL_LOG("! (15 < _size)"); //####
             uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
                             kKindStringOrBlobShortLengthValue +
-                            (kKindStringOrBlobShortLengthMask & _size);
+                            (kKindStringOrBlobShortLengthMask &_size);
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
@@ -648,7 +648,7 @@ const
         ODL_LOG("! (0 < _size)"); //####
         uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobBlobValue +
                         kKindStringOrBlobShortLengthValue +
-                        (kKindStringOrBlobShortLengthMask & 0);
+                        (kKindStringOrBlobShortLengthMask &0);
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }

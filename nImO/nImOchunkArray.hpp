@@ -84,8 +84,8 @@ namespace nImO
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         void
-        appendBytes(const uint8_t * data,
-                    const size_t    numBytes);
+        appendBytes(const uint8_t *data,
+                    const size_t  numBytes);
 
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
@@ -102,7 +102,7 @@ namespace nImO
          @param[out] length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
-        getBytes(size_t & length);
+        getBytes(size_t &length);
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
@@ -123,13 +123,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChunkArray(const ChunkArray & other);
+        ChunkArray(const ChunkArray &other);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         ChunkArray &
-        operator =(const ChunkArray & other);
+        operator =(const ChunkArray &other);
 
     public :
         // Public fields.
@@ -141,7 +141,7 @@ namespace nImO
         // Protected fields.
 
         /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk * * _buffers;
+        BufferChunk **_buffers;
 
         /*! @brief The number of buffer chunks being used. */
         size_t _numChunks;
@@ -150,7 +150,7 @@ namespace nImO
         // Private fields.
 
         /*! @brief The cached value of the buffer. */
-        uint8_t * _cachedOutput;
+        uint8_t *_cachedOutput;
 
         /*! @brief The cached value of the length of the buffer. */
         size_t _cachedLength;

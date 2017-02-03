@@ -171,7 +171,7 @@ nImO::Message::close(void)
 } // nImO::Message::close
 
 const uint8_t *
-nImO::Message::getBytes(size_t & length)
+nImO::Message::getBytes(size_t &length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
@@ -217,7 +217,7 @@ const
 } // nImO::Message::getLength
 
 nImO::Value *
-nImO::Message::getValue(nImO::ReadStatus & status)
+nImO::Message::getValue(nImO::ReadStatus &status)
 {
     ODL_OBJENTER(); //####
     ODL_P1("status = ", &status); //####
@@ -239,7 +239,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
         }
         else
         {
-            if (kInitEmptyMessageValue == (aByte & kInitTermMessageMask))
+            if (kInitEmptyMessageValue == (aByte &kInitTermMessageMask))
             {
                 aByte = getByte(++_readPosition);
                 ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
@@ -250,7 +250,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                     _readPosition = savedPosition;
                     ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
                 }
-                else if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
+                else if (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))
                 {
                     aByte = getByte(++_readPosition);
                     ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
@@ -269,14 +269,14 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                 }
                 else
                 {
-                    ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                    ODL_LOG("! (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
                     status = kReadInvalid;
                     ODL_LL1("status <- ", status); //####
                 }
             }
-            else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+            else if (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))
             {
-                uint8_t initTag = (aByte & kKindOtherMessageExpectedTypeMask);
+                uint8_t initTag = (aByte &kKindOtherMessageExpectedTypeMask);
 
                 ODL_XL1("initTag <- ", initTag); //####
                 aByte = getByte(++_readPosition);
@@ -320,9 +320,9 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                                 result = NULL;
                                 ODL_P1("result <- ", result); //####
                             }
-                            else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+                            else if (kTermNonEmptyMessageValue == (aByte &kInitTermMessageMask))
                             {
-                                nextTag = (aByte & kKindOtherMessageExpectedTypeMask);
+                                nextTag = (aByte &kKindOtherMessageExpectedTypeMask);
                                 ODL_XL1("nextTag <- ", nextTag); //####
                                 if (nextTag == initTag)
                                 {
@@ -355,7 +355,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
                             else
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
-                                        "(aByte & kInitTermMessageMask))"); //####
+                                        "(aByte &kInitTermMessageMask))"); //####
                                 status = kReadInvalid;
                                 ODL_LL1("status <- ", status); //####
                                 delete result;
@@ -374,7 +374,7 @@ nImO::Message::getValue(nImO::ReadStatus & status)
             }
             else
             {
-                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
                 status = kReadInvalid;
                 ODL_LL1("status <- ", status); //####
             }
@@ -433,7 +433,7 @@ nImO::Message::reset(void)
 } // nImO::Message::reset
 
 nImO::Message &
-nImO::Message::setValue(const nImO::Value & theValue)
+nImO::Message::setValue(const nImO::Value &theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####

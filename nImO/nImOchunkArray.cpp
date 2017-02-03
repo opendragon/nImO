@@ -123,8 +123,8 @@ nImO::ChunkArray::~ChunkArray(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::ChunkArray::appendBytes(const uint8_t * data,
-                              const size_t    numBytes)
+nImO::ChunkArray::appendBytes(const uint8_t *data,
+                              const size_t  numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -132,7 +132,7 @@ nImO::ChunkArray::appendBytes(const uint8_t * data,
     if (data && (0 < numBytes))
     {
         ODL_LOG("(data && (0 < numBytes))"); //####
-        const uint8_t * walker = data;
+        const uint8_t *walker = data;
 
         if (_cachedOutput)
         {
@@ -147,8 +147,8 @@ nImO::ChunkArray::appendBytes(const uint8_t * data,
         }
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
         {
-            BufferChunk * lastChunk = _buffers[_numChunks - 1];
-            size_t        available = lastChunk->getAvailableBytes();
+            BufferChunk *lastChunk = _buffers[_numChunks - 1];
+            size_t      available = lastChunk->getAvailableBytes();
 
             if (bytesLeft <= available)
             {
@@ -159,13 +159,13 @@ nImO::ChunkArray::appendBytes(const uint8_t * data,
             else
             {
                 ODL_LOG("! (bytesLeft <= available)"); //####
-                BufferChunk * prevChunk = lastChunk;
+                BufferChunk *prevChunk = lastChunk;
 
                 lastChunk = new BufferChunk(_buffersArePadded);
                 if (lastChunk)
                 {
                     ODL_LOG("(lastChunk)"); //####
-                    BufferChunk * * newBuffers = new BufferChunk *[_numChunks + 1];
+                    BufferChunk **newBuffers = new BufferChunk *[_numChunks + 1];
 
                     if (newBuffers)
                     {
@@ -215,7 +215,7 @@ const
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
-            BufferChunk * aChunk = _buffers[chunkNumber];
+            BufferChunk *aChunk = _buffers[chunkNumber];
 
             if (NULL != aChunk)
             {
@@ -223,7 +223,7 @@ const
                 if (offset < aChunk->getDataSize())
                 {
                     ODL_LOG("(offset < aChunk->getDataSize())"); //####
-                    const uint8_t * thisData = aChunk->getData();
+                    const uint8_t *thisData = aChunk->getData();
 
                     result = *(thisData + offset);
                 }
@@ -235,7 +235,7 @@ const
 } // nImO::ChunkArray::getByte
 
 const uint8_t *
-nImO::ChunkArray::getBytes(size_t & length)
+nImO::ChunkArray::getBytes(size_t &length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
@@ -259,11 +259,11 @@ nImO::ChunkArray::getBytes(size_t & length)
             ODL_P1("_cachedOutput <- ", _cachedOutput); //####
             if (_cachedOutput)
             {
-                uint8_t * walker = _cachedOutput;
+                uint8_t *walker = _cachedOutput;
 
                 for (size_t ii = 0; _numChunks > ii; ++ii)
                 {
-                    BufferChunk * aChunk = _buffers[ii];
+                    BufferChunk *aChunk = _buffers[ii];
 
                     if (NULL != aChunk)
                     {
@@ -313,7 +313,7 @@ const
     if (_buffers)
     {
         ODL_LOG("(_buffers)"); //####
-        BufferChunk * aChunk = _buffers[_numChunks - 1];
+        BufferChunk *aChunk = _buffers[_numChunks - 1];
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
         if (NULL != aChunk)
@@ -346,14 +346,14 @@ nImO::ChunkArray::reset(void)
         ODL_LOG("(1 < _numChunks)"); //####
         for (size_t ii = 1; _numChunks > ii; ++ii)
         {
-            BufferChunk * aChunk = _buffers[ii];
+            BufferChunk *aChunk = _buffers[ii];
 
             if (NULL != aChunk)
             {
                 delete aChunk;
             }
         }
-        BufferChunk * firstChunk = *_buffers;
+        BufferChunk *firstChunk = *_buffers;
 
         delete[] _buffers;
         _buffers = new BufferChunk *[1];

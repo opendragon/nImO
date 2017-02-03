@@ -98,8 +98,8 @@ namespace nImO
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
-        readFromStringBuffer(const StringBuffer & inBuffer,
-                             size_t &             position);
+        readFromStringBuffer(const StringBuffer &inBuffer,
+                             size_t             &position);
 
     protected :
         // Protected methods.

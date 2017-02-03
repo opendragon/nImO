@@ -80,11 +80,11 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-AddressArgumentDescriptor::AddressArgumentDescriptor(const std::string & argName,
-                                                     const std::string & argDescription,
-                                                     const ArgumentMode  argMode,
-                                                     const std::string & defaultValue,
-                                                     struct in_addr *    addrBuff) :
+AddressArgumentDescriptor::AddressArgumentDescriptor(const std::string  &argName,
+                                                     const std::string  &argDescription,
+                                                     const ArgumentMode argMode,
+                                                     const std::string  &defaultValue,
+                                                     struct in_addr     *addrBuff) :
     inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
 {
     ODL_ENTER(); //####
@@ -112,22 +112,22 @@ BaseArgumentDescriptor *
 AddressArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new AddressArgumentDescriptor(argumentName(),
-                                                                    argumentDescription(),
-                                                                    argumentMode(),
-                                                                    getDefaultValue());
+    BaseArgumentDescriptor *result = new AddressArgumentDescriptor(argumentName(),
+                                                                   argumentDescription(),
+                                                                   argumentMode(),
+                                                                   getDefaultValue());
 
     ODL_EXIT_P(result);
     return result;
 } // AddressArgumentDescriptor::clone
 
 BaseArgumentDescriptor *
-AddressArgumentDescriptor::parseArgString(const std::string & inString)
+AddressArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -183,7 +183,7 @@ AddressArgumentDescriptor::toString(void)
 } // AddressArgumentDescriptor::toString
 
 bool
-AddressArgumentDescriptor::validate(const std::string & value)
+AddressArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
     std::string testValue;

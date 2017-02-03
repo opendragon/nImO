@@ -59,6 +59,7 @@
 # include <iostream>
 # include <list>
 # include <map>
+# include <memory>
 # include <queue>
 # include <set>
 //# include <stdint.h>
@@ -439,15 +440,15 @@ namespace nImO
      @param[in] inString The byte string to be processed.
      @returns The floating-point value stored in the bytes. */
     double
-    B2D(const NumberAsBytes & inString);
+    B2D(const NumberAsBytes &inString);
 
     /*! @brief Convert a set of bytes into an integer value.
      @param[in] inString The byte string to be processed.
      @param[in] numBytes The number of bytes to be processed.
      @returns The integer value stored in the bytes. */
     int64_t
-    B2I(const NumberAsBytes & inString,
-        const size_t          numBytes);
+    B2I(const NumberAsBytes &inString,
+        const size_t        numBytes);
 
     /*! @brief Compare two byte strings.
      @param[in] first The first byte string.
@@ -456,26 +457,26 @@ namespace nImO
      @returns @c 0 if the two byte strings are identical or the positive index (1-origin) where the
      two byte strings differ. */
     size_t
-    CompareBytes(const void * first,
-                 const void * second,
+    CompareBytes(const void   *first,
+                 const void   *second,
                  const size_t numBytes);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */
     void
-    D2B(const double    inValue,
-        NumberAsBytes & outString);
+    D2B(const double  inValue,
+        NumberAsBytes &outString);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
-    GetRandomChannelName(const char * channelRoot = DEFAULT_CHANNEL_ROOT_);
+    GetRandomChannelName(const char *channelRoot = DEFAULT_CHANNEL_ROOT_);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
-    GetRandomChannelName(const std::string & channelRoot);
+    GetRandomChannelName(const std::string &channelRoot);
 
     /*! @brief Return a random string of hexadecimal digits.
      @returns A random string of hexadecimal digits. */
@@ -488,15 +489,15 @@ namespace nImO
      @param[out] outString The byte string to be filled.
      @returns The minimum number of bytes needed to represent the value. */
     size_t
-    I2B(const int64_t   inValue,
-        NumberAsBytes & outString);
+    I2B(const int64_t inValue,
+        NumberAsBytes &outString);
 
     /*! @brief Perform initialization of internal resources.
      @param[in] progName The name of the executing program.
 
      Should be called in the main() function of each application or service. */
     void
-    Initialize(const std::string & progName);
+    Initialize(const std::string &progName);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
@@ -524,23 +525,23 @@ namespace nImO
      @param[in] arguments If non-@c NULL, returns the arguments for the utility.
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
-    ProcessStandardUtilitiesOptions(const int           argc,
-                                    char * *            argv,
-                                    DescriptorVector &  argumentDescriptions,
-                                    const std::string & utilityDescription,
-                                    const int           year,
-                                    const char *        copyrightHolder,
-                                    OutputFlavour &     flavour,
-                                    const bool          ignoreFlavours = false,
-                                    StringVector *      arguments = NULL);
+    ProcessStandardUtilitiesOptions(const int         argc,
+                                    char              **argv,
+                                    DescriptorVector  &argumentDescriptions,
+                                    const std::string &utilityDescription,
+                                    const int         year,
+                                    const char        *copyrightHolder,
+                                    OutputFlavour     &flavour,
+                                    const bool        ignoreFlavours = false,
+                                    StringVector      *arguments = NULL);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
      @param[in] allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
      @returns A string with special characters escaped. */
     std::string
-    SanitizeString(const std::string & inString,
-                   const bool          allowDoubleQuotes = false);
+    SanitizeString(const std::string &inString,
+                   const bool        allowDoubleQuotes = false);
 
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */

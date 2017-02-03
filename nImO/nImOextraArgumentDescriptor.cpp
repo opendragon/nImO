@@ -80,8 +80,8 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ExtraArgumentDescriptor::ExtraArgumentDescriptor(const std::string & argName,
-                                                 const std::string & argDescription) :
+ExtraArgumentDescriptor::ExtraArgumentDescriptor(const std::string &argName,
+                                                 const std::string &argDescription) :
     inherited(argName, argDescription, kArgModeOptional)
 {
     ODL_ENTER(); //####
@@ -101,7 +101,7 @@ ExtraArgumentDescriptor::~ExtraArgumentDescriptor(void)
 
 #if 0
 void
-ExtraArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
+ExtraArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -114,8 +114,8 @@ BaseArgumentDescriptor *
 ExtraArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new ExtraArgumentDescriptor(argumentName(),
-                                                                  argumentDescription());
+    BaseArgumentDescriptor *result = new ExtraArgumentDescriptor(argumentName(),
+                                                                 argumentDescription());
 
     ODL_EXIT_P(result);
     return result;
@@ -142,12 +142,12 @@ ExtraArgumentDescriptor::getProcessedValue(void)
 } // ExtraArgumentDescriptor::getProcessedValue
 
 BaseArgumentDescriptor *
-ExtraArgumentDescriptor::parseArgString(const std::string & inString)
+ExtraArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -200,7 +200,7 @@ ExtraArgumentDescriptor::toString(void)
 } // ExtraArgumentDescriptor::toString
 
 bool
-ExtraArgumentDescriptor::validate(const std::string & value)
+ExtraArgumentDescriptor::validate(const std::string &value)
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_

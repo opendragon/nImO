@@ -88,7 +88,7 @@ nImO::Map::Map(void) :
     ODL_EXIT_P(this); //####
 } // nImO::Map::
 
-nImO::Map::Map(const nImO::Map & other) :
+nImO::Map::Map(const nImO::Map &other) :
     inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
 {
     ODL_ENTER(); //####
@@ -109,7 +109,7 @@ nImO::Map::~Map(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::Map::addEntries(const nImO::Map & other)
+nImO::Map::addEntries(const nImO::Map &other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -118,8 +118,8 @@ nImO::Map::addEntries(const nImO::Map & other)
         for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             MapValue aValue = *walker;
-            Value *  key = aValue.first->clone();
-            Value *  mappedValue = aValue.second->clone();
+            Value    *key = aValue.first->clone();
+            Value    *mappedValue = aValue.second->clone();
 
             addValue(key, mappedValue);
         }
@@ -128,8 +128,8 @@ nImO::Map::addEntries(const nImO::Map & other)
 } // nImO::Map::addEntries
 
 nImO::Map::InsertResult
-nImO::Map::addValue(nImO::Value * newKey,
-                    nImO::Value * newValue)
+nImO::Map::addValue(nImO::Value *newKey,
+                    nImO::Value *newValue)
 {
     ODL_OBJENTER(); //####
     ODL_P2("newKey = ", newKey, "newValue = ", newValue); //####
@@ -188,14 +188,14 @@ nImO::Map::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    Map * result = new Map(*this);
+    Map *result = new Map(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Map::copy
 
 bool
-nImO::Map::deeplyEqualTo(const nImO::Value & other)
+nImO::Map::deeplyEqualTo(const nImO::Value &other)
 const
 {
     ODL_OBJENTER(); //####
@@ -204,7 +204,7 @@ const
     
     if (! result)
     {
-        const Map * otherPtr = other.asMap();
+        const Map *otherPtr = other.asMap();
         
         if (otherPtr && (size() == otherPtr->size()))
         {
@@ -214,16 +214,16 @@ const
             for (result = true; result && (thisWalker != inherited2::end());
                  ++thisWalker, ++otherWalker)
             {
-                Value * thisKey = thisWalker->first;
-                Value * otherKey = otherWalker->first;
+                Value *thisKey = thisWalker->first;
+                Value *otherKey = otherWalker->first;
                 
                 if ((NULL != thisKey) && (NULL != otherKey))
                 {
                     result = thisKey->deeplyEqualTo(*otherKey);
                     if (result)
                     {
-                        Value * thisValue = thisWalker->second;
-                        Value * otherValue = otherWalker->second;
+                        Value *thisValue = thisWalker->second;
+                        Value *otherValue = otherWalker->second;
                         
                         if ((NULL != thisValue) && (NULL != otherValue))
                         {
@@ -247,8 +247,8 @@ const
 } // nImO::Map::deeplyEqualTo
 
 bool
-nImO::Map::equalTo(const nImO::Value & other,
-                   bool &              validComparison)
+nImO::Map::equalTo(const nImO::Value &other,
+                   bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -261,7 +261,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value * aValue = walker->first;
+        Value *aValue = walker->first;
 
         if (aValue)
         {
@@ -273,19 +273,19 @@ const
 } // nImO::Map::equalTo
 
 nImO::Value *
-nImO::Map::extractValue(const nImO::Message & theMessage,
-                        const int             leadByte,
-                        size_t &              position,
-                        nImO::ReadStatus &    status,
-                        nImO::Array *         parentValue)
+nImO::Map::extractValue(const nImO::Message &theMessage,
+                        const int           leadByte,
+                        size_t              &position,
+                        nImO::ReadStatus    &status,
+                        nImO::Array         *parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result = NULL;
-    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
-    int     aByte;
+    Value *result = NULL;
+    bool  isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask &leadByte));
+    int   aByte;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
@@ -352,7 +352,7 @@ nImO::Map::extractValue(const nImO::Message & theMessage,
                 }
                 else
                 {
-                    Map * aMap = new Map;
+                    Map *aMap = new Map;
 
                     result = aMap;
                     if (NULL == result)
@@ -377,8 +377,8 @@ nImO::Map::extractValue(const nImO::Message & theMessage,
                             }
                             else
                             {
-                                Value * kValue = getValueFromMessage(theMessage, position, aByte,
-                                                                     status, NULL);
+                                Value *kValue = getValueFromMessage(theMessage, position, aByte,
+                                                                    status, NULL);
 
                                 if (NULL == kValue)
                                 {
@@ -398,8 +398,8 @@ nImO::Map::extractValue(const nImO::Message & theMessage,
                                     }
                                     else
                                     {
-                                        Value * vValue = getValueFromMessage(theMessage, position,
-                                                                             aByte, status, NULL);
+                                        Value *vValue = getValueFromMessage(theMessage, position,
+                                                                            aByte, status, NULL);
 
                                         if (NULL == vValue)
                                         {
@@ -475,7 +475,7 @@ nImO::Map::extractValue(const nImO::Message & theMessage,
 } // nImO::Map::extractValue
 
 nImO::Map::iterator
-nImO::Map::find(const nImO::Value & key)
+nImO::Map::find(const nImO::Value &key)
 {
     ODL_OBJENTER(); //####
     ODL_P1("key = ", &key); //####
@@ -494,7 +494,7 @@ nImO::Map::find(const nImO::Value & key)
 } // nImO::Map::find
 
 nImO::Map::const_iterator
-nImO::Map::find(const nImO::Value & key)
+nImO::Map::find(const nImO::Value &key)
 const
 {
     ODL_OBJENTER(); //####
@@ -514,9 +514,9 @@ const
 } // nImO::Map::find
 
 void
-nImO::Map::getExtractionInfo(uint8_t &                aByte,
-                             uint8_t &                aMask,
-                             nImO::Value::Extractor & theExtractor)
+nImO::Map::getExtractionInfo(uint8_t                &aByte,
+                             uint8_t                &aMask,
+                             nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -547,8 +547,8 @@ nImO::Map::getTerminalCharacters(void)
 } // nImO::Map::getTerminalCharacters
 
 bool
-nImO::Map::greaterThan(const nImO::Value & other,
-                       bool &              validComparison)
+nImO::Map::greaterThan(const nImO::Value &other,
+                       bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -561,7 +561,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value * aValue = walker->first;
+        Value *aValue = walker->first;
 
         if (aValue)
         {
@@ -573,8 +573,8 @@ const
 } // nImO::Map::greaterThan
 
 bool
-nImO::Map::greaterThanOrEqual(const nImO::Value & other,
-                              bool &              validComparison)
+nImO::Map::greaterThanOrEqual(const nImO::Value &other,
+                              bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -587,7 +587,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value * aValue = walker->first;
+        Value *aValue = walker->first;
 
         if (aValue)
         {
@@ -599,8 +599,8 @@ const
 } // nImO::Map::greaterThanOrEqual
 
 bool
-nImO::Map::lessThan(const nImO::Value & other,
-                    bool &              validComparison)
+nImO::Map::lessThan(const nImO::Value &other,
+                    bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -613,7 +613,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value * aValue = walker->first;
+        Value *aValue = walker->first;
 
         if (aValue)
         {
@@ -625,8 +625,8 @@ const
 } // nImO::Map::lessThan
 
 bool
-nImO::Map::lessThanOrEqual(const nImO::Value & other,
-                           bool &              validComparison)
+nImO::Map::lessThanOrEqual(const nImO::Value &other,
+                           bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -639,7 +639,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value * aValue = walker->first;
+        Value *aValue = walker->first;
 
         if (aValue)
         {
@@ -651,7 +651,7 @@ const
 } // nImO::Map::lessThanOrEqual
 
 nImO::Map &
-nImO::Map::operator =(const nImO::Map & other)
+nImO::Map::operator =(const nImO::Map &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -665,8 +665,8 @@ nImO::Map::operator =(const nImO::Map & other)
 } // nImO::Map::operator=
 
 void
-nImO::Map::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                               const bool           squished)
+nImO::Map::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                               const bool         squished)
 const
 {
     ODL_OBJENTER(); //####
@@ -705,16 +705,16 @@ const
 } // nImO::Map::printToStringBuffer
 
 nImO::Value *
-nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                size_t &                   position)
+nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
+                                size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    bool    done = false;
-    bool    valid = false;
-    Map *   result = new Map;
-    size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex++);
+    bool   done = false;
+    bool   valid = false;
+    Map    *result = new Map;
+    size_t localIndex = position;
+    int    aChar = inBuffer.getChar(localIndex++);
 
     ODL_P1("result <- ", result); //####
     ODL_C1("aChar <- ", aChar); //####
@@ -744,7 +744,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             }
             else
             {
-                Value * keyValue = Value::readFromStringBuffer(inBuffer, localIndex);
+                Value *keyValue = Value::readFromStringBuffer(inBuffer, localIndex);
 
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == keyValue)
@@ -801,7 +801,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     else if (kKeyValueSeparator == aChar)
                     {
                         ++localIndex;
-                        Value * assocValue = Value::readFromStringBuffer(inBuffer, localIndex);
+                        Value *assocValue = Value::readFromStringBuffer(inBuffer, localIndex);
 
                         if (NULL == assocValue)
                         {
@@ -836,7 +836,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 } // nImO::Map::readFromStringBuffer
 
 void
-nImO::Map::writeToMessage(nImO::Message & outMessage)
+nImO::Map::writeToMessage(nImO::Message &outMessage)
 const
 {
     ODL_OBJENTER(); //####

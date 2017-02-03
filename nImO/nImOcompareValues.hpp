@@ -81,8 +81,8 @@ namespace nImO
          @param[in] rhs The second Value to be compared.
          @returns @c true if the first Value is less than the second. */
         bool
-        operator() (const Value * const lhs,
-                    const Value * const rhs)
+        operator() (const Value *const lhs,
+                    const Value *const rhs)
         const;
 
     protected :

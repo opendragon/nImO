@@ -115,7 +115,7 @@ nImO::BufferChunk::~BufferChunk(void)
 #endif // defined(__APPLE__)
 
 nImO::BufferChunk &
-nImO::BufferChunk::appendData(const void * data,
+nImO::BufferChunk::appendData(const void   *data,
                               const size_t numBytes)
 {
     ODL_OBJENTER(); //####

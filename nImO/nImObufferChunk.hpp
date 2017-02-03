@@ -86,7 +86,7 @@ namespace nImO
          Note that if there is insufficient space, the added data will be truncated.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
-        appendData(const void * data,
+        appendData(const void   *data,
                    const size_t numBytes);
 
         /*! @brief Return the number of available bytes in the chunk.
@@ -129,13 +129,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BufferChunk(const BufferChunk & other);
+        BufferChunk(const BufferChunk &other);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         BufferChunk &
-        operator =(const BufferChunk & other);
+        operator =(const BufferChunk &other);
 
     public :
         // Public fields.
@@ -150,13 +150,13 @@ namespace nImO
         // Private fields.
 
         /*! @brief The internal buffer used to hold the assembled data. */
-        uint8_t * _buffer;
+        uint8_t *_buffer;
 
         /*! @brief The byte just past the end of the internal buffer. */
-        uint8_t * _bufferEnd;
+        uint8_t *_bufferEnd;
 
         /*! @brief The next byte to write in the internal buffer. */
-        uint8_t * _write;
+        uint8_t *_write;
 
         /*! @brief @c true if the buffer has an extra byte. */
         bool _padded;

@@ -84,9 +84,9 @@ using namespace nImO;
  @param[in] emptyIsOK @c true if the file path can be empty and @c false otherwise.
  @returns @c true if the file path is acceptable and @c false otherwise. */
 static bool
-checkFilePath(const char * thePath,
-              const bool   forOutput,
-              const bool   emptyIsOK)
+checkFilePath(const char *thePath,
+              const bool forOutput,
+              const bool emptyIsOK)
 {
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####
@@ -141,13 +141,13 @@ checkFilePath(const char * thePath,
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-FilePathArgumentDescriptor::FilePathArgumentDescriptor(const std::string & argName,
-                                                       const std::string & argDescription,
-                                                       const ArgumentMode  argMode,
-                                                       const std::string & pathPrefix,
-                                                       const std::string & pathSuffix,
-                                                       const bool          forOutput,
-                                                       const bool          useRandomPath) :
+FilePathArgumentDescriptor::FilePathArgumentDescriptor(const std::string  &argName,
+                                                       const std::string  &argDescription,
+                                                       const ArgumentMode argMode,
+                                                       const std::string  &pathPrefix,
+                                                       const std::string  &pathSuffix,
+                                                       const bool         forOutput,
+                                                       const bool         useRandomPath) :
     inherited(argName, argDescription, argMode, pathPrefix),
     _pathPrefix(pathPrefix), _pathSuffix(pathSuffix), _defaultSet(false), _forOutput(forOutput),
     _useRandomPath(useRandomPath)
@@ -174,11 +174,11 @@ BaseArgumentDescriptor *
 FilePathArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new FilePathArgumentDescriptor(argumentName(),
-                                                                     argumentDescription(),
-                                                                     argumentMode(), _pathPrefix,
-                                                                     _pathSuffix, _forOutput,
-                                                                     _useRandomPath);
+    BaseArgumentDescriptor *result = new FilePathArgumentDescriptor(argumentName(),
+                                                                    argumentDescription(),
+                                                                    argumentMode(), _pathPrefix,
+                                                                    _pathSuffix, _forOutput,
+                                                                    _useRandomPath);
 
     ODL_EXIT_P(result);
     return result;
@@ -204,12 +204,12 @@ FilePathArgumentDescriptor::getDefaultValue(void)
 } // FilePathArgumentDescriptor::getDefaultValue
 
 BaseArgumentDescriptor *
-FilePathArgumentDescriptor::parseArgString(const std::string & inString)
+FilePathArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 6, inVector))
     {
@@ -270,7 +270,7 @@ FilePathArgumentDescriptor::parseArgString(const std::string & inString)
                 tempString += GetRandomHexString();
             }
             tempString += suffixValue;
-            okSoFar = checkFilePath(tempString.c_str(), forOutput, ! (argMode & kArgModeOptional));
+            okSoFar = checkFilePath(tempString.c_str(), forOutput, ! (argMode &kArgModeOptional));
         }
         if (okSoFar)
         {
@@ -311,7 +311,7 @@ FilePathArgumentDescriptor::toString(void)
 } // FilePathArgumentDescriptor::toString
 
 bool
-FilePathArgumentDescriptor::validate(const std::string & value)
+FilePathArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
     _valid = checkFilePath(value.c_str(), _forOutput, false);

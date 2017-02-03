@@ -96,7 +96,7 @@ nImO::Double::Double(const double initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
-nImO::Double::Double(const nImO::Double & other) :
+nImO::Double::Double(const nImO::Double &other) :
     inherited(), _floatValue(other._floatValue)
 {
     ODL_ENTER(); //####
@@ -119,14 +119,14 @@ nImO::Double::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    Double * result = new Double(*this);
+    Double *result = new Double(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Double::copy
 
 bool
-nImO::Double::deeplyEqualTo(const nImO::Value & other)
+nImO::Double::deeplyEqualTo(const nImO::Value &other)
 const
 {
     ODL_OBJENTER(); //####
@@ -135,7 +135,7 @@ const
     
     if (! result)
     {
-        const Double * otherPtr = other.asDouble();
+        const Double *otherPtr = other.asDouble();
         
         if (NULL != otherPtr)
         {
@@ -147,8 +147,8 @@ const
 } // nImO::Double::deeplyEqualTo
 
 bool
-nImO::Double::equalTo(const nImO::Value & other,
-                      bool &              validComparison)
+nImO::Double::equalTo(const nImO::Value &other,
+                      bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -163,11 +163,11 @@ const
     }
     else
     {
-        const Double * doublePtr = other.asDouble();
+        const Double *doublePtr = other.asDouble();
         
         if (NULL == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            const Integer *intPtr = other.asInteger();
             
             if (NULL == intPtr)
             {
@@ -200,30 +200,30 @@ const
 } // nImO::Double::equalTo
 
 nImO::Value *
-nImO::Double::extractValue(const nImO::Message & theMessage,
-                           const int             leadByte,
-                           size_t &              position,
-                           nImO::ReadStatus &    status,
-                           nImO::Array *         parentValue)
+nImO::Double::extractValue(const nImO::Message &theMessage,
+                           const int           leadByte,
+                           size_t              &position,
+                           nImO::ReadStatus    &status,
+                           nImO::Array         *parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result = NULL;
-    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask & leadByte));
+    Value   *result = NULL;
+    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask &leadByte));
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
-        howMany = (kKindDoubleShortCountMask & leadByte) + 1;
+        howMany = (kKindDoubleShortCountMask &leadByte) + 1;
         ODL_LL1("howMany <- ", howMany);
     }
     else
     {
-        size_t        size = (kKindDoubleLongCountMask & leadByte) + 1;
+        size_t        size = (kKindDoubleLongCountMask &leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -307,9 +307,9 @@ nImO::Double::extractValue(const nImO::Message & theMessage,
 } // nImO::Double::extractValue
 
 void
-nImO::Double::getExtractionInfo(uint8_t &                aByte,
-                                uint8_t &                aMask,
-                                nImO::Value::Extractor & theExtractor)
+nImO::Double::getExtractionInfo(uint8_t                &aByte,
+                                uint8_t                &aMask,
+                                nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -320,8 +320,8 @@ nImO::Double::getExtractionInfo(uint8_t &                aByte,
 } // nImO::Double::getExtractionInfo
 
 bool
-nImO::Double::greaterThan(const nImO::Value & other,
-                          bool &              validComparison)
+nImO::Double::greaterThan(const nImO::Value &other,
+                          bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -337,11 +337,11 @@ const
     }
     else
     {
-        const Double * doublePtr = other.asDouble();
+        const Double *doublePtr = other.asDouble();
         
         if (NULL == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            const Integer *intPtr = other.asInteger();
             
             if (NULL == intPtr)
             {
@@ -374,8 +374,8 @@ const
 } // nImO::Double::greaterThan
 
 bool
-nImO::Double::greaterThanOrEqual(const nImO::Value & other,
-                                 bool &              validComparison)
+nImO::Double::greaterThanOrEqual(const nImO::Value &other,
+                                 bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -390,11 +390,11 @@ const
     }
     else
     {
-        const Double * doublePtr = other.asDouble();
+        const Double *doublePtr = other.asDouble();
         
         if (NULL == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            const Integer *intPtr = other.asInteger();
             
             if (NULL == intPtr)
             {
@@ -427,8 +427,8 @@ const
 } // nImO::Double::greaterThanOrEqual
 
 bool
-nImO::Double::lessThan(const nImO::Value & other,
-                       bool &              validComparison)
+nImO::Double::lessThan(const nImO::Value &other,
+                       bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -444,11 +444,11 @@ const
     }
     else
     {
-        const Double * doublePtr = other.asDouble();
+        const Double *doublePtr = other.asDouble();
         
         if (NULL == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            const Integer *intPtr = other.asInteger();
             
             if (NULL == intPtr)
             {
@@ -481,8 +481,8 @@ const
 } // nImO::Double::lessThan
 
 bool
-nImO::Double::lessThanOrEqual(const nImO::Value & other,
-                              bool &              validComparison)
+nImO::Double::lessThanOrEqual(const nImO::Value &other,
+                              bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -497,11 +497,11 @@ const
     }
     else
     {
-        const Double * doublePtr = other.asDouble();
+        const Double *doublePtr = other.asDouble();
         
         if (NULL == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            const Integer *intPtr = other.asInteger();
             
             if (NULL == intPtr)
             {
@@ -534,7 +534,7 @@ const
 } // nImO::Double::lessThanOrEqual
 
 nImO::Double &
-nImO::Double::operator =(const nImO::Double & other)
+nImO::Double::operator =(const nImO::Double &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -557,8 +557,8 @@ nImO::Double::operator =(const double value)
 } // nImO::Double::operator=
 
 void
-nImO::Double::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                                  const bool           squished)
+nImO::Double::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                                  const bool         squished)
 const
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -574,7 +574,7 @@ const
 } // nImO::Double::printToStringBuffer
 
 void
-nImO::Double::writeToMessage(nImO::Message & outMessage)
+nImO::Double::writeToMessage(nImO::Message &outMessage)
 const
 {
     ODL_OBJENTER(); //####
@@ -583,7 +583,7 @@ const
 
     D2B(_floatValue, numBuff);
     uint8_t stuff = kKindDouble + kKindDoubleShortCount +
-                    ((1 - kKindDoubleShortCountMinValue) & kKindDoubleShortCountMask);
+                    ((1 - kKindDoubleShortCountMinValue) &kKindDoubleShortCountMask);
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     outMessage.appendBytes(numBuff, sizeof(numBuff));
@@ -591,8 +591,8 @@ const
 } // nImO::Double::writeToMessage
 
 void
-nImO::Double::writeValuesToMessage(std::queue<double> & values,
-                                   nImO::Message &      outMessage)
+nImO::Double::writeValuesToMessage(std::queue<double> &values,
+                                   nImO::Message      &outMessage)
 {
     ODL_ENTER(); //####
     ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####
@@ -612,7 +612,7 @@ nImO::Double::writeValuesToMessage(std::queue<double> & values,
             {
                 ODL_LOG("(0 < numBytes)"); //####
                 uint8_t countTag = kKindDouble + kKindDoubleLongCount +
-                                   (kKindDoubleLongCountMask & (numBytes - 1));
+                                   (kKindDoubleLongCountMask &(numBytes - 1));
 
                 outMessage.appendBytes(&countTag, sizeof(countTag));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

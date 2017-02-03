@@ -107,12 +107,12 @@ using std::endl;
 /*! @brief The entry point for reporting information on a #nImO channel.
 
  Standard output will receive a list of the connections to the channel.
- @param argc The number of arguments in 'argv'.
- @param argv The arguments to be used with the application.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used with the application.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int      argc,
-     char * * argv)
+main(int  argc,
+     char **argv)
 {
     std::string progName(*argv);
 

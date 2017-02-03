@@ -107,8 +107,8 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value & aValue,
-                       const char *        aString)
+compareValueWithString(const nImO::Value &aValue,
+                       const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -134,9 +134,9 @@ compareValueWithString(const nImO::Value & aValue,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseBooleanValue(const bool   expected,
-                        const char * inString,
-                        const char * expectedString) // boolean values
+doTestParseBooleanValue(const bool expected,
+                        const char *inString,
+                        const char *expectedString) // boolean values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -148,7 +148,7 @@ doTestParseBooleanValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -210,9 +210,9 @@ doTestParseBooleanValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseNumberValue(const bool   expected,
-                       const char * inString,
-                       const char * expectedString) // number values
+doTestParseNumberValue(const bool expected,
+                       const char *inString,
+                       const char *expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -224,7 +224,7 @@ doTestParseNumberValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -286,9 +286,9 @@ doTestParseNumberValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseStringValue(const bool   expected,
-                       const char * inString,
-                       const char * expectedString) // string values
+doTestParseStringValue(const bool expected,
+                       const char *inString,
+                       const char *expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -300,7 +300,7 @@ doTestParseStringValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -362,9 +362,9 @@ doTestParseStringValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseArrayValue(const bool   expected,
-                      const char * inString,
-                      const char * expectedString) // array values
+doTestParseArrayValue(const bool expected,
+                      const char *inString,
+                      const char *expectedString) // array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -376,7 +376,7 @@ doTestParseArrayValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -438,9 +438,9 @@ doTestParseArrayValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseSetValue(const bool   expected,
-                    const char * inString,
-                    const char * expectedString) // set values
+doTestParseSetValue(const bool expected,
+                    const char *inString,
+                    const char *expectedString) // set values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -452,7 +452,7 @@ doTestParseSetValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -514,9 +514,9 @@ doTestParseSetValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseMapValue(const bool   expected,
-                    const char * inString,
-                    const char * expectedString) // map values
+doTestParseMapValue(const bool expected,
+                    const char *inString,
+                    const char *expectedString) // map values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -528,7 +528,7 @@ doTestParseMapValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -590,9 +590,9 @@ doTestParseMapValue(const bool   expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseImplicitArrayValue(const bool   expected,
-                              const char * inString,
-                              const char * expectedString) // implicit array values
+doTestParseImplicitArrayValue(const bool expected,
+                              const char *inString,
+                              const char *expectedString) // implicit array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -604,7 +604,7 @@ doTestParseImplicitArrayValue(const bool   expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value * readValue = buff.convertToValue();
+        nImO::Value *readValue = buff.convertToValue();
 
         if ((NULL != readValue) == expected)
         {
@@ -669,8 +669,8 @@ doTestParseImplicitArrayValue(const bool   expected,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int      argc,
-     char * * argv)
+main(int  argc,
+     char **argv)
 {
     std::string progName(*argv);
 
@@ -690,9 +690,9 @@ main(int      argc,
         nImO::Initialize(progName);
         if (3 < --argc)
         {
-            const char * startPtr = argv[1];
-            char *       endPtr;
-            int          selector = strtol(startPtr, &endPtr, 10);
+            const char *startPtr = argv[1];
+            char       *endPtr;
+            int        selector = strtol(startPtr, &endPtr, 10);
 
             ODL_LL1("selector <- ", selector); //####
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))

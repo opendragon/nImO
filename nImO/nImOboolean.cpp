@@ -101,7 +101,7 @@ nImO::Boolean::Boolean(const bool initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::Boolean::Boolean
 
-nImO::Boolean::Boolean(const nImO::Boolean & other) :
+nImO::Boolean::Boolean(const nImO::Boolean &other) :
     inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
@@ -124,14 +124,14 @@ nImO::Boolean::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    Boolean * result = new Boolean(*this);
+    Boolean *result = new Boolean(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::Boolean::copy
 
 bool
-nImO::Boolean::deeplyEqualTo(const nImO::Value & other)
+nImO::Boolean::deeplyEqualTo(const nImO::Value &other)
 const
 {
     ODL_OBJENTER(); //####
@@ -140,7 +140,7 @@ const
 
     if (! result)
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL != otherPtr)
         {
@@ -152,8 +152,8 @@ const
 } // nImO::Boolean::deeplyEqualTo
 
 bool
-nImO::Boolean::equalTo(const nImO::Value & other,
-                       bool &              validComparison)
+nImO::Boolean::equalTo(const nImO::Value &other,
+                       bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -167,7 +167,7 @@ const
     }
     else
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL == otherPtr)
         {
@@ -197,11 +197,11 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 nImO::Value *
-nImO::Boolean::extractValue(const nImO::Message & theMessage,
-                            const int             leadByte,
-                            size_t &              position,
-                            nImO::ReadStatus &    status,
-                            nImO::Array *         parentValue)
+nImO::Boolean::extractValue(const nImO::Message &theMessage,
+                            const int           leadByte,
+                            size_t              &position,
+                            nImO::ReadStatus    &status,
+                            nImO::Array         *parentValue)
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -212,8 +212,8 @@ nImO::Boolean::extractValue(const nImO::Message & theMessage,
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result = new Boolean(kKindOtherBooleanTrueValue ==
-                                 (kKindOtherBooleanValueMask & leadByte));
+    Value *result = new Boolean(kKindOtherBooleanTrueValue ==
+                                (kKindOtherBooleanValueMask &leadByte));
 
     ++position; // We will always accept the lead byte
     status = kReadSuccessful;
@@ -234,16 +234,16 @@ const std::string &
 nImO::Boolean::getCanonicalRepresentation(const bool aValue)
 {
     ODL_ENTER(); //####
-    const std::string & result = (aValue ? kCanonicalTrue : kCanonicalFalse);
+    const std::string &result = (aValue ? kCanonicalTrue : kCanonicalFalse);
 
     ODL_EXIT_P(&result); //####
     return result;
 } // nImO::Boolean::getCanonicalRepresentation
 
 void
-nImO::Boolean::getExtractionInfo(uint8_t &                aByte,
-                                 uint8_t &                aMask,
-                                 nImO::Value::Extractor & theExtractor)
+nImO::Boolean::getExtractionInfo(uint8_t                &aByte,
+                                 uint8_t                &aMask,
+                                 nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -257,15 +257,15 @@ const char *
 nImO::Boolean::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "ftFT";
+    static const char *initialChars = "ftFT";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Boolean::getInitialCharacters
 
 bool
-nImO::Boolean::greaterThan(const nImO::Value & other,
-                           bool &              validComparison)
+nImO::Boolean::greaterThan(const nImO::Value &other,
+                           bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -280,7 +280,7 @@ const
     }
     else
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL == otherPtr)
         {
@@ -306,8 +306,8 @@ const
 } // nImO::Boolean::greaterThan
 
 bool
-nImO::Boolean::greaterThanOrEqual(const nImO::Value & other,
-                                  bool &              validComparison)
+nImO::Boolean::greaterThanOrEqual(const nImO::Value &other,
+                                  bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -321,7 +321,7 @@ const
     }
     else
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL == otherPtr)
         {
@@ -347,8 +347,8 @@ const
 } // nImO::Boolean::greaterThanOrEqual
 
 bool
-nImO::Boolean::lessThan(const nImO::Value & other,
-                        bool &              validComparison)
+nImO::Boolean::lessThan(const nImO::Value &other,
+                        bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -363,7 +363,7 @@ const
     }
     else
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL == otherPtr)
         {
@@ -389,8 +389,8 @@ const
 } // nImO::Boolean::lessThan
 
 bool
-nImO::Boolean::lessThanOrEqual(const nImO::Value & other,
-                               bool &              validComparison)
+nImO::Boolean::lessThanOrEqual(const nImO::Value &other,
+                               bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -404,7 +404,7 @@ const
     }
     else
     {
-        const Boolean * otherPtr = other.asBoolean();
+        const Boolean *otherPtr = other.asBoolean();
         
         if (NULL == otherPtr)
         {
@@ -430,7 +430,7 @@ const
 } // nImO::Boolean::lessThanOrEqual
 
 nImO::Boolean &
-nImO::Boolean::operator =(const nImO::Boolean & other)
+nImO::Boolean::operator =(const nImO::Boolean &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -453,8 +453,8 @@ nImO::Boolean::operator =(const bool value)
 } // nImO::Boolean::operator=
 
 void
-nImO::Boolean::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                                   const bool           squished)
+nImO::Boolean::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                                   const bool         squished)
 const
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -470,16 +470,16 @@ const
 } // nImO::Boolean::printToStringBuffer
 
 nImO::Value *
-nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                    size_t &                   position)
+nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
+                                    size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    bool                candidateValue = false;
-    Value *             result = NULL;
-    size_t              localIndex = position;
-    int                 aChar = inBuffer.getChar(localIndex++);
-    const std::string * candidate;
+    bool              candidateValue = false;
+    Value             *result = NULL;
+    size_t            localIndex = position;
+    int               aChar = inBuffer.getChar(localIndex++);
+    const std::string *candidate;
 
     // Select which form of the value that is in the buffer:
     if (('f' == aChar) || ('F' == aChar))
@@ -537,7 +537,7 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 } // nImO::Boolean::readFromStringBuffer
 
 void
-nImO::Boolean::writeToMessage(nImO::Message & outMessage)
+nImO::Boolean::writeToMessage(nImO::Message &outMessage)
 const
 {
     ODL_ENTER(); //####

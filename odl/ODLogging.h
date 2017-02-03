@@ -851,10 +851,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] text The string to be written. */
     void
-    ODLog_(const char * fileName,
-           const char * funcName,
-           const int    lineNumber,
-           const char * text);
+    ODLog_(const char *fileName,
+           const char *funcName,
+           const int  lineNumber,
+           const char *text);
 
     /*! @brief Write a boolean value to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -863,11 +863,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogB1_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const bool   val1);
+    ODLogB1_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const bool val1);
 
     /*! @brief Write two boolean values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -878,13 +878,13 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogB2_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const bool   val1,
-             const char * text2,
-             const bool   val2);
+    ODLogB2_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const bool val1,
+             const char *text2,
+             const bool val2);
 
     /*! @brief Write three boolean values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -897,15 +897,15 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogB3_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const bool   val1,
-             const char * text2,
-             const bool   val2,
-             const char * text3,
-             const bool   val3);
+    ODLogB3_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const bool val1,
+             const char *text2,
+             const bool val2,
+             const char *text3,
+             const bool val3);
 
     /*! @brief Write four boolean values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -920,17 +920,17 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogB4_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const bool   val1,
-             const char * text2,
-             const bool   val2,
-             const char * text3,
-             const bool   val3,
-             const char * text4,
-             const bool   val4);
+    ODLogB4_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const bool val1,
+             const char *text2,
+             const bool val2,
+             const char *text3,
+             const bool val3,
+             const char *text4,
+             const bool val4);
 
     /*! @brief Write a character value to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -939,11 +939,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogC1_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char   val1);
+    ODLogC1_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char val1);
 
     /*! @brief Write two character values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -954,13 +954,13 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogC2_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char   val1,
-             const char * text2,
-             const char   val2);
+    ODLogC2_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char val1,
+             const char *text2,
+             const char val2);
 
     /*! @brief Write three character values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -973,15 +973,15 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogC3_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char   val1,
-             const char * text2,
-             const char   val2,
-             const char * text3,
-             const char   val3);
+    ODLogC3_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char val1,
+             const char *text2,
+             const char val2,
+             const char *text3,
+             const char val3);
 
     /*! @brief Write four character values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -996,17 +996,17 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogC4_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char   val1,
-             const char * text2,
-             const char   val2,
-             const char * text3,
-             const char   val3,
-             const char * text4,
-             const char   val4);
+    ODLogC4_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char val1,
+             const char *text2,
+             const char val2,
+             const char *text3,
+             const char val3,
+             const char *text4,
+             const char val4);
 
     /*! @brief Write a double value to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1015,10 +1015,10 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogD1_(const char * fileName,
-             const char * funcName,
+    ODLogD1_(const char   *fileName,
+             const char   *funcName,
              const int    lineNumber,
-             const char * text1,
+             const char   *text1,
              const double val1);
 
     /*! @brief Write two double values to the log.
@@ -1030,12 +1030,12 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogD2_(const char * fileName,
-             const char * funcName,
+    ODLogD2_(const char   *fileName,
+             const char   *funcName,
              const int    lineNumber,
-             const char * text1,
+             const char   *text1,
              const double val1,
-             const char * text2,
+             const char   *text2,
              const double val2);
 
     /*! @brief Write three double values to the log.
@@ -1049,14 +1049,14 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogD3_(const char * fileName,
-             const char * funcName,
+    ODLogD3_(const char   *fileName,
+             const char   *funcName,
              const int    lineNumber,
-             const char * text1,
+             const char   *text1,
              const double val1,
-             const char * text2,
+             const char   *text2,
              const double val2,
-             const char * text3,
+             const char   *text3,
              const double val3);
 
     /*! @brief Write four double values to the log.
@@ -1072,16 +1072,16 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogD4_(const char * fileName,
-             const char * funcName,
+    ODLogD4_(const char   *fileName,
+             const char   *funcName,
              const int    lineNumber,
-             const char * text1,
+             const char   *text1,
              const double val1,
-             const char * text2,
+             const char   *text2,
              const double val2,
-             const char * text3,
+             const char   *text3,
              const double val3,
-             const char * text4,
+             const char   *text4,
              const double val4);
 
     /*! @brief Write a function entry string to the log.
@@ -1089,18 +1089,18 @@ extern "C"
      @param[in] funcName The name of the calling function.
      @param[in] lineNumber The line number in the source file where the call occurs. */
     void
-    ODLogEnter_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber);
+    ODLogEnter_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber);
 
     /*! @brief Write a void function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
      @param[in] funcName The name of the calling function.
      @param[in] lineNumber The line number in the source file where the call occurs. */
     void
-    ODLogExit_(const char * fileName,
-               const char * funcName,
-               const int    lineNumber);
+    ODLogExit_(const char *fileName,
+               const char *funcName,
+               const int  lineNumber);
 
     /*! @brief Write a boolean function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1108,10 +1108,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitB_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber,
-                const bool   val);
+    ODLogExitB_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber,
+                const bool val);
 
     /*! @brief Write a character function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1119,10 +1119,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitC_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber,
-                const char   val);
+    ODLogExitC_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber,
+                const char val);
 
     /*! @brief Write a double function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1130,8 +1130,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitD_(const char * fileName,
-                const char * funcName,
+    ODLogExitD_(const char   *fileName,
+                const char   *funcName,
                 const int    lineNumber,
                 const double val);
 
@@ -1141,10 +1141,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitExit_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const long   val);
+    ODLogExitExit_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const long val);
 
     /*! @brief Write a long function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1152,8 +1152,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitL_(const char *  fileName,
-                const char *  funcName,
+    ODLogExitL_(const char    *fileName,
+                const char    *funcName,
                 const int     lineNumber,
                 const int32_t val);
 
@@ -1163,8 +1163,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitLL_(const char *  fileName,
-                 const char *  funcName,
+    ODLogExitLL_(const char    *fileName,
+                 const char    *funcName,
                  const int     lineNumber,
                  const int64_t val);
 
@@ -1175,10 +1175,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitO_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber,
-                const id     val);
+    ODLogExitO_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber,
+                const id   val);
 #   endif // defined(__OBJC__)
 
     /*! @brief Write a pointer function exit string to the log.
@@ -1187,10 +1187,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitP_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber,
-                const void * val);
+    ODLogExitP_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber,
+                const void *val);
 
 #   if defined(__APPLE__)
     /*! @brief Write a rectangle function exit string to the log.
@@ -1199,8 +1199,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitRect_(const char * fileName,
-                   const char * funcName,
+    ODLogExitRect_(const char   *fileName,
+                   const char   *funcName,
                    const int    lineNumber,
                    const CGRect val);
 #   endif // defined(__APPLE__)
@@ -1211,10 +1211,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitS_(const char * fileName,
-                const char * funcName,
-                const int    lineNumber,
-                const char * val);
+    ODLogExitS_(const char *fileName,
+                const char *funcName,
+                const int  lineNumber,
+                const char *val);
 
 #   if defined(__APPLE__)
     /*! @brief Write a size function exit string to the log.
@@ -1223,8 +1223,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitSize_(const char * fileName,
-                   const char * funcName,
+    ODLogExitSize_(const char   *fileName,
+                   const char   *funcName,
                    const int    lineNumber,
                    const CGSize val);
 #   endif // defined(__APPLE__)
@@ -1235,8 +1235,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being thrown by the function. */
     void
-    ODLogExitThrowL_(const char *  fileName,
-                     const char *  funcName,
+    ODLogExitThrowL_(const char    *fileName,
+                     const char    *funcName,
                      const int     lineNumber,
                      const int32_t val);
 
@@ -1246,10 +1246,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being thrown by the function. */
     void
-    ODLogExitThrowS_(const char * fileName,
-                     const char * funcName,
-                     const int    lineNumber,
-                     const char * val);
+    ODLogExitThrowS_(const char *fileName,
+                     const char *funcName,
+                     const int  lineNumber,
+                     const char *val);
 
     /*! @brief Write a throw/long hexadecimal function exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1257,8 +1257,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being thrown by the function. */
     void
-    ODLogExitThrowX_(const char *  fileName,
-                     const char *  funcName,
+    ODLogExitThrowX_(const char    *fileName,
+                     const char    *funcName,
                      const int     lineNumber,
                      const int32_t val);
 
@@ -1268,8 +1268,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitX_(const char *  fileName,
-                const char *  funcName,
+    ODLogExitX_(const char    *fileName,
+                const char    *funcName,
                 const int     lineNumber,
                 const int32_t val);
 
@@ -1279,8 +1279,8 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] val The value being returned by the function. */
     void
-    ODLogExitXL_(const char *  fileName,
-                 const char *  funcName,
+    ODLogExitXL_(const char    *fileName,
+                 const char    *funcName,
                  const int     lineNumber,
                  const int64_t val);
 
@@ -1291,11 +1291,11 @@ extern "C"
      @param[in] funcName The name of the calling function.
      @param[in] lineNumber The line number in the source file where the call occurs. */
     void
-    ODLogInit_(const char * prefix,
-               const int    options,
-               const char * fileName,
-               const char * funcName,
-               const int    lineNumber);
+    ODLogInit_(const char *prefix,
+               const int  options,
+               const char *fileName,
+               const char *funcName,
+               const int  lineNumber);
 
     /*! @brief Write an IP address to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1305,10 +1305,10 @@ extern "C"
      @param[in] val1 The IP address value to be written.
      @param[in] val2 The port value to be written. */
     void
-    ODLogIP_(const char *  fileName,
-             const char *  funcName,
+    ODLogIP_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
              const int     val2);
 
@@ -1319,10 +1319,10 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogL1_(const char *  fileName,
-             const char *  funcName,
+    ODLogL1_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1);
 
     /*! @brief Write two long values to the log.
@@ -1334,12 +1334,12 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogL2_(const char *  fileName,
-             const char *  funcName,
+    ODLogL2_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2);
 
     /*! @brief Write three long values to the log.
@@ -1353,14 +1353,14 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogL3_(const char *  fileName,
-             const char *  funcName,
+    ODLogL3_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2,
-             const char *  text3,
+             const char    *text3,
              const int32_t val3);
 
     /*! @brief Write four long values to the log.
@@ -1376,16 +1376,16 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogL4_(const char *  fileName,
-             const char *  funcName,
+    ODLogL4_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2,
-             const char *  text3,
+             const char    *text3,
              const int32_t val3,
-             const char *  text4,
+             const char    *text4,
              const int32_t val4);
 
     /*! @brief Write a long long value to the log.
@@ -1395,10 +1395,10 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogLL1_(const char *  fileName,
-              const char *  funcName,
+    ODLogLL1_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1);
 
     /*! @brief Write two long long values to the log.
@@ -1410,12 +1410,12 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogLL2_(const char *  fileName,
-              const char *  funcName,
+    ODLogLL2_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2);
 
     /*! @brief Write three long long values to the log.
@@ -1429,14 +1429,14 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogLL3_(const char *  fileName,
-              const char *  funcName,
+    ODLogLL3_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2,
-              const char *  text3,
+              const char    *text3,
               const int64_t val3);
 
     /*! @brief Write four long long values to the log.
@@ -1452,16 +1452,16 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogLL4_(const char *  fileName,
-              const char *  funcName,
+    ODLogLL4_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2,
-              const char *  text3,
+              const char    *text3,
               const int64_t val3,
-              const char *  text4,
+              const char    *text4,
               const int64_t val4);
 
     /*! @brief Write a long string value to the log.
@@ -1471,11 +1471,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogLS_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char * val1);
+    ODLogLS_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char *val1);
 
 #   if defined(__OBJC__)
     /*! @brief Write an object value to the log.
@@ -1485,11 +1485,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] obj1 The value to be written. */
     void
-    ODLogO1_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const id     obj1);
+    ODLogO1_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const id   obj1);
 
     /*! @brief Write two object values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1500,13 +1500,13 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] obj2 The second value to be written. */
     void
-    ODLogO2_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const id     obj1,
-             const char * text2,
-             const id     obj2);
+    ODLogO2_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const id   obj1,
+             const char *text2,
+             const id   obj2);
 
     /*! @brief Write three object values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1519,15 +1519,15 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] obj3 The third value to be written. */
     void
-    ODLogO3_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const id     obj1,
-             const char * text2,
-             const id     obj2,
-             const char * text3,
-             const id     obj3);
+    ODLogO3_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const id   obj1,
+             const char *text2,
+             const id   obj2,
+             const char *text3,
+             const id   obj3);
 
     /*! @brief Write four object values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1542,17 +1542,17 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] obj4 The fourth value to be written. */
     void
-    ODLogO4_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const id     obj1,
-             const char * text2,
-             const id     obj2,
-             const char * text3,
-             const id     obj3,
-             const char * text4,
-             const id     obj4);
+    ODLogO4_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const id   obj1,
+             const char *text2,
+             const id   obj2,
+             const char *text3,
+             const id   obj3,
+             const char *text4,
+             const id   obj4);
 #   endif // defined(__OBJC__)
 
     /*! @brief Write a method entry string to the log.
@@ -1561,10 +1561,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] objPtr The this/self pointer for the caller.*/
     void
-    ODLogObjEnter_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr);
+    ODLogObjEnter_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr);
 
     /*! @brief Write a void method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1572,10 +1572,10 @@ extern "C"
      @param[in] lineNumber The line number in the source file where the call occurs.
      @param[in] objPtr The this/self pointer for the caller.*/
     void
-    ODLogObjExit_(const char * fileName,
-                  const char * funcName,
-                  const int    lineNumber,
-                  const void * objPtr);
+    ODLogObjExit_(const char *fileName,
+                  const char *funcName,
+                  const int  lineNumber,
+                  const void *objPtr);
 
     /*! @brief Write a boolean method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1584,11 +1584,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitB_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr,
-                   const bool   val);
+    ODLogObjExitB_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr,
+                   const bool val);
 
     /*! @brief Write a character method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1597,11 +1597,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitC_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr,
-                   const char   val);
+    ODLogObjExitC_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr,
+                   const char val);
 
     /*! @brief Write a double method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1610,10 +1610,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitD_(const char * fileName,
-                   const char * funcName,
+    ODLogObjExitD_(const char   *fileName,
+                   const char   *funcName,
                    const int    lineNumber,
-                   const void * objPtr,
+                   const void   *objPtr,
                    const double val);
 
     /*! @brief Write an exit method string to the log.
@@ -1623,11 +1623,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitExit_(const char * fileName,
-                      const char * funcName,
-                      const int    lineNumber,
-                      const void * objPtr,
-                      const long   val);
+    ODLogObjExitExit_(const char *fileName,
+                      const char *funcName,
+                      const int  lineNumber,
+                      const void *objPtr,
+                      const long val);
 
     /*! @brief Write a long method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1636,10 +1636,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitL_(const char *  fileName,
-                   const char *  funcName,
+    ODLogObjExitL_(const char    *fileName,
+                   const char    *funcName,
                    const int     lineNumber,
-                   const void *  objPtr,
+                   const void    *objPtr,
                    const int32_t val);
 
     /*! @brief Write a long long method exit string to the log.
@@ -1649,10 +1649,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitLL_(const char *  fileName,
-                    const char *  funcName,
+    ODLogObjExitLL_(const char    *fileName,
+                    const char    *funcName,
                     const int     lineNumber,
-                    const void *  objPtr,
+                    const void    *objPtr,
                     const int64_t val);
 
 #   if defined(__OBJC__)
@@ -1663,11 +1663,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitO_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr,
-                   const id     val);
+    ODLogObjExitO_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr,
+                   const id   val);
 #   endif // defined(__OBJC__)
 
     /*! @brief Write a pointer method exit string to the log.
@@ -1677,11 +1677,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitP_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr,
-                   const void * val);
+    ODLogObjExitP_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr,
+                   const void *val);
 
 #   if defined(__APPLE__)
     /*! @brief Write a rectangle method exit string to the log.
@@ -1691,10 +1691,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitRect_(const char * fileName,
-                      const char * funcName,
+    ODLogObjExitRect_(const char   *fileName,
+                      const char   *funcName,
                       const int    lineNumber,
-                      const void * objPtr,
+                      const void   *objPtr,
                       const CGRect val);
 #   endif // defined(__APPLE__)
 
@@ -1705,11 +1705,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitS_(const char * fileName,
-                   const char * funcName,
-                   const int    lineNumber,
-                   const void * objPtr,
-                   const char * val);
+    ODLogObjExitS_(const char *fileName,
+                   const char *funcName,
+                   const int  lineNumber,
+                   const void *objPtr,
+                   const char *val);
 
 #   if defined(__APPLE__)
     /*! @brief Write a size method exit string to the log.
@@ -1719,10 +1719,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitSize_(const char * fileName,
-                      const char * funcName,
+    ODLogObjExitSize_(const char   *fileName,
+                      const char   *funcName,
                       const int    lineNumber,
-                      const void * objPtr,
+                      const void   *objPtr,
                       const CGSize val);
 #   endif // defined(__APPLE__)
 
@@ -1733,10 +1733,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being thrown by the method. */
     void
-    ODLogObjExitThrowL_(const char *  fileName,
-                        const char *  funcName,
+    ODLogObjExitThrowL_(const char    *fileName,
+                        const char    *funcName,
                         const int     lineNumber,
-                        const void *  objPtr,
+                        const void    *objPtr,
                         const int32_t val);
 
     /*! @brief Write a throw/string method exit string to the log.
@@ -1746,11 +1746,11 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being thrown by the method. */
     void
-    ODLogObjExitThrowS_(const char * fileName,
-                        const char * funcName,
-                        const int    lineNumber,
-                        const void * objPtr,
-                        const char * val);
+    ODLogObjExitThrowS_(const char *fileName,
+                        const char *funcName,
+                        const int  lineNumber,
+                        const void *objPtr,
+                        const char *val);
 
     /*! @brief Write a throw/long hexadecimal method exit string to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1759,10 +1759,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being thrown by the method. */
     void
-    ODLogObjExitThrowX_(const char *  fileName,
-                        const char *  funcName,
+    ODLogObjExitThrowX_(const char    *fileName,
+                        const char    *funcName,
                         const int     lineNumber,
-                        const void *  objPtr,
+                        const void    *objPtr,
                         const int32_t val);
 
     /*! @brief Write a long hexadecimal method exit string to the log.
@@ -1772,10 +1772,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitX_(const char *  fileName,
-                   const char *  funcName,
+    ODLogObjExitX_(const char    *fileName,
+                   const char    *funcName,
                    const int     lineNumber,
-                   const void *  objPtr,
+                   const void    *objPtr,
                    const int32_t val);
 
     /*! @brief Write a long long hexadecimal method exit string to the log.
@@ -1785,10 +1785,10 @@ extern "C"
      @param[in] objPtr The this/self pointer for the caller.
      @param[in] val The value being returned by the method. */
     void
-    ODLogObjExitXL_(const char *  fileName,
-                    const char *  funcName,
+    ODLogObjExitXL_(const char    *fileName,
+                    const char    *funcName,
                     const int     lineNumber,
-                    const void *  objPtr,
+                    const void    *objPtr,
                     const int64_t val);
 
     /*! @brief Write a pointer value to the log.
@@ -1798,11 +1798,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] ptr1 The value to be written. */
     void
-    ODLogP1_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const void * ptr1);
+    ODLogP1_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const void *ptr1);
 
     /*! @brief Write two pointer values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1813,13 +1813,13 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] ptr2 The second value to be written. */
     void
-    ODLogP2_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const void * ptr1,
-             const char * text2,
-             const void * ptr2);
+    ODLogP2_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const void *ptr1,
+             const char *text2,
+             const void *ptr2);
 
     /*! @brief Write three pointer values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1832,15 +1832,15 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] ptr3 The third value to be written. */
     void
-    ODLogP3_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const void * ptr1,
-             const char * text2,
-             const void * ptr2,
-             const char * text3,
-             const void * ptr3);
+    ODLogP3_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const void *ptr1,
+             const char *text2,
+             const void *ptr2,
+             const char *text3,
+             const void *ptr3);
 
     /*! @brief Write four pointer values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1855,17 +1855,17 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] ptr4 The fourth value to be written. */
     void
-    ODLogP4_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const void * ptr1,
-             const char * text2,
-             const void * ptr2,
-             const char * text3,
-             const void * ptr3,
-             const char * text4,
-             const void * ptr4);
+    ODLogP4_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const void *ptr1,
+             const char *text2,
+             const void *ptr2,
+             const char *text3,
+             const void *ptr3,
+             const char *text4,
+             const void *ptr4);
 
     /*! @brief Write a region of memory to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1875,12 +1875,12 @@ extern "C"
      @param[in] buffer The starting address of the region.
      @param[in] size The number of bytes to be written. */
     void
-    ODLogPacket_(const char * fileName,
-                 const char * funcName,
-                 const int    lineNumber,
-                 const char * caption,
-                 const void * buffer,
-                 const int    size);
+    ODLogPacket_(const char *fileName,
+                 const char *funcName,
+                 const int  lineNumber,
+                 const char *caption,
+                 const void *buffer,
+                 const int  size);
 
 #   if defined(__APPLE__)
     /*! @brief Write a rectangle to the log.
@@ -1890,10 +1890,10 @@ extern "C"
      @param[in] caption The caption for the value to be written.
      @param[in] rect The value to be written. */
     void
-    ODLogRect_(const char * fileName,
-               const char * funcName,
+    ODLogRect_(const char   *fileName,
+               const char   *funcName,
                const int    lineNumber,
-               const char * caption,
+               const char   *caption,
                const CGRect rect);
 #   endif // defined(__APPLE__)
 
@@ -1904,11 +1904,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogS1_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char * val1);
+    ODLogS1_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char *val1);
 
     /*! @brief Write two string values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1919,13 +1919,13 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogS2_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char * val1,
-             const char * text2,
-             const char * val2);
+    ODLogS2_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char *val1,
+             const char *text2,
+             const char *val2);
 
     /*! @brief Write three string values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1938,15 +1938,15 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogS3_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char * val1,
-             const char * text2,
-             const char * val2,
-             const char * text3,
-             const char * val3);
+    ODLogS3_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char *val1,
+             const char *text2,
+             const char *val2,
+             const char *text3,
+             const char *val3);
 
     /*! @brief Write four string values to the log.
      @param[in] fileName The name of the source file containing the call to this function.
@@ -1961,17 +1961,17 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogS4_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text1,
-             const char * val1,
-             const char * text2,
-             const char * val2,
-             const char * text3,
-             const char * val3,
-             const char * text4,
-             const char * val4);
+    ODLogS4_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text1,
+             const char *val1,
+             const char *text2,
+             const char *val2,
+             const char *text3,
+             const char *val3,
+             const char *text4,
+             const char *val4);
 
 #   if defined(__APPLE__)
     /*! @brief Write a size to the log.
@@ -1981,10 +1981,10 @@ extern "C"
      @param[in] caption The caption for the value to be written.
      @param[in] size The value to be written. */
     void
-    ODLogSize_(const char * fileName,
-               const char * funcName,
+    ODLogSize_(const char   *fileName,
+               const char   *funcName,
                const int    lineNumber,
-               const char * caption,
+               const char   *caption,
                const CGSize size);
 #   endif // defined(__APPLE__)
 
@@ -1996,12 +1996,12 @@ extern "C"
      @param[in] len The number of bytes to be written.
      @param[in] val The value to be written. */
     void
-    ODLogSp_(const char * fileName,
-             const char * funcName,
-             const int    lineNumber,
-             const char * text,
-             const int    len,
-             const char * val);
+    ODLogSp_(const char *fileName,
+             const char *funcName,
+             const int  lineNumber,
+             const char *text,
+             const int  len,
+             const char *val);
 
 #   if MAC_OR_LINUX_
     /*! @brief Write a time value to the log.
@@ -2011,11 +2011,11 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogTime_(const char *           fileName,
-               const char *           funcName,
-               const int              lineNumber,
-               const char *           text1,
-               const struct timeval * val1);
+    ODLogTime_(const char           *fileName,
+               const char           *funcName,
+               const int            lineNumber,
+               const char           *text1,
+               const struct timeval *val1);
 #   endif // MAC_OR_LINUX_
 
     /*! @brief Write a long hexadecimal value to the log.
@@ -2025,10 +2025,10 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogX1_(const char *  fileName,
-             const char *  funcName,
+    ODLogX1_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1);
 
     /*! @brief Write two long hexadecimal values to the log.
@@ -2040,12 +2040,12 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogX2_(const char *  fileName,
-             const char *  funcName,
+    ODLogX2_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2);
 
     /*! @brief Write three long hexadecimal values to the log.
@@ -2059,14 +2059,14 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogX3_(const char *  fileName,
-             const char *  funcName,
+    ODLogX3_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2,
-             const char *  text3,
+             const char    *text3,
              const int32_t val3);
 
     /*! @brief Write four long hexadecimal values to the log.
@@ -2082,16 +2082,16 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogX4_(const char *  fileName,
-             const char *  funcName,
+    ODLogX4_(const char    *fileName,
+             const char    *funcName,
              const int     lineNumber,
-             const char *  text1,
+             const char    *text1,
              const int32_t val1,
-             const char *  text2,
+             const char    *text2,
              const int32_t val2,
-             const char *  text3,
+             const char    *text3,
              const int32_t val3,
-             const char *  text4,
+             const char    *text4,
              const int32_t val4);
 
     /*! @brief Write a long long hexadecimal value to the log.
@@ -2101,10 +2101,10 @@ extern "C"
      @param[in] text1 The caption for the value to be written.
      @param[in] val1 The value to be written. */
     void
-    ODLogXL1_(const char *  fileName,
-              const char *  funcName,
+    ODLogXL1_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1);
 
     /*! @brief Write two long long hexadecimal values to the log.
@@ -2116,12 +2116,12 @@ extern "C"
      @param[in] text2 The caption for the second value to be written.
      @param[in] val2 The second value to be written. */
     void
-    ODLogXL2_(const char *  fileName,
-              const char *  funcName,
+    ODLogXL2_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2);
 
     /*! @brief Write three long long hexadecimal values to the log.
@@ -2135,14 +2135,14 @@ extern "C"
      @param[in] text3 The caption for the third value to be written.
      @param[in] val3 The third value to be written. */
     void
-    ODLogXL3_(const char *  fileName,
-              const char *  funcName,
+    ODLogXL3_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2,
-              const char *  text3,
+              const char    *text3,
               const int64_t val3);
 
     /*! @brief Write four long long hexadecimal values to the log.
@@ -2158,16 +2158,16 @@ extern "C"
      @param[in] text4 The caption for the fourth value to be written.
      @param[in] val4 The fourth value to be written. */
     void
-    ODLogXL4_(const char *  fileName,
-              const char *  funcName,
+    ODLogXL4_(const char    *fileName,
+              const char    *funcName,
               const int     lineNumber,
-              const char *  text1,
+              const char    *text1,
               const int64_t val1,
-              const char *  text2,
+              const char    *text2,
               const int64_t val2,
-              const char *  text3,
+              const char    *text3,
               const int64_t val3,
-              const char *  text4,
+              const char    *text4,
               const int64_t val4);
 
 #   if defined(__cplusplus)

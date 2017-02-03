@@ -89,12 +89,13 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
-        typedef Value * (* Extractor)
-           (const Message & theMessage,
-            const int       leadByte,
-            size_t &        position,
-            ReadStatus &    status,
-            Array *         parentValue);
+        typedef Value *
+           (* Extractor)
+               (const Message &theMessage,
+                const int     leadByte,
+                size_t        &position,
+                ReadStatus    &status,
+                Array         *parentValue);
 
     private :
         // Private type definitions.
@@ -103,9 +104,10 @@ namespace nImO
          @param[in] inBuffer TBD
          @param[in,out] position TBD
          @returns TBD */
-        typedef Value * (*BufferReader)
-            (const StringBuffer & inBuffer,
-             size_t &             position);
+        typedef Value *
+            (* BufferReader)
+                (const StringBuffer &inBuffer,
+                 size_t             &position);
 
         /*! @brief The map from characters to BufferReaders. */
         typedef std::map<char, BufferReader> BufferReaderMap;
@@ -235,7 +237,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual inline bool
-        deeplyEqualTo(const Value & other)
+        deeplyEqualTo(const Value &other)
         const
         {
             return (&other == this);
@@ -256,8 +258,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
-        equalTo(const Value & other,
-                bool &        validComparison)
+        equalTo(const Value &other,
+                bool        &validComparison)
         const
         {
             validComparison = (&other == this);
@@ -282,11 +284,11 @@ namespace nImO
          @returns @c NULL if the Value was not successfully extracted and non-@c NULL on
          success. */
         static Value *
-        getValueFromMessage(const Message & inMessage,
-                            size_t &        position,
-                            const int       leadByte,
-                            ReadStatus &    status,
-                            Array *         parent);
+        getValueFromMessage(const Message &inMessage,
+                            size_t        &position,
+                            const int     leadByte,
+                            ReadStatus    &status,
+                            Array         *parent);
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -294,8 +296,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
-        greaterThan(const Value & other,
-                    bool &        validComparison)
+        greaterThan(const Value &other,
+                    bool        &validComparison)
         const
         {
 # if MAC_OR_LINUX_
@@ -311,8 +313,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
-        greaterThanOrEqual(const Value & other,
-                           bool &        validComparison)
+        greaterThanOrEqual(const Value &other,
+                           bool        &validComparison)
         const
         {
             validComparison = (&other == this);
@@ -329,8 +331,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
-        lessThan(const Value & other,
-                 bool &        validComparison)
+        lessThan(const Value &other,
+                 bool        &validComparison)
         const
         {
 # if MAC_OR_LINUX_
@@ -346,8 +348,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual inline bool
-        lessThanOrEqual(const Value & other,
-                        bool &        validComparison)
+        lessThanOrEqual(const Value &other,
+                        bool        &validComparison)
         const
         {
             validComparison = (&other == this);
@@ -358,7 +360,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator <(const Value & other)
+        operator <(const Value &other)
         {
             bool valid = false;
             bool result = lessThan(other, valid);
@@ -370,7 +372,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator >(const Value & other)
+        operator >(const Value &other)
         {
             bool valid = false;
             bool result = greaterThan(other, valid);
@@ -382,7 +384,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator <=(const Value & other)
+        operator <=(const Value &other)
         {
             bool valid = false;
             bool result = lessThanOrEqual(other, valid);
@@ -394,7 +396,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator >=(const Value & other)
+        operator >=(const Value &other)
         {
             bool valid = false;
             bool result = greaterThanOrEqual(other, valid);
@@ -406,7 +408,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator ==(const Value & other)
+        operator ==(const Value &other)
         {
             bool valid = false;
             bool result = equalTo(other, valid);
@@ -418,7 +420,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns The relative ordering of the two Values. */
         inline bool
-        operator !=(const Value & other)
+        operator !=(const Value &other)
         {
             bool valid = false;
             bool result = ! equalTo(other, valid);
@@ -431,8 +433,8 @@ namespace nImO
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual inline void
-        printToStringBuffer(StringBuffer & outBuffer,
-                            const bool     squished = false)
+        printToStringBuffer(StringBuffer &outBuffer,
+                            const bool   squished = false)
         const
         {
 # if MAC_OR_LINUX_
@@ -445,13 +447,13 @@ namespace nImO
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
-        readFromStringBuffer(const StringBuffer & inBuffer,
-                             size_t &             position);
+        readFromStringBuffer(const StringBuffer &inBuffer,
+                             size_t             &position);
 
         /*! @brief Add a binary representation of the object to the Message.
          @param[in,out] outMessage The Message to be appended to. */
         virtual inline void
-        writeToMessage(Message & outMessage)
+        writeToMessage(Message &outMessage)
         const
         {
 # if MAC_OR_LINUX_
@@ -472,10 +474,10 @@ namespace nImO
          @param[out] status Whether the extraction was successful.
          @returns Zero if there is a problem with the extraction. */
         static int64_t
-        extractInt64FromMessage(const Message & theMessage,
-                                const int       leadByte,
-                                size_t &        position,
-                                ReadStatus &    status);
+        extractInt64FromMessage(const Message &theMessage,
+                                const int     leadByte,
+                                size_t        &position,
+                                ReadStatus    &status);
 
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
@@ -487,7 +489,7 @@ namespace nImO
          @param[in,out] outMessage The Message to be appended to.
          @param[in] outValue The integer to be appended. */
         static void
-        writeInt64ToMessage(Message &     outMessage,
+        writeInt64ToMessage(Message       &outMessage,
                             const int64_t outValue);
 
     private :

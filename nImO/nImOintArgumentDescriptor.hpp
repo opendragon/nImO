@@ -93,14 +93,14 @@ namespace nImO
          @param[in] hasMaximumValue @c true if the value must be less than or equal to a specified
          maximum and @c false otherwise.
          @param[in] maximumValue The maximum value that is acceptable. */
-        IntArgumentDescriptor(const std::string & argName,
-                              const std::string & argDescription,
-                              const ArgumentMode  argMode,
-                              const int           defaultValue,
-                              const bool          hasMinimumValue,
-                              const int           minimumValue,
-                              const bool          hasMaximumValue,
-                              const int           maximumValue);
+        IntArgumentDescriptor(const std::string  &argName,
+                              const std::string  &argDescription,
+                              const ArgumentMode argMode,
+                              const int          defaultValue,
+                              const bool         hasMinimumValue,
+                              const int          minimumValue,
+                              const bool         hasMaximumValue,
+                              const int          maximumValue);
 
         /*! @brief The destructor. */
         virtual
@@ -119,7 +119,7 @@ namespace nImO
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
         static BaseArgumentDescriptor *
-        parseArgString(const std::string & inString);
+        parseArgString(const std::string &inString);
 
     protected :
 
@@ -132,13 +132,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        IntArgumentDescriptor(const IntArgumentDescriptor & other);
+        IntArgumentDescriptor(const IntArgumentDescriptor &other);
 
 #if 0
         /*! @brief Add the processed value to a bottle.
          @param[in,out] container The bottle to be modified. */
         virtual void
-        addValueToBottle(yarp::os::Bottle & container);
+        addValueToBottle(yarp::os::Bottle &container);
 #endif//0
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
@@ -155,7 +155,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         IntArgumentDescriptor &
-        operator =(const IntArgumentDescriptor & other);
+        operator =(const IntArgumentDescriptor &other);
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
@@ -171,14 +171,14 @@ namespace nImO
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string & value);
+        validate(const std::string &value);
 
     public :
 
     protected :
 
         /*! @brief The address of the variable to be set with the argument value. */
-        int * _argumentReference;
+        int *_argumentReference;
 
         /*! @brief The default value for the command-line argument. */
         int _defaultValue;

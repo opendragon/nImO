@@ -80,11 +80,11 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-PortArgumentDescriptor::PortArgumentDescriptor(const std::string & argName,
-                                               const std::string & argDescription,
-                                               const ArgumentMode  argMode,
-                                               const int           defaultValue,
-                                               const bool          isSystemPort) :
+PortArgumentDescriptor::PortArgumentDescriptor(const std::string  &argName,
+                                               const std::string  &argDescription,
+                                               const ArgumentMode argMode,
+                                               const int          defaultValue,
+                                               const bool         isSystemPort) :
     inherited(argName, argDescription, argMode, defaultValue, true,
               isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_),
     _isSystemPort(isSystemPort)
@@ -111,22 +111,22 @@ BaseArgumentDescriptor *
 PortArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new PortArgumentDescriptor(argumentName(),
-                                                                 argumentDescription(),
-                                                                 argumentMode(), _defaultValue,
-                                                                 _isSystemPort);
+    BaseArgumentDescriptor *result = new PortArgumentDescriptor(argumentName(),
+                                                                argumentDescription(),
+                                                                argumentMode(), _defaultValue,
+                                                                _isSystemPort);
 
     ODL_EXIT_P(result);
     return result;
 } // PortArgumentDescriptor::clone
 
 BaseArgumentDescriptor *
-PortArgumentDescriptor::parseArgString(const std::string & inString)
+PortArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 4, inVector))
     {
@@ -168,8 +168,8 @@ PortArgumentDescriptor::parseArgString(const std::string & inString)
 
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char * startPtr = defaultString.c_str();
-            char *       endPtr;
+            const char *startPtr = defaultString.c_str();
+            char       *endPtr;
 
             defaultValue = strtol(startPtr, &endPtr, 10);
             if ((startPtr == endPtr) || *endPtr)

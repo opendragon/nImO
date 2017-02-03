@@ -80,14 +80,14 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-IntArgumentDescriptor::IntArgumentDescriptor(const std::string & argName,
-                                             const std::string & argDescription,
-                                             const ArgumentMode  argMode,
-                                             const int           defaultValue,
-                                             const bool          hasMinimumValue,
-                                             const int           minimumValue,
-                                             const bool          hasMaximumValue,
-                                             const int           maximumValue) :
+IntArgumentDescriptor::IntArgumentDescriptor(const std::string  &argName,
+                                             const std::string  &argDescription,
+                                             const ArgumentMode argMode,
+                                             const int          defaultValue,
+                                             const bool         hasMinimumValue,
+                                             const int          minimumValue,
+                                             const bool         hasMaximumValue,
+                                             const int          maximumValue) :
     inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
     _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
     _hasMinimumValue(hasMinimumValue)
@@ -112,7 +112,7 @@ IntArgumentDescriptor::~IntArgumentDescriptor(void)
 
 #if 0
 void
-IntArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
+IntArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -125,11 +125,11 @@ BaseArgumentDescriptor *
 IntArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new IntArgumentDescriptor(argumentName(),
-                                                                argumentDescription(),
-                                                                argumentMode(), _defaultValue,
-                                                                _hasMinimumValue, _minimumValue,
-                                                                _hasMaximumValue, _maximumValue);
+    BaseArgumentDescriptor *result = new IntArgumentDescriptor(argumentName(),
+                                                               argumentDescription(),
+                                                               argumentMode(), _defaultValue,
+                                                               _hasMinimumValue, _minimumValue,
+                                                               _hasMaximumValue, _maximumValue);
 
     ODL_EXIT_P(result);
     return result;
@@ -162,12 +162,12 @@ IntArgumentDescriptor::getProcessedValue(void)
 } // IntArgumentDescriptor::getProcessedValue
 
 BaseArgumentDescriptor *
-IntArgumentDescriptor::parseArgString(const std::string & inString)
+IntArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 5, inVector))
     {
@@ -199,8 +199,8 @@ IntArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char * startPtr = defaultString.c_str();
-            char *       endPtr;
+            const char *startPtr = defaultString.c_str();
+            char       *endPtr;
 
             defaultValue = strtol(startPtr, &endPtr, 10);
             if ((startPtr == endPtr) || *endPtr)
@@ -210,8 +210,8 @@ IntArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < minValString.length()))
         {
-            const char * startPtr = minValString.c_str();
-            char *       endPtr;
+            const char *startPtr = minValString.c_str();
+            char       *endPtr;
 
             minValue = strtol(startPtr, &endPtr, 10);
             if ((startPtr == endPtr) || *endPtr)
@@ -221,8 +221,8 @@ IntArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < maxValString.length()))
         {
-            const char * startPtr = maxValString.c_str();
-            char *       endPtr;
+            const char *startPtr = maxValString.c_str();
+            char       *endPtr;
 
             maxValue = strtol(startPtr, &endPtr, 10);
             if ((startPtr == endPtr) || *endPtr)
@@ -281,12 +281,12 @@ IntArgumentDescriptor::toString(void)
 } // IntArgumentDescriptor::toString
 
 bool
-IntArgumentDescriptor::validate(const std::string & value)
+IntArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
-    const char * startPtr = value.c_str();
-    char *       endPtr;
-    int          intValue = strtol(startPtr, &endPtr, 10);
+    const char *startPtr = value.c_str();
+    char       *endPtr;
+    int        intValue = strtol(startPtr, &endPtr, 10);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {

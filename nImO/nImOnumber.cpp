@@ -101,15 +101,15 @@ const char *
 nImO::Number::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "+-.0123456789";
+    static const char *initialChars = "+-.0123456789";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Number::getInitialCharacters
 
 nImO::Value *
-nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                   size_t &                   position)
+nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
+                                   size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -136,7 +136,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
     int       exponent = 0;
     int       fractionPower = 0;
     ScanState currentState = kScanInitial;
-    Value *   result = NULL;
+    Value     *result = NULL;
     size_t    localIndex = position;
 
     for (int aChar; (! done); )

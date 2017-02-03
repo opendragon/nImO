@@ -112,8 +112,8 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithSquishedString(const nImO::Value & aValue,
-                               const char *        aString)
+compareValueWithSquishedString(const nImO::Value &aValue,
+                               const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -135,8 +135,8 @@ compareValueWithSquishedString(const nImO::Value & aValue,
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value & aValue,
-                       const char *        aString)
+compareValueWithString(const nImO::Value &aValue,
+                       const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -166,9 +166,9 @@ compareValueWithString(const nImO::Value & aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayValue(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // empty array value
+doTestEmptyArrayValue(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // empty array value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -183,7 +183,7 @@ doTestEmptyArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -246,9 +246,9 @@ doTestEmptyArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularArrayValue(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // singular array value
+doTestSingularArrayValue(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // singular array value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -263,7 +263,7 @@ doTestSingularArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -331,9 +331,9 @@ doTestSingularArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallArrayValue(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // small array value
+doTestSmallArrayValue(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // small array value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -348,7 +348,7 @@ doTestSmallArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -425,9 +425,9 @@ doTestSmallArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigArrayValue(const char * launchPath,
-                    const int    argc,
-                    char * *     argv) // big array value
+doTestBigArrayValue(const char *launchPath,
+                    const int  argc,
+                    char       **argv) // big array value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -442,11 +442,11 @@ doTestBigArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
-            uint8_t * bigBlob = new uint8_t[kBigTestSize];
+            uint8_t *bigBlob = new uint8_t[kBigTestSize];
 
             if (bigBlob)
             {
@@ -525,9 +525,9 @@ doTestBigArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapValue(const char * launchPath,
-                    const int    argc,
-                    char * *     argv) // empty map
+doTestEmptyMapValue(const char *launchPath,
+                    const int  argc,
+                    char       **argv) // empty map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -542,7 +542,7 @@ doTestEmptyMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -605,9 +605,9 @@ doTestEmptyMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularBooleanMapValue(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // singular boolean map
+doTestSingularBooleanMapValue(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // singular boolean map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -622,7 +622,7 @@ doTestSingularBooleanMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -692,9 +692,9 @@ doTestSingularBooleanMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerMapValue(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // singular integer map
+doTestSingularIntegerMapValue(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // singular integer map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -709,7 +709,7 @@ doTestSingularIntegerMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -778,9 +778,9 @@ doTestSingularIntegerMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringMapValue(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // singular string map
+doTestSingularStringMapValue(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // singular string map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -795,7 +795,7 @@ doTestSingularStringMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -865,9 +865,9 @@ doTestSingularStringMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBooleanMapValue(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // small boolean map
+doTestSmallBooleanMapValue(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // small boolean map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -882,7 +882,7 @@ doTestSmallBooleanMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -956,9 +956,9 @@ doTestSmallBooleanMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerMapValue(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // small integer map
+doTestSmallIntegerMapValue(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // small integer map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -973,7 +973,7 @@ doTestSmallIntegerMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -1050,9 +1050,9 @@ doTestSmallIntegerMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringMapValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // small string map
+doTestSmallStringMapValue(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // small string map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1067,7 +1067,7 @@ doTestSmallStringMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -1147,9 +1147,9 @@ doTestSmallStringMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetValue(const char * launchPath,
-                    const int    argc,
-                    char * *     argv) // empty map
+doTestEmptySetValue(const char *launchPath,
+                    const int  argc,
+                    char       **argv) // empty map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1164,7 +1164,7 @@ doTestEmptySetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1227,9 +1227,9 @@ doTestEmptySetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularBooleanSetValue(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // singular boolean map
+doTestSingularBooleanSetValue(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // singular boolean map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1244,7 +1244,7 @@ doTestSingularBooleanSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1312,9 +1312,9 @@ doTestSingularBooleanSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerSetValue(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // singular integer map
+doTestSingularIntegerSetValue(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // singular integer map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1329,7 +1329,7 @@ doTestSingularIntegerSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1397,9 +1397,9 @@ doTestSingularIntegerSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringSetValue(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // singular string map
+doTestSingularStringSetValue(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // singular string map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1414,7 +1414,7 @@ doTestSingularStringSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1482,9 +1482,9 @@ doTestSingularStringSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBooleanSetValue(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // small boolean map
+doTestSmallBooleanSetValue(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // small boolean map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1499,7 +1499,7 @@ doTestSmallBooleanSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1572,9 +1572,9 @@ doTestSmallBooleanSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerSetValue(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // small integer map
+doTestSmallIntegerSetValue(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // small integer map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1589,7 +1589,7 @@ doTestSmallIntegerSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1670,9 +1670,9 @@ doTestSmallIntegerSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringSetValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // small string map
+doTestSmallStringSetValue(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // small string map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1687,7 +1687,7 @@ doTestSmallStringSetValue(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -1768,9 +1768,9 @@ doTestSmallStringSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithArrayValue(const char * launchPath,
-                          const int    argc,
-                          char * *     argv) // array with array value
+doTestArrayWithArrayValue(const char *launchPath,
+                          const int  argc,
+                          char       **argv) // array with array value
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1785,7 +1785,7 @@ doTestArrayWithArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -1853,9 +1853,9 @@ doTestArrayWithArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithMapValue(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // array with map
+doTestArrayWithMapValue(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // array with map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1870,7 +1870,7 @@ doTestArrayWithMapValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -1938,9 +1938,9 @@ doTestArrayWithMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithSetValue(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // array with set
+doTestArrayWithSetValue(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // array with set
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -1955,7 +1955,7 @@ doTestArrayWithSetValue(const char * launchPath,
 
     try
     {
-        nImO::Array * stuff = new nImO::Array;
+        nImO::Array *stuff = new nImO::Array;
 
         if (stuff)
         {
@@ -2023,9 +2023,9 @@ doTestArrayWithSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithArrayValue(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // map with array
+doTestMapWithArrayValue(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // map with array
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2040,7 +2040,7 @@ doTestMapWithArrayValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2110,9 +2110,9 @@ doTestMapWithArrayValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithMapValue(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // map with map
+doTestMapWithMapValue(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // map with map
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2127,7 +2127,7 @@ doTestMapWithMapValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2197,9 +2197,9 @@ doTestMapWithMapValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithSetValue(const char * launchPath,
-                      const int    argc,
-                      char * *     argv) // map with set
+doTestMapWithSetValue(const char *launchPath,
+                      const int  argc,
+                      char       **argv) // map with set
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2214,7 +2214,7 @@ doTestMapWithSetValue(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2284,9 +2284,9 @@ doTestMapWithSetValue(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
-                                          const int    argc,
-                                          char * *     argv) // boolean map with incompatible keys
+doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
+                                          const int  argc,
+                                          char       **argv) // boolean map with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2301,7 +2301,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2374,9 +2374,9 @@ doTestBooleanMapValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
-                                          const int    argc,
-                                          char * *     argv) // integer map with incompatible keys
+doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
+                                          const int  argc,
+                                          char       **argv) // integer map with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2391,7 +2391,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2462,9 +2462,9 @@ doTestIntegerMapValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
-                                         const int    argc,
-                                         char * *     argv) // string map with incompatible keys
+doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
+                                         const int  argc,
+                                         char       **argv) // string map with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2479,7 +2479,7 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Map * stuff = new nImO::Map;
+        nImO::Map *stuff = new nImO::Map;
 
         if (stuff)
         {
@@ -2552,9 +2552,9 @@ doTestStringMapValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
-                                          const int    argc,
-                                          char * *     argv) // boolean set with incompatible keys
+doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
+                                          const int  argc,
+                                          char       **argv) // boolean set with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2569,7 +2569,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -2640,9 +2640,9 @@ doTestBooleanSetValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
-                                          const int    argc,
-                                          char * *     argv) // integer set with incompatible keys
+doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
+                                          const int  argc,
+                                          char       **argv) // integer set with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2657,7 +2657,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -2728,9 +2728,9 @@ doTestIntegerSetValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
-                                         const int    argc,
-                                         char * *     argv) // string set with incompatible keys
+doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
+                                         const int  argc,
+                                         char       **argv) // string set with incompatible keys
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -2745,7 +2745,7 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
 
     try
     {
-        nImO::Set * stuff = new nImO::Set;
+        nImO::Set *stuff = new nImO::Set;
 
         if (stuff)
         {
@@ -2816,9 +2816,9 @@ doTestStringSetValueWithIncompatibleKeys(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidArrayCompares(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // valid array compares
+doTestValidArrayCompares(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // valid array compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -3396,17 +3396,17 @@ doTestValidArrayCompares(const char * launchPath,
         {
             struct testStrings
             {
-                const char * _testValue;
-                bool         _lessThanResult;
-                bool         _lessThanValid;
-                bool         _greaterThanResult;
-                bool         _greaterThanValid;
-                bool         _lessThanOrEqualResult;
-                bool         _lessThanOrEqualValid;
-                bool         _greaterThanOrEqualResult;
-                bool         _greaterThanOrEqualValid;
-                bool         _equalToResult;
-                bool         _equalToValid;
+                const char *_testValue;
+                bool       _lessThanResult;
+                bool       _lessThanValid;
+                bool       _greaterThanResult;
+                bool       _greaterThanValid;
+                bool       _lessThanOrEqualResult;
+                bool       _lessThanOrEqualValid;
+                bool       _greaterThanOrEqualResult;
+                bool       _greaterThanOrEqualValid;
+                bool       _equalToResult;
+                bool       _equalToValid;
             }; // testStrings
 
             static testStrings testSet4l[] =
@@ -3612,9 +3612,9 @@ doTestValidArrayCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanMapCompares(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // valid boolean map compares
+doTestValidBooleanMapCompares(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // valid boolean map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4008,9 +4008,9 @@ doTestValidBooleanMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerMapCompares(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // valid integer map compares
+doTestValidIntegerMapCompares(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // valid integer map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4253,9 +4253,9 @@ doTestValidIntegerMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringMapCompares(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // valid string map compares
+doTestValidStringMapCompares(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // valid string map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4272,17 +4272,17 @@ doTestValidStringMapCompares(const char * launchPath,
     {
         struct testStrings
         {
-            const char * _testValue;
-            bool         _lessThanResult;
-            bool         _lessThanValid;
-            bool         _greaterThanResult;
-            bool         _greaterThanValid;
-            bool         _lessThanOrEqualResult;
-            bool         _lessThanOrEqualValid;
-            bool         _greaterThanOrEqualResult;
-            bool         _greaterThanOrEqualValid;
-            bool         _equalToResult;
-            bool         _equalToValid;
+            const char *_testValue;
+            bool       _lessThanResult;
+            bool       _lessThanValid;
+            bool       _greaterThanResult;
+            bool       _greaterThanValid;
+            bool       _lessThanOrEqualResult;
+            bool       _lessThanOrEqualValid;
+            bool       _greaterThanOrEqualResult;
+            bool       _greaterThanOrEqualValid;
+            bool       _equalToResult;
+            bool       _equalToValid;
         }; // testStrings
 
         static testStrings testSet1l[] =
@@ -4483,9 +4483,9 @@ doTestValidStringMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanSetCompares(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // valid boolean set compares
+doTestValidBooleanSetCompares(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // valid boolean set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -4879,9 +4879,9 @@ doTestValidBooleanSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerSetCompares(const char * launchPath,
-                              const int    argc,
-                              char * *     argv) // valid integer set compares
+doTestValidIntegerSetCompares(const char *launchPath,
+                              const int  argc,
+                              char       **argv) // valid integer set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5124,9 +5124,9 @@ doTestValidIntegerSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringSetCompares(const char * launchPath,
-                             const int    argc,
-                             char * *     argv) // valid string set compares
+doTestValidStringSetCompares(const char *launchPath,
+                             const int  argc,
+                             char       **argv) // valid string set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5143,17 +5143,17 @@ doTestValidStringSetCompares(const char * launchPath,
     {
         struct testStrings
         {
-            const char * _testValue;
-            bool         _lessThanResult;
-            bool         _lessThanValid;
-            bool         _greaterThanResult;
-            bool         _greaterThanValid;
-            bool         _lessThanOrEqualResult;
-            bool         _lessThanOrEqualValid;
-            bool         _greaterThanOrEqualResult;
-            bool         _greaterThanOrEqualValid;
-            bool         _equalToResult;
-            bool         _equalToValid;
+            const char *_testValue;
+            bool       _lessThanResult;
+            bool       _lessThanValid;
+            bool       _greaterThanResult;
+            bool       _greaterThanValid;
+            bool       _lessThanOrEqualResult;
+            bool       _lessThanOrEqualValid;
+            bool       _greaterThanOrEqualResult;
+            bool       _greaterThanOrEqualValid;
+            bool       _equalToResult;
+            bool       _equalToValid;
         }; // testStrings
 
         static testStrings testSet1l[] =
@@ -5354,9 +5354,9 @@ doTestValidStringSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidArrayCompares(const char * launchPath,
-                           const int    argc,
-                           char * *     argv) // invalid array compares
+doTestInvalidArrayCompares(const char *launchPath,
+                           const int  argc,
+                           char       **argv) // invalid array compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5381,7 +5381,7 @@ doTestInvalidArrayCompares(const char * launchPath,
         nImO::Map     rightValue6;
         nImO::Set     rightValue7;
         nImO::Integer rightValue8;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
@@ -5393,7 +5393,7 @@ doTestInvalidArrayCompares(const char * launchPath,
         leftValue.addValue(new nImO::String);
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5478,9 +5478,9 @@ doTestInvalidArrayCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanMapCompares(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // invalid boolean map compares
+doTestInvalidBooleanMapCompares(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // invalid boolean map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5504,7 +5504,7 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Double  rightValue7;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5515,7 +5515,7 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
         leftValue.addValue(new nImO::Boolean(true), new nImO::String("true"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5600,9 +5600,9 @@ doTestInvalidBooleanMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerMapCompares(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // invalid integer map compares
+doTestInvalidIntegerMapCompares(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // invalid integer map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5625,7 +5625,7 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -5636,7 +5636,7 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
         leftValue.addValue(new nImO::Integer(12), new nImO::Double(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5721,9 +5721,9 @@ doTestInvalidIntegerMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringMapCompares(const char * launchPath,
-                               const int    argc,
-                               char * *     argv) // invalid string map compares
+doTestInvalidStringMapCompares(const char *launchPath,
+                               const int  argc,
+                               char       **argv) // invalid string map compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5747,7 +5747,7 @@ doTestInvalidStringMapCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5759,7 +5759,7 @@ doTestInvalidStringMapCompares(const char * launchPath,
         leftValue.addValue(new nImO::String("ghi"), new nImO::String("789"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5844,9 +5844,9 @@ doTestInvalidStringMapCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanSetCompares(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // invalid boolean set compares
+doTestInvalidBooleanSetCompares(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // invalid boolean set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5870,7 +5870,7 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5881,7 +5881,7 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
         leftValue.addValue(new nImO::Boolean(true));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5966,9 +5966,9 @@ doTestInvalidBooleanSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerSetCompares(const char * launchPath,
-                                const int    argc,
-                                char * *     argv) // invalid integer set compares
+doTestInvalidIntegerSetCompares(const char *launchPath,
+                                const int  argc,
+                                char       **argv) // invalid integer set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -5991,7 +5991,7 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
         nImO::Array   rightValue4;
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -6002,7 +6002,7 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
         leftValue.addValue(new nImO::Integer(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -6087,9 +6087,9 @@ doTestInvalidIntegerSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringSetCompares(const char * launchPath,
-                               const int    argc,
-                               char * *     argv) // invalid string set compares
+doTestInvalidStringSetCompares(const char *launchPath,
+                               const int  argc,
+                               char       **argv) // invalid string set compares
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6113,7 +6113,7 @@ doTestInvalidStringSetCompares(const char * launchPath,
         nImO::Map     rightValue5;
         nImO::Set     rightValue6;
         nImO::Integer rightValue7;
-        nImO::Value * rightValues[] =
+        nImO::Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -6125,7 +6125,7 @@ doTestInvalidStringSetCompares(const char * launchPath,
         leftValue.addValue(new nImO::String("ghi"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value & aRightValue = *rightValues[ii];
+            nImO::Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -6210,9 +6210,9 @@ doTestInvalidStringSetCompares(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayIndices(const char * launchPath,
-                   const int    argc,
-                   char * *     argv) // array indices
+doTestArrayIndices(const char *launchPath,
+                   const int  argc,
+                   char       **argv) // array indices
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6227,10 +6227,10 @@ doTestArrayIndices(const char * launchPath,
 
     try
     {
-        nImO::Array     stuff;
-        nImO::Boolean * aBoolValue;
-        nImO::Number *  aNumberValue;
-        nImO::String *  aStringValue;
+        nImO::Array   stuff;
+        nImO::Boolean *aBoolValue;
+        nImO::Number  *aNumberValue;
+        nImO::String  *aStringValue;
 
         if (0 != stuff.size())
         {
@@ -6336,9 +6336,9 @@ doTestArrayIndices(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMapSearches(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // boolean map searches
+doTestBooleanMapSearches(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // boolean map searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6355,8 +6355,8 @@ doTestBooleanMapSearches(const char * launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String *      falseString = new nImO::String("false");
-        nImO::String *      trueString;
+        nImO::String        *falseString = new nImO::String("false");
+        nImO::String        *trueString;
 
         stuff.addValue(new nImO::Boolean(false), falseString);
         iter = stuff.find(nImO::Boolean(true));
@@ -6449,9 +6449,9 @@ doTestBooleanMapSearches(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapSearches(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // integer map searches
+doTestIntegerMapSearches(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // integer map searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6468,8 +6468,8 @@ doTestIntegerMapSearches(const char * launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String *      string17 = new nImO::String("17");
-        nImO::String *      string12;
+        nImO::String        *string17 = new nImO::String("17");
+        nImO::String        *string12;
 
         stuff.addValue(new nImO::Integer(17), string17);
         iter = stuff.find(nImO::Integer(12));
@@ -6562,9 +6562,9 @@ doTestIntegerMapSearches(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapSearches(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // string map searches
+doTestStringMapSearches(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // string map searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6581,8 +6581,8 @@ doTestStringMapSearches(const char * launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String *      stringOneSeven = new nImO::String("17");
-        nImO::String *      stringOneTwo;
+        nImO::String        *stringOneSeven = new nImO::String("17");
+        nImO::String        *stringOneTwo;
 
         stuff.addValue(new nImO::String("abc"), stringOneSeven);
         iter = stuff.find(nImO::String("def"));
@@ -6675,9 +6675,9 @@ doTestStringMapSearches(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanSetSearches(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // boolean set searches
+doTestBooleanSetSearches(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // boolean set searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6775,9 +6775,9 @@ doTestBooleanSetSearches(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetSearches(const char * launchPath,
-                         const int    argc,
-                         char * *     argv) // integer set searches
+doTestIntegerSetSearches(const char *launchPath,
+                         const int  argc,
+                         char       **argv) // integer set searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6875,9 +6875,9 @@ doTestIntegerSetSearches(const char * launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetSearches(const char * launchPath,
-                        const int    argc,
-                        char * *     argv) // string set searches
+doTestStringSetSearches(const char *launchPath,
+                        const int  argc,
+                        char       **argv) // string set searches
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -6974,8 +6974,8 @@ doTestStringSetSearches(const char * launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int      argc,
-     char * * argv)
+main(int  argc,
+     char **argv)
 {
     std::string progName(*argv);
 
@@ -6995,9 +6995,9 @@ main(int      argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char * startPtr = argv[1];
-            char *       endPtr;
-            int          selector = strtol(startPtr, &endPtr, 10);
+            const char *startPtr = argv[1];
+            char       *endPtr;
+            int        selector = strtol(startPtr, &endPtr, 10);
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
             {

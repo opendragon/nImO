@@ -79,10 +79,10 @@ namespace nImO
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument. */
-        ChannelArgumentDescriptor(const std::string & argName,
-                                  const std::string & argDescription,
-                                  const ArgumentMode  argMode,
-                                  const std::string & defaultValue);
+        ChannelArgumentDescriptor(const std::string  &argName,
+                                  const std::string  &argDescription,
+                                  const ArgumentMode argMode,
+                                  const std::string  &defaultValue);
 
         /*! @brief The destructor. */
         virtual
@@ -92,7 +92,7 @@ namespace nImO
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
         static BaseArgumentDescriptor *
-        parseArgString(const std::string & inString);
+        parseArgString(const std::string &inString);
 
     protected :
 
@@ -100,7 +100,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChannelArgumentDescriptor(const ChannelArgumentDescriptor & other);
+        ChannelArgumentDescriptor(const ChannelArgumentDescriptor &other);
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
@@ -111,7 +111,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         ChannelArgumentDescriptor &
-        operator =(const ChannelArgumentDescriptor & other);
+        operator =(const ChannelArgumentDescriptor &other);
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
@@ -123,7 +123,7 @@ namespace nImO
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string & value);
+        validate(const std::string &value);
 
     public :
 

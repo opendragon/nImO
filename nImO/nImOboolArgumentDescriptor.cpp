@@ -80,10 +80,10 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-BoolArgumentDescriptor::BoolArgumentDescriptor(const std::string & argName,
-                                               const std::string & argDescription,
-                                               const ArgumentMode  argMode,
-                                               const bool          defaultValue) :
+BoolArgumentDescriptor::BoolArgumentDescriptor(const std::string  &argName,
+                                               const std::string  &argDescription,
+                                               const ArgumentMode argMode,
+                                               const bool         defaultValue) :
     inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
@@ -104,7 +104,7 @@ BoolArgumentDescriptor::~BoolArgumentDescriptor(void)
 
 #if 0
 void
-BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
+BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -117,9 +117,9 @@ BaseArgumentDescriptor *
 BoolArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new BoolArgumentDescriptor(argumentName(),
-                                                                 argumentDescription(),
-                                                                 argumentMode(), _defaultValue);
+    BaseArgumentDescriptor *result = new BoolArgumentDescriptor(argumentName(),
+                                                                argumentDescription(),
+                                                                argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result);
     return result;
@@ -146,12 +146,12 @@ BoolArgumentDescriptor::getProcessedValue(void)
 } // BoolArgumentDescriptor::getProcessedValue
 
 BaseArgumentDescriptor *
-BoolArgumentDescriptor::parseArgString(const std::string & inString)
+BoolArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -229,7 +229,7 @@ BoolArgumentDescriptor::toString(void)
 } // BoolArgumentDescriptor::toString
 
 bool
-BoolArgumentDescriptor::validate(const std::string & value)
+BoolArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
     bool boolValue;

@@ -87,7 +87,7 @@ nImO::String::String(void) :
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
-nImO::String::String(const std::string & initialValue) :
+nImO::String::String(const std::string &initialValue) :
     inherited(), _value(initialValue)
 {
     ODL_ENTER(); //####
@@ -95,7 +95,7 @@ nImO::String::String(const std::string & initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
-nImO::String::String(const char * initialValue) :
+nImO::String::String(const char *initialValue) :
     inherited(), _value(initialValue)
 {
     ODL_ENTER(); //####
@@ -103,7 +103,7 @@ nImO::String::String(const char * initialValue) :
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
-nImO::String::String(const nImO::String & other) :
+nImO::String::String(const nImO::String &other) :
     inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
@@ -126,14 +126,14 @@ nImO::String::clone(void)
 const
 {
     ODL_OBJENTER(); //####
-    String * result = new String(*this);
+    String *result = new String(*this);
 
     ODL_OBJEXIT_P(result); //####
     return result;
 } // nImO::String::copy
 
 bool
-nImO::String::deeplyEqualTo(const nImO::Value & other)
+nImO::String::deeplyEqualTo(const nImO::Value &other)
 const
 {
     ODL_OBJENTER(); //####
@@ -142,7 +142,7 @@ const
     
     if (! result)
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL != otherPtr)
         {
@@ -154,8 +154,8 @@ const
 } // nImO::String::deeplyEqualTo
 
 bool
-nImO::String::equalTo(const nImO::Value & other,
-                      bool &              validComparison)
+nImO::String::equalTo(const nImO::Value &other,
+                      bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -169,7 +169,7 @@ const
     }
     else
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL == otherPtr)
         {
@@ -195,33 +195,33 @@ const
 } // nImO::String::equalTo
 
 nImO::Value *
-nImO::String::extractValue(const nImO::Message & theMessage,
-                           const int             leadByte,
-                           size_t &              position,
-                           nImO::ReadStatus &    status,
-                           nImO::Array *         parentValue)
+nImO::String::extractValue(const nImO::Message &theMessage,
+                           const int           leadByte,
+                           size_t              &position,
+                           nImO::ReadStatus    &status,
+                           nImO::Array         *parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value * result;
-    bool    isShort = (kKindStringOrBlobShortLengthValue ==
-                       (kKindStringOrBlobLengthMask & leadByte));
-    size_t  numBytes = 0;
+    Value  *result;
+    bool   isShort = (kKindStringOrBlobShortLengthValue ==
+                      (kKindStringOrBlobLengthMask &leadByte));
+    size_t numBytes = 0;
     
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
+        numBytes = (kKindStringOrBlobShortLengthMask &leadByte);
         status = kReadSuccessful;
         ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
     }
     else
     {
-        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+        size_t        size = (kKindIntegerLongValueCountMask &leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -252,8 +252,8 @@ nImO::String::extractValue(const nImO::Message & theMessage,
     }
     if (0 < numBytes)
     {
-        char * holder = new char[numBytes + 1];
-        bool   okSoFar = (NULL != holder);
+        char *holder = new char[numBytes + 1];
+        bool okSoFar = (NULL != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -300,9 +300,9 @@ nImO::String::extractValue(const nImO::Message & theMessage,
 } // nImO::String::extractValue
 
 void
-nImO::String::getExtractionInfo(uint8_t &                aByte,
-                                uint8_t &                aMask,
-                                nImO::Value::Extractor & theExtractor)
+nImO::String::getExtractionInfo(uint8_t                &aByte,
+                                uint8_t                &aMask,
+                                nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -316,15 +316,15 @@ const char *
 nImO::String::getInitialCharacters(void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "\"'";
+    static const char *initialChars = "\"'";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::String::getInitialCharacters
 
 bool
-nImO::String::greaterThan(const nImO::Value & other,
-                          bool &              validComparison)
+nImO::String::greaterThan(const nImO::Value &other,
+                          bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -339,7 +339,7 @@ const
     }
     else
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL == otherPtr)
         {
@@ -365,8 +365,8 @@ const
 } // nImO::String::greaterThan
 
 bool
-nImO::String::greaterThanOrEqual(const nImO::Value & other,
-                                 bool &              validComparison)
+nImO::String::greaterThanOrEqual(const nImO::Value &other,
+                                 bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -380,7 +380,7 @@ const
     }
     else
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL == otherPtr)
         {
@@ -406,8 +406,8 @@ const
 } // nImO::String::greaterThanOrEqual
 
 bool
-nImO::String::lessThan(const nImO::Value & other,
-                       bool &              validComparison)
+nImO::String::lessThan(const nImO::Value &other,
+                       bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -422,7 +422,7 @@ const
     }
     else
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL == otherPtr)
         {
@@ -448,8 +448,8 @@ const
 } // nImO::String::lessThan
 
 bool
-nImO::String::lessThanOrEqual(const nImO::Value & other,
-                              bool &              validComparison)
+nImO::String::lessThanOrEqual(const nImO::Value &other,
+                              bool              &validComparison)
 const
 {
     ODL_OBJENTER(); //####
@@ -463,7 +463,7 @@ const
     }
     else
     {
-        const String * otherPtr = other.asString();
+        const String *otherPtr = other.asString();
         
         if (NULL == otherPtr)
         {
@@ -489,7 +489,7 @@ const
 } // nImO::String::lessThanOrEqual
 
 nImO::String &
-nImO::String::operator =(const nImO::String & other)
+nImO::String::operator =(const nImO::String &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -502,7 +502,7 @@ nImO::String::operator =(const nImO::String & other)
 } // nImO::String::operator=
 
 nImO::String &
-nImO::String::operator =(const std::string & value)
+nImO::String::operator =(const std::string &value)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
@@ -512,7 +512,7 @@ nImO::String::operator =(const std::string & value)
 } // nImO::String::operator=
 
 nImO::String &
-nImO::String::operator =(const char * value)
+nImO::String::operator =(const char *value)
 {
     ODL_OBJENTER(); //####
     ODL_S1("value = ", value); //####
@@ -522,8 +522,8 @@ nImO::String::operator =(const char * value)
 } // nImO::String::operator=
 
 void
-nImO::String::printToStringBuffer(nImO::StringBuffer & outBuffer,
-                                  const bool           squished)
+nImO::String::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                                  const bool         squished)
 const
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -539,14 +539,14 @@ const
 } // nImO::String::printToStringBuffer
 
 nImO::Value *
-nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
-                                   size_t &                   position)
+nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
+                                   size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    Value * result = NULL;
-    size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex++);
+    Value  *result = NULL;
+    size_t localIndex = position;
+    int    aChar = inBuffer.getChar(localIndex++);
 
     if ((kSingleQuote == aChar) || (kDoubleQuote == aChar))
     {
@@ -566,14 +566,14 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
             kScanSawEscapeBigMminusEscapeBigCminus
         }; // ScanState
 
-        bool                done = false;
-        bool                valid = false;
-        const char          delimiter = aChar;
-        int                 octalSum;
-        ScanState           state = kScanNormal;
-        StringBuffer        holding;
-        static const char * standardEscapes = "abtnvfres";
-        static const char * standardEscapesActual = "\a\b\t\n\v\f\r\e ";
+        bool              done = false;
+        bool              valid = false;
+        const char        delimiter = aChar;
+        int               octalSum;
+        ScanState         state = kScanNormal;
+        StringBuffer      holding;
+        static const char *standardEscapes = "abtnvfres";
+        static const char *standardEscapesActual = "\a\b\t\n\v\f\r\e ";
 
         for ( ; ! done; )
         {
@@ -611,7 +611,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                     }
                     else
                     {
-                        const char * whichEscape = strchr(standardEscapes, aChar);
+                        const char *whichEscape = strchr(standardEscapes, aChar);
 
                         if (NULL == whichEscape)
                         {
@@ -650,8 +650,8 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
                         }
                         else
                         {
-                            const char * replacement = standardEscapesActual +
-                                                       (whichEscape - standardEscapes);
+                            const char *replacement = standardEscapesActual +
+                                                      (whichEscape - standardEscapes);
 
                             holding.addChar(*replacement);
                             state = kScanNormal;
@@ -842,7 +842,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer & inBuffer,
 } // nImO::String::readFromStringBuffer
 
 void
-nImO::String::writeToMessage(nImO::Message & outMessage)
+nImO::String::writeToMessage(nImO::Message &outMessage)
 const
 {
     ODL_ENTER(); //####
@@ -863,7 +863,7 @@ const
                 ODL_LOG("(0 < numBytes)"); //####
                 uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
                                 kKindStringOrBlobLongLengthValue +
-                                (kKindStringOrBlobLongLengthMask & (numBytes - 1));
+                                (kKindStringOrBlobLongLengthMask &(numBytes - 1));
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -874,7 +874,7 @@ const
             ODL_LOG("! (15 < length)"); //####
             uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
                             kKindStringOrBlobShortLengthValue +
-                            (kKindStringOrBlobShortLengthMask & length);
+                            (kKindStringOrBlobShortLengthMask &length);
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
@@ -890,7 +890,7 @@ const
         ODL_LOG("! (0 < length)"); //####
         uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
                         kKindStringOrBlobShortLengthValue +
-                        (kKindStringOrBlobShortLengthMask & 0);
+                        (kKindStringOrBlobShortLengthMask &0);
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }

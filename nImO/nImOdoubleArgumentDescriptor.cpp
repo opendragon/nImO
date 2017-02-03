@@ -80,14 +80,14 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-DoubleArgumentDescriptor::DoubleArgumentDescriptor(const std::string & argName,
-                                                   const std::string & argDescription,
-                                                   const ArgumentMode  argMode,
-                                                   const double        defaultValue,
-                                                   const bool          hasMinimumValue,
-                                                   const double        minimumValue,
-                                                   const bool          hasMaximumValue,
-                                                   const double        maximumValue) :
+DoubleArgumentDescriptor::DoubleArgumentDescriptor(const std::string  &argName,
+                                                   const std::string  &argDescription,
+                                                   const ArgumentMode argMode,
+                                                   const double       defaultValue,
+                                                   const bool         hasMinimumValue,
+                                                   const double       minimumValue,
+                                                   const bool         hasMaximumValue,
+                                                   const double       maximumValue) :
     inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
     _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
     _hasMinimumValue(hasMinimumValue)
@@ -112,7 +112,7 @@ DoubleArgumentDescriptor::~DoubleArgumentDescriptor(void)
 
 #if 0
 void
-DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
+DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -126,11 +126,11 @@ BaseArgumentDescriptor *
 DoubleArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new DoubleArgumentDescriptor(argumentName(),
-                                                                   argumentDescription(),
-                                                                   argumentMode(), _defaultValue,
-                                                                   _hasMinimumValue, _minimumValue,
-                                                                   _hasMaximumValue, _maximumValue);
+    BaseArgumentDescriptor *result = new DoubleArgumentDescriptor(argumentName(),
+                                                                  argumentDescription(),
+                                                                  argumentMode(), _defaultValue,
+                                                                  _hasMinimumValue, _minimumValue,
+                                                                  _hasMaximumValue, _maximumValue);
 
     ODL_EXIT_P(result);
     return result;
@@ -163,12 +163,12 @@ DoubleArgumentDescriptor::getProcessedValue(void)
 } // DoubleArgumentDescriptor::getProcessedValue
 
 BaseArgumentDescriptor *
-DoubleArgumentDescriptor::parseArgString(const std::string & inString)
+DoubleArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 5, inVector))
     {
@@ -200,8 +200,8 @@ DoubleArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char * startPtr = defaultString.c_str();
-            char *       endPtr;
+            const char *startPtr = defaultString.c_str();
+            char       *endPtr;
 
             defaultValue = strtod(startPtr, &endPtr);
             if ((startPtr == endPtr) || *endPtr)
@@ -211,8 +211,8 @@ DoubleArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < minValString.length()))
         {
-            const char * startPtr = minValString.c_str();
-            char *       endPtr;
+            const char *startPtr = minValString.c_str();
+            char       *endPtr;
 
             minValue = strtod(startPtr, &endPtr);
             if ((startPtr == endPtr) || *endPtr)
@@ -222,8 +222,8 @@ DoubleArgumentDescriptor::parseArgString(const std::string & inString)
         }
         if (okSoFar && (0 < maxValString.length()))
         {
-            const char * startPtr = maxValString.c_str();
-            char *       endPtr;
+            const char *startPtr = maxValString.c_str();
+            char       *endPtr;
 
             maxValue = strtod(startPtr, &endPtr);
             if ((startPtr == endPtr) || *endPtr)
@@ -282,12 +282,12 @@ DoubleArgumentDescriptor::toString(void)
 } // DoubleArgumentDescriptor::toString
 
 bool
-DoubleArgumentDescriptor::validate(const std::string & value)
+DoubleArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
-    const char * startPtr = value.c_str();
-    char *       endPtr;
-    double       dblValue = strtod(startPtr, &endPtr);
+    const char *startPtr = value.c_str();
+    char       *endPtr;
+    double     dblValue = strtod(startPtr, &endPtr);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {

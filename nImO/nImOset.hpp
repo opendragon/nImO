@@ -103,7 +103,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Set(const Set & other);
+        Set(const Set &other);
 
         /*! @brief The destructor. */
         virtual
@@ -114,7 +114,7 @@ namespace nImO
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
         InsertResult
-        addValue(Value * val);
+        addValue(Value *val);
 
         /*! @brief Return non-@c NULL if the object is a Set.
          @returns Non-@c NULL if the object is a Set and @c NULL otherwise. */
@@ -156,7 +156,7 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual bool
-        deeplyEqualTo(const Value & other)
+        deeplyEqualTo(const Value &other)
         const;
         
         /*! @brief Return an iterator pointing past the last element of the Array.
@@ -182,8 +182,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        equalTo(const Value & other,
-                bool &        validComparison)
+        equalTo(const Value &other,
+                bool        &validComparison)
         const;
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
@@ -191,14 +191,14 @@ namespace nImO
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         iterator
-        find(const Value & key);
+        find(const Value &key);
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         const_iterator
-        find(const Value & key)
+        find(const Value &key)
         const;
 
         /*! @brief Get the extraction information for Set objects.
@@ -206,9 +206,9 @@ namespace nImO
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
-        getExtractionInfo(uint8_t &   aByte,
-                          uint8_t &   aMask,
-                          Extractor & theExtractor);
+        getExtractionInfo(uint8_t   &aByte,
+                          uint8_t   &aMask,
+                          Extractor &theExtractor);
 
         /*! @brief Return the characters that can appear as the start of a Set.
          @returns The characters that can appear as the start of a Set. */
@@ -235,8 +235,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThan(const Value & other,
-                    bool &        validComparison)
+        greaterThan(const Value &other,
+                    bool        &validComparison)
         const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -245,8 +245,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThanOrEqual(const Value & other,
-                           bool &        validComparison)
+        greaterThanOrEqual(const Value &other,
+                           bool        &validComparison)
         const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -255,8 +255,8 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThan(const Value & other,
-                 bool &        validComparison)
+        lessThan(const Value &other,
+                 bool        &validComparison)
         const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -265,23 +265,23 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThanOrEqual(const Value & other,
-                        bool &        validComparison)
+        lessThanOrEqual(const Value &other,
+                        bool        &validComparison)
         const;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         Set &
-        operator =(const Set & other);
+        operator =(const Set &other);
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual void
-        printToStringBuffer(StringBuffer & outBuffer,
-                            const bool     squished = false)
+        printToStringBuffer(StringBuffer &outBuffer,
+                            const bool   squished = false)
         const;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
@@ -289,8 +289,8 @@ namespace nImO
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
         static Value *
-        readFromStringBuffer(const StringBuffer & inBuffer,
-                             size_t &             position);
+        readFromStringBuffer(const StringBuffer &inBuffer,
+                             size_t             &position);
 
         /*! @brief Returns the number of elements in the Set.
          @returns The number of elements in the Set. */
@@ -304,7 +304,7 @@ namespace nImO
         /*! @brief Add a binary representation of the object to the message.
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
-        writeToMessage(Message & outMessage)
+        writeToMessage(Message &outMessage)
         const;
 
     protected :
@@ -316,7 +316,7 @@ namespace nImO
         /*! @brief Add the entries from another Set.
           @param[in] other The object to be copied from. */
         void
-        addEntries(const Set & other);
+        addEntries(const Set &other);
 
         /*! @brief Extracts Value objects from a Message.
          Note that the parentValue argument is normally @c NULL, and is used for handling multiple
@@ -332,11 +332,11 @@ namespace nImO
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
         static Value *
-        extractValue(const Message & theMessage,
-                     const int       leadByte,
-                     size_t &        position,
-                     ReadStatus &    status,
-                     Array *         parentValue);
+        extractValue(const Message &theMessage,
+                     const int     leadByte,
+                     size_t        &position,
+                     ReadStatus    &status,
+                     Array         *parentValue);
 
     public :
         // Public fields.

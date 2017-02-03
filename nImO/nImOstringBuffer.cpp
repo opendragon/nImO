@@ -74,7 +74,7 @@ using namespace nImO;
 static const size_t kNumBuffSize = 100;
 
 /*! @brief The canonical names for control characters. */
-static const char * kCanonicalControl[] =
+static const char *kCanonicalControl[] =
 {
     "C-@", // 00 NUL
     "C-A", // 01 SOH
@@ -154,8 +154,8 @@ nImO::StringBuffer::addBool(const bool aBool)
 } // nImO::StringBuffer::addBool
 
 nImO::StringBuffer &
-nImO::StringBuffer::addBytes(const uint8_t * inBytes,
-                             const size_t    numBytes)
+nImO::StringBuffer::addBytes(const uint8_t *inBytes,
+                             const size_t  numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
@@ -171,7 +171,7 @@ nImO::StringBuffer::addBytes(const uint8_t * inBytes,
     {
         uint8_t aByte = inBytes[ii];
 
-        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
+        addChar(hexDigits[(aByte >> 4) &0x0F]).addChar(hexDigits[aByte &0x0F]);
     }
     addChar(kBlobSeparator);
     ODL_EXIT_P(this); //####
@@ -225,8 +225,8 @@ nImO::StringBuffer::addLong(const int64_t aLong)
 } // nImO::StringBuffer::addLong
 
 nImO::StringBuffer &
-nImO::StringBuffer::addString(const char * aString,
-                              const bool   addQuotes)
+nImO::StringBuffer::addString(const char *aString,
+                              const bool addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1("aString = ", aString); //####
@@ -250,8 +250,8 @@ nImO::StringBuffer::addString(const char * aString,
 } // nImO::StringBuffer::addString
 
 nImO::StringBuffer &
-nImO::StringBuffer::addString(const std::string & aString,
-                              const bool          addQuotes)
+nImO::StringBuffer::addString(const std::string &aString,
+                              const bool        addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
@@ -280,19 +280,20 @@ nImO::StringBuffer::addTab(void)
     return *this;
 } // nImO::StringBuffer::addTab
 
-nImO::Value * nImO::StringBuffer::convertToValue(void)
+nImO::Value *
+nImO::StringBuffer::convertToValue(void)
 const
 {
     ODL_OBJENTER(); //####
-    size_t  position = 0;
-    Value * result = Value::readFromStringBuffer(*this, position);
+    size_t position = 0;
+    Value  *result = Value::readFromStringBuffer(*this, position);
 
     ODL_P1("result <- ", result); //####
     if (result)
     {
-        bool    done = false;
-        bool    valid = true;
-        Array * holder = NULL;
+        bool  done = false;
+        bool  valid = true;
+        Array *holder = NULL;
 
         for ( ; ! done; )
         {
@@ -357,7 +358,7 @@ const
 } // nImO::StringBuffer::convertToValue
 
 void
-nImO::StringBuffer::processCharacters(const char * aString,
+nImO::StringBuffer::processCharacters(const char   *aString,
                                       const size_t length)
 {
     ODL_ENTER(); //####
@@ -374,7 +375,7 @@ nImO::StringBuffer::processCharacters(const char * aString,
     {
         uint8_t aByte = static_cast<uint8_t>(aString[ii]);
 
-        if ((0x20 > aByte) || (0 != (aByte & 0x80)))
+        if ((0x20 > aByte) || (0 != (aByte &0x80)))
         {
             hasSpecials = true;
         }
@@ -400,12 +401,12 @@ nImO::StringBuffer::processCharacters(const char * aString,
         {
             uint8_t aByte = static_cast<uint8_t>(aString[ii]);
 
-            if ((0x20 > aByte) || (0 != (aByte & 0x80)))
+            if ((0x20 > aByte) || (0 != (aByte &0x80)))
             {
                 inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
-                    const char * controlString = kCanonicalControl[aByte];
+                    const char *controlString = kCanonicalControl[aByte];
 
                     inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
                                            strlen(controlString) * sizeof(*controlString));
@@ -492,14 +493,14 @@ nImO::StringBuffer::processCharacters(const char * aString,
 #endif // defined(__APPLE__)
 
 std::ostream &
-nImO::operator <<(std::ostream       &       out,
-                  const nImO::StringBuffer & aBuffer)
+nImO::operator <<(std::ostream             &out,
+                  const nImO::StringBuffer &aBuffer)
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
     for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
     {
-        BufferChunk * aChunk = aBuffer._buffers[ii];
+        BufferChunk *aChunk = aBuffer._buffers[ii];
 
         if (NULL != aChunk)
         {

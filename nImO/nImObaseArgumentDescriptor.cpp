@@ -92,9 +92,9 @@ std::string BaseArgumentDescriptor::_parameterSeparator("\t");
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-BaseArgumentDescriptor::BaseArgumentDescriptor(const std::string & argName,
-                                               const std::string & argDescription,
-                                               const ArgumentMode  argMode) :
+BaseArgumentDescriptor::BaseArgumentDescriptor(const std::string  &argName,
+                                               const std::string  &argDescription,
+                                               const ArgumentMode argMode) :
     _valid(true), _argDescription(argDescription), _argName(argName), _argMode(argMode)
 {
     ODL_ENTER(); //####
@@ -113,9 +113,9 @@ BaseArgumentDescriptor::~BaseArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 bool
-BaseArgumentDescriptor::partitionString(const std::string & inString,
-                                        const size_t        indexOfDefaultValue,
-                                        StringVector &      result)
+BaseArgumentDescriptor::partitionString(const std::string &inString,
+                                        const size_t      indexOfDefaultValue,
+                                        StringVector      &result)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -204,7 +204,7 @@ BaseArgumentDescriptor::partitionString(const std::string & inString,
 } // BaseArgumentDescriptor::partitionString
 
 std::string
-BaseArgumentDescriptor::prefixFields(const std::string & tagForField)
+BaseArgumentDescriptor::prefixFields(const std::string &tagForField)
 const
 {
     ODL_OBJENTER(); //####
@@ -219,7 +219,7 @@ const
 } // BaseArgumentDescriptor::prefixFields
 
 std::string
-BaseArgumentDescriptor::suffixFields(const std::string & defaultToUse)
+BaseArgumentDescriptor::suffixFields(const std::string &defaultToUse)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
@@ -252,7 +252,7 @@ BaseArgumentDescriptor::suffixFields(const std::string & defaultToUse)
 #endif // defined(__APPLE__)
 
 std::string
-nImO::ArgumentsToArgString(const DescriptorVector & arguments)
+nImO::ArgumentsToArgString(const DescriptorVector &arguments)
 {
     ODL_ENTER(); //####
     ODL_P1("arguments = ", &arguments); //####
@@ -261,7 +261,7 @@ nImO::ArgumentsToArgString(const DescriptorVector & arguments)
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg)
         {
@@ -286,9 +286,9 @@ nImO::ArgumentsToArgString(const DescriptorVector & arguments)
 } // nImO::ArgumentsToArgString
 
 void
-nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
-                                  StringVector &           output,
-                                  const size_t             minSpace)
+nImO::ArgumentsToDescriptionArray(const DescriptorVector &arguments,
+                                  StringVector           &output,
+                                  const size_t           minSpace)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
@@ -296,7 +296,7 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg)
         {
@@ -313,7 +313,7 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
         nameSize += static_cast<int>(minSpace);
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
-            BaseArgumentDescriptor * anArg = arguments[ii];
+            BaseArgumentDescriptor *anArg = arguments[ii];
 
             if (anArg)
             {
@@ -334,8 +334,8 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector & arguments,
 } // nImO::ArgumentsToDescriptionArray
 
 std::string
-nImO::CombineArguments(const DescriptorVector & arguments,
-                       const std::string &      sep)
+nImO::CombineArguments(const DescriptorVector &arguments,
+                       const std::string      &sep)
 {
     ODL_ENTER(); //####
     ODL_S1s("sep = ", sep); //####
@@ -343,7 +343,7 @@ nImO::CombineArguments(const DescriptorVector & arguments,
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (0 < ii)
         {
@@ -359,10 +359,10 @@ nImO::CombineArguments(const DescriptorVector & arguments,
 } // nImO::CombineArguments
 
 BaseArgumentDescriptor *
-nImO::ConvertStringToArgument(const std::string & inString)
+nImO::ConvertStringToArgument(const std::string &inString)
 {
     ODL_ENTER(); //####
-    BaseArgumentDescriptor * result = NULL;
+    BaseArgumentDescriptor *result = NULL;
 
     result = AddressArgumentDescriptor::parseArgString(inString);
     if (! result)
@@ -403,15 +403,15 @@ nImO::ConvertStringToArgument(const std::string & inString)
 
 #if 0
 void
-nImO::CopyArgumentsToBottle(const DescriptorVector & arguments,
-                            yarp::os::Bottle &       container)
+nImO::CopyArgumentsToBottle(const DescriptorVector &arguments,
+                            yarp::os::Bottle       &container)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "container = ", &container); //####
     container.clear();
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
@@ -423,7 +423,7 @@ nImO::CopyArgumentsToBottle(const DescriptorVector & arguments,
 #endif//0
 
 nImO::ArgumentMode
-nImO::ModeFromString(const std::string & modeString)
+nImO::ModeFromString(const std::string &modeString)
 {
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
@@ -449,9 +449,9 @@ nImO::ModeFromString(const std::string & modeString)
 } // nImO::ModeFromString
 
 bool
-nImO::ProcessArguments(const DescriptorVector & arguments,
-                       Option_::Parser &        parseResult,
-                       std::string &            badArgs)
+nImO::ProcessArguments(const DescriptorVector &arguments,
+                       Option_::Parser        &parseResult,
+                       std::string            &badArgs)
 {
     ODL_ENTER(); //####
     ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", //####
@@ -472,7 +472,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     badArgs = "";
     for (size_t ii = 0; numArgs > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg)
         {
@@ -485,7 +485,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     // follow the optional arguments, which follow the mandatory ones.
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg)
         {
@@ -515,7 +515,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
-            BaseArgumentDescriptor * anArg = arguments[ii];
+            BaseArgumentDescriptor *anArg = arguments[ii];
 
             if (anArg && (! anArg->isExtra()))
             {
@@ -538,7 +538,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
     // unsatisfied.
     for (size_t ii = numToCheck; numArgs > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg && (! anArg->isExtra()))
         {
@@ -562,7 +562,7 @@ nImO::ProcessArguments(const DescriptorVector & arguments,
 } // nImO::ProcessArguments
 
 bool
-nImO::PromptForValues(const DescriptorVector & arguments)
+nImO::PromptForValues(const DescriptorVector &arguments)
 {
     ODL_ENTER(); //####
     ODL_P1("arguments = ", &arguments); //####
@@ -581,7 +581,7 @@ nImO::PromptForValues(const DescriptorVector & arguments)
     }
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor * anArg = arguments[ii];
+        BaseArgumentDescriptor *anArg = arguments[ii];
 
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {

@@ -94,7 +94,7 @@ namespace nImO
          @param[out] length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
-        getBytes(size_t & length);
+        getBytes(size_t &length);
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
@@ -106,7 +106,7 @@ namespace nImO
          @param[out] status Whether the Value was complete.
          @returns The next Value in the Message or @c NULL if the Value cannot be retrieved. */
         Value *
-        getValue(ReadStatus & status);
+        getValue(ReadStatus &status);
 
         /*! @brief Open the Message, so that data can be read or written.
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
@@ -124,7 +124,7 @@ namespace nImO
          @param[in] theValue The value to be put in the Message.
          @returns The Message object so that cascading can be done. */
         Message &
-        setValue(const Value & theValue);
+        setValue(const Value &theValue);
 
     protected :
         // Protected methods.
@@ -134,7 +134,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Message(const Message & other);
+        Message(const Message &other);
 
         /*! @brief Acquire the object. */
         void
@@ -144,7 +144,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         Message &
-        operator =(const Message & other);
+        operator =(const Message &other);
 
         /*! @brief Release the object. */
         void

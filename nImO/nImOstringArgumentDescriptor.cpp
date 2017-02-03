@@ -80,10 +80,10 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-StringArgumentDescriptor::StringArgumentDescriptor(const std::string & argName,
-                                                   const std::string & argDescription,
-                                                   const ArgumentMode  argMode,
-                                                   const std::string & defaultValue) :
+StringArgumentDescriptor::StringArgumentDescriptor(const std::string  &argName,
+                                                   const std::string  &argDescription,
+                                                   const ArgumentMode argMode,
+                                                   const std::string  &defaultValue) :
     inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
@@ -104,7 +104,7 @@ StringArgumentDescriptor::~StringArgumentDescriptor(void)
 
 #if 0
 void
-StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle & container)
+StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -117,9 +117,9 @@ BaseArgumentDescriptor *
 StringArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new StringArgumentDescriptor(argumentName(),
-                                                                   argumentDescription(),
-                                                                   argumentMode(), _defaultValue);
+    BaseArgumentDescriptor *result = new StringArgumentDescriptor(argumentName(),
+                                                                  argumentDescription(),
+                                                                  argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result);
     return result;
@@ -144,12 +144,12 @@ StringArgumentDescriptor::getProcessedValue(void)
 } // StringArgumentDescriptor::getProcessedValue
 
 BaseArgumentDescriptor *
-StringArgumentDescriptor::parseArgString(const std::string & inString)
+StringArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -204,7 +204,7 @@ StringArgumentDescriptor::toString(void)
 } // StringArgumentDescriptor::toString
 
 bool
-StringArgumentDescriptor::validate(const std::string & value)
+StringArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
     _valid = true;

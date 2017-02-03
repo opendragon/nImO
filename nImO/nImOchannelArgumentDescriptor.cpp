@@ -82,10 +82,10 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ChannelArgumentDescriptor::ChannelArgumentDescriptor(const std::string & argName,
-                                                     const std::string & argDescription,
-                                                     const ArgumentMode  argMode,
-                                                     const std::string & defaultValue) :
+ChannelArgumentDescriptor::ChannelArgumentDescriptor(const std::string  &argName,
+                                                     const std::string  &argDescription,
+                                                     const ArgumentMode argMode,
+                                                     const std::string  &defaultValue) :
     inherited(argName, argDescription, argMode, defaultValue)
 {
     ODL_ENTER(); //####
@@ -108,22 +108,22 @@ BaseArgumentDescriptor *
 ChannelArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor * result = new ChannelArgumentDescriptor(argumentName(),
-                                                                    argumentDescription(),
-                                                                    argumentMode(),
-                                                                    getDefaultValue());
+    BaseArgumentDescriptor *result = new ChannelArgumentDescriptor(argumentName(),
+                                                                   argumentDescription(),
+                                                                   argumentMode(),
+                                                                   getDefaultValue());
 
     ODL_EXIT_P(result);
     return result;
 } // ChannelArgumentDescriptor::clone
 
 BaseArgumentDescriptor *
-ChannelArgumentDescriptor::parseArgString(const std::string & inString)
+ChannelArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor * result = NULL;
-    StringVector         inVector;
+    BaseArgumentDescriptor *result = NULL;
+    StringVector           inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -175,7 +175,7 @@ ChannelArgumentDescriptor::toString(void)
 } // ChannelArgumentDescriptor::toString
 
 bool
-ChannelArgumentDescriptor::validate(const std::string & value)
+ChannelArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
 #if 0

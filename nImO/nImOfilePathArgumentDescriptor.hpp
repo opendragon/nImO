@@ -91,13 +91,13 @@ namespace nImO
          @param[in] forOutput @c true if the file will be used for output and @c false otherwise.
          @param[in] useRandomPath @c true if the file path will be constructed with a random number
          and @c false if the file path is fixed. */
-        FilePathArgumentDescriptor(const std::string & argName,
-                                   const std::string & argDescription,
-                                   const ArgumentMode  argMode,
-                                   const std::string & pathPrefix,
-                                   const std::string & pathSuffix,
-                                   const bool          forOutput = false,
-                                   const bool          useRandomPath = false);
+        FilePathArgumentDescriptor(const std::string  &argName,
+                                   const std::string  &argDescription,
+                                   const ArgumentMode argMode,
+                                   const std::string  &pathPrefix,
+                                   const std::string  &pathSuffix,
+                                   const bool         forOutput = false,
+                                   const bool         useRandomPath = false);
 
         /*! @brief The destructor. */
         virtual
@@ -107,7 +107,7 @@ namespace nImO
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
         static BaseArgumentDescriptor *
-        parseArgString(const std::string & inString);
+        parseArgString(const std::string &inString);
 
     protected :
 
@@ -115,7 +115,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        FilePathArgumentDescriptor(const FilePathArgumentDescriptor & other);
+        FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other);
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
@@ -132,7 +132,7 @@ namespace nImO
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
         virtual inline bool
-        isForFiles(bool & isForOutput)
+        isForFiles(bool &isForOutput)
         const
         {
             isForOutput = _forOutput;
@@ -143,7 +143,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         FilePathArgumentDescriptor &
-        operator =(const FilePathArgumentDescriptor & other);
+        operator =(const FilePathArgumentDescriptor &other);
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
@@ -159,7 +159,7 @@ namespace nImO
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string & value);
+        validate(const std::string &value);
 
     public :
 

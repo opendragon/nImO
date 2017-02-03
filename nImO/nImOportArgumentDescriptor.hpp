@@ -83,11 +83,11 @@ namespace nImO
          @param[in] defaultValue The default value for the command-line argument.
          @param[in] isSystemPort @c true if the value can be a system port and @c false
          otherwise. */
-        PortArgumentDescriptor(const std::string & argName,
-                               const std::string & argDescription,
-                               const ArgumentMode  argMode,
-                               const int           defaultValue,
-                               const bool          isSystemPort);
+        PortArgumentDescriptor(const std::string  &argName,
+                               const std::string  &argDescription,
+                               const ArgumentMode argMode,
+                               const int          defaultValue,
+                               const bool         isSystemPort);
 
         /*! @brief The destructor. */
         virtual
@@ -97,7 +97,7 @@ namespace nImO
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c NULL if the input is not recognized. */
         static BaseArgumentDescriptor *
-        parseArgString(const std::string & inString);
+        parseArgString(const std::string &inString);
 
     protected :
 
@@ -105,7 +105,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        PortArgumentDescriptor(const PortArgumentDescriptor & other);
+        PortArgumentDescriptor(const PortArgumentDescriptor &other);
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
@@ -116,7 +116,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         PortArgumentDescriptor &
-        operator =(const PortArgumentDescriptor & other);
+        operator =(const PortArgumentDescriptor &other);
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */

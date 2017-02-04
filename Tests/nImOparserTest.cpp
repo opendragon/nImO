@@ -148,7 +148,7 @@ doTestParseBooleanValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -184,7 +184,6 @@ doTestParseBooleanValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -224,7 +223,7 @@ doTestParseNumberValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -260,7 +259,6 @@ doTestParseNumberValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -300,7 +298,7 @@ doTestParseStringValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -336,7 +334,6 @@ doTestParseStringValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -376,7 +373,7 @@ doTestParseArrayValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -412,7 +409,6 @@ doTestParseArrayValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -452,7 +448,7 @@ doTestParseSetValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -488,7 +484,6 @@ doTestParseSetValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -528,7 +523,7 @@ doTestParseMapValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -564,7 +559,6 @@ doTestParseMapValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {
@@ -604,7 +598,7 @@ doTestParseImplicitArrayValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        nImO::Value *readValue = buff.convertToValue();
+        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -640,7 +634,6 @@ doTestParseImplicitArrayValue(const bool expected,
                     result = 1;
                 }
             }
-            delete readValue;
         }
         else
         {

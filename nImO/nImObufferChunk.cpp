@@ -81,17 +81,17 @@ const size_t nImO::BufferChunk::kBufferSize = 1000;
 #endif // defined(__APPLE__)
 
 nImO::BufferChunk::BufferChunk(const bool addPadding) :
-    _buffer(NULL), _bufferEnd(NULL), _write(NULL), _padded(addPadding)
+    _buffer(new uint8_t[kBufferSize + (addPadding ? 1 : 0)]), _bufferEnd(NULL),
+    _write(NULL), _padded(addPadding)
 {
     ODL_ENTER(); //####
     ODL_B1("addPadding = ", addPadding); //####
-    _buffer = new uint8_t[kBufferSize + (addPadding ? 1 : 0)];
     ODL_P1("_buffer <- ", _buffer); //####
     if (_buffer)
     {
         ODL_LOG("(_buffer)"); //####
-        _write = _buffer;
-        _bufferEnd = _buffer + kBufferSize;
+        _write = _buffer.get();
+        _bufferEnd = _write + kBufferSize;
         ODL_P2("_bufferEnd <- ", _bufferEnd, "_write <- ", _write); //####
         ODL_LL1("[size] <- ", getDataSize()); //####
         if (_padded)
@@ -106,7 +106,6 @@ nImO::BufferChunk::BufferChunk(const bool addPadding) :
 nImO::BufferChunk::~BufferChunk(void)
 {
     ODL_OBJENTER(); //####
-    delete[] _buffer;
     ODL_OBJEXIT(); //####
 } // nImO::BufferChunk::~BufferChunk
 
@@ -144,7 +143,7 @@ nImO::BufferChunk &
 nImO::BufferChunk::reset(void)
 {
     ODL_OBJENTER(); //####
-    _write = _buffer;
+    _write = _buffer.get();
     ODL_P1("_write <- ", _write); //####
     ODL_LL1("[size] <- ", getDataSize()); //####
     if (_padded)

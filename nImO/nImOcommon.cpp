@@ -1061,11 +1061,12 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats  stats(usage, argcWork, argvWork);
-    Option_::Option *options = new Option_::Option[stats.options_max];
-    Option_::Option *buffer = new Option_::Option[stats.buffer_max];
-    Option_::Parser parse(usage, argcWork, argvWork, options, buffer, 1);
-    std::string     badArgs;
+    Option_::Stats                     stats(usage, argcWork, argvWork);
+    std::unique_ptr<Option_::Option[]> options(new Option_::Option[stats.options_max]);
+    std::unique_ptr<Option_::Option[]> buffer(new Option_::Option[stats.buffer_max]);
+    Option_::Parser                    parse(usage, argcWork, argvWork, options.get(),
+                                             buffer.get(), 1);
+    std::string                        badArgs;
 
     if (parse.error())
     {
@@ -1113,8 +1114,6 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
         cout << "One or more invalid or missing arguments (" << badArgs.c_str() << ")." << endl;
         keepGoing = false;
     }
-    delete[] options;
-    delete[] buffer;
     ODL_EXIT_B(keepGoing); //####
     return keepGoing;
 } // nImO::ProcessStandardUtilitiesOptions

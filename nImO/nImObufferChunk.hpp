@@ -104,7 +104,7 @@ namespace nImO
         getData(void)
         const
         {
-            return _buffer;
+            return _buffer.get();
         } // getData
 
         /*! @brief Return the number of bytes used in the chunk.
@@ -113,7 +113,7 @@ namespace nImO
         getDataSize(void)
         const
         {
-            return static_cast<size_t>(_write - _buffer);
+            return static_cast<size_t>(_write - _buffer.get());
         } // getDataSize
 
         /*! @brief Prepare the buffer for reuse.
@@ -150,7 +150,7 @@ namespace nImO
         // Private fields.
 
         /*! @brief The internal buffer used to hold the assembled data. */
-        uint8_t *_buffer;
+        std::unique_ptr<uint8_t[]> _buffer;
 
         /*! @brief The byte just past the end of the internal buffer. */
         uint8_t *_bufferEnd;

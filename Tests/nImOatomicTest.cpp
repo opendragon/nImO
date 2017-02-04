@@ -161,7 +161,7 @@ doTestEmptyBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
+        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -173,7 +173,6 @@ doTestEmptyBufferChunk(const char *launchPath,
             {
                 ODL_LOG("! (0 == stuff->getDataSize())"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -223,11 +222,11 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
 
     try
     {
-        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
+        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -247,7 +246,6 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
             {
                 ODL_LOG("! (1 == stuff->getDataSize())"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -297,7 +295,7 @@ doTestFilledBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
+        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -305,7 +303,7 @@ doTestFilledBufferChunk(const char *launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
 
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
@@ -347,7 +345,6 @@ doTestFilledBufferChunk(const char *launchPath,
             {
                 ODL_LOG("! (1 < howMuch)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -397,7 +394,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
+        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -405,7 +402,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
 
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
@@ -447,7 +444,6 @@ doTestOverfilledBufferChunk(const char *launchPath,
             {
                 ODL_LOG("! (1 < howMuch)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -497,11 +493,11 @@ doTestBufferChunkReset(const char *launchPath,
 
     try
     {
-        nImO::BufferChunk *stuff = new nImO::BufferChunk(false);
+        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff) &0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -520,7 +516,6 @@ doTestBufferChunkReset(const char *launchPath,
             {
                 ODL_LOG("! (1 == stuff->getDataSize())"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -570,7 +565,7 @@ doTestEmptyStringBuffer(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -599,7 +594,6 @@ doTestEmptyStringBuffer(const char *launchPath,
             {
                 ODL_LOG("! (0 == stuff->getLength())"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -651,10 +645,10 @@ doTestStringBufferWithCharacters(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char         *inString = *argv;
-            const char         *outString = argv[1];
-            size_t             outLength = strlen(outString);
-            nImO::StringBuffer *stuff = new nImO::StringBuffer;
+            const char                          *inString = *argv;
+            const char                          *outString = argv[1];
+            size_t                              outLength = strlen(outString);
+            std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
             if (stuff)
             {
@@ -679,7 +673,6 @@ doTestStringBufferWithCharacters(const char *launchPath,
                 {
                     ODL_LOG("! (resultLength == outLength)"); //####
                 }
-                delete stuff;
             }
             else
             {
@@ -743,7 +736,7 @@ doTestStringBufferWithBoolean(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                nImO::StringBuffer *stuff = new nImO::StringBuffer;
+                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -761,7 +754,6 @@ doTestStringBufferWithBoolean(const char *launchPath,
                     {
                         ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
                     }
-                    delete stuff;
                 }
                 else
                 {
@@ -826,7 +818,7 @@ doTestStringBufferWithInteger(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::StringBuffer *stuff = new nImO::StringBuffer;
+                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -842,7 +834,6 @@ doTestStringBufferWithInteger(const char *launchPath,
                     {
                         ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
                     }
-                    delete stuff;
                 }
                 else
                 {
@@ -900,10 +891,10 @@ doTestStringBufferWithString(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char         *inString = *argv;
-            const char         *outString = argv[1];
-            size_t             outLength = strlen(outString);
-            nImO::StringBuffer *stuff = new nImO::StringBuffer;
+            const char                          *inString = *argv;
+            const char                          *outString = argv[1];
+            size_t                              outLength = strlen(outString);
+            std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
             if (stuff)
             {
@@ -928,7 +919,6 @@ doTestStringBufferWithString(const char *launchPath,
                 {
                     ODL_LOG("! (resultLength == outLength)"); //####
                 }
-                delete stuff;
             }
             else
             {
@@ -983,10 +973,10 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
 
     try
     {
-        const char         *inString = "abc\tdef\f\rghi\302";
-        const char         *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t             outLength = strlen(outString);
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        const char                          *inString = "abc\tdef\f\rghi\302";
+        const char                          *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t                              outLength = strlen(outString);
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1010,7 +1000,6 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
             {
                 ODL_LOG("! (resultLength == outLength)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1069,7 +1058,7 @@ doTestStringBufferWithDouble(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::StringBuffer *stuff = new nImO::StringBuffer;
+                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -1093,7 +1082,6 @@ doTestStringBufferWithDouble(const char *launchPath,
                         ODL_LOG("(*outString || *resultString)"); //####
                         result = 1;
                     }
-                    delete stuff;
                 }
                 else
                 {
@@ -1149,7 +1137,7 @@ doTestBigStringBuffer(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1181,7 +1169,6 @@ doTestBigStringBuffer(const char *launchPath,
             {
                 ODL_LOG("! ((bigLength * kBigTestSize) == length)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1231,7 +1218,7 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1248,7 +1235,6 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
             {
                 ODL_LOG("! (0 == strcmp(resultString, expectedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1298,22 +1284,22 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
-            uint8_t *smallBlob = new uint8_t[kSmallTestSize];
+            std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
 
             if (smallBlob)
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
                                                          ii);
 
                     smallBlob[ii] = aByte;
                 }
-                stuff->addBytes(smallBlob, kSmallTestSize);
+                stuff->addBytes(smallBlob.get(), kSmallTestSize);
                 size_t            length;
                 const char        *resultString = stuff->getString(length);
                 std::string       expectedString("%");
@@ -1341,13 +1327,11 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                 {
                     ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
                 }
-                delete[] smallBlob;
             }
             else
             {
                 ODL_LOG("! (smallBlob)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1397,21 +1381,21 @@ doTestStringBufferWithBigBlob(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
-            uint8_t *bigBlob = new uint8_t[kBigTestSize];
+            std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                     bigBlob[ii] = aByte;
                 }
-                stuff->addBytes(bigBlob, kBigTestSize);
+                stuff->addBytes(bigBlob.get(), kBigTestSize);
                 size_t            length;
                 const char        *resultString = stuff->getString(length);
                 std::string       expectedString("%");
@@ -1439,13 +1423,11 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                 {
                     ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
                 }
-                delete[] bigBlob;
             }
             else
             {
                 ODL_LOG("! (bigBlob)"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1495,7 +1477,7 @@ doTestStringBufferReset(const char *launchPath,
 
     try
     {
-        nImO::StringBuffer *stuff = new nImO::StringBuffer;
+        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1520,7 +1502,6 @@ doTestStringBufferReset(const char *launchPath,
             {
                 ODL_LOG("! (0 == stuff->getLength())"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1570,7 +1551,7 @@ doTestDefaultBooleanValue(const char *launchPath,
 
     try
     {
-        nImO::Boolean *stuff = new nImO::Boolean;
+        std::unique_ptr<nImO::Boolean> stuff(new nImO::Boolean);
 
         if (stuff)
         {
@@ -1582,7 +1563,6 @@ doTestDefaultBooleanValue(const char *launchPath,
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, \"false\"))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1641,7 +1621,7 @@ doTestBooleanValue(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                nImO::Boolean *stuff = new nImO::Boolean(0 != value);
+                std::unique_ptr<nImO::Boolean> stuff(new nImO::Boolean(0 != value));
 
                 if (stuff)
                 {
@@ -1653,7 +1633,6 @@ doTestBooleanValue(const char *launchPath,
                     {
                         ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                     }
-                    delete stuff;
                 }
                 else
                 {
@@ -1713,7 +1692,7 @@ doTestDefaultIntegerValue(const char *launchPath,
 
     try
     {
-        nImO::Integer *stuff = new nImO::Integer;
+        std::unique_ptr<nImO::Integer> stuff(new nImO::Integer);
 
         if (stuff)
         {
@@ -1726,7 +1705,6 @@ doTestDefaultIntegerValue(const char *launchPath,
                 ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && " //####
                         "(NULL != stuff->asInteger()))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1785,7 +1763,7 @@ doTestNumberValue(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                nImO::Integer *stuff = new nImO::Integer(intValue);
+                std::unique_ptr<nImO::Integer> stuff(new nImO::Integer(intValue));
 
                 if (stuff)
                 {
@@ -1797,7 +1775,6 @@ doTestNumberValue(const char *launchPath,
                     {
                         ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                     }
-                    delete stuff;
                 }
                 else
                 {
@@ -1810,7 +1787,7 @@ doTestNumberValue(const char *launchPath,
 
                 if ((startPtr != endPtr) && (! *endPtr))
                 {
-                    nImO::Double *stuff = new nImO::Double(floatValue);
+                    std::unique_ptr<nImO::Double> stuff(new nImO::Double(floatValue));
 
                     if (stuff)
                     {
@@ -1822,7 +1799,6 @@ doTestNumberValue(const char *launchPath,
                         {
                             ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                         }
-                        delete stuff;
                     }
                     else
                     {
@@ -1883,7 +1859,7 @@ doTestDefaultStringValue(const char *launchPath,
 
     try
     {
-        nImO::String *stuff = new nImO::String;
+        std::unique_ptr<nImO::String> stuff(new nImO::String);
 
         if (stuff)
         {
@@ -1895,7 +1871,6 @@ doTestDefaultStringValue(const char *launchPath,
             {
                 ODL_LOG("(0 == compareValueWithString(*stuff, \"\\\"\\\"\"))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1947,7 +1922,7 @@ doTestStringValue(const char *launchPath,
     {
         if (1 < argc)
         {
-            nImO::String *stuff = new nImO::String(*argv);
+            std::unique_ptr<nImO::String> stuff(new nImO::String(*argv));
 
             if (stuff)
             {
@@ -1959,7 +1934,6 @@ doTestStringValue(const char *launchPath,
                 {
                     ODL_LOG("! (0 == compareValueWithString(*stuff, argv[1]))"); //####
                 }
-                delete stuff;
             }
             else
             {
@@ -2014,9 +1988,9 @@ doTestStringValueWithEscapes(const char *launchPath,
 
     try
     {
-        const char   *inString = "abc\tdef\f\rghi\302";
-        const char   *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        nImO::String *stuff = new nImO::String(inString);
+        const char                    *inString = "abc\tdef\f\rghi\302";
+        const char                    *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        std::unique_ptr<nImO::String> stuff(new nImO::String(inString));
 
         if (stuff)
         {
@@ -2028,7 +2002,6 @@ doTestStringValueWithEscapes(const char *launchPath,
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2078,7 +2051,7 @@ doTestDefaultBlobValue(const char *launchPath,
 
     try
     {
-        nImO::Blob *stuff = new nImO::Blob;
+        std::unique_ptr<nImO::Blob> stuff(new nImO::Blob);
 
         if (stuff)
         {
@@ -2090,7 +2063,6 @@ doTestDefaultBlobValue(const char *launchPath,
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, \"%0%%\"))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2140,17 +2112,17 @@ doTestSmallBlobValue(const char *launchPath,
 
     try
     {
-        uint8_t *smallBlob = new uint8_t[kSmallTestSize];
+        std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
 
         if (smallBlob)
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
-            nImO::Blob *stuff = new nImO::Blob(smallBlob, kSmallTestSize);
+            std::unique_ptr<nImO::Blob> stuff(new nImO::Blob(smallBlob.get(), kSmallTestSize));
 
             if (stuff)
             {
@@ -2180,13 +2152,11 @@ doTestSmallBlobValue(const char *launchPath,
                     ODL_LOG("! (0 == compareValueWithString(*stuff, " //####
                             "expectedString.c_str()))"); //####
                 }
-                delete stuff;
             }
             else
             {
                 ODL_LOG("! (stuff)"); //####
             }
-            delete[] smallBlob;
         }
         else
         {
@@ -2236,17 +2206,17 @@ doTestBigBlobValue(const char *launchPath,
 
     try
     {
-        uint8_t *bigBlob = new uint8_t[kBigTestSize];
+        std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
 
         if (bigBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
-            nImO::Blob *stuff = new nImO::Blob(bigBlob, kBigTestSize);
+            std::unique_ptr<nImO::Blob> stuff(new nImO::Blob(bigBlob.get(), kBigTestSize));
 
             if (stuff)
             {
@@ -2276,13 +2246,11 @@ doTestBigBlobValue(const char *launchPath,
                     ODL_LOG("! (0 == compareValueWithString(*stuff, " //####
                             "expectedString.c_str()))"); //####
                 }
-                delete stuff;
             }
             else
             {
                 ODL_LOG("! (stuff)"); //####
             }
-            delete[] bigBlob;
         }
         else
         {
@@ -2697,41 +2665,41 @@ doTestBlobCopyAndAssign(const char *launchPath,
 
     try
     {
-        uint8_t *bigBlob = new uint8_t[kBigTestSize];
-        uint8_t *smallBlob = new uint8_t[kSmallTestSize];
+        std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
+        std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
 
         if (bigBlob && smallBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
-            nImO::Blob smallStuff(smallBlob, kSmallTestSize);
-            nImO::Blob bigStuff(bigBlob, kBigTestSize);
-            size_t smallLength = 0;
-            size_t bigLength = 0;
+            nImO::Blob    smallStuff(smallBlob.get(), kSmallTestSize);
+            nImO::Blob    bigStuff(bigBlob.get(), kBigTestSize);
+            size_t        smallLength = 0;
+            size_t        bigLength = 0;
             const uint8_t *smallValue = smallStuff.getValue(smallLength);
             const uint8_t *bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = nImO::CompareBytes(smallValue, smallBlob, kSmallTestSize);
+                result = nImO::CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = nImO::CompareBytes(bigValue, bigBlob, kBigTestSize);
+                    result = nImO::CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
                 }
             }
             if (0 == result)
@@ -2745,14 +2713,14 @@ doTestBlobCopyAndAssign(const char *launchPath,
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = nImO::CompareBytes(smallValue, smallBlob, kSmallTestSize);
+                    result = nImO::CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = nImO::CompareBytes(bigValue, bigBlob, kBigTestSize);
+                        result = nImO::CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
                     }
                 }
                 if (0 == result)
@@ -2765,21 +2733,19 @@ doTestBlobCopyAndAssign(const char *launchPath,
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = nImO::CompareBytes(smallValue, bigBlob, kBigTestSize);
+                        result = nImO::CompareBytes(smallValue, bigBlob.get(), kBigTestSize);
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = nImO::CompareBytes(bigValue, smallBlob, kSmallTestSize);
+                            result = nImO::CompareBytes(bigValue, smallBlob.get(), kSmallTestSize);
                         }
                     }
                 }
             }
         }
-        delete[] bigBlob;
-        delete[] smallBlob;
     }
     catch (...)
     {

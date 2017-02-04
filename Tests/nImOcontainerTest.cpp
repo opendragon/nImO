@@ -183,7 +183,7 @@ doTestEmptyArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -213,7 +213,6 @@ doTestEmptyArrayValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -263,7 +262,7 @@ doTestSingularArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -298,7 +297,6 @@ doTestSingularArrayValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -348,7 +346,7 @@ doTestSmallArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -392,7 +390,6 @@ doTestSmallArrayValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -442,11 +439,11 @@ doTestBigArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
-            uint8_t *bigBlob = new uint8_t[kBigTestSize];
+            std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -459,7 +456,7 @@ doTestBigArrayValue(const char *launchPath,
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob) ^ ii);
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                     if (0 != ii)
                     {
@@ -492,7 +489,6 @@ doTestBigArrayValue(const char *launchPath,
                             "expectedSquishedString))"); //####
                 }
             }
-            delete stuff;
         }
         else
         {
@@ -542,7 +538,7 @@ doTestEmptyMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -572,7 +568,6 @@ doTestEmptyMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -622,7 +617,7 @@ doTestSingularBooleanMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -659,7 +654,6 @@ doTestSingularBooleanMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -709,7 +703,7 @@ doTestSingularIntegerMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -745,7 +739,6 @@ doTestSingularIntegerMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -795,7 +788,7 @@ doTestSingularStringMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -832,7 +825,6 @@ doTestSingularStringMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -882,7 +874,7 @@ doTestSmallBooleanMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -923,7 +915,6 @@ doTestSmallBooleanMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -973,7 +964,7 @@ doTestSmallIntegerMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -1017,7 +1008,6 @@ doTestSmallIntegerMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1067,7 +1057,7 @@ doTestSmallStringMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -1114,7 +1104,6 @@ doTestSmallStringMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1164,7 +1153,7 @@ doTestEmptySetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1194,7 +1183,6 @@ doTestEmptySetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1244,7 +1232,7 @@ doTestSingularBooleanSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1279,7 +1267,6 @@ doTestSingularBooleanSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1329,7 +1316,7 @@ doTestSingularIntegerSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1364,7 +1351,6 @@ doTestSingularIntegerSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1414,7 +1400,7 @@ doTestSingularStringSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1449,7 +1435,6 @@ doTestSingularStringSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1499,7 +1484,7 @@ doTestSmallBooleanSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1539,7 +1524,6 @@ doTestSmallBooleanSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1589,7 +1573,7 @@ doTestSmallIntegerSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1637,7 +1621,6 @@ doTestSmallIntegerSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1687,7 +1670,7 @@ doTestSmallStringSetValue(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1735,7 +1718,6 @@ doTestSmallStringSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1785,7 +1767,7 @@ doTestArrayWithArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -1820,7 +1802,6 @@ doTestArrayWithArrayValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1870,7 +1851,7 @@ doTestArrayWithMapValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -1905,7 +1886,6 @@ doTestArrayWithMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -1955,7 +1935,7 @@ doTestArrayWithSetValue(const char *launchPath,
 
     try
     {
-        nImO::Array *stuff = new nImO::Array;
+        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -1990,7 +1970,6 @@ doTestArrayWithSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2040,7 +2019,7 @@ doTestMapWithArrayValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2077,7 +2056,6 @@ doTestMapWithArrayValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2127,7 +2105,7 @@ doTestMapWithMapValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2164,7 +2142,6 @@ doTestMapWithMapValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2214,7 +2191,7 @@ doTestMapWithSetValue(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2251,7 +2228,6 @@ doTestMapWithSetValue(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2301,7 +2277,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2341,7 +2317,6 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2391,7 +2366,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2429,7 +2404,6 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2479,7 +2453,7 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Map *stuff = new nImO::Map;
+        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2519,7 +2493,6 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2569,7 +2542,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -2607,7 +2580,6 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2657,7 +2629,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -2695,7 +2667,6 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {
@@ -2745,7 +2716,7 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::Set *stuff = new nImO::Set;
+        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -2783,7 +2754,6 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-            delete stuff;
         }
         else
         {

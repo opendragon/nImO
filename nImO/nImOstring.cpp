@@ -252,8 +252,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     }
     if (0 < numBytes)
     {
-        char *holder = new char[numBytes + 1];
-        bool okSoFar = (NULL != holder);
+        std::unique_ptr<char[]> holder(new char[numBytes + 1]);
+        bool                    okSoFar = (NULL != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -276,7 +276,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             holder[numBytes] = '\0';
-            result = new String(holder);
+            result = new String(holder.get());
             status = kReadSuccessful;
             ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
         }
@@ -284,7 +284,6 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         {
             result = NULL;
         }
-        delete[] holder;
     }
     else
     {

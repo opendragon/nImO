@@ -172,7 +172,7 @@ doTestInsertEmptyMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -200,7 +200,7 @@ doTestInsertEmptyMessage(const char *launchPath,
             else
             {
                 stuff->close();
-                contents = stuff->getBytes(length);
+		contents = stuff->getBytes(length);
                 ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedCount == length))
                 {
@@ -211,7 +211,6 @@ doTestInsertEmptyMessage(const char *launchPath,
                     ODL_LOG("! ((NULL != contents) && (expectedCount == length))"); //####
                 }
             }
-            delete stuff;
         }
         else
         {
@@ -261,7 +260,7 @@ doTestInsertBooleanMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -310,7 +309,6 @@ doTestInsertBooleanMessage(const char *launchPath,
                 result = setValueAndCheck(*stuff, falseValue, expectedBytesForFalse,
                                           expectedFalseCount);
             }
-            delete stuff;
         }
         else
         {
@@ -360,7 +358,7 @@ doTestInsertTinyIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -434,7 +432,6 @@ doTestInsertTinyIntegerMessage(const char *launchPath,
                 result = setValueAndCheck(*stuff, plus12Value, expectedBytesForPlus12,
                                           expectedPlus12Count);
             }
-            delete stuff;
         }
         else
         {
@@ -484,7 +481,7 @@ doTestInsertShortIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -536,7 +533,6 @@ doTestInsertShortIntegerMessage(const char *launchPath,
                 result = setValueAndCheck(*stuff, plus144Value, expectedBytesForPlus144,
                                           expectedPlus144Count);
             }
-            delete stuff;
         }
         else
         {
@@ -586,7 +582,7 @@ doTestInsertMediumIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -638,7 +634,6 @@ doTestInsertMediumIntegerMessage(const char *launchPath,
                 result = setValueAndCheck(*stuff, plus1234567Value, expectedBytesForPlus1234567,
                                           expectedPlus1234567Count);
             }
-            delete stuff;
         }
         else
         {
@@ -688,7 +683,7 @@ doTestInsertBigIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -741,7 +736,6 @@ doTestInsertBigIntegerMessage(const char *launchPath,
                                           expectedBytesForPlusBigNumber,
                                           expectedPlusBigNumberCount);
             }
-            delete stuff;
         }
         else
         {
@@ -791,7 +785,7 @@ doTestInsertEmptyStringMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -818,7 +812,6 @@ doTestInsertEmptyStringMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedBytesForEmptyString,
                                       expectedEmptyStringCount);
-            delete stuff;
         }
         else
         {
@@ -868,7 +861,7 @@ doTestInsertShortStringMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -896,7 +889,6 @@ doTestInsertShortStringMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedBytesForShortString,
                                       expectedShortStringCount);
-            delete stuff;
         }
         else
         {
@@ -946,7 +938,7 @@ doTestInsertMediumStringMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -981,7 +973,6 @@ doTestInsertMediumStringMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedBytesForMediumString,
                                       expectedMediumStringCount);
-            delete stuff;
         }
         else
         {
@@ -1031,7 +1022,7 @@ doTestInsertEmptyBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1058,7 +1049,6 @@ doTestInsertEmptyBlobMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedBytesForEmptyBlob,
                                       expectedEmptyBlobCount);
-            delete stuff;
         }
         else
         {
@@ -1108,7 +1098,7 @@ doTestInsertShortBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1141,7 +1131,6 @@ doTestInsertShortBlobMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, shortBlobValue, expectedBytesForShortBlob,
                                       expectedShortBlobCount);
-            delete stuff;
         }
         else
         {
@@ -1191,7 +1180,7 @@ doTestInsertMediumBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1237,7 +1226,6 @@ doTestInsertMediumBlobMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedBytesForMediumBlob,
                                       expectedMediumBlobCount);
-            delete stuff;
         }
         else
         {
@@ -1287,7 +1275,7 @@ doTestInsertSingleFloatMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1341,7 +1329,6 @@ doTestInsertSingleFloatMessage(const char *launchPath,
                 result = setValueAndCheck(*stuff, minus42Point5, expectedBytesForMinus42Point5,
                                           expectedMinus42Point5Count);
             }
-            delete stuff;
         }
         else
         {
@@ -1391,7 +1378,7 @@ doTestInsertEmptyArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1422,7 +1409,6 @@ doTestInsertEmptyArrayMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, emptyArray, expectedBytesForEmptyArray,
                                       expectedEmptyArrayCount);
-            delete stuff;
         }
         else
         {
@@ -1472,7 +1458,7 @@ doTestInsertEmptyMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1503,7 +1489,6 @@ doTestInsertEmptyMapMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, emptyMap, expectedBytesForEmptyMap,
                                       expectedEmptyMapCount);
-            delete stuff;
         }
         else
         {
@@ -1553,7 +1538,7 @@ doTestInsertEmptySetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1584,7 +1569,6 @@ doTestInsertEmptySetMessage(const char *launchPath,
 
             result = setValueAndCheck(*stuff, emptySet, expectedBytesForEmptySet,
                                       expectedEmptySetCount);
-            delete stuff;
         }
         else
         {
@@ -1634,7 +1618,7 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1674,7 +1658,6 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
             arrayOneBoolean.addValue(new nImO::Boolean);
             result = setValueAndCheck(*stuff, arrayOneBoolean, expectedBytesForArrayOneBoolean,
                                       expectedArrayOneBooleanCount);
-            delete stuff;
         }
         else
         {
@@ -1724,7 +1707,7 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1764,7 +1747,6 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
             arrayOneInteger.addValue(new nImO::Integer);
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedBytesForArrayOneInteger,
                                       expectedArrayOneIntegerCount);
-            delete stuff;
         }
         else
         {
@@ -1814,7 +1796,7 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1856,7 +1838,6 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
             arrayOneDouble.addValue(new nImO::Double);
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedBytesForArrayOneDouble,
                                       expectedArrayOneDoubleCount);
-            delete stuff;
         }
         else
         {
@@ -1906,7 +1887,7 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1947,7 +1928,6 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
             arrayOneString.addValue(new nImO::String);
             result = setValueAndCheck(*stuff, arrayOneString, expectedBytesForArrayOneString,
                                       expectedArrayOneStringCount);
-            delete stuff;
         }
         else
         {
@@ -1997,7 +1977,7 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2038,7 +2018,6 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
             arrayOneBlob.addValue(new nImO::Blob);
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedBytesForArrayOneBlob,
                                       expectedArrayOneBlobCount);
-            delete stuff;
         }
         else
         {
@@ -2088,7 +2067,7 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2133,7 +2112,6 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
             arrayOneArray.addValue(new nImO::Array);
             result = setValueAndCheck(*stuff, arrayOneArray, expectedBytesForArrayOneArray,
                                       expectedArrayOneArrayCount);
-            delete stuff;
         }
         else
         {
@@ -2183,7 +2161,7 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2228,7 +2206,6 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
             arrayOneMap.addValue(new nImO::Map);
             result = setValueAndCheck(*stuff, arrayOneMap, expectedBytesForArrayOneMap,
                                       expectedArrayOneMapCount);
-            delete stuff;
         }
         else
         {
@@ -2278,7 +2255,7 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2323,7 +2300,6 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
             arrayOneSet.addValue(new nImO::Set);
             result = setValueAndCheck(*stuff, arrayOneSet, expectedBytesForArrayOneSet,
                                       expectedArrayOneSetCount);
-            delete stuff;
         }
         else
         {
@@ -2373,7 +2349,7 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2418,7 +2394,6 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
             arrayTwoBooleans.addValue(new nImO::Boolean);
             result = setValueAndCheck(*stuff, arrayTwoBooleans, expectedBytesForArrayTwoBooleans,
                                       expectedArrayTwoBooleansCount);
-            delete stuff;
         }
         else
         {
@@ -2468,7 +2443,7 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2513,7 +2488,6 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
             arrayTwoIntegers.addValue(new nImO::Integer);
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedBytesForArrayTwoIntegers,
                                       expectedArrayTwoIntegersCount);
-            delete stuff;
         }
         else
         {
@@ -2563,7 +2537,7 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2607,7 +2581,6 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
             arrayTwoDoubles.addValue(new nImO::Double);
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedBytesForArrayTwoDoubles,
                                       expectedArrayTwoDoublesCount);
-            delete stuff;
         }
         else
         {
@@ -2657,7 +2630,7 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2703,7 +2676,6 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
             arrayTwoStrings.addValue(new nImO::String);
             result = setValueAndCheck(*stuff, arrayTwoStrings, expectedBytesForArrayTwoStrings,
                                       expectedArrayTwoStringsCount);
-            delete stuff;
         }
         else
         {
@@ -2753,7 +2725,7 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2799,7 +2771,6 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
             arrayTwoBlobs.addValue(new nImO::Blob);
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedBytesForArrayTwoBlobs,
                                       expectedArrayTwoBlobsCount);
-            delete stuff;
         }
         else
         {
@@ -2849,7 +2820,7 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2903,7 +2874,6 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
             arrayTwoArrays.addValue(new nImO::Array);
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedBytesForArrayTwoArrays,
                                       expectedArrayTwoArraysCount);
-            delete stuff;
         }
         else
         {
@@ -2953,7 +2923,7 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3007,7 +2977,6 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
             arrayTwoMaps.addValue(new nImO::Map);
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedBytesForArrayTwoMaps,
                                       expectedArrayTwoMapsCount);
-            delete stuff;
         }
         else
         {
@@ -3057,7 +3026,7 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3111,7 +3080,6 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
             arrayTwoSets.addValue(new nImO::Set);
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedBytesForArrayTwoSets,
                                       expectedArrayTwoSetsCount);
-            delete stuff;
         }
         else
         {
@@ -3161,7 +3129,7 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3217,7 +3185,6 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap,
                                       expectedBytesForArrayOneArrayOneMap,
                                       expectedArrayOneArrayOneMapCount);
-            delete stuff;
         }
         else
         {
@@ -3267,7 +3234,7 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3322,7 +3289,6 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
             arrayOneMapOneSet.addValue(new nImO::Set);
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedBytesForArrayOneMapOneSet,
                                       expectedArrayOneMapOneSetCount);
-            delete stuff;
         }
         else
         {
@@ -3372,7 +3338,7 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3428,7 +3394,6 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
             result = setValueAndCheck(*stuff, arrayOneSetOneArray,
                                       expectedBytesForArrayOneSetOneArray,
                                       expectedArrayOneSetOneArrayCount);
-            delete stuff;
         }
         else
         {
@@ -3478,7 +3443,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3565,7 +3530,6 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedBytesForArrayManyDoubles,
                                       expectedArrayManyDoublesCount);
-            delete stuff;
         }
         else
         {
@@ -3617,7 +3581,7 @@ doTestInsertBooleanMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3660,7 +3624,6 @@ doTestInsertBooleanMapMessage(const char *launchPath,
             booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
             result = setValueAndCheck(*stuff, booleanMap, expectedBytesForBooleanMap,
                                       expectedBooleanMapCount);
-            delete stuff;
         }
         else
         {
@@ -3710,7 +3673,7 @@ doTestInsertIntegerMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3753,7 +3716,6 @@ doTestInsertIntegerMapMessage(const char *launchPath,
             integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
             result = setValueAndCheck(*stuff, integerMap, expectedBytesForIntegerMap,
                                       expectedIntegerMapCount);
-            delete stuff;
         }
         else
         {
@@ -3803,7 +3765,7 @@ doTestInsertStringMapMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3847,7 +3809,6 @@ doTestInsertStringMapMessage(const char *launchPath,
             stringMap.addValue(new nImO::String, new nImO::Integer(13));
             result = setValueAndCheck(*stuff, stringMap, expectedBytesForStringMap,
                                       expectedStringMapCount);
-            delete stuff;
         }
         else
         {
@@ -3897,7 +3858,7 @@ doTestInsertBooleanSetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3937,7 +3898,6 @@ doTestInsertBooleanSetMessage(const char *launchPath,
             booleanSet.addValue(new nImO::Boolean);
             result = setValueAndCheck(*stuff, booleanSet, expectedBytesForBooleanSet,
                                       expectedBooleanSetCount);
-            delete stuff;
         }
         else
         {
@@ -3987,7 +3947,7 @@ doTestInsertIntegerSetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -4027,7 +3987,6 @@ doTestInsertIntegerSetMessage(const char *launchPath,
             integerSet.addValue(new nImO::Integer);
             result = setValueAndCheck(*stuff, integerSet, expectedBytesForIntegerSet,
                                       expectedIntegerSetCount);
-            delete stuff;
         }
         else
         {
@@ -4077,7 +4036,7 @@ doTestInsertStringSetMessage(const char *launchPath,
 
     try
     {
-        nImO::Message *stuff = new nImO::Message;
+        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -4118,7 +4077,6 @@ doTestInsertStringSetMessage(const char *launchPath,
             stringSet.addValue(new nImO::String);
             result = setValueAndCheck(*stuff, stringSet, expectedBytesForStringSet,
                                       expectedStringSetCount);
-            delete stuff;
         }
         else
         {

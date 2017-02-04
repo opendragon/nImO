@@ -335,8 +335,8 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     }
     if (0 < numBytes)
     {
-        uint8_t *holder = new uint8_t[numBytes];
-        bool    okSoFar = (NULL != holder);
+        std::unique_ptr<uint8_t[]> holder(new uint8_t[numBytes]);
+        bool                       okSoFar = (NULL != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -358,7 +358,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         }
         if (okSoFar)
         {
-            result = new Blob(holder, numBytes);
+            result = new Blob(holder.get(), numBytes);
             status = kReadSuccessful;
             ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
         }
@@ -366,7 +366,6 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         {
             result = NULL;
         }
-        delete[] holder;
     }
     else
     {

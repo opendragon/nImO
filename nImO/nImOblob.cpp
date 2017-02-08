@@ -335,8 +335,8 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     }
     if (0 < numBytes)
     {
-        std::unique_ptr<uint8_t[]> holder(new uint8_t[numBytes]);
-        bool                       okSoFar = (NULL != holder);
+        nImO::UpAuint8_t holder(new uint8_t[numBytes]);
+        bool             okSoFar = (NULL != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {

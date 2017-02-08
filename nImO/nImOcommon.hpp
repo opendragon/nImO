@@ -146,6 +146,16 @@
 
 namespace nImO
 {
+    // Forward declarations.
+
+    class Array;
+    class BufferChunk;
+    class Map;
+    class Message;
+    class Set;
+    class StringBuffer;
+    class Value;
+
     // Type definitions.
 
     /*! @brief The tag values for Message contents. */
@@ -425,6 +435,72 @@ namespace nImO
 
     /*! @brief A sequence of argument descriptors. */
     typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
+
+    /*! @brief A holder for a shared pointer to an Array. */
+    typedef std::shared_ptr<Array> SpArray;
+
+    /*! @brief A holder for a shared pointer to a BufferChunk. */
+    typedef std::shared_ptr<BufferChunk> SpBufferChunk;
+
+    /*! @brief A holder for a shared pointer to a Map. */
+    typedef std::shared_ptr<Map> SpMap;
+
+    /*! @brief A holder for a shared pointer to a Message. */
+    typedef std::shared_ptr<Message> SpMessage;
+
+    /*! @brief A holder for a shared pointer to a Set. */
+    typedef std::shared_ptr<Set> SpSet;
+
+    /*! @brief A holder for a shared pointer to a StringBuffer. */
+    typedef std::shared_ptr<StringBuffer> SpStringBuffer;
+
+    /*! @brief A holder for a shared pointer to a Value. */
+    typedef std::shared_ptr<Value> SpValue;
+
+    /*! @brief A holder for a non-shared pointer to an Array. */
+    typedef std::unique_ptr<Array> UpArray;
+
+    /*! @brief A holder for a non-shared pointer to a BufferChunk. */
+    typedef std::unique_ptr<BufferChunk> UpBufferChunk;
+
+    /*! @brief A holder for a non-shared pointer to a Map. */
+    typedef std::unique_ptr<Map> UpMap;
+
+    /*! @brief A holder for a non-shared pointer to a Message. */
+    typedef std::unique_ptr<Message> UpMessage;
+
+    /*! @brief A holder for a non-shared pointer to a Set. */
+    typedef std::unique_ptr<Set> UpSet;
+
+    /*! @brief A holder for a non-shared pointer to a StringBuffer. */
+    typedef std::unique_ptr<StringBuffer> UpStringBuffer;
+
+    /*! @brief A holder for a non-shared pointer to an array of uint8_t values. */
+    typedef std::unique_ptr<uint8_t[]> UpAuint8_t;
+
+    /*! @brief A holder for a non-shared pointer to a Value. */
+    typedef std::unique_ptr<Value> UpValue;
+
+    /*! @brief A holder for a weak pointer to an Array. */
+    typedef std::weak_ptr<Array> WpArray;
+
+    /*! @brief A holder for a weak pointer to a BufferChunk. */
+    typedef std::weak_ptr<BufferChunk> WpBufferChunk;
+
+    /*! @brief A holder for a weak pointer to a Map. */
+    typedef std::weak_ptr<Map> WpMap;
+
+    /*! @brief A holder for a weak pointer to a Message. */
+    typedef std::weak_ptr<Message> WpMessage;
+
+    /*! @brief A holder for a weak pointer to a Set. */
+    typedef std::weak_ptr<Set> WpSet;
+
+    /*! @brief A holder for a weak pointer to a StringBuffer. */
+    typedef std::weak_ptr<StringBuffer> WpStringBuffer;
+
+    /*! @brief A holder for a weak pointer to a Value. */
+    typedef std::weak_ptr<Value> WpValue;
 
     /*! @brief A pointer to a handler for system signals.
      @param[in] theSignal The signal of interest. */

@@ -183,7 +183,7 @@ doTestEmptyArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -262,7 +262,7 @@ doTestSingularArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -346,7 +346,7 @@ doTestSmallArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -439,11 +439,11 @@ doTestBigArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
-            std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
+            nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -538,7 +538,7 @@ doTestEmptyMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -617,7 +617,7 @@ doTestSingularBooleanMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -703,7 +703,7 @@ doTestSingularIntegerMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -788,7 +788,7 @@ doTestSingularStringMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -874,7 +874,7 @@ doTestSmallBooleanMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -964,7 +964,7 @@ doTestSmallIntegerMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -1057,7 +1057,7 @@ doTestSmallStringMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -1153,7 +1153,7 @@ doTestEmptySetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1232,7 +1232,7 @@ doTestSingularBooleanSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1316,7 +1316,7 @@ doTestSingularIntegerSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1400,7 +1400,7 @@ doTestSingularStringSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1484,7 +1484,7 @@ doTestSmallBooleanSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1573,7 +1573,7 @@ doTestSmallIntegerSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1670,7 +1670,7 @@ doTestSmallStringSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -1767,7 +1767,7 @@ doTestArrayWithArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -1851,7 +1851,7 @@ doTestArrayWithMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -1935,7 +1935,7 @@ doTestArrayWithSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Array> stuff(new nImO::Array);
+        nImO::UpArray stuff(new nImO::Array);
 
         if (stuff)
         {
@@ -2019,7 +2019,7 @@ doTestMapWithArrayValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2105,7 +2105,7 @@ doTestMapWithMapValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2191,7 +2191,7 @@ doTestMapWithSetValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2277,7 +2277,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2366,7 +2366,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2453,7 +2453,7 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Map> stuff(new nImO::Map);
+        nImO::UpMap stuff(new nImO::Map);
 
         if (stuff)
         {
@@ -2542,7 +2542,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -2629,7 +2629,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {
@@ -2716,7 +2716,7 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Set> stuff(new nImO::Set);
+        nImO::UpSet stuff(new nImO::Set);
 
         if (stuff)
         {

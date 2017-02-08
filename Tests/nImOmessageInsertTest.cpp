@@ -172,7 +172,7 @@ doTestInsertEmptyMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -260,7 +260,7 @@ doTestInsertBooleanMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -358,7 +358,7 @@ doTestInsertTinyIntegerMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -481,7 +481,7 @@ doTestInsertShortIntegerMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -582,7 +582,7 @@ doTestInsertMediumIntegerMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -683,7 +683,7 @@ doTestInsertBigIntegerMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -785,7 +785,7 @@ doTestInsertEmptyStringMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -861,7 +861,7 @@ doTestInsertShortStringMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -938,7 +938,7 @@ doTestInsertMediumStringMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1022,7 +1022,7 @@ doTestInsertEmptyBlobMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1098,7 +1098,7 @@ doTestInsertShortBlobMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1180,7 +1180,7 @@ doTestInsertMediumBlobMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1275,7 +1275,7 @@ doTestInsertSingleFloatMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1378,7 +1378,7 @@ doTestInsertEmptyArrayMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1458,7 +1458,7 @@ doTestInsertEmptyMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1538,7 +1538,7 @@ doTestInsertEmptySetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1618,7 +1618,7 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1707,7 +1707,7 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1796,7 +1796,7 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1887,7 +1887,7 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -1977,7 +1977,7 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2067,7 +2067,7 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2161,7 +2161,7 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2255,7 +2255,7 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2349,7 +2349,7 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2443,7 +2443,7 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2537,7 +2537,7 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2630,7 +2630,7 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2725,7 +2725,7 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2820,7 +2820,7 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -2923,7 +2923,7 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3026,7 +3026,7 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3129,7 +3129,7 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3234,7 +3234,7 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3338,7 +3338,7 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3443,7 +3443,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3581,7 +3581,7 @@ doTestInsertBooleanMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3673,7 +3673,7 @@ doTestInsertIntegerMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3765,7 +3765,7 @@ doTestInsertStringMapMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3858,7 +3858,7 @@ doTestInsertBooleanSetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -3947,7 +3947,7 @@ doTestInsertIntegerSetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {
@@ -4036,7 +4036,7 @@ doTestInsertStringSetMessage(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Message> stuff(new nImO::Message);
+        nImO::UpMessage stuff(new nImO::Message);
 
         if (stuff)
         {

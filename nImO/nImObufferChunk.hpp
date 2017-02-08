@@ -150,7 +150,7 @@ namespace nImO
         // Private fields.
 
         /*! @brief The internal buffer used to hold the assembled data. */
-        std::unique_ptr<uint8_t[]> _buffer;
+        nImO::UpAuint8_t _buffer;
 
         /*! @brief The byte just past the end of the internal buffer. */
         uint8_t *_bufferEnd;

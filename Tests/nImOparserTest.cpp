@@ -148,7 +148,7 @@ doTestParseBooleanValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -223,7 +223,7 @@ doTestParseNumberValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -298,7 +298,7 @@ doTestParseStringValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -373,7 +373,7 @@ doTestParseArrayValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -448,7 +448,7 @@ doTestParseSetValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -523,7 +523,7 @@ doTestParseMapValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {
@@ -598,7 +598,7 @@ doTestParseImplicitArrayValue(const bool expected,
         nImO::StringBuffer buff;
 
         buff.addString(inString);
-        std::unique_ptr<nImO::Value> readValue(buff.convertToValue());
+        nImO::UpValue readValue(buff.convertToValue());
 
         if ((NULL != readValue) == expected)
         {

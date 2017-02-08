@@ -161,7 +161,7 @@ doTestEmptyBufferChunk(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
+        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -222,7 +222,7 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
+        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -295,7 +295,7 @@ doTestFilledBufferChunk(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
+        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -394,7 +394,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
+        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -493,7 +493,7 @@ doTestBufferChunkReset(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::BufferChunk> stuff(new nImO::BufferChunk(false));
+        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
 
         if (stuff)
         {
@@ -565,7 +565,7 @@ doTestEmptyStringBuffer(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -645,10 +645,10 @@ doTestStringBufferWithCharacters(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char                          *inString = *argv;
-            const char                          *outString = argv[1];
-            size_t                              outLength = strlen(outString);
-            std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+            const char           *inString = *argv;
+            const char           *outString = argv[1];
+            size_t               outLength = strlen(outString);
+            nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
             if (stuff)
             {
@@ -736,7 +736,7 @@ doTestStringBufferWithBoolean(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
             {
-                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -818,7 +818,7 @@ doTestStringBufferWithInteger(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -891,10 +891,10 @@ doTestStringBufferWithString(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char                          *inString = *argv;
-            const char                          *outString = argv[1];
-            size_t                              outLength = strlen(outString);
-            std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+            const char           *inString = *argv;
+            const char           *outString = argv[1];
+            size_t               outLength = strlen(outString);
+            nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
             if (stuff)
             {
@@ -973,10 +973,10 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
 
     try
     {
-        const char                          *inString = "abc\tdef\f\rghi\302";
-        const char                          *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t                              outLength = strlen(outString);
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        const char           *inString = "abc\tdef\f\rghi\302";
+        const char           *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t               outLength = strlen(outString);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1058,7 +1058,7 @@ doTestStringBufferWithDouble(const char *launchPath,
 
             if ((startPtr != endPtr) && (! *endPtr))
             {
-                std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
                 if (stuff)
                 {
@@ -1137,7 +1137,7 @@ doTestBigStringBuffer(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1218,7 +1218,7 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -1284,11 +1284,11 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
-            std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
+            nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
             if (smallBlob)
             {
@@ -1381,11 +1381,11 @@ doTestStringBufferWithBigBlob(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
-            std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
+            nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -1477,7 +1477,7 @@ doTestStringBufferReset(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::StringBuffer> stuff(new nImO::StringBuffer);
+        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
         if (stuff)
         {
@@ -2112,7 +2112,7 @@ doTestSmallBlobValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
+        nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
         if (smallBlob)
         {
@@ -2206,7 +2206,7 @@ doTestBigBlobValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
+        nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
         if (bigBlob)
         {
@@ -2665,8 +2665,8 @@ doTestBlobCopyAndAssign(const char *launchPath,
 
     try
     {
-        std::unique_ptr<uint8_t[]> bigBlob(new uint8_t[kBigTestSize]);
-        std::unique_ptr<uint8_t[]> smallBlob(new uint8_t[kSmallTestSize]);
+        nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+        nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
         if (bigBlob && smallBlob)
         {

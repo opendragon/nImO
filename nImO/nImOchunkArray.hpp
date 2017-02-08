@@ -54,9 +54,6 @@
 
 namespace nImO
 {
-    class BufferChunk;
-    class Value;
-
     /*! @brief The data constituting an array of chunks. */
     class ChunkArray
     {

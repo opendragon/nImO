@@ -149,13 +149,14 @@ namespace nImO
     // Forward declarations.
 
     class Array;
+    class BaseArgumentDescriptor;
     class BufferChunk;
     class Map;
     class Message;
     class Set;
     class StringBuffer;
     class Value;
-
+    
     // Type definitions.
 
     /*! @brief The tag values for Message contents. */
@@ -426,9 +427,6 @@ namespace nImO
         kReadInvalid
 
     }; // ReadStatus
-
-    // Forward reference.
-    class BaseArgumentDescriptor;
 
     /*! @brief A byte array that is the same size as an integer. */
     typedef uint8_t NumberAsBytes[sizeof(int64_t)];

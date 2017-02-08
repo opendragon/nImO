@@ -95,7 +95,7 @@ nImO::Set::Set(const nImO::Set &other) :
     ODL_P1("other = ", &other); //####
     addEntries(other);
     ODL_EXIT_P(this); //####
-} // nImO::Blob::Blob
+} // nImO::Set::Set
 
 nImO::Set::~Set(void)
 {

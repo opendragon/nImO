@@ -54,18 +54,15 @@
 
 namespace nImO
 {
-    class Array;
+    // Forward declarations.
+
     class Blob;
     class Boolean;
     class Container;
     class Double;
     class Integer;
-    class Map;
-    class Message;
     class Number;
-    class Set;
     class String;
-    class StringBuffer;
 
     /*! @brief A class to provide general value behaviours. */
     class Value

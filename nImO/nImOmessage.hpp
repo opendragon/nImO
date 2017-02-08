@@ -54,9 +54,6 @@
 
 namespace nImO
 {
-    class BufferChunk;
-    class Value;
-
     /*! @brief The data constituting a Message. */
     class Message : public ChunkArray
     {

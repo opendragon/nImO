@@ -54,8 +54,6 @@
 
 namespace nImO
 {
-    class Value;
-
     /*! @brief The data constituting a string buffer. */
     class StringBuffer : public ChunkArray
     {

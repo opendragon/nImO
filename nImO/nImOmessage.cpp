@@ -216,12 +216,12 @@ const
     return totalLength;
 } // nImO::Message::getLength
 
-nImO::Value *
+nImO::SpValue
 nImO::Message::getValue(nImO::ReadStatus &status)
 {
     ODL_OBJENTER(); //####
     ODL_P1("status = ", &status); //####
-    Value * result = NULL;
+    SpValue result;
 
     if (kMessageStateOpenForReading == _state)
     {
@@ -299,7 +299,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                     {
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, status,
                                                             NULL);
-                        ODL_P1("result <- ", result); //####
+                        ODL_P1("result <- ", result.get()); //####
                         ODL_LL2("_readPosition <- ", _readPosition, "status <- ", status); //####
                         if (NULL == result)
                         {
@@ -316,9 +316,8 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                                 _readPosition = savedPosition;
                                 ODL_LL2("status <- ", status, "_readPosition <- ", //####
                                         _readPosition); //####
-                                delete result;
-                                result = NULL;
-                                ODL_P1("result <- ", result); //####
+                                result.reset();
+                                ODL_P1("result <- ", result.get()); //####
                             }
                             else if (kTermNonEmptyMessageValue == (aByte &kInitTermMessageMask))
                             {
@@ -347,9 +346,8 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                                     ODL_LOG("! (nextTag == initTag)"); //####
                                     status = kReadInvalid;
                                     ODL_LL1("status <- ", status); //####
-                                    delete result;
-                                    result = NULL;
-                                    ODL_P1("result <- ", result); //####
+                                    result.reset();
+                                    ODL_P1("result <- ", result.get()); //####
                                 }
                             }
                             else
@@ -358,9 +356,8 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                                         "(aByte &kInitTermMessageMask))"); //####
                                 status = kReadInvalid;
                                 ODL_LL1("status <- ", status); //####
-                                delete result;
-                                result = NULL;
-                                ODL_P1("result <- ", result); //####
+                                result.reset();
+                                ODL_P1("result <- ", result.get()); //####
                             }
                         }
                     }
@@ -386,7 +383,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
         status = kReadInvalid;
         ODL_LL1("status <- ", status); //####
     }
-    ODL_OBJEXIT_P(result); //####
+    ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::Message::getValue
 

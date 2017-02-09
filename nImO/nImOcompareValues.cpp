@@ -93,12 +93,12 @@ nImO::CompareValues::~CompareValues(void)
 #endif // defined(__APPLE__)
 
 bool
-nImO::CompareValues::operator() (const nImO::Value *const lhs,
-                                 const nImO::Value *const rhs)
+nImO::CompareValues::operator() (nImO::SpValue lhs,
+                                 nImO::SpValue rhs)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("lhs = ", lhs, "rhs = ", rhs); //####
+    ODL_P2("lhs = ", lhs.get(), "rhs = ", rhs.get()); //####
     bool result;
 
     if (lhs->enumerationType() == rhs->enumerationType())

@@ -96,12 +96,6 @@ namespace nImO
             return this;
         } // asInteger
         
-        /*! @brief Return a copy of the object.
-         @returns Returns a copy of the object. */
-        virtual Value *
-        clone(void)
-        const;
-
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
@@ -241,12 +235,12 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
-        static Value *
+        static SpValue
         extractValue(const Message &theMessage,
                      const int     leadByte,
                      size_t        &position,
                      ReadStatus    &status,
-                     Array         *parentValue);
+                     SpArray       parentValue);
 
     public :
         // Public fields.

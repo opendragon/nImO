@@ -86,7 +86,7 @@ nImO::BufferChunk::BufferChunk(const bool addPadding) :
 {
     ODL_ENTER(); //####
     ODL_B1("addPadding = ", addPadding); //####
-    ODL_P1("_buffer <- ", _buffer); //####
+    ODL_P1("_buffer <- ", _buffer.get()); //####
     if (_buffer)
     {
         ODL_LOG("(_buffer)"); //####

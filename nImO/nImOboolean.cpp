@@ -119,17 +119,6 @@ nImO::Boolean::~Boolean(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Value *
-nImO::Boolean::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Boolean *result = new Boolean(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Boolean::copy
-
 bool
 nImO::Boolean::deeplyEqualTo(const nImO::Value &other)
 const
@@ -196,12 +185,12 @@ const
 # pragma warning(push)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
-nImO::Value *
+nImO::SpValue
 nImO::Boolean::extractValue(const nImO::Message &theMessage,
                             const int           leadByte,
                             size_t              &position,
                             nImO::ReadStatus    &status,
-                            nImO::Array         *parentValue)
+                            nImO::SpArray       parentValue)
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
 # if MAC_OR_LINUX_
@@ -210,10 +199,10 @@ nImO::Boolean::extractValue(const nImO::Message &theMessage,
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value *result = new Boolean(kKindOtherBooleanTrueValue ==
-                                (kKindOtherBooleanValueMask &leadByte));
+    SpValue result(new Boolean(kKindOtherBooleanTrueValue ==
+                                (kKindOtherBooleanValueMask & leadByte)));
 
     ++position; // We will always accept the lead byte
     status = kReadSuccessful;
@@ -223,7 +212,7 @@ nImO::Boolean::extractValue(const nImO::Message &theMessage,
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Boolean::extractValue
 #if (! MAC_OR_LINUX_)
@@ -469,14 +458,14 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::Boolean::printToStringBuffer
 
-nImO::Value *
+nImO::SpValue
 nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                     size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool              candidateValue = false;
-    Value             *result = NULL;
+    SpValue           result;
     size_t            localIndex = position;
     int               aChar = inBuffer.getChar(localIndex++);
     const std::string *candidate;
@@ -525,14 +514,14 @@ nImO::Boolean::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         }
         if (valid)
         {
-            result = new Boolean(candidateValue);
+            result.reset(new Boolean(candidateValue));
         }
     }
     if (NULL != result)
     {
         position = localIndex;
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Boolean::readFromStringBuffer
 

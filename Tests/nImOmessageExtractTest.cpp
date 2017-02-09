@@ -136,7 +136,7 @@ extractValueAndCheck(nImO::Message     &stuff,
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
     nImO::ReadStatus status = nImO::kReadInvalid;
-    nImO::UpValue    extractedValue(stuff.getValue(status));
+    nImO::SpValue    extractedValue(stuff.getValue(status));
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     ODL_LL1("status <- ", status); //####
@@ -172,7 +172,7 @@ extractValueAndCheck(nImO::Message     &stuff,
             stuff.open(false);
             stuff.appendBytes(insertedContents, ii);
             status = nImO::kReadInvalid;
-            extractedValue.reset(stuff.getValue(status));
+            extractedValue = stuff.getValue(status);
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             ODL_LL1("status <- ", status); //####
             stuff.close();
@@ -247,7 +247,7 @@ doTestEmptyMessage(const char *launchPath,
             const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
             nImO::ReadStatus status;
-            nImO::UpValue    extractedValue(stuff->getValue(status));
+            nImO::SpValue    extractedValue(stuff->getValue(status));
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             if ((NULL == extractedValue) && (nImO::kReadInvalid == status))
@@ -257,7 +257,7 @@ doTestEmptyMessage(const char *launchPath,
                 stuff->close();
                 stuff->open(false);
                 stuff->appendBytes(bytesToInsert, insertionCount);
-                extractedValue.reset(stuff->getValue(status));
+                extractedValue = stuff->getValue(status);
                 ODL_P1("extractedValue <- ", extractedValue.get()); //####
                 stuff->close();
                 if ((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == status))
@@ -1721,7 +1721,7 @@ doTestArrayOneBooleanMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayOneBoolean));
             nImO::Array  arrayOneBoolean;
 
-            arrayOneBoolean.addValue(new nImO::Boolean);
+            arrayOneBoolean.addValue(nImO::SpValue(new nImO::Boolean));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBoolean,
                                           insertedArrayOneBooleanCount, arrayOneBoolean);
         }
@@ -1810,7 +1810,7 @@ doTestArrayOneIntegerMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayOneInteger));
             nImO::Array  arrayOneInteger;
 
-            arrayOneInteger.addValue(new nImO::Integer);
+            arrayOneInteger.addValue(nImO::SpValue(new nImO::Integer));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger,
                                           insertedArrayOneIntegerCount, arrayOneInteger);
         }
@@ -1901,7 +1901,7 @@ doTestArrayOneDoubleMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayOneDouble));
             nImO::Array  arrayOneDouble;
 
-            arrayOneDouble.addValue(new nImO::Double);
+            arrayOneDouble.addValue(nImO::SpValue(new nImO::Double));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble,
                                           insertedArrayOneDoubleCount, arrayOneDouble);
         }
@@ -1991,7 +1991,7 @@ doTestArrayOneStringMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayOneString));
             nImO::Array  arrayOneString;
 
-            arrayOneString.addValue(new nImO::String);
+            arrayOneString.addValue(nImO::SpValue(new nImO::String));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString,
                                           insertedArrayOneStringCount, arrayOneString);
         }
@@ -2081,7 +2081,7 @@ doTestArrayOneBlobMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayOneBlob));
             nImO::Array  arrayOneBlob;
 
-            arrayOneBlob.addValue(new nImO::Blob);
+            arrayOneBlob.addValue(nImO::SpValue(new nImO::Blob));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob,
                                           insertedArrayOneBlobCount, arrayOneBlob);
         }
@@ -2175,7 +2175,7 @@ doTestArrayOneArrayMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayOneArray));
             nImO::Array  arrayOneArray;
 
-            arrayOneArray.addValue(new nImO::Array);
+            arrayOneArray.addValue(nImO::SpValue(new nImO::Array));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray,
                                           insertedArrayOneArrayCount, arrayOneArray);
         }
@@ -2269,7 +2269,7 @@ doTestArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneMap));
             nImO::Array  arrayOneMap;
 
-            arrayOneMap.addValue(new nImO::Map);
+            arrayOneMap.addValue(nImO::SpValue(new nImO::Map));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap,
                                           insertedArrayOneMapCount, arrayOneMap);
         }
@@ -2363,7 +2363,7 @@ doTestArrayOneSetMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneSet));
             nImO::Array  arrayOneSet;
 
-            arrayOneSet.addValue(new nImO::Set);
+            arrayOneSet.addValue(nImO::SpValue(new nImO::Set));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet,
                                           insertedArrayOneSetCount, arrayOneSet);
         }
@@ -2455,8 +2455,8 @@ doTestArrayTwoBooleansMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoBooleans));
             nImO::Array  arrayTwoBooleans;
 
-            arrayTwoBooleans.addValue(new nImO::Boolean);
-            arrayTwoBooleans.addValue(new nImO::Boolean);
+            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
+            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBooleans,
                                           insertedArrayTwoBooleansCount, arrayTwoBooleans);
         }
@@ -2549,8 +2549,8 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoIntegers));
             nImO::Array  arrayTwoIntegers;
 
-            arrayTwoIntegers.addValue(new nImO::Integer);
-            arrayTwoIntegers.addValue(new nImO::Integer);
+            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
+            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers,
                                           insertedArrayTwoIntegersCount, arrayTwoIntegers);
         }
@@ -2642,8 +2642,8 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoDoubles));
             nImO::Array  arrayTwoDoubles;
 
-            arrayTwoDoubles.addValue(new nImO::Double);
-            arrayTwoDoubles.addValue(new nImO::Double);
+            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
+            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles,
                                           insertedArrayTwoDoublesCount, arrayTwoDoubles);
         }
@@ -2737,8 +2737,8 @@ doTestArrayTwoStringsMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoStrings));
             nImO::Array  arrayTwoStrings;
 
-            arrayTwoStrings.addValue(new nImO::String);
-            arrayTwoStrings.addValue(new nImO::String);
+            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
+            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings,
                                           insertedArrayTwoStringsCount, arrayTwoStrings);
         }
@@ -2832,8 +2832,8 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayTwoBlobs));
             nImO::Array  arrayTwoBlobs;
 
-            arrayTwoBlobs.addValue(new nImO::Blob);
-            arrayTwoBlobs.addValue(new nImO::Blob);
+            arrayTwoBlobs.addValue(nImO::SpValue(new nImO::Blob));
+            arrayTwoBlobs.addValue(nImO::SpValue(new nImO::Blob));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs,
                                           insertedArrayTwoBlobsCount, arrayTwoBlobs);
         }
@@ -2935,8 +2935,8 @@ doTestArrayTwoArraysMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayTwoArrays));
             nImO::Array  arrayTwoArrays;
 
-            arrayTwoArrays.addValue(new nImO::Array);
-            arrayTwoArrays.addValue(new nImO::Array);
+            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
+            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays,
                                           insertedArrayTwoArraysCount, arrayTwoArrays);
         }
@@ -3038,8 +3038,8 @@ doTestArrayTwoMapsMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoMaps));
             nImO::Array  arrayTwoMaps;
 
-            arrayTwoMaps.addValue(new nImO::Map);
-            arrayTwoMaps.addValue(new nImO::Map);
+            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
+            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps,
                                           insertedArrayTwoMapsCount, arrayTwoMaps);
         }
@@ -3141,8 +3141,8 @@ doTestArrayTwoSetsMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoSets));
             nImO::Array  arrayTwoSets;
 
-            arrayTwoSets.addValue(new nImO::Set);
-            arrayTwoSets.addValue(new nImO::Set);
+            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
+            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets,
                                           insertedArrayTwoSetsCount, arrayTwoSets);
         }
@@ -3245,8 +3245,8 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneArrayOneMap));
             nImO::Array  arrayOneArrayOneMap;
 
-            arrayOneArrayOneMap.addValue(new nImO::Array);
-            arrayOneArrayOneMap.addValue(new nImO::Map);
+            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Array));
+            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Map));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap,
                                           insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
         }
@@ -3349,8 +3349,8 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayOneMapOneSet));
             nImO::Array  arrayOneMapOneSet;
 
-            arrayOneMapOneSet.addValue(new nImO::Map);
-            arrayOneMapOneSet.addValue(new nImO::Set);
+            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Map));
+            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Set));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet,
                                           insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
         }
@@ -3453,8 +3453,8 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneSetOneArray));
             nImO::Array  arrayOneSetOneArray;
 
-            arrayOneSetOneArray.addValue(new nImO::Set);
-            arrayOneSetOneArray.addValue(new nImO::Array);
+            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Set));
+            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Array));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray,
                                           insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
         }
@@ -3590,7 +3590,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(new nImO::Double(ii));
+                arrayManyDoubles.addValue(nImO::SpValue(new nImO::Double(ii)));
             }
             result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles,
                                           insertedArrayManyDoublesCount, arrayManyDoubles);
@@ -3684,7 +3684,8 @@ doTestBooleanMapMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForBooleanMap));
             nImO::Map    booleanMap;
 
-            booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
+            booleanMap.addValue(nImO::SpValue(new nImO::Boolean),
+                                nImO::SpValue(new nImO::Integer(13)));
             result = extractValueAndCheck(*stuff, insertedBytesForBooleanMap,
                                           insertedBooleanMapCount, booleanMap);
         }
@@ -3776,7 +3777,8 @@ doTestIntegerMapMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForIntegerMap));
             nImO::Map    integerMap;
 
-            integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
+            integerMap.addValue(nImO::SpValue(new nImO::Integer),
+                                nImO::SpValue(new nImO::Integer(13)));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap,
                                           insertedIntegerMapCount, integerMap);
         }
@@ -3869,7 +3871,8 @@ doTestStringMapMessage(const char *launchPath,
                                                    sizeof(*insertedBytesForStringMap));
             nImO::Map    stringMap;
 
-            stringMap.addValue(new nImO::String, new nImO::Integer(13));
+            stringMap.addValue(nImO::SpValue(new nImO::String),
+                               nImO::SpValue(new nImO::Integer(13)));
             result = extractValueAndCheck(*stuff, insertedBytesForStringMap,
                                           insertedStringMapCount, stringMap);
         }
@@ -3958,7 +3961,7 @@ doTestBooleanSetMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForBooleanSet));
             nImO::Set    booleanSet;
 
-            booleanSet.addValue(new nImO::Boolean);
+            booleanSet.addValue(nImO::SpValue(new nImO::Boolean));
             result = extractValueAndCheck(*stuff, insertedBytesForBooleanSet,
                                           insertedBooleanSetCount, booleanSet);
         }
@@ -4047,7 +4050,7 @@ doTestIntegerSetMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForIntegerSet));
             nImO::Set    integerSet;
 
-            integerSet.addValue(new nImO::Integer);
+            integerSet.addValue(nImO::SpValue(new nImO::Integer));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet,
                                           insertedIntegerSetCount, integerSet);
         }
@@ -4137,7 +4140,7 @@ doTestStringSetMessage(const char *launchPath,
                                                    sizeof(*insertedBytesForStringSet));
             nImO::Set    stringSet;
 
-            stringSet.addValue(new nImO::String);
+            stringSet.addValue(nImO::SpValue(new nImO::String));
             result = extractValueAndCheck(*stuff, insertedBytesForStringSet,
                                           insertedStringSetCount, stringSet);
         }

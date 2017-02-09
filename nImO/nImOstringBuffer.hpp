@@ -134,7 +134,7 @@ namespace nImO
 
         /*! @brief Convert the buffer to a Value.
          @returns The Value represented by the buffer contents. */
-        Value *convertToValue(void)
+        SpValue convertToValue(void)
         const;
 
         /*! @brief Return the character found at a particular index.

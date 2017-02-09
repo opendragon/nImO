@@ -157,7 +157,7 @@ compareBytes(const uint8_t *leftValue,
 #endif // defined(__APPLE__)
 
 nImO::Blob::Blob(void) :
-    inherited(), _value(NULL), _size(0)
+    inherited(), _value(), _size(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -165,7 +165,7 @@ nImO::Blob::Blob(void) :
 
 nImO::Blob::Blob(const uint8_t *data,
                  const size_t  size) :
-    inherited(), _value(NULL), _size(0)
+    inherited(), _value(), _size(0)
 {
     ODL_ENTER(); //####
     ODL_P1("datat = ", data); //####
@@ -173,22 +173,22 @@ nImO::Blob::Blob(const uint8_t *data,
     if (data && (0 < size))
     {
         _size = size;
-        _value = new uint8_t[_size];
-        memcpy(_value, data, _size);
+        _value.reset(new uint8_t[_size]);
+        memcpy(_value.get(), data, _size);
     }
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
 nImO::Blob::Blob(const nImO::Blob &other) :
-    inherited(), _value(NULL), _size(0)
+    inherited(), _value(), _size(0)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     if (0 < other._size)
     {
         _size = other._size;
-        _value = new uint8_t[_size];
-        memcpy(_value, other._value, _size);
+        _value.reset(new uint8_t[_size]);
+        memcpy(_value.get(), other._value.get(), _size);
     }
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
@@ -204,17 +204,6 @@ nImO::Blob::~Blob(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Value *
-nImO::Blob::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Blob *result = new Blob(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Blob::copy
-
 bool
 nImO::Blob::deeplyEqualTo(const nImO::Value &other)
 const
@@ -229,7 +218,8 @@ const
         
         if (NULL != otherPtr)
         {
-            result = (0 == compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
         }
     }
     ODL_OBJEXIT_B(result); //####
@@ -268,7 +258,8 @@ const
         }
         else
         {
-            result = (0 == compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
             validComparison = true;
             ODL_B1("validComparison <- ", validComparison); //####
         }
@@ -277,34 +268,34 @@ const
     return result;
 } // nImO::Blob::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::Blob::extractValue(const nImO::Message &theMessage,
                          const int           leadByte,
                          size_t              &position,
                          nImO::ReadStatus    &status,
-                         nImO::Array         *parentValue)
+                         nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value  *result;
-    bool   isShort = (kKindStringOrBlobShortLengthValue ==
-                      (kKindStringOrBlobLengthMask &leadByte));
-    size_t numBytes = 0;
+    SpValue result;
+    bool    isShort = (kKindStringOrBlobShortLengthValue ==
+                       (kKindStringOrBlobLengthMask & leadByte));
+    size_t  numBytes = 0;
     
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (kKindStringOrBlobShortLengthMask &leadByte);
+        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
         status = kReadSuccessful;
         ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
     }
     else
     {
-        size_t        size = (kKindIntegerLongValueCountMask &leadByte) + 1;
+        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -358,7 +349,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         }
         if (okSoFar)
         {
-            result = new Blob(holder.get(), numBytes);
+            result.reset(new Blob(holder.get(), numBytes));
             status = kReadSuccessful;
             ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
         }
@@ -369,14 +360,14 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     }
     else
     {
-        result = new Blob;
+        result.reset(new Blob);
     }
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Blob::extractValue
 
@@ -426,7 +417,8 @@ const
         }
         else
         {
-            result = (0 < compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 < compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
             validComparison = true;
             ODL_B1("validComparison <- ", validComparison); //####
         }
@@ -467,7 +459,8 @@ const
         }
         else
         {
-            result = (0 <= compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 <= compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
             validComparison = true;
             ODL_B1("validComparison <- ", validComparison); //####
         }
@@ -509,7 +502,8 @@ const
         }
         else
         {
-            result = (0 > compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 > compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
             validComparison = true;
             ODL_B1("validComparison <- ", validComparison); //####
         }
@@ -550,7 +544,8 @@ const
         }
         else
         {
-            result = (0 >= compareBytes(_value, _size, otherPtr->_value, otherPtr->_size));
+            result = (0 >= compareBytes(_value.get(), _size, otherPtr->_value.get(),
+                                        otherPtr->_size));
             validComparison = true;
             ODL_B1("validComparison <- ", validComparison); //####
         }
@@ -570,8 +565,8 @@ nImO::Blob::operator =(const nImO::Blob &other)
         if (0 < other._size)
         {
             _size = other._size;
-            _value = new uint8_t[_size];
-            memcpy(_value, other._value, _size);
+            _value.reset(new uint8_t[_size]);
+            memcpy(_value.get(), other._value.get(), _size);
         }
     }
     ODL_OBJEXIT_P(this);
@@ -591,7 +586,7 @@ const
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    outBuffer.addBytes(_value, _size);
+    outBuffer.addBytes(_value.get(), _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::printToStringBuffer
 
@@ -599,9 +594,8 @@ void
 nImO::Blob::removeAllEntries(void)
 {
     ODL_OBJENTER(); //####
-    delete[] _value;
+    _value.reset();
     _size = 0;
-    _value = NULL;
     ODL_OBJEXIT(); //####
 } // nImO::Blob::removeAllEntries
 
@@ -640,7 +634,7 @@ const
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
-        outMessage.appendBytes(_value, _size);
+        outMessage.appendBytes(_value.get(), _size);
     }
     else
     {

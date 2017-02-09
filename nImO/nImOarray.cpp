@@ -116,18 +116,16 @@ nImO::Array::addEntries(const nImO::Array &other)
     for (const_iterator walker(other.inherited2::begin()); other.inherited2::end() != walker;
          ++walker)
     {
-        Value *aValue = (*walker)->clone();
-
-        addValue(aValue);
+        addValue(*walker);
     }
     ODL_EXIT(); //####
 } // nImO::Array::addEntries
 
 nImO::Array &
-nImO::Array::addValue(nImO::Value *newElement)
+nImO::Array::addValue(nImO::SpValue newElement)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("newElement = ", newElement); //####
+    ODL_P1("newElement = ", newElement.get()); //####
     if (NULL != newElement)
     {
         inherited2::push_back(newElement);
@@ -136,12 +134,12 @@ nImO::Array::addValue(nImO::Value *newElement)
     return *this;
 } // nImO::Array::addValue
 
-nImO::Value *
+nImO::SpValue
 nImO::Array::at(const size_t index)
 const
 {
     ODL_OBJENTER(); //####
-    Value *result;
+    SpValue result;
 
     if (index < inherited2::size())
     {
@@ -151,7 +149,7 @@ const
     {
         result = NULL;
     }
-    ODL_OBJEXIT_P(result); //####
+    ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::Array::at
 
@@ -159,26 +157,9 @@ void
 nImO::Array::clear(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
-    {
-        Value *aValue = *walker;
-
-        delete aValue;
-    }
     inherited2::clear();
     ODL_OBJEXIT(); //####
 } // nImO::Array::clear
-
-nImO::Value *
-nImO::Array::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Array *result = new Array(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Array::copy
 
 bool
 nImO::Array::deeplyEqualTo(const nImO::Value &other)
@@ -200,8 +181,8 @@ const
             for (result = true; result && (thisWalker != inherited2::end());
                  ++thisWalker, ++otherWalker)
             {
-                Value *thisValue = *thisWalker;
-                Value *otherValue = *otherWalker;
+                SpValue thisValue(*thisWalker);
+                SpValue otherValue(*otherWalker);
                 
                 if ((NULL != thisValue) && (NULL != otherValue))
                 {
@@ -233,7 +214,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -244,20 +225,20 @@ const
     return result;
 } // nImO::Array::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::Array::extractValue(const nImO::Message &theMessage,
                           const int           leadByte,
                           size_t              &position,
                           nImO::ReadStatus    &status,
-                          nImO::Array         *parentValue)
+                          nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value *result = NULL;
-    bool  isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask &leadByte));
-    int   aByte;
+    SpValue result;
+    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+    int     aByte;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
@@ -282,7 +263,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
             if (endMarker == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
-                result = new Array;
+                result.reset(new Array);
                 status = kReadSuccessful;
                 ++position;
                 ODL_LL2("status <- ", status, "position <- ", position); //####
@@ -324,7 +305,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    Array *anArray = new Array;
+                    SpArray anArray(new Array);
 
                     result = anArray;
                     if (NULL == result)
@@ -349,8 +330,8 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             }
                             else
                             {
-                                Value *aValue = getValueFromMessage(theMessage, position, aByte,
-                                                                    status, anArray);
+                                SpValue aValue(getValueFromMessage(theMessage, position, aByte,
+                                                                   status, anArray));
 
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
@@ -400,8 +381,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                         if (! okSoFar)
                         {
                             ODL_LOG("(! okSoFar)"); //####
-                            delete result;
-                            result = NULL;
+                            result.reset();
                         }
                     }
                 }
@@ -417,7 +397,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Array::extractValue
 
@@ -468,7 +448,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -493,7 +473,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -518,7 +498,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -543,7 +523,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -581,7 +561,7 @@ const
     outBuffer.addChar(kStartArrayChar);
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (NULL != aValue)
         {
@@ -601,19 +581,19 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::Array::printToStringBuffer
 
-nImO::Value *
+nImO::SpValue
 nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                   size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    bool   done = false;
-    bool   valid = false;
-    Array  *result = new Array;
-    size_t localIndex = position;
-    int    aChar = inBuffer.getChar(localIndex++);
+    bool    done = false;
+    bool    valid = false;
+    SpArray result(new Array);
+    size_t  localIndex = position;
+    int     aChar = inBuffer.getChar(localIndex++);
 
-    ODL_P1("result <- ", result); //####
+    ODL_P1("result <- ", result.get()); //####
     ODL_LL1("localIndex <- ", localIndex); //####
     ODL_C1("aChar <- ", aChar); //####
     if (kStartArrayChar == aChar)
@@ -641,7 +621,7 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             else
             {
-                Value *element = Value::readFromStringBuffer(inBuffer, localIndex);
+                SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
 
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == element)
@@ -667,10 +647,9 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     else
     {
         ODL_LOG("! (valid)"); //####
-        delete result;
-        result = NULL;
+        result.reset();
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Array::readFromStringBuffer
 
@@ -696,7 +675,7 @@ const
                             static_cast<int64_t>(kKindIntegerShortValueMinValue - 1));
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
-            Value *aValue = *walker;
+            SpValue aValue(*walker);
 
             if (aValue)
             {

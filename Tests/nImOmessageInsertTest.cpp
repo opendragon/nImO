@@ -1655,7 +1655,7 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
                                                          sizeof(*expectedBytesForArrayOneBoolean));
             nImO::Array  arrayOneBoolean;
 
-            arrayOneBoolean.addValue(new nImO::Boolean);
+            arrayOneBoolean.addValue(nImO::SpValue(new nImO::Boolean));
             result = setValueAndCheck(*stuff, arrayOneBoolean, expectedBytesForArrayOneBoolean,
                                       expectedArrayOneBooleanCount);
         }
@@ -1744,7 +1744,7 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
                                                          sizeof(*expectedBytesForArrayOneInteger));
             nImO::Array  arrayOneInteger;
 
-            arrayOneInteger.addValue(new nImO::Integer);
+            arrayOneInteger.addValue(nImO::SpValue(new nImO::Integer));
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedBytesForArrayOneInteger,
                                       expectedArrayOneIntegerCount);
         }
@@ -1835,7 +1835,7 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
                                                         sizeof(*expectedBytesForArrayOneDouble));
             nImO::Array arrayOneDouble;
 
-            arrayOneDouble.addValue(new nImO::Double);
+            arrayOneDouble.addValue(nImO::SpValue(new nImO::Double));
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedBytesForArrayOneDouble,
                                       expectedArrayOneDoubleCount);
         }
@@ -1925,7 +1925,7 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
                                                         sizeof(*expectedBytesForArrayOneString));
             nImO::Array  arrayOneString;
 
-            arrayOneString.addValue(new nImO::String);
+            arrayOneString.addValue(nImO::SpValue(new nImO::String));
             result = setValueAndCheck(*stuff, arrayOneString, expectedBytesForArrayOneString,
                                       expectedArrayOneStringCount);
         }
@@ -2015,7 +2015,7 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
                                                       sizeof(*expectedBytesForArrayOneBlob));
             nImO::Array  arrayOneBlob;
 
-            arrayOneBlob.addValue(new nImO::Blob);
+            arrayOneBlob.addValue(nImO::SpValue(new nImO::Blob));
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedBytesForArrayOneBlob,
                                       expectedArrayOneBlobCount);
         }
@@ -2109,7 +2109,7 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
                                                        sizeof(*expectedBytesForArrayOneArray));
             nImO::Array  arrayOneArray;
 
-            arrayOneArray.addValue(new nImO::Array);
+            arrayOneArray.addValue(nImO::SpValue(new nImO::Array));
             result = setValueAndCheck(*stuff, arrayOneArray, expectedBytesForArrayOneArray,
                                       expectedArrayOneArrayCount);
         }
@@ -2203,7 +2203,7 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*expectedBytesForArrayOneMap));
             nImO::Array  arrayOneMap;
 
-            arrayOneMap.addValue(new nImO::Map);
+            arrayOneMap.addValue(nImO::SpValue(new nImO::Map));
             result = setValueAndCheck(*stuff, arrayOneMap, expectedBytesForArrayOneMap,
                                       expectedArrayOneMapCount);
         }
@@ -2297,7 +2297,7 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
                                                      sizeof(*expectedBytesForArrayOneSet));
             nImO::Array  arrayOneSet;
 
-            arrayOneSet.addValue(new nImO::Set);
+            arrayOneSet.addValue(nImO::SpValue(new nImO::Set));
             result = setValueAndCheck(*stuff, arrayOneSet, expectedBytesForArrayOneSet,
                                       expectedArrayOneSetCount);
         }
@@ -2390,8 +2390,8 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
                                                       sizeof(*expectedBytesForArrayTwoBooleans));
             nImO::Array  arrayTwoBooleans;
 
-            arrayTwoBooleans.addValue(new nImO::Boolean);
-            arrayTwoBooleans.addValue(new nImO::Boolean);
+            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
+            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
             result = setValueAndCheck(*stuff, arrayTwoBooleans, expectedBytesForArrayTwoBooleans,
                                       expectedArrayTwoBooleansCount);
         }
@@ -2484,8 +2484,8 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
                                                       sizeof(*expectedBytesForArrayTwoIntegers));
             nImO::Array  arrayTwoIntegers;
 
-            arrayTwoIntegers.addValue(new nImO::Integer);
-            arrayTwoIntegers.addValue(new nImO::Integer);
+            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
+            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedBytesForArrayTwoIntegers,
                                       expectedArrayTwoIntegersCount);
         }
@@ -2577,8 +2577,8 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
                                                          sizeof(*expectedBytesForArrayTwoDoubles));
             nImO::Array  arrayTwoDoubles;
 
-            arrayTwoDoubles.addValue(new nImO::Double);
-            arrayTwoDoubles.addValue(new nImO::Double);
+            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
+            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedBytesForArrayTwoDoubles,
                                       expectedArrayTwoDoublesCount);
         }
@@ -2672,8 +2672,8 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
                                                          sizeof(*expectedBytesForArrayTwoStrings));
             nImO::Array  arrayTwoStrings;
 
-            arrayTwoStrings.addValue(new nImO::String);
-            arrayTwoStrings.addValue(new nImO::String);
+            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
+            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
             result = setValueAndCheck(*stuff, arrayTwoStrings, expectedBytesForArrayTwoStrings,
                                       expectedArrayTwoStringsCount);
         }
@@ -2767,8 +2767,8 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
                                                        sizeof(*expectedBytesForArrayTwoBlobs));
             nImO::Array  arrayTwoBlobs;
 
-            arrayTwoBlobs.addValue(new nImO::Blob);
-            arrayTwoBlobs.addValue(new nImO::Blob);
+            arrayTwoBlobs.addValue(nImO::SpValue(nImO::SpValue(new nImO::Blob)));
+            arrayTwoBlobs.addValue(nImO::SpValue(nImO::SpValue(new nImO::Blob)));
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedBytesForArrayTwoBlobs,
                                       expectedArrayTwoBlobsCount);
         }
@@ -2870,8 +2870,8 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
                                                         sizeof(*expectedBytesForArrayTwoArrays));
             nImO::Array  arrayTwoArrays;
 
-            arrayTwoArrays.addValue(new nImO::Array);
-            arrayTwoArrays.addValue(new nImO::Array);
+            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
+            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedBytesForArrayTwoArrays,
                                       expectedArrayTwoArraysCount);
         }
@@ -2973,8 +2973,8 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
                                                       sizeof(*expectedBytesForArrayTwoMaps));
             nImO::Array  arrayTwoMaps;
 
-            arrayTwoMaps.addValue(new nImO::Map);
-            arrayTwoMaps.addValue(new nImO::Map);
+            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
+            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedBytesForArrayTwoMaps,
                                       expectedArrayTwoMapsCount);
         }
@@ -3076,8 +3076,8 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
                                                       sizeof(*expectedBytesForArrayTwoSets));
             nImO::Array  arrayTwoSets;
 
-            arrayTwoSets.addValue(new nImO::Set);
-            arrayTwoSets.addValue(new nImO::Set);
+            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
+            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedBytesForArrayTwoSets,
                                       expectedArrayTwoSetsCount);
         }
@@ -3180,8 +3180,8 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*expectedBytesForArrayOneArrayOneMap));
             nImO::Array  arrayOneArrayOneMap;
 
-            arrayOneArrayOneMap.addValue(new nImO::Array);
-            arrayOneArrayOneMap.addValue(new nImO::Map);
+            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Array));
+            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Map));
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap,
                                       expectedBytesForArrayOneArrayOneMap,
                                       expectedArrayOneArrayOneMapCount);
@@ -3285,8 +3285,8 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
                                                         sizeof(*expectedBytesForArrayOneMapOneSet));
             nImO::Array  arrayOneMapOneSet;
 
-            arrayOneMapOneSet.addValue(new nImO::Map);
-            arrayOneMapOneSet.addValue(new nImO::Set);
+            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Map));
+            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Set));
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedBytesForArrayOneMapOneSet,
                                       expectedArrayOneMapOneSetCount);
         }
@@ -3389,8 +3389,8 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
                                                      sizeof(*expectedBytesForArrayOneSetOneArray));
             nImO::Array  arrayOneSetOneArray;
 
-            arrayOneSetOneArray.addValue(new nImO::Set);
-            arrayOneSetOneArray.addValue(new nImO::Array);
+            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Set));
+            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Array));
             result = setValueAndCheck(*stuff, arrayOneSetOneArray,
                                       expectedBytesForArrayOneSetOneArray,
                                       expectedArrayOneSetOneArrayCount);
@@ -3526,7 +3526,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(new nImO::Double(ii));
+                arrayManyDoubles.addValue(nImO::SpValue(new nImO::Double(ii)));
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedBytesForArrayManyDoubles,
                                       expectedArrayManyDoublesCount);
@@ -3621,7 +3621,8 @@ doTestInsertBooleanMapMessage(const char *launchPath,
                                                     sizeof(*expectedBytesForBooleanMap));
             nImO::Map    booleanMap;
 
-            booleanMap.addValue(new nImO::Boolean, new nImO::Integer(13));
+            booleanMap.addValue(nImO::SpValue(new nImO::Boolean),
+                                nImO::SpValue(new nImO::Integer(13)));
             result = setValueAndCheck(*stuff, booleanMap, expectedBytesForBooleanMap,
                                       expectedBooleanMapCount);
         }
@@ -3713,7 +3714,8 @@ doTestInsertIntegerMapMessage(const char *launchPath,
                                                     sizeof(*expectedBytesForIntegerMap));
             nImO::Map    integerMap;
 
-            integerMap.addValue(new nImO::Integer, new nImO::Integer(13));
+            integerMap.addValue(nImO::SpValue(new nImO::Integer),
+                                nImO::SpValue(new nImO::Integer(13)));
             result = setValueAndCheck(*stuff, integerMap, expectedBytesForIntegerMap,
                                       expectedIntegerMapCount);
         }
@@ -3806,7 +3808,8 @@ doTestInsertStringMapMessage(const char *launchPath,
                                                    sizeof(*expectedBytesForStringMap));
             nImO::Map    stringMap;
 
-            stringMap.addValue(new nImO::String, new nImO::Integer(13));
+            stringMap.addValue(nImO::SpValue(new nImO::String),
+                               nImO::SpValue(new nImO::Integer(13)));
             result = setValueAndCheck(*stuff, stringMap, expectedBytesForStringMap,
                                       expectedStringMapCount);
         }
@@ -3895,7 +3898,7 @@ doTestInsertBooleanSetMessage(const char *launchPath,
                                                     sizeof(*expectedBytesForBooleanSet));
             nImO::Set    booleanSet;
 
-            booleanSet.addValue(new nImO::Boolean);
+            booleanSet.addValue(nImO::SpValue(new nImO::Boolean));
             result = setValueAndCheck(*stuff, booleanSet, expectedBytesForBooleanSet,
                                       expectedBooleanSetCount);
         }
@@ -3981,10 +3984,10 @@ doTestInsertIntegerSetMessage(const char *launchPath,
                   nImO::kKindOtherMessageExpectedOtherValue
             };
             const size_t expectedIntegerSetCount = (sizeof(expectedBytesForIntegerSet) /
-                                                    sizeof(*expectedBytesForIntegerSet));
+                                                     sizeof(*expectedBytesForIntegerSet));
             nImO::Set    integerSet;
 
-            integerSet.addValue(new nImO::Integer);
+            integerSet.addValue(nImO::SpValue(new nImO::Integer));
             result = setValueAndCheck(*stuff, integerSet, expectedBytesForIntegerSet,
                                       expectedIntegerSetCount);
         }
@@ -4074,7 +4077,7 @@ doTestInsertStringSetMessage(const char *launchPath,
                                                    sizeof(*expectedBytesForStringSet));
             nImO::Set    stringSet;
 
-            stringSet.addValue(new nImO::String);
+            stringSet.addValue(nImO::SpValue(new nImO::String));
             result = setValueAndCheck(*stuff, stringSet, expectedBytesForStringSet,
                                       expectedStringSetCount);
         }

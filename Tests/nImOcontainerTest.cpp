@@ -279,7 +279,7 @@ doTestSingularArrayValue(const char *launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Double(123.45));
+            stuff->addValue(nImO::SpValue(new nImO::Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -369,10 +369,10 @@ doTestSmallArrayValue(const char *launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Double(123.45));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -456,14 +456,15 @@ doTestBigArrayValue(const char *launchPath,
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                    uint8_t *addr = bigBlob.get();
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     if (0 != ii)
                     {
                         expectedSquishedString += ' ';
                     }
                     bigBlob[ii] = aByte;
-                    stuff->addValue(new nImO::Integer(aByte));
+                    stuff->addValue(nImO::SpValue(new nImO::Integer(aByte)));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
                     expectedString += numBuff;
                     snprintf(numBuff, sizeof(numBuff), "%d", aByte);
@@ -636,7 +637,8 @@ doTestSingularBooleanMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
+                            nImO::SpValue(new nImO::Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -720,8 +722,8 @@ doTestSingularIntegerMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42),
-                            new nImO::Double(123.45));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
+                            nImO::SpValue(new nImO::Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -807,7 +809,8 @@ doTestSingularStringMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("charlie"), new nImO::Double(123.45));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
+                            nImO::SpValue(new nImO::Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -895,9 +898,10 @@ doTestSmallBooleanMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Boolean(false),
-                            new nImO::Integer(42));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)),
+                            nImO::SpValue(new nImO::Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -985,12 +989,12 @@ doTestSmallIntegerMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42),
-                            new nImO::Double(123.45));
-            stuff->addValue(new nImO::Integer(17),
-                            new nImO::Double(12.345));
-            stuff->addValue(new nImO::Integer(12),
-                            new nImO::Double(1234.5));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(17)),
+                            nImO::SpValue(new nImO::Double(12.345)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(12)),
+                            nImO::SpValue(new nImO::Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1084,9 +1088,12 @@ doTestSmallStringMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("delta"), new nImO::Double(123.45));
-            stuff->addValue(new nImO::String("lima"), new nImO::Double(12.345));
-            stuff->addValue(new nImO::String("charlie"), new nImO::Double(1234.5));
+            stuff->addValue(nImO::SpValue(new nImO::String("delta")),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::String("lima")),
+                            nImO::SpValue(new nImO::Double(12.345)));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
+                            nImO::SpValue(new nImO::Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1249,7 +1256,7 @@ doTestSingularBooleanSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1333,7 +1340,7 @@ doTestSingularIntegerSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1417,7 +1424,7 @@ doTestSingularStringSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("charlie"));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1503,10 +1510,10 @@ doTestSmallBooleanSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Boolean(false));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Boolean(false));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1596,14 +1603,14 @@ doTestSmallIntegerSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(123));
-            stuff->addValue(new nImO::Integer(42));
-            stuff->addValue(new nImO::Integer(17));
-            stuff->addValue(new nImO::Integer(12));
-            stuff->addValue(new nImO::Integer(123));
-            stuff->addValue(new nImO::Integer(42));
-            stuff->addValue(new nImO::Integer(17));
-            stuff->addValue(new nImO::Integer(12));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(123)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(17)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(12)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(123)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(17)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(12)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1693,14 +1700,14 @@ doTestSmallStringSetValue(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("gamma"));
-            stuff->addValue(new nImO::String("alpha"));
-            stuff->addValue(new nImO::String("delta"));
-            stuff->addValue(new nImO::String("beta"));
-            stuff->addValue(new nImO::String("gamma"));
-            stuff->addValue(new nImO::String("alpha"));
-            stuff->addValue(new nImO::String("delta"));
-            stuff->addValue(new nImO::String("beta"));
+            stuff->addValue(nImO::SpValue(new nImO::String("gamma")));
+            stuff->addValue(nImO::SpValue(new nImO::String("alpha")));
+            stuff->addValue(nImO::SpValue(new nImO::String("delta")));
+            stuff->addValue(nImO::SpValue(new nImO::String("beta")));
+            stuff->addValue(nImO::SpValue(new nImO::String("gamma")));
+            stuff->addValue(nImO::SpValue(new nImO::String("alpha")));
+            stuff->addValue(nImO::SpValue(new nImO::String("delta")));
+            stuff->addValue(nImO::SpValue(new nImO::String("beta")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1784,7 +1791,7 @@ doTestArrayWithArrayValue(const char *launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Array);
+            stuff->addValue(nImO::SpValue(new nImO::Array));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1868,7 +1875,7 @@ doTestArrayWithMapValue(const char *launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Map);
+            stuff->addValue(nImO::SpValue(new nImO::Map));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1952,7 +1959,7 @@ doTestArrayWithSetValue(const char *launchPath,
                 nImO::kEndArrayChar, '\0'
             };
 
-            stuff->addValue(new nImO::Set);
+            stuff->addValue(nImO::SpValue(new nImO::Set));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2038,7 +2045,7 @@ doTestMapWithArrayValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42), new nImO::Array());
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Array()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2124,7 +2131,7 @@ doTestMapWithMapValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42), new nImO::Map());
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Map()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2210,7 +2217,7 @@ doTestMapWithSetValue(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42), new nImO::Set());
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Set()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2296,10 +2303,14 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Integer(42), new nImO::Double(12.345));
-            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
-            stuff->addValue(new nImO::String("zebra"), new nImO::Double(1234.5));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
+                            nImO::SpValue(new nImO::Double(12.345)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
+                            nImO::SpValue(new nImO::Double(1.2345)));
+            stuff->addValue(nImO::SpValue(new nImO::String("zebra")),
+                            nImO::SpValue(new nImO::Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2383,10 +2394,14 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
-            stuff->addValue(new nImO::String("zebra"), new nImO::Double(1234.5));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
+                            nImO::SpValue(new nImO::Double(1.2345)));
+            stuff->addValue(nImO::SpValue(new nImO::String("zebra")),
+                            nImO::SpValue(new nImO::Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2472,10 +2487,14 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndMapChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("charlie"), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Boolean(true), new nImO::Double(123.45));
-            stuff->addValue(new nImO::Integer(42), new nImO::Double(12.345));
-            stuff->addValue(new nImO::Double(19.77), new nImO::Double(1.2345));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
+                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
+                            nImO::SpValue(new nImO::Double(12.345)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
+                            nImO::SpValue(new nImO::Double(1.2345)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2559,10 +2578,10 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Integer(42));
-            stuff->addValue(new nImO::Double(19.77));
-            stuff->addValue(new nImO::String("zebra"));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
+            stuff->addValue(nImO::SpValue(new nImO::String("zebra")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2646,10 +2665,10 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::Integer(42));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Double(19.77));
-            stuff->addValue(new nImO::String("zebra"));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
+            stuff->addValue(nImO::SpValue(new nImO::String("zebra")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2733,10 +2752,10 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
                 nImO::kEndSetChar, '\0'
             };
 
-            stuff->addValue(new nImO::String("charlie"));
-            stuff->addValue(new nImO::Boolean(true));
-            stuff->addValue(new nImO::Integer(42));
-            stuff->addValue(new nImO::Double(19.77));
+            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
+            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2834,9 +2853,9 @@ doTestValidArrayCompares(const char *launchPath,
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
 
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -3001,9 +3020,9 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(new nImO::Boolean(false));
-            stuff.addValue(new nImO::Boolean(false));
-            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -3206,11 +3225,11 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
 
             stuff.clear();
-            stuff.addValue(new nImO::Double(123.45));
-            stuff.addValue(new nImO::Double(200.0));
-            stuff.addValue(new nImO::Double(-25.0));
-            stuff.addValue(new nImO::Double(-60.0));
-            stuff.addValue(new nImO::Double(0.0));
+            stuff.addValue(nImO::SpValue(new nImO::Double(123.45)));
+            stuff.addValue(nImO::SpValue(new nImO::Double(200.0)));
+            stuff.addValue(nImO::SpValue(new nImO::Double(-25.0)));
+            stuff.addValue(nImO::SpValue(new nImO::Double(-60.0)));
+            stuff.addValue(nImO::SpValue(new nImO::Double(0.0)));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
                 bool         valid = false;
@@ -3401,9 +3420,9 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
 
             stuff.clear();
-            stuff.addValue(new nImO::String("abc"));
-            stuff.addValue(new nImO::String("def"));
-            stuff.addValue(new nImO::String("ghi"));
+            stuff.addValue(nImO::SpValue(new nImO::String("abc")));
+            stuff.addValue(nImO::SpValue(new nImO::String("def")));
+            stuff.addValue(nImO::SpValue(new nImO::String("ghi")));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
                 bool         valid = false;
@@ -3630,9 +3649,12 @@ doTestValidBooleanMapCompares(const char *launchPath,
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Map           stuff;
 
-        stuff.addValue(new nImO::Boolean(true), new nImO::String("abc"));
-        stuff.addValue(new nImO::Boolean(true), new nImO::String("def"));
-        stuff.addValue(new nImO::Boolean(true), new nImO::String("ghi"));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
+                       nImO::SpValue(new nImO::String("abc")));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
+                       nImO::SpValue(new nImO::String("def")));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
+                       nImO::SpValue(new nImO::String("ghi")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -3797,9 +3819,12 @@ doTestValidBooleanMapCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(new nImO::Boolean(false), new nImO::String("abc"));
-            stuff.addValue(new nImO::Boolean(false), new nImO::String("def"));
-            stuff.addValue(new nImO::Boolean(false), new nImO::String("ghi"));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
+                           nImO::SpValue(new nImO::String("abc")));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
+                           nImO::SpValue(new nImO::String("def")));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
+                           nImO::SpValue(new nImO::String("ghi")));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -4045,11 +4070,16 @@ doTestValidIntegerMapCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Map          stuff;
 
-        stuff.addValue(new nImO::Integer(123), new nImO::String("abc"));
-        stuff.addValue(new nImO::Integer(200), new nImO::String("def"));
-        stuff.addValue(new nImO::Integer(-25), new nImO::String("ghi"));
-        stuff.addValue(new nImO::Integer(-60), new nImO::String("jkl"));
-        stuff.addValue(new nImO::Integer(0), new nImO::String("mno"));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(123)),
+                       nImO::SpValue(new nImO::String("abc")));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(200)),
+                       nImO::SpValue(new nImO::String("def")));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(-25)),
+                       nImO::SpValue(new nImO::String("ghi")));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(-60)),
+                       nImO::SpValue(new nImO::String("jkl")));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(0)),
+                       nImO::SpValue(new nImO::String("mno")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -4277,9 +4307,12 @@ doTestValidStringMapCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Map          stuff;
 
-        stuff.addValue(new nImO::String("abc"), new nImO::String("123"));
-        stuff.addValue(new nImO::String("def"), new nImO::String("456"));
-        stuff.addValue(new nImO::String("ghi"), new nImO::String("789"));
+        stuff.addValue(nImO::SpValue(new nImO::String("abc")),
+                       nImO::SpValue(new nImO::String("123")));
+        stuff.addValue(nImO::SpValue(new nImO::String("def")),
+                       nImO::SpValue(new nImO::String("456")));
+        stuff.addValue(nImO::SpValue(new nImO::String("ghi")),
+                       nImO::SpValue(new nImO::String("789")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
@@ -4501,9 +4534,9 @@ doTestValidBooleanSetCompares(const char *launchPath,
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Set           stuff;
 
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
-        stuff.addValue(new nImO::Boolean(true));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -4668,9 +4701,9 @@ doTestValidBooleanSetCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(new nImO::Boolean(false));
-            stuff.addValue(new nImO::Boolean(false));
-            stuff.addValue(new nImO::Boolean(false));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -4916,11 +4949,11 @@ doTestValidIntegerSetCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Set          stuff;
 
-        stuff.addValue(new nImO::Integer(123));
-        stuff.addValue(new nImO::Integer(200));
-        stuff.addValue(new nImO::Integer(-25));
-        stuff.addValue(new nImO::Integer(-60));
-        stuff.addValue(new nImO::Integer(0));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(123)));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(200)));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(-25)));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(-60)));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(0)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -5148,9 +5181,9 @@ doTestValidStringSetCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         nImO::Set          stuff;
 
-        stuff.addValue(new nImO::String("abc"));
-        stuff.addValue(new nImO::String("def"));
-        stuff.addValue(new nImO::String("ghi"));
+        stuff.addValue(nImO::SpValue(new nImO::String("abc")));
+        stuff.addValue(nImO::SpValue(new nImO::String("def")));
+        stuff.addValue(nImO::SpValue(new nImO::String("ghi")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
@@ -5358,9 +5391,9 @@ doTestInvalidArrayCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Boolean);
-        leftValue.addValue(new nImO::Number);
-        leftValue.addValue(new nImO::String);
+        leftValue.addValue(nImO::SpValue(new nImO::Boolean));
+        leftValue.addValue(nImO::SpValue(new nImO::Number));
+        leftValue.addValue(nImO::SpValue(new nImO::String));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -5481,8 +5514,10 @@ doTestInvalidBooleanMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Boolean(false), new nImO::String("false"));
-        leftValue.addValue(new nImO::Boolean(true), new nImO::String("true"));
+        leftValue.addValue(nImO::SpValue(new nImO::Boolean(false)),
+                           nImO::SpValue(new nImO::String("false")));
+        leftValue.addValue(nImO::SpValue(new nImO::Boolean(true)),
+                           nImO::SpValue(new nImO::String("true")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -5601,9 +5636,12 @@ doTestInvalidIntegerMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Integer(42), new nImO::Double(123.45));
-        leftValue.addValue(new nImO::Integer(17), new nImO::Double(12.345));
-        leftValue.addValue(new nImO::Integer(12), new nImO::Double(1234.5));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(42)),
+                           nImO::SpValue(new nImO::Double(123.45)));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(17)),
+                           nImO::SpValue(new nImO::Double(12.345)));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(12)),
+                           nImO::SpValue(new nImO::Double(1234.5)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -5724,9 +5762,12 @@ doTestInvalidStringMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::String("abc"), new nImO::String("123"));
-        leftValue.addValue(new nImO::String("def"), new nImO::String("456"));
-        leftValue.addValue(new nImO::String("ghi"), new nImO::String("789"));
+        leftValue.addValue(nImO::SpValue(new nImO::String("abc")),
+                           nImO::SpValue(new nImO::String("123")));
+        leftValue.addValue(nImO::SpValue(new nImO::String("def")),
+                           nImO::SpValue(new nImO::String("456")));
+        leftValue.addValue(nImO::SpValue(new nImO::String("ghi")),
+                           nImO::SpValue(new nImO::String("789")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -5847,8 +5888,8 @@ doTestInvalidBooleanSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Boolean(false));
-        leftValue.addValue(new nImO::Boolean(true));
+        leftValue.addValue(nImO::SpValue(new nImO::Boolean(false)));
+        leftValue.addValue(nImO::SpValue(new nImO::Boolean(true)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -5967,9 +6008,9 @@ doTestInvalidIntegerSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::Integer(42));
-        leftValue.addValue(new nImO::Integer(17));
-        leftValue.addValue(new nImO::Integer(12));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(42)));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(17)));
+        leftValue.addValue(nImO::SpValue(new nImO::Integer(12)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -6090,9 +6131,9 @@ doTestInvalidStringSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(new nImO::String("abc"));
-        leftValue.addValue(new nImO::String("def"));
-        leftValue.addValue(new nImO::String("ghi"));
+        leftValue.addValue(nImO::SpValue(new nImO::String("abc")));
+        leftValue.addValue(nImO::SpValue(new nImO::String("def")));
+        leftValue.addValue(nImO::SpValue(new nImO::String("ghi")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             nImO::Value &aRightValue = *rightValues[ii];
@@ -6198,9 +6239,9 @@ doTestArrayIndices(const char *launchPath,
     try
     {
         nImO::Array   stuff;
-        nImO::Boolean *aBoolValue;
-        nImO::Number  *aNumberValue;
-        nImO::String  *aStringValue;
+        nImO::SpValue aBoolValue;
+        nImO::SpValue aNumberValue;
+        nImO::SpValue aStringValue;
 
         if (0 != stuff.size())
         {
@@ -6225,7 +6266,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aBoolValue = new nImO::Boolean;
+            aBoolValue.reset(new nImO::Boolean);
             stuff.addValue(aBoolValue);
             if (1 != stuff.size())
             {
@@ -6243,7 +6284,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aNumberValue = new nImO::Number;
+            aNumberValue.reset(new nImO::Number);
             stuff.addValue(aNumberValue);
             if (2 != stuff.size())
             {
@@ -6261,7 +6302,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aStringValue = new nImO::String;
+            aStringValue.reset(new nImO::String);
             stuff.addValue(aStringValue);
             if (3 != stuff.size())
             {
@@ -6325,11 +6366,11 @@ doTestBooleanMapSearches(const char *launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String        *falseString = new nImO::String("false");
-        nImO::String        *trueString;
+        nImO::SpString      falseString(new nImO::String("false"));
+        nImO::SpString      trueString;
 
-        stuff.addValue(new nImO::Boolean(false), falseString);
-        iter = stuff.find(nImO::Boolean(true));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(false)), falseString);
+        iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6337,7 +6378,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean(false));
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(false)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6351,7 +6392,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean(true));
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6360,9 +6401,9 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            trueString = new nImO::String("true");
-            stuff.addValue(new nImO::Boolean(true), trueString);
-            iter = stuff.find(nImO::Boolean(true));
+            trueString.reset(new nImO::String("true"));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(true)), trueString);
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6376,7 +6417,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer());
+            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6385,7 +6426,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String());
+            iter = stuff.find(nImO::SpValue(new nImO::String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6438,11 +6479,11 @@ doTestIntegerMapSearches(const char *launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String        *string17 = new nImO::String("17");
-        nImO::String        *string12;
+        nImO::SpString      string17(new nImO::String("17"));
+        nImO::SpString      string12;
 
-        stuff.addValue(new nImO::Integer(17), string17);
-        iter = stuff.find(nImO::Integer(12));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(17)), string17);
+        iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6450,7 +6491,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer(17));
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(17)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6464,7 +6505,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer(12));
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6473,9 +6514,9 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            string12 = new nImO::String("12");
-            stuff.addValue(new nImO::Integer(12), string12);
-            iter = stuff.find(nImO::Integer(12));
+            string12.reset(new nImO::String("12"));
+            stuff.addValue(nImO::SpValue(new nImO::Integer(12)), string12);
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6489,7 +6530,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean());
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6498,7 +6539,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String());
+            iter = stuff.find(nImO::SpValue(new nImO::String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6551,11 +6592,11 @@ doTestStringMapSearches(const char *launchPath,
     {
         nImO::Map           stuff;
         nImO::Map::iterator iter;
-        nImO::String        *stringOneSeven = new nImO::String("17");
-        nImO::String        *stringOneTwo;
+        nImO::SpString      stringOneSeven(new nImO::String("17"));
+        nImO::SpString      stringOneTwo;
 
-        stuff.addValue(new nImO::String("abc"), stringOneSeven);
-        iter = stuff.find(nImO::String("def"));
+        stuff.addValue(nImO::SpValue(new nImO::String("abc")), stringOneSeven);
+        iter = stuff.find(nImO::SpValue(new nImO::String("def")));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6563,7 +6604,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String("abc"));
+            iter = stuff.find(nImO::SpValue(new nImO::String("abc")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6577,7 +6618,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String("def"));
+            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6586,9 +6627,9 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stringOneTwo = new nImO::String("12");
-            stuff.addValue(new nImO::String("def"), stringOneTwo);
-            iter = stuff.find(nImO::String("def"));
+            stringOneTwo.reset(new nImO::String("12"));
+            stuff.addValue(nImO::SpValue(new nImO::String("def")), stringOneTwo);
+            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6602,7 +6643,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean());
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6611,7 +6652,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer());
+            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6665,8 +6706,8 @@ doTestBooleanSetSearches(const char *launchPath,
         nImO::Set           stuff;
         nImO::Set::iterator iter;
 
-        stuff.addValue(new nImO::Boolean(false));
-        iter = stuff.find(nImO::Boolean(true));
+        stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+        iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6674,7 +6715,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean(false));
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(false)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6683,7 +6724,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean(true));
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6692,8 +6733,8 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(new nImO::Boolean(true));
-            iter = stuff.find(nImO::Boolean(true));
+            stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6702,7 +6743,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer());
+            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6711,7 +6752,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String());
+            iter = stuff.find(nImO::SpValue(new nImO::String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6765,8 +6806,8 @@ doTestIntegerSetSearches(const char *launchPath,
         nImO::Set           stuff;
         nImO::Set::iterator iter;
 
-        stuff.addValue(new nImO::Integer(17));
-        iter = stuff.find(nImO::Integer(12));
+        stuff.addValue(nImO::SpValue(new nImO::Integer(17)));
+        iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6774,7 +6815,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer(17));
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(17)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6783,7 +6824,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer(12));
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6792,8 +6833,8 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(new nImO::Integer(12));
-            iter = stuff.find(nImO::Integer(12));
+            stuff.addValue(nImO::SpValue(new nImO::Integer(12)));
+            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6802,7 +6843,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean());
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6811,7 +6852,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String());
+            iter = stuff.find(nImO::SpValue(new nImO::String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6865,8 +6906,8 @@ doTestStringSetSearches(const char *launchPath,
         nImO::Set           stuff;
         nImO::Set::iterator iter;
 
-        stuff.addValue(new nImO::String("abc"));
-        iter = stuff.find(nImO::String("def"));
+        stuff.addValue(nImO::SpValue(new nImO::String("abc")));
+        iter = stuff.find(nImO::SpValue(new nImO::String("def")));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6874,7 +6915,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String("abc"));
+            iter = stuff.find(nImO::SpValue(new nImO::String("abc")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6883,7 +6924,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::String("def"));
+            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6892,8 +6933,8 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(new nImO::String("def"));
-            iter = stuff.find(nImO::String("def"));
+            stuff.addValue(nImO::SpValue(new nImO::String("def")));
+            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6902,7 +6943,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Boolean());
+            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6911,7 +6952,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::Integer());
+            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####

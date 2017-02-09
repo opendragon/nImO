@@ -55,7 +55,8 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    typedef std::vector<Value *> ArrayBase;
+    typedef std::vector<SpValue> ArrayBase;
+    //typedef std::vector<Value *> ArrayBase;
 
     /*! @brief A class to provide collections with array-like behaviour.
 
@@ -109,7 +110,7 @@ namespace nImO
          @param[in] newElement The Value to be added.
          @returns The updated Array. */
         Array &
-        addValue(Value *newElement);
+        addValue(SpValue newElement);
 
         /*! @brief Return non-@c NULL if the object is an Array.
          @returns Non-@c NULL if the object is an Array and @c NULL otherwise. */
@@ -123,7 +124,7 @@ namespace nImO
         /*! @brief Returns the element at position index in the Array.
          @param[in] index The position of the element in the Array.
          @returns The element at the given position, or @c NULL if the index is out of range. */
-        Value *
+        SpValue
         at(const size_t index)
         const;
 
@@ -147,12 +148,6 @@ namespace nImO
         /*! @brief Remove all entries from the Array. */
         void
         clear(void);
-
-        /*! @brief Return a copy of the object.
-         @returns Returns a copy of the object. */
-        virtual Value *
-        clone(void)
-        const;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -284,7 +279,7 @@ namespace nImO
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
-        static Value *
+        static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);
 
@@ -352,12 +347,12 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
-        static Value *
+        static SpValue
         extractValue(const Message &theMessage,
                      const int     leadByte,
                      size_t        &position,
                      ReadStatus    &status,
-                     Array         *parentValue);
+                     SpArray       parentValue);
 
     public :
         // Public fields.

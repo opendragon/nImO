@@ -115,17 +115,6 @@ nImO::Integer::~Integer(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Value *
-nImO::Integer::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Integer *result = new Integer(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Integer::copy
-
 bool
 nImO::Integer::deeplyEqualTo(const nImO::Value &other)
 const
@@ -200,35 +189,35 @@ const
     return result;
 } // nImO::Integer::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::Integer::extractValue(const nImO::Message &theMessage,
                             const int           leadByte,
                             size_t              &position,
                             nImO::ReadStatus    &status,
-                            nImO::Array         *parentValue)
+                            nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value   *result;
+    SpValue result;
     int64_t holder = extractInt64FromMessage(theMessage, leadByte, position, status);
 
     if (kReadSuccessful == status)
     {
-        result = new Integer(holder);
+        result.reset(new Integer(holder));
     }
     else
     {
         ODL_LOG("! (kReadSuccessful == status)"); //####
-        result = NULL;
+        result.reset();
     }
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Integer::extractValue
 

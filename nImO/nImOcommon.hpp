@@ -154,6 +154,7 @@ namespace nImO
     class Map;
     class Message;
     class Set;
+    class String;
     class StringBuffer;
     class Value;
     
@@ -449,6 +450,9 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Set. */
     typedef std::shared_ptr<Set> SpSet;
 
+    /*! @brief A holder for a shared pointer to a String. */
+    typedef std::shared_ptr<String> SpString;
+
     /*! @brief A holder for a shared pointer to a StringBuffer. */
     typedef std::shared_ptr<StringBuffer> SpStringBuffer;
 
@@ -469,6 +473,9 @@ namespace nImO
 
     /*! @brief A holder for a non-shared pointer to a Set. */
     typedef std::unique_ptr<Set> UpSet;
+
+    /*! @brief A holder for a non-shared pointer to a String. */
+    typedef std::unique_ptr<String> UpString;
 
     /*! @brief A holder for a non-shared pointer to a StringBuffer. */
     typedef std::unique_ptr<StringBuffer> UpStringBuffer;
@@ -493,6 +500,9 @@ namespace nImO
 
     /*! @brief A holder for a weak pointer to a Set. */
     typedef std::weak_ptr<Set> WpSet;
+
+    /*! @brief A holder for a weak pointer to a String. */
+    typedef std::weak_ptr<String> WpString;
 
     /*! @brief A holder for a weak pointer to a StringBuffer. */
     typedef std::weak_ptr<StringBuffer> WpStringBuffer;

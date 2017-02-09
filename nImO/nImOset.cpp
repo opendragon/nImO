@@ -118,7 +118,7 @@ nImO::Set::addEntries(const nImO::Set &other)
         for (const_iterator walker(other.inherited2::begin()); other.inherited2::end() != walker;
              ++walker)
         {
-            Value *aValue = (*walker)->clone();
+            SpValue aValue(*walker);
 
             addValue(aValue);
         }
@@ -127,10 +127,10 @@ nImO::Set::addEntries(const nImO::Set &other)
 } // nImO::Set::addEntries
 
 nImO::Set::InsertResult
-nImO::Set::addValue(nImO::Value *val)
+nImO::Set::addValue(nImO::SpValue val)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("val = ", val); //####
+    ODL_P1("val = ", &val); //####
     InsertResult result;
 
     if (NULL == val)
@@ -146,10 +146,6 @@ nImO::Set::addValue(nImO::Value *val)
         if (val->enumerationType() == _keyKind)
         {
             result = inherited2::insert(val);
-            if (! result.second)
-            {
-                delete val;
-            }
         }
         else
         {
@@ -164,27 +160,10 @@ void
 nImO::Set::clear(void)
 {
     ODL_OBJENTER(); //####
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
-    {
-        Value *aValue = *walker;
-
-        delete aValue;
-    }
     inherited2::clear();
     _keyKind = kEnumerableUnknown;
     ODL_OBJEXIT(); //####
 } // nImO::Set::clear
-
-nImO::Value *
-nImO::Set::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Set *result = new Set(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Set::copy
 
 bool
 nImO::Set::deeplyEqualTo(const nImO::Value &other)
@@ -206,8 +185,8 @@ const
             for (result = true; result && (thisWalker != inherited2::end());
                  ++thisWalker, ++otherWalker)
             {
-                Value *thisValue = *thisWalker;
-                Value *otherValue = *otherWalker;
+                SpValue thisValue(*thisWalker);
+                SpValue otherValue(*otherWalker);
                 
                 if ((NULL != thisValue) && (NULL != otherValue))
                 {
@@ -239,7 +218,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -250,20 +229,20 @@ const
     return result;
 } // nImO::Set::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::Set::extractValue(const nImO::Message &theMessage,
                         const int           leadByte,
                         size_t              &position,
                         nImO::ReadStatus    &status,
-                        nImO::Array         *parentValue)
+                        nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value *result = NULL;
-    bool  isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask &leadByte));
-    int   aByte;
+    SpValue result;
+    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+    int     aByte;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
@@ -288,7 +267,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
             if (endMarker == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
-                result = new Set;
+                result.reset(new Set);
                 status = kReadSuccessful;
                 ++position;
                 ODL_LL2("status <- ", status, "position <- ", position); //####
@@ -330,7 +309,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    Set *aSet = new Set;
+                    SpSet aSet(new Set);
 
                     result = aSet;
                     if (NULL == result)
@@ -355,8 +334,8 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                             }
                             else
                             {
-                                Value *aValue = getValueFromMessage(theMessage, position, aByte,
-                                                                    status, NULL);
+                                SpValue aValue(getValueFromMessage(theMessage, position, aByte,
+                                                                   status, NULL));
 
                                 if (NULL == aValue)
                                 {
@@ -408,8 +387,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                         if (! okSoFar)
                         {
                             ODL_LOG("(! okSoFar)"); //####
-                            delete result;
-                            result = NULL;
+                            result.reset();
                         }
                     }
                 }
@@ -425,20 +403,20 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Set::extractValue
 
 nImO::Set::iterator
-nImO::Set::find(const nImO::Value &key)
+nImO::Set::find(nImO::SpValue key)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("key = ", &key); //####
+    ODL_P1("key = ", key.get()); //####
     iterator result;
 
-    if (key.enumerationType() == _keyKind)
+    if (key->enumerationType() == _keyKind)
     {
-        result = inherited2::find(&const_cast<Value &>(key));
+        result = inherited2::find(key);
     }
     else
     {
@@ -449,16 +427,16 @@ nImO::Set::find(const nImO::Value &key)
 } // nImO::Set::find
 
 nImO::Set::const_iterator
-nImO::Set::find(const nImO::Value &key)
+nImO::Set::find(nImO::SpValue key)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("key = ", &key); //####
+    ODL_P1("key = ", key.get()); //####
     const_iterator result;
 
-    if (key.enumerationType() == _keyKind)
+    if (key->enumerationType() == _keyKind)
     {
-        result = inherited2::find(&const_cast<Value &>(key));
+        result = inherited2::find(key);
     }
     else
     {
@@ -516,7 +494,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -542,7 +520,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -568,7 +546,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -594,7 +572,7 @@ const
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (aValue)
         {
@@ -632,7 +610,7 @@ const
     outBuffer.addChar(kStartSetChar);
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        Value *aValue = *walker;
+        SpValue aValue(*walker);
 
         if (NULL != aValue)
         {
@@ -652,7 +630,7 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::Set::printToStringBuffer
 
-nImO::Value *
+nImO::SpValue
 nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                 size_t                   &position)
 {
@@ -660,11 +638,11 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool   done = false;
     bool   valid = false;
-    Set    *result = new Set;
+    SpSet  result(new Set);
     size_t localIndex = position;
     int    aChar = inBuffer.getChar(localIndex++);
 
-    ODL_P1("result <- ", result); //####
+    ODL_P1("result <- ", result.get()); //####
     ODL_C1("aChar <- ", aChar); //####
     ODL_LL1("localIndex <- ", localIndex); //####
     if (kStartSetChar == aChar)
@@ -692,7 +670,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             else
             {
-                Value *element = Value::readFromStringBuffer(inBuffer, localIndex);
+                SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
 
                 ODL_LL1("localIndex <- ", localIndex); //####
                 if (NULL == element)
@@ -709,7 +687,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     {
                         ODL_LOG("((kEnumerableUnknown == elementType) || " //####
                                 "(kEnumerableNotEnumerable == elementType))"); //####
-                        delete element;
+                        element.reset();
                         done = true;
                     }
                     else if (0 < result->size())
@@ -721,7 +699,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                         else
                         {
                             ODL_LOG("! (result->_keyKind == elementType)"); //####
-                            delete element;
+                            element.reset();
                             done = true;
                         }
                     }
@@ -744,10 +722,9 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     else
     {
         ODL_LOG("! (valid)"); //####
-        delete result;
-        result = NULL;
+        result.reset();
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Set::readFromStringBuffer
 
@@ -772,7 +749,7 @@ const
                             static_cast<int64_t>(kKindIntegerShortValueMinValue - 1));
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
-            Value *aValue = *walker;
+            SpValue aValue(*walker);
 
             if (aValue)
             {

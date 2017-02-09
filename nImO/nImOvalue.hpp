@@ -62,7 +62,6 @@ namespace nImO
     class Double;
     class Integer;
     class Number;
-    class String;
 
     /*! @brief A class to provide general value behaviours. */
     class Value
@@ -86,22 +85,22 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
-        typedef Value *
+        typedef SpValue
            (* Extractor)
                (const Message &theMessage,
                 const int     leadByte,
                 size_t        &position,
                 ReadStatus    &status,
-                Array         *parentValue);
+                SpArray       parentValue);
 
     private :
         // Private type definitions.
 
         /*! @brief The function pointer for StringBuffer readers.
-         @param[in] inBuffer TBD
-         @param[in,out] position TBD
-         @returns TBD */
-        typedef Value *
+         @param[in] inBuffer The buffer to be read from.
+         @param[in,out] position The position for the next read.
+         @returns The next Value in the StringBuffer. */
+        typedef SpValue
             (* BufferReader)
                 (const StringBuffer &inBuffer,
                  size_t             &position);
@@ -221,15 +220,6 @@ namespace nImO
             return NULL;
         } // asString
         
-        /*! @brief Return a copy of the object.
-         @returns Returns a copy of the object. */
-        virtual inline Value *
-        clone(void)
-        const
-        {
-            return NULL;
-        } // copy
-
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
@@ -280,12 +270,12 @@ namespace nImO
          @param[in] parent A pointer to the Value that will contain the new object.
          @returns @c NULL if the Value was not successfully extracted and non-@c NULL on
          success. */
-        static Value *
+        static SpValue
         getValueFromMessage(const Message &inMessage,
                             size_t        &position,
                             const int     leadByte,
                             ReadStatus    &status,
-                            Array         *parent);
+                            SpArray       parent);
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -443,7 +433,7 @@ namespace nImO
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
-        static Value *
+        static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);
 

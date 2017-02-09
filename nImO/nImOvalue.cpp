@@ -146,16 +146,16 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
 
     if (kKindInteger == (leadByte &kKindMask))
     {
-        bool isShort = (kKindIntegerShortValue == (kKindIntegerSizeMask &leadByte));
+        bool isShort = (kKindIntegerShortValue == (kKindIntegerSizeMask & leadByte));
 
         ++position; // We can accept the lead byte
         ODL_LL1("position <- ", position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
-            uint8_t shortBits = (kKindIntegerShortValueValueMask &leadByte);
+            uint8_t shortBits = (kKindIntegerShortValueValueMask & leadByte);
             bool    isNegative = (kKindIntegerShortValueSignBit ==
-                                  (kKindIntegerShortValueSignBit &leadByte));
+                                  (kKindIntegerShortValueSignBit & leadByte));
 
             if (isNegative)
             {
@@ -175,7 +175,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t        size = (kKindIntegerLongValueCountMask &leadByte) + 1;
+            size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
             NumberAsBytes holder;
             bool          okSoFar = true;
 
@@ -215,18 +215,18 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     return result;
 } // nImO::Value::extractInt64FromMessage
 
-nImO::Value *
+nImO::SpValue
 nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
                                  size_t              &position,
                                  const int           leadByte,
                                  nImO::ReadStatus    &status,
-                                 nImO::Array         *parent)
+                                 nImO::SpArray       parent)
 {
     ODL_ENTER(); //####
     ODL_P4("inMessage = ", &inMessage, "position = ", &position, "status = ", &status,
-           "parent = ", parent); //####
+           "parent = ", parent.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value                *result = NULL;
+    SpValue              result;
     ExtractorMapIterator match = gExtractors.find(static_cast<uint8_t>(leadByte));
 
     if (gExtractors.end() == match)
@@ -248,10 +248,10 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
         else
         {
             result = handler(inMessage, leadByte, position, status, parent);
-            ODL_P1("result <- ", result); //####
+            ODL_P1("result <- ", result.get()); //####
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Value::getValueFromMessage
 
@@ -383,15 +383,15 @@ nImO::Value::isLegalTerminator(const char aChar)
     return result;
 } // nImO::Value::isLegalTerminator
 
-nImO::Value *
+nImO::SpValue
 nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                   size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    Value  *result = NULL;
-    size_t localIndex = position;
-    int    aChar = inBuffer.getChar(localIndex);
+    SpValue result;
+    size_t  localIndex = position;
+    int     aChar = inBuffer.getChar(localIndex);
 
     // Skip over whitespace
     for ( ; isspace(aChar); )
@@ -428,7 +428,7 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Value::readFromStringBuffer
 

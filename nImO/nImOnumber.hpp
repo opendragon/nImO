@@ -97,7 +97,7 @@ namespace nImO
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
-        static Value *
+        static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);
 

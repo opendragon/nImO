@@ -280,20 +280,20 @@ nImO::StringBuffer::addTab(void)
     return *this;
 } // nImO::StringBuffer::addTab
 
-nImO::Value *
+nImO::SpValue
 nImO::StringBuffer::convertToValue(void)
 const
 {
     ODL_OBJENTER(); //####
-    size_t position = 0;
-    Value  *result = Value::readFromStringBuffer(*this, position);
+    size_t  position = 0;
+    SpValue result(Value::readFromStringBuffer(*this, position));
 
-    ODL_P1("result <- ", result); //####
+    ODL_P1("result <- ", result.get()); //####
     if (result)
     {
-        bool  done = false;
-        bool  valid = true;
-        Array *holder = NULL;
+        bool    done = false;
+        bool    valid = true;
+        SpArray holder;
 
         for ( ; ! done; )
         {
@@ -319,12 +319,12 @@ const
             {
                 if (NULL == holder)
                 {
-                    holder = new Array;
-                    ODL_P1("holder <- ", holder); //####
+                    holder.reset(new Array);
+                    ODL_P1("holder <- ", holder.get()); //####
                 }
                 holder->addValue(result);
                 result = Value::readFromStringBuffer(*this, position);
-                ODL_P1("result <- ", result); //####
+                ODL_P1("result <- ", result.get()); //####
                 if (! result)
                 {
                     ODL_LOG("(! result)"); //####
@@ -338,22 +338,20 @@ const
             if (holder)
             {
                 result = holder;
-                ODL_P1("result <- ", result); //####
+                ODL_P1("result <- ", result.get()); //####
             }
         }
         else
         {
             ODL_LOG("! (valid)"); //####
-            delete holder;
-            delete result;
-            result = NULL;
+            result.reset();
         }
     }
     else
     {
         ODL_LOG("! (result)"); //####
     }
-    ODL_OBJEXIT_P(result); //####
+    ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::StringBuffer::convertToValue
 

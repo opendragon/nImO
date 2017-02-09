@@ -1294,8 +1294,8 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
-                                                         ii);
+                    uint8_t *addr = smallBlob.get();
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     smallBlob[ii] = aByte;
                 }
@@ -1391,7 +1391,8 @@ doTestStringBufferWithBigBlob(const char *launchPath,
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                    uint8_t *addr = bigBlob.get();
+                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     bigBlob[ii] = aByte;
                 }
@@ -1859,7 +1860,7 @@ doTestDefaultStringValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::String> stuff(new nImO::String);
+        nImO::UpString stuff(new nImO::String);
 
         if (stuff)
         {
@@ -1922,7 +1923,7 @@ doTestStringValue(const char *launchPath,
     {
         if (1 < argc)
         {
-            std::unique_ptr<nImO::String> stuff(new nImO::String(*argv));
+            nImO::UpString stuff(new nImO::String(*argv));
 
             if (stuff)
             {
@@ -1988,9 +1989,9 @@ doTestStringValueWithEscapes(const char *launchPath,
 
     try
     {
-        const char                    *inString = "abc\tdef\f\rghi\302";
-        const char                    *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        std::unique_ptr<nImO::String> stuff(new nImO::String(inString));
+        const char     *inString = "abc\tdef\f\rghi\302";
+        const char     *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        nImO::UpString stuff(new nImO::String(inString));
 
         if (stuff)
         {
@@ -2118,7 +2119,8 @@ doTestSmallBlobValue(const char *launchPath,
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
+                                                     ii);
 
                 smallBlob[ii] = aByte;
             }
@@ -2212,7 +2214,8 @@ doTestBigBlobValue(const char *launchPath,
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^
+                                                     ii);
 
                 bigBlob[ii] = aByte;
             }
@@ -2672,13 +2675,15 @@ doTestBlobCopyAndAssign(const char *launchPath,
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^
+                                                     ii);
 
                 bigBlob[ii] = aByte;
             }
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
+                                                     ii);
 
                 smallBlob[ii] = aByte;
             }

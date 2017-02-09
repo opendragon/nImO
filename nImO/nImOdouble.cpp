@@ -114,17 +114,6 @@ nImO::Double::~Double(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Value *
-nImO::Double::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    Double *result = new Double(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::Double::copy
-
 bool
 nImO::Double::deeplyEqualTo(const nImO::Value &other)
 const
@@ -199,31 +188,31 @@ const
     return result;
 } // nImO::Double::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::Double::extractValue(const nImO::Message &theMessage,
                            const int           leadByte,
                            size_t              &position,
                            nImO::ReadStatus    &status,
-                           nImO::Array         *parentValue)
+                           nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value   *result = NULL;
-    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask &leadByte));
+    SpValue result;
+    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask & leadByte));
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
-        howMany = (kKindDoubleShortCountMask &leadByte) + 1;
+        howMany = (kKindDoubleShortCountMask & leadByte) + 1;
         ODL_LL1("howMany <- ", howMany);
     }
     else
     {
-        size_t        size = (kKindDoubleLongCountMask &leadByte) + 1;
+        size_t        size = (kKindDoubleLongCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -284,7 +273,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             }
             if (okSoFar)
             {
-                result = new Double(B2D(holder));
+                result.reset(new Double(B2D(holder)));
                 if ((NULL != parentValue) && (NULL != result))
                 {
                     ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
@@ -293,7 +282,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             }
             else
             {
-                result = NULL;
+                result.reset();
             }
         }
         if (okSoFar)
@@ -302,7 +291,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             ODL_LL1("status <- ", status); //####
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Double::extractValue
 

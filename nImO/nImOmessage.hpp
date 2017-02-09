@@ -102,7 +102,7 @@ namespace nImO
         /*! @brief Return the next Value in the Message.
          @param[out] status Whether the Value was complete.
          @returns The next Value in the Message or @c NULL if the Value cannot be retrieved. */
-        Value *
+        SpValue
         getValue(ReadStatus &status);
 
         /*! @brief Open the Message, so that data can be read or written.

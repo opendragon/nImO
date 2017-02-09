@@ -107,7 +107,7 @@ nImO::Number::getInitialCharacters(void)
     return initialChars;
 } // nImO::Number::getInitialCharacters
 
-nImO::Value *
+nImO::SpValue
 nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                    size_t                   &position)
 {
@@ -136,7 +136,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     int       exponent = 0;
     int       fractionPower = 0;
     ScanState currentState = kScanInitial;
-    Value     *result = NULL;
+    SpValue   result;
     size_t    localIndex = position;
 
     for (int aChar; (! done); )
@@ -343,15 +343,15 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             {
                 fullNumber = (integerPart * std::pow(10.0, exponent)) + fractionPart;
             }
-            result = new Double(sawInitialMinus ? -fullNumber : fullNumber);
+            result.reset(new Double(sawInitialMinus ? -fullNumber : fullNumber));
         }
         else
         {
-            result = new Integer(sawInitialMinus ? -integerPart : integerPart);
+            result.reset(new Integer(sawInitialMinus ? -integerPart : integerPart));
         }
         position = localIndex;
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Number::readFromStringBuffer
 

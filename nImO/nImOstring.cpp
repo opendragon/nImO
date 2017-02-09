@@ -121,17 +121,6 @@ nImO::String::~String(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Value *
-nImO::String::clone(void)
-const
-{
-    ODL_OBJENTER(); //####
-    String *result = new String(*this);
-
-    ODL_OBJEXIT_P(result); //####
-    return result;
-} // nImO::String::copy
-
 bool
 nImO::String::deeplyEqualTo(const nImO::Value &other)
 const
@@ -194,34 +183,34 @@ const
     return result;
 } // nImO::String::equalTo
 
-nImO::Value *
+nImO::SpValue
 nImO::String::extractValue(const nImO::Message &theMessage,
                            const int           leadByte,
                            size_t              &position,
                            nImO::ReadStatus    &status,
-                           nImO::Array         *parentValue)
+                           nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue); //####
+           "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    Value  *result;
-    bool   isShort = (kKindStringOrBlobShortLengthValue ==
-                      (kKindStringOrBlobLengthMask &leadByte));
-    size_t numBytes = 0;
+    SpValue result;
+    bool    isShort = (kKindStringOrBlobShortLengthValue ==
+                       (kKindStringOrBlobLengthMask & leadByte));
+    size_t  numBytes = 0;
     
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (kKindStringOrBlobShortLengthMask &leadByte);
+        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
         status = kReadSuccessful;
         ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
     }
     else
     {
-        size_t        size = (kKindIntegerLongValueCountMask &leadByte) + 1;
+        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -276,25 +265,25 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             holder[numBytes] = '\0';
-            result = new String(holder.get());
+            result.reset(new String(holder.get()));
             status = kReadSuccessful;
             ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
         }
         else
         {
-            result = NULL;
+            result.reset();
         }
     }
     else
     {
-        result = new String;
+        result.reset(new String);
     }
     if ((NULL != parentValue) && (NULL != result))
     {
         ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
         parentValue->addValue(result);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::String::extractValue
 
@@ -537,15 +526,15 @@ const
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
 
-nImO::Value *
+nImO::SpValue
 nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                    size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    Value  *result = NULL;
-    size_t localIndex = position;
-    int    aChar = inBuffer.getChar(localIndex++);
+    SpValue result;
+    size_t  localIndex = position;
+    int     aChar = inBuffer.getChar(localIndex++);
 
     if ((kSingleQuote == aChar) || (kDoubleQuote == aChar))
     {
@@ -821,7 +810,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         {
             size_t length = 0;
 
-            result = new String(holding.getString(length));
+            result.reset(new String(holding.getString(length)));
             if (NULL != result)
             {
                 position = localIndex;
@@ -836,7 +825,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     {
         ODL_LOG("! ((kSingleQuote == aChar) || (kDoubleQuote == aChar))"); //####
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::String::readFromStringBuffer
 

@@ -56,7 +56,7 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    typedef std::set<Value *, CompareValues> SetBase;
+    typedef std::set<SpValue, CompareValues> SetBase;
 
     /*! @brief A class to provide collections with set-like behaviour.
 
@@ -114,7 +114,7 @@ namespace nImO
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
         InsertResult
-        addValue(Value *val);
+        addValue(SpValue val);
 
         /*! @brief Return non-@c NULL if the object is a Set.
          @returns Non-@c NULL if the object is a Set and @c NULL otherwise. */
@@ -145,12 +145,6 @@ namespace nImO
         /*! @brief Remove all entries from the Set. */
         void
         clear(void);
-
-        /*! @brief Return a copy of the object.
-         @returns Returns a copy of the object. */
-        virtual Value *
-        clone(void)
-        const;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -191,14 +185,14 @@ namespace nImO
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         iterator
-        find(const Value &key);
+        find(SpValue key);
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         const_iterator
-        find(const Value &key)
+        find(SpValue key)
         const;
 
         /*! @brief Get the extraction information for Set objects.
@@ -288,7 +282,7 @@ namespace nImO
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
-        static Value *
+        static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);
 
@@ -331,12 +325,12 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c NULL if there is a problem with the extraction and non-@c NULL if
          a Value was found and processed. */
-        static Value *
+        static SpValue
         extractValue(const Message &theMessage,
                      const int     leadByte,
                      size_t        &position,
                      ReadStatus    &status,
-                     Array         *parentValue);
+                     SpArray       parentValue);
 
     public :
         // Public fields.

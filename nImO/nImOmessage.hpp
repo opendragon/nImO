@@ -91,13 +91,15 @@ namespace nImO
          @param[out] length Set to the number of valid bytes in the buffer.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
-        getBytes(size_t &length);
+        getBytes(size_t &length)
+        override;
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
         virtual size_t
         getLength(void)
-        const;
+        const
+        override;
 
         /*! @brief Return the next Value in the Message.
          @param[out] status Whether the Value was complete.
@@ -114,8 +116,9 @@ namespace nImO
 
         /*! @brief Prepare the Message for reuse.
          @returns The Message object so that cascading can be done. */
-        virtual ChunkArray &
-        reset(void);
+        ChunkArray &
+        reset(void)
+        override;
 
         /*! @brief Set the contents of the Message.
          @param[in] theValue The value to be put in the Message.

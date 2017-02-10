@@ -107,7 +107,8 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual BaseArgumentDescriptor *
-        clone(void);
+        clone(void)
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -118,14 +119,16 @@ namespace nImO
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void);
+        toString(void)
+        override;
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string &value);
+        validate(const std::string &value)
+        override;
 
     public :
 

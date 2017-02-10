@@ -92,6 +92,7 @@ namespace nImO
         virtual inline const Double *
         asDouble(void)
         const
+        override
         {
             return this;
         } // asDouble
@@ -101,13 +102,15 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo(const Value &other)
-        const;
+        const
+        override;
         
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
         enumerationType(void)
         const
+        override
         {
             return kEnumerableNotEnumerable;
         } // enumerationType
@@ -120,7 +123,8 @@ namespace nImO
         virtual bool
         equalTo(const Value &other,
                 bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
@@ -145,6 +149,7 @@ namespace nImO
         virtual inline uint8_t
         getTypeTag(void)
         const
+        override
         {
             return kKindOtherMessageExpectedDoubleValue;
         } // getTypeTag
@@ -157,7 +162,8 @@ namespace nImO
         virtual bool
         greaterThan(const Value &other,
                     bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -167,7 +173,8 @@ namespace nImO
         virtual bool
         greaterThanOrEqual(const Value &other,
                            bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -177,7 +184,8 @@ namespace nImO
         virtual bool
         lessThan(const Value &other,
                  bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -187,7 +195,8 @@ namespace nImO
         virtual bool
         lessThanOrEqual(const Value &other,
                         bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -208,13 +217,15 @@ namespace nImO
         virtual void
         printToStringBuffer(StringBuffer &outBuffer,
                             const bool   squished = false)
-        const;
+        const
+        override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage(Message &outMessage)
-        const;
+        const
+        override;
 
         /*! @brief Add the binary representation of a sequence of values to the message.
          @param[in,out] values The values to be added.

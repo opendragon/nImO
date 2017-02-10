@@ -92,6 +92,7 @@ namespace nImO
         virtual inline const Boolean *
         asBoolean(void)
         const
+        override
         {
             return this;
         } // asBoolean
@@ -101,13 +102,15 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo(const Value &other)
-        const;
+        const
+        override;
                 
         /*! @brief Return the enumeraton type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
         enumerationType(void)
         const
+        override
         {
             return kEnumerableBoolean;
         } // enumerationType
@@ -120,7 +123,8 @@ namespace nImO
         virtual bool
         equalTo(const Value &other,
                 bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the standard textual representation of a boolean value.
          @param[in] aValue The value to be represented.
@@ -147,6 +151,7 @@ namespace nImO
         virtual inline uint8_t
         getTypeTag(void)
         const
+        override
         {
             return kKindOtherMessageExpectedOtherValue;
         } // getTypeTag
@@ -168,7 +173,8 @@ namespace nImO
         virtual bool
         greaterThan(const Value &other,
                     bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -178,7 +184,8 @@ namespace nImO
         virtual bool
         greaterThanOrEqual(const Value &other,
                            bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -188,7 +195,8 @@ namespace nImO
         virtual bool
         lessThan(const Value &other,
                  bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -198,7 +206,8 @@ namespace nImO
         virtual bool
         lessThanOrEqual(const Value &other,
                         bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -219,7 +228,8 @@ namespace nImO
         virtual void
         printToStringBuffer(StringBuffer &outBuffer,
                             const bool   squished = false)
-        const;
+        const
+        override;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
@@ -233,7 +243,8 @@ namespace nImO
          @param[out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage(Message &outMessage)
-        const;
+        const
+        override;
 
     protected :
         // Protected methods.

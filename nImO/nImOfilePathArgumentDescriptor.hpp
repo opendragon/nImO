@@ -120,12 +120,14 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual BaseArgumentDescriptor *
-        clone(void);
+        clone(void)
+        override;
 
         /*! @brief Return the default value.
          @returns The default value. */
         virtual std::string
-        getDefaultValue(void);
+        getDefaultValue(void)
+        override;
 
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
@@ -134,6 +136,7 @@ namespace nImO
         virtual inline bool
         isForFiles(bool &isForOutput)
         const
+        override
         {
             isForOutput = _forOutput;
             return true;
@@ -147,19 +150,22 @@ namespace nImO
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
-        setToDefaultValue(void);
+        setToDefaultValue(void)
+        override;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void);
+        toString(void)
+        override;
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string &value);
+        validate(const std::string &value)
+        override;
 
     public :
 

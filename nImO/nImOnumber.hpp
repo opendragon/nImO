@@ -84,6 +84,7 @@ namespace nImO
         virtual inline const Number *
         asNumber(void)
         const
+        override
         {
             return this;
         } // asNumber

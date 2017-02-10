@@ -84,6 +84,7 @@ namespace nImO
         virtual inline const Container *
         asContainer(void)
         const
+        override
         {
             return this;
         } // asContainer

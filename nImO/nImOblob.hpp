@@ -94,6 +94,7 @@ namespace nImO
         virtual inline const Blob *
         asBlob(void)
         const
+        override
         {
             return this;
         } // asBlob
@@ -103,7 +104,8 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo(const Value &other)
-        const;
+        const
+        override;
         
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -113,7 +115,8 @@ namespace nImO
         virtual bool
         equalTo(const Value &other,
                 bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Get the extraction information for Blob objects.
          @param[out] aByte The byte value that indicates the start of a Blob value.
@@ -129,6 +132,7 @@ namespace nImO
         virtual inline uint8_t
         getTypeTag(void)
         const
+        override
         {
             return kKindOtherMessageExpectedStringOrBlobValue;
         } // getTypeTag
@@ -151,7 +155,8 @@ namespace nImO
         virtual bool
         greaterThan(const Value &other,
                     bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -161,7 +166,8 @@ namespace nImO
         virtual bool
         greaterThanOrEqual(const Value &other,
                            bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -171,7 +177,8 @@ namespace nImO
         virtual bool
         lessThan(const Value &other,
                  bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -181,7 +188,8 @@ namespace nImO
         virtual bool
         lessThanOrEqual(const Value &other,
                         bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -196,13 +204,15 @@ namespace nImO
         virtual void
         printToStringBuffer(StringBuffer &outBuffer,
                             const bool   squished = false)
-        const;
+        const
+        override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in] outMessage The Message to be appended to. */
         virtual void
         writeToMessage(Message &outMessage)
-        const;
+        const
+        override;
 
     protected :
         // Protected methods.

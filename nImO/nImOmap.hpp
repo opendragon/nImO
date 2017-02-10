@@ -126,6 +126,7 @@ namespace nImO
         virtual inline const Map *
         asMap(void)
         const
+        override
         {
             return this;
         } // asMap
@@ -156,7 +157,8 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo(const Value &other)
-        const;
+        const
+        override;
         
         /*! @brief Return an iterator pointing past the last element of the Array.
          @returns An iterator pointing past the last element of the Array. */
@@ -183,7 +185,8 @@ namespace nImO
         virtual bool
         equalTo(const Value &other,
                 bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
@@ -224,6 +227,7 @@ namespace nImO
         virtual inline uint8_t
         getTypeTag(void)
         const
+        override
         {
             return kKindOtherMessageExpectedOtherValue;
         } // getTypeTag
@@ -236,7 +240,8 @@ namespace nImO
         virtual bool
         greaterThan(const Value &other,
                     bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -246,7 +251,8 @@ namespace nImO
         virtual bool
         greaterThanOrEqual(const Value &other,
                            bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -256,7 +262,8 @@ namespace nImO
         virtual bool
         lessThan(const Value &other,
                  bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -266,7 +273,8 @@ namespace nImO
         virtual bool
         lessThanOrEqual(const Value &other,
                         bool        &validComparison)
-        const;
+        const
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -281,7 +289,8 @@ namespace nImO
         virtual void
         printToStringBuffer(StringBuffer &outBuffer,
                             const bool   squished = false)
-        const;
+        const
+        override;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
@@ -304,7 +313,8 @@ namespace nImO
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage(Message &outMessage)
-        const;
+        const
+        override;
 
     protected :
         // Protected methods.

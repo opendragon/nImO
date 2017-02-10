@@ -545,6 +545,24 @@ namespace nImO
                  const void   *second,
                  const size_t numBytes);
 
+    /*! @brief Convert a string to a double value.
+     @param[in] startPtr The string to be converted.
+     @param[out] result The value represented by the string.
+     @returns @c true if the string contained a representation of a double and @c false
+     otherwise. */
+    bool
+    ConvertToDouble(const char *startPtr,
+                    double      &result);
+    
+    /*! @brief Convert a string to an integer value.
+     @param[in] startPtr The string to be converted.
+     @param[out] result The value represented by the string.
+     @returns @c true if the string contained a representation of an integer and @c false
+     otherwise. */
+    bool
+    ConvertToLong(const char *startPtr,
+                  int64_t    &result);
+
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */

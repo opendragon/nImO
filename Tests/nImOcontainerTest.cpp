@@ -7006,11 +7006,9 @@ main(int  argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char *startPtr = argv[1];
-            char       *endPtr;
-            int        selector = strtol(startPtr, &endPtr, 10);
-
-            if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
+            int64_t selector;
+            
+            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 nImO::SetSignalHandlers(catchSignal);
                 switch (selector)

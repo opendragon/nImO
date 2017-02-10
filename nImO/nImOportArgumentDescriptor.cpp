@@ -168,11 +168,13 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
 
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char *startPtr = defaultString.c_str();
-            char       *endPtr;
-
-            defaultValue = strtol(startPtr, &endPtr, 10);
-            if ((startPtr == endPtr) || *endPtr)
+            int64_t intValue;
+            
+            if (nImO::ConvertToLong(defaultString.c_str(), intValue))
+            {
+                defaultValue = intValue;
+            }
+            else
             {
                 okSoFar = false;
             }

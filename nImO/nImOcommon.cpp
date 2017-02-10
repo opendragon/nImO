@@ -234,6 +234,56 @@ nImO::CompareBytes(const void   *first,
     return result;
 } // nImO::CompareBytes
 
+bool
+nImO::ConvertToDouble(const char *startPtr,
+                      double     &result)
+{
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
+    bool   okSoFar;
+    char   *endPtr;
+    double value = strtod(startPtr, &endPtr);
+    
+    if ((startPtr != endPtr) && (! *endPtr))
+    {
+        result = value;
+        ODL_D1("result <- ", result); //####
+        okSoFar = true;
+    }
+    else
+    {
+        okSoFar = false;
+    }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ConvertToDouble
+
+bool
+nImO::ConvertToLong(const char *startPtr,
+                    int64_t    &result)
+{
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
+    bool okSoFar;
+    char *endPtr;
+    long value = strtol(startPtr, &endPtr, 10);
+    
+    if ((startPtr != endPtr) && (! *endPtr))
+    {
+        result = value;
+        ODL_L1("result <- ", result); //####
+        okSoFar = true;
+    }
+    else
+    {
+        okSoFar = false;
+    }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ConvertToLong
+
 void
 nImO::D2B(const double        inValue,
           nImO::NumberAsBytes &outString)

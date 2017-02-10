@@ -683,12 +683,9 @@ main(int  argc,
         nImO::Initialize(progName);
         if (3 < --argc)
         {
-            const char *startPtr = argv[1];
-            char       *endPtr;
-            int        selector = strtol(startPtr, &endPtr, 10);
-
-            ODL_LL1("selector <- ", selector); //####
-            if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
+            int64_t selector;
+            
+            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
 

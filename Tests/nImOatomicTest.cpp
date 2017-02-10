@@ -730,11 +730,9 @@ doTestStringBufferWithBoolean(const char *launchPath,
         if (1 < argc)
         {
             const char *outString = argv[1];
-            const char *startPtr = *argv;
-            char       *endPtr;
-            int        value = strtol(startPtr, &endPtr, 10);
+            int64_t    value;
 
-            if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
+            if (nImO::ConvertToLong(*argv, value) && (0 <= value))
             {
                 nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
@@ -812,11 +810,9 @@ doTestStringBufferWithInteger(const char *launchPath,
         if (1 < argc)
         {
             const char *outString = argv[1];
-            const char *startPtr = *argv;
-            char       *endPtr;
-            int        value = strtol(startPtr, &endPtr, 10);
-
-            if ((startPtr != endPtr) && (! *endPtr))
+            int64_t    value;
+            
+            if (nImO::ConvertToLong(*argv, value))
             {
                 nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
@@ -1052,11 +1048,9 @@ doTestStringBufferWithDouble(const char *launchPath,
         if (1 < argc)
         {
             const char *outString = argv[1];
-            const char *startPtr = *argv;
-            char       *endPtr;
-            double     value = strtod(startPtr, &endPtr);
-
-            if ((startPtr != endPtr) && (! *endPtr))
+            double     value;
+            
+            if (nImO::ConvertToDouble(*argv, value))
             {
                 nImO::UpStringBuffer stuff(new nImO::StringBuffer);
 
@@ -1616,11 +1610,9 @@ doTestBooleanValue(const char *launchPath,
         if (1 < argc)
         {
             const char *outString = argv[1];
-            const char *startPtr = *argv;
-            char       *endPtr;
-            int        value = strtol(startPtr, &endPtr, 10);
-
-            if ((startPtr != endPtr) && (! *endPtr) && (0 <= value))
+            int64_t    value;
+            
+            if (nImO::ConvertToLong(*argv, value) && (0 <= value))
             {
                 std::unique_ptr<nImO::Boolean> stuff(new nImO::Boolean(0 != value));
 
@@ -1758,11 +1750,9 @@ doTestNumberValue(const char *launchPath,
         if (1 < argc)
         {
             const char *outString = argv[1];
-            const char *startPtr = *argv;
-            char       *endPtr;
-            int64_t    intValue = strtol(startPtr, &endPtr, 10);
-
-            if ((startPtr != endPtr) && (! *endPtr))
+            int64_t    intValue;
+            
+            if (nImO::ConvertToLong(*argv, intValue))
             {
                 std::unique_ptr<nImO::Integer> stuff(new nImO::Integer(intValue));
 
@@ -1784,9 +1774,9 @@ doTestNumberValue(const char *launchPath,
             }
             else
             {
-                double floatValue = strtod(startPtr, &endPtr);
-
-                if ((startPtr != endPtr) && (! *endPtr))
+                double floatValue;
+                
+                if (nImO::ConvertToDouble(*argv, floatValue))
                 {
                     std::unique_ptr<nImO::Double> stuff(new nImO::Double(floatValue));
 
@@ -4188,11 +4178,9 @@ main(int  argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char *startPtr = argv[1];
-            char       *endPtr;
-            int        selector = strtol(startPtr, &endPtr, 10);
-
-            if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
+            int64_t selector;
+            
+            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 nImO::SetSignalHandlers(catchSignal);
                 switch (selector)

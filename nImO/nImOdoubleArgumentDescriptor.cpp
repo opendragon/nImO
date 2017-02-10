@@ -200,33 +200,39 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char *startPtr = defaultString.c_str();
-            char       *endPtr;
-
-            defaultValue = strtod(startPtr, &endPtr);
-            if ((startPtr == endPtr) || *endPtr)
+            double dblValue;
+            
+            if (nImO::ConvertToDouble(defaultString.c_str(), dblValue))
+            {
+                minValue = defaultValue;
+            }
+            else
             {
                 okSoFar = false;
             }
         }
         if (okSoFar && (0 < minValString.length()))
         {
-            const char *startPtr = minValString.c_str();
-            char       *endPtr;
-
-            minValue = strtod(startPtr, &endPtr);
-            if ((startPtr == endPtr) || *endPtr)
+            double dblValue;
+            
+            if (nImO::ConvertToDouble(minValString.c_str(), dblValue))
+            {
+                minValue = dblValue;
+            }
+            else
             {
                 okSoFar = false;
             }
         }
         if (okSoFar && (0 < maxValString.length()))
         {
-            const char *startPtr = maxValString.c_str();
-            char       *endPtr;
-
-            maxValue = strtod(startPtr, &endPtr);
-            if ((startPtr == endPtr) || *endPtr)
+            double dblValue;
+            
+            if (nImO::ConvertToDouble(maxValString.c_str(), dblValue))
+            {
+                maxValue = dblValue;
+            }
+            else
             {
                 okSoFar = false;
             }
@@ -285,11 +291,9 @@ bool
 DoubleArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
-    const char *startPtr = value.c_str();
-    char       *endPtr;
-    double     dblValue = strtod(startPtr, &endPtr);
+    double dblValue;
 
-    if ((startPtr != endPtr) && (! *endPtr))
+    if (nImO::ConvertToDouble(value.c_str(), dblValue))
     {
         _valid = true;
         ODL_B1("_valid <- ", _valid); //####

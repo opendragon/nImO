@@ -200,7 +200,7 @@ doTestInsertEmptyMessage(const char *launchPath,
             else
             {
                 stuff->close();
-		contents = stuff->getBytes(length);
+		        contents = stuff->getBytes(length);
                 ODL_PACKET("contents", contents, length); //####
                 if ((NULL != contents) && (expectedCount == length))
                 {
@@ -4132,12 +4132,9 @@ main(int  argc,
         nImO::Initialize(progName);
         if (0 < --argc)
         {
-            const char *startPtr = argv[1];
-            char       *endPtr;
-            int        selector = strtol(startPtr, &endPtr, 10);
-
-            ODL_LL1("selector <- ", selector); //####
-            if ((startPtr != endPtr) && (! *endPtr) && (0 < selector))
+            int64_t selector;
+            
+            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 nImO::SetSignalHandlers(catchSignal);
                 switch (selector)

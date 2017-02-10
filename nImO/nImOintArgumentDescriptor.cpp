@@ -199,33 +199,39 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar && (0 < defaultString.length()))
         {
-            const char *startPtr = defaultString.c_str();
-            char       *endPtr;
-
-            defaultValue = strtol(startPtr, &endPtr, 10);
-            if ((startPtr == endPtr) || *endPtr)
+            int64_t intValue;
+            
+            if (nImO::ConvertToLong(defaultString.c_str(), intValue))
+            {
+                defaultValue = intValue;
+            }
+            else
             {
                 okSoFar = false;
             }
         }
         if (okSoFar && (0 < minValString.length()))
         {
-            const char *startPtr = minValString.c_str();
-            char       *endPtr;
-
-            minValue = strtol(startPtr, &endPtr, 10);
-            if ((startPtr == endPtr) || *endPtr)
+            int64_t intValue;
+            
+            if (nImO::ConvertToLong(minValString.c_str(), intValue))
+            {
+                minValue = intValue;
+            }
+            else
             {
                 okSoFar = false;
             }
         }
         if (okSoFar && (0 < maxValString.length()))
         {
-            const char *startPtr = maxValString.c_str();
-            char       *endPtr;
-
-            maxValue = strtol(startPtr, &endPtr, 10);
-            if ((startPtr == endPtr) || *endPtr)
+            int64_t intValue;
+            
+            if (nImO::ConvertToLong(maxValString.c_str(), intValue))
+            {
+                maxValue = intValue;
+            }
+            else
             {
                 okSoFar = false;
             }
@@ -284,11 +290,9 @@ bool
 IntArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
-    const char *startPtr = value.c_str();
-    char       *endPtr;
-    int        intValue = strtol(startPtr, &endPtr, 10);
-
-    if ((startPtr != endPtr) && (! *endPtr))
+    int64_t intValue;
+    
+    if (nImO::ConvertToLong(value.c_str(), intValue))
     {
         _valid = true;
         ODL_B1("_valid <- ", _valid); //####

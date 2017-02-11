@@ -7,6 +7,8 @@ List/nImOlist.rc
 libnImOcommon.dylib
 nImOconfig.hpp
 odl/libodLogging.dylib
+Monitor/nImOmonitor
+Monitor/nImOmonitor.rc
 Read/nImOread
 Read/nImOread.rc
 Testing
@@ -24,6 +26,8 @@ Tests/nImOmessageTest
 Tests/nImOmessageTest.rc
 Tests/nImOparserTest
 Tests/nImOparserTest.rc
+Tests/nImOzeroConfTest
+Tests/nImOzeroConfTest.rc
 Version/nImOversion
 Version/nImOversion.rc
 Write/nImOwrite
@@ -44,5 +48,3 @@ CMakeCache.txt
 CTestTestfile.cmake
 install_manifest.txt
 CMakeFiles
-Monitor/nImOmonitor
-Monitor/nImOmonitor.rc

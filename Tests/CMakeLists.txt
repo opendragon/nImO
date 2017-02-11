@@ -850,3 +850,283 @@ add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
 add_test(NAME TestExtractStringSetMessage COMMAND ${THIS_TARGET} 165)
 
+set(THIS_TARGET nImOzeroConfTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else(WIN32)
+    set(VERS_RESOURCE "")
+endif(WIN32)
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImOzeroConfTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+if(APPLE)
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
+endif(APPLE)
+
+## Test parse of boolean false value
+#add_test(NAME TestBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+## Test parse of boolean true value
+#add_test(NAME TestBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
+## Test parse of abbreviated boolean false value
+#add_test(NAME TestAbbreviatedBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fal" "false")
+## Test parse of abbreviated boolean true value
+#add_test(NAME TestAbbreviatedBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru" "true")
+## Test parse of minimal boolean false value
+#add_test(NAME TestMinimalBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "f" "false")
+## Test parse of minimal boolean true value
+#add_test(NAME TestMinimalBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "t" "true")
+## Test parse of invalid boolean value
+#add_test(NAME TestInvalidBooleanValue COMMAND ${THIS_TARGET} 1 f "42" "")
+## Test parse of invalid boolean false value
+#add_test(NAME TestInvalidBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "falze" "")
+## Test parse of invalid boolean true value
+#add_test(NAME TestInvalidBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "trve" "")
+## Test parse of whitespace and boolean false value
+#add_test(NAME TestWhitespaceAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  " "false")
+## Test parse of whitespace and boolean true value
+#add_test(NAME TestWhitespaceAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  " "true")
+#
+## Test parse of number value
+#add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0" "0")
+## Test parse of number value
+#add_test(NAME TestNumberValue02 COMMAND ${THIS_TARGET} 2 t "1234" "1234")
+## Test parse of number value
+#add_test(NAME TestNumberValue03 COMMAND ${THIS_TARGET} 2 t "1234.5" "1234.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue04 COMMAND ${THIS_TARGET} 2 t "-1234.5" "-1234.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue05 COMMAND ${THIS_TARGET} 2 t "-.5" "-0.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue06 COMMAND ${THIS_TARGET} 2 t ".5" "0.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue07 COMMAND ${THIS_TARGET} 2 t "+.5" "0.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue08 COMMAND ${THIS_TARGET} 2 t "0.5" "0.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue09 COMMAND ${THIS_TARGET} 2 t "1e2" "100")
+## Test parse of number value
+#add_test(NAME TestNumberValue10 COMMAND ${THIS_TARGET} 2 t "1E+2" "100")
+## Test parse of number value
+#add_test(NAME TestNumberValue11 COMMAND ${THIS_TARGET} 2 t "1e-2" "0.01")
+## Test parse of number value
+#add_test(NAME TestNumberValue12 COMMAND ${THIS_TARGET} 2 t "-1e2" "-100")
+## Test parse of number value
+#add_test(NAME TestNumberValue13 COMMAND ${THIS_TARGET} 2 t "-1e+2" "-100")
+## Test parse of number value
+#add_test(NAME TestNumberValue14 COMMAND ${THIS_TARGET} 2 t "-1e-2" "-0.01")
+## Test parse of number value
+#add_test(NAME TestNumberValue15 COMMAND ${THIS_TARGET} 2 t "+1e2" "100")
+## Test parse of number value
+#add_test(NAME TestNumberValue16 COMMAND ${THIS_TARGET} 2 t "+1e+2" "100")
+## Test parse of number value
+#add_test(NAME TestNumberValue17 COMMAND ${THIS_TARGET} 2 t "+1e-2" "0.01")
+## Test parse of number value
+#add_test(NAME TestNumberValue18 COMMAND ${THIS_TARGET} 2 t "-.5e0" "-0.5")
+## Test parse of number value
+#add_test(NAME TestNumberValue19 COMMAND ${THIS_TARGET} 2 t ".5e1" "5")
+## Test parse of number value
+#add_test(NAME TestNumberValue20 COMMAND ${THIS_TARGET} 2 t "+.5e-001" "0.05")
+## Test parse of number value
+#add_test(NAME TestNumberValue21 COMMAND ${THIS_TARGET} 2 t "0.5E3" "500")
+#
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue01 COMMAND ${THIS_TARGET} 2 f "f" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue02 COMMAND ${THIS_TARGET} 2 f "+-" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue03 COMMAND ${THIS_TARGET} 2 f "+e" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue04 COMMAND ${THIS_TARGET} 2 f "-e" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue05 COMMAND ${THIS_TARGET} 2 f "1a" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue06 COMMAND ${THIS_TARGET} 2 f "1.f" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue07 COMMAND ${THIS_TARGET} 2 f "1ex" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue08 COMMAND ${THIS_TARGET} 2 f "1e+-" "")
+## Test parse of invalid number value
+#add_test(NAME TestInvalidNumberValue09 COMMAND ${THIS_TARGET} 2 f ".e" "")
+#
+## Test parse of string value
+#add_test(NAME TestStringValue01 COMMAND ${THIS_TARGET} 3 t "'abc'" "\"abc\"")
+## Test parse of string value
+#add_test(NAME TestStringValue02 COMMAND ${THIS_TARGET} 3 t "\"abc\"" "\"abc\"")
+## Test parse of string value
+#add_test(NAME TestStringValue03 COMMAND ${THIS_TARGET} 3 t "\"\"" "\"\"")
+## Test parse of string value
+#add_test(NAME TestStringValue04 COMMAND ${THIS_TARGET} 3 t "''" "\"\"")
+## Test parse of string value
+#add_test(NAME TestStringValue05 COMMAND ${THIS_TARGET} 3 t "\"\\\"\"" "'\"'")
+## Test parse of string value
+#add_test(NAME TestStringValue06 COMMAND ${THIS_TARGET} 3 t "\"'\"" "\"'\"")
+## Test parse of string value
+#add_test(NAME TestStringValue07 COMMAND ${THIS_TARGET} 3 t "\"@\\a\\b\\t\\n\\v\\f\\r\\e\\s=\""
+#         "\"@\\a\\b\\t\\n\\v\\f\\r\\e =\"")
+## Test parse of string value
+#add_test(NAME TestStringValue08 COMMAND ${THIS_TARGET} 3 t
+#         "\"@\\007\\010\\011\\012\\013\\014\\015\\033\\040=\"" "\"@\\a\\b\\t\\n\\v\\f\\r\\e =\"")
+## Test parse of string value
+#add_test(NAME TestStringValue09 COMMAND ${THIS_TARGET} 3 t
+#         "\"@\\C-g\\C-H\\C-i\\C-J\\C-k\\C-L\\C-m\\C-[=\"" "\"@\\a\\b\\t\\n\\v\\f\\r\\e=\"")
+## Test parse of string value
+#add_test(NAME TestStringValue10 COMMAND ${THIS_TARGET} 3 t "\"@\\cg\\cH\\ci\\cJ\\ck\\cL\\cm\\c[=\""
+#         "\"@\\a\\b\\t\\n\\v\\f\\r\\e=\"")
+## Test parse of string value
+#add_test(NAME TestStringValue11 COMMAND ${THIS_TARGET} 3 t "\"@\\M-!\\M-0\\M-A=\""
+#         "\"@\\M-!\\M-0\\M-A=\"")
+## Test parse of string value
+#add_test(NAME TestStringValue12 COMMAND ${THIS_TARGET} 3 t "\"@\\241\\260\\301=\""
+#         "\"@\\M-!\\M-0\\M-A=\"")
+## Test parse of string value
+#add_test(NAME TestStringValue13 COMMAND ${THIS_TARGET} 3 t "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\""
+#         "\"@\\M-\\C-@\\M-\\C-_\\M-\\C-@\\M-\\C-_\\377=\"")
+#
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue01 COMMAND ${THIS_TARGET} 3 f "'abc" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue02 COMMAND ${THIS_TARGET} 3 f "\"abc" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue03 COMMAND ${THIS_TARGET} 3 f "\"" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue04 COMMAND ${THIS_TARGET} 3 f "'" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue05 COMMAND ${THIS_TARGET} 3 f "\"@\\x\\y\\z=\"" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue06 COMMAND ${THIS_TARGET} 3 f "\"@\\008\\009=\"" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue07 COMMAND ${THIS_TARGET} 3 f "\"@\\C-0\\C-1=\"" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue08 COMMAND ${THIS_TARGET} 3 f "\"@\\c0\\c9=\"" "")
+## Test parse of string value
+#add_test(NAME TestInvalidStringValue09 COMMAND ${THIS_TARGET} 3 f "\"@\\M-\\C-0\\M-\\C-9=\"" "")
+#
+## Test parse of array value
+#add_test(NAME TestArrayValue01 COMMAND ${THIS_TARGET} 4 t "( )" "( )")
+## Test parse of array value
+#add_test(NAME TestArrayValue02 COMMAND ${THIS_TARGET} 4 t "()" "( )")
+## Test parse of array value
+#add_test(NAME TestArrayValue03 COMMAND ${THIS_TARGET} 4 t "( 42 )" "( 42 )")
+## Test parse of array value
+#add_test(NAME TestArrayValue04 COMMAND ${THIS_TARGET} 4 t "(42)" "( 42 )")
+## Test parse of array value
+#add_test(NAME TestArrayValue05 COMMAND ${THIS_TARGET} 4 t "(t)" "( true )")
+## Test parse of array value
+#add_test(NAME TestArrayValue06 COMMAND ${THIS_TARGET} 4 t "('abc')" "( \"abc\" )")
+## Test parse of array value
+#add_test(NAME TestArrayValue07 COMMAND ${THIS_TARGET} 4 t "(42.25 fa)" "( 42.25 false )")
+## Test parse of array value
+#add_test(NAME TestArrayValue08 COMMAND ${THIS_TARGET} 4 t "(fa 17)" "( false 17 )")
+## Test parse of array value
+#add_test(NAME TestArrayValue09 COMMAND ${THIS_TARGET} 4 t "(12 'abc' t)"
+#         "( 12 \"abc\" true )")
+#
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue01 COMMAND ${THIS_TARGET} 4 f "(" "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue02 COMMAND ${THIS_TARGET} 4 f "(]" "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue03 COMMAND ${THIS_TARGET} 4 f "( 42 " "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue04 COMMAND ${THIS_TARGET} 4 f "(12 'abc' t" "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue05 COMMAND ${THIS_TARGET} 4 f "(12t)" "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue06 COMMAND ${THIS_TARGET} 4 f "(t'abc')" "")
+## Test parse of array value
+#add_test(NAME TestInvalidArrayValue07 COMMAND ${THIS_TARGET} 4 f "('abc'12)" "")
+#
+## Test parse of set value
+#add_test(NAME TestSetValue01 COMMAND ${THIS_TARGET} 5 t "[ ]" "[ ]")
+## Test parse of set value
+#add_test(NAME TestSetValue02 COMMAND ${THIS_TARGET} 5 t "[]" "[ ]")
+## Test parse of set value
+#add_test(NAME TestSetValue03 COMMAND ${THIS_TARGET} 5 t "[ 42 ]" "[ 42 ]")
+## Test parse of set value
+#add_test(NAME TestSetValue04 COMMAND ${THIS_TARGET} 5 t "[42]" "[ 42 ]")
+## Test parse of set value
+#add_test(NAME TestSetValue05 COMMAND ${THIS_TARGET} 5 t "[t]" "[ true ]")
+## Test parse of set value
+#add_test(NAME TestSetValue06 COMMAND ${THIS_TARGET} 5 t "['abc']" "[ \"abc\" ]")
+#
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue01 COMMAND ${THIS_TARGET} 5 f "[42.25]" "")
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue02 COMMAND ${THIS_TARGET} 5 f "[fa 17]" "")
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue03 COMMAND ${THIS_TARGET} 5 f "[12 13 'abc']" "")
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue04 COMMAND ${THIS_TARGET} 5 f "[" "")
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue05 COMMAND ${THIS_TARGET} 5 f "[)" "")
+## Test parse of set value
+#add_test(NAME TestInvalidSetValue06 COMMAND ${THIS_TARGET} 5 f "[ 42 " "")
+#
+## Test parse of map value
+#add_test(NAME TestMapValue01 COMMAND ${THIS_TARGET} 6 t "{ }" "{ }")
+## Test parse of map value
+#add_test(NAME TestMapValue02 COMMAND ${THIS_TARGET} 6 t "{}" "{ }")
+## Test parse of map value
+#add_test(NAME TestMapValue03 COMMAND ${THIS_TARGET} 6 t "{ 42 > 12 }" "{ 42 > 12 }")
+## Test parse of map value
+#add_test(NAME TestMapValue04 COMMAND ${THIS_TARGET} 6 t "{42>12}" "{ 42 > 12 }")
+## Test parse of map value
+#add_test(NAME TestMapValue05 COMMAND ${THIS_TARGET} 6 t "{t>\"abc\"}" "{ true > \"abc\" }")
+## Test parse of map value
+#add_test(NAME TestMapValue06 COMMAND ${THIS_TARGET} 6 t "{'abc'>12.5}" "{ \"abc\" > 12.5 }")
+## Test parse of map value
+#add_test(NAME TestMapValue07 COMMAND ${THIS_TARGET} 6 t "{ 42 > [] }" "{ 42 > [ ] }")
+## Test parse of map value
+#add_test(NAME TestMapValue08 COMMAND ${THIS_TARGET} 6 t "{ 42 > () }" "{ 42 > ( ) }")
+## Test parse of map value
+#add_test(NAME TestMapValue09 COMMAND ${THIS_TARGET} 6 t "{ 42 > {} }" "{ 42 > { } }")
+#
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue01 COMMAND ${THIS_TARGET} 6 f "{42.25}" "")
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue02 COMMAND ${THIS_TARGET} 6 f "{fa 17}" "")
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue03 COMMAND ${THIS_TARGET} 6 f "{12 13 'abc'}" "")
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue04 COMMAND ${THIS_TARGET} 6 f "{" "")
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue05 COMMAND ${THIS_TARGET} 6 f "{)" "")
+## Test parse of map value
+#add_test(NAME TestInvalidMapValue06 COMMAND ${THIS_TARGET} 6 f "{ 42 " "")
+#
+## Test parse of implicit array
+#add_test(NAME TestImplicitArrayValue01 COMMAND ${THIS_TARGET} 7 t "1 2" "( 1 2 )")
+## Test parse of implicit array
+#add_test(NAME TestImplicitArrayValue02 COMMAND ${THIS_TARGET} 7 t "1 t" "( 1 true )")
+## Test parse of implicit array
+#add_test(NAME TestImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 t "'abc' 2" "( \"abc\" 2 )")
+## Test parse of implicit array
+#add_test(NAME TestImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 t "(1 2) 3" "( ( 1 2 ) 3 )")
+#
+## Test parse of implicit array
+#add_test(NAME TestInvalidImplicitArrayValue01 COMMAND ${THIS_TARGET} 7 f "1 (" "")
+## Test parse of implicit array
+#add_test(NAME TestInvalidImplicitArrayValue02 COMMAND ${THIS_TARGET} 7 f "1 tx" "")
+## Test parse of implicit array
+#add_test(NAME TestInvalidImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 f "'abc' 2f" "")
+## Test parse of implicit array
+#add_test(NAME TestInvalidImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 f "(1 2) {" "")

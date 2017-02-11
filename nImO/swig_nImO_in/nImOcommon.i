@@ -21,6 +21,8 @@
 #include "nImOintArgumentDescriptor.hpp"
 #include "nImOinteger.hpp"
 #include "nImOmap.hpp"
+#include "nImOzeroConfClient.hpp"
+#include "nImOzeroConfService.hpp"
 #include "nImOmessage.hpp"
 #include "nImOnumber.hpp"
 #include "nImOportArgumentDescriptor.hpp"

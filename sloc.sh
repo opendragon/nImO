@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sloccount Connect Disconnect Info List Read Tests Version Write nImO odl
+sloccount Connect Disconnect Info List Monitor Read Tests Version Write nImO odl
 echo ---------------
 echo subtract the following -
 echo ---------------

@@ -72,6 +72,8 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
@@ -122,6 +124,8 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
@@ -164,7 +168,9 @@ if(nImO_DO_SWIG)
         nImOstring.cpp nImOstring.hpp
         nImOstringArgumentDescriptor.cpp nImOstringArgumentDescriptor.hpp
         nImOstringBuffer.cpp nImOstringBuffer.hpp
-        nImOvalue.cpp nImOvalue.hpp)
+        nImOvalue.cpp nImOvalue.hpp
+        nImOzeroConfClient.cpp mImOzeroConfClient.hpp
+        nImOzeroConfService.cpp mImOzeroConfService.hpp)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)

@@ -125,11 +125,9 @@ BaseArgumentDescriptor *
 IntArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new IntArgumentDescriptor(argumentName(),
-                                                               argumentDescription(),
-                                                               argumentMode(), _defaultValue,
-                                                               _hasMinimumValue, _minimumValue,
-                                                               _hasMaximumValue, _maximumValue);
+    auto result = new IntArgumentDescriptor(argumentName(), argumentDescription(),
+                                            argumentMode(), _defaultValue, _hasMinimumValue,
+                                            _minimumValue, _hasMaximumValue, _maximumValue);
 
     ODL_EXIT_P(result);
     return result;

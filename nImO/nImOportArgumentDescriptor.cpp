@@ -111,10 +111,8 @@ BaseArgumentDescriptor *
 PortArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new PortArgumentDescriptor(argumentName(),
-                                                                argumentDescription(),
-                                                                argumentMode(), _defaultValue,
-                                                                _isSystemPort);
+    auto result = new PortArgumentDescriptor(argumentName(), argumentDescription(),
+                                             argumentMode(), _defaultValue, _isSystemPort);
 
     ODL_EXIT_P(result);
     return result;

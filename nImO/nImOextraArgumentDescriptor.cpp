@@ -114,8 +114,7 @@ BaseArgumentDescriptor *
 ExtraArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new ExtraArgumentDescriptor(argumentName(),
-                                                                 argumentDescription());
+    auto result = new ExtraArgumentDescriptor(argumentName(), argumentDescription());
 
     ODL_EXIT_P(result);
     return result;

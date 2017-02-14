@@ -108,10 +108,8 @@ BaseArgumentDescriptor *
 ChannelArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new ChannelArgumentDescriptor(argumentName(),
-                                                                   argumentDescription(),
-                                                                   argumentMode(),
-                                                                   getDefaultValue());
+    auto result = new ChannelArgumentDescriptor(argumentName(), argumentDescription(),
+                                                argumentMode(), getDefaultValue());
 
     ODL_EXIT_P(result);
     return result;

@@ -117,9 +117,8 @@ BaseArgumentDescriptor *
 StringArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new StringArgumentDescriptor(argumentName(),
-                                                                  argumentDescription(),
-                                                                  argumentMode(), _defaultValue);
+    auto result = new StringArgumentDescriptor(argumentName(), argumentDescription(),
+                                               argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result);
     return result;

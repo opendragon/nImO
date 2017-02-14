@@ -112,10 +112,8 @@ BaseArgumentDescriptor *
 AddressArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new AddressArgumentDescriptor(argumentName(),
-                                                                   argumentDescription(),
-                                                                   argumentMode(),
-                                                                   getDefaultValue());
+    auto result = new AddressArgumentDescriptor(argumentName(), argumentDescription(),
+                                                argumentMode(), getDefaultValue());
 
     ODL_EXIT_P(result);
     return result;

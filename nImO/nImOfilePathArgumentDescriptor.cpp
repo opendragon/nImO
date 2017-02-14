@@ -174,11 +174,9 @@ BaseArgumentDescriptor *
 FilePathArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new FilePathArgumentDescriptor(argumentName(),
-                                                                    argumentDescription(),
-                                                                    argumentMode(), _pathPrefix,
-                                                                    _pathSuffix, _forOutput,
-                                                                    _useRandomPath);
+    auto result = new FilePathArgumentDescriptor(argumentName(), argumentDescription(),
+                                                 argumentMode(), _pathPrefix, _pathSuffix,
+                                                 _forOutput, _useRandomPath);
 
     ODL_EXIT_P(result);
     return result;

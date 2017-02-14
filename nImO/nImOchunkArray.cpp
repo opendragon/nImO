@@ -165,7 +165,7 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
                 if (lastChunk)
                 {
                     ODL_LOG("(lastChunk)"); //####
-                    BufferChunk **newBuffers = new BufferChunk *[_numChunks + 1];
+                    auto newBuffers = new BufferChunk *[_numChunks + 1];
 
                     if (newBuffers)
                     {

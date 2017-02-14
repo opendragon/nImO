@@ -117,9 +117,8 @@ BaseArgumentDescriptor *
 BoolArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    BaseArgumentDescriptor *result = new BoolArgumentDescriptor(argumentName(),
-                                                                argumentDescription(),
-                                                                argumentMode(), _defaultValue);
+    auto result = new BoolArgumentDescriptor(argumentName(), argumentDescription(),
+                                             argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result);
     return result;

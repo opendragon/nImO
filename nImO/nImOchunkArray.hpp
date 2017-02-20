@@ -120,13 +120,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChunkArray(const ChunkArray &other);
+        ChunkArray(const ChunkArray &other) = delete;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         ChunkArray &
-        operator =(const ChunkArray &other);
+        operator =(const ChunkArray &other) = delete;
 
     public :
         // Public fields.

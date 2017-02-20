@@ -69,7 +69,7 @@ namespace nImO
         /*! @brief The class that this class is derived from. */
         typedef Number inherited;
 
-        public :
+    public :
         // Public methods.
 
         /*! @brief The constructor. */

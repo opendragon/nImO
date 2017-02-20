@@ -170,13 +170,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        StringBuffer(const StringBuffer &other);
+        StringBuffer(const StringBuffer &other) = delete;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         StringBuffer &
-        operator =(const StringBuffer &other);
+        operator =(const StringBuffer &other) = delete;
 
         /*! @brief Add quotes and escapes to a string.
          @param[in] aString The string to be processed.

@@ -134,7 +134,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Message(const Message &other);
+        Message(const Message &other) = delete;
 
         /*! @brief Acquire the object. */
         void
@@ -144,7 +144,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         Message &
-        operator =(const Message &other);
+        operator =(const Message &other) = delete;
 
         /*! @brief Release the object. */
         void

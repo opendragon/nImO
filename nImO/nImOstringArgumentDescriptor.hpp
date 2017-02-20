@@ -115,7 +115,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        StringArgumentDescriptor(const StringArgumentDescriptor &other);
+        StringArgumentDescriptor(const StringArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -141,7 +141,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         StringArgumentDescriptor &
-        operator =(const StringArgumentDescriptor &other);
+        operator =(const StringArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

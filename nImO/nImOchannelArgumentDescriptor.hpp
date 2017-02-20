@@ -100,7 +100,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChannelArgumentDescriptor(const ChannelArgumentDescriptor &other);
+        ChannelArgumentDescriptor(const ChannelArgumentDescriptor &other) = delete;
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
@@ -112,7 +112,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         ChannelArgumentDescriptor &
-        operator =(const ChannelArgumentDescriptor &other);
+        operator =(const ChannelArgumentDescriptor &other) = delete;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */

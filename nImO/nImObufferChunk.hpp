@@ -129,13 +129,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BufferChunk(const BufferChunk &other);
+        BufferChunk(const BufferChunk &other) = delete;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         BufferChunk &
-        operator =(const BufferChunk &other);
+        operator =(const BufferChunk &other) = delete;
 
     public :
         // Public fields.

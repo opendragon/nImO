@@ -340,13 +340,13 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BaseArgumentDescriptor(const BaseArgumentDescriptor &other);
+        BaseArgumentDescriptor(const BaseArgumentDescriptor &other) = delete;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         BaseArgumentDescriptor &
-        operator =(const BaseArgumentDescriptor &other);
+        operator =(const BaseArgumentDescriptor &other) = delete;
 
     public :
 

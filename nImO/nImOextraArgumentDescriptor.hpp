@@ -101,7 +101,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other);
+        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -145,7 +145,7 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         ExtraArgumentDescriptor &
-        operator =(const ExtraArgumentDescriptor &other);
+        operator =(const ExtraArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

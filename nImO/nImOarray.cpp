@@ -135,7 +135,7 @@ nImO::Array::addValue(nImO::SpValue newElement)
 } // nImO::Array::addValue
 
 nImO::SpValue
-nImO::Array::at(const size_t index)
+nImO::Array::at(const nImO::Array::size_type index)
 const
 {
     ODL_OBJENTER(); //####

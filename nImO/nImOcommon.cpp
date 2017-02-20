@@ -88,7 +88,7 @@ static bool lKeepRunning = false;
 
 #if MAC_OR_LINUX_
 /*! @brief The logger to use for reporting problems. */
-static yarp::os::impl::Logger * lLogger = NULL;
+static yarp::os::impl::Logger * lLogger = nullptr;
 #endif // MAC_OR_LINUX_
 #endif//0
 
@@ -559,26 +559,26 @@ nImO::SetSignalHandlers(nImO::SignalHandler theHandler)
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
 # if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGABRT, &act, NULL);
+    sigaction(SIGABRT, &act, nullptr);
 # endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGHUP, &act, NULL);
+    sigaction(SIGHUP, &act, nullptr);
 # endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGINT, &act, NULL);
+    sigaction(SIGINT, &act, nullptr);
 # endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGQUIT, &act, NULL);
+    sigaction(SIGQUIT, &act, nullptr);
 # endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGUSR1, &act, NULL);
+    sigaction(SIGUSR1, &act, nullptr);
 # endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGUSR2, &act, NULL);
+    sigaction(SIGUSR2, &act, nullptr);
 # endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
     sigemptyset(&blocking);
     sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_BLOCK, &blocking, NULL);
+    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
 #else // ! MAC_OR_LINUX_
 # if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
     //yarp::os::signal(SIGABRT, theHandler);
@@ -617,11 +617,11 @@ nImO::SetUpCatcher(void)
 #if MAC_OR_LINUX_
     sigemptyset(&unblocking);
     sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_UNBLOCK, &unblocking, NULL);
+    pthread_sigmask(SIG_UNBLOCK, &unblocking, nullptr);
     act.sa_handler = localCatcher;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, NULL);
+    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
 #else // ! MAC_OR_LINUX_
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
@@ -655,11 +655,11 @@ nImO::ShutDownCatcher(void)
 #if MAC_OR_LINUX_
     sigemptyset(&blocking);
     sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_BLOCK, &blocking, NULL);
+    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
     act.sa_handler = SIG_DFL;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, NULL);
+    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
 #else // ! MAC_OR_LINUX_
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
@@ -703,7 +703,7 @@ nImO::CanReadFromStandardInput(void)
         result = false;
     }
 #else // ! MAC_OR_LINUX_
-    result = (NULL != wind);
+    result = (nullptr != wind);
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT_B(result); //####
     return result;
@@ -1049,7 +1049,7 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
     }; // optionIndex
 
     bool                keepGoing = true;
-    Option_::Descriptor firstDescriptor(kOptionUNKNOWN, 0, "", "", Option_::Arg::None, NULL);
+    Option_::Descriptor firstDescriptor(kOptionUNKNOWN, 0, "", "", Option_::Arg::None, nullptr);
     Option_::Descriptor helpDescriptor(kOptionHELP, 0, "h", "help", Option_::Arg::None,
                                        T_("  --help, -h    Print usage and exit"));
     Option_::Descriptor infoDescriptor(kOptionINFO, 0, "i", "info", Option_::Arg::None,
@@ -1062,7 +1062,7 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
     Option_::Descriptor versionDescriptor(kOptionVERSION, 0, "v", "vers", Option_::Arg::None,
                                           T_("  --vers, -v    Print version information and "
                                              "exit"));
-    Option_::Descriptor lastDescriptor(0, 0, NULL, NULL, NULL, NULL);
+    Option_::Descriptor lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
     Option_::Descriptor usage[7];
     Option_::Descriptor *usageWalker = usage;
     int                 argcWork = argc;

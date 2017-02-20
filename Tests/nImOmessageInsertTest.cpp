@@ -128,13 +128,13 @@ setValueAndCheck(nImO::Message     &stuff,
 
     ODL_PACKET("expectedContents", expectedContents, expectedSize); //####
     ODL_PACKET("contents", contents, length); //####
-    if ((NULL != contents) && (expectedSize == length))
+    if ((nullptr != contents) && (expectedSize == length))
     {
         result = nImO::CompareBytes(expectedContents, contents, expectedSize);
     }
     else
     {
-        ODL_LOG("! ((NULL != contents) && (expectedSize == length))"); //####
+        ODL_LOG("! ((nullptr != contents) && (expectedSize == length))"); //####
         result = 1;
     }
     ODL_EXIT_LL(result); //####
@@ -193,22 +193,22 @@ doTestInsertEmptyMessage(const char *launchPath,
             const uint8_t *contents = stuff->getBytes(length);
 
             stuff->open(true);
-            if ((NULL != contents) || (0 != length))
+            if ((nullptr != contents) || (0 != length))
             {
-                ODL_LOG("((NULL != contents) || (0 != length))"); //####
+                ODL_LOG("((nullptr != contents) || (0 != length))"); //####
             }
             else
             {
                 stuff->close();
 		        contents = stuff->getBytes(length);
                 ODL_PACKET("contents", contents, length); //####
-                if ((NULL != contents) && (expectedCount == length))
+                if ((nullptr != contents) && (expectedCount == length))
                 {
                     result = nImO::CompareBytes(expectedBytes, contents, expectedCount);
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL != contents) && (expectedCount == length))"); //####
+                    ODL_LOG("! ((nullptr != contents) && (expectedCount == length))"); //####
                 }
             }
         }

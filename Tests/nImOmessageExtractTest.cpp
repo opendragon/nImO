@@ -141,9 +141,9 @@ extractValueAndCheck(nImO::Message     &stuff,
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     ODL_LL1("status <- ", status); //####
     stuff.close();
-    if (NULL == extractedValue)
+    if (nullptr == extractedValue)
     {
-        ODL_LOG("(NULL == extractedValue)"); //####
+        ODL_LOG("(nullptr == extractedValue)"); //####
     }
     else
     {
@@ -176,7 +176,7 @@ extractValueAndCheck(nImO::Message     &stuff,
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             ODL_LL1("status <- ", status); //####
             stuff.close();
-            if (NULL == extractedValue)
+            if (nullptr == extractedValue)
             {
                 if (nImO::kReadIncomplete != status)
                 {
@@ -187,7 +187,7 @@ extractValueAndCheck(nImO::Message     &stuff,
             }
             else
             {
-                ODL_LOG("! (NULL == extractedValue)");
+                ODL_LOG("! (nullptr == extractedValue)");
                 ODL_LL1("ii = ", ii); //####
                 result = 1;
             }
@@ -250,9 +250,9 @@ doTestEmptyMessage(const char *launchPath,
             nImO::SpValue    extractedValue(stuff->getValue(status));
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            if ((NULL == extractedValue) && (nImO::kReadInvalid == status))
+            if ((nullptr == extractedValue) && (nImO::kReadInvalid == status))
             {
-                ODL_LOG("((NULL == extractedValue) && (nImO::kReadInvalid == status))"); //####
+                ODL_LOG("((nullptr == extractedValue) && (nImO::kReadInvalid == status))"); //####
                 stuff->open(true);
                 stuff->close();
                 stuff->open(false);
@@ -260,22 +260,22 @@ doTestEmptyMessage(const char *launchPath,
                 extractedValue = stuff->getValue(status);
                 ODL_P1("extractedValue <- ", extractedValue.get()); //####
                 stuff->close();
-                if ((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == status))
+                if ((nullptr == extractedValue) && (nImO::kReadSuccessfulAtEnd == status))
                 {
-                    ODL_LOG("((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
+                    ODL_LOG("((nullptr == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
                             "status))"); //####
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! ((NULL == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
+                    ODL_LOG("! ((nullptr == extractedValue) && (nImO::kReadSuccessfulAtEnd == " //####
                             "status))"); //####
                 }
                 stuff->reset();
             }
             else
             {
-                ODL_LOG("! ((NULL == extractedValue) && (nImO::kReadInvalid == status))"); //####
+                ODL_LOG("! ((nullptr == extractedValue) && (nImO::kReadInvalid == status))"); //####
             }
         }
         else

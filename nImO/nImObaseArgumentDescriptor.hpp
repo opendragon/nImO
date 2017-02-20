@@ -411,7 +411,7 @@ namespace nImO
 
     /*! @brief Convert a string in '--args' format into an argument description.
      @param[in] inString The string to be analyzed.
-     @returns A newly allocated argument descriptor or @c NULL if the string is not valid. */
+     @returns A newly allocated argument descriptor or @c nullptr if the string is not valid. */
     BaseArgumentDescriptor *
     ConvertStringToArgument(const std::string &inString);
 

@@ -126,7 +126,7 @@ nImO::Array::addValue(nImO::SpValue newElement)
 {
     ODL_OBJENTER(); //####
     ODL_P1("newElement = ", newElement.get()); //####
-    if (NULL != newElement)
+    if (nullptr != newElement)
     {
         inherited2::push_back(newElement);
     }
@@ -147,7 +147,7 @@ const
     }
     else
     {
-        result = NULL;
+        result = nullptr;
     }
     ODL_OBJEXIT_P(result.get()); //####
     return result;
@@ -184,7 +184,7 @@ const
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
                 
-                if ((NULL != thisValue) && (NULL != otherValue))
+                if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
                 }
@@ -308,9 +308,9 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                     SpArray anArray(new Array);
 
                     result = anArray;
-                    if (NULL == result)
+                    if (nullptr == result)
                     {
-                        ODL_LOG("(NULL == result)"); //####
+                        ODL_LOG("(nullptr == result)"); //####
                         status = kReadInvalid;
                         ODL_LL1("status <- ", status); //####
                     }
@@ -336,9 +336,9 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
                                 // append operation.
-                                if (NULL == aValue)
+                                if (nullptr == aValue)
                                 {
-                                    ODL_LOG("(NULL == aValue)"); //####
+                                    ODL_LOG("(nullptr == aValue)"); //####
                                     okSoFar = false;
                                 }
                             }
@@ -392,9 +392,9 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
             }
         }
     }
-    if ((NULL != parentValue) && (NULL != result))
+    if ((nullptr != parentValue) && (nullptr != result))
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -563,7 +563,7 @@ const
     {
         SpValue aValue(*walker);
 
-        if (NULL != aValue)
+        if (nullptr != aValue)
         {
             if ((! squished) || (! first))
             {
@@ -624,9 +624,9 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
 
                 ODL_LL1("localIndex <- ", localIndex); //####
-                if (NULL == element)
+                if (nullptr == element)
                 {
-                    ODL_LOG("(NULL == element)"); //####
+                    ODL_LOG("(nullptr == element)"); //####
                     done = true;
                 }
                 else
@@ -682,7 +682,7 @@ const
                 // Check for sequences of Double values
                 const Double *doubleValue = aValue->asDouble();
                 
-                if (NULL == doubleValue)
+                if (nullptr == doubleValue)
                 {
                     Double::writeValuesToMessage(doublesSeen, outMessage);
                     aValue->writeToMessage(outMessage);

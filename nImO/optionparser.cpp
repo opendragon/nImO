@@ -113,7 +113,7 @@ Option::init(const Descriptor *desc_,
 } // Option::init
 
 Option::Option(void) :
-    desc(NULL), name(NULL), arg(NULL), namelen(0)
+    desc(nullptr), name(nullptr), arg(nullptr), namelen(0)
 {
     prev_ = tag(this);
     next_ = tag(this);
@@ -368,7 +368,7 @@ Parser::workhorse(const bool       gnu,
     int numargs = numargsIn;
     int nonops = 0;
 
-    // protect against NULL pointer
+    // protect against nullptr pointer
     if (! args)
     {
         numargs = 0;
@@ -483,7 +483,7 @@ Parser::workhorse(const bool       gnu,
                 else
                 {
                     // possibly detached argument
-                    optarg = (have_more_args ? args[1] : NULL);
+                    optarg = (have_more_args ? args[1] : nullptr);
                 }
             }
             /************************ short option ***********************************/
@@ -506,7 +506,7 @@ Parser::workhorse(const bool       gnu,
                 else
                 {
                     // if the potential argument is separate
-                    optarg = (have_more_args ? args[1] : NULL);
+                    optarg = (have_more_args ? args[1] : nullptr);
                 }
             }
             const Descriptor *descriptor = &usage[idx];
@@ -521,7 +521,7 @@ Parser::workhorse(const bool       gnu,
                 {
                     ++idx;
                 }
-                descriptor = (usage[idx].shortopt ? &usage[idx] : NULL);
+                descriptor = (usage[idx].shortopt ? &usage[idx] : nullptr);
             }
             if (descriptor)
             {
@@ -841,7 +841,7 @@ PrintUsageImplementation::LinePartIterator::restartTable(void)
 {
     rowdesc = tablestart;
     rowstart = tablestart->help;
-    ptr = NULL;
+    ptr = nullptr;
 } // PrintUsageImplementation::LinePartIterator::restartTable
 
 bool

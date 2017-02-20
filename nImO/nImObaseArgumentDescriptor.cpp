@@ -362,7 +362,7 @@ BaseArgumentDescriptor *
 nImO::ConvertStringToArgument(const std::string &inString)
 {
     ODL_ENTER(); //####
-    BaseArgumentDescriptor *result = NULL;
+    BaseArgumentDescriptor *result = nullptr;
 
     result = AddressArgumentDescriptor::parseArgString(inString);
     if (! result)

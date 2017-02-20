@@ -1216,7 +1216,7 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
 
         if (stuff)
         {
-            stuff->addBytes(NULL, 0);
+            stuff->addBytes(nullptr, 0);
             size_t     length;
             const char *resultString = stuff->getString(length);
             const char *expectedString = "%0%%";
@@ -1689,14 +1689,14 @@ doTestDefaultIntegerValue(const char *launchPath,
 
         if (stuff)
         {
-            if ((0 == compareValueWithString(*stuff, "0")) && (NULL != stuff->asInteger()))
+            if ((0 == compareValueWithString(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
                 result = 0;
             }
             else
             {
                 ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && " //####
-                        "(NULL != stuff->asInteger()))"); //####
+                        "(nullptr != stuff->asInteger()))"); //####
             }
         }
         else

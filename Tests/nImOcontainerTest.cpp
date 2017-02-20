@@ -6250,17 +6250,17 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            if (NULL != stuff.at(0))
+            if (nullptr != stuff.at(0))
             {
-                ODL_LOG("(NULL != aValue)"); //####
+                ODL_LOG("(nullptr != aValue)"); //####
                 result = 1;
             }
         }
         if (0 == result)
         {
-            if (NULL != stuff.at(1))
+            if (nullptr != stuff.at(1))
             {
-                ODL_LOG("NULL != aValue"); //####
+                ODL_LOG("nullptr != aValue"); //####
                 result = 1;
             }
         }

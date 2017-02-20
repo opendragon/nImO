@@ -79,8 +79,8 @@ namespace nImO
         virtual
         ~Number(void);
 
-        /*! @brief Return non-@c NULL if the object is a Number.
-         @returns Non-@c NULL if the object is a Number and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Number.
+         @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
         virtual inline const Number *
         asNumber(void)
         const
@@ -97,7 +97,7 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
+         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);

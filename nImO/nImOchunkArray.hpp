@@ -70,7 +70,7 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor.
-         @param[in] padWithNull @c true if the data needs to be @c NULL-terminated. */
+         @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
         ChunkArray(const bool padWithNull = false);
 
         /*! @brief The destructor. */
@@ -152,7 +152,7 @@ namespace nImO
         /*! @brief The cached value of the length of the buffer. */
         size_t _cachedLength;
 
-        /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
+        /*! @brief @c true if the buffers will have an extra byte for @c nullptr termination and
          @c false otherwise. */
         bool _buffersArePadded;
 

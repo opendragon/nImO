@@ -133,7 +133,7 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL != otherPtr)
+        if (nullptr != otherPtr)
         {
             result = (_value == otherPtr->_value);
         }
@@ -160,9 +160,9 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -242,7 +242,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     if (0 < numBytes)
     {
         std::unique_ptr<char[]> holder(new char[numBytes + 1]);
-        bool                    okSoFar = (NULL != holder);
+        bool                    okSoFar = (nullptr != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -278,9 +278,9 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     {
         result.reset(new String);
     }
-    if ((NULL != parentValue) && (NULL != result))
+    if ((nullptr != parentValue) && (nullptr != result))
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -329,9 +329,9 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -370,9 +370,9 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -412,9 +412,9 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -453,9 +453,9 @@ const
     {
         const String *otherPtr = other.asString();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -601,7 +601,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     {
                         const char *whichEscape = strchr(standardEscapes, aChar);
 
-                        if (NULL == whichEscape)
+                        if (nullptr == whichEscape)
                         {
                             switch (aChar)
                             {
@@ -811,7 +811,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             size_t length = 0;
 
             result.reset(new String(holding.getString(length)));
-            if (NULL != result)
+            if (nullptr != result)
             {
                 position = localIndex;
             }

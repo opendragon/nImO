@@ -73,7 +73,7 @@ namespace nImO
         // Protected type definitions.
 
         /*! @brief A pointer to a function that extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c NULL, and is used for handling multiple
+         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
          floating-point numbers in a sequence; if a series of Double values are extracted, they are
          directly added to the Array and the last Value is returned as the result of the function;
          for all other Value objects, the (single) Value that is extracted is added to the Array to
@@ -83,7 +83,7 @@ namespace nImO
          @param[in,out] position The location of the next byte to be processed.
          @param[out] status Whether the extraction was successful.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c NULL if there is a problem with the extraction and non-@c NULL if
+         @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
         typedef SpValue
            (* Extractor)
@@ -130,94 +130,94 @@ namespace nImO
         virtual
         ~Value(void);
 
-        /*! @brief Return non-@c NULL if the object is an Array.
-         @returns Non-@c NULL if the object is an Array and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is an Array.
+         @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
         virtual inline const Array *
         asArray(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asArray
         
-        /*! @brief Return non-@c NULL if the object is a Blob.
-         @returns Non-@c NULL if the object is a Blob and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Blob.
+         @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
         virtual inline const Blob *
         asBlob(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asBlob
         
-        /*! @brief Return non-@c NULL if the object is a Boolean.
-         @returns Non-@c NULL if the object is a Boolean and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Boolean.
+         @returns Non-@c nullptr if the object is a Boolean and @c nullptr otherwise. */
         virtual inline const Boolean *
         asBoolean(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asBoolean
         
-        /*! @brief Return non-@c NULL if the object is a Container.
-         @returns Non-@c NULL if the object is a Container and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Container.
+         @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual inline const Container *
         asContainer(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asContainer
         
-        /*! @brief Return non-@c NULL if the object is a Double.
-         @returns Non-@c NULL if the object is a Double and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Double.
+         @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual inline const Double *
         asDouble(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asDouble
         
-        /*! @brief Return non-@c NULL if the object is an Integer.
-         @returns Non-@c NULL if the object is an Integer and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is an Integer.
+         @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual inline const Integer *
         asInteger(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asInteger
         
-        /*! @brief Return non-@c NULL if the object is a Map.
-         @returns Non-@c NULL if the object is a Map and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Map.
+         @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
         virtual inline const Map *
         asMap(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asMap
         
-        /*! @brief Return non-@c NULL if the object is a Number.
-         @returns Non-@c NULL if the object is a Number and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Number.
+         @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
         virtual inline const Number *
         asNumber(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asNumber
         
-        /*! @brief Return non-@c NULL if the object is a Set.
-         @returns Non-@c NULL if the object is a Set and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Set.
+         @returns Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
         virtual inline const Set *
         asSet(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asSet
         
-        /*! @brief Return non-@c NULL if the object is a String.
-         @returns Non-@c NULL if the object is a String and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a String.
+         @returns Non-@c nullptr if the object is a String and @c nullptr otherwise. */
         virtual inline const String *
         asString(void)
         const
         {
-            return NULL;
+            return nullptr;
         } // asString
         
         /*! @brief Return @c true if two Values are structurally identical.
@@ -268,7 +268,7 @@ namespace nImO
          @param[in] leadByte The initial byte of the Value representation.
          @param[out] status The status of the extraction operation.
          @param[in] parent A pointer to the Value that will contain the new object.
-         @returns @c NULL if the Value was not successfully extracted and non-@c NULL on
+         @returns @c nullptr if the Value was not successfully extracted and non-@c nullptr on
          success. */
         static SpValue
         getValueFromMessage(const Message &inMessage,
@@ -432,7 +432,7 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
+         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);

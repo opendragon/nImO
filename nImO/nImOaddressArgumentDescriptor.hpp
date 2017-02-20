@@ -79,12 +79,12 @@ namespace nImO
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument.
-         @param[in,out] addrBuff If non-@c NULL, the variable to be set with the actual address. */
+         @param[in,out] addrBuff If non-@c nullptr, the variable to be set with the actual address. */
         AddressArgumentDescriptor(const std::string  &argName,
                                   const std::string  &argDescription,
                                   const ArgumentMode argMode,
                                   const std::string  &defaultValue,
-                                  struct in_addr     *addrBuff = NULL);
+                                  struct in_addr     *addrBuff = nullptr);
 
         /*! @brief The destructor. */
         virtual
@@ -92,7 +92,7 @@ namespace nImO
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
-         @returns A valid descriptor or @c NULL if the input is not recognized. */
+         @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static BaseArgumentDescriptor *
         parseArgString(const std::string &inString);
 

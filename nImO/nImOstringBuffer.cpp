@@ -317,7 +317,7 @@ const
             }
             else
             {
-                if (NULL == holder)
+                if (nullptr == holder)
                 {
                     holder.reset(new Array);
                     ODL_P1("holder <- ", holder.get()); //####
@@ -500,7 +500,7 @@ nImO::operator <<(std::ostream             &out,
     {
         BufferChunk *aChunk = aBuffer._buffers[ii];
 
-        if (NULL != aChunk)
+        if (nullptr != aChunk)
         {
            size_t nn = aChunk->getDataSize();
 

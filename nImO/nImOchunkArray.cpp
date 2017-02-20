@@ -85,7 +85,7 @@ const int nImO::ChunkArray::kEndToken = -1;
 #endif // defined(__APPLE__)
 
 nImO::ChunkArray::ChunkArray(const bool padWithNull) :
-    _buffers(new BufferChunk *[1]), _numChunks(1), _cachedOutput(NULL), _cachedLength(0),
+    _buffers(new BufferChunk *[1]), _numChunks(1), _cachedOutput(nullptr), _cachedLength(0),
     _buffersArePadded(padWithNull), _cachedIsFirstBuffer(false)
 {
     ODL_ENTER(); //####
@@ -142,7 +142,7 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
                 ODL_LOG("(! _cachedIsFirstBuffer)"); //####
                 delete[] _cachedOutput;
             }
-            _cachedOutput = NULL;
+            _cachedOutput = nullptr;
             ODL_P1("_cachedOutput <- ", _cachedOutput); //####
         }
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
@@ -217,9 +217,9 @@ const
             ODL_LOG("(_numChunks > chunkNumber)"); //####
             BufferChunk *aChunk = _buffers[chunkNumber];
 
-            if (NULL != aChunk)
+            if (nullptr != aChunk)
             {
-                ODL_LOG("(NULL != aChunk)"); //####
+                ODL_LOG("(nullptr != aChunk)"); //####
                 if (offset < aChunk->getDataSize())
                 {
                     ODL_LOG("(offset < aChunk->getDataSize())"); //####
@@ -265,7 +265,7 @@ nImO::ChunkArray::getBytes(size_t &length)
                 {
                     BufferChunk *aChunk = _buffers[ii];
 
-                    if (NULL != aChunk)
+                    if (nullptr != aChunk)
                     {
                         size_t nn = aChunk->getDataSize();
 
@@ -316,9 +316,9 @@ const
         BufferChunk *aChunk = _buffers[_numChunks - 1];
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
-        if (NULL != aChunk)
+        if (nullptr != aChunk)
         {
-            ODL_LOG("(NULL != aChunk)"); //####
+            ODL_LOG("(nullptr != aChunk)"); //####
             totalLength += aChunk->getDataSize();
         }
     }
@@ -338,7 +338,7 @@ nImO::ChunkArray::reset(void)
             ODL_LOG("(! _cachedIsFirstBuffer)"); //####
             delete[] _cachedOutput;
         }
-        _cachedOutput = NULL;
+        _cachedOutput = nullptr;
         ODL_P1("_cachedOutput <- ", _cachedOutput); //####
     }
     if (1 < _numChunks)
@@ -348,7 +348,7 @@ nImO::ChunkArray::reset(void)
         {
             BufferChunk *aChunk = _buffers[ii];
 
-            if (NULL != aChunk)
+            if (nullptr != aChunk)
             {
                 delete aChunk;
             }

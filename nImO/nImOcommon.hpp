@@ -231,7 +231,7 @@ namespace nImO
             /*! @brief The mask for the type of data - String or Blob. */
             kKindStringOrBlobTypeMask = 0x0020,
 
-            /*! @brief The data that follows is a non-@c NULL-terminated String. */
+            /*! @brief The data that follows is a non-@c nullptr-terminated String. */
             kKindStringOrBlobStringValue = 0x0000,
 
             /*! @brief The data that follows is a Blob. */
@@ -414,7 +414,7 @@ namespace nImO
     /*! @brief The status of a read operation on a Message. */
     enum ReadStatus
     {
-        /*! @brief Reading from the Message was successful; a @c NULL result indicates and empty
+        /*! @brief Reading from the Message was successful; a @c nullptr result indicates and empty
         Message. */
         kReadSuccessful,
 
@@ -624,7 +624,7 @@ namespace nImO
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[in,out] flavour Set if the -j or -t options are seen.
      @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
-     @param[in] arguments If non-@c NULL, returns the arguments for the utility.
+     @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
     ProcessStandardUtilitiesOptions(const int         argc,
@@ -635,7 +635,7 @@ namespace nImO
                                     const char        *copyrightHolder,
                                     OutputFlavour     &flavour,
                                     const bool        ignoreFlavours = false,
-                                    StringVector      *arguments = NULL);
+                                    StringVector      *arguments = nullptr);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.

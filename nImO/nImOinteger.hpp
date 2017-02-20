@@ -87,8 +87,8 @@ namespace nImO
         virtual
         ~Integer(void);
 
-        /*! @brief Return non-@c NULL if the object is an Integer.
-         @returns Non-@c NULL if the object is an Integer and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is an Integer.
+         @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual inline const Integer *
         asInteger(void)
         const
@@ -234,7 +234,7 @@ namespace nImO
         // Private methods.
 
         /*! @brief Extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c NULL, and is used for handling multiple
+         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
          floating-point numbers in a sequence; if a series of Double values are extracted, they are
          directly added to the Array and the last Value is returned as the result of the function;
          for all other Value objects, the (single) Value that is extracted is added to the Array to
@@ -244,7 +244,7 @@ namespace nImO
          @param[in,out] position The location of the next byte to be processed.
          @param[out] status Whether the extraction was successful.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c NULL if there is a problem with the extraction and non-@c NULL if
+         @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
         static SpValue
         extractValue(const Message &theMessage,

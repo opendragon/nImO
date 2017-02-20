@@ -123,7 +123,7 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = NULL;
+    BaseArgumentDescriptor *result = nullptr;
     StringVector           inVector;
 
     if (partitionString(inString, 4, inVector))

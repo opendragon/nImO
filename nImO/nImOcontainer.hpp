@@ -79,8 +79,8 @@ namespace nImO
         virtual
         ~Container(void);
 
-        /*! @brief Return non-@c NULL if the object is a Container.
-         @returns Non-@c NULL if the object is a Container and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a Container.
+         @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual inline const Container *
         asContainer(void)
         const

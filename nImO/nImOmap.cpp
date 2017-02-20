@@ -135,7 +135,7 @@ nImO::Map::addValue(nImO::SpValue newKey,
     ODL_P2("newKey = ", newKey.get(), "newValue = ", newValue.get()); //####
     InsertResult result;
 
-    if ((NULL == newKey) || (NULL == newValue))
+    if ((nullptr == newKey) || (nullptr == newValue))
     {
         result = InsertResult(inherited2::end(), false);
     }
@@ -192,7 +192,7 @@ const
                 SpValue thisKey(thisWalker->first);
                 SpValue otherKey(otherWalker->first);
                 
-                if ((NULL != thisKey) && (NULL != otherKey))
+                if ((nullptr != thisKey) && (nullptr != otherKey))
                 {
                     result = thisKey->deeplyEqualTo(*otherKey);
                     if (result)
@@ -200,7 +200,7 @@ const
                         SpValue thisValue(thisWalker->second);
                         SpValue otherValue(otherWalker->second);
                         
-                        if ((NULL != thisValue) && (NULL != otherValue))
+                        if ((nullptr != thisValue) && (nullptr != otherValue))
                         {
                             result = thisValue->deeplyEqualTo(*otherValue);
                         }
@@ -330,9 +330,9 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                     SpMap aMap(new Map);
 
                     result = aMap;
-                    if (NULL == result)
+                    if (nullptr == result)
                     {
-                        ODL_LOG("(NULL == result)"); //####
+                        ODL_LOG("(nullptr == result)"); //####
                         status = kReadInvalid;
                         ODL_LL1("status <- ", status); //####
                     }
@@ -353,16 +353,16 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                             else
                             {
                                 SpValue kValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   status, NULL));
+                                                                   status, nullptr));
 
-                                if (NULL == kValue)
+                                if (nullptr == kValue)
                                 {
-                                    ODL_LOG("(NULL == aValue)"); //####
+                                    ODL_LOG("(nullptr == aValue)"); //####
                                     okSoFar = false;
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (NULL == aValue)"); //####
+                                    ODL_LOG("! (nullptr == aValue)"); //####
                                     aByte = theMessage.getByte(position);
                                     ODL_XL1("aByte <- ", aByte); //####
                                     if (Message::kEndToken == aByte)
@@ -374,16 +374,16 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                                     else
                                     {
                                         SpValue vValue(getValueFromMessage(theMessage, position,
-                                                                           aByte, status, NULL));
+                                                                           aByte, status, nullptr));
 
-                                        if (NULL == vValue)
+                                        if (nullptr == vValue)
                                         {
-                                            ODL_LOG("(NULL == aValue)"); //####
+                                            ODL_LOG("(nullptr == aValue)"); //####
                                             okSoFar = false;
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (NULL == aValue)"); //####
+                                            ODL_LOG("! (nullptr == aValue)"); //####
                                             aMap->addValue(kValue, vValue);
                                         }
                                     }
@@ -439,9 +439,9 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
             }
         }
     }
-    if ((NULL != parentValue) && (NULL != result))
+    if ((nullptr != parentValue) && (nullptr != result))
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -721,9 +721,9 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 SpValue keyValue(Value::readFromStringBuffer(inBuffer, localIndex));
 
                 ODL_LL1("localIndex <- ", localIndex); //####
-                if (NULL == keyValue)
+                if (nullptr == keyValue)
                 {
-                    ODL_LOG("(NULL == keyValue)"); //####
+                    ODL_LOG("(nullptr == keyValue)"); //####
                     done = true;
                 }
                 else
@@ -748,7 +748,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                         }
                     }
                 }
-                if (NULL != keyValue)
+                if (nullptr != keyValue)
                 {
                     // Skip whitespace
                     for (aChar = inBuffer.getChar(localIndex); isspace(aChar);
@@ -775,9 +775,9 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                         ++localIndex;
                         SpValue assocValue(Value::readFromStringBuffer(inBuffer, localIndex));
 
-                        if (NULL == assocValue)
+                        if (nullptr == assocValue)
                         {
-                            ODL_LOG("(NULL == assocValue)"); //####
+                            ODL_LOG("(nullptr == assocValue)"); //####
                             done = true;
                         }
                         else

@@ -71,7 +71,7 @@ namespace nImO
 
         /*! @brief The constructor.
          @param[in] addPadding @c true if a single byte of padding is added to each buffer.
-         The padding is to support direct access to a chunk as a @c NULL-terminated
+         The padding is to support direct access to a chunk as a @c nullptr-terminated
          string. */
         BufferChunk(const bool addPadding);
 

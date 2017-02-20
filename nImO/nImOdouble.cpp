@@ -126,7 +126,7 @@ const
     {
         const Double *otherPtr = other.asDouble();
         
-        if (NULL != otherPtr)
+        if (nullptr != otherPtr)
         {
             result = (_floatValue == otherPtr->_floatValue);
         }
@@ -154,13 +154,13 @@ const
     {
         const Double *doublePtr = other.asDouble();
         
-        if (NULL == doublePtr)
+        if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
             
-            if (NULL == intPtr)
+            if (nullptr == intPtr)
             {
-                if (NULL == other.asContainer())
+                if (nullptr == other.asContainer())
                 {
                     result = validComparison = false;
                     ODL_B1("validComparison <- ", validComparison); //####
@@ -246,7 +246,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
     }
     if (0 < howMany)
     {
-        bool          okSoFar = ((1 == howMany) || (NULL != parentValue));
+        bool          okSoFar = ((1 == howMany) || (nullptr != parentValue));
         NumberAsBytes holder;
 
         status = kReadInvalid;
@@ -274,9 +274,9 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             if (okSoFar)
             {
                 result.reset(new Double(B2D(holder)));
-                if ((NULL != parentValue) && (NULL != result))
+                if ((nullptr != parentValue) && (nullptr != result))
                 {
-                    ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+                    ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
                     parentValue->addValue(result);
                 }
             }
@@ -328,13 +328,13 @@ const
     {
         const Double *doublePtr = other.asDouble();
         
-        if (NULL == doublePtr)
+        if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
             
-            if (NULL == intPtr)
+            if (nullptr == intPtr)
             {
-                if (NULL == other.asContainer())
+                if (nullptr == other.asContainer())
                 {
                     result = validComparison = false;
                     ODL_B1("validComparison <- ", validComparison); //####
@@ -381,13 +381,13 @@ const
     {
         const Double *doublePtr = other.asDouble();
         
-        if (NULL == doublePtr)
+        if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
             
-            if (NULL == intPtr)
+            if (nullptr == intPtr)
             {
-                if (NULL == other.asContainer())
+                if (nullptr == other.asContainer())
                 {
                     result = validComparison = false;
                     ODL_B1("validComparison <- ", validComparison); //####
@@ -435,13 +435,13 @@ const
     {
         const Double *doublePtr = other.asDouble();
         
-        if (NULL == doublePtr)
+        if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
             
-            if (NULL == intPtr)
+            if (nullptr == intPtr)
             {
-                if (NULL == other.asContainer())
+                if (nullptr == other.asContainer())
                 {
                     result = validComparison = false;
                     ODL_B1("validComparison <- ", validComparison); //####
@@ -488,13 +488,13 @@ const
     {
         const Double *doublePtr = other.asDouble();
         
-        if (NULL == doublePtr)
+        if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
             
-            if (NULL == intPtr)
+            if (nullptr == intPtr)
             {
-                if (NULL == other.asContainer())
+                if (nullptr == other.asContainer())
                 {
                     result = validComparison = false;
                     ODL_B1("validComparison <- ", validComparison); //####

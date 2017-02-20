@@ -118,7 +118,7 @@ nImO::Value::addToExtractionMap(const uint8_t          aByte,
     ODL_ENTER(); //####
     ODL_LL2("aByte = ", aByte, "aMask = ", aMask); //####
     ODL_P1("theExtractor = ", &theExtractor); //####
-    if ((0 != aMask) && (NULL != theExtractor))
+    if ((0 != aMask) && (nullptr != theExtractor))
     {
         for (uint8_t ii = 0; 255 > ii; ++ii)
         {
@@ -239,9 +239,9 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
     {
         Extractor handler = match->second;
 
-        if (NULL == handler)
+        if (nullptr == handler)
         {
-            ODL_LOG("(NULL == handler)"); //####
+            ODL_LOG("(nullptr == handler)"); //####
             status = kReadInvalid;
             ODL_LL1("status <- ", status); //####
         }
@@ -261,7 +261,7 @@ nImO::Value::initialize(void)
     ODL_ENTER(); //####
     const char *prefixes = Boolean::getInitialCharacters();
 
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -271,7 +271,7 @@ nImO::Value::initialize(void)
         }
     }
     prefixes = Number::getInitialCharacters();
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -281,7 +281,7 @@ nImO::Value::initialize(void)
         }
     }
     prefixes = String::getInitialCharacters();
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -291,7 +291,7 @@ nImO::Value::initialize(void)
         }
     }
     prefixes = Array::getInitialCharacters();
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -301,7 +301,7 @@ nImO::Value::initialize(void)
         }
     }
     prefixes = Map::getInitialCharacters();
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -311,7 +311,7 @@ nImO::Value::initialize(void)
         }
     }
     prefixes = Set::getInitialCharacters();
-    if (NULL != prefixes)
+    if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
@@ -323,23 +323,23 @@ nImO::Value::initialize(void)
     const char *suffixes = Array::getTerminalCharacters();
 
     gTerminators = StringBuffer::kEndToken;
-    if (NULL != suffixes)
+    if (nullptr != suffixes)
     {
         gTerminators += suffixes;
     }
     suffixes = Map::getTerminalCharacters();
-    if (NULL != suffixes)
+    if (nullptr != suffixes)
     {
         gTerminators += suffixes;
     }
     suffixes = Set::getTerminalCharacters();
-    if (NULL != suffixes)
+    if (nullptr != suffixes)
     {
         gTerminators += suffixes;
     }
     uint8_t   aByte = 0;
     uint8_t   aMask = 0;
-    Extractor theExtractor = NULL;
+    Extractor theExtractor = nullptr;
 
     Array::getExtractionInfo(aByte, aMask, theExtractor);
     addToExtractionMap(aByte, aMask, theExtractor);
@@ -414,14 +414,14 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         {
             BufferReader handler = match->second;
 
-            if (NULL == handler)
+            if (nullptr == handler)
             {
-                ODL_LOG("(NULL == handler)"); //####
+                ODL_LOG("(nullptr == handler)"); //####
             }
             else
             {
                 result = handler(inBuffer, localIndex);
-                if (NULL != result)
+                if (nullptr != result)
                 {
                     position = localIndex;
                 }

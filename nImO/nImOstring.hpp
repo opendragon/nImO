@@ -91,8 +91,8 @@ namespace nImO
          @param[in] initialValue The initial value for the object. */
         explicit String(const char *initialValue);
 
-        /*! @brief Return non-@c NULL if the object is a String.
-         @returns Non-@c NULL if the object is a String and @c NULL otherwise. */
+        /*! @brief Return non-@c nullptr if the object is a String.
+         @returns Non-@c nullptr if the object is a String and @c nullptr otherwise. */
         virtual inline const String *
         asString(void)
         const
@@ -237,7 +237,7 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c NULL otherwise. */
+         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer(const StringBuffer &inBuffer,
                              size_t             &position);
@@ -256,7 +256,7 @@ namespace nImO
         // Private methods.
 
         /*! @brief Extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c NULL, and is used for handling multiple
+         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
          floating-point numbers in a sequence; if a series of Double values are extracted, they are
          directly added to the Array and the last Value is returned as the result of the function;
          for all other Value objects, the (single) Value that is extracted is added to the Array to
@@ -266,7 +266,7 @@ namespace nImO
          @param[in,out] position The location of the next byte to be processed.
          @param[out] status Whether the extraction was successful.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c NULL if there is a problem with the extraction and non-@c NULL if
+         @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
         static SpValue
         extractValue(const Message &theMessage,

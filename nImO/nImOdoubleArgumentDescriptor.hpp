@@ -117,7 +117,7 @@ namespace nImO
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
-         @returns A valid descriptor or @c NULL if the input is not recognized. */
+         @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static BaseArgumentDescriptor *
         parseArgString(const std::string &inString);
 

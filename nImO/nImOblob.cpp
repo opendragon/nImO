@@ -216,7 +216,7 @@ const
     {
         const Blob *otherPtr = other.asBlob();
         
-        if (NULL != otherPtr)
+        if (nullptr != otherPtr)
         {
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(),
                                         otherPtr->_size));
@@ -244,9 +244,9 @@ const
     {
         const Blob *otherPtr = other.asBlob();
 
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -327,7 +327,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     if (0 < numBytes)
     {
         nImO::UpAuint8_t holder(new uint8_t[numBytes]);
-        bool             okSoFar = (NULL != holder);
+        bool             okSoFar = (nullptr != holder);
         
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -355,16 +355,16 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         }
         else
         {
-            result = NULL;
+            result = nullptr;
         }
     }
     else
     {
         result.reset(new Blob);
     }
-    if ((NULL != parentValue) && (NULL != result))
+    if ((nullptr != parentValue) && (nullptr != result))
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -403,9 +403,9 @@ const
     {
         const Blob *otherPtr = other.asBlob();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -445,9 +445,9 @@ const
     {
         const Blob *otherPtr = other.asBlob();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -488,9 +488,9 @@ const
     {
         const Blob *otherPtr = other.asBlob();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####
@@ -530,9 +530,9 @@ const
     {
         const Blob *otherPtr = other.asBlob();
         
-        if (NULL == otherPtr)
+        if (nullptr == otherPtr)
         {
-            if (NULL == other.asContainer())
+            if (nullptr == other.asContainer())
             {
                 result = validComparison = false;
                 ODL_B1("validComparison <- ", validComparison); //####

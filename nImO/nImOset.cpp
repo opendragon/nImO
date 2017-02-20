@@ -133,7 +133,7 @@ nImO::Set::addValue(nImO::SpValue val)
     ODL_P1("val = ", &val); //####
     InsertResult result;
 
-    if (NULL == val)
+    if (nullptr == val)
     {
         result = InsertResult(inherited2::end(), false);
     }
@@ -188,7 +188,7 @@ const
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
                 
-                if ((NULL != thisValue) && (NULL != otherValue))
+                if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
                 }
@@ -312,9 +312,9 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                     SpSet aSet(new Set);
 
                     result = aSet;
-                    if (NULL == result)
+                    if (nullptr == result)
                     {
-                        ODL_LOG("(NULL == result)"); //####
+                        ODL_LOG("(nullptr == result)"); //####
                         status = kReadInvalid;
                         ODL_LL1("status <- ", status); //####
                     }
@@ -335,16 +335,16 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                             else
                             {
                                 SpValue aValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   status, NULL));
+                                                                   status, nullptr));
 
-                                if (NULL == aValue)
+                                if (nullptr == aValue)
                                 {
-                                    ODL_LOG("(NULL == aValue)"); //####
+                                    ODL_LOG("(nullptr == aValue)"); //####
                                     okSoFar = false;
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (NULL == aValue)"); //####
+                                    ODL_LOG("! (nullptr == aValue)"); //####
                                     aSet->addValue(aValue);
                                 }
                             }
@@ -398,9 +398,9 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
             }
         }
     }
-    if ((NULL != parentValue) && (NULL != result))
+    if ((nullptr != parentValue) && (nullptr != result))
     {
-        ODL_LOG("((NULL != parentValue) && (NULL != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -612,7 +612,7 @@ const
     {
         SpValue aValue(*walker);
 
-        if (NULL != aValue)
+        if (nullptr != aValue)
         {
             if ((! squished) || (! first))
             {
@@ -673,9 +673,9 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
 
                 ODL_LL1("localIndex <- ", localIndex); //####
-                if (NULL == element)
+                if (nullptr == element)
                 {
-                    ODL_LOG("(NULL == element)"); //####
+                    ODL_LOG("(nullptr == element)"); //####
                     done = true;
                 }
                 else

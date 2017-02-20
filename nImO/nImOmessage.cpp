@@ -187,7 +187,7 @@ nImO::Message::getBytes(size_t &length)
     else
     {
         ODL_LOG("! (kMessageStateClosed == _state)"); //####
-        result = NULL;
+        result = nullptr;
         length = 0;
         ODL_LL1("length <- ", length); //####
     }
@@ -298,12 +298,12 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                     if (nextTag == initTag)
                     {
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, status,
-                                                            NULL);
+                                                            nullptr);
                         ODL_P1("result <- ", result.get()); //####
                         ODL_LL2("_readPosition <- ", _readPosition, "status <- ", status); //####
-                        if (NULL == result)
+                        if (nullptr == result)
                         {
-                            ODL_LOG("(NULL == result)"); //####
+                            ODL_LOG("(nullptr == result)"); //####
                         }
                         else
                         {

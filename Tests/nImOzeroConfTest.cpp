@@ -156,17 +156,17 @@ doTestParseBooleanValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("((NULL != readValue) == expected)"); //####
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asBoolean())
+            if (nullptr == readValue->asBoolean())
             {
                 if (expected)
                 {
@@ -231,17 +231,17 @@ doTestParseNumberValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("((NULL != readValue) == expected)"); //####
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asNumber())
+            if (nullptr == readValue->asNumber())
             {
                 if (expected)
                 {
@@ -306,17 +306,17 @@ doTestParseStringValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("((NULL != readValue) == expected)"); //####
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asString())
+            if (nullptr == readValue->asString())
             {
                 if (expected)
                 {
@@ -381,17 +381,17 @@ doTestParseArrayValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asArray())
+            if (nullptr == readValue->asArray())
             {
                 if (expected)
                 {
@@ -456,17 +456,17 @@ doTestParseSetValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asSet())
+            if (nullptr == readValue->asSet())
             {
                 if (expected)
                 {
@@ -531,17 +531,17 @@ doTestParseMapValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asMap())
+            if (nullptr == readValue->asMap())
             {
                 if (expected)
                 {
@@ -606,17 +606,17 @@ doTestParseImplicitArrayValue(const bool expected,
         buff.addString(inString);
         nImO::SpValue readValue(buff.convertToValue());
 
-        if ((NULL != readValue) == expected)
+        if ((nullptr != readValue) == expected)
         {
             result = 0;
         }
         else
         {
-            ODL_LOG("! ((NULL != readValue) == expected)"); //####
+            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
         if (readValue)
         {
-            if (NULL == readValue->asArray())
+            if (nullptr == readValue->asArray())
             {
                 if (expected)
                 {

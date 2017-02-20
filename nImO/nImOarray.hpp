@@ -56,7 +56,6 @@ namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
     typedef std::vector<SpValue> ArrayBase;
-    //typedef std::vector<Value *> ArrayBase;
 
     /*! @brief A class to provide collections with array-like behaviour.
 
@@ -79,6 +78,9 @@ namespace nImO
 
         /*! @brief The const iterator for Arrays. */
         typedef ArrayBase::const_reverse_iterator const_reverse_iterator;
+
+        /*! @brief The size of indices. */
+        typedef ArrayBase::size_type size_type;
 
     protected :
         // Protected type definitions.
@@ -126,7 +128,7 @@ namespace nImO
          @param[in] index The position of the element in the Array.
          @returns The element at the given position, or @c nullptr if the index is out of range. */
         SpValue
-        at(const size_t index)
+        at(const size_type index)
         const;
 
         /*! @brief Return an iterator pointing to the first element of the Array.
@@ -319,7 +321,7 @@ namespace nImO
 
         /*! @brief Returns the number of elements in the Array.
          @returns The number of elements in the Array. */
-        inline size_t
+        inline size_type
         size(void)
         const
         {

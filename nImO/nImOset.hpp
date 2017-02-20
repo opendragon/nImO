@@ -83,6 +83,9 @@ namespace nImO
         /*! @brief The return result from the insert method. */
         typedef std::pair<SetBase::iterator, bool> InsertResult;
 
+        /*! @brief The size of indices. */
+        typedef SetBase::size_type size_type;
+
     protected :
         // Protected type definitions.
 
@@ -297,7 +300,7 @@ namespace nImO
 
         /*! @brief Returns the number of elements in the Set.
          @returns The number of elements in the Set. */
-        inline size_t
+        inline size_type
         size(void)
         const
         {

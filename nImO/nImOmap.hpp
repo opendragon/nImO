@@ -83,6 +83,9 @@ namespace nImO
         /*! @brief The return result from the insert method. */
         typedef std::pair<MapBase::iterator, bool> InsertResult;
 
+        /*! @brief The size of indices. */
+        typedef MapBase::size_type size_type;
+
     protected :
         // Protected type definitions.
 
@@ -302,7 +305,7 @@ namespace nImO
 
         /*! @brief Returns the number of elements in the Map.
          @returns The number of elements in the Map. */
-        inline size_t
+        inline size_type
         size(void)
         const
         {

@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    typedef std::vector<SpValue> ArrayBase;
+    using ArrayBase = std::vector<SpValue>;
 
     /*! @brief A class to provide collections with array-like behaviour.
 
@@ -68,19 +68,19 @@ namespace nImO
         // Public type definitions.
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef ArrayBase::iterator iterator;
+        using iterator = ArrayBase::iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef ArrayBase::const_iterator const_iterator;
+        using const_iterator = ArrayBase::const_iterator;
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef ArrayBase::reverse_iterator reverse_iterator;
+        using reverse_iterator = ArrayBase::reverse_iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef ArrayBase::const_reverse_iterator const_reverse_iterator;
+        using const_reverse_iterator = ArrayBase::const_reverse_iterator;
 
         /*! @brief The size of indices. */
-        typedef ArrayBase::size_type size_type;
+        using size_type = ArrayBase::size_type;
 
     protected :
         // Protected type definitions.
@@ -89,10 +89,10 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The first class that this class is derived from. */
-        typedef Container inherited1;
+        using inherited1 = Container;
 
         /*! @brief The second class that this class is derived from. */
-        typedef ArrayBase inherited2;
+        using inherited2 = ArrayBase;
 
     public :
         // Public methods.

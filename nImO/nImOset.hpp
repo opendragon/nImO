@@ -56,7 +56,7 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    typedef std::set<SpValue, CompareValues> SetBase;
+    using SetBase = std::set<SpValue, CompareValues>;
 
     /*! @brief A class to provide collections with set-like behaviour.
 
@@ -69,22 +69,22 @@ namespace nImO
         // Public type definitions.
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef SetBase::iterator iterator;
+        using iterator = SetBase::iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef SetBase::const_iterator const_iterator;
+        using const_iterator = SetBase::const_iterator;
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef SetBase::reverse_iterator reverse_iterator;
+        using reverse_iterator = SetBase::reverse_iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef SetBase::const_reverse_iterator const_reverse_iterator;
+        using const_revese_iterator = SetBase::const_reverse_iterator;
 
         /*! @brief The return result from the insert method. */
-        typedef std::pair<SetBase::iterator, bool> InsertResult;
+        using InsertResult = std::pair<SetBase::iterator, bool>;
 
         /*! @brief The size of indices. */
-        typedef SetBase::size_type size_type;
+        using size_type = SetBase::size_type;
 
     protected :
         // Protected type definitions.
@@ -93,10 +93,10 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The first class that this class is derived from. */
-        typedef Container inherited1;
+        using inherited1 = Container;
 
         /*! @brief The second class that this class is derived from. */
-        typedef SetBase inherited2;
+        using inherited2 = SetBase;
 
     public :
         // Public methods.

@@ -430,93 +430,93 @@ namespace nImO
     }; // ReadStatus
 
     /*! @brief A byte array that is the same size as an integer. */
-    typedef uint8_t NumberAsBytes[sizeof(int64_t)];
+    using NumberAsBytes = uint8_t[sizeof(int64_t)];
 
     /*! @brief A sequence of argument descriptors. */
-    typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
+    using DescriptorVector = std::vector<BaseArgumentDescriptor *>;
 
     /*! @brief A holder for a shared pointer to an Array. */
-    typedef std::shared_ptr<Array> SpArray;
+    using SpArray = std::shared_ptr<Array>;
 
     /*! @brief A holder for a shared pointer to a BufferChunk. */
-    typedef std::shared_ptr<BufferChunk> SpBufferChunk;
+    using SpBufferChunk = std::shared_ptr<BufferChunk>;
 
     /*! @brief A holder for a shared pointer to a Map. */
-    typedef std::shared_ptr<Map> SpMap;
+    using SpMap = std::shared_ptr<Map>;
 
     /*! @brief A holder for a shared pointer to a Message. */
-    typedef std::shared_ptr<Message> SpMessage;
+    using SpMessage = std::shared_ptr<Message>;
 
     /*! @brief A holder for a shared pointer to a Set. */
-    typedef std::shared_ptr<Set> SpSet;
+    using SpSet = std::shared_ptr<Set>;
 
     /*! @brief A holder for a shared pointer to a String. */
-    typedef std::shared_ptr<String> SpString;
+    using SpString = std::shared_ptr<String>;
 
     /*! @brief A holder for a shared pointer to a StringBuffer. */
-    typedef std::shared_ptr<StringBuffer> SpStringBuffer;
+    using SpStringBuffer = std::shared_ptr<StringBuffer>;
 
     /*! @brief A holder for a shared pointer to a Value. */
-    typedef std::shared_ptr<Value> SpValue;
+    using SpValue = std::shared_ptr<Value>;
 
     /*! @brief A holder for a non-shared pointer to an Array. */
-    typedef std::unique_ptr<Array> UpArray;
+    using UpArray = std::unique_ptr<Array>;
 
     /*! @brief A holder for a non-shared pointer to a BufferChunk. */
-    typedef std::unique_ptr<BufferChunk> UpBufferChunk;
+    using UpBufferChunk = std::unique_ptr<BufferChunk>;
 
     /*! @brief A holder for a non-shared pointer to a Map. */
-    typedef std::unique_ptr<Map> UpMap;
+    using UpMap = std::unique_ptr<Map>;
 
     /*! @brief A holder for a non-shared pointer to a Message. */
-    typedef std::unique_ptr<Message> UpMessage;
+    using UpMessage = std::unique_ptr<Message>;
 
     /*! @brief A holder for a non-shared pointer to a Set. */
-    typedef std::unique_ptr<Set> UpSet;
+    using UpSet = std::unique_ptr<Set>;
 
     /*! @brief A holder for a non-shared pointer to a String. */
-    typedef std::unique_ptr<String> UpString;
+    using UpString = std::unique_ptr<String>;
 
     /*! @brief A holder for a non-shared pointer to a StringBuffer. */
-    typedef std::unique_ptr<StringBuffer> UpStringBuffer;
+    using UpStringBuffer = std::unique_ptr<StringBuffer>;
 
     /*! @brief A holder for a non-shared pointer to an array of uint8_t values. */
-    typedef std::unique_ptr<uint8_t[]> UpAuint8_t;
+    using UpAuint8_t = std::unique_ptr<uint8_t[]>;
 
     /*! @brief A holder for a non-shared pointer to a Value. */
-    typedef std::unique_ptr<Value> UpValue;
+    using UpValue = std::unique_ptr<Value>;
 
     /*! @brief A holder for a weak pointer to an Array. */
-    typedef std::weak_ptr<Array> WpArray;
+    using WpArray = std::weak_ptr<Array>;
 
     /*! @brief A holder for a weak pointer to a BufferChunk. */
-    typedef std::weak_ptr<BufferChunk> WpBufferChunk;
+    using WpBufferChunk = std::weak_ptr<BufferChunk>;
 
     /*! @brief A holder for a weak pointer to a Map. */
-    typedef std::weak_ptr<Map> WpMap;
+    using WpMap = std::weak_ptr<Map>;
 
     /*! @brief A holder for a weak pointer to a Message. */
-    typedef std::weak_ptr<Message> WpMessage;
+    using WpMessage = std::weak_ptr<Message>;
 
     /*! @brief A holder for a weak pointer to a Set. */
-    typedef std::weak_ptr<Set> WpSet;
+    using WpSet = std::weak_ptr<Set>;
 
     /*! @brief A holder for a weak pointer to a String. */
-    typedef std::weak_ptr<String> WpString;
+    using WpString = std::weak_ptr<String>;
 
     /*! @brief A holder for a weak pointer to a StringBuffer. */
-    typedef std::weak_ptr<StringBuffer> WpStringBuffer;
+    using WpStringBuffer = std::weak_ptr<StringBuffer>;
 
     /*! @brief A holder for a weak pointer to a Value. */
-    typedef std::weak_ptr<Value> WpValue;
+    using WpValue = std::weak_ptr<Value>;
 
     /*! @brief A pointer to a handler for system signals.
      @param[in] theSignal The signal of interest. */
-    typedef void (* SignalHandler)
+    using SignalHandler = void (*)
        (int theSignal);
 
     /*! @brief A sequence of strings. */
-    typedef std::vector<std::string> StringVector;
+    using StringVector = std::vector<std::string>;
 
     // Methods.
 

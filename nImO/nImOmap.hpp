@@ -56,7 +56,7 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    typedef std::map<SpValue, SpValue, CompareValues> MapBase;
+    using MapBase = std::map<SpValue, SpValue, CompareValues>;
 
     /*! @brief A class to provide collections with hashtable-like behaviour.
 
@@ -69,22 +69,22 @@ namespace nImO
         // Public type definitions.
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef MapBase::iterator iterator;
+        using iterator = MapBase::iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef MapBase::const_iterator const_iterator;
+        using const_iterator = MapBase::const_iterator;
 
         /*! @brief The non-const iterator for Arrays. */
-        typedef MapBase::reverse_iterator reverse_iterator;
+        using reverse_iterator = MapBase::reverse_iterator;
 
         /*! @brief The const iterator for Arrays. */
-        typedef MapBase::const_reverse_iterator const_reverse_iterator;
+        using const_reverse_iterator = MapBase::const_reverse_iterator;
 
         /*! @brief The return result from the insert method. */
-        typedef std::pair<MapBase::iterator, bool> InsertResult;
+        using InsertResult = std::pair<MapBase::iterator, bool>;
 
         /*! @brief The size of indices. */
-        typedef MapBase::size_type size_type;
+        using size_type = MapBase::size_type;
 
     protected :
         // Protected type definitions.
@@ -93,13 +93,13 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The first class that this class is derived from. */
-        typedef Container inherited1;
+        using inherited1 = Container;
 
         /*! @brief The second class that this class is derived from. */
-        typedef MapBase inherited2;
+        using inherited2 = MapBase;
 
         /*! @brief The type of value to be inserted. */
-        typedef MapBase::value_type MapValue;
+        using MapValue = MapBase::value_type;
 
     public :
         // Public methods.

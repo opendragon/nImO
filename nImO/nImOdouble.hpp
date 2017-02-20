@@ -67,7 +67,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        typedef Number inherited;
+        using inherited = Number;
 
     public :
         // Public methods.

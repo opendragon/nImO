@@ -75,7 +75,7 @@ namespace nImO
     private :
 
         /*! @brief The class that this class is derived from. */
-        typedef BaseArgumentDescriptor inherited;
+        using inherited = BaseArgumentDescriptor;
 
     public :
 

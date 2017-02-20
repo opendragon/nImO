@@ -70,7 +70,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        typedef Value inherited;
+        using inherited = Value;
 
     public :
         // Public methods.

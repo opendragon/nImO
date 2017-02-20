@@ -85,8 +85,7 @@ namespace nImO
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
-        typedef SpValue
-           (* Extractor)
+        using Extractor = SpValue (*)
                (const Message &theMessage,
                 const int     leadByte,
                 size_t        &position,
@@ -100,28 +99,27 @@ namespace nImO
          @param[in] inBuffer The buffer to be read from.
          @param[in,out] position The position for the next read.
          @returns The next Value in the StringBuffer. */
-        typedef SpValue
-            (* BufferReader)
+        using BufferReader = SpValue (*)
                 (const StringBuffer &inBuffer,
                  size_t             &position);
 
         /*! @brief The map from characters to BufferReaders. */
-        typedef std::map<char, BufferReader> BufferReaderMap;
+        using BufferReaderMap = std::map<char, BufferReader>;
 
         /*! @brief The non-const iterator for BufferReaderMaps. */
-        typedef BufferReaderMap::iterator BufferReaderIterator;
+        using BufferReaderIterator = BufferReaderMap::iterator;
 
         /*! @brief The return result from the insert method. */
-        typedef std::pair<BufferReaderMap::iterator, bool> BufferReaderInsertResult;
+        using BufferReaderInsertResult = std::pair<BufferReaderMap::iterator, bool>;
 
         /*! @brief The type of value to be inserted. */
-        typedef BufferReaderMap::value_type BufferReaderValue;
+        using BufferReaderValue = BufferReaderMap::value_type;
 
         /*! @brief The map from bytes to Extractors. */
-        typedef std::map<uint8_t, Extractor> ExtractorMap;
+        using ExtractorMap = std::map<uint8_t, Extractor>;
 
         /*! @brief The non-const iterator for ExtractorMaps. */
-        typedef ExtractorMap::iterator ExtractorMapIterator;
+        using ExtractorMapIterator = ExtractorMap::iterator;
 
     public :
         // Public methods.

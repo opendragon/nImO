@@ -72,8 +72,6 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
@@ -82,6 +80,8 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOvalue.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.cpp"
             "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
 
 target_link_libraries(${THIS_TARGET}
@@ -124,8 +124,6 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
@@ -134,6 +132,8 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOvalue.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
         DESTINATION include/nImO
     COMPONENT headers)

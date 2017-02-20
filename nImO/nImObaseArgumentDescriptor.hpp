@@ -382,7 +382,7 @@ namespace nImO
     }; // BaseArgumentDescriptor
 
     /*! @brief A sequence of argument descriptors. */
-    typedef std::vector<BaseArgumentDescriptor *> DescriptorVector;
+    using DescriptorVector = std::vector<BaseArgumentDescriptor *>;
 
     /*! @brief Generate the standard 'argument list' description from an argument sequence.
      @param[in] arguments The argument sequence.

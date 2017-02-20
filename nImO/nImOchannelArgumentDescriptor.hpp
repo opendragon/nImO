@@ -70,7 +70,7 @@ namespace nImO
     private :
 
         /*! @brief The class that this class is derived from. */
-        typedef StringArgumentDescriptor inherited;
+        using inherited = StringArgumentDescriptor;
 
     public :
 

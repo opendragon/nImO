@@ -38,10 +38,10 @@
 
 #include <nImO/nImOarray.hpp>
 #include <nImO/nImOblob.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOmap.hpp>
 #include <nImO/nImOset.hpp>
 #include <nImO/nImOstring.hpp>
@@ -67,6 +67,7 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+using namespace nImO;
 using std::cerr;
 using std::endl;
 
@@ -98,7 +99,7 @@ catchSignal(int signal)
     buff << signal;
     message += buff.str();
     message += " = ";
-    message += nImO::NameOfSignal(signal);
+    message += NameOfSignal(signal);
 #if 0
     nImO_ERROR_(message.c_str());
 #endif//0
@@ -112,13 +113,13 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithSquishedString(const nImO::Value &aValue,
+compareValueWithSquishedString(const Value &aValue,
                                const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    nImO::StringBuffer buff;
+    StringBuffer buff;
     int                result;
     size_t             length;
 
@@ -135,13 +136,13 @@ compareValueWithSquishedString(const nImO::Value &aValue,
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value &aValue,
+compareValueWithString(const Value &aValue,
                        const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    nImO::StringBuffer buff;
+    StringBuffer buff;
     int                result;
     size_t             length;
 
@@ -183,17 +184,17 @@ doTestEmptyArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar, nImO::kEndArrayChar, '\0'
+                kStartArrayChar, kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, '\0'
+                kStartArrayChar, ' ', kEndArrayChar, '\0'
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -262,24 +263,24 @@ doTestSingularArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar,
+                kStartArrayChar,
                     '1', '2', '3', '.', '4', '5',
-                nImO::kEndArrayChar, '\0'
+                kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ',
+                kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndArrayChar, '\0'
+                kEndArrayChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(SpValue(new Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -346,33 +347,33 @@ doTestSmallArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar,
+                kStartArrayChar,
                     '1', '2', '3', '.', '4', '5', ' ',
                     't', 'r', 'u', 'e', ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                     '4', '2',
-                nImO::kEndArrayChar, '\0'
+                kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ',
+                kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
                     't', 'r', 'u', 'e', ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                     '4', '2', ' ',
-                nImO::kEndArrayChar, '\0'
+                kEndArrayChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new String("charlie")));
+            stuff->addValue(SpValue(new Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -439,11 +440,11 @@ doTestBigArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
-            nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -451,8 +452,8 @@ doTestBigArrayValue(const char *launchPath,
                 std::string expectedString;
                 char        numBuff[10];
 
-                expectedSquishedString += nImO::kStartArrayChar;
-                expectedString += nImO::kStartArrayChar;
+                expectedSquishedString += kStartArrayChar;
+                expectedString += kStartArrayChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -464,14 +465,14 @@ doTestBigArrayValue(const char *launchPath,
                         expectedSquishedString += ' ';
                     }
                     bigBlob[ii] = aByte;
-                    stuff->addValue(nImO::SpValue(new nImO::Integer(aByte)));
+                    stuff->addValue(SpValue(new Integer(aByte)));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
                     expectedString += numBuff;
                     snprintf(numBuff, sizeof(numBuff), "%d", aByte);
                     expectedSquishedString += numBuff;
                 }
-                expectedSquishedString += nImO::kEndArrayChar;
-                expectedString += nImO::kEndArrayChar;
+                expectedSquishedString += kEndArrayChar;
+                expectedString += kEndArrayChar;
                 if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
@@ -539,17 +540,17 @@ doTestEmptyMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar, nImO::kEndMapChar, '\0'
+                kStartMapChar, kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ', nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ', kEndMapChar, '\0'
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -601,7 +602,7 @@ doTestEmptyMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularBooleanMapValue(const char *launchPath,
+doTestSingularLogicalMapValue(const char *launchPath,
                               const int  argc,
                               char       **argv) // singular boolean map
 {
@@ -618,27 +619,27 @@ doTestSingularBooleanMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                kStartMapChar,
+                    't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                kStartMapChar, ' ',
+                    't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
-                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(SpValue(new Logical(true)),
+                            SpValue(new Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -669,7 +670,7 @@ doTestSingularBooleanMapValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestSingularBooleanMapValue
+} // doTestSingularLogicalMapValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -705,25 +706,25 @@ doTestSingularIntegerMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
-                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(SpValue(new Integer(42)),
+                            SpValue(new Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -790,27 +791,27 @@ doTestSingularStringMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
+                kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                        nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                        kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
+                kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                        nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                        kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
-                            nImO::SpValue(new nImO::Double(123.45)));
+            stuff->addValue(SpValue(new String("charlie")),
+                            SpValue(new Double(123.45)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -860,7 +861,7 @@ doTestSingularStringMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBooleanMapValue(const char *launchPath,
+doTestSmallLogicalMapValue(const char *launchPath,
                            const int  argc,
                            char       **argv) // small boolean map
 {
@@ -877,31 +878,31 @@ doTestSmallBooleanMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    'f', 'a', 'l', 's', 'e', nImO::kKeyValueSeparator, '4', '2', ' ',
-                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                kStartMapChar,
+                    'f', 'a', 'l', 's', 'e', kKeyValueSeparator, '4', '2', ' ',
+                    't', 'r', 'u', 'e', kKeyValueSeparator,
                     '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    'f', 'a', 'l', 's', 'e', ' ', nImO::kKeyValueSeparator, ' ', '4', '2', ' ',
-                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                kStartMapChar, ' ',
+                    'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ' ',
+                    't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)),
-                            nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(SpValue(new Logical(true)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Logical(false)),
+                            SpValue(new Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -932,7 +933,7 @@ doTestSmallBooleanMapValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestSmallBooleanMapValue
+} // doTestSmallLogicalMapValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -968,33 +969,33 @@ doTestSmallIntegerMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '1', '2', nImO::kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
-                    '1', '7', nImO::kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ' ',
-                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '1', '2', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
+                    '1', '7', kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ' ',
+                    '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '1', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
-                    '1', '7', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
+                    '1', '7', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(17)),
-                            nImO::SpValue(new nImO::Double(12.345)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(12)),
-                            nImO::SpValue(new nImO::Double(1234.5)));
+            stuff->addValue(SpValue(new Integer(42)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Integer(17)),
+                            SpValue(new Double(12.345)));
+            stuff->addValue(SpValue(new Integer(12)),
+                            SpValue(new Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1061,39 +1062,39 @@ doTestSmallStringMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', nImO::kKeyValueSeparator,
+                kStartMapChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', kKeyValueSeparator,
                         '1', '2', '3', '4', '.', '5', ' ',
-                    '"', 'd', 'e', 'l', 't', 'a', '"', nImO::kKeyValueSeparator,
+                    '"', 'd', 'e', 'l', 't', 'a', '"', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5', ' ',
-                    '"', 'l', 'i', 'm', 'a', '"', nImO::kKeyValueSeparator,
+                    '"', 'l', 'i', 'm', 'a', '"', kKeyValueSeparator,
                         '1', '2', '.', '3', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                kStartMapChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '4', '.', '5', ' ',
-                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ' ',
-                    '"', 'l', 'i', 'm', 'a', '"', ' ', nImO::kKeyValueSeparator, ' ',
+                    '"', 'l', 'i', 'm', 'a', '"', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '.', '3', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("delta")),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::String("lima")),
-                            nImO::SpValue(new nImO::Double(12.345)));
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
-                            nImO::SpValue(new nImO::Double(1234.5)));
+            stuff->addValue(SpValue(new String("delta")),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new String("lima")),
+                            SpValue(new Double(12.345)));
+            stuff->addValue(SpValue(new String("charlie")),
+                            SpValue(new Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1160,17 +1161,17 @@ doTestEmptySetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar, nImO::kEndSetChar, '\0'
+                kStartSetChar, kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ', nImO::kEndSetChar, '\0'
+                kStartSetChar, ' ', kEndSetChar, '\0'
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -1222,7 +1223,7 @@ doTestEmptySetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularBooleanSetValue(const char *launchPath,
+doTestSingularLogicalSetValue(const char *launchPath,
                               const int  argc,
                               char       **argv) // singular boolean map
 {
@@ -1239,24 +1240,24 @@ doTestSingularBooleanSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     't', 'r', 'u', 'e',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
+            stuff->addValue(SpValue(new Logical(true)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1287,7 +1288,7 @@ doTestSingularBooleanSetValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestSingularBooleanSetValue
+} // doTestSingularLogicalSetValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1323,24 +1324,24 @@ doTestSingularIntegerSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '4', '2',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '4', '2', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
+            stuff->addValue(SpValue(new Integer(42)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1407,24 +1408,24 @@ doTestSingularStringSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
+            stuff->addValue(SpValue(new String("charlie")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1474,7 +1475,7 @@ doTestSingularStringSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBooleanSetValue(const char *launchPath,
+doTestSmallLogicalSetValue(const char *launchPath,
                            const int  argc,
                            char       **argv) // small boolean map
 {
@@ -1491,29 +1492,29 @@ doTestSmallBooleanSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new Logical(false)));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new Logical(false)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1544,7 +1545,7 @@ doTestSmallBooleanSetValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestSmallBooleanSetValue
+} // doTestSmallLogicalSetValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1580,37 +1581,37 @@ doTestSmallIntegerSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '1', '2', ' ',
                     '1', '7', ' ',
                     '4', '2', ' ',
                     '1', '2', '3',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '1', '2', ' ',
                     '1', '7', ' ',
                     '4', '2', ' ',
                     '1', '2', '3', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(123)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(17)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(12)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(123)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(17)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(12)));
+            stuff->addValue(SpValue(new Integer(123)));
+            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(SpValue(new Integer(17)));
+            stuff->addValue(SpValue(new Integer(12)));
+            stuff->addValue(SpValue(new Integer(123)));
+            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(SpValue(new Integer(17)));
+            stuff->addValue(SpValue(new Integer(12)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1677,37 +1678,37 @@ doTestSmallStringSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
                     '"', 'b', 'e', 't', 'a', '"', ' ',
                     '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
                     '"', 'g', 'a', 'm', 'm', 'a', '"',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
                     '"', 'b', 'e', 't', 'a', '"', ' ',
                     '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
                     '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("gamma")));
-            stuff->addValue(nImO::SpValue(new nImO::String("alpha")));
-            stuff->addValue(nImO::SpValue(new nImO::String("delta")));
-            stuff->addValue(nImO::SpValue(new nImO::String("beta")));
-            stuff->addValue(nImO::SpValue(new nImO::String("gamma")));
-            stuff->addValue(nImO::SpValue(new nImO::String("alpha")));
-            stuff->addValue(nImO::SpValue(new nImO::String("delta")));
-            stuff->addValue(nImO::SpValue(new nImO::String("beta")));
+            stuff->addValue(SpValue(new String("gamma")));
+            stuff->addValue(SpValue(new String("alpha")));
+            stuff->addValue(SpValue(new String("delta")));
+            stuff->addValue(SpValue(new String("beta")));
+            stuff->addValue(SpValue(new String("gamma")));
+            stuff->addValue(SpValue(new String("alpha")));
+            stuff->addValue(SpValue(new String("delta")));
+            stuff->addValue(SpValue(new String("beta")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1774,24 +1775,24 @@ doTestArrayWithArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar,
-                    nImO::kStartArrayChar, nImO::kEndArrayChar,
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar,
+                    kStartArrayChar, kEndArrayChar,
+                kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ',
-                    nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar, ' ',
+                    kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndArrayChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Array));
+            stuff->addValue(SpValue(new Array));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1858,24 +1859,24 @@ doTestArrayWithMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar,
-                    nImO::kStartMapChar, nImO::kEndMapChar,
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar,
+                    kStartMapChar, kEndMapChar,
+                kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ',
-                    nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar, ' ',
+                    kStartMapChar, ' ', kEndMapChar, ' ',
+                kEndArrayChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Map));
+            stuff->addValue(SpValue(new Map));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1942,24 +1943,24 @@ doTestArrayWithSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpArray stuff(new nImO::Array);
+        UpArray stuff(new Array);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartArrayChar,
-                    nImO::kStartSetChar, nImO::kEndSetChar,
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar,
+                    kStartSetChar, kEndSetChar,
+                kEndArrayChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartArrayChar, ' ',
-                    nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
-                nImO::kEndArrayChar, '\0'
+                kStartArrayChar, ' ',
+                    kStartSetChar, ' ', kEndSetChar, ' ',
+                kEndArrayChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Set));
+            stuff->addValue(SpValue(new Set));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2026,26 +2027,26 @@ doTestMapWithArrayValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '4', '2', nImO::kKeyValueSeparator,
-                        nImO::kStartArrayChar, nImO::kEndArrayChar,
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator,
+                        kStartArrayChar, kEndArrayChar,
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
-                        nImO::kStartArrayChar, ' ', nImO::kEndArrayChar, ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ',
+                        kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Array()));
+            stuff->addValue(SpValue(new Integer(42)), SpValue(new Array()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2112,26 +2113,26 @@ doTestMapWithMapValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '4', '2', nImO::kKeyValueSeparator,
-                        nImO::kStartMapChar, nImO::kEndMapChar,
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator,
+                        kStartMapChar, kEndMapChar,
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
-                        nImO::kStartMapChar, ' ', nImO::kEndMapChar, ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ',
+                        kStartMapChar, ' ', kEndMapChar, ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Map()));
+            stuff->addValue(SpValue(new Integer(42)), SpValue(new Map()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2198,26 +2199,26 @@ doTestMapWithSetValue(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '4', '2', nImO::kKeyValueSeparator,
-                        nImO::kStartSetChar, nImO::kEndSetChar,
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator,
+                        kStartSetChar, kEndSetChar,
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ',
-                        nImO::kStartSetChar, ' ', nImO::kEndSetChar, ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ',
+                        kStartSetChar, ' ', kEndSetChar, ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)), nImO::SpValue(new nImO::Set()));
+            stuff->addValue(SpValue(new Integer(42)), SpValue(new Set()));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2267,7 +2268,7 @@ doTestMapWithSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
+doTestLogicalMapValueWithIncompatibleKeys(const char *launchPath,
                                           const int  argc,
                                           char       **argv) // boolean map with incompatible keys
 {
@@ -2284,33 +2285,33 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    't', 'r', 'u', 'e', nImO::kKeyValueSeparator,
+                kStartMapChar,
+                    't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    't', 'r', 'u', 'e', ' ', nImO::kKeyValueSeparator, ' ',
+                kStartMapChar, ' ',
+                    't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
-                            nImO::SpValue(new nImO::Double(12.345)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
-                            nImO::SpValue(new nImO::Double(1.2345)));
-            stuff->addValue(nImO::SpValue(new nImO::String("zebra")),
-                            nImO::SpValue(new nImO::Double(1234.5)));
+            stuff->addValue(SpValue(new Logical(true)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Integer(42)),
+                            SpValue(new Double(12.345)));
+            stuff->addValue(SpValue(new Double(19.77)),
+                            SpValue(new Double(1.2345)));
+            stuff->addValue(SpValue(new String("zebra")),
+                            SpValue(new Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2341,7 +2342,7 @@ doTestBooleanMapValueWithIncompatibleKeys(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanMapValueWithIncompatibleKeys
+} // doTestLogicalMapValueWithIncompatibleKeys
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -2377,31 +2378,31 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
-                    '4', '2', nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
-                    '4', '2', ' ', nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
-                            nImO::SpValue(new nImO::Double(1.2345)));
-            stuff->addValue(nImO::SpValue(new nImO::String("zebra")),
-                            nImO::SpValue(new nImO::Double(1234.5)));
+            stuff->addValue(SpValue(new Integer(42)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Logical(true)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Double(19.77)),
+                            SpValue(new Double(1.2345)));
+            stuff->addValue(SpValue(new String("zebra")),
+                            SpValue(new Double(1234.5)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2468,33 +2469,33 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpMap stuff(new nImO::Map);
+        UpMap stuff(new Map);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartMapChar,
+                kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                    nImO::kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                nImO::kEndMapChar, '\0'
+                    kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartMapChar, ' ',
+                kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                    nImO::kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                nImO::kEndMapChar, '\0'
+                    kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)),
-                            nImO::SpValue(new nImO::Double(123.45)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)),
-                            nImO::SpValue(new nImO::Double(12.345)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)),
-                            nImO::SpValue(new nImO::Double(1.2345)));
+            stuff->addValue(SpValue(new String("charlie")),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Logical(true)),
+                            SpValue(new Double(123.45)));
+            stuff->addValue(SpValue(new Integer(42)),
+                            SpValue(new Double(12.345)));
+            stuff->addValue(SpValue(new Double(19.77)),
+                            SpValue(new Double(1.2345)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2544,7 +2545,7 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
+doTestLogicalSetValueWithIncompatibleKeys(const char *launchPath,
                                           const int  argc,
                                           char       **argv) // boolean set with incompatible keys
 {
@@ -2561,27 +2562,27 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     't', 'r', 'u', 'e',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
-            stuff->addValue(nImO::SpValue(new nImO::String("zebra")));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(SpValue(new Double(19.77)));
+            stuff->addValue(SpValue(new String("zebra")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2612,7 +2613,7 @@ doTestBooleanSetValueWithIncompatibleKeys(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanSetValueWithIncompatibleKeys
+} // doTestLogicalSetValueWithIncompatibleKeys
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -2648,27 +2649,27 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '4', '2',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '4', '2', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
-            stuff->addValue(nImO::SpValue(new nImO::String("zebra")));
+            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new Double(19.77)));
+            stuff->addValue(SpValue(new String("zebra")));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2735,27 +2736,27 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        nImO::UpSet stuff(new nImO::Set);
+        UpSet stuff(new Set);
 
         if (stuff)
         {
             static const char expectedSquishedString[] =
             {
-                nImO::kStartSetChar,
+                kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
             static const char expectedString[] =
             {
-                nImO::kStartSetChar, ' ',
+                kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                nImO::kEndSetChar, '\0'
+                kEndSetChar, '\0'
             };
 
-            stuff->addValue(nImO::SpValue(new nImO::String("charlie")));
-            stuff->addValue(nImO::SpValue(new nImO::Boolean(true)));
-            stuff->addValue(nImO::SpValue(new nImO::Integer(42)));
-            stuff->addValue(nImO::SpValue(new nImO::Double(19.77)));
+            stuff->addValue(SpValue(new String("charlie")));
+            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(SpValue(new Double(19.77)));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2822,7 +2823,7 @@ doTestValidArrayCompares(const char *launchPath,
 
     try
     {
-        struct testBooleans
+        struct testLogicals
         {
             bool _testValue;
             bool _lessThanResult;
@@ -2835,17 +2836,17 @@ doTestValidArrayCompares(const char *launchPath,
             bool _greaterThanOrEqualValid;
             bool _equalToResult;
             bool _equalToValid;
-        }; // testBooleans
+        }; // testLogicals
 
-        nImO::Array         stuff;
-        static testBooleans testSet1l[] =
+        Array         stuff;
+        static testLogicals testSet1l[] =
         {
             // test  <            >            <=           >=           ==
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-        static testBooleans testSet1r[] =
+        static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
@@ -2853,13 +2854,13 @@ doTestValidArrayCompares(const char *launchPath,
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
 
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(SpValue(new Logical(true)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -2932,7 +2933,7 @@ doTestValidArrayCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -3004,14 +3005,14 @@ doTestValidArrayCompares(const char *launchPath,
         }
         if (0 == result)
         {
-            static testBooleans testSet2l[] =
+            static testLogicals testSet2l[] =
             {
                 // test  <            >            <=           >=          ==
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
             const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
-            static testBooleans testSet2r[] =
+            static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
@@ -3020,13 +3021,13 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(SpValue(new Logical(false)));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3101,7 +3102,7 @@ doTestValidArrayCompares(const char *launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3225,15 +3226,15 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
 
             stuff.clear();
-            stuff.addValue(nImO::SpValue(new nImO::Double(123.45)));
-            stuff.addValue(nImO::SpValue(new nImO::Double(200.0)));
-            stuff.addValue(nImO::SpValue(new nImO::Double(-25.0)));
-            stuff.addValue(nImO::SpValue(new nImO::Double(-60.0)));
-            stuff.addValue(nImO::SpValue(new nImO::Double(0.0)));
+            stuff.addValue(SpValue(new Double(123.45)));
+            stuff.addValue(SpValue(new Double(200.0)));
+            stuff.addValue(SpValue(new Double(-25.0)));
+            stuff.addValue(SpValue(new Double(-60.0)));
+            stuff.addValue(SpValue(new Double(0.0)));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::Double aValue(testSet3l[ii]._testValue);
+                Double aValue(testSet3l[ii]._testValue);
 
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3308,7 +3309,7 @@ doTestValidArrayCompares(const char *launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::Double aValue(testSet3r[ii]._testValue);
+                Double aValue(testSet3r[ii]._testValue);
 
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3420,13 +3421,13 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
 
             stuff.clear();
-            stuff.addValue(nImO::SpValue(new nImO::String("abc")));
-            stuff.addValue(nImO::SpValue(new nImO::String("def")));
-            stuff.addValue(nImO::SpValue(new nImO::String("ghi")));
+            stuff.addValue(SpValue(new String("abc")));
+            stuff.addValue(SpValue(new String("def")));
+            stuff.addValue(SpValue(new String("ghi")));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::String aValue(testSet4l[ii]._testValue);
+                String aValue(testSet4l[ii]._testValue);
 
                 if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3501,7 +3502,7 @@ doTestValidArrayCompares(const char *launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
             {
                 bool         valid = false;
-                nImO::String aValue(testSet4r[ii]._testValue);
+                String aValue(testSet4r[ii]._testValue);
 
                 if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3601,7 +3602,7 @@ doTestValidArrayCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanMapCompares(const char *launchPath,
+doTestValidLogicalMapCompares(const char *launchPath,
                               const int  argc,
                               char       **argv) // valid boolean map compares
 {
@@ -3618,7 +3619,7 @@ doTestValidBooleanMapCompares(const char *launchPath,
 
     try
     {
-        struct testBooleans
+        struct testLogicals
         {
             bool _testValue;
             bool _lessThanResult;
@@ -3631,34 +3632,34 @@ doTestValidBooleanMapCompares(const char *launchPath,
             bool _greaterThanOrEqualValid;
             bool _equalToResult;
             bool _equalToValid;
-        }; // testBooleans
+        }; // testLogicals
 
-        static testBooleans testSet1l[] =
+        static testLogicals testSet1l[] =
         {
             // test  <            >            <=           >=           ==
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-        static testBooleans testSet1r[] =
+        static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Map           stuff;
+        Map           stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
-                       nImO::SpValue(new nImO::String("abc")));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
-                       nImO::SpValue(new nImO::String("def")));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)),
-                       nImO::SpValue(new nImO::String("ghi")));
+        stuff.addValue(SpValue(new Logical(true)),
+                       SpValue(new String("abc")));
+        stuff.addValue(SpValue(new Logical(true)),
+                       SpValue(new String("def")));
+        stuff.addValue(SpValue(new Logical(true)),
+                       SpValue(new String("ghi")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -3731,7 +3732,7 @@ doTestValidBooleanMapCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -3803,14 +3804,14 @@ doTestValidBooleanMapCompares(const char *launchPath,
         }
         if (0 == result)
         {
-            static testBooleans testSet2l[] =
+            static testLogicals testSet2l[] =
             {
                 // test  <            >            <=           >=          ==
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
             const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
-            static testBooleans testSet2r[] =
+            static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
@@ -3819,16 +3820,16 @@ doTestValidBooleanMapCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
-                           nImO::SpValue(new nImO::String("abc")));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
-                           nImO::SpValue(new nImO::String("def")));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)),
-                           nImO::SpValue(new nImO::String("ghi")));
+            stuff.addValue(SpValue(new Logical(false)),
+                           SpValue(new String("abc")));
+            stuff.addValue(SpValue(new Logical(false)),
+                           SpValue(new String("def")));
+            stuff.addValue(SpValue(new Logical(false)),
+                           SpValue(new String("ghi")));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3903,7 +3904,7 @@ doTestValidBooleanMapCompares(const char *launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3984,7 +3985,7 @@ doTestValidBooleanMapCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestValidBooleanMapCompares
+} // doTestValidLogicalMapCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -4068,22 +4069,22 @@ doTestValidIntegerMapCompares(const char *launchPath,
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Map          stuff;
+        Map          stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::Integer(123)),
-                       nImO::SpValue(new nImO::String("abc")));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(200)),
-                       nImO::SpValue(new nImO::String("def")));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(-25)),
-                       nImO::SpValue(new nImO::String("ghi")));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(-60)),
-                       nImO::SpValue(new nImO::String("jkl")));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(0)),
-                       nImO::SpValue(new nImO::String("mno")));
+        stuff.addValue(SpValue(new Integer(123)),
+                       SpValue(new String("abc")));
+        stuff.addValue(SpValue(new Integer(200)),
+                       SpValue(new String("def")));
+        stuff.addValue(SpValue(new Integer(-25)),
+                       SpValue(new String("ghi")));
+        stuff.addValue(SpValue(new Integer(-60)),
+                       SpValue(new String("jkl")));
+        stuff.addValue(SpValue(new Integer(0)),
+                       SpValue(new String("mno")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer aValue(testSet1l[ii]._testValue);
+            Integer aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -4156,7 +4157,7 @@ doTestValidIntegerMapCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer aValue(testSet1r[ii]._testValue);
+            Integer aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4305,18 +4306,18 @@ doTestValidStringMapCompares(const char *launchPath,
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Map          stuff;
+        Map          stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::String("abc")),
-                       nImO::SpValue(new nImO::String("123")));
-        stuff.addValue(nImO::SpValue(new nImO::String("def")),
-                       nImO::SpValue(new nImO::String("456")));
-        stuff.addValue(nImO::SpValue(new nImO::String("ghi")),
-                       nImO::SpValue(new nImO::String("789")));
+        stuff.addValue(SpValue(new String("abc")),
+                       SpValue(new String("123")));
+        stuff.addValue(SpValue(new String("def")),
+                       SpValue(new String("456")));
+        stuff.addValue(SpValue(new String("ghi")),
+                       SpValue(new String("789")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
-            nImO::String aValue(testSet1l[ii]._testValue);
+            String aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -4389,7 +4390,7 @@ doTestValidStringMapCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool         valid = false;
-            nImO::String aValue(testSet1r[ii]._testValue);
+            String aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4486,7 +4487,7 @@ doTestValidStringMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanSetCompares(const char *launchPath,
+doTestValidLogicalSetCompares(const char *launchPath,
                               const int  argc,
                               char       **argv) // valid boolean set compares
 {
@@ -4503,7 +4504,7 @@ doTestValidBooleanSetCompares(const char *launchPath,
 
     try
     {
-        struct testBooleans
+        struct testLogicals
         {
             bool _testValue;
             bool _lessThanResult;
@@ -4516,31 +4517,31 @@ doTestValidBooleanSetCompares(const char *launchPath,
             bool _greaterThanOrEqualValid;
             bool _equalToResult;
             bool _equalToValid;
-        }; // testBooleans
+        }; // testLogicals
 
-        static testBooleans testSet1l[] =
+        static testLogicals testSet1l[] =
         {
             // test  <            >            <=           >=           ==
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
         const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-        static testBooleans testSet1r[] =
+        static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Set           stuff;
+        Set           stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(SpValue(new Logical(true)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1l[ii]._testValue);
+            Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -4613,7 +4614,7 @@ doTestValidBooleanSetCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean aValue(testSet1r[ii]._testValue);
+            Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4685,14 +4686,14 @@ doTestValidBooleanSetCompares(const char *launchPath,
         }
         if (0 == result)
         {
-            static testBooleans testSet2l[] =
+            static testLogicals testSet2l[] =
             {
                 // test  <            >            <=           >=          ==
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
             const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
-            static testBooleans testSet2r[] =
+            static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
@@ -4701,13 +4702,13 @@ doTestValidBooleanSetCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
+            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(SpValue(new Logical(false)));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2l[ii]._testValue);
+                Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -4782,7 +4783,7 @@ doTestValidBooleanSetCompares(const char *launchPath,
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 bool          valid = false;
-                nImO::Boolean aValue(testSet2r[ii]._testValue);
+                Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -4863,7 +4864,7 @@ doTestValidBooleanSetCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestValidBooleanSetCompares
+} // doTestValidLogicalSetCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -4947,17 +4948,17 @@ doTestValidIntegerSetCompares(const char *launchPath,
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Set          stuff;
+        Set          stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::Integer(123)));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(200)));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(-25)));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(-60)));
-        stuff.addValue(nImO::SpValue(new nImO::Integer(0)));
+        stuff.addValue(SpValue(new Integer(123)));
+        stuff.addValue(SpValue(new Integer(200)));
+        stuff.addValue(SpValue(new Integer(-25)));
+        stuff.addValue(SpValue(new Integer(-60)));
+        stuff.addValue(SpValue(new Integer(0)));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer aValue(testSet1l[ii]._testValue);
+            Integer aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -5030,7 +5031,7 @@ doTestValidIntegerSetCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer aValue(testSet1r[ii]._testValue);
+            Integer aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -5179,15 +5180,15 @@ doTestValidStringSetCompares(const char *launchPath,
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        nImO::Set          stuff;
+        Set          stuff;
 
-        stuff.addValue(nImO::SpValue(new nImO::String("abc")));
-        stuff.addValue(nImO::SpValue(new nImO::String("def")));
-        stuff.addValue(nImO::SpValue(new nImO::String("ghi")));
+        stuff.addValue(SpValue(new String("abc")));
+        stuff.addValue(SpValue(new String("def")));
+        stuff.addValue(SpValue(new String("ghi")));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
-            nImO::String aValue(testSet1l[ii]._testValue);
+            String aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -5260,7 +5261,7 @@ doTestValidStringSetCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             bool         valid = false;
-            nImO::String aValue(testSet1r[ii]._testValue);
+            String aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -5375,28 +5376,28 @@ doTestInvalidArrayCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Array   leftValue;
-        nImO::Boolean rightValue1;
-        nImO::Double  rightValue2;
-        nImO::String  rightValue3;
-        nImO::Blob    rightValue4;
-        nImO::Array   rightValue5;
-        nImO::Map     rightValue6;
-        nImO::Set     rightValue7;
-        nImO::Integer rightValue8;
-        nImO::Value   *rightValues[] =
+        Array   leftValue;
+        Logical rightValue1;
+        Double  rightValue2;
+        String  rightValue3;
+        Blob    rightValue4;
+        Array   rightValue5;
+        Map     rightValue6;
+        Set     rightValue7;
+        Integer rightValue8;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::Boolean));
-        leftValue.addValue(nImO::SpValue(new nImO::Number));
-        leftValue.addValue(nImO::SpValue(new nImO::String));
+        leftValue.addValue(SpValue(new Logical));
+        leftValue.addValue(SpValue(new Number));
+        leftValue.addValue(SpValue(new String));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5481,7 +5482,7 @@ doTestInvalidArrayCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanMapCompares(const char *launchPath,
+doTestInvalidLogicalMapCompares(const char *launchPath,
                                 const int  argc,
                                 char       **argv) // invalid boolean map compares
 {
@@ -5499,28 +5500,28 @@ doTestInvalidBooleanMapCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Map     leftValue;
-        nImO::Integer rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Double  rightValue7;
-        nImO::Value   *rightValues[] =
+        Map     leftValue;
+        Integer rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Double  rightValue7;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::Boolean(false)),
-                           nImO::SpValue(new nImO::String("false")));
-        leftValue.addValue(nImO::SpValue(new nImO::Boolean(true)),
-                           nImO::SpValue(new nImO::String("true")));
+        leftValue.addValue(SpValue(new Logical(false)),
+                           SpValue(new String("false")));
+        leftValue.addValue(SpValue(new Logical(true)),
+                           SpValue(new String("true")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5586,7 +5587,7 @@ doTestInvalidBooleanMapCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInvalidBooleanMapCompares
+} // doTestInvalidLogicalMapCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -5623,28 +5624,28 @@ doTestInvalidIntegerMapCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Map     leftValue;
-        nImO::Boolean rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value   *rightValues[] =
+        Map     leftValue;
+        Logical rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(42)),
-                           nImO::SpValue(new nImO::Double(123.45)));
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(17)),
-                           nImO::SpValue(new nImO::Double(12.345)));
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(12)),
-                           nImO::SpValue(new nImO::Double(1234.5)));
+        leftValue.addValue(SpValue(new Integer(42)),
+                           SpValue(new Double(123.45)));
+        leftValue.addValue(SpValue(new Integer(17)),
+                           SpValue(new Double(12.345)));
+        leftValue.addValue(SpValue(new Integer(12)),
+                           SpValue(new Double(1234.5)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5747,30 +5748,30 @@ doTestInvalidStringMapCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Map     leftValue;
-        nImO::Double  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Integer rightValue7;
-        nImO::Value   *rightValues[] =
+        Map     leftValue;
+        Double  rightValue1;
+        Logical rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Integer rightValue7;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::String("abc")),
-                           nImO::SpValue(new nImO::String("123")));
-        leftValue.addValue(nImO::SpValue(new nImO::String("def")),
-                           nImO::SpValue(new nImO::String("456")));
-        leftValue.addValue(nImO::SpValue(new nImO::String("ghi")),
-                           nImO::SpValue(new nImO::String("789")));
+        leftValue.addValue(SpValue(new String("abc")),
+                           SpValue(new String("123")));
+        leftValue.addValue(SpValue(new String("def")),
+                           SpValue(new String("456")));
+        leftValue.addValue(SpValue(new String("ghi")),
+                           SpValue(new String("789")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5855,7 +5856,7 @@ doTestInvalidStringMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanSetCompares(const char *launchPath,
+doTestInvalidLogicalSetCompares(const char *launchPath,
                                 const int  argc,
                                 char       **argv) // invalid boolean set compares
 {
@@ -5873,26 +5874,26 @@ doTestInvalidBooleanSetCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Double  rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Integer rightValue7;
-        nImO::Value   *rightValues[] =
+        Set     leftValue;
+        Double  rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Integer rightValue7;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::Boolean(false)));
-        leftValue.addValue(nImO::SpValue(new nImO::Boolean(true)));
+        leftValue.addValue(SpValue(new Logical(false)));
+        leftValue.addValue(SpValue(new Logical(true)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5958,7 +5959,7 @@ doTestInvalidBooleanSetCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInvalidBooleanSetCompares
+} // doTestInvalidLogicalSetCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -5995,25 +5996,25 @@ doTestInvalidIntegerSetCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Boolean rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Value   *rightValues[] =
+        Set     leftValue;
+        Logical rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(42)));
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(17)));
-        leftValue.addValue(nImO::SpValue(new nImO::Integer(12)));
+        leftValue.addValue(SpValue(new Integer(42)));
+        leftValue.addValue(SpValue(new Integer(17)));
+        leftValue.addValue(SpValue(new Integer(12)));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -6116,27 +6117,27 @@ doTestInvalidStringSetCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Set     leftValue;
-        nImO::Double  rightValue1;
-        nImO::Boolean rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Array   rightValue4;
-        nImO::Map     rightValue5;
-        nImO::Set     rightValue6;
-        nImO::Integer rightValue7;
-        nImO::Value   *rightValues[] =
+        Set     leftValue;
+        Double  rightValue1;
+        Logical rightValue2;
+        Blob    rightValue3;
+        Array   rightValue4;
+        Map     rightValue5;
+        Set     rightValue6;
+        Integer rightValue7;
+        Value   *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(nImO::SpValue(new nImO::String("abc")));
-        leftValue.addValue(nImO::SpValue(new nImO::String("def")));
-        leftValue.addValue(nImO::SpValue(new nImO::String("ghi")));
+        leftValue.addValue(SpValue(new String("abc")));
+        leftValue.addValue(SpValue(new String("def")));
+        leftValue.addValue(SpValue(new String("ghi")));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -6238,10 +6239,10 @@ doTestArrayIndices(const char *launchPath,
 
     try
     {
-        nImO::Array   stuff;
-        nImO::SpValue aBoolValue;
-        nImO::SpValue aNumberValue;
-        nImO::SpValue aStringValue;
+        Array   stuff;
+        SpValue aBoolValue;
+        SpValue aNumberValue;
+        SpValue aStringValue;
 
         if (0 != stuff.size())
         {
@@ -6266,7 +6267,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aBoolValue.reset(new nImO::Boolean);
+            aBoolValue.reset(new Logical);
             stuff.addValue(aBoolValue);
             if (1 != stuff.size())
             {
@@ -6284,7 +6285,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aNumberValue.reset(new nImO::Number);
+            aNumberValue.reset(new Number);
             stuff.addValue(aNumberValue);
             if (2 != stuff.size())
             {
@@ -6302,7 +6303,7 @@ doTestArrayIndices(const char *launchPath,
         }
         if (0 == result)
         {
-            aStringValue.reset(new nImO::String);
+            aStringValue.reset(new String);
             stuff.addValue(aStringValue);
             if (3 != stuff.size())
             {
@@ -6347,7 +6348,7 @@ doTestArrayIndices(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanMapSearches(const char *launchPath,
+doTestLogicalMapSearches(const char *launchPath,
                          const int  argc,
                          char       **argv) // boolean map searches
 {
@@ -6364,13 +6365,13 @@ doTestBooleanMapSearches(const char *launchPath,
 
     try
     {
-        nImO::Map           stuff;
-        nImO::Map::iterator iter;
-        nImO::SpString      falseString(new nImO::String("false"));
-        nImO::SpString      trueString;
+        Map           stuff;
+        Map::iterator iter;
+        SpString      falseString(new String("false"));
+        SpString      trueString;
 
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(false)), falseString);
-        iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(SpValue(new Logical(false)), falseString);
+        iter = stuff.find(SpValue(new Logical(true)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6378,7 +6379,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(false)));
+            iter = stuff.find(SpValue(new Logical(false)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6392,7 +6393,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+            iter = stuff.find(SpValue(new Logical(true)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6401,9 +6402,9 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            trueString.reset(new nImO::String("true"));
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(true)), trueString);
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+            trueString.reset(new String("true"));
+            stuff.addValue(SpValue(new Logical(true)), trueString);
+            iter = stuff.find(SpValue(new Logical(true)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6417,7 +6418,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
+            iter = stuff.find(SpValue(new Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6426,7 +6427,7 @@ doTestBooleanMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String()));
+            iter = stuff.find(SpValue(new String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6441,7 +6442,7 @@ doTestBooleanMapSearches(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanMapSearches
+} // doTestLogicalMapSearches
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -6477,13 +6478,13 @@ doTestIntegerMapSearches(const char *launchPath,
 
     try
     {
-        nImO::Map           stuff;
-        nImO::Map::iterator iter;
-        nImO::SpString      string17(new nImO::String("17"));
-        nImO::SpString      string12;
+        Map           stuff;
+        Map::iterator iter;
+        SpString      string17(new String("17"));
+        SpString      string12;
 
-        stuff.addValue(nImO::SpValue(new nImO::Integer(17)), string17);
-        iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+        stuff.addValue(SpValue(new Integer(17)), string17);
+        iter = stuff.find(SpValue(new Integer(12)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6491,7 +6492,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(17)));
+            iter = stuff.find(SpValue(new Integer(17)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6505,7 +6506,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+            iter = stuff.find(SpValue(new Integer(12)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6514,9 +6515,9 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            string12.reset(new nImO::String("12"));
-            stuff.addValue(nImO::SpValue(new nImO::Integer(12)), string12);
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+            string12.reset(new String("12"));
+            stuff.addValue(SpValue(new Integer(12)), string12);
+            iter = stuff.find(SpValue(new Integer(12)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6530,7 +6531,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
+            iter = stuff.find(SpValue(new Logical()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6539,7 +6540,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String()));
+            iter = stuff.find(SpValue(new String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6590,13 +6591,13 @@ doTestStringMapSearches(const char *launchPath,
 
     try
     {
-        nImO::Map           stuff;
-        nImO::Map::iterator iter;
-        nImO::SpString      stringOneSeven(new nImO::String("17"));
-        nImO::SpString      stringOneTwo;
+        Map           stuff;
+        Map::iterator iter;
+        SpString      stringOneSeven(new String("17"));
+        SpString      stringOneTwo;
 
-        stuff.addValue(nImO::SpValue(new nImO::String("abc")), stringOneSeven);
-        iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+        stuff.addValue(SpValue(new String("abc")), stringOneSeven);
+        iter = stuff.find(SpValue(new String("def")));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6604,7 +6605,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String("abc")));
+            iter = stuff.find(SpValue(new String("abc")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6618,7 +6619,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+            iter = stuff.find(SpValue(new String("def")));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6627,9 +6628,9 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stringOneTwo.reset(new nImO::String("12"));
-            stuff.addValue(nImO::SpValue(new nImO::String("def")), stringOneTwo);
-            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+            stringOneTwo.reset(new String("12"));
+            stuff.addValue(SpValue(new String("def")), stringOneTwo);
+            iter = stuff.find(SpValue(new String("def")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6643,7 +6644,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
+            iter = stuff.find(SpValue(new Logical()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6652,7 +6653,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
+            iter = stuff.find(SpValue(new Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6686,7 +6687,7 @@ doTestStringMapSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanSetSearches(const char *launchPath,
+doTestLogicalSetSearches(const char *launchPath,
                          const int  argc,
                          char       **argv) // boolean set searches
 {
@@ -6703,11 +6704,11 @@ doTestBooleanSetSearches(const char *launchPath,
 
     try
     {
-        nImO::Set           stuff;
-        nImO::Set::iterator iter;
+        Set           stuff;
+        Set::iterator iter;
 
-        stuff.addValue(nImO::SpValue(new nImO::Boolean(false)));
-        iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+        stuff.addValue(SpValue(new Logical(false)));
+        iter = stuff.find(SpValue(new Logical(true)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6715,7 +6716,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(false)));
+            iter = stuff.find(SpValue(new Logical(false)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6724,7 +6725,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+            iter = stuff.find(SpValue(new Logical(true)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6733,8 +6734,8 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(nImO::SpValue(new nImO::Boolean(true)));
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean(true)));
+            stuff.addValue(SpValue(new Logical(true)));
+            iter = stuff.find(SpValue(new Logical(true)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6743,7 +6744,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
+            iter = stuff.find(SpValue(new Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6752,7 +6753,7 @@ doTestBooleanSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String()));
+            iter = stuff.find(SpValue(new String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6767,7 +6768,7 @@ doTestBooleanSetSearches(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanSetSearches
+} // doTestLogicalSetSearches
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -6803,11 +6804,11 @@ doTestIntegerSetSearches(const char *launchPath,
 
     try
     {
-        nImO::Set           stuff;
-        nImO::Set::iterator iter;
+        Set           stuff;
+        Set::iterator iter;
 
-        stuff.addValue(nImO::SpValue(new nImO::Integer(17)));
-        iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+        stuff.addValue(SpValue(new Integer(17)));
+        iter = stuff.find(SpValue(new Integer(12)));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6815,7 +6816,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(17)));
+            iter = stuff.find(SpValue(new Integer(17)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6824,7 +6825,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+            iter = stuff.find(SpValue(new Integer(12)));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6833,8 +6834,8 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(nImO::SpValue(new nImO::Integer(12)));
-            iter = stuff.find(nImO::SpValue(new nImO::Integer(12)));
+            stuff.addValue(SpValue(new Integer(12)));
+            iter = stuff.find(SpValue(new Integer(12)));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6843,7 +6844,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
+            iter = stuff.find(SpValue(new Logical()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6852,7 +6853,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String()));
+            iter = stuff.find(SpValue(new String()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6903,11 +6904,11 @@ doTestStringSetSearches(const char *launchPath,
 
     try
     {
-        nImO::Set           stuff;
-        nImO::Set::iterator iter;
+        Set           stuff;
+        Set::iterator iter;
 
-        stuff.addValue(nImO::SpValue(new nImO::String("abc")));
-        iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+        stuff.addValue(SpValue(new String("abc")));
+        iter = stuff.find(SpValue(new String("def")));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6915,7 +6916,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String("abc")));
+            iter = stuff.find(SpValue(new String("abc")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6924,7 +6925,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+            iter = stuff.find(SpValue(new String("def")));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6933,8 +6934,8 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(nImO::SpValue(new nImO::String("def")));
-            iter = stuff.find(nImO::SpValue(new nImO::String("def")));
+            stuff.addValue(SpValue(new String("def")));
+            iter = stuff.find(SpValue(new String("def")));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6943,7 +6944,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Boolean()));
+            iter = stuff.find(SpValue(new Logical()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6952,7 +6953,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(nImO::SpValue(new nImO::Integer()));
+            iter = stuff.find(SpValue(new Integer()));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -7003,14 +7004,14 @@ main(int  argc,
 
     try
     {
-        nImO::Initialize(progName);
+        Initialize(progName);
         if (0 < --argc)
         {
             int64_t selector;
             
-            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
-                nImO::SetSignalHandlers(catchSignal);
+                SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
                     case 0 :
@@ -7039,7 +7040,7 @@ main(int  argc,
                         break;
 
                     case 21 :
-                        result = doTestSingularBooleanMapValue(*argv, argc - 1, argv + 2);
+                        result = doTestSingularLogicalMapValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 22 :
@@ -7051,7 +7052,7 @@ main(int  argc,
                         break;
 
                     case 24 :
-                        result = doTestSmallBooleanMapValue(*argv, argc - 1, argv + 2);
+                        result = doTestSmallLogicalMapValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 25 :
@@ -7067,7 +7068,7 @@ main(int  argc,
                         break;
 
                     case 41 :
-                        result = doTestSingularBooleanSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSingularLogicalSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 42 :
@@ -7079,7 +7080,7 @@ main(int  argc,
                         break;
 
                     case 44 :
-                        result = doTestSmallBooleanSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSmallLogicalSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 45 :
@@ -7115,7 +7116,7 @@ main(int  argc,
                         break;
 
                     case 80 :
-                        result = doTestBooleanMapValueWithIncompatibleKeys(*argv, argc - 1,
+                        result = doTestLogicalMapValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
@@ -7130,7 +7131,7 @@ main(int  argc,
                         break;
 
                     case 83 :
-                        result = doTestBooleanSetValueWithIncompatibleKeys(*argv, argc - 1,
+                        result = doTestLogicalSetValueWithIncompatibleKeys(*argv, argc - 1,
                                                                            argv + 2);
                         break;
 
@@ -7149,7 +7150,7 @@ main(int  argc,
                         break;
 
                     case 101 :
-                        result = doTestValidBooleanMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidLogicalMapCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 102 :
@@ -7161,7 +7162,7 @@ main(int  argc,
                         break;
 
                     case 104 :
-                        result = doTestValidBooleanSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidLogicalSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 105 :
@@ -7177,7 +7178,7 @@ main(int  argc,
                         break;
 
                     case 108 :
-                        result = doTestInvalidBooleanMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidLogicalMapCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 109 :
@@ -7189,7 +7190,7 @@ main(int  argc,
                         break;
 
                     case 111 :
-                        result = doTestInvalidBooleanSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidLogicalSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 112 :
@@ -7205,7 +7206,7 @@ main(int  argc,
                         break;
 
                     case 121 :
-                        result = doTestBooleanMapSearches(*argv, argc - 1, argv + 2);
+                        result = doTestLogicalMapSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     case 122 :
@@ -7217,7 +7218,7 @@ main(int  argc,
                         break;
 
                     case 124 :
-                        result = doTestBooleanSetSearches(*argv, argc - 1, argv + 2);
+                        result = doTestLogicalSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     case 125 :

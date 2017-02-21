@@ -195,8 +195,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isShort = (kKindStringOrBlobShortLengthValue ==
-                       (kKindStringOrBlobLengthMask & leadByte));
+    bool    isShort = (static_cast<int>(DataKind::StringOrBlobShortLengthValue) ==
+                       (static_cast<int>(DataKind::StringOrBlobLengthMask) & leadByte));
     size_t  numBytes = 0;
     
     ++position; // We will always accept the lead byte
@@ -204,13 +204,13 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (kKindStringOrBlobShortLengthMask & leadByte);
-        status = kReadSuccessful;
-        ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+        numBytes = (static_cast<size_t>(DataKind::StringOrBlobShortLengthMask) & leadByte);
+        status = ReadStatus::Successful;
+        ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
     }
     else
     {
-        size_t        size = (kKindIntegerLongValueCountMask & leadByte) + 1;
+        size_t        size = (static_cast<size_t>(DataKind::IntegerLongValueCountMask) & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -221,8 +221,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             if (Message::kEndToken == aByte)
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                status = kReadIncomplete;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Incomplete;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
                 okSoFar = false;
             }
             else
@@ -235,8 +235,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            status = kReadSuccessful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+            status = ReadStatus::Successful;
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
         }
     }
     if (0 < numBytes)
@@ -251,8 +251,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             if (Message::kEndToken == aByte)
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                status = kReadIncomplete;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Incomplete;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
                 okSoFar = false;
             }
             else
@@ -266,8 +266,8 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         {
             holder[numBytes] = '\0';
             result.reset(new String(holder.get()));
-            status = kReadSuccessful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", status); //####
+            status = ReadStatus::Successful;
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
         }
         else
         {
@@ -294,8 +294,8 @@ nImO::String::getExtractionInfo(uint8_t                &aByte,
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (kKindStringOrBlob | kKindStringOrBlobStringValue);
-    aMask = (kKindMask | kKindStringOrBlobTypeMask);
+    aByte = (static_cast<uint8_t>(DataKind::StringOrBlob) | static_cast<uint8_t>(DataKind::StringOrBlobStringValue));
+    aMask = (static_cast<uint8_t>(DataKind::Mask) | static_cast<uint8_t>(DataKind::StringOrBlobTypeMask));
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::String::getExtractionInfo
@@ -538,27 +538,27 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 
     if ((kSingleQuote == aChar) || (kDoubleQuote == aChar))
     {
-        enum ScanState
+        enum class ScanState
         {
-            kScanNormal,
-            kScanSawEscape,
-            kScanSawEscapeOctal1,
-            kScanSawEscapeOctal2,
-            kScanSawEscapeSmallC,
-            kScanSawEscapeBigC,
-            kScanSawEscapeBigCminus,
-            kScanSawEscapeBigM,
-            kScanSawEscapeBigMminus,
-            kScanSawEscapeBigMminusEscape,
-            kScanSawEscapeBigMminusEscapeBigC,
-            kScanSawEscapeBigMminusEscapeBigCminus
+            Normal,
+            SawEscape,
+            SawEscapeOctal1,
+            SawEscapeOctal2,
+            SawEscapeSmallC,
+            SawEscapeBigC,
+            SawEscapeBigCminus,
+            SawEscapeBigM,
+            SawEscapeBigMminus,
+            SawEscapeBigMminusEscape,
+            SawEscapeBigMminusEscapeBigC,
+            SawEscapeBigMminusEscapeBigCminus
         }; // ScanState
 
         bool              done = false;
         bool              valid = false;
         const char        delimiter = aChar;
         int               octalSum;
-        ScanState         state = kScanNormal;
+        ScanState         state = ScanState::Normal;
         StringBuffer      holding;
         static const char *standardEscapes = "abtnvfres";
         static const char *standardEscapesActual = "\a\b\t\n\v\f\r\e ";
@@ -575,7 +575,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             {
                 switch (state)
                 {
-                case kScanNormal :
+                case ScanState::Normal :
                     if (delimiter == aChar)
                     {
                         valid = isLegalTerminator(inBuffer.getChar(localIndex));
@@ -583,7 +583,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     else if (kEscapeChar == aChar)
                     {
-                        state = kScanSawEscape;
+                        state = ScanState::SawEscape;
                     }
                     else
                     {
@@ -591,11 +591,11 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscape :
+                case ScanState::SawEscape :
                     if (delimiter == aChar)
                     {
                         holding.addChar(aChar);
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                     }
                     else
                     {
@@ -614,19 +614,19 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                             case '6' :
                             case '7' :
                                 octalSum = aChar - '0';
-                                state = kScanSawEscapeOctal1;
+                                state = ScanState::SawEscapeOctal1;
                                 break;
 
                             case 'c' :
-                                state = kScanSawEscapeSmallC;
+                                state = ScanState::SawEscapeSmallC;
                                 break;
 
                             case 'C' :
-                                state = kScanSawEscapeBigC;
+                                state = ScanState::SawEscapeBigC;
                                 break;
 
                             case 'M' :
-                                state = kScanSawEscapeBigM;
+                                state = ScanState::SawEscapeBigM;
                                 break;
 
                             default :
@@ -642,12 +642,12 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                                       (whichEscape - standardEscapes);
 
                             holding.addChar(*replacement);
-                            state = kScanNormal;
+                            state = ScanState::Normal;
                         }
                     }
                     break;
 
-                case kScanSawEscapeOctal1 :
+                case ScanState::SawEscapeOctal1 :
                     switch (aChar)
                     {
                     case '0' :
@@ -660,7 +660,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     case '7' :
                         octalSum *= 8;
                         octalSum += aChar - '0';
-                        state = kScanSawEscapeOctal2;
+                        state = ScanState::SawEscapeOctal2;
                         break;
 
                     default :
@@ -671,7 +671,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeOctal2 :
+                case ScanState::SawEscapeOctal2 :
                     switch (aChar)
                     {
                     case '0' :
@@ -685,7 +685,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                         octalSum *= 8;
                         octalSum += aChar - '0';
                         holding.addChar(static_cast<char>(octalSum));
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                         break;
 
                     default :
@@ -696,12 +696,12 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeSmallC :
+                case ScanState::SawEscapeSmallC :
                     aChar = toupper(aChar);
                     if (('@' <= aChar) && ('_' >= aChar))
                     {
                         holding.addChar(aChar - '@');
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                     }
                     else
                     {
@@ -710,10 +710,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigC :
+                case ScanState::SawEscapeBigC :
                     if ('-' == aChar)
                     {
-                        state = kScanSawEscapeBigCminus;
+                        state = ScanState::SawEscapeBigCminus;
                     }
                     else
                     {
@@ -722,12 +722,12 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigCminus :
+                case ScanState::SawEscapeBigCminus :
                     aChar = toupper(aChar);
                     if (('@' <= aChar) && ('_' >= aChar))
                     {
                         holding.addChar(aChar - '@');
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                     }
                     else
                     {
@@ -736,10 +736,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigM :
+                case ScanState::SawEscapeBigM :
                     if ('-' == aChar)
                     {
-                        state = kScanSawEscapeBigMminus;
+                        state = ScanState::SawEscapeBigMminus;
                     }
                     else
                     {
@@ -748,22 +748,22 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigMminus :
+                case ScanState::SawEscapeBigMminus :
                     if (kEscapeChar == aChar)
                     {
-                        state = kScanSawEscapeBigMminusEscape;
+                        state = ScanState::SawEscapeBigMminusEscape;
                     }
                     else
                     {
                         holding.addChar(aChar | 0x080);
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                     }
                     break;
 
-                case kScanSawEscapeBigMminusEscape :
+                case ScanState::SawEscapeBigMminusEscape :
                     if ('C' == aChar)
                     {
-                        state = kScanSawEscapeBigMminusEscapeBigC;
+                        state = ScanState::SawEscapeBigMminusEscapeBigC;
                     }
                     else
                     {
@@ -772,10 +772,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigMminusEscapeBigC :
+                case ScanState::SawEscapeBigMminusEscapeBigC :
                     if ('-' == aChar)
                     {
-                        state = kScanSawEscapeBigMminusEscapeBigCminus;
+                        state = ScanState::SawEscapeBigMminusEscapeBigCminus;
                     }
                     else
                     {
@@ -784,12 +784,12 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     }
                     break;
 
-                case kScanSawEscapeBigMminusEscapeBigCminus :
+                case ScanState::SawEscapeBigMminusEscapeBigCminus :
                     aChar = toupper(aChar);
                     if (('@' <= aChar) && ('_' >= aChar))
                     {
                         holding.addChar((aChar - '@') | 0x080);
-                        state = kScanNormal;
+                        state = ScanState::Normal;
                     }
                     else
                     {
@@ -849,9 +849,9 @@ const
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
-                                kKindStringOrBlobLongLengthValue +
-                                (kKindStringOrBlobLongLengthMask &(numBytes - 1));
+                uint8_t stuff = static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                                static_cast<uint8_t>(DataKind::StringOrBlobLongLengthValue) +
+                                (static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask) & (numBytes - 1));
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -860,9 +860,9 @@ const
         else
         {
             ODL_LOG("! (15 < length)"); //####
-            uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
-                            kKindStringOrBlobShortLengthValue +
-                            (kKindStringOrBlobShortLengthMask &length);
+            uint8_t stuff = static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                            static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                            (static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask) & length);
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
@@ -876,9 +876,9 @@ const
     else
     {
         ODL_LOG("! (0 < length)"); //####
-        uint8_t stuff = kKindStringOrBlob + kKindStringOrBlobStringValue +
-                        kKindStringOrBlobShortLengthValue +
-                        (kKindStringOrBlobShortLengthMask &0);
+        uint8_t stuff = static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                        static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                        (static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask) & 0);
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }

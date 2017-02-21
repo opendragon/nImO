@@ -106,19 +106,19 @@ main(int  argc,
         nImO::Initialize(progName);
         switch (flavour)
         {
-            case nImO::kOutputFlavourTabs :
+            case nImO::OutputFlavour::Tabs :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << nImOversionString.c_str() << endl;
                 break;
 
-            case nImO::kOutputFlavourJSON :
+            case nImO::OutputFlavour::JSON :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                 cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
                            CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                         T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
 
-            case nImO::kOutputFlavourNormal :
+            case nImO::OutputFlavour::Normal :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 cout << "nImO Version: " << nImOversionString.c_str() << endl;
                 break;

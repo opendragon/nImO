@@ -57,10 +57,10 @@ namespace nImO
     // Forward declarations.
 
     class Blob;
-    class Boolean;
     class Container;
     class Double;
     class Integer;
+    class Logical;
     class Number;
 
     /*! @brief A class to provide general value behaviours. */
@@ -146,15 +146,6 @@ namespace nImO
             return nullptr;
         } // asBlob
         
-        /*! @brief Return non-@c nullptr if the object is a Boolean.
-         @returns Non-@c nullptr if the object is a Boolean and @c nullptr otherwise. */
-        virtual inline const Boolean *
-        asBoolean(void)
-        const
-        {
-            return nullptr;
-        } // asBoolean
-        
         /*! @brief Return non-@c nullptr if the object is a Container.
          @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual inline const Container *
@@ -181,6 +172,15 @@ namespace nImO
         {
             return nullptr;
         } // asInteger
+        
+        /*! @brief Return non-@c nullptr if the object is a Logical.
+         @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
+        virtual inline const Logical *
+        asLogical(void)
+        const
+        {
+            return nullptr;
+        } // asLogical
         
         /*! @brief Return non-@c nullptr if the object is a Map.
          @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
@@ -228,13 +228,13 @@ namespace nImO
             return (&other == this);
         } // deeplyEqualTo
 
-        /*! @brief Return the enumeraton type of an object.
+        /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
         enumerationType(void)
         const
         {
-            return kEnumerableNotEnumerable;
+            return Enumerable::NotEnumerable;
         } // enumerationType
 
         /*! @brief Return the relative ordering of two Values.

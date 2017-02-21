@@ -231,11 +231,11 @@ FilePathArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar)
         {
             argMode = ModeFromString(modeString);
-            okSoFar = (kArgModeUnknown != argMode);
+            okSoFar = (ArgumentMode::Unknown != argMode);
         }
         else
         {
-            argMode = kArgModeUnknown;
+            argMode = ArgumentMode::Unknown;
         }
         if (okSoFar)
         {
@@ -268,7 +268,9 @@ FilePathArgumentDescriptor::parseArgString(const std::string &inString)
                 tempString += GetRandomHexString();
             }
             tempString += suffixValue;
-            okSoFar = checkFilePath(tempString.c_str(), forOutput, ! (argMode &kArgModeOptional));
+            okSoFar = checkFilePath(tempString.c_str(), forOutput,
+                                    0 == (static_cast<int>(argMode) &
+                                          static_cast<int>(ArgumentMode::Optional)));
         }
         if (okSoFar)
         {

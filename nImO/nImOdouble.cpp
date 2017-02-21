@@ -200,19 +200,19 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isShort = (kKindDoubleShortCount == (kKindDoubleCountMask & leadByte));
+    bool    isShort = (static_cast<int>(DataKind::DoubleShortCount) == (static_cast<int>(DataKind::DoubleCountMask) & leadByte));
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
-        howMany = (kKindDoubleShortCountMask & leadByte) + 1;
+        howMany = (static_cast<int64_t>(DataKind::DoubleShortCountMask) & leadByte) + 1;
         ODL_LL1("howMany <- ", howMany);
     }
     else
     {
-        size_t        size = (kKindDoubleLongCountMask & leadByte) + 1;
+        size_t        size = (static_cast<size_t>(DataKind::DoubleLongCountMask) & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -223,8 +223,8 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             if (Message::kEndToken == aByte)
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                status = kReadIncomplete;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Incomplete;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
                 okSoFar = false;
             }
             else
@@ -249,8 +249,8 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         bool          okSoFar = ((1 == howMany) || (nullptr != parentValue));
         NumberAsBytes holder;
 
-        status = kReadInvalid;
-        ODL_LL1("status <- ", status); //####
+        status = ReadStatus::Invalid;
+        ODL_LL1("status <- ", static_cast<int>(status)); //####
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {
             for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
@@ -260,8 +260,8 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
                 if (Message::kEndToken == aByte)
                 {
                     ODL_LOG("(Message::kEndToken == aByte)"); //####
-                    status = kReadIncomplete;
-                    ODL_LL1("status <- ", status); //####
+                    status = ReadStatus::Incomplete;
+                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                     okSoFar = false;
                 }
                 else
@@ -287,8 +287,8 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         }
         if (okSoFar)
         {
-            status = kReadSuccessful;
-            ODL_LL1("status <- ", status); //####
+            status = ReadStatus::Successful;
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
         }
     }
     ODL_EXIT_P(result.get()); //####
@@ -302,8 +302,8 @@ nImO::Double::getExtractionInfo(uint8_t                &aByte,
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = kKindDouble;
-    aMask = kKindMask;
+    aByte = static_cast<uint8_t>(DataKind::Double);
+    aMask = static_cast<uint8_t>(DataKind::Mask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Double::getExtractionInfo
@@ -571,8 +571,8 @@ const
     NumberAsBytes numBuff;
 
     D2B(_floatValue, numBuff);
-    uint8_t stuff = kKindDouble + kKindDoubleShortCount +
-                    ((1 - kKindDoubleShortCountMinValue) &kKindDoubleShortCountMask);
+    uint8_t stuff = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                    static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) & static_cast<uint8_t>(DataKind::DoubleShortCountMask));
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     outMessage.appendBytes(numBuff, sizeof(numBuff));
@@ -592,16 +592,16 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
     if (0 < numValues)
     {
         ODL_LOG("(0 < numValues)"); //####
-        if (kKindDoubleShortCountMaxValue < numValues)
+        if (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)
         {
-            ODL_LOG("(kKindDoubleShortCountMaxValue < numValues)"); //####
+            ODL_LOG("(static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
             size_t numBytes = I2B(numValues, numBuff);
 
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                uint8_t countTag = kKindDouble + kKindDoubleLongCount +
-                                   (kKindDoubleLongCountMask &(numBytes - 1));
+                uint8_t countTag = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleLongCount) +
+                                   (static_cast<uint8_t>(DataKind::DoubleLongCountMask) &(numBytes - 1));
 
                 outMessage.appendBytes(&countTag, sizeof(countTag));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -609,10 +609,10 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
         }
         else
         {
-            ODL_LOG("! (kKindDoubleShortCountMaxValue < numValues)"); //####
-            uint8_t countTag = kKindDouble + kKindDoubleShortCount +
-                               ((numValues - kKindDoubleShortCountMinValue) &
-                                kKindDoubleShortCountMask);
+            ODL_LOG("! (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
+            uint8_t countTag = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                               static_cast<uint8_t>((numValues - DataKindDoubleShortCountMinValue) &
+                                static_cast<uint8_t>(DataKind::DoubleShortCountMask));
 
             outMessage.appendBytes(&countTag, sizeof(countTag));
         }

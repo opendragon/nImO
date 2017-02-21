@@ -161,271 +161,271 @@ namespace nImO
     // Type definitions.
 
     /*! @brief The tag values for Message contents. */
-    enum DataKind
+    enum class DataKind : uint8_t
     {
         /*! @brief The mask for the kind of data that follows. */
-        kKindMask = 0x00C0,
+        Mask = 0x00C0,
 
         /*! @brief The data that follows is a signed integer value. */
-        kKindInteger = 0x0000,
+        Integer = 0x0000,
 
             /*! @brief The mask for the size of the signed integer value. */
-            kKindIntegerSizeMask = 0x0020,
+            IntegerSizeMask = 0x0020,
 
             /*! @brief The signed integer value is in the range -16..15 and is contained
              within this byte. */
-            kKindIntegerShortValue = 0x0000,
+            IntegerShortValue = 0x0000,
 
                 /*! @brief The mask for the value of the signed integer. */
-                kKindIntegerShortValueValueMask = 0x001F,
-
-                /*! @brief The minimum value representable in a short signed integer. */
-                kKindIntegerShortValueMinValue = -16,
-
-                /*! @brief The maximum value representable in a short signed integer. */
-                kKindIntegerShortValueMaxValue = 15,
+                IntegerShortValueValueMask = 0x001F,
 
                 /*! @brief The position of the sign bit in the short signed integer. */
-                kKindIntegerShortValueSignBit = 0x0010,
+                IntegerShortValueSignBit = 0x0010,
 
             /*! @brief The signed integer value follows this byte. */
-            kKindIntegerLongValue = 0x0020,
+            IntegerLongValue = 0x0020,
 
                 /*! @brief The mask for the count of the number of bytes (1..8) that contain
                  the signed integer value.
                  Note that the count contained in the byte is one less than the actual count. */
-                kKindIntegerLongValueCountMask = 0x0007,
+                IntegerLongValueCountMask = 0x0007,
 
         /*! @brief The data that follows is one or more floating-point values. */
-        kKindDouble = 0x0040,
+        Double = 0x0040,
 
             /*! @brief The mask for the size of the count of floating-point values. */
-            kKindDoubleCountMask = 0x0020,
+            DoubleCountMask = 0x0020,
 
             /*! @brief The count of the number of floating-point values is in the range 1..16
              and is contained within this byte.
              Note that the count contained in the byte is one less than the actual count. */
-            kKindDoubleShortCount = 0x0000,
+            DoubleShortCount = 0x0000,
 
                 /*! @brief The mask for the count of the number of floating-point values. */
-                kKindDoubleShortCountMask = 0x001F,
-
-                /*! @brief The minimum count representable in a short floating point. */
-                kKindDoubleShortCountMinValue = 1,
-
-                /*! @brief The maximum count representable in a short floating point. */
-                kKindDoubleShortCountMaxValue = 32,
+                DoubleShortCountMask = 0x001F,
 
             /*! @brief The count of the number of floating-point values is contained in the
              next byte(s) and the size of the count (1..8) is contained in this byte.
              Note that the size of the count contained in the byte is one less than the actual
              size of the count; the count itself is the actual count. */
-            kKindDoubleLongCount = 0x0020,
+            DoubleLongCount = 0x0020,
 
                 /*! @brief The mask for the size of the count of floating-point values. */
-                kKindDoubleLongCountMask = 0x0007,
+                DoubleLongCountMask = 0x0007,
 
         /*! @brief The data that follows is a String or Blob. */
-        kKindStringOrBlob = 0x0080,
+        StringOrBlob = 0x0080,
 
             /*! @brief The mask for the type of data - String or Blob. */
-            kKindStringOrBlobTypeMask = 0x0020,
+            StringOrBlobTypeMask = 0x0020,
 
             /*! @brief The data that follows is a non-@c nullptr-terminated String. */
-            kKindStringOrBlobStringValue = 0x0000,
+            StringOrBlobStringValue = 0x0000,
 
             /*! @brief The data that follows is a Blob. */
-            kKindStringOrBlobBlobValue = 0x0020,
+            StringOrBlobBlobValue = 0x0020,
 
             /*! @brief The mask for the length of the data that follows. */
-            kKindStringOrBlobLengthMask = 0x0010,
+            StringOrBlobLengthMask = 0x0010,
 
             /*! @brief The length of the data is in the range 0..15 and is contained within
              this byte. */
-            kKindStringOrBlobShortLengthValue = 0x0000,
+            StringOrBlobShortLengthValue = 0x0000,
 
                 /*! @brief The mask for the length of the data. */
-                kKindStringOrBlobShortLengthMask = 0x000F,
-
-                /*! @brief The minimum count representable in a short floating point. */
-                kKindStringOrBlobShortLengthMinValue = 0,
-
-                /*! @brief The maximum count representable in a short floating point. */
-                kKindStringOrBlobShortLengthMaxValue = 15,
+                StringOrBlobShortLengthMask = 0x000F,
 
             /*! @brief The length of the data is contained in the next byte(s). */
-            kKindStringOrBlobLongLengthValue = 0x0010,
+            StringOrBlobLongLengthValue = 0x0010,
 
                 /*! @brief The mask for the count of the number of bytes (1..8) that contain
                  the length of the data.
                  Note that the count contained in the byte is one less than the actual count;
                  the length is the actual length. */
-                kKindStringOrBlobLongLengthMask = 0x0007,
+                StringOrBlobLongLengthMask = 0x0007,
 
-        /*! @brief The data that follows is a Boolean or a Container. */
-        kKindOther = 0x00C0,
+        /*! @brief The data that follows is a Logical or a Container. */
+        Other = 0x00C0,
 
             /*! @brief The mask for the type of value that follows. */
-            kKindOtherTypeMask = 0x0030,
+            OtherTypeMask = 0x0030,
 
-            /*! @brief The value is a Boolean. */
-            kKindOtherBoolean = 0x0000,
+            /*! @brief The value is a Logical. */
+            OtherLogical = 0x0000,
 
-                /*! @brief The mask for the value of the Boolean. */
-                kKindOtherBooleanValueMask = 0x0001,
+                /*! @brief The mask for the value of the Logical. */
+                OtherLogicalValueMask = 0x0001,
 
                 /*! @brief The value is @c false. */
-                kKindOtherBooleanFalseValue = 0x0000,
+                OtherLogicalFalseValue = 0x0000,
 
                 /*! @brief The value is @c true. */
-                kKindOtherBooleanTrueValue = 0x00001,
+                OtherLogicalTrueValue = 0x00001,
 
             /*! @brief The value that follows is a Container. */
-            kKindOtherContainerStart = 0x0010,
+            OtherContainerStart = 0x0010,
 
             /*! @brief The value that preceeded this was a Container. */
-            kKindOtherContainerEnd = 0x0020,
+            OtherContainerEnd = 0x0020,
 
             /*! @brief The mask for the type of Container. */
-            kKindOtherContainerTypeMask = 0x000C,
+            OtherContainerTypeMask = 0x000C,
 
             /*! @brief The container is an Array. */
-            kKindOtherContainerTypeArray = 0x0000,
+            OtherContainerTypeArray = 0x0000,
 
             /*! @brief The container is a Map. */
-            kKindOtherContainerTypeMap = 0x0004,
+            OtherContainerTypeMap = 0x0004,
 
             /*! @brief The container is a Set. */
-            kKindOtherContainerTypeSet = 0x0008,
+            OtherContainerTypeSet = 0x0008,
 
             /*! @brief The mask for the empty / non-empty state of the Container. */
-            kKindOtherContainerEmptyMask = 0x0001,
+            OtherContainerEmptyMask = 0x0001,
 
             /*! @brief The Container is empty; no count of the number of elements follows. */
-            kKindOtherContainerEmptyValue = 0x0000,
+            OtherContainerEmptyValue = 0x0000,
 
             /*! @brief The Container is non-empty and the count of the number of elements
              follows, as a signed integer value, if this is the 'start' tag.
              Note that the number of elements is offset by -17, as a negative count of
              elements is not possible, and a count of zero is already handled. */
-            kKindOtherContainerNonEmptyValue = 0x0001,
+            OtherContainerNonEmptyValue = 0x0001,
 
             /*! @brief The value that follows is a Message. */
-            kKindOtherMessage = 0x0030,
+            OtherMessage = 0x0030,
 
                 /*! @brief The mask for the start / end state of the Message. */
-                kKindOtherMessageStartEndMask = 0x0008,
+                OtherMessageStartEndMask = 0x0008,
 
                 /*! @brief The data that follows form a Message. */
-                kKindOtherMessageStartValue = 0x0000,
+                OtherMessageStartValue = 0x0000,
 
                 /*! @brief The data that preceeded this was a Message. */
-                kKindOtherMessageEndValue = 0x0008,
+                OtherMessageEndValue = 0x0008,
 
                 /*! @brief The mask for the empty / non-empty state of the Message. */
-                kKindOtherMessageEmptyMask = 0x0004,
+                OtherMessageEmptyMask = 0x0004,
 
                 /*! @brief The Message is empty. */
-                kKindOtherMessageEmptyValue = 0x0000,
+                OtherMessageEmptyValue = 0x0000,
 
                 /*! @brief The Message is non-empty; the type flag (top two-bits) of the first
                  Value in the Message, if the start of the Message or of the last Value in the
                  Message, if the end of the Message, is contained in the byte. */
-                kKindOtherMessageNonEmptyValue = 0x0004,
+                OtherMessageNonEmptyValue = 0x0004,
 
                 /*! @brief The mask for the type of the immediately enclosed Value in the
                  Message - the first Value, if the start of the Message, and the last Value if
                  the end of the Message. */
-                kKindOtherMessageExpectedTypeMask = 0x0003,
+                OtherMessageExpectedTypeMask = 0x0003,
 
                 /*! @brief The number of positions to right-shift the type of a tag to align with
                  the Message type value. */
-                kKindOtherMessageExpectedTypeShift = 6,
+                OtherMessageExpectedTypeShift = 6,
 
                 /*! @brief The enclosed value in the Message is a signed integer. */
-                kKindOtherMessageExpectedIntegerValue = 0x0000,
+                OtherMessageExpectedIntegerValue = 0x0000,
 
                 /*! @brief The enclosed value in the Message is a float-point number. */
-                kKindOtherMessageExpectedDoubleValue = 0x0001,
+                OtherMessageExpectedDoubleValue = 0x0001,
 
                 /*! @brief The enclosed value in the Message is a String or Blob. */
-                kKindOtherMessageExpectedStringOrBlobValue = 0x0002,
+                OtherMessageExpectedStringOrBlobValue = 0x0002,
 
-                /*! @brief The enclosed value in the Message is a Boolean or Container. */
-                kKindOtherMessageExpectedOtherValue = 0x0003
+                /*! @brief The enclosed value in the Message is a Logical or Container. */
+                OtherMessageExpectedOtherValue = 0x0003
 
     }; // DataKind
 
+    /*! @brief The minimum count representable in a short floating point. */
+    const int DataKindDoubleShortCountMinValue = 1;
+
+    /*! @brief The maximum count representable in a short floating point. */
+    const int DataKindDoubleShortCountMaxValue = 32;
+
+    /*! @brief The minimum value representable in a short signed integer. */
+    const int DataKindIntegerShortValueMinValue = -16;
+
+    /*! @brief The maximum value representable in a short signed integer. */
+    const int DataKindIntegerShortValueMaxValue = 15;
+
+    /*! @brief The minimum count representable in a short floating point. */
+    const int DataKindStringOrBlobShortLengthMinValue = 0;
+
+    /*! @brief The maximum count representable in a short floating point. */
+    const int StringOrBlobShortLengthMaxValue = 15;
+
     /*! @brief Whether a Value is enumerable. */
-    enum Enumerable
+    enum class Enumerable
     {
         /*! @brief It is not known if the Value is enumerable. */
-        kEnumerableUnknown,
+        Unknown,
 
-        /*! @brief The Value is a Boolean and therefore enumerable. */
-        kEnumerableBoolean,
+        /*! @brief The Value is a Logical and therefore enumerable. */
+        Logical,
 
         /*! @brief The Value is a signed integer and therefore enumerable. */
-        kEnumerableInteger,
+        Integer,
 
         /*! @brief The Value is a String and therefore enumerable. */
-        kEnumerableString,
+        String,
 
         /*! @brief The Value is not enumerable. */
-        kEnumerableNotEnumerable
+        NotEnumerable
 
     }; // Enumerable
 
     /*! @brief The state of a Message. */
-    enum MessageState
+    enum class MessageState
     {
         /*! @brief The Message is neither open nor closed. */
-        kMessageStateUnknown,
+        Unknown,
 
         /*! @brief The Message has been opened for reading. */
-        kMessageStateOpenForReading,
+        OpenForReading,
 
         /*! @brief The Message has been opened for writing. */
-        kMessageStateOpenForWriting,
+        OpenForWriting,
 
         /*! @brief The Message has been closed. */
-        kMessageStateClosed
+        Closed
 
     }; // MessageState
 
     /*! @brief The format for the output from command-line tools. */
-    enum OutputFlavour
+    enum class OutputFlavour : uint32_t
     {
         /*! @brief Normal output with no special processing. */
-        kOutputFlavourNormal,
+        Normal,
 
         /*! @brief Output in JSON format. Tabs and newlines are replaced with spaces. */
-        kOutputFlavourJSON,
+        JSON,
 
         /*! @brief Output in tab-delimited format. Tabs and newlines are replaced with
          spaces. */
-        kOutputFlavourTabs,
+        Tabs,
 
-        /*! @brief Force the size to be 4 bytes. */
-        kOutputFlavourUnknown = 0x7FFFFFFF
+        /*! @brief The output format is unknown. */
+        Unknown
 
     }; // OutputFlavour
 
     /*! @brief The status of a read operation on a Message. */
-    enum ReadStatus
+    enum class ReadStatus
     {
         /*! @brief Reading from the Message was successful; a @c nullptr result indicates and empty
         Message. */
-        kReadSuccessful,
+        Successful,
 
         /*! @brief Reading from the Message was successful and all data was processed. */
-        kReadSuccessfulAtEnd,
+        SuccessfulAtEnd,
 
         /*! @brief The Message was incomplete and more data is needed. */
-        kReadIncomplete,
+        Incomplete,
 
         /*! @brief Invalid data was found in the Message and reading is not possible. */
-        kReadInvalid
+        Invalid
 
     }; // ReadStatus
 
@@ -669,6 +669,28 @@ namespace nImO
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
                 (MAXIMUM_PORT_ALLOWED_ >= aPort));
     } // ValidPortNumber
+
+    inline DataKind
+    operator |(const DataKind leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(static_cast<uint8_t>(leftValue) |
+                                     static_cast<uint8_t>(rightValue));
+    } // operator |
+
+    inline DataKind
+    operator |(const DataKind leftValue,
+               const uint8_t  rightValue)
+    {
+        return static_cast<DataKind>(static_cast<uint8_t>(leftValue) | rightValue);
+    } // operator |
+
+    inline DataKind
+    operator |(const uint8_t  leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(leftValue | static_cast<uint8_t>(rightValue));
+    } // operator |
 
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char kBlobSeparator;

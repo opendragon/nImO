@@ -39,8 +39,8 @@
 #include "nImOmessage.hpp"
 
 #include <nImO/nImOarray.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOvalue.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -70,34 +70,34 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const uint8_t kInitEmptyMessageValue = (nImO::kKindOther |
-                                               nImO::kKindOtherMessage |
-                                               nImO::kKindOtherMessageStartValue |
-                                               nImO::kKindOtherMessageEmptyValue);
+static const uint8_t kInitEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageStartValue) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyValue));
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
-static const uint8_t kInitTermMessageMask = (nImO::kKindMask |
-                                             nImO::kKindOtherTypeMask |
-                                             nImO::kKindOtherMessageStartEndMask |
-                                             nImO::kKindOtherMessageEmptyMask);
+static const uint8_t kInitTermMessageMask = (static_cast<uint8_t>(nImO::DataKind::Mask) |
+                                             static_cast<uint8_t>(nImO::DataKind::OtherTypeMask) |
+                                             static_cast<uint8_t>(nImO::DataKind::OtherMessageStartEndMask) |
+                                             static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyMask));
 
 /*! @brief The trailing byte for an empty Message. */
-static const uint8_t kTermEmptyMessageValue = (nImO::kKindOther |
-                                               nImO::kKindOtherMessage |
-                                               nImO::kKindOtherMessageEndValue |
-                                               nImO::kKindOtherMessageEmptyValue);
+static const uint8_t kTermEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEndValue) |
+                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyValue));
 
 /*! @brief The lead byte for a non-empty Message. */
-static const uint8_t kInitNonEmptyMessageValue = (nImO::kKindOther |
-                                                  nImO::kKindOtherMessage |
-                                                  nImO::kKindOtherMessageStartValue |
-                                                  nImO::kKindOtherMessageNonEmptyValue);
+static const uint8_t kInitNonEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageStartValue) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageNonEmptyValue));
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const uint8_t kTermNonEmptyMessageValue = (nImO::kKindOther |
-                                                  nImO::kKindOtherMessage |
-                                                  nImO::kKindOtherMessageEndValue |
-                                                  nImO::kKindOtherMessageNonEmptyValue);
+static const uint8_t kTermNonEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageEndValue) |
+                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageNonEmptyValue));
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -116,10 +116,10 @@ static const uint8_t kTermNonEmptyMessageValue = (nImO::kKindOther |
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    inherited(false), _readPosition(0), _state(kMessageStateUnknown), _headerAdded(false)
+    inherited(false), _readPosition(0), _state(MessageState::Unknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
-    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", _state); //####
+    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", static_cast<int>(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
@@ -140,19 +140,19 @@ nImO::Message::close(void)
     ODL_OBJENTER(); //####
     switch (_state)
     {
-    case kMessageStateOpenForReading :
+    case MessageState::OpenForReading :
         // TBD
         break;
 
-    case kMessageStateOpenForWriting :
+    case MessageState::OpenForWriting :
         if (! _headerAdded)
         {
             static const uint8_t emptyMessage[] =
             {
-                kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +
-                  kKindOtherMessageEmptyValue,
-                kKindOther + kKindOtherMessage + kKindOtherMessageEndValue +
-                  kKindOtherMessageEmptyValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue),
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue)
             };
             const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
 
@@ -164,8 +164,8 @@ nImO::Message::close(void)
         break;
 
     }
-    _state = kMessageStateClosed;
-    ODL_LL1("_state <- ", _state); //####
+    _state = MessageState::Closed;
+    ODL_LL1("_state <- ", static_cast<int>(_state)); //####
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::close
@@ -177,16 +177,16 @@ nImO::Message::getBytes(size_t &length)
     ODL_P1("length = ", &length); //####
     const uint8_t * result;
 
-    if (kMessageStateClosed == _state)
+    if (MessageState::Closed == _state)
     {
-        ODL_LOG("(kMessageStateClosed == _state)"); //####
+        ODL_LOG("(MessageState::Closed == _state)"); //####
         lock();
         result = inherited::getBytes(length);
         unlock();
     }
     else
     {
-        ODL_LOG("! (kMessageStateClosed == _state)"); //####
+        ODL_LOG("! (MessageState::Closed == _state)"); //####
         result = nullptr;
         length = 0;
         ODL_LL1("length <- ", length); //####
@@ -202,14 +202,14 @@ const
     ODL_OBJENTER(); //####
     size_t totalLength;
 
-    if (kMessageStateClosed == _state)
+    if (MessageState::Closed == _state)
     {
-        ODL_LOG("(kMessageStateClosed == _state)"); //####
+        ODL_LOG("(MessageState::Closed == _state)"); //####
         totalLength = inherited::getLength();
     }
     else
     {
-        ODL_LOG("! (kMessageStateClosed == _state)"); //####
+        ODL_LOG("! (MessageState::Closed == _state)"); //####
         totalLength = 0;
     }
     ODL_OBJEXIT_LL(totalLength); //####
@@ -223,9 +223,9 @@ nImO::Message::getValue(nImO::ReadStatus &status)
     ODL_P1("status = ", &status); //####
     SpValue result;
 
-    if (kMessageStateOpenForReading == _state)
+    if (MessageState::OpenForReading == _state)
     {
-        ODL_LOG("(kMessageStateOpenForReading == _state)"); //####
+        ODL_LOG("(MessageState::OpenForReading == _state)"); //####
         size_t  savedPosition = _readPosition;
         int     aByte = getByte(_readPosition);
 
@@ -233,9 +233,9 @@ nImO::Message::getValue(nImO::ReadStatus &status)
         if (kEndToken == aByte)
         {
             ODL_LOG("(kEndToken == aByte)"); //####
-            status = kReadIncomplete;
+            status = ReadStatus::Incomplete;
             _readPosition = savedPosition;
-            ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+            ODL_LL2("status <- ", static_cast<int>(status), "_readPosition <- ", _readPosition); //####
         }
         else
         {
@@ -246,9 +246,9 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                 if (kEndToken == aByte)
                 {
                     ODL_LOG("(kEndToken == aByte)"); //####
-                    status = kReadIncomplete;
+                    status = ReadStatus::Incomplete;
                     _readPosition = savedPosition;
-                    ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+                    ODL_LL2("status <- ", static_cast<int>(status), "_readPosition <- ", _readPosition); //####
                 }
                 else if (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))
                 {
@@ -257,26 +257,26 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                     if (kEndToken == aByte)
                     {
                         ODL_LOG("(kEndToken == aByte)"); //####
-                        status = kReadSuccessfulAtEnd;
-                        ODL_LL1("status <- ", status); //####
+                        status = ReadStatus::SuccessfulAtEnd;
+                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                     }
                     else
                     {
                         ODL_LOG("! (kEndToken == aByte)"); //####
-                        status = kReadSuccessful;
-                        ODL_LL1("status <- ", status); //####
+                        status = ReadStatus::Successful;
+                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                     }
                 }
                 else
                 {
                     ODL_LOG("! (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
-                    status = kReadInvalid;
-                    ODL_LL1("status <- ", status); //####
+                    status = ReadStatus::Invalid;
+                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                 }
             }
             else if (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))
             {
-                uint8_t initTag = (aByte &kKindOtherMessageExpectedTypeMask);
+                uint8_t initTag = (aByte & static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
 
                 ODL_XL1("initTag <- ", initTag); //####
                 aByte = getByte(++_readPosition);
@@ -284,15 +284,15 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                 if (kEndToken == aByte)
                 {
                     ODL_LOG("(kEndToken == aByte)"); //####
-                    status = kReadIncomplete;
+                    status = ReadStatus::Incomplete;
                     _readPosition = savedPosition;
-                    ODL_LL2("status <- ", status, "_readPosition <- ", _readPosition); //####
+                    ODL_LL2("status <- ", static_cast<int>(status), "_readPosition <- ", _readPosition); //####
                 }
                 else
                 {
                     ODL_LOG("! (kEndToken == aByte)"); //####
-                    uint8_t nextTag = ((aByte >> kKindOtherMessageExpectedTypeShift) &
-                                       kKindOtherMessageExpectedTypeMask);
+                    uint8_t nextTag = ((aByte >> static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeShift)) &
+                                       static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
 
                     ODL_XL1("nextTag <- ", nextTag); //####
                     if (nextTag == initTag)
@@ -300,7 +300,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, status,
                                                             nullptr);
                         ODL_P1("result <- ", result.get()); //####
-                        ODL_LL2("_readPosition <- ", _readPosition, "status <- ", status); //####
+                        ODL_LL2("_readPosition <- ", _readPosition, "status <- ", static_cast<int>(status)); //####
                         if (nullptr == result)
                         {
                             ODL_LOG("(nullptr == result)"); //####
@@ -312,16 +312,16 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                             if (kEndToken == aByte)
                             {
                                 ODL_LOG("(kEndToken == aByte)"); //####
-                                status = kReadIncomplete;
+                                status = ReadStatus::Incomplete;
                                 _readPosition = savedPosition;
-                                ODL_LL2("status <- ", status, "_readPosition <- ", //####
+                                ODL_LL2("status <- ", static_cast<int>(status), "_readPosition <- ", //####
                                         _readPosition); //####
                                 result.reset();
                                 ODL_P1("result <- ", result.get()); //####
                             }
                             else if (kTermNonEmptyMessageValue == (aByte &kInitTermMessageMask))
                             {
-                                nextTag = (aByte &kKindOtherMessageExpectedTypeMask);
+                                nextTag = (aByte & static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
                                 ODL_XL1("nextTag <- ", nextTag); //####
                                 if (nextTag == initTag)
                                 {
@@ -331,21 +331,21 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                                     if (kEndToken == aByte)
                                     {
                                         ODL_LOG("(kEndToken == aByte)"); //####
-                                        status = kReadSuccessfulAtEnd;
-                                        ODL_LL1("status <- ", status); //####
+                                        status = ReadStatus::SuccessfulAtEnd;
+                                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                                     }
                                     else
                                     {
                                         ODL_LOG("! (kEndToken == aByte)"); //####
-                                        status = kReadSuccessful;
-                                        ODL_LL1("status <- ", status); //####
+                                        status = ReadStatus::Successful;
+                                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                                     }
                                 }
                                 else
                                 {
                                     ODL_LOG("! (nextTag == initTag)"); //####
-                                    status = kReadInvalid;
-                                    ODL_LL1("status <- ", status); //####
+                                    status = ReadStatus::Invalid;
+                                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                                     result.reset();
                                     ODL_P1("result <- ", result.get()); //####
                                 }
@@ -354,8 +354,8 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
                                         "(aByte &kInitTermMessageMask))"); //####
-                                status = kReadInvalid;
-                                ODL_LL1("status <- ", status); //####
+                                status = ReadStatus::Invalid;
+                                ODL_LL1("status <- ", static_cast<int>(status)); //####
                                 result.reset();
                                 ODL_P1("result <- ", result.get()); //####
                             }
@@ -364,24 +364,24 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                     else
                     {
                         ODL_LOG("! (nextTag == initTag)"); //####
-                        status = kReadInvalid;
-                        ODL_LL1("status <- ", status); //####
+                        status = ReadStatus::Invalid;
+                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                     }
                 }
             }
             else
             {
                 ODL_LOG("! (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
-                status = kReadInvalid;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Invalid;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
             }
         }
     }
     else
     {
-        ODL_LOG("! (kMessageStateOpenForReading == _state)"); //####
-        status = kReadInvalid;
-        ODL_LL1("status <- ", status); //####
+        ODL_LOG("! (MessageState::OpenForReading == _state)"); //####
+        status = ReadStatus::Invalid;
+        ODL_LL1("status <- ", static_cast<int>(status)); //####
     }
     ODL_OBJEXIT_P(result.get()); //####
     return result;
@@ -402,13 +402,13 @@ nImO::Message::open(const bool forWriting)
     ODL_B1("forWriting = ", forWriting); //####
     if (forWriting)
     {
-        _state = kMessageStateOpenForWriting;
+        _state = MessageState::OpenForWriting;
     }
     else
     {
-        _state = kMessageStateOpenForReading;
+        _state = MessageState::OpenForReading;
     }
-    ODL_LL1("_state <- ", _state); //####
+    ODL_LL1("_state <- ", static_cast<int>(_state)); //####
     reset();
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -435,15 +435,15 @@ nImO::Message::setValue(const nImO::Value &theValue)
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####
     reset();
-    if (kMessageStateOpenForWriting == _state)
+    if (MessageState::OpenForWriting == _state)
     {
-        ODL_LOG("(kMessageStateOpenForWriting == _state)"); //####
+        ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         lock();
         uint8_t typeTag = theValue.getTypeTag();
-        uint8_t headerByte = kKindOther + kKindOtherMessage + kKindOtherMessageStartValue +
-                             kKindOtherMessageNonEmptyValue + typeTag;
-        uint8_t trailerByte = kKindOther + kKindOtherMessage + kKindOtherMessageEndValue +
-                              kKindOtherMessageNonEmptyValue + typeTag;
+        uint8_t headerByte = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                             static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) + typeTag;
+        uint8_t trailerByte = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                              static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) + typeTag;
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;
@@ -454,7 +454,7 @@ nImO::Message::setValue(const nImO::Value &theValue)
     }
     else
     {
-        ODL_LOG("! (kMessageStateOpenForWriting == _state)"); //####
+        ODL_LOG("! (MessageState::OpenForWriting == _state)"); //####
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

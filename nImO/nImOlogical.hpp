@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOboolean.hpp
+//  File:       nImO/nImOlogical.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO boolean values.
+//  Contains:   The class declaration for nImO logical values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOboolean_HPP_))
-# define nImOboolean_HPP_ /* Header guard */
+#if (! defined(nImOlogical_HPP_))
+# define nImOlogical_HPP_ /* Header guard */
 
 # include <nImO/nImOatom.hpp>
 
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO boolean values. */
+ @brief The class declaration for %nImO logical values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide true / false values. */
-    class Boolean : public Atom
+    class Logical : public Atom
     {
     public :
         // Public type definitions.
@@ -73,29 +73,29 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Boolean(void);
+        Logical(void);
 
         /*! @brief The constructor.
           @param[in] initialValue The initial value for the object. */
-        explicit Boolean(const bool initialValue);
+        explicit Logical(const bool initialValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Boolean(const Boolean &other);
+        Logical(const Logical &other);
 
         /*! @brief The destructor. */
         virtual
-        ~Boolean(void);
+        ~Logical(void);
 
-        /*! @brief Return non-@c nullptr if the object is a Boolean.
-         @returns Non-@c nullptr if the object is a Boolean and @c nullptr otherwise. */
-        virtual inline const Boolean *
-        asBoolean(void)
+        /*! @brief Return non-@c nullptr if the object is a Logical.
+         @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
+        virtual inline const Logical *
+        asLogical(void)
         const
         override
         {
             return this;
-        } // asBoolean
+        } // asLogical
         
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -105,14 +105,14 @@ namespace nImO
         const
         override;
                 
-        /*! @brief Return the enumeraton type of an object.
+        /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
         enumerationType(void)
         const
         override
         {
-            return kEnumerableBoolean;
+            return Enumerable::Logical;
         } // enumerationType
 
         /*! @brief Return the relative ordering of two Values.
@@ -132,8 +132,8 @@ namespace nImO
         static const std::string &
         getCanonicalRepresentation(const bool aValue);
 
-        /*! @brief Get the extraction information for Boolean objects.
-         @param[out] aByte The byte value that indicates the start of a Boolean value.
+        /*! @brief Get the extraction information for Logical objects.
+         @param[out] aByte The byte value that indicates the start of a Logical value.
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
@@ -141,8 +141,8 @@ namespace nImO
                           uint8_t   &aMask,
                           Extractor &theExtractor);
 
-        /*! @brief Return the characters that can appear as the start of a Boolean.
-         @returns The characters that can appear as the start of a Boolean. */
+        /*! @brief Return the characters that can appear as the start of a Logical.
+         @returns The characters that can appear as the start of a Logical. */
         static const char *
         getInitialCharacters(void);
 
@@ -153,7 +153,7 @@ namespace nImO
         const
         override
         {
-            return kKindOtherMessageExpectedOtherValue;
+            return static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue);
         } // getTypeTag
 
         /*! @brief Return the value of the object.
@@ -212,13 +212,13 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        Boolean &
-        operator =(const Boolean &other);
+        Logical &
+        operator =(const Logical &other);
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.
          @returns The updated object. */
-        Boolean &
+        Logical &
         operator =(const bool value);
 
         /*! @brief Add a readable representation of the object to the buffer.
@@ -284,8 +284,8 @@ namespace nImO
         /*! @brief The associated value of the object. */
         bool _value;
 
-    }; // Boolean
+    }; // Logical
 
 } // nImO
 
-#endif // ! defined(nImOboolean_HPP_)
+#endif // ! defined(nImOlogical_HPP_)

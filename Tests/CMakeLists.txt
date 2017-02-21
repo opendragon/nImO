@@ -134,12 +134,12 @@ add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 20)
 # Test string buffer reset
 add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 21)
 
-# Test default boolean value
-add_test(NAME TestDefaultBooleanValue COMMAND ${THIS_TARGET} 50)
-# Test false boolean value
-add_test(NAME TestFalseBooleanValue COMMAND ${THIS_TARGET} 51 0 "false")
-# Test true boolean value
-add_test(NAME TestTrueBooleanValue COMMAND ${THIS_TARGET} 51 1 "true")
+# Test default logical value
+add_test(NAME TestDefaultLogicalValue COMMAND ${THIS_TARGET} 50)
+# Test false logical value
+add_test(NAME TestFalseLogicalValue COMMAND ${THIS_TARGET} 51 0 "false")
+# Test true logical value
+add_test(NAME TestTrueLogicalValue COMMAND ${THIS_TARGET} 51 1 "true")
 # Test default number value
 add_test(NAME TestDefaultIntegerValue COMMAND ${THIS_TARGET} 52)
 # Test integer number value
@@ -158,8 +158,8 @@ add_test(NAME TestDefaultBlobValue COMMAND ${THIS_TARGET} 57)
 add_test(NAME TestSmallBlobValue COMMAND ${THIS_TARGET} 58)
 # Test big blob value
 add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
-# Test boolean copy constructor and assignment operators
-add_test(NAME TestBooleanCopyAndAssign COMMAND ${THIS_TARGET} 60)
+# Test logical copy constructor and assignment operators
+add_test(NAME TestLogicalCopyAndAssign COMMAND ${THIS_TARGET} 60)
 # Test integer number copy constructor and assignment operators
 add_test(NAME TestIntegerCopyAndAssign COMMAND ${THIS_TARGET} 61)
 # Test floating point copy constructor and assignment operators
@@ -169,16 +169,16 @@ add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
 # Test blob copy constructor and assignment operator
 add_test(NAME TestBlobCopyAndAssign COMMAND ${THIS_TARGET} 64)
 
-# Test valid boolean compares
-add_test(NAME TestValidBooleanCompares COMMAND ${THIS_TARGET} 80)
+# Test valid logical compares
+add_test(NAME TestValidLogicalCompares COMMAND ${THIS_TARGET} 80)
 # Test valid number compares
 add_test(NAME TestValidNumberCompares COMMAND ${THIS_TARGET} 81)
 # Test valid string compares
 add_test(NAME TestValidStringCompares COMMAND ${THIS_TARGET} 82)
 # Test valid blob compares
 add_test(NAME TestValidBlobCompares COMMAND ${THIS_TARGET} 83)
-# Test invalid boolean compares
-add_test(NAME TestInvalidBooleanCompares COMMAND ${THIS_TARGET} 84)
+# Test invalid logical compares
+add_test(NAME TestInvalidLogicalCompares COMMAND ${THIS_TARGET} 84)
 # Test invalid number compares
 add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 85)
 # Test invalid string compares
@@ -229,14 +229,14 @@ add_test(NAME TestBigArrayValue COMMAND ${THIS_TARGET} 4)
 
 # Test empty map
 add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
-# Test singular map with boolean keys
-add_test(NAME TestSingularBooleanMapValue COMMAND ${THIS_TARGET} 21)
+# Test singular map with logical keys
+add_test(NAME TestSingularLogicalMapValue COMMAND ${THIS_TARGET} 21)
 # Test singular map with integer keys
 add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 22)
 # Test singular map with string keys
 add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 23)
-# Test small map with boolean keys
-add_test(NAME TestSmallBooleanMapValue COMMAND ${THIS_TARGET} 24)
+# Test small map with logical keys
+add_test(NAME TestSmallLogicalMapValue COMMAND ${THIS_TARGET} 24)
 # Test small map with integer keys
 add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 25)
 # Test small map with string keys
@@ -244,14 +244,14 @@ add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 26)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
-# Test singular set with boolean keys
-add_test(NAME TestSingularBooleanSetValue COMMAND ${THIS_TARGET} 41)
+# Test singular set with logical keys
+add_test(NAME TestSingularLogicalSetValue COMMAND ${THIS_TARGET} 41)
 # Test singular set with integer keys
 add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 42)
 # Test singular set with string keys
 add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 43)
-# Test small set with boolean keys
-add_test(NAME TestSmallBooleanSetValue COMMAND ${THIS_TARGET} 44)
+# Test small set with logical keys
+add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 44)
 # Test small set with integer keys
 add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 45)
 # Test small set with string keys
@@ -270,14 +270,14 @@ add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 64)
 # Test map with set
 add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 65)
 
-# Test boolean map with incompatible keys
-add_test(NAME TestBooleanMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 80)
+# Test logical map with incompatible keys
+add_test(NAME TestLogicalMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 80)
 # Test integer map with incompatible keys
 add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 81)
 # Test string map with incompatible keys
 add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 82)
-# Test boolean set with incompatible keys
-add_test(NAME TestBooleanSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 83)
+# Test logical set with incompatible keys
+add_test(NAME TestLogicalSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 83)
 # Test integer set with incompatible keys
 add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 84)
 # Test string set with incompatible keys
@@ -285,28 +285,28 @@ add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 85)
 
 # Test valid array compares
 add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 100)
-# Test valid boolean map compares
-add_test(NAME TestValidBooleanMapCompares COMMAND ${THIS_TARGET} 101)
+# Test valid logical map compares
+add_test(NAME TestValidLogicalMapCompares COMMAND ${THIS_TARGET} 101)
 # Test valid integer map compares
 add_test(NAME TestValidIntegerMapCompares COMMAND ${THIS_TARGET} 102)
 # Test valid string map compares
 add_test(NAME TestValidStringMapCompares COMMAND ${THIS_TARGET} 103)
-# Test valid boolean set compares
-add_test(NAME TestValidBooleanSetCompares COMMAND ${THIS_TARGET} 104)
+# Test valid logical set compares
+add_test(NAME TestValidLogicalSetCompares COMMAND ${THIS_TARGET} 104)
 # Test valid integer set compares
 add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 105)
 # Test valid string set compares
 add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 106)
 # Test invalid array compares
 add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 107)
-# Test invalid boolean map compares
-add_test(NAME TestInvalidBooleanMapCompares COMMAND ${THIS_TARGET} 108)
+# Test invalid logical map compares
+add_test(NAME TestInvalidLogicalMapCompares COMMAND ${THIS_TARGET} 108)
 # Test invalid integer map compares
 add_test(NAME TestInvalidIntegerMapCompares COMMAND ${THIS_TARGET} 109)
 # Test invalid string map compares
 add_test(NAME TestInvalidStringMapCompares COMMAND ${THIS_TARGET} 110)
-# Test invalid boolean set compares
-add_test(NAME TestInvalidBooleanSetCompares COMMAND ${THIS_TARGET} 111)
+# Test invalid logical set compares
+add_test(NAME TestInvalidLogicalSetCompares COMMAND ${THIS_TARGET} 111)
 # Test invalid integer set compares
 add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 112)
 # Test invalid string set compares
@@ -314,14 +314,14 @@ add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 113)
 
 # Test array indices
 add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 120)
-# Test boolean map searches
-add_test(NAME TestBooleanMapSearches COMMAND ${THIS_TARGET} 121)
+# Test logical map searches
+add_test(NAME TestLogicalMapSearches COMMAND ${THIS_TARGET} 121)
 # Test integer map searches
 add_test(NAME TestIntegerMapSearches COMMAND ${THIS_TARGET} 122)
 # Test string map searches
 add_test(NAME TestStringMapSearches COMMAND ${THIS_TARGET} 123)
-# Test boolean set searches
-add_test(NAME TestBooleanSetSearches COMMAND ${THIS_TARGET} 124)
+# Test logical set searches
+add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 124)
 # Test integer set searches
 add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 125)
 # Test string set searches
@@ -359,28 +359,28 @@ if(APPLE)
 
 endif(APPLE)
 
-# Test parse of boolean false value
-add_test(NAME TestBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
-# Test parse of boolean true value
-add_test(NAME TestBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
-# Test parse of abbreviated boolean false value
-add_test(NAME TestAbbreviatedBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fal" "false")
-# Test parse of abbreviated boolean true value
-add_test(NAME TestAbbreviatedBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru" "true")
-# Test parse of minimal boolean false value
-add_test(NAME TestMinimalBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "f" "false")
-# Test parse of minimal boolean true value
-add_test(NAME TestMinimalBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "t" "true")
-# Test parse of invalid boolean value
-add_test(NAME TestInvalidBooleanValue COMMAND ${THIS_TARGET} 1 f "42" "")
-# Test parse of invalid boolean false value
-add_test(NAME TestInvalidBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "falze" "")
-# Test parse of invalid boolean true value
-add_test(NAME TestInvalidBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "trve" "")
-# Test parse of whitespace and boolean false value
-add_test(NAME TestWhitespaceAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  " "false")
-# Test parse of whitespace and boolean true value
-add_test(NAME TestWhitespaceAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  " "true")
+# Test parse of logical false value
+add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+# Test parse of logical true value
+add_test(NAME TestLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
+# Test parse of abbreviated logical false value
+add_test(NAME TestAbbreviatedLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "fal" "false")
+# Test parse of abbreviated logical true value
+add_test(NAME TestAbbreviatedLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "tru" "true")
+# Test parse of minimal logical false value
+add_test(NAME TestMinimalLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "f" "false")
+# Test parse of minimal logical true value
+add_test(NAME TestMinimalLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "t" "true")
+# Test parse of invalid logical value
+add_test(NAME TestInvalidLogicalValue COMMAND ${THIS_TARGET} 1 f "42" "")
+# Test parse of invalid logical false value
+add_test(NAME TestInvalidLogicalFalseValue COMMAND ${THIS_TARGET} 1 f "falze" "")
+# Test parse of invalid logical true value
+add_test(NAME TestInvalidLogicalTrueValue COMMAND ${THIS_TARGET} 1 f "trve" "")
+# Test parse of whitespace and logical false value
+add_test(NAME TestWhitespaceAndLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "fa  " "false")
+# Test parse of whitespace and logical true value
+add_test(NAME TestWhitespaceAndLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "tr  " "true")
 
 # Test parse of number value
 add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0" "0")
@@ -642,8 +642,8 @@ endif(APPLE)
 
 # Test empty message
 add_test(NAME TestInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
-# Test message with boolean
-add_test(NAME TestInsertBooleanMessage COMMAND ${THIS_TARGET} 2)
+# Test message with logical
+add_test(NAME TestInsertLogicalMessage COMMAND ${THIS_TARGET} 2)
 # Test message with tiny integer
 add_test(NAME TestInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
 # Test message with short integer 
@@ -674,8 +674,8 @@ add_test(NAME TestInsertEmptyMapMessage COMMAND ${THIS_TARGET} 101)
 # Test message with empty set
 add_test(NAME TestInsertEmptySetMessage COMMAND ${THIS_TARGET} 102)
 
-# Test message with array with one boolean
-add_test(NAME TestInsertArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 110)
+# Test message with array with one logical
+add_test(NAME TestInsertArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 110)
 # Test message with array with one integer
 add_test(NAME TestInsertArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
 # Test message with array with one double
@@ -691,8 +691,8 @@ add_test(NAME TestInsertArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
 # Test message with array with one empty set
 add_test(NAME TestInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
 
-# Test message with array with two booleans
-add_test(NAME TestInsertArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
+# Test message with array with two logicals
+add_test(NAME TestInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
 # Test message with array with two integers
 add_test(NAME TestInsertArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
 # Test message with array with two doubles
@@ -716,14 +716,14 @@ add_test(NAME TestInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TAR
 # Test message with array with many doubles
 add_test(NAME TestInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
 
-# Test message with boolean map
-add_test(NAME TestInsertBooleanMapMessage COMMAND ${THIS_TARGET} 160)
+# Test message with logical map
+add_test(NAME TestInsertLogicalMapMessage COMMAND ${THIS_TARGET} 160)
 # Test message with integer map
 add_test(NAME TestInsertIntegerMapMessage COMMAND ${THIS_TARGET} 161)
 # Test message with string map
 add_test(NAME TestInsertStringMapMessage COMMAND ${THIS_TARGET} 162)
-# Test message with boolean set
-add_test(NAME TestInsertBooleanSetMessage COMMAND ${THIS_TARGET} 163)
+# Test message with logical set
+add_test(NAME TestInsertLogicalSetMessage COMMAND ${THIS_TARGET} 163)
 # Test message with integer set
 add_test(NAME TestInsertIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
@@ -763,8 +763,8 @@ endif(APPLE)
 
 # Test empty message
 add_test(NAME TestExtractEmptyMessage COMMAND ${THIS_TARGET} 1)
-# Test message with boolean
-add_test(NAME TestExtractBooleanMessage COMMAND ${THIS_TARGET} 2)
+# Test message with logical
+add_test(NAME TestExtractLogicalMessage COMMAND ${THIS_TARGET} 2)
 # Test message with tiny integer
 add_test(NAME TestExtractTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
 # Test message with short integer 
@@ -795,8 +795,8 @@ add_test(NAME TestExtractEmptyMapMessage COMMAND ${THIS_TARGET} 101)
 # Test message with empty set
 add_test(NAME TestExtractEmptySetMessage COMMAND ${THIS_TARGET} 102)
 
-# Test message with array with one boolean
-add_test(NAME TestExtractArrayWithOneBooleanMessage COMMAND ${THIS_TARGET} 110)
+# Test message with array with one logical
+add_test(NAME TestExtractArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 110)
 # Test message with array with one integer
 add_test(NAME TestExtractArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
 # Test message with array with one double
@@ -812,8 +812,8 @@ add_test(NAME TestExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
 # Test message with array with one empty set
 add_test(NAME TestExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
 
-# Test message with array with two booleans
-add_test(NAME TestExtractArrayWithTwoBooleansMessage COMMAND ${THIS_TARGET} 130)
+# Test message with array with two logicals
+add_test(NAME TestExtractArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
 # Test message with array with two integers
 add_test(NAME TestExtractArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
 # Test message with array with two doubles
@@ -837,14 +837,14 @@ add_test(NAME TestExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TA
 # Test message with array with many doubles
 add_test(NAME TestExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
 
-# Test message with boolean map
-add_test(NAME TestExtractBooleanMapMessage COMMAND ${THIS_TARGET} 160)
+# Test message with logical map
+add_test(NAME TestExtractLogicalMapMessage COMMAND ${THIS_TARGET} 160)
 # Test message with integer map
 add_test(NAME TestExtractIntegerMapMessage COMMAND ${THIS_TARGET} 161)
 # Test message with string map
 add_test(NAME TestExtractStringMapMessage COMMAND ${THIS_TARGET} 162)
-# Test message with boolean set
-add_test(NAME TestExtractBooleanSetMessage COMMAND ${THIS_TARGET} 163)
+# Test message with logical set
+add_test(NAME TestExtractLogicalSetMessage COMMAND ${THIS_TARGET} 163)
 # Test message with integer set
 add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
@@ -882,28 +882,28 @@ if(APPLE)
 
 endif(APPLE)
 
-## Test parse of boolean false value
-#add_test(NAME TestBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
-## Test parse of boolean true value
-#add_test(NAME TestBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
-## Test parse of abbreviated boolean false value
-#add_test(NAME TestAbbreviatedBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fal" "false")
-## Test parse of abbreviated boolean true value
-#add_test(NAME TestAbbreviatedBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tru" "true")
-## Test parse of minimal boolean false value
-#add_test(NAME TestMinimalBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "f" "false")
-## Test parse of minimal boolean true value
-#add_test(NAME TestMinimalBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "t" "true")
-## Test parse of invalid boolean value
-#add_test(NAME TestInvalidBooleanValue COMMAND ${THIS_TARGET} 1 f "42" "")
-## Test parse of invalid boolean false value
-#add_test(NAME TestInvalidBooleanFalseValue COMMAND ${THIS_TARGET} 1 f "falze" "")
-## Test parse of invalid boolean true value
-#add_test(NAME TestInvalidBooleanTrueValue COMMAND ${THIS_TARGET} 1 f "trve" "")
-## Test parse of whitespace and boolean false value
-#add_test(NAME TestWhitespaceAndBooleanFalseValue COMMAND ${THIS_TARGET} 1 t "fa  " "false")
-## Test parse of whitespace and boolean true value
-#add_test(NAME TestWhitespaceAndBooleanTrueValue COMMAND ${THIS_TARGET} 1 t "tr  " "true")
+## Test parse of logical false value
+#add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+## Test parse of logical true value
+#add_test(NAME TestLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
+## Test parse of abbreviated logical false value
+#add_test(NAME TestAbbreviatedLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "fal" "false")
+## Test parse of abbreviated logical true value
+#add_test(NAME TestAbbreviatedLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "tru" "true")
+## Test parse of minimal logical false value
+#add_test(NAME TestMinimalLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "f" "false")
+## Test parse of minimal logical true value
+#add_test(NAME TestMinimalLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "t" "true")
+## Test parse of invalid logical value
+#add_test(NAME TestInvalidLogicalValue COMMAND ${THIS_TARGET} 1 f "42" "")
+## Test parse of invalid logical false value
+#add_test(NAME TestInvalidLogicalFalseValue COMMAND ${THIS_TARGET} 1 f "falze" "")
+## Test parse of invalid logical true value
+#add_test(NAME TestInvalidLogicalTrueValue COMMAND ${THIS_TARGET} 1 f "trve" "")
+## Test parse of whitespace and logical false value
+#add_test(NAME TestWhitespaceAndLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "fa  " "false")
+## Test parse of whitespace and logical true value
+#add_test(NAME TestWhitespaceAndLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "tr  " "true")
 #
 ## Test parse of number value
 #add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0" "0")

@@ -140,11 +140,11 @@ ChannelArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar)
         {
             argMode = ModeFromString(modeString);
-            okSoFar = (kArgModeUnknown != argMode);
+            okSoFar = (ArgumentMode::Unknown != argMode);
         }
         else
         {
-            argMode = kArgModeUnknown;
+            argMode = ArgumentMode::Unknown;
         }
         if (okSoFar)
         {

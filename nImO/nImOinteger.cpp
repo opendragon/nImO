@@ -203,13 +203,13 @@ nImO::Integer::extractValue(const nImO::Message &theMessage,
     SpValue result;
     int64_t holder = extractInt64FromMessage(theMessage, leadByte, position, status);
 
-    if (kReadSuccessful == status)
+    if (ReadStatus::Successful == status)
     {
         result.reset(new Integer(holder));
     }
     else
     {
-        ODL_LOG("! (kReadSuccessful == status)"); //####
+        ODL_LOG("! (ReadStatus::Successful == status)"); //####
         result.reset();
     }
     if ((nullptr != parentValue) && (nullptr != result))
@@ -228,8 +228,8 @@ nImO::Integer::getExtractionInfo(uint8_t                &aByte,
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = kKindInteger;
-    aMask = kKindMask;
+    aByte = static_cast<uint8_t>(DataKind::Integer);
+    aMask = static_cast<uint8_t>(DataKind::Mask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Integer::getExtractionInfo

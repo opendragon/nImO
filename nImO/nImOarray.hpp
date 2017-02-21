@@ -223,7 +223,7 @@ namespace nImO
         const
         override
         {
-            return kKindOtherMessageExpectedOtherValue;
+            return static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue);
         } // getTypeTag
 
         /*! @brief Return the relative ordering of two Values.

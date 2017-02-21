@@ -57,7 +57,6 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOblob.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOboolean.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.cpp"
@@ -71,6 +70,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOlogical.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
@@ -109,7 +109,6 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOblob.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOboolean.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.hpp"
@@ -123,6 +122,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOlogical.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
@@ -146,7 +146,6 @@ if(nImO_DO_SWIG)
         nImObaseArgumentDescriptor.cpp nImObaseArgumentDescriptor.hpp
         nImOblob.cpp nImOblob.hpp
         nImOboolArgumentDescriptor.cpp nImOboolArgumentDescriptor.hpp
-        nImOboolean.cpp nImOboolean.hpp
         nImObufferChunk.cpp nImObufferChunk.hpp
         nImOchannelArgumentDescriptor.cpp nImOchannelArgumentDescriptor.hpp
         nImOchunkArray.cpp nImOchunkArray.hpp
@@ -160,6 +159,7 @@ if(nImO_DO_SWIG)
         nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
         nImOinteger.cpp nImOinteger.hpp
+        nImOlogical.cpp nImOlogical.hpp
         nImOmap.cpp nImOmap.hpp
         nImOmessage.cpp nImOmessage.hpp
         nImOnumber.cpp nImOnumber.hpp

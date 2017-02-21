@@ -97,15 +97,15 @@ namespace nImO
             return _currentValue;
         } // getCurrentValue
 
-        /*! @brief Return @c true if the argument is for Boolean arguments.
-         @returns @c true if the argument is for Boolean arguments and @c false otherwise. */
+        /*! @brief Return @c true if the argument is for Logical arguments.
+         @returns @c true if the argument is for Logical arguments and @c false otherwise. */
         virtual inline bool
-        isBoolean(void)
+        isLogical(void)
         const
         override
         {
             return true;
-        } // isBoolean
+        } // isLogical
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.

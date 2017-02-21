@@ -129,7 +129,7 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode = kArgModeRequired;
+        ArgumentMode argMode = ArgumentMode::Required;
         bool         okSoFar = true;
         std::string  name(inVector[0]);
         std::string  typeTag(inVector[1]);
@@ -144,7 +144,7 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar)
         {
             argMode = ModeFromString(modeString);
-            okSoFar = (kArgModeUnknown != argMode);
+            okSoFar = (ArgumentMode::Unknown != argMode);
         }
         if (okSoFar)
         {

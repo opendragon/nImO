@@ -113,13 +113,13 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    enum ScanState
+    enum class ScanState
     {
-        kScanInitial,
-        kScanIntegerDigitSeen,
-        kScanFractionStartSeen,
-        kScanExponentStart,
-        kScanExponentSeen
+        Initial,
+        IntegerDigitSeen,
+        FractionStartSeen,
+        ExponentStart,
+        ExponentSeen
     }; // ScanState
 
     bool      done = false;
@@ -135,7 +135,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     int64_t   fractionPart = 0;
     int       exponent = 0;
     int       fractionPower = 0;
-    ScanState currentState = kScanInitial;
+    ScanState currentState = ScanState::Initial;
     SpValue   result;
     size_t    localIndex = position;
 
@@ -144,7 +144,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         aChar = tolower(inBuffer.getChar(localIndex++));
         switch (currentState)
         {
-        case kScanInitial :
+        case ScanState::Initial :
             if ('+' == aChar)
             {
                if (sawInitialMinus || sawInitialPlus)
@@ -172,11 +172,11 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             else if ('.' == aChar)
             {
                 sawDecimalPoint = needsAdigit = isDouble = true;
-                currentState = kScanFractionStartSeen;
+                currentState = ScanState::FractionStartSeen;
             }
             else if (isdigit(aChar))
             {
-                currentState = kScanIntegerDigitSeen;
+                currentState = ScanState::IntegerDigitSeen;
                 integerPart = aChar - '0';
             }
             else
@@ -186,16 +186,16 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             break;
 
-        case kScanIntegerDigitSeen :
+        case ScanState::IntegerDigitSeen :
             if ('.' == aChar)
             {
                 isDouble = true;
-                currentState = kScanFractionStartSeen;
+                currentState = ScanState::FractionStartSeen;
             }
             else if ('e' == aChar)
             {
                 isDouble = true;
-                currentState = kScanExponentStart;
+                currentState = ScanState::ExponentStart;
             }
             else if (isLegalTerminator(aChar))
             {
@@ -215,7 +215,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             break;
 
-        case kScanFractionStartSeen :
+        case ScanState::FractionStartSeen :
             if ('e' == aChar)
             {
                 if (needsAdigit)
@@ -224,7 +224,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 }
                 else
                 {
-                    currentState = kScanExponentStart;
+                    currentState = ScanState::ExponentStart;
                 }
             }
             else if (isLegalTerminator(aChar))
@@ -254,7 +254,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             break;
 
-        case kScanExponentStart :
+        case ScanState::ExponentStart :
             if ('+' == aChar)
             {
                if (sawExponentMinus || sawExponentPlus)
@@ -281,7 +281,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             else if (isdigit(aChar))
             {
-                currentState = kScanExponentSeen;
+                currentState = ScanState::ExponentSeen;
                 exponent = aChar - '0';
             }
             else
@@ -291,7 +291,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             break;
 
-        case kScanExponentSeen :
+        case ScanState::ExponentSeen :
             if (isLegalTerminator(aChar))
             {
                 --localIndex;

@@ -134,7 +134,7 @@ namespace nImO
         const
         override
         {
-            return kKindOtherMessageExpectedStringOrBlobValue;
+            return static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue);
         } // getTypeTag
 
         /*! @brief Return the value of the object.

@@ -82,7 +82,7 @@ using namespace nImO;
 
 ExtraArgumentDescriptor::ExtraArgumentDescriptor(const std::string &argName,
                                                  const std::string &argDescription) :
-    inherited(argName, argDescription, kArgModeOptional)
+    inherited(argName, argDescription, ArgumentMode::Optional)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -165,11 +165,11 @@ ExtraArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar)
         {
             argMode = ModeFromString(modeString);
-            okSoFar = (kArgModeUnknown != argMode);
+            okSoFar = (ArgumentMode::Unknown != argMode);
         }
         else
         {
-            argMode = kArgModeUnknown;
+            argMode = ArgumentMode::Unknown;
         }
         if (okSoFar)
         {

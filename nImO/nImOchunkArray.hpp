@@ -84,6 +84,16 @@ namespace nImO
         appendBytes(const uint8_t *data,
                     const size_t  numBytes);
 
+        /*! @brief Add some bytes to the buffer.
+         @param[in] data The bytes to be added.
+         @param[in] numBytes The number of bytes to add. */
+        inline void
+        appendBytes(const DataKind *data,
+                    const size_t   numBytes)
+        {
+            appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
+        } // appendBytes
+
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
          @returns The byte found at the provided index, or the 'end' token if the index is not

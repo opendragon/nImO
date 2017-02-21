@@ -109,14 +109,14 @@ namespace nImO
         const
         override;
         
-        /*! @brief Return the enumeraton type of an object.
+        /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
         enumerationType(void)
         const
         override
         {
-            return kEnumerableString;
+            return Enumerable::String;
         } // enumerationType
 
         /*! @brief Return the relative ordering of two Values.
@@ -151,7 +151,7 @@ namespace nImO
         const
         override
         {
-            return kKindOtherMessageExpectedStringOrBlobValue;
+            return static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue);
         } // getTypeTag
 
         /*! @brief Return the value of the object.

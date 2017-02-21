@@ -37,10 +37,10 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImO/nImOblob.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -65,6 +65,7 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+using namespace nImO;
 using std::cerr;
 using std::endl;
 
@@ -99,7 +100,7 @@ catchSignal(int signal)
     buff << signal;
     message += buff.str();
     message += " = ";
-    message += nImO::NameOfSignal(signal);
+    message += NameOfSignal(signal);
 #if 0
     nImO_ERROR_(message.c_str());
 #endif//0
@@ -113,13 +114,13 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value &aValue,
+compareValueWithString(const Value &aValue,
                        const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    nImO::StringBuffer buff;
+    StringBuffer buff;
     int                result;
     size_t             length;
 
@@ -161,7 +162,7 @@ doTestEmptyBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
+        UpBufferChunk stuff(new BufferChunk(false));
 
         if (stuff)
         {
@@ -222,7 +223,7 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
 
     try
     {
-        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
+        UpBufferChunk stuff(new BufferChunk(false));
 
         if (stuff)
         {
@@ -295,7 +296,7 @@ doTestFilledBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
+        UpBufferChunk stuff(new BufferChunk(false));
 
         if (stuff)
         {
@@ -394,7 +395,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
     try
     {
-        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
+        UpBufferChunk stuff(new BufferChunk(false));
 
         if (stuff)
         {
@@ -493,7 +494,7 @@ doTestBufferChunkReset(const char *launchPath,
 
     try
     {
-        nImO::UpBufferChunk stuff(new nImO::BufferChunk(false));
+        UpBufferChunk stuff(new BufferChunk(false));
 
         if (stuff)
         {
@@ -565,7 +566,7 @@ doTestEmptyStringBuffer(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
@@ -648,7 +649,7 @@ doTestStringBufferWithCharacters(const char *launchPath,
             const char           *inString = *argv;
             const char           *outString = argv[1];
             size_t               outLength = strlen(outString);
-            nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+            UpStringBuffer stuff(new StringBuffer);
 
             if (stuff)
             {
@@ -710,7 +711,7 @@ doTestStringBufferWithCharacters(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithBoolean(const char *launchPath,
+doTestStringBufferWithLogical(const char *launchPath,
                               const int  argc,
                               char       **argv) // string buffer with boolean
 {
@@ -732,9 +733,9 @@ doTestStringBufferWithBoolean(const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
 
-            if (nImO::ConvertToLong(*argv, value) && (0 <= value))
+            if (ConvertToLong(*argv, value) && (0 <= value))
             {
-                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+                UpStringBuffer stuff(new StringBuffer);
 
                 if (stuff)
                 {
@@ -771,7 +772,7 @@ doTestStringBufferWithBoolean(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestStringBufferWithBoolean
+} // doTestStringBufferWithLogical
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -812,9 +813,9 @@ doTestStringBufferWithInteger(const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
             
-            if (nImO::ConvertToLong(*argv, value))
+            if (ConvertToLong(*argv, value))
             {
-                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+                UpStringBuffer stuff(new StringBuffer);
 
                 if (stuff)
                 {
@@ -890,7 +891,7 @@ doTestStringBufferWithString(const char *launchPath,
             const char           *inString = *argv;
             const char           *outString = argv[1];
             size_t               outLength = strlen(outString);
-            nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+            UpStringBuffer stuff(new StringBuffer);
 
             if (stuff)
             {
@@ -972,7 +973,7 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
         const char           *inString = "abc\tdef\f\rghi\302";
         const char           *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
         size_t               outLength = strlen(outString);
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
@@ -1050,9 +1051,9 @@ doTestStringBufferWithDouble(const char *launchPath,
             const char *outString = argv[1];
             double     value;
             
-            if (nImO::ConvertToDouble(*argv, value))
+            if (ConvertToDouble(*argv, value))
             {
-                nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+                UpStringBuffer stuff(new StringBuffer);
 
                 if (stuff)
                 {
@@ -1131,7 +1132,7 @@ doTestBigStringBuffer(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
@@ -1151,9 +1152,9 @@ doTestBigStringBuffer(const char *launchPath,
                 for (size_t ii = 0; (0 == result) && (kBigTestSize > ii);
                      ++ii, resultString += bigLength)
                 {
-                    if (0 != nImO::CompareBytes(bigString, resultString, bigLength))
+                    if (0 != CompareBytes(bigString, resultString, bigLength))
                     {
-                        ODL_LOG("(0 != nImO::CompareBytes(bigString, resultString, " //####
+                        ODL_LOG("(0 != CompareBytes(bigString, resultString, " //####
                                 "bigLength))"); //####
                         result = 1;
                     }
@@ -1212,7 +1213,7 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
@@ -1278,11 +1279,11 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
-            nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+            UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
             if (smallBlob)
             {
@@ -1375,11 +1376,11 @@ doTestStringBufferWithBigBlob(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
-            nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -1472,7 +1473,7 @@ doTestStringBufferReset(const char *launchPath,
 
     try
     {
-        nImO::UpStringBuffer stuff(new nImO::StringBuffer);
+        UpStringBuffer stuff(new StringBuffer);
 
         if (stuff)
         {
@@ -1529,7 +1530,7 @@ doTestStringBufferReset(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultBooleanValue(const char *launchPath,
+doTestDefaultLogicalValue(const char *launchPath,
                           const int  argc,
                           char       **argv) // default boolean value
 {
@@ -1546,7 +1547,7 @@ doTestDefaultBooleanValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Boolean> stuff(new nImO::Boolean);
+        std::unique_ptr<Logical> stuff(new Logical);
 
         if (stuff)
         {
@@ -1571,7 +1572,7 @@ doTestDefaultBooleanValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestDefaultBooleanValue
+} // doTestDefaultLogicalValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1590,7 +1591,7 @@ doTestDefaultBooleanValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanValue(const char *launchPath,
+doTestLogicalValue(const char *launchPath,
                    const int  argc,
                    char       **argv) // boolean values
 {
@@ -1612,9 +1613,9 @@ doTestBooleanValue(const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
             
-            if (nImO::ConvertToLong(*argv, value) && (0 <= value))
+            if (ConvertToLong(*argv, value) && (0 <= value))
             {
-                std::unique_ptr<nImO::Boolean> stuff(new nImO::Boolean(0 != value));
+                std::unique_ptr<Logical> stuff(new Logical(0 != value));
 
                 if (stuff)
                 {
@@ -1649,7 +1650,7 @@ doTestBooleanValue(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanValue
+} // doTestLogicalValue
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1685,7 +1686,7 @@ doTestDefaultIntegerValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Integer> stuff(new nImO::Integer);
+        std::unique_ptr<Integer> stuff(new Integer);
 
         if (stuff)
         {
@@ -1752,9 +1753,9 @@ doTestNumberValue(const char *launchPath,
             const char *outString = argv[1];
             int64_t    intValue;
             
-            if (nImO::ConvertToLong(*argv, intValue))
+            if (ConvertToLong(*argv, intValue))
             {
-                std::unique_ptr<nImO::Integer> stuff(new nImO::Integer(intValue));
+                std::unique_ptr<Integer> stuff(new Integer(intValue));
 
                 if (stuff)
                 {
@@ -1776,9 +1777,9 @@ doTestNumberValue(const char *launchPath,
             {
                 double floatValue;
                 
-                if (nImO::ConvertToDouble(*argv, floatValue))
+                if (ConvertToDouble(*argv, floatValue))
                 {
-                    std::unique_ptr<nImO::Double> stuff(new nImO::Double(floatValue));
+                    std::unique_ptr<Double> stuff(new Double(floatValue));
 
                     if (stuff)
                     {
@@ -1850,7 +1851,7 @@ doTestDefaultStringValue(const char *launchPath,
 
     try
     {
-        nImO::UpString stuff(new nImO::String);
+        UpString stuff(new String);
 
         if (stuff)
         {
@@ -1913,7 +1914,7 @@ doTestStringValue(const char *launchPath,
     {
         if (1 < argc)
         {
-            nImO::UpString stuff(new nImO::String(*argv));
+            UpString stuff(new String(*argv));
 
             if (stuff)
             {
@@ -1981,7 +1982,7 @@ doTestStringValueWithEscapes(const char *launchPath,
     {
         const char     *inString = "abc\tdef\f\rghi\302";
         const char     *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        nImO::UpString stuff(new nImO::String(inString));
+        UpString stuff(new String(inString));
 
         if (stuff)
         {
@@ -2042,7 +2043,7 @@ doTestDefaultBlobValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<nImO::Blob> stuff(new nImO::Blob);
+        std::unique_ptr<Blob> stuff(new Blob);
 
         if (stuff)
         {
@@ -2103,7 +2104,7 @@ doTestSmallBlobValue(const char *launchPath,
 
     try
     {
-        nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
         if (smallBlob)
         {
@@ -2114,7 +2115,7 @@ doTestSmallBlobValue(const char *launchPath,
 
                 smallBlob[ii] = aByte;
             }
-            std::unique_ptr<nImO::Blob> stuff(new nImO::Blob(smallBlob.get(), kSmallTestSize));
+            std::unique_ptr<Blob> stuff(new Blob(smallBlob.get(), kSmallTestSize));
 
             if (stuff)
             {
@@ -2198,7 +2199,7 @@ doTestBigBlobValue(const char *launchPath,
 
     try
     {
-        nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+        UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
 
         if (bigBlob)
         {
@@ -2209,7 +2210,7 @@ doTestBigBlobValue(const char *launchPath,
 
                 bigBlob[ii] = aByte;
             }
-            std::unique_ptr<nImO::Blob> stuff(new nImO::Blob(bigBlob.get(), kBigTestSize));
+            std::unique_ptr<Blob> stuff(new Blob(bigBlob.get(), kBigTestSize));
 
             if (stuff)
             {
@@ -2276,7 +2277,7 @@ doTestBigBlobValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBooleanCopyAndAssign(const char *launchPath,
+doTestLogicalCopyAndAssign(const char *launchPath,
                            const int  argc,
                            char       **argv) // boolean copy and assign
 {
@@ -2293,13 +2294,13 @@ doTestBooleanCopyAndAssign(const char *launchPath,
 
     try
     {
-        nImO::Boolean falseStuff(false);
-        nImO::Boolean trueStuff(true);
+        Logical falseStuff(false);
+        Logical trueStuff(true);
 
         if ((! falseStuff.getValue()) && trueStuff.getValue())
         {
-            nImO::Boolean falseCopy(falseStuff);
-            nImO::Boolean trueCopy(trueStuff);
+            Logical falseCopy(falseStuff);
+            Logical trueCopy(trueStuff);
 
             if ((falseCopy.getValue() == falseStuff.getValue()) &&
                 (trueCopy.getValue() == trueStuff.getValue()))
@@ -2338,7 +2339,7 @@ doTestBooleanCopyAndAssign(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestBooleanCopyAndAssign
+} // doTestLogicalCopyAndAssign
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -2377,17 +2378,17 @@ doTestIntegerCopyAndAssign(const char *launchPath,
         static const int64_t value1 = -1234;
         static const int64_t value2 = 0;
         static const int64_t value3 = 2345;
-        nImO::Integer negativeStuff(value1);
-        nImO::Integer zeroStuff(value2);
-        nImO::Integer positiveStuff(value3);
+        Integer negativeStuff(value1);
+        Integer zeroStuff(value2);
+        Integer positiveStuff(value3);
 
         if ((value1 == negativeStuff.getIntegerValue()) &&
             (value2 == zeroStuff.getIntegerValue()) &&
             (value3 == positiveStuff.getIntegerValue()))
         {
-            nImO::Integer negativeCopy(negativeStuff);
-            nImO::Integer zeroCopy(zeroStuff);
-            nImO::Integer positiveCopy(positiveStuff);
+            Integer negativeCopy(negativeStuff);
+            Integer zeroCopy(zeroStuff);
+            Integer positiveCopy(positiveStuff);
 
             if ((negativeCopy.getIntegerValue() == negativeStuff.getIntegerValue()) &&
                 (zeroCopy.getIntegerValue() == zeroStuff.getIntegerValue()) &&
@@ -2478,17 +2479,17 @@ doTestDoubleCopyAndAssign(const char *launchPath,
         static const double value1 = -1234.5;
         static const double value2 = 0.0;
         static const double value3 = 2345.6;
-        nImO::Double negativeStuff(value1);
-        nImO::Double zeroStuff(value2);
-        nImO::Double positiveStuff(value3);
+        Double negativeStuff(value1);
+        Double zeroStuff(value2);
+        Double positiveStuff(value3);
 
         if ((value1 == negativeStuff.getDoubleValue()) &&
             (value2 == zeroStuff.getDoubleValue()) &&
             (value3 == positiveStuff.getDoubleValue()))
         {
-            nImO::Double negativeCopy(negativeStuff);
-            nImO::Double zeroCopy(zeroStuff);
-            nImO::Double positiveCopy(positiveStuff);
+            Double negativeCopy(negativeStuff);
+            Double zeroCopy(zeroStuff);
+            Double positiveCopy(positiveStuff);
 
             if ((negativeCopy.getDoubleValue() == negativeStuff.getDoubleValue()) &&
                 (zeroCopy.getDoubleValue() == zeroStuff.getDoubleValue()) &&
@@ -2575,14 +2576,14 @@ doTestStringCopyAndAssign(const char *launchPath,
 
     try
     {
-        nImO::String emptyString;
-        nImO::String shortString("alphabetagamma");
+        String emptyString;
+        String shortString("alphabetagamma");
 
         if ((0 == emptyString.getValue().length()) &&
             (shortString.getValue() == "alphabetagamma"))
         {
-            nImO::String emptyCopy(emptyString);
-            nImO::String shortCopy(shortString);
+            String emptyCopy(emptyString);
+            String shortCopy(shortString);
 
             if ((emptyCopy.getValue() == emptyString.getValue()) &&
                 (shortCopy.getValue() == shortString.getValue()))
@@ -2658,8 +2659,8 @@ doTestBlobCopyAndAssign(const char *launchPath,
 
     try
     {
-        nImO::UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
-        nImO::UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+        UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
 
         if (bigBlob && smallBlob)
         {
@@ -2677,8 +2678,8 @@ doTestBlobCopyAndAssign(const char *launchPath,
 
                 smallBlob[ii] = aByte;
             }
-            nImO::Blob    smallStuff(smallBlob.get(), kSmallTestSize);
-            nImO::Blob    bigStuff(bigBlob.get(), kBigTestSize);
+            Blob    smallStuff(smallBlob.get(), kSmallTestSize);
+            Blob    bigStuff(bigBlob.get(), kBigTestSize);
             size_t        smallLength = 0;
             size_t        bigLength = 0;
             const uint8_t *smallValue = smallStuff.getValue(smallLength);
@@ -2687,20 +2688,20 @@ doTestBlobCopyAndAssign(const char *launchPath,
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = nImO::CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
+                result = CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = nImO::CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
+                    result = CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
                 }
             }
             if (0 == result)
             {
-                nImO::Blob smallCopy(smallStuff);
-                nImO::Blob bigCopy(bigStuff);
+                Blob smallCopy(smallStuff);
+                Blob bigCopy(bigStuff);
 
                 smallLength = bigLength = 0;
                 smallValue = smallCopy.getValue(smallLength);
@@ -2708,14 +2709,14 @@ doTestBlobCopyAndAssign(const char *launchPath,
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = nImO::CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
+                    result = CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = nImO::CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
+                        result = CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
                     }
                 }
                 if (0 == result)
@@ -2728,14 +2729,14 @@ doTestBlobCopyAndAssign(const char *launchPath,
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = nImO::CompareBytes(smallValue, bigBlob.get(), kBigTestSize);
+                        result = CompareBytes(smallValue, bigBlob.get(), kBigTestSize);
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = nImO::CompareBytes(bigValue, smallBlob.get(), kSmallTestSize);
+                            result = CompareBytes(bigValue, smallBlob.get(), kSmallTestSize);
                         }
                     }
                 }
@@ -2768,7 +2769,7 @@ doTestBlobCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBooleanCompares(const char *launchPath,
+doTestValidLogicalCompares(const char *launchPath,
                            const int  argc,
                            char       **argv) // valid boolean compares
 {
@@ -2814,8 +2815,8 @@ doTestValidBooleanCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Boolean leftValue(testSet[ii]._leftValue);
-            nImO::Boolean rightValue(testSet[ii]._rightValue);
+            Logical leftValue(testSet[ii]._leftValue);
+            Logical rightValue(testSet[ii]._rightValue);
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -2899,7 +2900,7 @@ doTestValidBooleanCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestValidBooleanCompares
+} // doTestValidLogicalCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3048,8 +3049,8 @@ doTestValidNumberCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer leftValue(testSet1[ii]._leftValue);
-            nImO::Integer rightValue(testSet1[ii]._rightValue);
+            Integer leftValue(testSet1[ii]._leftValue);
+            Integer rightValue(testSet1[ii]._rightValue);
 
             if (testSet1[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3128,8 +3129,8 @@ doTestValidNumberCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Integer leftValue(testSet2[ii]._leftValue);
-            nImO::Double  rightValue(testSet2[ii]._rightValue);
+            Integer leftValue(testSet2[ii]._leftValue);
+            Double  rightValue(testSet2[ii]._rightValue);
 
             if (testSet2[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3208,8 +3209,8 @@ doTestValidNumberCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests3 > ii); ++ii)
         {
             bool          valid = false;
-            nImO::Double  leftValue(testSet3[ii]._leftValue);
-            nImO::Integer rightValue(testSet3[ii]._rightValue);
+            Double  leftValue(testSet3[ii]._leftValue);
+            Integer rightValue(testSet3[ii]._rightValue);
 
             if (testSet3[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3288,8 +3289,8 @@ doTestValidNumberCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests4 > ii); ++ii)
         {
             bool         valid = false;
-            nImO::Double leftValue(testSet4[ii]._leftValue);
-            nImO::Double rightValue(testSet4[ii]._rightValue);
+            Double leftValue(testSet4[ii]._leftValue);
+            Double rightValue(testSet4[ii]._rightValue);
 
             if (testSet4[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3442,8 +3443,8 @@ doTestValidStringCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
             bool         valid = false;
-            nImO::String leftValue(testSet[ii]._leftValue);
-            nImO::String rightValue(testSet[ii]._rightValue);
+            String leftValue(testSet[ii]._leftValue);
+            String rightValue(testSet[ii]._rightValue);
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3565,8 +3566,8 @@ doTestValidBlobCompares(const char *launchPath,
     {
         struct tests
         {
-            const nImO::Blob *_leftValue;
-            const nImO::Blob *_rightValue;
+            const Blob *_leftValue;
+            const Blob *_rightValue;
             bool _lessThanResult;
             bool _lessThanValid;
             bool _greaterThanResult;
@@ -3585,10 +3586,10 @@ doTestValidBlobCompares(const char *launchPath,
         const size_t  blobSize1 = (sizeof(blobData1) / sizeof(blobData1[0]));
         const size_t  blobSize2 = (sizeof(blobData2) / sizeof(blobData2[0]));
         const size_t  blobSize3 = (sizeof(blobData3) / sizeof(blobData3[0]));
-        nImO::Blob    blob0;
-        nImO::Blob    blob1(blobData1, blobSize1);
-        nImO::Blob    blob2(blobData2, blobSize2);
-        nImO::Blob    blob3(blobData3, blobSize3);
+        Blob    blob0;
+        Blob    blob1(blobData1, blobSize1);
+        Blob    blob2(blobData2, blobSize2);
+        Blob    blob3(blobData3, blobSize3);
         const tests   testSet[] =
         {
             // left   right   <            >            <=           >=           ==
@@ -3606,8 +3607,8 @@ doTestValidBlobCompares(const char *launchPath,
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
             bool             valid = false;
-            const nImO::Blob &leftValue = *testSet[ii]._leftValue;
-            const nImO::Blob &rightValue = *testSet[ii]._rightValue;
+            const Blob &leftValue = *testSet[ii]._leftValue;
+            const Blob &rightValue = *testSet[ii]._rightValue;
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3710,7 +3711,7 @@ doTestValidBlobCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBooleanCompares(const char *launchPath,
+doTestInvalidLogicalCompares(const char *launchPath,
                              const int  argc,
                              char       **argv) // invalid boolean compares
 {
@@ -3728,16 +3729,16 @@ doTestInvalidBooleanCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Boolean leftValue;
-        nImO::Number  rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Logical leftValue;
+        Number  rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3803,7 +3804,7 @@ doTestInvalidBooleanCompares(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInvalidBooleanCompares
+} // doTestInvalidLogicalCompares
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3840,16 +3841,16 @@ doTestInvalidNumberCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Number  leftValue;
-        nImO::Boolean rightValue1;
-        nImO::String  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Number  leftValue;
+        Logical rightValue1;
+        String  rightValue2;
+        Blob    rightValue3;
+        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3952,16 +3953,16 @@ doTestInvalidStringCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::String  leftValue;
-        nImO::Boolean rightValue1;
-        nImO::Number  rightValue2;
-        nImO::Blob    rightValue3;
-        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        String  leftValue;
+        Logical rightValue1;
+        Number  rightValue2;
+        Blob    rightValue3;
+        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -4064,16 +4065,16 @@ doTestInvalidBlobCompares(const char *launchPath,
     try
     {
         bool          valid = false;
-        nImO::Blob    leftValue;
-        nImO::Boolean rightValue1;
-        nImO::Number  rightValue2;
-        nImO::String  rightValue3;
-        nImO::Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Blob    leftValue;
+        Logical rightValue1;
+        Number  rightValue2;
+        String  rightValue3;
+        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            nImO::Value &aRightValue = *rightValues[ii];
+            Value &aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -4175,14 +4176,14 @@ main(int  argc,
 
     try
     {
-        nImO::Initialize(progName);
+        Initialize(progName);
         if (0 < --argc)
         {
             int64_t selector;
             
-            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
-                nImO::SetSignalHandlers(catchSignal);
+                SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
                     case 0 :
@@ -4219,7 +4220,7 @@ main(int  argc,
                         break;
 
                     case 12 :
-                        result = doTestStringBufferWithBoolean(*argv, argc - 1, argv + 2);
+                        result = doTestStringBufferWithLogical(*argv, argc - 1, argv + 2);
                         break;
 
                     case 13 :
@@ -4259,11 +4260,11 @@ main(int  argc,
                         break;
 
                     case 50 :
-                        result = doTestDefaultBooleanValue(*argv, argc - 1, argv + 2);
+                        result = doTestDefaultLogicalValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 51 :
-                        result = doTestBooleanValue(*argv, argc - 1, argv + 2);
+                        result = doTestLogicalValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 52 :
@@ -4299,7 +4300,7 @@ main(int  argc,
                         break;
 
                     case 60 :
-                        result = doTestBooleanCopyAndAssign(*argv, argc - 1, argv + 2);
+                        result = doTestLogicalCopyAndAssign(*argv, argc - 1, argv + 2);
                         break;
 
                     case 61 :
@@ -4319,7 +4320,7 @@ main(int  argc,
                         break;
 
                     case 80 :
-                        result = doTestValidBooleanCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidLogicalCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 81 :
@@ -4335,7 +4336,7 @@ main(int  argc,
                         break;
 
                     case 84 :
-                        result = doTestInvalidBooleanCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidLogicalCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 85 :

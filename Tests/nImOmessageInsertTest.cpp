@@ -38,10 +38,10 @@
 
 #include <nImO/nImOarray.hpp>
 #include <nImO/nImOblob.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOmap.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOset.hpp>
@@ -66,6 +66,7 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+using namespace nImO;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -95,7 +96,7 @@ catchSignal(int signal)
     buff << signal;
     message += buff.str();
     message += " = ";
-    message += nImO::NameOfSignal(signal);
+    message += NameOfSignal(signal);
 #if 0
     nImO_ERROR_(message.c_str());
 #endif//0
@@ -110,8 +111,8 @@ catchSignal(int signal)
  @param[in] expectedSize The expected size of the Message.
  @returns Zero on success and non-zero on failure. */
 static int
-setValueAndCheck(nImO::Message     &stuff,
-                 const nImO::Value &aValue,
+setValueAndCheck(Message     &stuff,
+                 const Value &aValue,
                  const uint8_t     *expectedContents,
                  const size_t      expectedSize)
 {
@@ -130,7 +131,7 @@ setValueAndCheck(nImO::Message     &stuff,
     ODL_PACKET("contents", contents, length); //####
     if ((nullptr != contents) && (expectedSize == length))
     {
-        result = nImO::CompareBytes(expectedContents, contents, expectedSize);
+        result = CompareBytes(expectedContents, contents, expectedSize);
     }
     else
     {
@@ -172,20 +173,20 @@ doTestInsertEmptyMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytes[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageEmptyValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue)
             };
             const size_t  expectedCount = (sizeof(expectedBytes) / sizeof(*expectedBytes));
             ODL_PACKET("expectedBytes", expectedBytes, expectedCount); //####
@@ -204,7 +205,7 @@ doTestInsertEmptyMessage(const char *launchPath,
                 ODL_PACKET("contents", contents, length); //####
                 if ((nullptr != contents) && (expectedCount == length))
                 {
-                    result = nImO::CompareBytes(expectedBytes, contents, expectedCount);
+                    result = CompareBytes(expectedBytes, contents, expectedCount);
                 }
                 else
                 {
@@ -243,7 +244,7 @@ doTestInsertEmptyMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertBooleanMessage(const char *launchPath,
+doTestInsertLogicalMessage(const char *launchPath,
                            const int  argc,
                            char       **argv) // boolean message
 {
@@ -260,48 +261,48 @@ doTestInsertBooleanMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForTrue[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanTrueValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalTrueValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedTrueCount = (sizeof(expectedBytesForTrue) /
                                               sizeof(*expectedBytesForTrue));
             static const uint8_t expectedBytesForFalse[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedFalseCount = (sizeof(expectedBytesForFalse) /
                                                sizeof(*expectedBytesForFalse));
-            nImO::Boolean falseValue(false);
-            nImO::Boolean trueValue(true);
+            Logical falseValue(false);
+            Logical trueValue(true);
 
             result = setValueAndCheck(*stuff, trueValue, expectedBytesForTrue, expectedTrueCount);
             if (0 == result)
@@ -322,7 +323,7 @@ doTestInsertBooleanMessage(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertBooleanMessage
+} // doTestInsertLogicalMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -358,67 +359,67 @@ doTestInsertTinyIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMinus12[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (-12 &nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (-12 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedMinus12Count = (sizeof(expectedBytesForMinus12) /
                                                  sizeof(*expectedBytesForMinus12));
             static const uint8_t expectedBytesForZero[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedZeroCount = (sizeof(expectedBytesForZero) /
                                               sizeof(*expectedBytesForZero));
             static const uint8_t expectedBytesForPlus12[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (12 &nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (12 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedPlus12Count = (sizeof(expectedBytesForPlus12) /
                                                 sizeof(*expectedBytesForPlus12));
-            nImO::Integer minus12Value(-12);
-            nImO::Integer zeroValue(0);
-            nImO::Integer plus12Value(12);
+            Integer minus12Value(-12);
+            Integer zeroValue(0);
+            Integer plus12Value(12);
 
             result = setValueAndCheck(*stuff, minus12Value, expectedBytesForMinus12,
                                       expectedMinus12Count);
@@ -481,50 +482,50 @@ doTestInsertShortIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMinus144[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((2 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((2 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0xFF, 0x70,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedMinus144Count = (sizeof(expectedBytesForMinus144) /
                                                   sizeof(*expectedBytesForMinus144));
             static const uint8_t expectedBytesForPlus144[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((2 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((2 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0x00, 0x90,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedPlus144Count = (sizeof(expectedBytesForPlus144) /
                                                  sizeof(*expectedBytesForPlus144));
-            nImO::Integer minus144Value(-144);
-            nImO::Integer plus144Value(144);
+            Integer minus144Value(-144);
+            Integer plus144Value(144);
 
             result = setValueAndCheck(*stuff, minus144Value, expectedBytesForMinus144,
                                       expectedMinus144Count);
@@ -582,50 +583,50 @@ doTestInsertMediumIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMinus1234567[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((3 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((3 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0xED, 0x29, 0x79,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedMinus1234567Count = (sizeof(expectedBytesForMinus1234567) /
                                                       sizeof(*expectedBytesForMinus1234567));
             static const uint8_t expectedBytesForPlus1234567[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((3 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((3 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0x12, 0xD6, 0x87,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedPlus1234567Count = (sizeof(expectedBytesForPlus1234567) /
                                                      sizeof(*expectedBytesForPlus1234567));
-            nImO::Integer minus1234567Value(-1234567);
-            nImO::Integer plus1234567Value(1234567);
+            Integer minus1234567Value(-1234567);
+            Integer plus1234567Value(1234567);
 
             result = setValueAndCheck(*stuff, minus1234567Value, expectedBytesForMinus1234567,
                                       expectedMinus1234567Count);
@@ -683,50 +684,50 @@ doTestInsertBigIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMinusBigNumber[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((6 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((6 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedMinusBigNumberCount = (sizeof(expectedBytesForMinusBigNumber) /
                                                         sizeof(*expectedBytesForMinusBigNumber));
             static const uint8_t expectedBytesForPlusBigNumber[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((6 - 1) &nImO::kKindIntegerLongValueCountMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((6 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
                 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedIntegerValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
             };
             const size_t expectedPlusBigNumberCount = (sizeof(expectedBytesForPlusBigNumber) /
                                                        sizeof(*expectedBytesForPlusBigNumber));
-            nImO::Integer minusBigNumberValue(-20015998343868);
-            nImO::Integer plusBigNumberValue(20015998343868);
+            Integer minusBigNumberValue(-20015998343868);
+            Integer plusBigNumberValue(20015998343868);
 
             result = setValueAndCheck(*stuff, minusBigNumberValue, expectedBytesForMinusBigNumber,
                                       expectedMinusBigNumberCount);
@@ -785,30 +786,30 @@ doTestInsertEmptyStringMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForEmptyString[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedEmptyStringCount = (sizeof(expectedBytesForEmptyString) /
                                                      sizeof(*expectedBytesForEmptyString));
-            nImO::String emptyStringValue("");
+            String emptyStringValue("");
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedBytesForEmptyString,
                                       expectedEmptyStringCount);
@@ -861,31 +862,31 @@ doTestInsertShortStringMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForShortString[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (6 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (6 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 'a', 'b', 'c', 'd', 'e', 'f',
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedShortStringCount = (sizeof(expectedBytesForShortString) /
                                                      sizeof(*expectedBytesForShortString));
-            nImO::String shortStringValue("abcdef");
+            String shortStringValue("abcdef");
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedBytesForShortString,
                                       expectedShortStringCount);
@@ -938,21 +939,21 @@ doTestInsertMediumStringMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMediumString[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) &nImO::kKindStringOrBlobLongLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobLongLengthValue) +
+                  ((1 - 1) & static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask)),
                 42,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
@@ -962,14 +963,14 @@ doTestInsertMediumStringMessage(const char *launchPath,
                 'a', 'b', 'c', 'd', 'e', 'f',
                 'a', 'b', 'c', 'd', 'e', 'f',
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedMediumStringCount = (sizeof(expectedBytesForMediumString) /
                                                      sizeof(*expectedBytesForMediumString));
-            nImO::String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedBytesForMediumString,
                                       expectedMediumStringCount);
@@ -1022,30 +1023,30 @@ doTestInsertEmptyBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForEmptyBlob[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedEmptyBlobCount = (sizeof(expectedBytesForEmptyBlob) /
                                                    sizeof(*expectedBytesForEmptyBlob));
-            nImO::Blob   emptyBlobValue;
+            Blob   emptyBlobValue;
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedBytesForEmptyBlob,
                                       expectedEmptyBlobCount);
@@ -1098,27 +1099,27 @@ doTestInsertShortBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForShortBlob[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (6 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (6 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedShortBlobCount = (sizeof(expectedBytesForShortBlob) /
                                                    sizeof(*expectedBytesForShortBlob));
@@ -1127,7 +1128,7 @@ doTestInsertShortBlobMessage(const char *launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            nImO::Blob   shortBlobValue(actualData, actualDataCount);
+            Blob   shortBlobValue(actualData, actualDataCount);
 
             result = setValueAndCheck(*stuff, shortBlobValue, expectedBytesForShortBlob,
                                       expectedShortBlobCount);
@@ -1180,21 +1181,21 @@ doTestInsertMediumBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForMediumBlob[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobLongLengthValue +
-                  ((1 - 1) &nImO::kKindStringOrBlobLongLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobLongLengthValue) +
+                  ((1 - 1) & static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask)),
                 42,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1204,10 +1205,10 @@ doTestInsertMediumBlobMessage(const char *launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedStringOrBlobValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
             };
             const size_t expectedMediumBlobCount = (sizeof(expectedBytesForMediumBlob) /
                                                     sizeof(*expectedBytesForMediumBlob));
@@ -1222,7 +1223,7 @@ doTestInsertMediumBlobMessage(const char *launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            nImO::Blob   mediumBlobValue(actualData, actualDataCount);
+            Blob   mediumBlobValue(actualData, actualDataCount);
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedBytesForMediumBlob,
                                       expectedMediumBlobCount);
@@ -1275,52 +1276,52 @@ doTestInsertSingleFloatMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForPlus42Point5[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedDoubleValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue),
                 // Double
-                nImO::kKindDouble + nImO::kKindDoubleShortCount +
-                  ((1 - nImO::kKindDoubleShortCountMinValue) &
-                    nImO::kKindDoubleShortCountMask),
+                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
+                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
                 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedDoubleValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue)
             };
             const size_t expectedPlus42Point5Count = (sizeof(expectedBytesForPlus42Point5) /
                                                       sizeof(*expectedBytesForPlus42Point5));
             static const uint8_t expectedBytesForMinus42Point5[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedDoubleValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue),
                 // Double
-                nImO::kKindDouble + nImO::kKindDoubleShortCount +
-                  ((1 - nImO::kKindDoubleShortCountMinValue) &
-                    nImO::kKindDoubleShortCountMask),
+                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
+                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
                 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedDoubleValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue)
             };
             const size_t expectedMinus42Point5Count = (sizeof(expectedBytesForMinus42Point5) /
                                                       sizeof(*expectedBytesForMinus42Point5));
-            nImO::Double plus42Point5(42.5);
-            nImO::Double minus42Point5(-42.5);
+            Double plus42Point5(42.5);
+            Double minus42Point5(-42.5);
 
             result = setValueAndCheck(*stuff, plus42Point5, expectedBytesForPlus42Point5,
                                       expectedPlus42Point5Count);
@@ -1378,34 +1379,34 @@ doTestInsertEmptyArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForEmptyArray[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedEmptyArrayCount = (sizeof(expectedBytesForEmptyArray) /
                                                     sizeof(*expectedBytesForEmptyArray));
-            nImO::Array  emptyArray;
+            Array  emptyArray;
 
             result = setValueAndCheck(*stuff, emptyArray, expectedBytesForEmptyArray,
                                       expectedEmptyArrayCount);
@@ -1458,34 +1459,34 @@ doTestInsertEmptyMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForEmptyMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedEmptyMapCount = (sizeof(expectedBytesForEmptyMap) /
                                                   sizeof(*expectedBytesForEmptyMap));
-            nImO::Map    emptyMap;
+            Map    emptyMap;
 
             result = setValueAndCheck(*stuff, emptyMap, expectedBytesForEmptyMap,
                                       expectedEmptyMapCount);
@@ -1538,34 +1539,34 @@ doTestInsertEmptySetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForEmptySet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedEmptySetCount = (sizeof(expectedBytesForEmptySet) /
                                                   sizeof(*expectedBytesForEmptySet));
-            nImO::Set    emptySet;
+            Set    emptySet;
 
             result = setValueAndCheck(*stuff, emptySet, expectedBytesForEmptySet,
                                       expectedEmptySetCount);
@@ -1601,7 +1602,7 @@ doTestInsertEmptySetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneBooleanMessage(const char *launchPath,
+doTestInsertArrayOneLogicalMessage(const char *launchPath,
                                    const int  argc,
                                    char       **argv) // array with one boolean message
 {
@@ -1618,46 +1619,46 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForArrayOneBoolean[] =
+            static const uint8_t expectedBytesForArrayOneLogical[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
-            const size_t expectedArrayOneBooleanCount = (sizeof(expectedBytesForArrayOneBoolean) /
-                                                         sizeof(*expectedBytesForArrayOneBoolean));
-            nImO::Array  arrayOneBoolean;
+            const size_t expectedArrayOneLogicalCount = (sizeof(expectedBytesForArrayOneLogical) /
+                                                         sizeof(*expectedBytesForArrayOneLogical));
+            Array  arrayOneLogical;
 
-            arrayOneBoolean.addValue(nImO::SpValue(new nImO::Boolean));
-            result = setValueAndCheck(*stuff, arrayOneBoolean, expectedBytesForArrayOneBoolean,
-                                      expectedArrayOneBooleanCount);
+            arrayOneLogical.addValue(SpValue(new Logical));
+            result = setValueAndCheck(*stuff, arrayOneLogical, expectedBytesForArrayOneLogical,
+                                      expectedArrayOneLogicalCount);
         }
         else
         {
@@ -1671,7 +1672,7 @@ doTestInsertArrayOneBooleanMessage(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertArrayOneBooleanMessage
+} // doTestInsertArrayOneLogicalMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1707,44 +1708,44 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneInteger[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneIntegerCount = (sizeof(expectedBytesForArrayOneInteger) /
                                                          sizeof(*expectedBytesForArrayOneInteger));
-            nImO::Array  arrayOneInteger;
+            Array  arrayOneInteger;
 
-            arrayOneInteger.addValue(nImO::SpValue(new nImO::Integer));
+            arrayOneInteger.addValue(SpValue(new Integer));
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedBytesForArrayOneInteger,
                                       expectedArrayOneIntegerCount);
         }
@@ -1796,46 +1797,46 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneDouble[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Double
-                nImO::kKindDouble + nImO::kKindDoubleShortCount +
-                  ((1 - nImO::kKindDoubleShortCountMinValue) &
-                    nImO::kKindDoubleShortCountMask),
+                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
+                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneDoubleCount = (sizeof(expectedBytesForArrayOneDouble) /
                                                         sizeof(*expectedBytesForArrayOneDouble));
-            nImO::Array arrayOneDouble;
+            Array arrayOneDouble;
 
-            arrayOneDouble.addValue(nImO::SpValue(new nImO::Double));
+            arrayOneDouble.addValue(SpValue(new Double));
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedBytesForArrayOneDouble,
                                       expectedArrayOneDoubleCount);
         }
@@ -1887,45 +1888,45 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneString[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneStringCount = (sizeof(expectedBytesForArrayOneString) /
                                                         sizeof(*expectedBytesForArrayOneString));
-            nImO::Array  arrayOneString;
+            Array  arrayOneString;
 
-            arrayOneString.addValue(nImO::SpValue(new nImO::String));
+            arrayOneString.addValue(SpValue(new String));
             result = setValueAndCheck(*stuff, arrayOneString, expectedBytesForArrayOneString,
                                       expectedArrayOneStringCount);
         }
@@ -1977,45 +1978,45 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneBlob[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneBlobCount = (sizeof(expectedBytesForArrayOneBlob) /
                                                       sizeof(*expectedBytesForArrayOneBlob));
-            nImO::Array  arrayOneBlob;
+            Array  arrayOneBlob;
 
-            arrayOneBlob.addValue(nImO::SpValue(new nImO::Blob));
+            arrayOneBlob.addValue(SpValue(new Blob));
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedBytesForArrayOneBlob,
                                       expectedArrayOneBlobCount);
         }
@@ -2067,49 +2068,49 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneArray[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneArrayCount = (sizeof(expectedBytesForArrayOneArray) /
                                                        sizeof(*expectedBytesForArrayOneArray));
-            nImO::Array  arrayOneArray;
+            Array  arrayOneArray;
 
-            arrayOneArray.addValue(nImO::SpValue(new nImO::Array));
+            arrayOneArray.addValue(SpValue(new Array));
             result = setValueAndCheck(*stuff, arrayOneArray, expectedBytesForArrayOneArray,
                                       expectedArrayOneArrayCount);
         }
@@ -2161,49 +2162,49 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneMapCount = (sizeof(expectedBytesForArrayOneMap) /
                                                      sizeof(*expectedBytesForArrayOneMap));
-            nImO::Array  arrayOneMap;
+            Array  arrayOneMap;
 
-            arrayOneMap.addValue(nImO::SpValue(new nImO::Map));
+            arrayOneMap.addValue(SpValue(new Map));
             result = setValueAndCheck(*stuff, arrayOneMap, expectedBytesForArrayOneMap,
                                       expectedArrayOneMapCount);
         }
@@ -2255,49 +2256,49 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneSet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneSetCount = (sizeof(expectedBytesForArrayOneSet) /
                                                      sizeof(*expectedBytesForArrayOneSet));
-            nImO::Array  arrayOneSet;
+            Array  arrayOneSet;
 
-            arrayOneSet.addValue(nImO::SpValue(new nImO::Set));
+            arrayOneSet.addValue(SpValue(new Set));
             result = setValueAndCheck(*stuff, arrayOneSet, expectedBytesForArrayOneSet,
                                       expectedArrayOneSetCount);
         }
@@ -2332,7 +2333,7 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoBooleansMessage(const char *launchPath,
+doTestInsertArrayTwoLogicalsMessage(const char *launchPath,
                                     const int  argc,
                                     char       **argv) // array with two booleans message
 {
@@ -2349,51 +2350,51 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForArrayTwoBooleans[] =
+            static const uint8_t expectedBytesForArrayTwoLogicals[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
-            const size_t expectedArrayTwoBooleansCount =
-                                                     (sizeof(expectedBytesForArrayTwoBooleans) /
-                                                      sizeof(*expectedBytesForArrayTwoBooleans));
-            nImO::Array  arrayTwoBooleans;
+            const size_t expectedArrayTwoLogicalsCount =
+                                                     (sizeof(expectedBytesForArrayTwoLogicals) /
+                                                      sizeof(*expectedBytesForArrayTwoLogicals));
+            Array  arrayTwoLogicals;
 
-            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
-            arrayTwoBooleans.addValue(nImO::SpValue(new nImO::Boolean));
-            result = setValueAndCheck(*stuff, arrayTwoBooleans, expectedBytesForArrayTwoBooleans,
-                                      expectedArrayTwoBooleansCount);
+            arrayTwoLogicals.addValue(SpValue(new Logical));
+            arrayTwoLogicals.addValue(SpValue(new Logical));
+            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedBytesForArrayTwoLogicals,
+                                      expectedArrayTwoLogicalsCount);
         }
         else
         {
@@ -2407,7 +2408,7 @@ doTestInsertArrayTwoBooleansMessage(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertArrayTwoBooleansMessage
+} // doTestInsertArrayTwoLogicalsMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -2443,49 +2444,49 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoIntegers[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoIntegersCount =
                                                      (sizeof(expectedBytesForArrayTwoIntegers) /
                                                       sizeof(*expectedBytesForArrayTwoIntegers));
-            nImO::Array  arrayTwoIntegers;
+            Array  arrayTwoIntegers;
 
-            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
-            arrayTwoIntegers.addValue(nImO::SpValue(new nImO::Integer));
+            arrayTwoIntegers.addValue(SpValue(new Integer));
+            arrayTwoIntegers.addValue(SpValue(new Integer));
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedBytesForArrayTwoIntegers,
                                       expectedArrayTwoIntegersCount);
         }
@@ -2537,48 +2538,48 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoDoubles[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Double
-                nImO::kKindDouble + nImO::kKindDoubleShortCount +
-                  ((2 - nImO::kKindDoubleShortCountMinValue) &
-                    nImO::kKindDoubleShortCountMask),
+                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
+                  static_cast<uint8_t>((2 - DataKindDoubleShortCountMinValue) &
+                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoDoublesCount = (sizeof(expectedBytesForArrayTwoDoubles) /
                                                          sizeof(*expectedBytesForArrayTwoDoubles));
-            nImO::Array  arrayTwoDoubles;
+            Array  arrayTwoDoubles;
 
-            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
-            arrayTwoDoubles.addValue(nImO::SpValue(new nImO::Double));
+            arrayTwoDoubles.addValue(SpValue(new Double));
+            arrayTwoDoubles.addValue(SpValue(new Double));
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedBytesForArrayTwoDoubles,
                                       expectedArrayTwoDoublesCount);
         }
@@ -2630,50 +2631,50 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoStrings[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoStringsCount = (sizeof(expectedBytesForArrayTwoStrings) /
                                                          sizeof(*expectedBytesForArrayTwoStrings));
-            nImO::Array  arrayTwoStrings;
+            Array  arrayTwoStrings;
 
-            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
-            arrayTwoStrings.addValue(nImO::SpValue(new nImO::String));
+            arrayTwoStrings.addValue(SpValue(new String));
+            arrayTwoStrings.addValue(SpValue(new String));
             result = setValueAndCheck(*stuff, arrayTwoStrings, expectedBytesForArrayTwoStrings,
                                       expectedArrayTwoStringsCount);
         }
@@ -2725,50 +2726,50 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoBlobs[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // Blob
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobBlobValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoBlobsCount = (sizeof(expectedBytesForArrayTwoBlobs) /
                                                        sizeof(*expectedBytesForArrayTwoBlobs));
-            nImO::Array  arrayTwoBlobs;
+            Array  arrayTwoBlobs;
 
-            arrayTwoBlobs.addValue(nImO::SpValue(nImO::SpValue(new nImO::Blob)));
-            arrayTwoBlobs.addValue(nImO::SpValue(nImO::SpValue(new nImO::Blob)));
+            arrayTwoBlobs.addValue(SpValue(SpValue(new Blob)));
+            arrayTwoBlobs.addValue(SpValue(SpValue(new Blob)));
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedBytesForArrayTwoBlobs,
                                       expectedArrayTwoBlobsCount);
         }
@@ -2820,58 +2821,58 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoArrays[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoArraysCount = (sizeof(expectedBytesForArrayTwoArrays) /
                                                         sizeof(*expectedBytesForArrayTwoArrays));
-            nImO::Array  arrayTwoArrays;
+            Array  arrayTwoArrays;
 
-            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
-            arrayTwoArrays.addValue(nImO::SpValue(new nImO::Array));
+            arrayTwoArrays.addValue(SpValue(new Array));
+            arrayTwoArrays.addValue(SpValue(new Array));
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedBytesForArrayTwoArrays,
                                       expectedArrayTwoArraysCount);
         }
@@ -2923,58 +2924,58 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoMaps[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoMapsCount = (sizeof(expectedBytesForArrayTwoMaps) /
                                                       sizeof(*expectedBytesForArrayTwoMaps));
-            nImO::Array  arrayTwoMaps;
+            Array  arrayTwoMaps;
 
-            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
-            arrayTwoMaps.addValue(nImO::SpValue(new nImO::Map));
+            arrayTwoMaps.addValue(SpValue(new Map));
+            arrayTwoMaps.addValue(SpValue(new Map));
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedBytesForArrayTwoMaps,
                                       expectedArrayTwoMapsCount);
         }
@@ -3026,58 +3027,58 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayTwoSets[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayTwoSetsCount = (sizeof(expectedBytesForArrayTwoSets) /
                                                       sizeof(*expectedBytesForArrayTwoSets));
-            nImO::Array  arrayTwoSets;
+            Array  arrayTwoSets;
 
-            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
-            arrayTwoSets.addValue(nImO::SpValue(new nImO::Set));
+            arrayTwoSets.addValue(SpValue(new Set));
+            arrayTwoSets.addValue(SpValue(new Set));
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedBytesForArrayTwoSets,
                                       expectedArrayTwoSetsCount);
         }
@@ -3129,59 +3130,59 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneArrayOneMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneArrayOneMapCount =
                                                     (sizeof(expectedBytesForArrayOneArrayOneMap) /
                                                      sizeof(*expectedBytesForArrayOneArrayOneMap));
-            nImO::Array  arrayOneArrayOneMap;
+            Array  arrayOneArrayOneMap;
 
-            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Array));
-            arrayOneArrayOneMap.addValue(nImO::SpValue(new nImO::Map));
+            arrayOneArrayOneMap.addValue(SpValue(new Array));
+            arrayOneArrayOneMap.addValue(SpValue(new Map));
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap,
                                       expectedBytesForArrayOneArrayOneMap,
                                       expectedArrayOneArrayOneMapCount);
@@ -3234,59 +3235,59 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneMapOneSet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneMapOneSetCount =
                                                         (sizeof(expectedBytesForArrayOneMapOneSet) /
                                                         sizeof(*expectedBytesForArrayOneMapOneSet));
-            nImO::Array  arrayOneMapOneSet;
+            Array  arrayOneMapOneSet;
 
-            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Map));
-            arrayOneMapOneSet.addValue(nImO::SpValue(new nImO::Set));
+            arrayOneMapOneSet.addValue(SpValue(new Map));
+            arrayOneMapOneSet.addValue(SpValue(new Set));
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedBytesForArrayOneMapOneSet,
                                       expectedArrayOneMapOneSetCount);
         }
@@ -3338,59 +3339,59 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForArrayOneSetOneArray[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((2 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayOneSetOneArrayCount =
                                                     (sizeof(expectedBytesForArrayOneSetOneArray) /
                                                      sizeof(*expectedBytesForArrayOneSetOneArray));
-            nImO::Array  arrayOneSetOneArray;
+            Array  arrayOneSetOneArray;
 
-            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Set));
-            arrayOneSetOneArray.addValue(nImO::SpValue(new nImO::Array));
+            arrayOneSetOneArray.addValue(SpValue(new Set));
+            arrayOneSetOneArray.addValue(SpValue(new Array));
             result = setValueAndCheck(*stuff, arrayOneSetOneArray,
                                       expectedBytesForArrayOneSetOneArray,
                                       expectedArrayOneSetOneArrayCount);
@@ -3443,7 +3444,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
@@ -3451,21 +3452,21 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
             static const uint8_t expectedBytesForArrayManyDoubles[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Array
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerLongValue +
-                  ((1 - 1) &nImO::kKindIntegerLongValueCountMask),
-                numValues + nImO::kKindIntegerShortValueMinValue - 1,
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
+                  ((1 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
+                static_cast<uint8_t>(numValues + DataKindIntegerShortValueMinValue - 1),
                 // Double
-                nImO::kKindDouble + nImO::kKindDoubleLongCount +
-                  ((1 - 1) &nImO::kKindDoubleLongCountMask),
+                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleLongCount) +
+                  ((1 - 1) & static_cast<uint8_t>(DataKind::DoubleLongCountMask)),
                 numValues,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
                 0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1
@@ -3511,22 +3512,22 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
                 0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
                 0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
                 // End of Array
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeArray +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedArrayManyDoublesCount = (sizeof(expectedBytesForArrayManyDoubles) /
                                                         sizeof(*expectedBytesForArrayManyDoubles));
-            nImO::Array  arrayManyDoubles;
+            Array  arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(nImO::SpValue(new nImO::Double(ii)));
+                arrayManyDoubles.addValue(SpValue(new Double(ii)));
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedBytesForArrayManyDoubles,
                                       expectedArrayManyDoublesCount);
@@ -3564,7 +3565,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertBooleanMapMessage(const char *launchPath,
+doTestInsertLogicalMapMessage(const char *launchPath,
                               const int  argc,
                               char       **argv) // boolean map message
 {
@@ -3581,50 +3582,50 @@ doTestInsertBooleanMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForBooleanMap[] =
+            static const uint8_t expectedBytesForLogicalMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 &nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
-            const size_t expectedBooleanMapCount = (sizeof(expectedBytesForBooleanMap) /
-                                                    sizeof(*expectedBytesForBooleanMap));
-            nImO::Map    booleanMap;
+            const size_t expectedLogicalMapCount = (sizeof(expectedBytesForLogicalMap) /
+                                                    sizeof(*expectedBytesForLogicalMap));
+            Map    booleanMap;
 
-            booleanMap.addValue(nImO::SpValue(new nImO::Boolean),
-                                nImO::SpValue(new nImO::Integer(13)));
-            result = setValueAndCheck(*stuff, booleanMap, expectedBytesForBooleanMap,
-                                      expectedBooleanMapCount);
+            booleanMap.addValue(SpValue(new Logical),
+                                SpValue(new Integer(13)));
+            result = setValueAndCheck(*stuff, booleanMap, expectedBytesForLogicalMap,
+                                      expectedLogicalMapCount);
         }
         else
         {
@@ -3638,7 +3639,7 @@ doTestInsertBooleanMapMessage(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertBooleanMapMessage
+} // doTestInsertLogicalMapMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3674,48 +3675,48 @@ doTestInsertIntegerMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForIntegerMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 &nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedIntegerMapCount = (sizeof(expectedBytesForIntegerMap) /
                                                     sizeof(*expectedBytesForIntegerMap));
-            nImO::Map    integerMap;
+            Map    integerMap;
 
-            integerMap.addValue(nImO::SpValue(new nImO::Integer),
-                                nImO::SpValue(new nImO::Integer(13)));
+            integerMap.addValue(SpValue(new Integer),
+                                SpValue(new Integer(13)));
             result = setValueAndCheck(*stuff, integerMap, expectedBytesForIntegerMap,
                                       expectedIntegerMapCount);
         }
@@ -3767,49 +3768,49 @@ doTestInsertStringMapMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForStringMap[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Map
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
-                  (13 &nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // End of Map
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeMap +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedStringMapCount = (sizeof(expectedBytesForStringMap) /
                                                    sizeof(*expectedBytesForStringMap));
-            nImO::Map    stringMap;
+            Map    stringMap;
 
-            stringMap.addValue(nImO::SpValue(new nImO::String),
-                               nImO::SpValue(new nImO::Integer(13)));
+            stringMap.addValue(SpValue(new String),
+                               SpValue(new Integer(13)));
             result = setValueAndCheck(*stuff, stringMap, expectedBytesForStringMap,
                                       expectedStringMapCount);
         }
@@ -3844,7 +3845,7 @@ doTestInsertStringMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertBooleanSetMessage(const char *launchPath,
+doTestInsertLogicalSetMessage(const char *launchPath,
                               const int  argc,
                               char       **argv) // boolean set message
 {
@@ -3861,46 +3862,46 @@ doTestInsertBooleanSetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
-            static const uint8_t expectedBytesForBooleanSet[] =
+            static const uint8_t expectedBytesForLogicalSet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
-                // Boolean
-                nImO::kKindOther + nImO::kKindOtherBoolean +
-                  nImO::kKindOtherBooleanFalseValue,
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                // Logical
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
+                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
-            const size_t expectedBooleanSetCount = (sizeof(expectedBytesForBooleanSet) /
-                                                    sizeof(*expectedBytesForBooleanSet));
-            nImO::Set    booleanSet;
+            const size_t expectedLogicalSetCount = (sizeof(expectedBytesForLogicalSet) /
+                                                    sizeof(*expectedBytesForLogicalSet));
+            Set    booleanSet;
 
-            booleanSet.addValue(nImO::SpValue(new nImO::Boolean));
-            result = setValueAndCheck(*stuff, booleanSet, expectedBytesForBooleanSet,
-                                      expectedBooleanSetCount);
+            booleanSet.addValue(SpValue(new Logical));
+            result = setValueAndCheck(*stuff, booleanSet, expectedBytesForLogicalSet,
+                                      expectedLogicalSetCount);
         }
         else
         {
@@ -3914,7 +3915,7 @@ doTestInsertBooleanSetMessage(const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertBooleanSetMessage
+} // doTestInsertLogicalSetMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -3950,44 +3951,44 @@ doTestInsertIntegerSetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForIntegerSet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // Signed Integer
-                nImO::kKindInteger + nImO::kKindIntegerShortValue +
+                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                   0,
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedIntegerSetCount = (sizeof(expectedBytesForIntegerSet) /
                                                      sizeof(*expectedBytesForIntegerSet));
-            nImO::Set    integerSet;
+            Set    integerSet;
 
-            integerSet.addValue(nImO::SpValue(new nImO::Integer));
+            integerSet.addValue(SpValue(new Integer));
             result = setValueAndCheck(*stuff, integerSet, expectedBytesForIntegerSet,
                                       expectedIntegerSetCount);
         }
@@ -4039,45 +4040,45 @@ doTestInsertStringSetMessage(const char *launchPath,
 
     try
     {
-        nImO::UpMessage stuff(new nImO::Message);
+        UpMessage stuff(new Message);
 
         if (stuff)
         {
             static const uint8_t expectedBytesForStringSet[] =
             {
                 // Start of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageStartValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
                 // Start of Set
-                nImO::kKindOther + nImO::kKindOtherContainerStart +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // Signed Integer
-                nImO::kKindInteger +
-                  nImO::kKindIntegerShortValue +
-                  ((1 + nImO::kKindIntegerShortValueMinValue - 1) &
-                    nImO::kKindIntegerShortValueValueMask),
+                static_cast<uint8_t>(DataKind::Integer) +
+                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
+                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
                 // String
-                nImO::kKindStringOrBlob + nImO::kKindStringOrBlobStringValue +
-                  nImO::kKindStringOrBlobShortLengthValue +
-                  (0 &nImO::kKindStringOrBlobShortLengthMask),
+                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
+                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
+                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
                 // End of Set
-                nImO::kKindOther + nImO::kKindOtherContainerEnd +
-                  nImO::kKindOtherContainerTypeSet +
-                  nImO::kKindOtherContainerNonEmptyValue,
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
                 // End of Message
-                nImO::kKindOther + nImO::kKindOtherMessage +
-                  nImO::kKindOtherMessageEndValue +
-                  nImO::kKindOtherMessageNonEmptyValue +
-                  nImO::kKindOtherMessageExpectedOtherValue
+                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
+                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
+                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
             };
             const size_t expectedStringSetCount = (sizeof(expectedBytesForStringSet) /
                                                    sizeof(*expectedBytesForStringSet));
-            nImO::Set    stringSet;
+            Set    stringSet;
 
-            stringSet.addValue(nImO::SpValue(new nImO::String));
+            stringSet.addValue(SpValue(new String));
             result = setValueAndCheck(*stuff, stringSet, expectedBytesForStringSet,
                                       expectedStringSetCount);
         }
@@ -4129,14 +4130,14 @@ main(int  argc,
 
     try
     {
-        nImO::Initialize(progName);
+        Initialize(progName);
         if (0 < --argc)
         {
             int64_t selector;
             
-            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
-                nImO::SetSignalHandlers(catchSignal);
+                SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
                     case 1 :
@@ -4144,7 +4145,7 @@ main(int  argc,
                         break;
 
                     case 2 :
-                        result = doTestInsertBooleanMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 3 :
@@ -4204,7 +4205,7 @@ main(int  argc,
                         break;
 
                     case 110 :
-                        result = doTestInsertArrayOneBooleanMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 111 :
@@ -4236,7 +4237,7 @@ main(int  argc,
                         break;
 
                     case 130 :
-                        result = doTestInsertArrayTwoBooleansMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 131 :
@@ -4284,7 +4285,7 @@ main(int  argc,
                         break;
 
                     case 160 :
-                        result = doTestInsertBooleanMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 161 :
@@ -4296,7 +4297,7 @@ main(int  argc,
                         break;
 
                     case 163 :
-                        result = doTestInsertBooleanSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertLogicalSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 164 :

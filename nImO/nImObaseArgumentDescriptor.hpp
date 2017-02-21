@@ -72,37 +72,37 @@
 namespace nImO
 {
     /*! @brief The mode of an argument. */
-    enum ArgumentMode
+    enum class ArgumentMode : uint8_t
     {
         /*! @brief The argument is required. */
-        kArgModeRequired = 0x00,
+        Required = 0x00,
 
         /*! @brief The argument is optional. */
-        kArgModeOptional = 0x01,
+        Optional = 0x01,
 
         /*! @brief The argument is modifiable. */
-        kArgModeModifiable = 0x02,
+        Modifiable = 0x02,
 
         /*! @brief The argument is a password (not displayable). */
-        kArgModePassword = 0x04,
+        Password = 0x04,
 
         /*! @brief The argument is both required and modifiable. */
-        kArgModeRequiredModifiable = (kArgModeRequired | kArgModeModifiable),
+        RequiredModifiable = (Required | Modifiable),
 
         /*! @brief The argument is both optional and modifiable. */
-        kArgModeOptionalModifiable = (kArgModeOptional | kArgModeModifiable),
+        OptionalModifiable = (Optional | Modifiable),
 
         /*! @brief The argument is both required and modifiable. */
-        kArgModeRequiredPassword = (kArgModeRequired | kArgModePassword),
+        RequiredPassword = (Required | Password),
 
         /*! @brief The argument is both optional and modifiable. */
-        kArgModeOptionalPassword = (kArgModeOptional | kArgModePassword),
+        OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */
-        kArgModeMask = (kArgModeOptional | kArgModeModifiable | kArgModePassword),
+        Mask = (Optional | Modifiable | Password),
 
         /*! @brief The mode of the argument is undefined. */
-        kArgModeUnknown = -1
+        Unknown = 0x00FF
 
     }; // ArgumentMode
 
@@ -211,15 +211,6 @@ namespace nImO
         virtual std::string
         getProcessedValue(void) = 0;
 
-        /*! @brief Return @c true if the argument is for Boolean arguments.
-         @returns @c true if the argument is for Boolean arguments and @c false otherwise. */
-        virtual inline bool
-        isBoolean(void)
-        const
-        {
-            return false;
-        } // isBoolean
-
         /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
@@ -243,13 +234,24 @@ namespace nImO
             return false;
         } // isForFiles
 
+        /*! @brief Return @c true if the argument is for Logical arguments.
+         @returns @c true if the argument is for Logical arguments and @c false otherwise. */
+        virtual inline bool
+        isLogical(void)
+        const
+        {
+            return false;
+        } // isLogical
+
         /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
          @returns @c true if the argument is modifiable and @c false otherwise. */
         inline bool
         isModifiable(void)
         const
         {
-            return ((kArgModeUnknown != _argMode) && (0 != (_argMode & kArgModeModifiable)));
+            return ((ArgumentMode::Unknown != _argMode) &&
+                    (0 != (static_cast<int>(_argMode) &
+                           static_cast<int>(ArgumentMode::Modifiable))));
         } // isModifiable
 
         /*! @brief Return @c true if the argument is optional and @c false otherwise.
@@ -258,7 +260,9 @@ namespace nImO
         isOptional(void)
         const
         {
-            return ((kArgModeUnknown != _argMode) && (0 != (_argMode & kArgModeOptional)));
+            return ((ArgumentMode::Unknown != _argMode) &&
+                    (0 != (static_cast<int>(_argMode) &
+                           static_cast<int>(ArgumentMode::Optional))));
         } // isOptional
 
         /*! @brief Return @c true if the argument is a password and @c false otherwise.
@@ -267,7 +271,9 @@ namespace nImO
         isPassword(void)
         const
         {
-            return ((kArgModeUnknown != _argMode) && (0 != (_argMode & kArgModePassword)));
+            return ((ArgumentMode::Unknown != _argMode) &&
+                    (0 != (static_cast<int>(_argMode) &
+                           static_cast<int>(ArgumentMode::Password))));
         } // isPassword
 
         /*! @brief Return @c true if the argument is required and @c false otherwise.
@@ -276,7 +282,9 @@ namespace nImO
         isRequired(void)
         const
         {
-            return ((kArgModeUnknown != _argMode) && (0 == (_argMode & kArgModeOptional)));
+            return ((ArgumentMode::Unknown != _argMode) &&
+                    (0 == (static_cast<int>(_argMode) &
+                           static_cast<int>(ArgumentMode::Optional))));
         } // isRequired
 
         /*! @brief Return @c true if the argument is valid and @c false otherwise.

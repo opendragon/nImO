@@ -427,7 +427,7 @@ nImO::ModeFromString(const std::string &modeString)
 {
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
-    ArgumentMode      result = kArgModeUnknown;
+    ArgumentMode      result = ArgumentMode::Unknown;
     std::stringstream buff(modeString.c_str());
     int               modeAsInt;
 
@@ -437,7 +437,7 @@ nImO::ModeFromString(const std::string &modeString)
         int holder = modeAsInt;
 
         // Check that only the known bits are set!
-        holder &= ~kArgModeMask;
+        holder &= ~static_cast<int>(ArgumentMode::Mask);
         if (! holder)
         {
             // Only known bits were set.

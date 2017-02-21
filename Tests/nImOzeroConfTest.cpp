@@ -38,8 +38,8 @@
 
 #if 0
 #include <nImO/nImOblob.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOnumber.hpp>
 #include <nImO/nImOstring.hpp>
 #include <nImO/nImOstringBuffer.hpp>
@@ -57,8 +57,6 @@
 /*! @file
  @brief The test driver for the unit tests of the %nImO common library. */
 
-/*! @namespace nImO::Test
- @brief The classes used for unit testing of the %nImO classes. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -67,6 +65,7 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+using namespace nImO;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -96,7 +95,7 @@ catchSignal(int signal)
     buff << signal;
     message += buff.str();
     message += " = ";
-    message += nImO::NameOfSignal(signal);
+    message += NameOfSignal(signal);
 #if 0
     nImO_ERROR_(message.c_str());
 #endif//0
@@ -111,13 +110,13 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const nImO::Value &aValue,
+compareValueWithString(const Value &aValue,
                        const char        *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    nImO::StringBuffer buff;
+    StringBuffer buff;
     int                result;
     size_t             length;
 
@@ -140,7 +139,7 @@ compareValueWithString(const nImO::Value &aValue,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseBooleanValue(const bool expected,
+doTestParseLogicalValue(const bool expected,
                         const char *inString,
                         const char *expectedString) // boolean values
 {
@@ -151,10 +150,10 @@ doTestParseBooleanValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -166,7 +165,7 @@ doTestParseBooleanValue(const bool expected,
         }
         if (readValue)
         {
-            if (nullptr == readValue->asBoolean())
+            if (nullptr == readValue->asLogical())
             {
                 if (expected)
                 {
@@ -203,7 +202,7 @@ doTestParseBooleanValue(const bool expected,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestParseBooleanValue
+} // doTestParseLogicalValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
@@ -226,10 +225,10 @@ doTestParseNumberValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -301,10 +300,10 @@ doTestParseStringValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -376,10 +375,10 @@ doTestParseArrayValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -451,10 +450,10 @@ doTestParseSetValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -526,10 +525,10 @@ doTestParseMapValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -601,10 +600,10 @@ doTestParseImplicitArrayValue(const bool expected,
 
     try
     {
-        nImO::StringBuffer buff;
+        StringBuffer buff;
 
         buff.addString(inString);
-        nImO::SpValue readValue(buff.convertToValue());
+        SpValue readValue(buff.convertToValue());
 
         if ((nullptr != readValue) == expected)
         {
@@ -687,22 +686,22 @@ main(int  argc,
 
     try
     {
-        nImO::Initialize(progName);
+        Initialize(progName);
 #if 0
         if (3 < --argc)
         {
             int64_t selector;
             
-            if (nImO::ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
 
-                nImO::SetSignalHandlers(catchSignal);
+                SetSignalHandlers(catchSignal);
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestParseBooleanValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseLogicalValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 2 :

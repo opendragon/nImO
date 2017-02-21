@@ -39,8 +39,8 @@
 #include "nImOstringBuffer.hpp"
 
 #include <nImO/nImOarray.hpp>
-#include <nImO/nImOboolean.hpp>
 #include <nImO/nImObufferChunk.hpp>
+#include <nImO/nImOlogical.hpp>
 #include <nImO/nImOvalue.hpp>
 
 //#include <odl/ODEnableLogging.h>
@@ -148,7 +148,7 @@ nImO::StringBuffer::addBool(const bool aBool)
 {
     ODL_OBJENTER(); //####
     ODL_B1("aBool = ", aBool); //####
-    addString(Boolean::getCanonicalRepresentation(aBool));
+    addString(Logical::getCanonicalRepresentation(aBool));
     ODL_EXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBool

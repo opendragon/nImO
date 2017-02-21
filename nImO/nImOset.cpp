@@ -82,14 +82,14 @@
 #endif // defined(__APPLE__)
 
 nImO::Set::Set(void) :
-    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
+    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
 
 nImO::Set::Set(const nImO::Set &other) :
-    inherited1(), inherited2(), _keyKind(kEnumerableUnknown)
+    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -113,7 +113,7 @@ nImO::Set::addEntries(const nImO::Set &other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    if ((other._keyKind == _keyKind) || (kEnumerableUnknown == _keyKind))
+    if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
         for (const_iterator walker(other.inherited2::begin()); other.inherited2::end() != walker;
              ++walker)
@@ -139,7 +139,7 @@ nImO::Set::addValue(nImO::SpValue val)
     }
     else
     {
-        if (kEnumerableUnknown == _keyKind)
+        if (Enumerable::Unknown == _keyKind)
         {
             _keyKind = val->enumerationType();
         }
@@ -161,7 +161,7 @@ nImO::Set::clear(void)
 {
     ODL_OBJENTER(); //####
     inherited2::clear();
-    _keyKind = kEnumerableUnknown;
+    _keyKind = Enumerable::Unknown;
     ODL_OBJEXIT(); //####
 } // nImO::Set::clear
 
@@ -213,7 +213,7 @@ const
     bool result = ((other.enumerationType() == _keyKind) &&
                    (inherited2::begin() != inherited2::end()));
 
-    validComparison = (kEnumerableUnknown != _keyKind);
+    validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
@@ -241,7 +241,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+    bool    isEmpty = (static_cast<int>(DataKind::OtherContainerEmptyValue) == (static_cast<int>(DataKind::OtherContainerEmptyMask) & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -254,29 +254,29 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
         if (Message::kEndToken == aByte)
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
-            status = kReadIncomplete;
-            ODL_LL1("status <- ", status); //####
+            status = ReadStatus::Incomplete;
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
         }
         else
         {
             ODL_LOG("! (Message::kEndToken == aByte)"); //####
-            static const uint8_t endMarker = (kKindOther + kKindOtherContainerEnd +
-                                              kKindOtherContainerTypeSet +
-                                              kKindOtherContainerEmptyValue);
+            static const uint8_t endMarker = (static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                                              static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                                              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue));
 
             if (endMarker == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
                 result.reset(new Set);
-                status = kReadSuccessful;
+                status = ReadStatus::Successful;
                 ++position;
-                ODL_LL2("status <- ", status, "position <- ", position); //####
+                ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
-                status = kReadInvalid;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Invalid;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
             }
         }
     }
@@ -288,24 +288,24 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
         if (Message::kEndToken == aByte)
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
-            status = kReadIncomplete;
-            ODL_LL1("status <- ", status); //####
+            status = ReadStatus::Incomplete;
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
         }
         else
         {
             ODL_LOG("! (Message::kEndToken == aByte)"); //####
             int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
 
-            if (kReadSuccessful == status)
+            if (ReadStatus::Successful == status)
             {
-                ODL_LOG("(kReadSuccessful == status)"); //####
-                elementCount -= kKindIntegerShortValueMinValue - 1;
+                ODL_LOG("(ReadStatus::Successful == status)"); //####
+                elementCount -= static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1;
                 ODL_LL1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    status = kReadInvalid;
-                    ODL_LL1("status <- ", status); //####
+                    status = ReadStatus::Invalid;
+                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                 }
                 else
                 {
@@ -315,8 +315,8 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        status = kReadInvalid;
-                        ODL_LL1("status <- ", status); //####
+                        status = ReadStatus::Invalid;
+                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                     }
                     else
                     {
@@ -329,7 +329,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                             if (Message::kEndToken == aByte)
                             {
                                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                                status = kReadIncomplete;
+                                status = ReadStatus::Incomplete;
                                 okSoFar = false;
                             }
                             else
@@ -356,30 +356,30 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                             if (Message::kEndToken == aByte)
                             {
                                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                                status = kReadIncomplete;
-                                ODL_LL1("status <- ", status); //####
+                                status = ReadStatus::Incomplete;
+                                ODL_LL1("status <- ", static_cast<int>(status)); //####
                                 okSoFar = false;
                             }
                             else
                             {
                                 ODL_LOG("! (Message::kEndToken == aByte)"); //####
-                                static const uint8_t endMarker = (kKindOther +
-                                                                  kKindOtherContainerEnd +
-                                                                  kKindOtherContainerTypeSet +
-                                                                  kKindOtherContainerNonEmptyValue);
+                                static const uint8_t endMarker = (static_cast<uint8_t>(DataKind::Other) +
+                                                                  static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                                                                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                                                                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue));
                     
                                 if (endMarker == aByte)
                                 {
                                     ODL_LOG("(endMarker == aByte)"); //####
-                                    status = kReadSuccessful;
+                                    status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", status, "position <- ", position); //####
+                                    ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
                                 }
                                 else
                                 {
                                     ODL_LOG("! (endMarker == aByte)"); //####
-                                    status = kReadInvalid;
-                                    ODL_LL1("status <- ", status); //####
+                                    status = ReadStatus::Invalid;
+                                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                                     okSoFar = false;
                                 }
                             }
@@ -394,7 +394,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
             }
             else
             {
-                ODL_LOG("! (kReadSuccessful == status)"); //####
+                ODL_LOG("! (ReadStatus::Successful == status)"); //####
             }
         }
     }
@@ -453,8 +453,8 @@ nImO::Set::getExtractionInfo(uint8_t                &aByte,
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (kKindOther | kKindOtherContainerStart | kKindOtherContainerTypeSet);
-    aMask = (kKindMask | kKindOtherTypeMask | kKindOtherContainerTypeMask);
+    aByte = (static_cast<uint8_t>(DataKind::Other) | static_cast<uint8_t>(DataKind::OtherContainerStart) | static_cast<uint8_t>(DataKind::OtherContainerTypeSet));
+    aMask = (static_cast<uint8_t>(DataKind::Mask) | static_cast<uint8_t>(DataKind::OtherTypeMask) | static_cast<uint8_t>(DataKind::OtherContainerTypeMask));
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Set::getExtractionInfo
@@ -489,7 +489,7 @@ const
     bool result = ((other.enumerationType() == _keyKind) &&
                    (inherited2::begin() != inherited2::end()));
 
-    validComparison = (kEnumerableUnknown != _keyKind);
+    validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
@@ -515,7 +515,7 @@ const
     bool result = ((other.enumerationType() == _keyKind) &&
                    (inherited2::begin() != inherited2::end()));
 
-    validComparison = (kEnumerableUnknown != _keyKind);
+    validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
@@ -541,7 +541,7 @@ const
     bool result = ((other.enumerationType() == _keyKind) &&
                    (inherited2::begin() != inherited2::end()));
 
-    validComparison = (kEnumerableUnknown != _keyKind);
+    validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
@@ -567,7 +567,7 @@ const
     bool result = ((other.enumerationType() == _keyKind) &&
                    (inherited2::begin() != inherited2::end()));
 
-    validComparison = (kEnumerableUnknown != _keyKind);
+    validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
     for (const_iterator walker(inherited2::begin()); validComparison &&
          (inherited2::end() != walker); ++walker)
@@ -682,11 +682,11 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 {
                     Enumerable elementType = element->enumerationType();
 
-                    if ((kEnumerableUnknown == elementType) ||
-                        (kEnumerableNotEnumerable == elementType))
+                    if ((Enumerable::Unknown == elementType) ||
+                        (Enumerable::NotEnumerable == elementType))
                     {
-                        ODL_LOG("((kEnumerableUnknown == elementType) || " //####
-                                "(kEnumerableNotEnumerable == elementType))"); //####
+                        ODL_LOG("((Enumerable::Unknown == elementType) || " //####
+                                "(Enumerable::NotEnumerable == elementType))"); //####
                         element.reset();
                         done = true;
                     }
@@ -737,16 +737,16 @@ const
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        uint8_t startSet = kKindOther + kKindOtherContainerStart +
-                             kKindOtherContainerTypeSet +
-                             kKindOtherContainerNonEmptyValue;
-        uint8_t endSet = kKindOther + kKindOtherContainerEnd +
-                           kKindOtherContainerTypeSet +
-                           kKindOtherContainerNonEmptyValue;
+        uint8_t startSet = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
+                             static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                             static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue);
+        uint8_t endSet = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
+                           static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+                           static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, inherited2::size() +
-                            static_cast<int64_t>(kKindIntegerShortValueMinValue - 1));
+                            static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1);
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
             SpValue aValue(*walker);
@@ -763,10 +763,10 @@ const
         ODL_LOG("! (0 < inherited2::size())"); //####
         static const uint8_t stuff[] =
         {
-            kKindOther + kKindOtherContainerStart + kKindOtherContainerTypeSet +
-              kKindOtherContainerEmptyValue,
-            kKindOther + kKindOtherContainerEnd + kKindOtherContainerTypeSet +
-              kKindOtherContainerEmptyValue
+            static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) + static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+            static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) + static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
+              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue)
         };
 
         outMessage.appendBytes(stuff, sizeof(stuff));

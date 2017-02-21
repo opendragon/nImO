@@ -237,7 +237,8 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isEmpty = (kKindOtherContainerEmptyValue == (kKindOtherContainerEmptyMask & leadByte));
+    bool    isEmpty = (static_cast<int>(DataKind::OtherContainerEmptyValue) ==
+                       (static_cast<int>(DataKind::OtherContainerEmptyMask) & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -250,29 +251,29 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         if (Message::kEndToken == aByte)
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
-            status = kReadIncomplete;
-            ODL_LL1("status <- ", status); //####
+            status = ReadStatus::Incomplete;
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
         }
         else
         {
             ODL_LOG("! (Message::kEndToken == aByte)"); //####
-            static const uint8_t endMarker = (kKindOther + kKindOtherContainerEnd +
-                                              kKindOtherContainerTypeArray +
-                                              kKindOtherContainerEmptyValue);
+            static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                               DataKind::OtherContainerTypeArray |
+                                               DataKind::OtherContainerEmptyValue);
 
-            if (endMarker == aByte)
+            if (static_cast<uint8_t>(endMarker) == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
                 result.reset(new Array);
-                status = kReadSuccessful;
+                status = ReadStatus::Successful;
                 ++position;
-                ODL_LL2("status <- ", status, "position <- ", position); //####
+                ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
-                status = kReadInvalid;
-                ODL_LL1("status <- ", status); //####
+                status = ReadStatus::Invalid;
+                ODL_LL1("status <- ", static_cast<int>(status)); //####
             }
         }
     }
@@ -284,24 +285,24 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         if (Message::kEndToken == aByte)
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
-            status = kReadIncomplete;
-            ODL_LL1("status <- ", status); //####
+            status = ReadStatus::Incomplete;
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
         }
         else
         {
             ODL_LOG("! (Message::kEndToken == aByte)"); //####
             int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
 
-            if (kReadSuccessful == status)
+            if (ReadStatus::Successful == status)
             {
-                ODL_LOG("(kReadSuccessful == status)"); //####
-                elementCount -= kKindIntegerShortValueMinValue - 1;
+                ODL_LOG("(ReadStatus::Successful == status)"); //####
+                elementCount -= static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1;
                 ODL_LL1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    status = kReadInvalid;
-                    ODL_LL1("status <- ", status); //####
+                    status = ReadStatus::Invalid;
+                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                 }
                 else
                 {
@@ -311,8 +312,8 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        status = kReadInvalid;
-                        ODL_LL1("status <- ", status); //####
+                        status = ReadStatus::Invalid;
+                        ODL_LL1("status <- ", static_cast<int>(status)); //####
                     }
                     else
                     {
@@ -325,7 +326,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             if (Message::kEndToken == aByte)
                             {
                                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                                status = kReadIncomplete;
+                                status = ReadStatus::Incomplete;
                                 okSoFar = false;
                             }
                             else
@@ -350,30 +351,30 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             if (Message::kEndToken == aByte)
                             {
                                 ODL_LOG("(Message::kEndToken == aByte)"); //####
-                                status = kReadIncomplete;
-                                ODL_LL1("status <- ", status); //####
+                                status = ReadStatus::Incomplete;
+                                ODL_LL1("status <- ", static_cast<int>(status)); //####
                                 okSoFar = false;
                             }
                             else
                             {
                                 ODL_LOG("! (Message::kEndToken == aByte)"); //####
-                                static const uint8_t endMarker = (kKindOther +
-                                                                  kKindOtherContainerEnd +
-                                                                  kKindOtherContainerTypeArray +
-                                                                  kKindOtherContainerNonEmptyValue);
-                    
-                                if (endMarker == aByte)
+                                static const DataKind endMarker = (DataKind::Other |
+                                                                   DataKind::OtherContainerEnd |
+                                                               DataKind::OtherContainerTypeArray |
+                                                           DataKind::OtherContainerNonEmptyValue);
+
+                                if (static_cast<uint8_t>(endMarker) == aByte)
                                 {
-                                    ODL_LOG("(endMarker == aByte)"); //####
-                                    status = kReadSuccessful;
+                                    ODL_LOG("(static_cast<uint8_t>(endMarker) == aByte)"); //####
+                                    status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", status, "position <- ", position); //####
+                                    ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (endMarker == aByte)"); //####
-                                    status = kReadInvalid;
-                                    ODL_LL1("status <- ", status); //####
+                                    ODL_LOG("! (static_cast<uint8_t>(endMarker) == aByte)"); //####
+                                    status = ReadStatus::Invalid;
+                                    ODL_LL1("status <- ", static_cast<int>(status)); //####
                                     okSoFar = false;
                                 }
                             }
@@ -388,7 +389,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
             }
             else
             {
-                ODL_LOG("! (kReadSuccessful == status)"); //####
+                ODL_LOG("! (ReadStatus::Successful == status)"); //####
             }
         }
     }
@@ -408,8 +409,10 @@ nImO::Array::getExtractionInfo(uint8_t                &aByte,
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (kKindOther | kKindOtherContainerStart | kKindOtherContainerTypeArray);
-    aMask = (kKindMask | kKindOtherTypeMask | kKindOtherContainerTypeMask);
+    aByte = static_cast<uint8_t>(DataKind::Other | DataKind::OtherContainerStart |
+                                 DataKind::OtherContainerTypeArray);
+    aMask = static_cast<uint8_t>(DataKind::Mask | DataKind::OtherTypeMask |
+                                 DataKind::OtherContainerTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Array::getExtractionInfo
@@ -662,17 +665,17 @@ const
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        uint8_t            startArray = kKindOther + kKindOtherContainerStart +
-                                        kKindOtherContainerTypeArray +
-                                        kKindOtherContainerNonEmptyValue;
-        uint8_t            endArray = kKindOther + kKindOtherContainerEnd +
-                                      kKindOtherContainerTypeArray +
-                                      kKindOtherContainerNonEmptyValue;
+        DataKind           startArray = (DataKind::Other | DataKind::OtherContainerStart |
+                                         DataKind::OtherContainerTypeArray |
+                                         DataKind::OtherContainerNonEmptyValue);
+        DataKind           endArray = (DataKind::Other | DataKind::OtherContainerEnd |
+                                       DataKind::OtherContainerTypeArray |
+                                       DataKind::OtherContainerNonEmptyValue);
         std::queue<double> doublesSeen;
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
         writeInt64ToMessage(outMessage, inherited2::size() +
-                            static_cast<int64_t>(kKindIntegerShortValueMinValue - 1));
+                            static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1);
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
             SpValue aValue(*walker);
@@ -700,12 +703,14 @@ const
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const uint8_t stuff[] =
+        static const DataKind stuff[] =
         {
-            kKindOther + kKindOtherContainerStart + kKindOtherContainerTypeArray +
-              kKindOtherContainerEmptyValue,
-            kKindOther + kKindOtherContainerEnd + kKindOtherContainerTypeArray +
-              kKindOtherContainerEmptyValue
+            (DataKind::Other | DataKind::OtherContainerStart |
+             DataKind::OtherContainerTypeArray |
+             DataKind::OtherContainerEmptyValue),
+            (DataKind::Other | DataKind::OtherContainerEnd |
+             DataKind::OtherContainerTypeArray |
+             DataKind::OtherContainerEmptyValue)
         };
 
         outMessage.appendBytes(stuff, sizeof(stuff));

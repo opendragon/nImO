@@ -70,34 +70,34 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const uint8_t kInitEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageStartValue) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyValue));
+static const DataKind kInitEmptyMessageValue = (nImO::DataKind::Other |
+                                                nImO::DataKind::OtherMessage |
+                                                nImO::DataKind::OtherMessageStartValue |
+                                                nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
-static const uint8_t kInitTermMessageMask = (static_cast<uint8_t>(nImO::DataKind::Mask) |
-                                             static_cast<uint8_t>(nImO::DataKind::OtherTypeMask) |
-                                             static_cast<uint8_t>(nImO::DataKind::OtherMessageStartEndMask) |
-                                             static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyMask));
+static const DataKind kInitTermMessageMask = (nImO::DataKind::Mask |
+                                              nImO::DataKind::OtherTypeMask |
+                                              nImO::DataKind::OtherMessageStartEndMask |
+                                              nImO::DataKind::OtherMessageEmptyMask);
 
 /*! @brief The trailing byte for an empty Message. */
-static const uint8_t kTermEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEndValue) |
-                                               static_cast<uint8_t>(nImO::DataKind::OtherMessageEmptyValue));
+static const DataKind kTermEmptyMessageValue = (nImO::DataKind::Other |
+                                                nImO::DataKind::OtherMessage |
+                                                nImO::DataKind::OtherMessageEndValue |
+                                                nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The lead byte for a non-empty Message. */
-static const uint8_t kInitNonEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageStartValue) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageNonEmptyValue));
+static const DataKind kInitNonEmptyMessageValue = (nImO::DataKind::Other |
+                                                   nImO::DataKind::OtherMessage |
+                                                   nImO::DataKind::OtherMessageStartValue |
+                                                   nImO::DataKind::OtherMessageNonEmptyValue);
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const uint8_t kTermNonEmptyMessageValue = (static_cast<uint8_t>(nImO::DataKind::Other) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessage) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageEndValue) |
-                                                  static_cast<uint8_t>(nImO::DataKind::OtherMessageNonEmptyValue));
+static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::Other |
+                                                   nImO::DataKind::OtherMessage |
+                                                   nImO::DataKind::OtherMessageEndValue |
+                                                   nImO::DataKind::OtherMessageNonEmptyValue);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -147,12 +147,12 @@ nImO::Message::close(void)
     case MessageState::OpenForWriting :
         if (! _headerAdded)
         {
-            static const uint8_t emptyMessage[] =
+            static const DataKind emptyMessage[] =
             {
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue),
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue)
+                DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageEmptyValue,
+                DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageEmptyValue
             };
             const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
 
@@ -276,9 +276,9 @@ nImO::Message::getValue(nImO::ReadStatus &status)
             }
             else if (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))
             {
-                uint8_t initTag = (aByte & static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
+                DataKind initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
 
-                ODL_XL1("initTag <- ", initTag); //####
+                ODL_XL1("initTag <- ", static_cast<uint8_t>(initTag)); //####
                 aByte = getByte(++_readPosition);
                 ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
                 if (kEndToken == aByte)
@@ -291,10 +291,10 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                 else
                 {
                     ODL_LOG("! (kEndToken == aByte)"); //####
-                    uint8_t nextTag = ((aByte >> static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeShift)) &
-                                       static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
+                    DataKind nextTag = ((aByte >> static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeShift)) &
+                                        DataKind::OtherMessageExpectedTypeMask);
 
-                    ODL_XL1("nextTag <- ", nextTag); //####
+                    ODL_XL1("nextTag <- ", static_cast<uint8_t>(nextTag)); //####
                     if (nextTag == initTag)
                     {
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, status,
@@ -321,8 +321,8 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                             }
                             else if (kTermNonEmptyMessageValue == (aByte &kInitTermMessageMask))
                             {
-                                nextTag = (aByte & static_cast<uint8_t>(DataKind::OtherMessageExpectedTypeMask));
-                                ODL_XL1("nextTag <- ", nextTag); //####
+                                nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
+                                ODL_XL1("nextTag <- ", static_cast<uint8_t>(nextTag)); //####
                                 if (nextTag == initTag)
                                 {
                                     aByte = getByte(++_readPosition);
@@ -439,11 +439,11 @@ nImO::Message::setValue(const nImO::Value &theValue)
     {
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         lock();
-        uint8_t typeTag = theValue.getTypeTag();
-        uint8_t headerByte = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                             static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) + typeTag;
-        uint8_t trailerByte = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) + static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                              static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) + typeTag;
+        DataKind typeTag = theValue.getTypeTag();
+        DataKind headerByte = (DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageStartValue |
+                               DataKind::OtherMessageNonEmptyValue | typeTag);
+        DataKind trailerByte = (DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageEndValue |
+                                DataKind::OtherMessageNonEmptyValue | typeTag);
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;

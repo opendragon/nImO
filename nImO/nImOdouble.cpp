@@ -200,19 +200,19 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isShort = (static_cast<int>(DataKind::DoubleShortCount) == (static_cast<int>(DataKind::DoubleCountMask) & leadByte));
+    bool    isShort = (DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte));
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
-        howMany = (static_cast<int64_t>(DataKind::DoubleShortCountMask) & leadByte) + 1;
+        howMany = static_cast<uint8_t>(DataKind::DoubleShortCountMask & leadByte) + 1;
         ODL_LL1("howMany <- ", howMany);
     }
     else
     {
-        size_t        size = (static_cast<size_t>(DataKind::DoubleLongCountMask) & leadByte) + 1;
+        size_t        size = static_cast<uint8_t>(DataKind::DoubleLongCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -296,14 +296,14 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
 } // nImO::Double::extractValue
 
 void
-nImO::Double::getExtractionInfo(uint8_t                &aByte,
-                                uint8_t                &aMask,
+nImO::Double::getExtractionInfo(DataKind               &aByte,
+                                DataKind               &aMask,
                                 nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = static_cast<uint8_t>(DataKind::Double);
-    aMask = static_cast<uint8_t>(DataKind::Mask);
+    aByte = DataKind::Double;
+    aMask = DataKind::Mask;
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Double::getExtractionInfo
@@ -571,8 +571,8 @@ const
     NumberAsBytes numBuff;
 
     D2B(_floatValue, numBuff);
-    uint8_t stuff = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                    static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) & static_cast<uint8_t>(DataKind::DoubleShortCountMask));
+    DataKind stuff = (DataKind::Double | DataKind::DoubleShortCount |
+                      ((1 - DataKindDoubleShortCountMinValue) & DataKind::DoubleShortCountMask));
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     outMessage.appendBytes(numBuff, sizeof(numBuff));
@@ -600,8 +600,8 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                uint8_t countTag = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleLongCount) +
-                                   (static_cast<uint8_t>(DataKind::DoubleLongCountMask) &(numBytes - 1));
+                DataKind countTag = (DataKind::Double | DataKind::DoubleLongCount |
+                                     (DataKind::DoubleLongCountMask & (numBytes - 1)));
 
                 outMessage.appendBytes(&countTag, sizeof(countTag));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -610,9 +610,9 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
         else
         {
             ODL_LOG("! (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
-            uint8_t countTag = static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                               static_cast<uint8_t>((numValues - DataKindDoubleShortCountMinValue) &
-                                static_cast<uint8_t>(DataKind::DoubleShortCountMask));
+            DataKind countTag = (DataKind::Double | DataKind::DoubleShortCount |
+                                 ((numValues - DataKindDoubleShortCountMinValue) &
+                                                       DataKind::DoubleShortCountMask));
 
             outMessage.appendBytes(&countTag, sizeof(countTag));
         }

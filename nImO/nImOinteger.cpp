@@ -222,14 +222,14 @@ nImO::Integer::extractValue(const nImO::Message &theMessage,
 } // nImO::Integer::extractValue
 
 void
-nImO::Integer::getExtractionInfo(uint8_t                &aByte,
-                                 uint8_t                &aMask,
+nImO::Integer::getExtractionInfo(DataKind               &aByte,
+                                 DataKind               &aMask,
                                  nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = static_cast<uint8_t>(DataKind::Integer);
-    aMask = static_cast<uint8_t>(DataKind::Mask);
+    aByte = DataKind::Integer;
+    aMask = DataKind::Mask;
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Integer::getExtractionInfo

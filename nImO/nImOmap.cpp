@@ -259,7 +259,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isEmpty = (static_cast<int>(DataKind::OtherContainerEmptyValue) == (static_cast<int>(DataKind::OtherContainerEmptyMask) & leadByte));
+    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -278,11 +278,11 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
         else
         {
             ODL_LOG("! (Message::kEndToken == aByte)"); //####
-            static const uint8_t endMarker = (static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                                              static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                                              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue));
+            static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                               DataKind::OtherContainerTypeMap |
+                                               DataKind::OtherContainerEmptyValue);
 
-            if (endMarker == aByte)
+            if (static_cast<uint8_t>(endMarker) == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
                 result.reset(new Map);
@@ -404,12 +404,11 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                             else
                             {
                                 ODL_LOG("! (Message::kEndToken == aByte)"); //####
-                                static const uint8_t endMarker = (static_cast<uint8_t>(DataKind::Other) +
-                                                                  static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                                                                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                                                                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue));
+                                static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                                                   DataKind::OtherContainerTypeMap |
+                                                                   DataKind::OtherContainerNonEmptyValue);
                     
-                                if (endMarker == aByte)
+                                if (static_cast<uint8_t>(endMarker) == aByte)
                                 {
                                     ODL_LOG("(endMarker == aByte)"); //####
                                     status = ReadStatus::Successful;
@@ -488,14 +487,14 @@ const
 } // nImO::Map::find
 
 void
-nImO::Map::getExtractionInfo(uint8_t                &aByte,
-                             uint8_t                &aMask,
+nImO::Map::getExtractionInfo(DataKind               &aByte,
+                             DataKind               &aMask,
                              nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (static_cast<uint8_t>(DataKind::Other) | static_cast<uint8_t>(DataKind::OtherContainerStart) | static_cast<uint8_t>(DataKind::OtherContainerTypeMap));
-    aMask = (static_cast<uint8_t>(DataKind::Mask) | static_cast<uint8_t>(DataKind::OtherTypeMask) | static_cast<uint8_t>(DataKind::OtherContainerTypeMask));
+    aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeMap);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherContainerTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Map::getExtractionInfo
@@ -815,12 +814,12 @@ const
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        uint8_t startMap = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                             static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                             static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue);
-        uint8_t endMap = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                           static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                           static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue);
+        DataKind startMap = (DataKind::Other | DataKind::OtherContainerStart |
+                             DataKind::OtherContainerTypeMap |
+                             DataKind::OtherContainerNonEmptyValue);
+        DataKind endMap = (DataKind::Other | DataKind::OtherContainerEnd |
+                           DataKind::OtherContainerTypeMap |
+                           DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
         writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
@@ -836,12 +835,12 @@ const
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const uint8_t stuff[] =
+        static const DataKind stuff[] =
         {
-            static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) + static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
-            static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) + static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-              static_cast<uint8_t>(DataKind::OtherContainerEmptyValue)
+            DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeMap |
+              DataKind::OtherContainerEmptyValue,
+            DataKind::Other | DataKind::OtherContainerEnd | DataKind::OtherContainerTypeMap |
+              DataKind::OtherContainerEmptyValue
         };
 
         outMessage.appendBytes(stuff, sizeof(stuff));

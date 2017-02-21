@@ -131,8 +131,8 @@ namespace nImO
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
-        getExtractionInfo(uint8_t   &aByte,
-                          uint8_t   &aMask,
+        getExtractionInfo(DataKind  &aByte,
+                          DataKind  &aMask,
                           Extractor &theExtractor);
 
         /*! @brief Return the value of the object.
@@ -146,12 +146,12 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline uint8_t
+        virtual inline DataKind
         getTypeTag(void)
         const
         override
         {
-            return static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue);
+            return DataKind::OtherMessageExpectedIntegerValue;
         } // getTypeTag
 
         /*! @brief Return the relative ordering of two Values.

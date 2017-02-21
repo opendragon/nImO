@@ -280,8 +280,8 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isShort = (static_cast<int>(DataKind::StringOrBlobShortLengthValue) ==
-                       (static_cast<int>(DataKind::StringOrBlobLengthMask) & leadByte));
+    bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
+                       (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
     
     ++position; // We will always accept the lead byte
@@ -289,13 +289,13 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = (static_cast<int>(DataKind::StringOrBlobShortLengthMask) & leadByte);
+        numBytes = static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask & leadByte);
         status = ReadStatus::Successful;
         ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
     }
     else
     {
-        size_t        size = (static_cast<size_t>(DataKind::IntegerLongValueCountMask) & leadByte) + 1;
+        size_t        size = static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
         
@@ -372,14 +372,14 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
 } // nImO::Blob::extractValue
 
 void
-nImO::Blob::getExtractionInfo(uint8_t                &aByte,
-                              uint8_t                &aMask,
+nImO::Blob::getExtractionInfo(DataKind               &aByte,
+                              DataKind               &aMask,
                               nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = static_cast<uint8_t>(DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue);
-    aMask = static_cast<uint8_t>(DataKind::Mask | DataKind::StringOrBlobTypeMask);
+    aByte = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue);
+    aMask = (DataKind::Mask | DataKind::StringOrBlobTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Blob::getExtractionInfo
@@ -605,7 +605,6 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-ODL_LL1("sizeof(DataKind) = ", sizeof(DataKind)); //####
     if (0 < _size)
     {
         ODL_LOG("(0 < _size)"); //####
@@ -620,8 +619,7 @@ ODL_LL1("sizeof(DataKind) = ", sizeof(DataKind)); //####
                 ODL_LOG("(0 < numBytes)"); //####
                 DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                                   DataKind::StringOrBlobLongLengthValue |
-                                  (static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask) &
-                                                        (numBytes - 1)));
+                                  (DataKind::StringOrBlobLongLengthMask & (numBytes - 1)));
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
             }
@@ -631,7 +629,7 @@ ODL_LL1("sizeof(DataKind) = ", sizeof(DataKind)); //####
             ODL_LOG("! (15 < _size)"); //####
             DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                               DataKind::StringOrBlobShortLengthValue |
-                              (static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask) & _size));
+                              (DataKind::StringOrBlobShortLengthMask & _size));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
@@ -642,7 +640,7 @@ ODL_LL1("sizeof(DataKind) = ", sizeof(DataKind)); //####
         ODL_LOG("! (0 < _size)"); //####
         DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                           DataKind::StringOrBlobShortLengthValue |
-                          (static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask) & 0));
+                          (DataKind::StringOrBlobShortLengthMask & 0));
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }

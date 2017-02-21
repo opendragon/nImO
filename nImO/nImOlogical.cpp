@@ -201,8 +201,8 @@ nImO::Logical::extractValue(const nImO::Message &theMessage,
     ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    SpValue result(new Logical(static_cast<int>(DataKind::OtherLogicalTrueValue) ==
-                                (static_cast<int>(DataKind::OtherLogicalValueMask) & leadByte)));
+    SpValue result(new Logical(DataKind::OtherLogicalTrueValue ==
+                                (DataKind::OtherLogicalValueMask & leadByte)));
 
     ++position; // We will always accept the lead byte
     status = ReadStatus::Successful;
@@ -230,14 +230,14 @@ nImO::Logical::getCanonicalRepresentation(const bool aValue)
 } // nImO::Logical::getCanonicalRepresentation
 
 void
-nImO::Logical::getExtractionInfo(uint8_t                &aByte,
-                                 uint8_t                &aMask,
+nImO::Logical::getExtractionInfo(DataKind               &aByte,
+                                 DataKind               &aMask,
                                  nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (static_cast<uint8_t>(DataKind::Other) | static_cast<uint8_t>(DataKind::OtherLogical));
-    aMask = (static_cast<uint8_t>(DataKind::Mask) | static_cast<uint8_t>(DataKind::OtherTypeMask));
+    aByte = (DataKind::Other | DataKind::OtherLogical);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Logical::getExtractionInfo
@@ -531,8 +531,8 @@ const
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    uint8_t stuff = static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) + (_value ? static_cast<uint8_t>(DataKind::OtherLogicalTrueValue) :
-                                                               static_cast<uint8_t>(DataKind::OtherLogicalFalseValue));
+    DataKind stuff = (DataKind::Other | DataKind::OtherLogical | (_value ? DataKind::OtherLogicalTrueValue :
+                                                                  DataKind::OtherLogicalFalseValue));
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     ODL_EXIT(); //####

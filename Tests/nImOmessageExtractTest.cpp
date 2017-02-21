@@ -121,10 +121,10 @@ catchSignal(int signal)
  @param[in] expectedValue The expected Value from the Message.
  @returns Zero on success and non-zero on failure. */
 static int
-extractValueAndCheck(Message     &stuff,
-                     const uint8_t     *insertedContents,
-                     const size_t      insertedSize,
-                     const Value &expectedValue)
+extractValueAndCheck(Message        &stuff,
+                     const DataKind *insertedContents,
+                     const size_t   insertedSize,
+                     const Value    &expectedValue)
 {
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
@@ -234,16 +234,16 @@ doTestEmptyMessage(const char *launchPath,
         if (stuff)
         {
             ODL_LOG("(stuff)"); //####
-            static const uint8_t bytesToInsert[] =
+            static const DataKind bytesToInsert[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEmptyValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageEmptyValue
             };
             const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
@@ -331,39 +331,39 @@ doTestLogicalMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForTrue[] =
+            static const DataKind insertedBytesForTrue[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalTrueValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalTrueValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedTrueCount = (sizeof(insertedBytesForTrue) /
                                               sizeof(*insertedBytesForTrue));
-            static const uint8_t insertedBytesForFalse[] =
+            static const DataKind insertedBytesForFalse[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t  insertedFalseCount = (sizeof(insertedBytesForFalse) /
                                                 sizeof(*insertedBytesForFalse));
@@ -430,57 +430,57 @@ doTestTinyIntegerMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMinus12[] =
+            static const DataKind insertedBytesForMinus12[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (-12 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (-12 & DataKind::IntegerShortValueValueMask),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus12Count = (sizeof(insertedBytesForMinus12) /
                                                  sizeof(*insertedBytesForMinus12));
-            static const uint8_t insertedBytesForZero[] =
+            static const DataKind insertedBytesForZero[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t insertedZeroCount = (sizeof(insertedBytesForZero) /
                                               sizeof(*insertedBytesForZero));
-            static const uint8_t insertedBytesForPlus12[] =
+            static const DataKind insertedBytesForPlus12[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (12 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (12 & DataKind::IntegerShortValueValueMask),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus12Count = (sizeof(insertedBytesForPlus12) /
                                                  sizeof(*insertedBytesForPlus12));
@@ -553,41 +553,41 @@ doTestShortIntegerMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMinus144[] =
+            static const DataKind insertedBytesForMinus144[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((2 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0xFF, 0x70,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0xFF), static_cast<DataKind>(0x70),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus144Count = (sizeof(insertedBytesForMinus144) /
                                                   sizeof(*insertedBytesForMinus144));
-            static const uint8_t insertedBytesForPlus144[] =
+            static const DataKind insertedBytesForPlus144[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((2 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0x00, 0x90,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x90),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus144Count = (sizeof(insertedBytesForPlus144) /
                                                   sizeof(*insertedBytesForPlus144));
@@ -654,41 +654,41 @@ doTestMediumIntegerMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMinus1234567[] =
+            static const DataKind insertedBytesForMinus1234567[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((3 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0xED, 0x29, 0x79,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0xED), static_cast<DataKind>(0x29), static_cast<DataKind>(0x79),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t insertedMinus1234567Count = (sizeof(insertedBytesForMinus1234567) /
                                                       sizeof(*insertedBytesForMinus1234567));
-            static const uint8_t insertedBytesForPlus1234567[] =
+            static const DataKind insertedBytesForPlus1234567[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((3 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0x12, 0xD6, 0x87,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0xD6), static_cast<DataKind>(0x87),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlus1234567Count = (sizeof(insertedBytesForPlus1234567) /
                                                       sizeof(*insertedBytesForPlus1234567));
@@ -755,41 +755,41 @@ doTestBigIntegerMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMinusBigNumber[] =
+            static const DataKind insertedBytesForMinusBigNumber[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((6 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0xED), static_cast<DataKind>(0xCB), static_cast<DataKind>(0xA9), static_cast<DataKind>(0x87), static_cast<DataKind>(0x65), static_cast<DataKind>(0x44),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t insertedMinusBigNumberCount = (sizeof(insertedBytesForMinusBigNumber) /
                                                         sizeof(*insertedBytesForMinusBigNumber));
-            static const uint8_t insertedBytesForPlusBigNumber[] =
+            static const DataKind insertedBytesForPlusBigNumber[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((6 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC,
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x34), static_cast<DataKind>(0x56), static_cast<DataKind>(0x78), static_cast<DataKind>(0x9A), static_cast<DataKind>(0xBC),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedIntegerValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t  insertedPlusBigNumberCount = (sizeof(insertedBytesForPlusBigNumber) /
                                                         sizeof(*insertedBytesForPlusBigNumber));
@@ -856,22 +856,22 @@ doTestEmptyStringMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForEmptyString[] =
+            static const DataKind insertedBytesForEmptyString[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedEmptyStringCount = (sizeof(insertedBytesForEmptyString) /
                                                      sizeof(*insertedBytesForEmptyString));
@@ -932,23 +932,23 @@ doTestShortStringMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForShortString[] =
+            static const DataKind insertedBytesForShortString[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (6 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
-                'a', 'b', 'c', 'd', 'e', 'f',
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (6 & DataKind::StringOrBlobShortLengthMask),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedShortStringCount = (sizeof(insertedBytesForShortString) /
                                                      sizeof(*insertedBytesForShortString));
@@ -1009,30 +1009,30 @@ doTestMediumStringMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMediumString[] =
+            static const DataKind insertedBytesForMediumString[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobLongLengthValue) +
-                  ((1 - 1) & static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask)),
-                42,
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
-                'a', 'b', 'c', 'd', 'e', 'f',
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobLongLengthValue |
+                  ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
+                static_cast<DataKind>(42),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedMediumStringCount = (sizeof(insertedBytesForMediumString) /
                                                       sizeof(*insertedBytesForMediumString));
@@ -1093,22 +1093,22 @@ doTestEmptyBlobMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForEmptyBlob[] =
+            static const DataKind insertedBytesForEmptyBlob[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedEmptyBlobCount = (sizeof(insertedBytesForEmptyBlob) /
                                                    sizeof(*insertedBytesForEmptyBlob));
@@ -1169,23 +1169,23 @@ doTestShortBlobMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForShortBlob[] =
+            static const DataKind insertedBytesForShortBlob[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (6 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (6 & DataKind::StringOrBlobShortLengthMask),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedShortBlobCount = (sizeof(insertedBytesForShortBlob) /
                                                    sizeof(*insertedBytesForShortBlob));
@@ -1251,30 +1251,30 @@ doTestMediumBlobMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForMediumBlob[] =
+            static const DataKind insertedBytesForMediumBlob[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobLongLengthValue) +
-                  ((1 - 1) & static_cast<uint8_t>(DataKind::StringOrBlobLongLengthMask)),
-                42,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobLongLengthValue |
+                  ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
+                static_cast<DataKind>(42),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedStringOrBlobValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t insertedMediumBlobCount = (sizeof(insertedBytesForMediumBlob) /
                                                     sizeof(*insertedBytesForMediumBlob));
@@ -1346,43 +1346,43 @@ doTestSingleFloatMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForPlus42Point5[] =
+            static const DataKind insertedBytesForPlus42Point5[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedDoubleValue,
                 // Double
-                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
-                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
-                0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((1 - DataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t insertedPlus42Point5Count = (sizeof(insertedBytesForPlus42Point5) /
                                                       sizeof(*insertedBytesForPlus42Point5));
-            static const uint8_t insertedBytesForMinus42Point5[] =
+            static const DataKind insertedBytesForMinus42Point5[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedDoubleValue,
                 // Double
-                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
-                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
-                0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00,
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((1 - DataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                static_cast<DataKind>(0xC0), static_cast<DataKind>(0x45), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedDoubleValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t insertedMinus42Point5Count = (sizeof(insertedBytesForMinus42Point5) /
                                                        sizeof(*insertedBytesForMinus42Point5));
@@ -1449,26 +1449,26 @@ doTestEmptyArrayMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForEmptyArray[] =
+            static const DataKind insertedBytesForEmptyArray[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedEmptyArrayCount = (sizeof(insertedBytesForEmptyArray) /
                                                     sizeof(*insertedBytesForEmptyArray));
@@ -1529,26 +1529,26 @@ doTestEmptyMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForEmptyMap[] =
+            static const DataKind insertedBytesForEmptyMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedEmptyMapCount = (sizeof(insertedBytesForEmptyMap) /
                                                   sizeof(*insertedBytesForEmptyMap));
@@ -1609,26 +1609,26 @@ doTestEmptySetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForEmptySet[] =
+            static const DataKind insertedBytesForEmptySet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedEmptySetCount = (sizeof(insertedBytesForEmptySet) /
                                                   sizeof(*insertedBytesForEmptySet));
@@ -1689,34 +1689,34 @@ doTestArrayOneLogicalMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneLogical[] =
+            static const DataKind insertedBytesForArrayOneLogical[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneLogicalCount = (sizeof(insertedBytesForArrayOneLogical) /
                                                          sizeof(*insertedBytesForArrayOneLogical));
@@ -1778,34 +1778,34 @@ doTestArrayOneIntegerMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneInteger[] =
+            static const DataKind insertedBytesForArrayOneInteger[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneIntegerCount = (sizeof(insertedBytesForArrayOneInteger) /
                                                          sizeof(*insertedBytesForArrayOneInteger));
@@ -1867,36 +1867,36 @@ doTestArrayOneDoubleMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneDouble[] =
+            static const DataKind insertedBytesForArrayOneDouble[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Double
-                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                  static_cast<uint8_t>((1 - DataKindDoubleShortCountMinValue) &
-                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((1 - DataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneDoubleCount = (sizeof(insertedBytesForArrayOneDouble) /
                                                         sizeof(*insertedBytesForArrayOneDouble));
@@ -1958,35 +1958,35 @@ doTestArrayOneStringMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneString[] =
+            static const DataKind insertedBytesForArrayOneString[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneStringCount = (sizeof(insertedBytesForArrayOneString) /
                                                         sizeof(*insertedBytesForArrayOneString));
@@ -2048,35 +2048,35 @@ doTestArrayOneBlobMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneBlob[] =
+            static const DataKind insertedBytesForArrayOneBlob[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneBlobCount = (sizeof(insertedBytesForArrayOneBlob) /
                                                       sizeof(*insertedBytesForArrayOneBlob));
@@ -2138,39 +2138,39 @@ doTestArrayOneArrayMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneArray[] =
+            static const DataKind insertedBytesForArrayOneArray[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneArrayCount = (sizeof(insertedBytesForArrayOneArray) /
                                                        sizeof(*insertedBytesForArrayOneArray));
@@ -2232,39 +2232,39 @@ doTestArrayOneMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneMap[] =
+            static const DataKind insertedBytesForArrayOneMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneMapCount = (sizeof(insertedBytesForArrayOneMap) /
                                                      sizeof(*insertedBytesForArrayOneMap));
@@ -2326,39 +2326,39 @@ doTestArrayOneSetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneSet[] =
+            static const DataKind insertedBytesForArrayOneSet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneSetCount = (sizeof(insertedBytesForArrayOneSet) /
                                                      sizeof(*insertedBytesForArrayOneSet));
@@ -2420,37 +2420,37 @@ doTestArrayTwoLogicalsMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoLogicals[] =
+            static const DataKind insertedBytesForArrayTwoLogicals[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoLogicalsCount = (sizeof(insertedBytesForArrayTwoLogicals) /
                                                          sizeof(*insertedBytesForArrayTwoLogicals));
@@ -2513,37 +2513,37 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoIntegers[] =
+            static const DataKind insertedBytesForArrayTwoIntegers[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoIntegersCount =
                                                      (sizeof(insertedBytesForArrayTwoIntegers) /
@@ -2607,37 +2607,37 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoDoubles[] =
+            static const DataKind insertedBytesForArrayTwoDoubles[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Double
-                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleShortCount) +
-                  static_cast<uint8_t>((2 - DataKindDoubleShortCountMinValue) &
-                    static_cast<uint8_t>(DataKind::DoubleShortCountMask)),
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((2 - DataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoDoublesCount = (sizeof(insertedBytesForArrayTwoDoubles) /
                                                          sizeof(*insertedBytesForArrayTwoDoubles));
@@ -2700,39 +2700,39 @@ doTestArrayTwoStringsMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoStrings[] =
+            static const DataKind insertedBytesForArrayTwoStrings[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoStringsCount = (sizeof(insertedBytesForArrayTwoStrings) /
                                                          sizeof(*insertedBytesForArrayTwoStrings));
@@ -2795,39 +2795,39 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoBlobs[] =
+            static const DataKind insertedBytesForArrayTwoBlobs[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // Blob
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobBlobValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoBlobsCount = (sizeof(insertedBytesForArrayTwoBlobs) /
                                                        sizeof(*insertedBytesForArrayTwoBlobs));
@@ -2890,47 +2890,47 @@ doTestArrayTwoArraysMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoArrays[] =
+            static const DataKind insertedBytesForArrayTwoArrays[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoArraysCount = (sizeof(insertedBytesForArrayTwoArrays) /
                                                         sizeof(*insertedBytesForArrayTwoArrays));
@@ -2993,47 +2993,47 @@ doTestArrayTwoMapsMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoMaps[] =
+            static const DataKind insertedBytesForArrayTwoMaps[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoMapsCount = (sizeof(insertedBytesForArrayTwoMaps) /
                                                       sizeof(*insertedBytesForArrayTwoMaps));
@@ -3096,47 +3096,47 @@ doTestArrayTwoSetsMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayTwoSets[] =
+            static const DataKind insertedBytesForArrayTwoSets[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayTwoSetsCount = (sizeof(insertedBytesForArrayTwoSets) /
                                                       sizeof(*insertedBytesForArrayTwoSets));
@@ -3199,47 +3199,47 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneArrayOneMap[] =
+            static const DataKind insertedBytesForArrayOneArrayOneMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneArrayOneMapCount =
                                                     (sizeof(insertedBytesForArrayOneArrayOneMap) /
@@ -3303,47 +3303,47 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneMapOneSet[] =
+            static const DataKind insertedBytesForArrayOneMapOneSet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneMapOneSetCount =
                                                       (sizeof(insertedBytesForArrayOneMapOneSet) /
@@ -3407,47 +3407,47 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForArrayOneSetOneArray[] =
+            static const DataKind insertedBytesForArrayOneSetOneArray[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(2 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerEmptyValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerEmptyValue,
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayOneSetOneArrayCount =
                                                     (sizeof(insertedBytesForArrayOneSetOneArray) /
@@ -3512,77 +3512,77 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
         if (stuff)
         {
             const size_t         numValues = 43;
-            static const uint8_t insertedBytesForArrayManyDoubles[] =
+            static const DataKind insertedBytesForArrayManyDoubles[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                  ((1 - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask)),
-                static_cast<uint8_t>(numValues + DataKindIntegerShortValueMinValue - 1),
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                static_cast<DataKind>(numValues + DataKindIntegerShortValueMinValue - 1),
                 // Double
-                static_cast<uint8_t>(DataKind::Double) + static_cast<uint8_t>(DataKind::DoubleLongCount) +
-                  ((1 - 1) & static_cast<uint8_t>(DataKind::DoubleLongCountMask)),
-                numValues,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
-                0x3F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1
-                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2
-                0x40, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 3
-                0x40, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 4
-                0x40, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5
-                0x40, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 6
-                0x40, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 7
-                0x40, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 8
-                0x40, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 9
-                0x40, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 10
-                0x40, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 11
-                0x40, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 12
-                0x40, 0x2A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 13
-                0x40, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 14
-                0x40, 0x2E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 15
-                0x40, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16
-                0x40, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 17
-                0x40, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 18
-                0x40, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 19
-                0x40, 0x34, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 20
-                0x40, 0x35, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 21
-                0x40, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 22
-                0x40, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 23
-                0x40, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 24
-                0x40, 0x39, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 25
-                0x40, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 26
-                0x40, 0x3B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 27
-                0x40, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 28
-                0x40, 0x3D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 29
-                0x40, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 30
-                0x40, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 31
-                0x40, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 32
-                0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 33
-                0x40, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 34
-                0x40, 0x41, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 35
-                0x40, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 36
-                0x40, 0x42, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 37
-                0x40, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 38
-                0x40, 0x43, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 39
-                0x40, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 40
-                0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
-                0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
+                DataKind::Double | DataKind::DoubleLongCount |
+                  ((1 - 1) & DataKind::DoubleLongCountMask),
+                static_cast<DataKind>(numValues),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 0
+                static_cast<DataKind>(0x3F), static_cast<DataKind>(0xF0), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 1
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 2
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x08), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 3
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x10), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 4
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x14), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 5
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x18), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 6
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x1C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 7
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x20), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 8
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x22), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 9
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x24), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 10
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x26), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 11
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x28), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 12
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2A), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 13
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 14
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2E), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 15
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x30), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 16
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x31), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 17
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x32), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 18
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x33), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 19
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x34), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 20
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x35), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 21
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x36), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 22
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x37), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 23
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x38), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 24
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x39), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 25
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3A), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 26
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3B), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 27
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 28
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3D), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 29
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3E), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 30
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3F), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 31
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 32
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 33
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 34
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 35
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 36
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 37
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 38
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 39
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 40
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 41
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 42
                 // End of Array
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeArray) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedArrayManyDoublesCount =
                                                      (sizeof(insertedBytesForArrayManyDoubles) /
@@ -3649,37 +3649,37 @@ doTestLogicalMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForLogicalMap[] =
+            static const DataKind insertedBytesForLogicalMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedLogicalMapCount = (sizeof(insertedBytesForLogicalMap) /
                                                     sizeof(*insertedBytesForLogicalMap));
@@ -3742,37 +3742,37 @@ doTestIntegerMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForIntegerMap[] =
+            static const DataKind insertedBytesForIntegerMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedIntegerMapCount = (sizeof(insertedBytesForIntegerMap) /
                                                     sizeof(*insertedBytesForIntegerMap));
@@ -3835,38 +3835,38 @@ doTestStringMapMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForStringMap[] =
+            static const DataKind insertedBytesForStringMap[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (13 & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
                 // End of Map
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeMap) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedStringMapCount = (sizeof(insertedBytesForStringMap) /
                                                    sizeof(*insertedBytesForStringMap));
@@ -3929,34 +3929,34 @@ doTestLogicalSetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForLogicalSet[] =
+            static const DataKind insertedBytesForLogicalSet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Logical
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherLogical) +
-                  static_cast<uint8_t>(DataKind::OtherLogicalFalseValue),
+                DataKind::Other | DataKind::OtherLogical |
+                  DataKind::OtherLogicalFalseValue,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedLogicalSetCount = (sizeof(insertedBytesForLogicalSet) /
                                                     sizeof(*insertedBytesForLogicalSet));
@@ -4018,34 +4018,34 @@ doTestIntegerSetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForIntegerSet[] =
+            static const DataKind insertedBytesForIntegerSet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
+                DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedIntegerSetCount = (sizeof(insertedBytesForIntegerSet) /
                                                     sizeof(*insertedBytesForIntegerSet));
@@ -4107,35 +4107,35 @@ doTestStringSetMessage(const char *launchPath,
 
         if (stuff)
         {
-            static const uint8_t insertedBytesForStringSet[] =
+            static const DataKind insertedBytesForStringSet[] =
             {
                 // Start of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageStartValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue),
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageStartValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerStart) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
-                static_cast<uint8_t>(DataKind::Integer) +
-                  static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                  (static_cast<uint8_t>(1 + DataKindIntegerShortValueMinValue - 1) &
-                    static_cast<uint8_t>(DataKind::IntegerShortValueValueMask)),
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
                 // String
-                static_cast<uint8_t>(DataKind::StringOrBlob) + static_cast<uint8_t>(DataKind::StringOrBlobStringValue) +
-                  static_cast<uint8_t>(DataKind::StringOrBlobShortLengthValue) +
-                  (0 & static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask)),
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Set
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherContainerEnd) +
-                  static_cast<uint8_t>(DataKind::OtherContainerTypeSet) +
-                  static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue),
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                static_cast<uint8_t>(DataKind::Other) + static_cast<uint8_t>(DataKind::OtherMessage) +
-                  static_cast<uint8_t>(DataKind::OtherMessageEndValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageNonEmptyValue) +
-                  static_cast<uint8_t>(DataKind::OtherMessageExpectedOtherValue)
+                DataKind::Other | DataKind::OtherMessage |
+                  DataKind::OtherMessageEndValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
             };
             const size_t insertedStringSetCount = (sizeof(insertedBytesForStringSet) /
                                                    sizeof(*insertedBytesForStringSet));

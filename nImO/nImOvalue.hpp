@@ -253,11 +253,11 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline uint8_t
+        virtual inline DataKind
         getTypeTag(void)
         const
         {
-            return 0;
+            return static_cast<DataKind>(0);
         } // getTypeTag
 
         /*! @brief Extract a Value for a Message.
@@ -485,9 +485,9 @@ namespace nImO
          @param[in] aMask The bits of interest in the value.
          @param[in] theExtractor The function to be recorded. */
         static void
-        addToExtractionMap(const uint8_t aByte,
-                           const uint8_t aMask,
-                           Extractor     theExtractor);
+        addToExtractionMap(const DataKind aByte,
+                           const DataKind aMask,
+                           Extractor      theExtractor);
     public :
         // Public fields.
 

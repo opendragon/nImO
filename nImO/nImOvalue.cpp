@@ -111,18 +111,21 @@ nImO::Value::~Value(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::Value::addToExtractionMap(const uint8_t          aByte,
-                                const uint8_t          aMask,
+nImO::Value::addToExtractionMap(const DataKind         aByte,
+                                const DataKind         aMask,
                                 nImO::Value::Extractor theExtractor)
 {
     ODL_ENTER(); //####
-    ODL_LL2("aByte = ", aByte, "aMask = ", aMask); //####
+    ODL_LL2("aByte = ", static_cast<uint8_t>(aByte), "aMask = ", static_cast<uint8_t>(aMask)); //####
     ODL_P1("theExtractor = ", &theExtractor); //####
-    if ((0 != aMask) && (nullptr != theExtractor))
+    uint8_t lByte = static_cast<uint8_t>(aByte);
+    uint8_t lMask = static_cast<uint8_t>(aMask);
+
+    if ((0 != lMask) && (nullptr != theExtractor))
     {
         for (uint8_t ii = 0; 255 > ii; ++ii)
         {
-            if (aByte == (aMask &ii))
+            if (lByte == (lMask &ii))
             {
                 ExtractorMap::value_type keyValue(ii, theExtractor);
 
@@ -144,30 +147,30 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     ODL_XL1("leadByte = ", leadByte); //####
     int64_t result = 0;
 
-    if (static_cast<int>(DataKind::Integer) == (leadByte & static_cast<int>(DataKind::Mask)))
+    if (DataKind::Integer == (leadByte & DataKind::Mask))
     {
-        bool isShort = (static_cast<int>(DataKind::IntegerShortValue) == (static_cast<int>(DataKind::IntegerSizeMask) & leadByte));
+        bool isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
 
         ++position; // We can accept the lead byte
         ODL_LL1("position <- ", position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
-            uint8_t shortBits = (static_cast<uint8_t>(DataKind::IntegerShortValueValueMask) & leadByte);
-            bool    isNegative = (static_cast<int>(DataKind::IntegerShortValueSignBit) ==
-                                  (static_cast<int>(DataKind::IntegerShortValueSignBit) & leadByte));
+            DataKind shortBits = (DataKind::IntegerShortValueValueMask & leadByte);
+            bool     isNegative = (DataKind::IntegerShortValueSignBit ==
+                                  (DataKind::IntegerShortValueSignBit & leadByte));
 
             if (isNegative)
             {
                 ODL_LOG("(isNegative)"); //####
                 int64_t tempValue = (-1 & (~ static_cast<int>(DataKind::IntegerShortValueValueMask)));
 
-                result = (tempValue | shortBits);
+                result = (tempValue | static_cast<uint8_t>(shortBits));
             }
             else
             {
                 ODL_LOG("! (isNegative)"); //####
-                result = shortBits;
+                result = static_cast<uint8_t>(shortBits);
             }
             status = ReadStatus::Successful;
             ODL_LL1("status <- ", static_cast<int>(status)); //####
@@ -175,7 +178,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t        size = (static_cast<size_t>(DataKind::IntegerLongValueCountMask) & leadByte) + 1;
+            size_t        size = static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) + 1;
             NumberAsBytes holder;
             bool          okSoFar = true;
 
@@ -207,7 +210,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     }
     else
     {
-        ODL_LOG("! (static_cast<int>(DataKind::Integer) == (leadByte & static_cast<int>(DataKind::Mask)))"); //####
+        ODL_LOG("! (DataKind::Integer == (leadByte & DataKind::Mask))"); //####
         status = ReadStatus::Invalid;
         ODL_LL1("status <- ", static_cast<int>(status)); //####
     }
@@ -337,8 +340,8 @@ nImO::Value::initialize(void)
     {
         gTerminators += suffixes;
     }
-    uint8_t   aByte = 0;
-    uint8_t   aMask = 0;
+    DataKind  aByte = static_cast<DataKind>(0);
+    DataKind  aMask = static_cast<DataKind>(0);
     Extractor theExtractor = nullptr;
 
     Array::getExtractionInfo(aByte, aMask, theExtractor);
@@ -444,8 +447,8 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
     {
         ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        uint8_t stuff = static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
-                        (outValue & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask));
+        DataKind stuff = (DataKind::Integer | DataKind::IntegerShortValue |
+                          (outValue & DataKind::IntegerShortValueValueMask));
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
@@ -459,8 +462,8 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            uint8_t stuff = static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerLongValue) +
-                            ((numBytes - 1) & static_cast<uint8_t>(DataKind::IntegerLongValueCountMask));
+            DataKind stuff = (DataKind::Integer | DataKind::IntegerLongValue |
+                              ((numBytes - 1) & DataKind::IntegerLongValueCountMask));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
             outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

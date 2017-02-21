@@ -237,8 +237,8 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isEmpty = (static_cast<int>(DataKind::OtherContainerEmptyValue) ==
-                       (static_cast<int>(DataKind::OtherContainerEmptyMask) & leadByte));
+    bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
+                       (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -403,16 +403,14 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
 } // nImO::Array::extractValue
 
 void
-nImO::Array::getExtractionInfo(uint8_t                &aByte,
-                               uint8_t                &aMask,
+nImO::Array::getExtractionInfo(DataKind               &aByte,
+                               DataKind               &aMask,
                                nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = static_cast<uint8_t>(DataKind::Other | DataKind::OtherContainerStart |
-                                 DataKind::OtherContainerTypeArray);
-    aMask = static_cast<uint8_t>(DataKind::Mask | DataKind::OtherTypeMask |
-                                 DataKind::OtherContainerTypeMask);
+    aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeArray);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherContainerTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Array::getExtractionInfo

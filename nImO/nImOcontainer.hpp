@@ -88,7 +88,7 @@ namespace nImO
         {
             return this;
         } // asContainer
-        
+
     protected :
         // Protected methods.
 

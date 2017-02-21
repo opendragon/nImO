@@ -475,7 +475,8 @@ add_test(NAME TestStringValue11 COMMAND ${THIS_TARGET} 3 t "\"@\\M-!\\M-0\\M-A=\
 add_test(NAME TestStringValue12 COMMAND ${THIS_TARGET} 3 t "\"@\\241\\260\\301=\""
          "\"@\\M-!\\M-0\\M-A=\"")
 # Test parse of string value
-add_test(NAME TestStringValue13 COMMAND ${THIS_TARGET} 3 t "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\""
+add_test(NAME TestStringValue13 COMMAND ${THIS_TARGET} 3 t
+         "\"@\\M-\\C-@\\M-\\C-_\\200\\237\\377=\""
          "\"@\\M-\\C-@\\M-\\C-_\\M-\\C-@\\M-\\C-_\\377=\"")
 
 # Test parse of string value

@@ -198,7 +198,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < defaultString.length()))
         {
             int64_t intValue;
-            
+
             if (nImO::ConvertToLong(defaultString.c_str(), intValue))
             {
                 defaultValue = intValue;
@@ -211,7 +211,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < minValString.length()))
         {
             int64_t intValue;
-            
+
             if (nImO::ConvertToLong(minValString.c_str(), intValue))
             {
                 minValue = intValue;
@@ -224,7 +224,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < maxValString.length()))
         {
             int64_t intValue;
-            
+
             if (nImO::ConvertToLong(maxValString.c_str(), intValue))
             {
                 maxValue = intValue;
@@ -289,7 +289,7 @@ IntArgumentDescriptor::validate(const std::string &value)
 {
     ODL_OBJENTER(); //####
     int64_t intValue;
-    
+
     if (nImO::ConvertToLong(value.c_str(), intValue))
     {
         _valid = true;

@@ -157,7 +157,7 @@ namespace nImO
     class String;
     class StringBuffer;
     class Value;
-    
+
     // Type definitions.
 
     /*! @brief The tag values for Message contents. */
@@ -553,7 +553,7 @@ namespace nImO
     bool
     ConvertToDouble(const char *startPtr,
                     double      &result);
-    
+
     /*! @brief Convert a string to an integer value.
      @param[in] startPtr The string to be converted.
      @param[out] result The value represented by the string.

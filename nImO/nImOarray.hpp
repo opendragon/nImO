@@ -123,7 +123,7 @@ namespace nImO
         {
             return this;
         } // asArray
-        
+
         /*! @brief Returns the element at position index in the Array.
          @param[in] index The position of the element in the Array.
          @returns The element at the given position, or @c nullptr if the index is out of range. */
@@ -159,7 +159,7 @@ namespace nImO
         deeplyEqualTo(const Value &other)
         const
         override;
-        
+
         /*! @brief Return an iterator pointing past the last element of the Array.
          @returns An iterator pointing past the last element of the Array. */
         inline iterator
@@ -347,11 +347,11 @@ namespace nImO
         addEntries(const Array &other);
 
         /*! @brief Extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
-         floating-point numbers in a sequence; if a series of Double values are extracted, they are
-         directly added to the Array and the last Value is returned as the result of the function;
-         for all other Value objects, the (single) Value that is extracted is added to the Array to
-         simplify the logic, as well as being returned.
+         Note that the parentValue argument is normally @c nullptr, and is used for handling
+         multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+         they are directly added to the Array and the last Value is returned as the result of the
+         function; for all other Value objects, the (single) Value that is extracted is added to
+         the Array to simplify the logic, as well as being returned.
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.

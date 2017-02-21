@@ -263,20 +263,21 @@ doTestEmptyMessage(const char *launchPath,
                 stuff->close();
                 if ((nullptr == extractedValue) && (ReadStatus::SuccessfulAtEnd == status))
                 {
-                    ODL_LOG("((nullptr == extractedValue) && (ReadStatus::SuccessfulAtEnd == " //####
-                            "status))"); //####
+                    ODL_LOG("((nullptr == extractedValue) && " //####
+                            "(ReadStatus::SuccessfulAtEnd == status))"); //####
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr == extractedValue) && (ReadStatus::SuccessfulAtEnd == " //####
-                            "status))"); //####
+                    ODL_LOG("! ((nullptr == extractedValue) && " //####
+                            "(ReadStatus::SuccessfulAtEnd == status))"); //####
                 }
                 stuff->reset();
             }
             else
             {
-                ODL_LOG("! ((nullptr == extractedValue) && (ReadStatus::Invalid == status))"); //####
+                ODL_LOG("! ((nullptr == extractedValue) && " //####
+                        "(ReadStatus::Invalid == status))"); //####
             }
         }
         else
@@ -487,7 +488,7 @@ doTestTinyIntegerMessage(const char *launchPath,
             Integer minus12Value(-12);
             Integer zeroValue(0);
             Integer plus12Value(12);
-            
+
             result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count,
                                           minus12Value);
             if (0 == result)
@@ -664,7 +665,8 @@ doTestMediumIntegerMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0xED), static_cast<DataKind>(0x29), static_cast<DataKind>(0x79),
+                static_cast<DataKind>(0xED), static_cast<DataKind>(0x29),
+                static_cast<DataKind>(0x79),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -683,7 +685,8 @@ doTestMediumIntegerMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0xD6), static_cast<DataKind>(0x87),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0xD6),
+                static_cast<DataKind>(0x87),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -765,7 +768,9 @@ doTestBigIntegerMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0xED), static_cast<DataKind>(0xCB), static_cast<DataKind>(0xA9), static_cast<DataKind>(0x87), static_cast<DataKind>(0x65), static_cast<DataKind>(0x44),
+                static_cast<DataKind>(0xED), static_cast<DataKind>(0xCB),
+                static_cast<DataKind>(0xA9), static_cast<DataKind>(0x87),
+                static_cast<DataKind>(0x65), static_cast<DataKind>(0x44),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -784,7 +789,9 @@ doTestBigIntegerMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x34), static_cast<DataKind>(0x56), static_cast<DataKind>(0x78), static_cast<DataKind>(0x9A), static_cast<DataKind>(0xBC),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x34),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x78),
+                static_cast<DataKind>(0x9A), static_cast<DataKind>(0xBC),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -943,7 +950,9 @@ doTestShortStringMessage(const char *launchPath,
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
                   DataKind::StringOrBlobShortLengthValue |
                   (6 & DataKind::StringOrBlobShortLengthMask),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1021,13 +1030,27 @@ doTestMediumStringMessage(const char *launchPath,
                   DataKind::StringOrBlobLongLengthValue |
                   ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
                 static_cast<DataKind>(42),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
-                static_cast<DataKind>('a'), static_cast<DataKind>('b'), static_cast<DataKind>('c'), static_cast<DataKind>('d'), static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
+                static_cast<DataKind>('a'), static_cast<DataKind>('b'),
+                static_cast<DataKind>('c'), static_cast<DataKind>('d'),
+                static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1180,7 +1203,9 @@ doTestShortBlobMessage(const char *launchPath,
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                   DataKind::StringOrBlobShortLengthValue |
                   (6 & DataKind::StringOrBlobShortLengthMask),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1263,13 +1288,27 @@ doTestMediumBlobMessage(const char *launchPath,
                   DataKind::StringOrBlobLongLengthValue |
                   ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
                 static_cast<DataKind>(42),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
-                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23), static_cast<DataKind>(0x34), static_cast<DataKind>(0x45), static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
+                static_cast<DataKind>(0x12), static_cast<DataKind>(0x23),
+                static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1357,7 +1396,10 @@ doTestSingleFloatMessage(const char *launchPath,
                 DataKind::Double | DataKind::DoubleShortCount |
                   ((1 - DataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1377,7 +1419,10 @@ doTestSingleFloatMessage(const char *launchPath,
                 DataKind::Double | DataKind::DoubleShortCount |
                   ((1 - DataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
-                static_cast<DataKind>(0xC0), static_cast<DataKind>(0x45), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0xC0), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
                 DataKind::Other | DataKind::OtherMessage |
                   DataKind::OtherMessageEndValue |
@@ -1887,7 +1932,10 @@ doTestArrayOneDoubleMessage(const char *launchPath,
                 DataKind::Double | DataKind::DoubleShortCount |
                   ((1 - DataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -2627,8 +2675,14 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
                 DataKind::Double | DataKind::DoubleShortCount |
                   ((2 - DataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -3531,49 +3585,178 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
                 static_cast<DataKind>(numValues),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 0
-                static_cast<DataKind>(0x3F), static_cast<DataKind>(0xF0), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 1
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 2
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x08), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 3
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x10), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 4
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x14), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 5
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x18), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 6
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x1C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 7
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x20), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 8
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x22), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 9
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x24), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 10
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x26), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 11
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x28), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 12
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2A), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 13
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 14
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2E), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 15
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x30), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 16
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x31), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 17
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x32), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 18
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x33), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 19
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x34), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 20
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x35), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 21
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x36), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 22
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x37), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 23
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x38), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 24
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x39), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 25
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3A), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 26
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3B), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 27
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3C), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 28
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3D), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 29
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3E), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 30
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3F), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 31
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 32
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 33
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 34
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 35
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 36
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 37
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 38
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 39
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 40
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44), static_cast<DataKind>(0x80), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 41
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 42
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 0
+                static_cast<DataKind>(0x3F), static_cast<DataKind>(0xF0),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 1
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 2
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x08),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 3
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x10),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 4
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x14),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 5
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x18),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 6
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x1C),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 7
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x20),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 8
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x22),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 9
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x24),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 10
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x26),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 11
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x28),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 12
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2A),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 13
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2C),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 14
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x2E),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 15
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x30),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 16
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x31),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 17
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x32),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 18
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x33),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 19
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x34),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 20
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x35),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 21
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x36),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 22
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x37),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 23
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x38),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 24
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x39),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 25
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3A),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 26
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3B),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 27
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3C),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 28
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3D),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 29
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3E),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 30
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x3F),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 31
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 32
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x40),
+                static_cast<DataKind>(0x80), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 33
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 34
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x41),
+                static_cast<DataKind>(0x80), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 35
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 36
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x42),
+                static_cast<DataKind>(0x80), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 37
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 38
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x43),
+                static_cast<DataKind>(0x80), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 39
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 40
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x44),
+                static_cast<DataKind>(0x80), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 41
+                static_cast<DataKind>(0x40), static_cast<DataKind>(0x45),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
+                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 42
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -4197,7 +4380,7 @@ main(int  argc,
         if (0 < --argc)
         {
             int64_t selector;
-            
+
             if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);

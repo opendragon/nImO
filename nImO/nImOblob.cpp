@@ -211,11 +211,11 @@ const
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     bool result = (&other == this);
-    
+
     if (! result)
     {
         const Blob *otherPtr = other.asBlob();
-        
+
         if (nullptr != otherPtr)
         {
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(),
@@ -283,7 +283,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
                        (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
-    
+
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####
     if (isShort)
@@ -295,14 +295,15 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     }
     else
     {
-        size_t        size = static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) + 1;
+        size_t        size = static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) +
+                             1;
         NumberAsBytes holder;
         bool          okSoFar = true;
-        
+
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
             int aByte = theMessage.getByte(position);
-            
+
             if (Message::kEndToken == aByte)
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
@@ -328,11 +329,11 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     {
         nImO::UpAuint8_t holder(new uint8_t[numBytes]);
         bool             okSoFar = (nullptr != holder);
-        
+
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
             int aByte = theMessage.getByte(position);
-            
+
             if (Message::kEndToken == aByte)
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
@@ -402,7 +403,7 @@ const
     else
     {
         const Blob *otherPtr = other.asBlob();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -444,7 +445,7 @@ const
     else
     {
         const Blob *otherPtr = other.asBlob();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -487,7 +488,7 @@ const
     else
     {
         const Blob *otherPtr = other.asBlob();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -529,7 +530,7 @@ const
     else
     {
         const Blob *otherPtr = other.asBlob();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())

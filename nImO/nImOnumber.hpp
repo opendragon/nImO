@@ -88,7 +88,7 @@ namespace nImO
         {
             return this;
         } // asNumber
-        
+
         /*! @brief Return the characters that can appear as the start of a Number.
          @returns The characters that can appear as the start of a Number. */
         static const char *

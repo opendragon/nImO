@@ -199,7 +199,7 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < defaultString.length()))
         {
             double dblValue;
-            
+
             if (nImO::ConvertToDouble(defaultString.c_str(), dblValue))
             {
                 minValue = defaultValue;
@@ -212,7 +212,7 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < minValString.length()))
         {
             double dblValue;
-            
+
             if (nImO::ConvertToDouble(minValString.c_str(), dblValue))
             {
                 minValue = dblValue;
@@ -225,7 +225,7 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < maxValString.length()))
         {
             double dblValue;
-            
+
             if (nImO::ConvertToDouble(maxValString.c_str(), dblValue))
             {
                 maxValue = dblValue;

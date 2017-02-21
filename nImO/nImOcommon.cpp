@@ -244,7 +244,7 @@ nImO::ConvertToDouble(const char *startPtr,
     bool   okSoFar;
     char   *endPtr;
     double value = strtod(startPtr, &endPtr);
-    
+
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -269,7 +269,7 @@ nImO::ConvertToLong(const char *startPtr,
     bool okSoFar;
     char *endPtr;
     long value = strtol(startPtr, &endPtr, 10);
-    
+
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -1049,17 +1049,23 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
     }; // OptionIndex
 
     bool                keepGoing = true;
-    Option_::Descriptor firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "", Option_::Arg::None, nullptr);
-    Option_::Descriptor helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help", Option_::Arg::None,
-                                       T_("  --help, -h    Print usage and exit"));
-    Option_::Descriptor infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info", Option_::Arg::None,
+    Option_::Descriptor firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "",
+                                        Option_::Arg::None, nullptr);
+    Option_::Descriptor helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help",
+                                        Option_::Arg::None,
+                                        T_("  --help, -h    Print usage and exit"));
+    Option_::Descriptor infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info",
+                                       Option_::Arg::None,
                                        T_("  --info, -i    Print type and description and exit"));
-    Option_::Descriptor jsonDescriptor(static_cast<unsigned>(OptionIndex::JSON), 0, "j", "json", Option_::Arg::None,
-                                       T_("  --json, -j    Generate output in JSON format") );
-    Option_::Descriptor tabsDescriptor(static_cast<unsigned>(OptionIndex::TABS), 0, "t", "tabs", Option_::Arg::None,
+    Option_::Descriptor jsonDescriptor(static_cast<unsigned>(OptionIndex::JSON), 0, "j", "json",
+                                       Option_::Arg::None,
+                                       T_("  --json, -j    Generate output in JSON format"));
+    Option_::Descriptor tabsDescriptor(static_cast<unsigned>(OptionIndex::TABS), 0, "t", "tabs",
+                                       Option_::Arg::None,
                                        T_("  --tabs, -t    Generate output in tab-delimited "
                                           "format"));
-    Option_::Descriptor versionDescriptor(static_cast<unsigned>(OptionIndex::VERSION), 0, "v", "vers", Option_::Arg::None,
+    Option_::Descriptor versionDescriptor(static_cast<unsigned>(OptionIndex::VERSION), 0, "v",
+                                          "vers", Option_::Arg::None,
                                           T_("  --vers, -v    Print version information and "
                                              "exit"));
     Option_::Descriptor lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
@@ -1122,7 +1128,8 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
     {
         keepGoing = false;
     }
-    else if (options[static_cast<size_t>(OptionIndex::HELP)] || options[static_cast<size_t>(OptionIndex::UNKNOWN)])
+    else if (options[static_cast<size_t>(OptionIndex::HELP)] ||
+             options[static_cast<size_t>(OptionIndex::UNKNOWN)])
     {
         Option_::printUsage(cout, usage, HELP_LINE_LENGTH_);
         keepGoing = false;

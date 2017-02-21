@@ -168,11 +168,11 @@ const
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     bool result = (&other == this);
-    
+
     if (! result)
     {
         const Array *otherPtr = other.asArray();
-        
+
         if (otherPtr && (size() == otherPtr->size()))
         {
             const_iterator thisWalker(inherited2::begin());
@@ -183,7 +183,7 @@ const
             {
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
-                
+
                 if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
@@ -368,7 +368,8 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                     ODL_LOG("(static_cast<uint8_t>(endMarker) == aByte)"); //####
                                     status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
+                                    ODL_LL2("status <- ", static_cast<int>(status), //####
+                                            "position <- ", position); //####
                                 }
                                 else
                                 {
@@ -681,7 +682,7 @@ const
             {
                 // Check for sequences of Double values
                 const Double *doubleValue = aValue->asDouble();
-                
+
                 if (nullptr == doubleValue)
                 {
                     Double::writeValuesToMessage(doublesSeen, outMessage);
@@ -695,7 +696,7 @@ const
         }
         // Write out any held Double values
         Double::writeValuesToMessage(doublesSeen, outMessage);
-        outMessage.appendBytes(&endArray, sizeof(endArray)); 
+        outMessage.appendBytes(&endArray, sizeof(endArray));
     }
     else
     {

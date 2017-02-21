@@ -812,7 +812,7 @@ doTestStringBufferWithInteger(const char *launchPath,
         {
             const char *outString = argv[1];
             int64_t    value;
-            
+
             if (ConvertToLong(*argv, value))
             {
                 UpStringBuffer stuff(new StringBuffer);
@@ -1050,7 +1050,7 @@ doTestStringBufferWithDouble(const char *launchPath,
         {
             const char *outString = argv[1];
             double     value;
-            
+
             if (ConvertToDouble(*argv, value))
             {
                 UpStringBuffer stuff(new StringBuffer);
@@ -1612,7 +1612,7 @@ doTestLogicalValue(const char *launchPath,
         {
             const char *outString = argv[1];
             int64_t    value;
-            
+
             if (ConvertToLong(*argv, value) && (0 <= value))
             {
                 std::unique_ptr<Logical> stuff(new Logical(0 != value));
@@ -1752,7 +1752,7 @@ doTestNumberValue(const char *launchPath,
         {
             const char *outString = argv[1];
             int64_t    intValue;
-            
+
             if (ConvertToLong(*argv, intValue))
             {
                 std::unique_ptr<Integer> stuff(new Integer(intValue));
@@ -1776,7 +1776,7 @@ doTestNumberValue(const char *launchPath,
             else
             {
                 double floatValue;
-                
+
                 if (ConvertToDouble(*argv, floatValue))
                 {
                     std::unique_ptr<Double> stuff(new Double(floatValue));
@@ -4180,7 +4180,7 @@ main(int  argc,
         if (0 < --argc)
         {
             int64_t selector;
-            
+
             if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);

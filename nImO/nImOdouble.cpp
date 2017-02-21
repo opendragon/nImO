@@ -121,11 +121,11 @@ const
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     bool result = (&other == this);
-    
+
     if (! result)
     {
         const Double *otherPtr = other.asDouble();
-        
+
         if (nullptr != otherPtr)
         {
             result = (_floatValue == otherPtr->_floatValue);
@@ -153,11 +153,11 @@ const
     else
     {
         const Double *doublePtr = other.asDouble();
-        
+
         if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
-            
+
             if (nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
@@ -327,11 +327,11 @@ const
     else
     {
         const Double *doublePtr = other.asDouble();
-        
+
         if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
-            
+
             if (nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
@@ -380,11 +380,11 @@ const
     else
     {
         const Double *doublePtr = other.asDouble();
-        
+
         if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
-            
+
             if (nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
@@ -434,11 +434,11 @@ const
     else
     {
         const Double *doublePtr = other.asDouble();
-        
+
         if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
-            
+
             if (nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
@@ -487,11 +487,11 @@ const
     else
     {
         const Double *doublePtr = other.asDouble();
-        
+
         if (nullptr == doublePtr)
         {
             const Integer *intPtr = other.asInteger();
-            
+
             if (nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())

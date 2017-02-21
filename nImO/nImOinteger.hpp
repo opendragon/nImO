@@ -96,7 +96,7 @@ namespace nImO
         {
             return this;
         } // asInteger
-        
+
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
@@ -104,7 +104,7 @@ namespace nImO
         deeplyEqualTo(const Value &other)
         const
         override;
-        
+
         /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
         virtual inline Enumerable
@@ -234,11 +234,11 @@ namespace nImO
         // Private methods.
 
         /*! @brief Extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
-         floating-point numbers in a sequence; if a series of Double values are extracted, they are
-         directly added to the Array and the last Value is returned as the result of the function;
-         for all other Value objects, the (single) Value that is extracted is added to the Array to
-         simplify the logic, as well as being returned.
+         Note that the parentValue argument is normally @c nullptr, and is used for handling
+         multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+         they are directly added to the Array and the last Value is returned as the result of the
+         function; for all other Value objects, the (single) Value that is extracted is added to
+         the Array to simplify the logic, as well as being returned.
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.

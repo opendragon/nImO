@@ -172,22 +172,22 @@ const
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     bool result = (&other == this);
-    
+
     if (! result)
     {
         const Set *otherPtr = other.asSet();
-        
+
         if (otherPtr && (size() == otherPtr->size()))
         {
             const_iterator thisWalker(inherited2::begin());
             const_iterator otherWalker(otherPtr->inherited2::begin());
-            
+
             for (result = true; result && (thisWalker != inherited2::end());
                  ++thisWalker, ++otherWalker)
             {
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
-                
+
                 if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
@@ -241,7 +241,8 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
-    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
+    bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
+                       (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -366,14 +367,15 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                                 static const DataKind endMarker = (DataKind::Other |
                                                                    DataKind::OtherContainerEnd |
                                                                    DataKind::OtherContainerTypeSet |
-                                                                   DataKind::OtherContainerNonEmptyValue);
-                    
+                                                           DataKind::OtherContainerNonEmptyValue);
+
                                 if (static_cast<uint8_t>(endMarker) == aByte)
                                 {
                                     ODL_LOG("(endMarker == aByte)"); //####
                                     status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
+                                    ODL_LL2("status <- ", static_cast<int>(status), //####
+                                            "position <- ", position); //####
                                 }
                                 else
                                 {
@@ -755,7 +757,7 @@ const
                 aValue->writeToMessage(outMessage);
             }
         }
-        outMessage.appendBytes(&endSet, sizeof(endSet)); 
+        outMessage.appendBytes(&endSet, sizeof(endSet));
     }
     else
     {

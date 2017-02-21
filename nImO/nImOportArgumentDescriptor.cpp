@@ -167,7 +167,7 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
         if (okSoFar && (0 < defaultString.length()))
         {
             int64_t intValue;
-            
+
             if (nImO::ConvertToLong(defaultString.c_str(), intValue))
             {
                 defaultValue = intValue;

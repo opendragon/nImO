@@ -73,11 +73,11 @@ namespace nImO
         // Protected type definitions.
 
         /*! @brief A pointer to a function that extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c nullptr, and is used for handling multiple
-         floating-point numbers in a sequence; if a series of Double values are extracted, they are
-         directly added to the Array and the last Value is returned as the result of the function;
-         for all other Value objects, the (single) Value that is extracted is added to the Array to
-         simplify the logic, as well as being returned.
+         Note that the parentValue argument is normally @c nullptr, and is used for handling
+         multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+         they are directly added to the Array and the last Value is returned as the result of the
+         function; for all other Value objects, the (single) Value that is extracted is added to
+         the Array to simplify the logic, as well as being returned.
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
@@ -136,7 +136,7 @@ namespace nImO
         {
             return nullptr;
         } // asArray
-        
+
         /*! @brief Return non-@c nullptr if the object is a Blob.
          @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
         virtual inline const Blob *
@@ -145,7 +145,7 @@ namespace nImO
         {
             return nullptr;
         } // asBlob
-        
+
         /*! @brief Return non-@c nullptr if the object is a Container.
          @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual inline const Container *
@@ -154,7 +154,7 @@ namespace nImO
         {
             return nullptr;
         } // asContainer
-        
+
         /*! @brief Return non-@c nullptr if the object is a Double.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual inline const Double *
@@ -163,7 +163,7 @@ namespace nImO
         {
             return nullptr;
         } // asDouble
-        
+
         /*! @brief Return non-@c nullptr if the object is an Integer.
          @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual inline const Integer *
@@ -172,7 +172,7 @@ namespace nImO
         {
             return nullptr;
         } // asInteger
-        
+
         /*! @brief Return non-@c nullptr if the object is a Logical.
          @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
         virtual inline const Logical *
@@ -181,7 +181,7 @@ namespace nImO
         {
             return nullptr;
         } // asLogical
-        
+
         /*! @brief Return non-@c nullptr if the object is a Map.
          @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
         virtual inline const Map *
@@ -190,7 +190,7 @@ namespace nImO
         {
             return nullptr;
         } // asMap
-        
+
         /*! @brief Return non-@c nullptr if the object is a Number.
          @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
         virtual inline const Number *
@@ -199,7 +199,7 @@ namespace nImO
         {
             return nullptr;
         } // asNumber
-        
+
         /*! @brief Return non-@c nullptr if the object is a Set.
          @returns Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
         virtual inline const Set *
@@ -208,7 +208,7 @@ namespace nImO
         {
             return nullptr;
         } // asSet
-        
+
         /*! @brief Return non-@c nullptr if the object is a String.
          @returns Non-@c nullptr if the object is a String and @c nullptr otherwise. */
         virtual inline const String *
@@ -217,7 +217,7 @@ namespace nImO
         {
             return nullptr;
         } // asString
-        
+
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */

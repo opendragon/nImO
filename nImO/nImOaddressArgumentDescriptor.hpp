@@ -79,7 +79,8 @@ namespace nImO
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument.
-         @param[in,out] addrBuff If non-@c nullptr, the variable to be set with the actual address. */
+         @param[in,out] addrBuff If non-@c nullptr, the variable to be set with the actual
+         address. */
         AddressArgumentDescriptor(const std::string  &argName,
                                   const std::string  &argDescription,
                                   const ArgumentMode argMode,

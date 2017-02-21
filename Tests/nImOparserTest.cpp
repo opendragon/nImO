@@ -683,7 +683,7 @@ main(int  argc,
         if (3 < --argc)
         {
             int64_t selector;
-            
+
             if (ConvertToLong(argv[1], selector) && (0 < selector))
             {
                 bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));

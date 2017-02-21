@@ -130,7 +130,7 @@ const
     if (! result)
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr != otherPtr)
         {
             result = (_value == otherPtr->_value);
@@ -157,7 +157,7 @@ const
     else
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -270,7 +270,7 @@ const
     else
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -311,7 +311,7 @@ const
     else
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -353,7 +353,7 @@ const
     else
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -394,7 +394,7 @@ const
     else
     {
         const Logical *otherPtr = other.asLogical();
-        
+
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
@@ -531,8 +531,9 @@ const
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    DataKind stuff = (DataKind::Other | DataKind::OtherLogical | (_value ? DataKind::OtherLogicalTrueValue :
-                                                                  DataKind::OtherLogicalFalseValue));
+    DataKind stuff = (DataKind::Other | DataKind::OtherLogical |
+                      (_value ? DataKind::OtherLogicalTrueValue :
+                       DataKind::OtherLogicalFalseValue));
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     ODL_EXIT(); //####

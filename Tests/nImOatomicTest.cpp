@@ -227,7 +227,7 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -304,11 +304,11 @@ doTestFilledBufferChunk(const char *launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
 
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) &0x00FF);
+                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -322,7 +322,7 @@ doTestFilledBufferChunk(const char *launchPath,
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) &0x00FF);
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -403,11 +403,11 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
+                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
 
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) &0x00FF);
+                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -421,7 +421,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) &0x00FF);
+                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -498,7 +498,7 @@ doTestBufferChunkReset(const char *launchPath,
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) &0x00FF);
+            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -1307,8 +1307,8 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
-                    char        lowByte = hexDigits[aByte &0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1404,8 +1404,8 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
-                    char        lowByte = hexDigits[aByte &0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -2129,8 +2129,8 @@ doTestSmallBlobValue(const char *launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
-                    char        lowByte = hexDigits[aByte &0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -2224,8 +2224,8 @@ doTestBigBlobValue(const char *launchPath,
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                                                 '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
                     uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) &0x0F];
-                    char        lowByte = hexDigits[aByte &0x0F];
+                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
+                    char        lowByte = hexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;

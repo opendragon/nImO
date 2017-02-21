@@ -116,11 +116,10 @@ nImO::Value::addToExtractionMap(const DataKind         aByte,
                                 nImO::Value::Extractor theExtractor)
 {
     ODL_ENTER(); //####
-    ODL_LL2("aByte = ", static_cast<uint8_t>(aByte), "aMask = ", //####
-            static_cast<uint8_t>(aMask)); //####
+    ODL_LL2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
     ODL_P1("theExtractor = ", &theExtractor); //####
-    uint8_t lByte = static_cast<uint8_t>(aByte);
-    uint8_t lMask = static_cast<uint8_t>(aMask);
+    uint8_t lByte = toUType(aByte);
+    uint8_t lMask = toUType(aMask);
 
     if ((0 != lMask) && (nullptr != theExtractor))
     {
@@ -164,24 +163,22 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
             if (isNegative)
             {
                 ODL_LOG("(isNegative)"); //####
-                int64_t tempValue = (-1 &
-                                     (~ static_cast<int>(DataKind::IntegerShortValueValueMask)));
+                int64_t tempValue = (-1 & (~ toUType(DataKind::IntegerShortValueValueMask)));
 
-                result = (tempValue | static_cast<uint8_t>(shortBits));
+                result = (tempValue | toUType(shortBits));
             }
             else
             {
                 ODL_LOG("! (isNegative)"); //####
-                result = static_cast<uint8_t>(shortBits);
+                result = toUType(shortBits);
             }
             status = ReadStatus::Successful;
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
+            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t        size =
-                          static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) + 1;
+            size_t        size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
             NumberAsBytes holder;
             bool          okSoFar = true;
 
@@ -193,7 +190,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                 {
                     ODL_LOG("(Message::kEndToken == aByte)"); //####
                     status = ReadStatus::Incomplete;
-                    ODL_LL1("status <- ", static_cast<int>(status)); //####
+                    ODL_LL1("status <- ", toUType(status)); //####
                     okSoFar = false;
                 }
                 else
@@ -207,7 +204,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
             {
                 result = B2I(holder, size);
                 status = ReadStatus::Successful;
-                ODL_LL1("status <- ", static_cast<int>(status)); //####
+                ODL_LL1("status <- ", toUType(status)); //####
             }
         }
     }
@@ -215,7 +212,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     {
         ODL_LOG("! (DataKind::Integer == (leadByte & DataKind::Mask))"); //####
         status = ReadStatus::Invalid;
-        ODL_LL1("status <- ", static_cast<int>(status)); //####
+        ODL_LL1("status <- ", toUType(status)); //####
     }
     ODL_EXIT_LL(result); //####
     return result;
@@ -239,7 +236,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
         status = ReadStatus::Invalid;
-        ODL_LL1("status <- ", static_cast<int>(status)); //####
+        ODL_LL1("status <- ", toUType(status)); //####
     }
     else
     {
@@ -249,7 +246,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
         {
             ODL_LOG("(nullptr == handler)"); //####
             status = ReadStatus::Invalid;
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
+            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {

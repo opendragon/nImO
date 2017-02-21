@@ -212,7 +212,7 @@ const
     std::string       result(_argName);
     std::stringstream buff;
 
-    buff << static_cast<int>(_argMode);
+    buff << toUType(_argMode);
     result += _parameterSeparator + tagForField + _parameterSeparator + buff.str();
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -437,7 +437,7 @@ nImO::ModeFromString(const std::string &modeString)
         int holder = modeAsInt;
 
         // Check that only the known bits are set!
-        holder &= ~static_cast<int>(ArgumentMode::Mask);
+        holder &= ~toUType(ArgumentMode::Mask);
         if (! holder)
         {
             // Only known bits were set.

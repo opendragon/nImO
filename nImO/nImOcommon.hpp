@@ -144,6 +144,17 @@
 #  define TRUE 1
 # endif // ! defined(TRUE)
 
+/*! @brief Return an enumerated value as its underlying type.
+ { From Effective Modern C++. }
+ @param[in] enumerator The value to be converted.
+ @returns The input value as its underlying type. */
+template<typename E>
+constexpr typename std::underlying_type<E>::type
+toUType(E enumerator) noexcept
+{
+    return static_cast<typename std::underlying_type<E>::type>(enumerator);
+} // toUType
+
 namespace nImO
 {
     // Forward declarations.
@@ -678,8 +689,7 @@ namespace nImO
     operator |(const DataKind leftValue,
                const DataKind rightValue)
     {
-        return static_cast<DataKind>(static_cast<uint8_t>(leftValue) |
-                                     static_cast<uint8_t>(rightValue));
+        return static_cast<DataKind>(toUType(leftValue) | toUType(rightValue));
     } // operator |
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
@@ -690,7 +700,7 @@ namespace nImO
     operator |(const DataKind leftValue,
                const uint8_t  rightValue)
     {
-        return static_cast<DataKind>(static_cast<uint8_t>(leftValue) | rightValue);
+        return static_cast<DataKind>(toUType(leftValue) | rightValue);
     } // operator |
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
@@ -701,7 +711,7 @@ namespace nImO
     operator |(const uint8_t  leftValue,
                const DataKind rightValue)
     {
-        return static_cast<DataKind>(leftValue | static_cast<uint8_t>(rightValue));
+        return static_cast<DataKind>(leftValue | toUType(rightValue));
     } // operator |
 
     /*! @brief Mask an unsigned byte with a DataKind mask.
@@ -712,7 +722,7 @@ namespace nImO
     operator &(const DataKind leftValue,
                const uint8_t  rightValue)
     {
-        return static_cast<DataKind>(static_cast<uint8_t>(leftValue) & rightValue);
+        return static_cast<DataKind>(toUType(leftValue) & rightValue);
     } // operator &
 
     /*! @brief Mask an unsigned byte with a DataKind mask.
@@ -723,7 +733,7 @@ namespace nImO
     operator &(const uint8_t  leftValue,
                const DataKind rightValue)
     {
-        return static_cast<DataKind>(leftValue & static_cast<uint8_t>(rightValue));
+        return static_cast<DataKind>(leftValue & toUType(rightValue));
     } // operator &
 
     /*! @brief The character that is used with 'blob' data formatting. */

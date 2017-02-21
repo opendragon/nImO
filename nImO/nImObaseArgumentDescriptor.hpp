@@ -250,8 +250,7 @@ namespace nImO
         const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
-                    (0 != (static_cast<int>(_argMode) &
-                           static_cast<int>(ArgumentMode::Modifiable))));
+                    (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
         } // isModifiable
 
         /*! @brief Return @c true if the argument is optional and @c false otherwise.
@@ -261,8 +260,7 @@ namespace nImO
         const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
-                    (0 != (static_cast<int>(_argMode) &
-                           static_cast<int>(ArgumentMode::Optional))));
+                    (0 != (toUType(_argMode) & toUType(ArgumentMode::Optional))));
         } // isOptional
 
         /*! @brief Return @c true if the argument is a password and @c false otherwise.
@@ -272,8 +270,7 @@ namespace nImO
         const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
-                    (0 != (static_cast<int>(_argMode) &
-                           static_cast<int>(ArgumentMode::Password))));
+                    (0 != (toUType(_argMode) & toUType(ArgumentMode::Password))));
         } // isPassword
 
         /*! @brief Return @c true if the argument is required and @c false otherwise.
@@ -283,8 +280,7 @@ namespace nImO
         const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
-                    (0 == (static_cast<int>(_argMode) &
-                           static_cast<int>(ArgumentMode::Optional))));
+                    (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
         } // isRequired
 
         /*! @brief Return @c true if the argument is valid and @c false otherwise.

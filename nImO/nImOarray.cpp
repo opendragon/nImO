@@ -252,7 +252,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
             status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
+            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
@@ -261,19 +261,19 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                                DataKind::OtherContainerTypeArray |
                                                DataKind::OtherContainerEmptyValue);
 
-            if (static_cast<uint8_t>(endMarker) == aByte)
+            if (toUType(endMarker) == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
                 result.reset(new Array);
                 status = ReadStatus::Successful;
                 ++position;
-                ODL_LL2("status <- ", static_cast<int>(status), "position <- ", position); //####
+                ODL_LL2("status <- ", toUType(status), "position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
                 status = ReadStatus::Invalid;
-                ODL_LL1("status <- ", static_cast<int>(status)); //####
+                ODL_LL1("status <- ", toUType(status)); //####
             }
         }
     }
@@ -286,7 +286,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         {
             ODL_LOG("(Message::kEndToken == aByte)"); //####
             status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
+            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
@@ -302,7 +302,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
                     status = ReadStatus::Invalid;
-                    ODL_LL1("status <- ", static_cast<int>(status)); //####
+                    ODL_LL1("status <- ", toUType(status)); //####
                 }
                 else
                 {
@@ -313,7 +313,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                     {
                         ODL_LOG("(nullptr == result)"); //####
                         status = ReadStatus::Invalid;
-                        ODL_LL1("status <- ", static_cast<int>(status)); //####
+                        ODL_LL1("status <- ", toUType(status)); //####
                     }
                     else
                     {
@@ -352,7 +352,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             {
                                 ODL_LOG("(Message::kEndToken == aByte)"); //####
                                 status = ReadStatus::Incomplete;
-                                ODL_LL1("status <- ", static_cast<int>(status)); //####
+                                ODL_LL1("status <- ", toUType(status)); //####
                                 okSoFar = false;
                             }
                             else
@@ -363,19 +363,19 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                                                DataKind::OtherContainerTypeArray |
                                                            DataKind::OtherContainerNonEmptyValue);
 
-                                if (static_cast<uint8_t>(endMarker) == aByte)
+                                if (toUType(endMarker) == aByte)
                                 {
-                                    ODL_LOG("(static_cast<uint8_t>(endMarker) == aByte)"); //####
+                                    ODL_LOG("(toUType(endMarker) == aByte)"); //####
                                     status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", static_cast<int>(status), //####
-                                            "position <- ", position); //####
+                                    ODL_LL2("status <- ", toUType(status), "position <- ", //####
+                                            position); //####
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (static_cast<uint8_t>(endMarker) == aByte)"); //####
+                                    ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     status = ReadStatus::Invalid;
-                                    ODL_LL1("status <- ", static_cast<int>(status)); //####
+                                    ODL_LL1("status <- ", toUType(status)); //####
                                     okSoFar = false;
                                 }
                             }

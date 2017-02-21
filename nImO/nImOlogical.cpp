@@ -206,7 +206,7 @@ nImO::Logical::extractValue(const nImO::Message &theMessage,
 
     ++position; // We will always accept the lead byte
     status = ReadStatus::Successful;
-    ODL_LL2("position <- ", position, "status <- ", static_cast<int>(status)); //####
+    ODL_LL2("position <- ", position, "status <- ", toUType(status)); //####
     if ((nullptr != parentValue) && (nullptr != result))
     {
         ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####

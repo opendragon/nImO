@@ -269,8 +269,7 @@ FilePathArgumentDescriptor::parseArgString(const std::string &inString)
             }
             tempString += suffixValue;
             okSoFar = checkFilePath(tempString.c_str(), forOutput,
-                                    0 == (static_cast<int>(argMode) &
-                                          static_cast<int>(ArgumentMode::Optional)));
+                                    0 == (toUType(argMode) & toUType(ArgumentMode::Optional)));
         }
         if (okSoFar)
         {

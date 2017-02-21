@@ -207,12 +207,12 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
     ODL_LL1("position <- ", position); //####
     if (isShort)
     {
-        howMany = static_cast<uint8_t>(DataKind::DoubleShortCountMask & leadByte) + 1;
+        howMany = toUType(DataKind::DoubleShortCountMask & leadByte) + 1;
         ODL_LL1("howMany <- ", howMany);
     }
     else
     {
-        size_t        size = static_cast<uint8_t>(DataKind::DoubleLongCountMask & leadByte) + 1;
+        size_t        size = toUType(DataKind::DoubleLongCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -224,7 +224,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
                 status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", static_cast<int>(status)); //####
+                ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -250,7 +250,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         NumberAsBytes holder;
 
         status = ReadStatus::Invalid;
-        ODL_LL1("status <- ", static_cast<int>(status)); //####
+        ODL_LL1("status <- ", toUType(status)); //####
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {
             for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
@@ -261,7 +261,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
                 {
                     ODL_LOG("(Message::kEndToken == aByte)"); //####
                     status = ReadStatus::Incomplete;
-                    ODL_LL1("status <- ", static_cast<int>(status)); //####
+                    ODL_LL1("status <- ", toUType(status)); //####
                     okSoFar = false;
                 }
                 else
@@ -288,7 +288,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             status = ReadStatus::Successful;
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
+            ODL_LL1("status <- ", toUType(status)); //####
         }
     }
     ODL_EXIT_P(result.get()); //####

@@ -289,14 +289,13 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
-        numBytes = static_cast<uint8_t>(DataKind::StringOrBlobShortLengthMask & leadByte);
+        numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
         status = ReadStatus::Successful;
-        ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
+        ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
     }
     else
     {
-        size_t        size = static_cast<uint8_t>(DataKind::IntegerLongValueCountMask & leadByte) +
-                             1;
+        size_t        size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
         NumberAsBytes holder;
         bool          okSoFar = true;
 
@@ -308,7 +307,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
                 status = ReadStatus::Incomplete;
-                ODL_LL1("status = ", static_cast<int>(status)); //####
+                ODL_LL1("status = ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -322,7 +321,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         {
             numBytes = B2I(holder, size);
             status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
         }
     }
     if (0 < numBytes)
@@ -338,7 +337,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(Message::kEndToken == aByte)"); //####
                 status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", static_cast<int>(status)); //####
+                ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -352,7 +351,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         {
             result.reset(new Blob(holder.get(), numBytes));
             status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", static_cast<int>(status)); //####
+            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
         }
         else
         {

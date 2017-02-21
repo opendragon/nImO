@@ -87,9 +87,19 @@ namespace nImO
                                   const std::string  &defaultValue,
                                   struct in_addr     *addrBuff = nullptr);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        AddressArgumentDescriptor(const AddressArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~AddressArgumentDescriptor(void);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        AddressArgumentDescriptor &
+        operator =(const AddressArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -101,21 +111,11 @@ namespace nImO
 
     private :
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        AddressArgumentDescriptor(const AddressArgumentDescriptor &other) = delete;
-
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual BaseArgumentDescriptor *
         clone(void)
         override;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        AddressArgumentDescriptor &
-        operator =(const AddressArgumentDescriptor &other) = delete;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */

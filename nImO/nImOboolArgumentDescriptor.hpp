@@ -84,6 +84,10 @@ namespace nImO
                                const ArgumentMode argMode,
                                const bool         defaultValue);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        BoolArgumentDescriptor(const BoolArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~BoolArgumentDescriptor(void);
@@ -107,6 +111,12 @@ namespace nImO
             return true;
         } // isLogical
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        BoolArgumentDescriptor &
+        operator =(const BoolArgumentDescriptor &other) = delete;
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
@@ -122,10 +132,6 @@ namespace nImO
         override;
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BoolArgumentDescriptor(const BoolArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -146,12 +152,6 @@ namespace nImO
         virtual std::string
         getProcessedValue(void)
         override;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        BoolArgumentDescriptor &
-        operator =(const BoolArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

@@ -75,6 +75,10 @@ namespace nImO
         /*! @brief The constructor. */
         Message(void);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        Message(const Message &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~Message(void);
@@ -114,6 +118,12 @@ namespace nImO
         Message &
         open(const bool forWriting);
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        Message &
+        operator =(const Message &other) = delete;
+
         /*! @brief Prepare the Message for reuse.
          @returns The Message object so that cascading can be done. */
         ChunkArray &
@@ -132,19 +142,9 @@ namespace nImO
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        Message(const Message &other) = delete;
-
         /*! @brief Acquire the object. */
         void
         lock(void);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        Message &
-        operator =(const Message &other) = delete;
 
         /*! @brief Release the object. */
         void

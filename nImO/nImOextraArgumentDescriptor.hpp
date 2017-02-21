@@ -85,9 +85,19 @@ namespace nImO
         ExtraArgumentDescriptor(const std::string &argName,
                                 const std::string &argDescription);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~ExtraArgumentDescriptor(void);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        ExtraArgumentDescriptor &
+        operator =(const ExtraArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -98,10 +108,6 @@ namespace nImO
     protected :
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -140,12 +146,6 @@ namespace nImO
         {
             return true;
         } // isExtra
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        ExtraArgumentDescriptor &
-        operator =(const ExtraArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

@@ -84,6 +84,10 @@ namespace nImO
                                  const ArgumentMode argMode,
                                  const std::string  &defaultValue);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        StringArgumentDescriptor(const StringArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~StringArgumentDescriptor(void);
@@ -96,6 +100,12 @@ namespace nImO
         {
             return _currentValue;
         } // getCurrentValue
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        StringArgumentDescriptor &
+        operator =(const StringArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -112,10 +122,6 @@ namespace nImO
         override;
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        StringArgumentDescriptor(const StringArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -136,12 +142,6 @@ namespace nImO
         virtual std::string
         getProcessedValue(void)
         override;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        StringArgumentDescriptor &
-        operator =(const StringArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

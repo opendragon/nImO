@@ -158,6 +158,10 @@ namespace nImO
                                const std::string  &argDescription,
                                const ArgumentMode argMode);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        BaseArgumentDescriptor(const BaseArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~BaseArgumentDescriptor(void);
@@ -292,6 +296,12 @@ namespace nImO
             return _valid;
         } // isValid
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        BaseArgumentDescriptor &
+        operator =(const BaseArgumentDescriptor &other) = delete;
+
         /*! @brief Set the associated variable to the default value. */
         virtual void
         setToDefaultValue(void) = 0;
@@ -341,16 +351,6 @@ namespace nImO
         suffixFields(const std::string &defaultToUse);
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BaseArgumentDescriptor(const BaseArgumentDescriptor &other) = delete;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        BaseArgumentDescriptor &
-        operator =(const BaseArgumentDescriptor &other) = delete;
 
     public :
 

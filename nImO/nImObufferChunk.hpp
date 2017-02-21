@@ -75,6 +75,10 @@ namespace nImO
          string. */
         BufferChunk(const bool addPadding);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        BufferChunk(const BufferChunk &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~BufferChunk(void);
@@ -116,6 +120,12 @@ namespace nImO
             return static_cast<size_t>(_write - _buffer.get());
         } // getDataSize
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        BufferChunk &
+        operator =(const BufferChunk &other) = delete;
+
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
@@ -126,16 +136,6 @@ namespace nImO
 
     private :
         // Private methods.
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BufferChunk(const BufferChunk &other) = delete;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        BufferChunk &
-        operator =(const BufferChunk &other) = delete;
 
     public :
         // Public fields.

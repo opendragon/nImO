@@ -75,6 +75,10 @@ namespace nImO
         /*! @brief The constructor. */
         StringBuffer(void);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        StringBuffer(const StringBuffer &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~StringBuffer(void);
@@ -158,6 +162,12 @@ namespace nImO
             return reinterpret_cast<const char *>(inherited::getBytes(length));
         } // getString
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        StringBuffer &
+        operator =(const StringBuffer &other) = delete;
+
         friend std::ostream &
         operator <<(std::ostream       &out,
                     const StringBuffer &aBuffer);
@@ -167,16 +177,6 @@ namespace nImO
 
     private :
         // Private methods.
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        StringBuffer(const StringBuffer &other) = delete;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        StringBuffer &
-        operator =(const StringBuffer &other) = delete;
 
         /*! @brief Add quotes and escapes to a string.
          @param[in] aString The string to be processed.

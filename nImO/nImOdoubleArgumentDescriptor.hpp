@@ -102,6 +102,10 @@ namespace nImO
                                  const bool         hasMaximumValue,
                                  const double       maximumValue);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        DoubleArgumentDescriptor(const DoubleArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~DoubleArgumentDescriptor(void);
@@ -115,6 +119,12 @@ namespace nImO
             return _currentValue;
         } // getCurrentValue
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        DoubleArgumentDescriptor &
+        operator =(const DoubleArgumentDescriptor &other) = delete;
+
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
@@ -124,10 +134,6 @@ namespace nImO
     protected :
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        DoubleArgumentDescriptor(const DoubleArgumentDescriptor &other) = delete;
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -154,12 +160,6 @@ namespace nImO
         virtual std::string
         getProcessedValue(void)
         override;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        DoubleArgumentDescriptor &
-        operator =(const DoubleArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

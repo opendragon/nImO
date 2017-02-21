@@ -99,9 +99,19 @@ namespace nImO
                                    const bool         forOutput = false,
                                    const bool         useRandomPath = false);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~FilePathArgumentDescriptor(void);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        FilePathArgumentDescriptor &
+        operator =(const FilePathArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -112,10 +122,6 @@ namespace nImO
     protected :
 
     private :
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other) = delete;
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
@@ -141,12 +147,6 @@ namespace nImO
             isForOutput = _forOutput;
             return true;
         } // isForFiles
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        FilePathArgumentDescriptor &
-        operator =(const FilePathArgumentDescriptor &other) = delete;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

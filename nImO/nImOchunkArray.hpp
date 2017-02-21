@@ -73,6 +73,10 @@ namespace nImO
          @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
         ChunkArray(const bool padWithNull = false);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        ChunkArray(const ChunkArray &other) = delete;
+
         /*! @brief The destructor. */
         virtual
         ~ChunkArray(void);
@@ -117,6 +121,12 @@ namespace nImO
         getLength(void)
         const;
 
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @returns The updated object. */
+        ChunkArray &
+        operator =(const ChunkArray &other) = delete;
+
         /*! @brief Prepare the buffer for reuse.
          @returns The ChunkArray object so that cascading can be done. */
         virtual ChunkArray &
@@ -127,16 +137,6 @@ namespace nImO
 
     private :
         // Private methods.
-
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ChunkArray(const ChunkArray &other) = delete;
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        ChunkArray &
-        operator =(const ChunkArray &other) = delete;
 
     public :
         // Public fields.

@@ -317,7 +317,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
             if (ReadStatus::Successful == status)
             {
                 ODL_LOG("(ReadStatus::Successful == status)"); //####
-                elementCount -= static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1;
+                elementCount -= DataKindIntegerShortValueMinValue - 1;
                 ODL_LL1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
@@ -823,8 +823,7 @@ const
                            static_cast<uint8_t>(DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
-        writeInt64ToMessage(outMessage, inherited2::size() +
-                            static_cast<int64_t>(DataKindIntegerShortValueMinValue) - 1);
+        writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
         for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
         {
             MapValue aValue = *walker;

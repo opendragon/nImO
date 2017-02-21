@@ -49,6 +49,8 @@
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6866F021CA4145E00849A76 /* nImOcontainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontainer.hpp; path = nImO/nImOcontainer.hpp; sourceTree = "<group>"; };
+		F6991C7F1E5C747A00678450 /* nImOlogical.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogical.cpp; path = nImO/nImOlogical.cpp; sourceTree = "<group>"; };
+		F6991C801E5C747A00678450 /* nImOlogical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOlogical.hpp; path = nImO/nImOlogical.hpp; sourceTree = "<group>"; };
 		F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessage.cpp; path = nImO/nImOmessage.cpp; sourceTree = "<group>"; };
 		F6A3C2251CCD3C7900CA5C76 /* nImOmessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOmessage.hpp; path = nImO/nImOmessage.hpp; sourceTree = "<group>"; };
 		F6A4A0551CD236BD005D1AF8 /* nImOmessageExtractTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessageExtractTest.cpp; path = Tests/nImOmessageExtractTest.cpp; sourceTree = "<group>"; };
@@ -107,8 +109,6 @@
 		F6EE0AC41CA2C7F4004748ED /* nImOatom.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOatom.hpp; path = nImO/nImOatom.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AC51CA2C7F4004748ED /* nImOblob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOblob.cpp; path = nImO/nImOblob.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AC61CA2C7F4004748ED /* nImOblob.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOblob.hpp; path = nImO/nImOblob.hpp; sourceTree = SOURCE_ROOT; };
-		F6EE0AC71CA2C7F4004748ED /* nImOboolean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOboolean.cpp; path = nImO/nImOboolean.cpp; sourceTree = SOURCE_ROOT; };
-		F6EE0AC81CA2C7F4004748ED /* nImOboolean.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOboolean.hpp; path = nImO/nImOboolean.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommon.cpp; path = nImO/nImOcommon.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ACA1CA2C7F4004748ED /* nImOcommon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcommon.hpp; path = nImO/nImOcommon.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ACB1CA2C7F4004748ED /* nImOconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOconfig.hpp; path = nImO/nImOconfig.hpp; sourceTree = SOURCE_ROOT; };
@@ -272,8 +272,6 @@
 				F60F864D1CA4B24C004D35AB /* nImObaseArgumentDescriptor.hpp */,
 				F6EE0AC51CA2C7F4004748ED /* nImOblob.cpp */,
 				F6EE0AC61CA2C7F4004748ED /* nImOblob.hpp */,
-				F6EE0AC71CA2C7F4004748ED /* nImOboolean.cpp */,
-				F6EE0AC81CA2C7F4004748ED /* nImOboolean.hpp */,
 				F60F864E1CA4B24C004D35AB /* nImOboolArgumentDescriptor.cpp */,
 				F60F864F1CA4B24C004D35AB /* nImOboolArgumentDescriptor.hpp */,
 				F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */,
@@ -304,6 +302,8 @@
 				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
 				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
 				F6C146291CD18D830045C291 /* nImOinteger.hpp */,
+				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
+				F6991C801E5C747A00678450 /* nImOlogical.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */,
 				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,

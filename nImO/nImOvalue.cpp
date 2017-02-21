@@ -439,11 +439,11 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_LL1("outValue = ", outValue); //####
-    if ((static_cast<int64_t>(DataKindIntegerShortValueMinValue) <= outValue) &&
-        (static_cast<int64_t>(DataKindIntegerShortValueMaxValue) >= outValue))
+    if ((DataKindIntegerShortValueMinValue <= outValue) &&
+        (DataKindIntegerShortValueMaxValue >= outValue))
     {
-        ODL_LOG("((static_cast<int64_t>(DataKindIntegerShortValueMinValue) <= outValue) && " //####
-                "(static_cast<int64_t>(DataKindIntegerShortValueMaxValue) >= outValue))"); //####
+        ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
+                "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
         uint8_t stuff = static_cast<uint8_t>(DataKind::Integer) + static_cast<uint8_t>(DataKind::IntegerShortValue) +
                         (outValue & static_cast<uint8_t>(DataKind::IntegerShortValueValueMask));
 
@@ -451,8 +451,8 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
     }
     else
     {
-        ODL_LOG("! ((static_cast<int64_t>(DataKindIntegerShortValueMinValue) <= outValue) && " //####
-                "(static_cast<int64_t>(DataKindIntegerShortValueMaxValue) >= outValue))"); //####
+        ODL_LOG("! ((DataKindIntegerShortValueMinValue <= outValue) && " //####
+                "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
         NumberAsBytes numBuff;
         size_t        numBytes = I2B(outValue, numBuff);
 

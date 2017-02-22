@@ -111,13 +111,13 @@
 # endif // ! defined(FALSE)
 
 /*! @brief The line length for command-line help output. */
-# define HELP_LINE_LENGTH_          250
+constexpr size_t HELP_LINE_LENGTH_ = 250;
 
 /*! @brief The largest IP port that is acceptable. */
-# define MAXIMUM_PORT_ALLOWED_      65535
+constexpr int MAXIMUM_PORT_ALLOWED_ = 65535;
 
 /*! @brief The smallest IP port that is acceptable. */
-# define MINIMUM_PORT_ALLOWED_      1024
+constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief The standard copyright holder name to use for m+m-created executables. */
 # define NIMO_COPYRIGHT_NAME_       "OpenDragon"
@@ -685,7 +685,7 @@ namespace nImO
      @param[in] leftValue The first value to be merged.
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
-    inline DataKind
+    inline constexpr DataKind
     operator |(const DataKind leftValue,
                const DataKind rightValue)
     {
@@ -696,7 +696,7 @@ namespace nImO
      @param[in] leftValue The first value to be merged.
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
-    inline DataKind
+    inline constexpr DataKind
     operator |(const DataKind leftValue,
                const uint8_t  rightValue)
     {
@@ -707,7 +707,7 @@ namespace nImO
      @param[in] leftValue The first value to be merged.
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
-    inline DataKind
+    inline constexpr DataKind
     operator |(const uint8_t  leftValue,
                const DataKind rightValue)
     {
@@ -718,7 +718,7 @@ namespace nImO
      @param[in] leftValue The first value to be combined.
      @param[in] rightValue The second value to be combined.
      @returns The result of the bit-wise masking of the two values. */
-    inline DataKind
+    inline constexpr DataKind
     operator &(const DataKind leftValue,
                const uint8_t  rightValue)
     {
@@ -729,7 +729,7 @@ namespace nImO
      @param[in] leftValue The first value to be combined.
      @param[in] rightValue The second value to be combined.
      @returns The result of the bit-wise masking of the two values. */
-    inline DataKind
+    inline constexpr DataKind
     operator &(const uint8_t  leftValue,
                const DataKind rightValue)
     {

@@ -306,7 +306,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    SpArray anArray(new Array);
+                    auto anArray(std::make_shared<Array>());
 
                     result = anArray;
                     if (nullptr == result)
@@ -591,7 +591,7 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool    done = false;
     bool    valid = false;
-    SpArray result(new Array);
+    auto    result(std::make_shared<Array>());
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++);
 

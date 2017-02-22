@@ -184,7 +184,7 @@ doTestEmptyArrayValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -263,7 +263,7 @@ doTestSingularArrayValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -280,7 +280,7 @@ doTestSingularArrayValue(const char *launchPath,
                 kEndArrayChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Double(123.45)));
+            stuff->addValue(std::make_shared<Double>(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -347,7 +347,7 @@ doTestSmallArrayValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -370,10 +370,10 @@ doTestSmallArrayValue(const char *launchPath,
                 kEndArrayChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new String("charlie")));
-            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Integer>(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -440,7 +440,7 @@ doTestBigArrayValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -465,7 +465,7 @@ doTestBigArrayValue(const char *launchPath,
                         expectedSquishedString += ' ';
                     }
                     bigBlob[ii] = aByte;
-                    stuff->addValue(SpValue(new Integer(aByte)));
+                    stuff->addValue(std::make_shared<Integer>(aByte));
                     snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
                     expectedString += numBuff;
                     snprintf(numBuff, sizeof(numBuff), "%d", aByte);
@@ -540,7 +540,7 @@ doTestEmptyMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -619,7 +619,7 @@ doTestSingularLogicalMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -638,8 +638,7 @@ doTestSingularLogicalMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)),
-                            SpValue(new Double(123.45)));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -706,7 +705,7 @@ doTestSingularIntegerMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -723,8 +722,7 @@ doTestSingularIntegerMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)),
-                            SpValue(new Double(123.45)));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -791,7 +789,7 @@ doTestSingularStringMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -810,8 +808,7 @@ doTestSingularStringMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("charlie")),
-                            SpValue(new Double(123.45)));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(123.45));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -878,7 +875,7 @@ doTestSmallLogicalMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -899,10 +896,8 @@ doTestSmallLogicalMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Logical(false)),
-                            SpValue(new Integer(42)));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(false), std::make_shared<Integer>(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -969,7 +964,7 @@ doTestSmallIntegerMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -990,12 +985,9 @@ doTestSmallIntegerMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Integer(17)),
-                            SpValue(new Double(12.345)));
-            stuff->addValue(SpValue(new Integer(12)),
-                            SpValue(new Double(1234.5)));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1062,7 +1054,7 @@ doTestSmallStringMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -1089,12 +1081,9 @@ doTestSmallStringMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("delta")),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new String("lima")),
-                            SpValue(new Double(12.345)));
-            stuff->addValue(SpValue(new String("charlie")),
-                            SpValue(new Double(1234.5)));
+            stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1161,7 +1150,7 @@ doTestEmptySetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1240,7 +1229,7 @@ doTestSingularLogicalSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1257,7 +1246,7 @@ doTestSingularLogicalSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)));
+            stuff->addValue(std::make_shared<Logical>(true));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1324,7 +1313,7 @@ doTestSingularIntegerSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1341,7 +1330,7 @@ doTestSingularIntegerSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)));
+            stuff->addValue(std::make_shared<Integer>(42));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1408,7 +1397,7 @@ doTestSingularStringSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1425,7 +1414,7 @@ doTestSingularStringSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("charlie")));
+            stuff->addValue(std::make_shared<String>("charlie"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1492,7 +1481,7 @@ doTestSmallLogicalSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1511,10 +1500,10 @@ doTestSmallLogicalSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new Logical(false)));
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new Logical(false)));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Logical>(false));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Logical>(false));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1581,7 +1570,7 @@ doTestSmallIntegerSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1604,14 +1593,14 @@ doTestSmallIntegerSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(123)));
-            stuff->addValue(SpValue(new Integer(42)));
-            stuff->addValue(SpValue(new Integer(17)));
-            stuff->addValue(SpValue(new Integer(12)));
-            stuff->addValue(SpValue(new Integer(123)));
-            stuff->addValue(SpValue(new Integer(42)));
-            stuff->addValue(SpValue(new Integer(17)));
-            stuff->addValue(SpValue(new Integer(12)));
+            stuff->addValue(std::make_shared<Integer>(123));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Integer>(17));
+            stuff->addValue(std::make_shared<Integer>(12));
+            stuff->addValue(std::make_shared<Integer>(123));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Integer>(17));
+            stuff->addValue(std::make_shared<Integer>(12));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1678,7 +1667,7 @@ doTestSmallStringSetValue(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -1701,14 +1690,14 @@ doTestSmallStringSetValue(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("gamma")));
-            stuff->addValue(SpValue(new String("alpha")));
-            stuff->addValue(SpValue(new String("delta")));
-            stuff->addValue(SpValue(new String("beta")));
-            stuff->addValue(SpValue(new String("gamma")));
-            stuff->addValue(SpValue(new String("alpha")));
-            stuff->addValue(SpValue(new String("delta")));
-            stuff->addValue(SpValue(new String("beta")));
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1775,7 +1764,7 @@ doTestArrayWithArrayValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -1792,7 +1781,7 @@ doTestArrayWithArrayValue(const char *launchPath,
                 kEndArrayChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Array));
+            stuff->addValue(std::make_shared<Array>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1859,7 +1848,7 @@ doTestArrayWithMapValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -1876,7 +1865,7 @@ doTestArrayWithMapValue(const char *launchPath,
                 kEndArrayChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Map));
+            stuff->addValue(std::make_shared<Map>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -1943,7 +1932,7 @@ doTestArrayWithSetValue(const char *launchPath,
 
     try
     {
-        UpArray stuff(new Array);
+        auto stuff(make_unique<Array>());
 
         if (stuff)
         {
@@ -1960,7 +1949,7 @@ doTestArrayWithSetValue(const char *launchPath,
                 kEndArrayChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Set));
+            stuff->addValue(std::make_shared<Set>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2027,7 +2016,7 @@ doTestMapWithArrayValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2046,7 +2035,7 @@ doTestMapWithArrayValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)), SpValue(new Array()));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Array>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2113,7 +2102,7 @@ doTestMapWithMapValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2132,7 +2121,7 @@ doTestMapWithMapValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)), SpValue(new Map()));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Map>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2199,7 +2188,7 @@ doTestMapWithSetValue(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2218,7 +2207,7 @@ doTestMapWithSetValue(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)), SpValue(new Set()));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Set>());
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2285,7 +2274,7 @@ doTestLogicalMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2304,14 +2293,10 @@ doTestLogicalMapValueWithIncompatibleKeys(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Integer(42)),
-                            SpValue(new Double(12.345)));
-            stuff->addValue(SpValue(new Double(19.77)),
-                            SpValue(new Double(1.2345)));
-            stuff->addValue(SpValue(new String("zebra")),
-                            SpValue(new Double(1234.5)));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Double>(19.77), std::make_shared<Double>(1.2345));
+            stuff->addValue(std::make_shared<String>("zebra"), std::make_shared<Double>(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2378,7 +2363,7 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2395,14 +2380,10 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Logical(true)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Double(19.77)),
-                            SpValue(new Double(1.2345)));
-            stuff->addValue(SpValue(new String("zebra")),
-                            SpValue(new Double(1234.5)));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Double>(19.77), std::make_shared<Double>(1.2345));
+            stuff->addValue(std::make_shared<String>("zebra"), std::make_shared<Double>(1234.5));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2469,7 +2450,7 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpMap stuff(new Map);
+        auto stuff(make_unique<Map>());
 
         if (stuff)
         {
@@ -2488,14 +2469,10 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
                 kEndMapChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("charlie")),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Logical(true)),
-                            SpValue(new Double(123.45)));
-            stuff->addValue(SpValue(new Integer(42)),
-                            SpValue(new Double(12.345)));
-            stuff->addValue(SpValue(new Double(19.77)),
-                            SpValue(new Double(1.2345)));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Double>(19.77), std::make_shared<Double>(1.2345));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2562,7 +2539,7 @@ doTestLogicalSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -2579,10 +2556,10 @@ doTestLogicalSetValueWithIncompatibleKeys(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new Integer(42)));
-            stuff->addValue(SpValue(new Double(19.77)));
-            stuff->addValue(SpValue(new String("zebra")));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2649,7 +2626,7 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -2666,10 +2643,10 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new Integer(42)));
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new Double(19.77)));
-            stuff->addValue(SpValue(new String("zebra")));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2736,7 +2713,7 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
 
     try
     {
-        UpSet stuff(new Set);
+        auto stuff(make_unique<Set>());
 
         if (stuff)
         {
@@ -2753,10 +2730,10 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
                 kEndSetChar, '\0'
             };
 
-            stuff->addValue(SpValue(new String("charlie")));
-            stuff->addValue(SpValue(new Logical(true)));
-            stuff->addValue(SpValue(new Integer(42)));
-            stuff->addValue(SpValue(new Double(19.77)));
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Double>(19.77));
             if (0 == compareValueWithString(*stuff, expectedString))
             {
                 result = 0;
@@ -2854,9 +2831,9 @@ doTestValidArrayCompares(const char *launchPath,
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
 
-        stuff.addValue(SpValue(new Logical(true)));
-        stuff.addValue(SpValue(new Logical(true)));
-        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -3021,9 +2998,9 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(SpValue(new Logical(false)));
-            stuff.addValue(SpValue(new Logical(false)));
-            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -3226,11 +3203,11 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
 
             stuff.clear();
-            stuff.addValue(SpValue(new Double(123.45)));
-            stuff.addValue(SpValue(new Double(200.0)));
-            stuff.addValue(SpValue(new Double(-25.0)));
-            stuff.addValue(SpValue(new Double(-60.0)));
-            stuff.addValue(SpValue(new Double(0.0)));
+            stuff.addValue(std::make_shared<Double>(123.45));
+            stuff.addValue(std::make_shared<Double>(200.0));
+            stuff.addValue(std::make_shared<Double>(-25.0));
+            stuff.addValue(std::make_shared<Double>(-60.0));
+            stuff.addValue(std::make_shared<Double>(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
                 bool         valid = false;
@@ -3421,9 +3398,9 @@ doTestValidArrayCompares(const char *launchPath,
             const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
 
             stuff.clear();
-            stuff.addValue(SpValue(new String("abc")));
-            stuff.addValue(SpValue(new String("def")));
-            stuff.addValue(SpValue(new String("ghi")));
+            stuff.addValue(std::make_shared<String>("abc"));
+            stuff.addValue(std::make_shared<String>("def"));
+            stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
                 bool         valid = false;
@@ -3650,12 +3627,9 @@ doTestValidLogicalMapCompares(const char *launchPath,
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Map           stuff;
 
-        stuff.addValue(SpValue(new Logical(true)),
-                       SpValue(new String("abc")));
-        stuff.addValue(SpValue(new Logical(true)),
-                       SpValue(new String("def")));
-        stuff.addValue(SpValue(new Logical(true)),
-                       SpValue(new String("ghi")));
+        stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
+        stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("def"));
+        stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -3820,12 +3794,9 @@ doTestValidLogicalMapCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(SpValue(new Logical(false)),
-                           SpValue(new String("abc")));
-            stuff.addValue(SpValue(new Logical(false)),
-                           SpValue(new String("def")));
-            stuff.addValue(SpValue(new Logical(false)),
-                           SpValue(new String("ghi")));
+            stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("abc"));
+            stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("def"));
+            stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -4071,16 +4042,11 @@ doTestValidIntegerMapCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Map          stuff;
 
-        stuff.addValue(SpValue(new Integer(123)),
-                       SpValue(new String("abc")));
-        stuff.addValue(SpValue(new Integer(200)),
-                       SpValue(new String("def")));
-        stuff.addValue(SpValue(new Integer(-25)),
-                       SpValue(new String("ghi")));
-        stuff.addValue(SpValue(new Integer(-60)),
-                       SpValue(new String("jkl")));
-        stuff.addValue(SpValue(new Integer(0)),
-                       SpValue(new String("mno")));
+        stuff.addValue(std::make_shared<Integer>(123), std::make_shared<String>("abc"));
+        stuff.addValue(std::make_shared<Integer>(200), std::make_shared<String>("def"));
+        stuff.addValue(std::make_shared<Integer>(-25), std::make_shared<String>("ghi"));
+        stuff.addValue(std::make_shared<Integer>(-60), std::make_shared<String>("jkl"));
+        stuff.addValue(std::make_shared<Integer>(0), std::make_shared<String>("mno"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -4308,12 +4274,9 @@ doTestValidStringMapCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Map          stuff;
 
-        stuff.addValue(SpValue(new String("abc")),
-                       SpValue(new String("123")));
-        stuff.addValue(SpValue(new String("def")),
-                       SpValue(new String("456")));
-        stuff.addValue(SpValue(new String("ghi")),
-                       SpValue(new String("789")));
+        stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
+        stuff.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
+        stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
@@ -4535,9 +4498,9 @@ doTestValidLogicalSetCompares(const char *launchPath,
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Set           stuff;
 
-        stuff.addValue(SpValue(new Logical(true)));
-        stuff.addValue(SpValue(new Logical(true)));
-        stuff.addValue(SpValue(new Logical(true)));
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -4702,9 +4665,9 @@ doTestValidLogicalSetCompares(const char *launchPath,
             const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
 
             stuff.clear();
-            stuff.addValue(SpValue(new Logical(false)));
-            stuff.addValue(SpValue(new Logical(false)));
-            stuff.addValue(SpValue(new Logical(false)));
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 bool          valid = false;
@@ -4950,11 +4913,11 @@ doTestValidIntegerSetCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Set          stuff;
 
-        stuff.addValue(SpValue(new Integer(123)));
-        stuff.addValue(SpValue(new Integer(200)));
-        stuff.addValue(SpValue(new Integer(-25)));
-        stuff.addValue(SpValue(new Integer(-60)));
-        stuff.addValue(SpValue(new Integer(0)));
+        stuff.addValue(std::make_shared<Integer>(123));
+        stuff.addValue(std::make_shared<Integer>(200));
+        stuff.addValue(std::make_shared<Integer>(-25));
+        stuff.addValue(std::make_shared<Integer>(-60));
+        stuff.addValue(std::make_shared<Integer>(0));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool          valid = false;
@@ -5182,9 +5145,9 @@ doTestValidStringSetCompares(const char *launchPath,
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
         Set          stuff;
 
-        stuff.addValue(SpValue(new String("abc")));
-        stuff.addValue(SpValue(new String("def")));
-        stuff.addValue(SpValue(new String("ghi")));
+        stuff.addValue(std::make_shared<String>("abc"));
+        stuff.addValue(std::make_shared<String>("def"));
+        stuff.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             bool         valid = false;
@@ -5392,9 +5355,9 @@ doTestInvalidArrayCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new Logical));
-        leftValue.addValue(SpValue(new Number));
-        leftValue.addValue(SpValue(new String));
+        leftValue.addValue(std::make_shared<Logical>());
+        leftValue.addValue(std::make_shared<Number>());
+        leftValue.addValue(std::make_shared<String>());
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -5515,10 +5478,8 @@ doTestInvalidLogicalMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new Logical(false)),
-                           SpValue(new String("false")));
-        leftValue.addValue(SpValue(new Logical(true)),
-                           SpValue(new String("true")));
+        leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
+        leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -5637,12 +5598,9 @@ doTestInvalidIntegerMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new Integer(42)),
-                           SpValue(new Double(123.45)));
-        leftValue.addValue(SpValue(new Integer(17)),
-                           SpValue(new Double(12.345)));
-        leftValue.addValue(SpValue(new Integer(12)),
-                           SpValue(new Double(1234.5)));
+        leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+        leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
+        leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -5763,12 +5721,9 @@ doTestInvalidStringMapCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new String("abc")),
-                           SpValue(new String("123")));
-        leftValue.addValue(SpValue(new String("def")),
-                           SpValue(new String("456")));
-        leftValue.addValue(SpValue(new String("ghi")),
-                           SpValue(new String("789")));
+        leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
+        leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
+        leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -5889,8 +5844,8 @@ doTestInvalidLogicalSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new Logical(false)));
-        leftValue.addValue(SpValue(new Logical(true)));
+        leftValue.addValue(std::make_shared<Logical>(false));
+        leftValue.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -6009,9 +5964,9 @@ doTestInvalidIntegerSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new Integer(42)));
-        leftValue.addValue(SpValue(new Integer(17)));
-        leftValue.addValue(SpValue(new Integer(12)));
+        leftValue.addValue(std::make_shared<Integer>(42));
+        leftValue.addValue(std::make_shared<Integer>(17));
+        leftValue.addValue(std::make_shared<Integer>(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -6132,9 +6087,9 @@ doTestInvalidStringSetCompares(const char *launchPath,
         };
         const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
-        leftValue.addValue(SpValue(new String("abc")));
-        leftValue.addValue(SpValue(new String("def")));
-        leftValue.addValue(SpValue(new String("ghi")));
+        leftValue.addValue(std::make_shared<String>("abc"));
+        leftValue.addValue(std::make_shared<String>("def"));
+        leftValue.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value &aRightValue = *rightValues[ii];
@@ -6367,11 +6322,11 @@ doTestLogicalMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        SpString      falseString(new String("false"));
+        auto          falseString(std::make_shared<String>("false"));
         SpString      trueString;
 
-        stuff.addValue(SpValue(new Logical(false)), falseString);
-        iter = stuff.find(SpValue(new Logical(true)));
+        stuff.addValue(std::make_shared<Logical>(false), falseString);
+        iter = stuff.find(std::make_shared<Logical>(true));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6379,7 +6334,7 @@ doTestLogicalMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical(false)));
+            iter = stuff.find(std::make_shared<Logical>(false));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6393,7 +6348,7 @@ doTestLogicalMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical(true)));
+            iter = stuff.find(std::make_shared<Logical>(true));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6403,8 +6358,8 @@ doTestLogicalMapSearches(const char *launchPath,
         if (0 == result)
         {
             trueString.reset(new String("true"));
-            stuff.addValue(SpValue(new Logical(true)), trueString);
-            iter = stuff.find(SpValue(new Logical(true)));
+            stuff.addValue(std::make_shared<Logical>(true), trueString);
+            iter = stuff.find(std::make_shared<Logical>(true));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6418,7 +6373,7 @@ doTestLogicalMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer()));
+            iter = stuff.find(std::make_shared<Integer>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6427,7 +6382,7 @@ doTestLogicalMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String()));
+            iter = stuff.find(std::make_shared<String>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6480,11 +6435,11 @@ doTestIntegerMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        SpString      string17(new String("17"));
+        auto          string17(std::make_shared<String>("17"));
         SpString      string12;
 
-        stuff.addValue(SpValue(new Integer(17)), string17);
-        iter = stuff.find(SpValue(new Integer(12)));
+        stuff.addValue(std::make_shared<Integer>(17), string17);
+        iter = stuff.find(std::make_shared<Integer>(12));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6492,7 +6447,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer(17)));
+            iter = stuff.find(std::make_shared<Integer>(17));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6506,7 +6461,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer(12)));
+            iter = stuff.find(std::make_shared<Integer>(12));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6516,8 +6471,8 @@ doTestIntegerMapSearches(const char *launchPath,
         if (0 == result)
         {
             string12.reset(new String("12"));
-            stuff.addValue(SpValue(new Integer(12)), string12);
-            iter = stuff.find(SpValue(new Integer(12)));
+            stuff.addValue(std::make_shared<Integer>(12), string12);
+            iter = stuff.find(std::make_shared<Integer>(12));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6531,7 +6486,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical()));
+            iter = stuff.find(std::make_shared<Logical>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6540,7 +6495,7 @@ doTestIntegerMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String()));
+            iter = stuff.find(std::make_shared<String>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6593,11 +6548,11 @@ doTestStringMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        SpString      stringOneSeven(new String("17"));
+        auto          stringOneSeven(std::make_shared<String>("17"));
         SpString      stringOneTwo;
 
-        stuff.addValue(SpValue(new String("abc")), stringOneSeven);
-        iter = stuff.find(SpValue(new String("def")));
+        stuff.addValue(std::make_shared<String>("abc"), stringOneSeven);
+        iter = stuff.find(std::make_shared<String>("def"));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6605,7 +6560,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String("abc")));
+            iter = stuff.find(std::make_shared<String>("abc"));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6619,7 +6574,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String("def")));
+            iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6629,8 +6584,8 @@ doTestStringMapSearches(const char *launchPath,
         if (0 == result)
         {
             stringOneTwo.reset(new String("12"));
-            stuff.addValue(SpValue(new String("def")), stringOneTwo);
-            iter = stuff.find(SpValue(new String("def")));
+            stuff.addValue(std::make_shared<String>("def"), stringOneTwo);
+            iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6644,7 +6599,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical()));
+            iter = stuff.find(std::make_shared<Logical>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6653,7 +6608,7 @@ doTestStringMapSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer()));
+            iter = stuff.find(std::make_shared<Integer>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6707,8 +6662,8 @@ doTestLogicalSetSearches(const char *launchPath,
         Set           stuff;
         Set::iterator iter;
 
-        stuff.addValue(SpValue(new Logical(false)));
-        iter = stuff.find(SpValue(new Logical(true)));
+        stuff.addValue(std::make_shared<Logical>(false));
+        iter = stuff.find(std::make_shared<Logical>(true));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6716,7 +6671,7 @@ doTestLogicalSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical(false)));
+            iter = stuff.find(std::make_shared<Logical>(false));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6725,7 +6680,7 @@ doTestLogicalSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical(true)));
+            iter = stuff.find(std::make_shared<Logical>(true));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6734,8 +6689,8 @@ doTestLogicalSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(SpValue(new Logical(true)));
-            iter = stuff.find(SpValue(new Logical(true)));
+            stuff.addValue(std::make_shared<Logical>(true));
+            iter = stuff.find(std::make_shared<Logical>(true));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6744,7 +6699,7 @@ doTestLogicalSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer()));
+            iter = stuff.find(std::make_shared<Integer>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6753,7 +6708,7 @@ doTestLogicalSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String()));
+            iter = stuff.find(std::make_shared<String>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6807,8 +6762,8 @@ doTestIntegerSetSearches(const char *launchPath,
         Set           stuff;
         Set::iterator iter;
 
-        stuff.addValue(SpValue(new Integer(17)));
-        iter = stuff.find(SpValue(new Integer(12)));
+        stuff.addValue(std::make_shared<Integer>(17));
+        iter = stuff.find(std::make_shared<Integer>(12));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6816,7 +6771,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer(17)));
+            iter = stuff.find(std::make_shared<Integer>(17));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6825,7 +6780,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer(12)));
+            iter = stuff.find(std::make_shared<Integer>(12));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6834,8 +6789,8 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(SpValue(new Integer(12)));
-            iter = stuff.find(SpValue(new Integer(12)));
+            stuff.addValue(std::make_shared<Integer>(12));
+            iter = stuff.find(std::make_shared<Integer>(12));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6844,7 +6799,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical()));
+            iter = stuff.find(std::make_shared<Logical>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6853,7 +6808,7 @@ doTestIntegerSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String()));
+            iter = stuff.find(std::make_shared<String>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6907,8 +6862,8 @@ doTestStringSetSearches(const char *launchPath,
         Set           stuff;
         Set::iterator iter;
 
-        stuff.addValue(SpValue(new String("abc")));
-        iter = stuff.find(SpValue(new String("def")));
+        stuff.addValue(std::make_shared<String>("abc"));
+        iter = stuff.find(std::make_shared<String>("def"));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -6916,7 +6871,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String("abc")));
+            iter = stuff.find(std::make_shared<String>("abc"));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6925,7 +6880,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new String("def")));
+            iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6934,8 +6889,8 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            stuff.addValue(SpValue(new String("def")));
-            iter = stuff.find(SpValue(new String("def")));
+            stuff.addValue(std::make_shared<String>("def"));
+            iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####
@@ -6944,7 +6899,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Logical()));
+            iter = stuff.find(std::make_shared<Logical>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####
@@ -6953,7 +6908,7 @@ doTestStringSetSearches(const char *launchPath,
         }
         if (0 == result)
         {
-            iter = stuff.find(SpValue(new Integer()));
+            iter = stuff.find(std::make_shared<Integer>());
             if (stuff.end() != iter)
             {
                 ODL_LOG("(stuff.end() != iter)"); //####

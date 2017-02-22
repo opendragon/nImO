@@ -310,7 +310,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    SpSet aSet(new Set);
+                    auto aSet(std::make_shared<Set>());
 
                     result = aSet;
                     if (nullptr == result)
@@ -640,7 +640,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool   done = false;
     bool   valid = false;
-    SpSet  result(new Set);
+    auto   result(std::make_shared<Set>());
     size_t localIndex = position;
     int    aChar = inBuffer.getChar(localIndex++);
 

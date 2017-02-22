@@ -328,7 +328,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    SpMap aMap(new Map);
+                    auto aMap(std::make_shared<Map>());
 
                     result = aMap;
                     if (nullptr == result)
@@ -688,7 +688,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool   done = false;
     bool   valid = false;
-    SpMap  result(new Map);
+    auto   result(std::make_shared<Map>());
     size_t localIndex = position;
     int    aChar = inBuffer.getChar(localIndex++);
 

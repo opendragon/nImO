@@ -162,7 +162,7 @@ doTestEmptyBufferChunk(const char *launchPath,
 
     try
     {
-        UpBufferChunk stuff(new BufferChunk(false));
+        auto stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -223,7 +223,7 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
 
     try
     {
-        UpBufferChunk stuff(new BufferChunk(false));
+        auto stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -296,7 +296,7 @@ doTestFilledBufferChunk(const char *launchPath,
 
     try
     {
-        UpBufferChunk stuff(new BufferChunk(false));
+        auto stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -395,7 +395,7 @@ doTestOverfilledBufferChunk(const char *launchPath,
 
     try
     {
-        UpBufferChunk stuff(new BufferChunk(false));
+        auto stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -494,7 +494,7 @@ doTestBufferChunkReset(const char *launchPath,
 
     try
     {
-        UpBufferChunk stuff(new BufferChunk(false));
+        auto stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -566,7 +566,7 @@ doTestEmptyStringBuffer(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -646,10 +646,10 @@ doTestStringBufferWithCharacters(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char           *inString = *argv;
-            const char           *outString = argv[1];
-            size_t               outLength = strlen(outString);
-            UpStringBuffer stuff(new StringBuffer);
+            const char *inString = *argv;
+            const char *outString = argv[1];
+            size_t     outLength = strlen(outString);
+            auto       stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
@@ -735,7 +735,7 @@ doTestStringBufferWithLogical(const char *launchPath,
 
             if (ConvertToLong(*argv, value) && (0 <= value))
             {
-                UpStringBuffer stuff(new StringBuffer);
+                auto stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
@@ -815,7 +815,7 @@ doTestStringBufferWithInteger(const char *launchPath,
 
             if (ConvertToLong(*argv, value))
             {
-                UpStringBuffer stuff(new StringBuffer);
+                auto stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
@@ -888,10 +888,10 @@ doTestStringBufferWithString(const char *launchPath,
     {
         if (1 < argc)
         {
-            const char           *inString = *argv;
-            const char           *outString = argv[1];
-            size_t               outLength = strlen(outString);
-            UpStringBuffer stuff(new StringBuffer);
+            const char *inString = *argv;
+            const char *outString = argv[1];
+            size_t     outLength = strlen(outString);
+            auto       stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
@@ -970,10 +970,10 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
 
     try
     {
-        const char           *inString = "abc\tdef\f\rghi\302";
-        const char           *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t               outLength = strlen(outString);
-        UpStringBuffer stuff(new StringBuffer);
+        const char *inString = "abc\tdef\f\rghi\302";
+        const char *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t     outLength = strlen(outString);
+        auto       stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1053,7 +1053,7 @@ doTestStringBufferWithDouble(const char *launchPath,
 
             if (ConvertToDouble(*argv, value))
             {
-                UpStringBuffer stuff(new StringBuffer);
+                auto stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
@@ -1132,7 +1132,7 @@ doTestBigStringBuffer(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1213,7 +1213,7 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1279,7 +1279,7 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1376,7 +1376,7 @@ doTestStringBufferWithBigBlob(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1473,7 +1473,7 @@ doTestStringBufferReset(const char *launchPath,
 
     try
     {
-        UpStringBuffer stuff(new StringBuffer);
+        auto stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -1851,7 +1851,7 @@ doTestDefaultStringValue(const char *launchPath,
 
     try
     {
-        UpString stuff(new String);
+        auto stuff(make_unique<String>());
 
         if (stuff)
         {
@@ -1914,7 +1914,7 @@ doTestStringValue(const char *launchPath,
     {
         if (1 < argc)
         {
-            UpString stuff(new String(*argv));
+            auto stuff(make_unique<String>(*argv));
 
             if (stuff)
             {
@@ -1980,9 +1980,9 @@ doTestStringValueWithEscapes(const char *launchPath,
 
     try
     {
-        const char     *inString = "abc\tdef\f\rghi\302";
-        const char     *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        UpString stuff(new String(inString));
+        const char *inString = "abc\tdef\f\rghi\302";
+        const char *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        auto       stuff(make_unique<String>(inString));
 
         if (stuff)
         {

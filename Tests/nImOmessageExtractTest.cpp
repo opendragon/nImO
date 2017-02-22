@@ -229,7 +229,7 @@ doTestEmptyMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -328,7 +328,7 @@ doTestLogicalMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -427,7 +427,7 @@ doTestTinyIntegerMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -550,7 +550,7 @@ doTestShortIntegerMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -651,7 +651,7 @@ doTestMediumIntegerMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -754,7 +754,7 @@ doTestBigIntegerMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -859,7 +859,7 @@ doTestEmptyStringMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -935,7 +935,7 @@ doTestShortStringMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1014,7 +1014,7 @@ doTestMediumStringMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1112,7 +1112,7 @@ doTestEmptyBlobMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1188,7 +1188,7 @@ doTestShortBlobMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1272,7 +1272,7 @@ doTestMediumBlobMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1381,7 +1381,7 @@ doTestSingleFloatMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1490,7 +1490,7 @@ doTestEmptyArrayMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1570,7 +1570,7 @@ doTestEmptyMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1650,7 +1650,7 @@ doTestEmptySetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1730,7 +1730,7 @@ doTestArrayOneLogicalMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1767,7 +1767,7 @@ doTestArrayOneLogicalMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayOneLogical));
             Array  arrayOneLogical;
 
-            arrayOneLogical.addValue(SpValue(new Logical));
+            arrayOneLogical.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical,
                                           insertedArrayOneLogicalCount, arrayOneLogical);
         }
@@ -1819,7 +1819,7 @@ doTestArrayOneIntegerMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1856,7 +1856,7 @@ doTestArrayOneIntegerMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayOneInteger));
             Array  arrayOneInteger;
 
-            arrayOneInteger.addValue(SpValue(new Integer));
+            arrayOneInteger.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger,
                                           insertedArrayOneIntegerCount, arrayOneInteger);
         }
@@ -1908,7 +1908,7 @@ doTestArrayOneDoubleMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -1950,7 +1950,7 @@ doTestArrayOneDoubleMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayOneDouble));
             Array  arrayOneDouble;
 
-            arrayOneDouble.addValue(SpValue(new Double));
+            arrayOneDouble.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble,
                                           insertedArrayOneDoubleCount, arrayOneDouble);
         }
@@ -2002,7 +2002,7 @@ doTestArrayOneStringMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2040,7 +2040,7 @@ doTestArrayOneStringMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayOneString));
             Array  arrayOneString;
 
-            arrayOneString.addValue(SpValue(new String));
+            arrayOneString.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString,
                                           insertedArrayOneStringCount, arrayOneString);
         }
@@ -2092,7 +2092,7 @@ doTestArrayOneBlobMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2130,7 +2130,7 @@ doTestArrayOneBlobMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayOneBlob));
             Array  arrayOneBlob;
 
-            arrayOneBlob.addValue(SpValue(new Blob));
+            arrayOneBlob.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob,
                                           insertedArrayOneBlobCount, arrayOneBlob);
         }
@@ -2182,7 +2182,7 @@ doTestArrayOneArrayMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2224,7 +2224,7 @@ doTestArrayOneArrayMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayOneArray));
             Array  arrayOneArray;
 
-            arrayOneArray.addValue(SpValue(new Array));
+            arrayOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray,
                                           insertedArrayOneArrayCount, arrayOneArray);
         }
@@ -2276,7 +2276,7 @@ doTestArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2318,7 +2318,7 @@ doTestArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneMap));
             Array  arrayOneMap;
 
-            arrayOneMap.addValue(SpValue(new Map));
+            arrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap,
                                           insertedArrayOneMapCount, arrayOneMap);
         }
@@ -2370,7 +2370,7 @@ doTestArrayOneSetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2412,7 +2412,7 @@ doTestArrayOneSetMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneSet));
             Array  arrayOneSet;
 
-            arrayOneSet.addValue(SpValue(new Set));
+            arrayOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet,
                                           insertedArrayOneSetCount, arrayOneSet);
         }
@@ -2464,7 +2464,7 @@ doTestArrayTwoLogicalsMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2504,8 +2504,8 @@ doTestArrayTwoLogicalsMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoLogicals));
             Array  arrayTwoLogicals;
 
-            arrayTwoLogicals.addValue(SpValue(new Logical));
-            arrayTwoLogicals.addValue(SpValue(new Logical));
+            arrayTwoLogicals.addValue(std::make_shared<Logical>());
+            arrayTwoLogicals.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals,
                                           insertedArrayTwoLogicalsCount, arrayTwoLogicals);
         }
@@ -2557,7 +2557,7 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2598,8 +2598,8 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoIntegers));
             Array  arrayTwoIntegers;
 
-            arrayTwoIntegers.addValue(SpValue(new Integer));
-            arrayTwoIntegers.addValue(SpValue(new Integer));
+            arrayTwoIntegers.addValue(std::make_shared<Integer>());
+            arrayTwoIntegers.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers,
                                           insertedArrayTwoIntegersCount, arrayTwoIntegers);
         }
@@ -2651,7 +2651,7 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2697,8 +2697,8 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoDoubles));
             Array  arrayTwoDoubles;
 
-            arrayTwoDoubles.addValue(SpValue(new Double));
-            arrayTwoDoubles.addValue(SpValue(new Double));
+            arrayTwoDoubles.addValue(std::make_shared<Double>());
+            arrayTwoDoubles.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles,
                                           insertedArrayTwoDoublesCount, arrayTwoDoubles);
         }
@@ -2750,7 +2750,7 @@ doTestArrayTwoStringsMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2792,8 +2792,8 @@ doTestArrayTwoStringsMessage(const char *launchPath,
                                                          sizeof(*insertedBytesForArrayTwoStrings));
             Array  arrayTwoStrings;
 
-            arrayTwoStrings.addValue(SpValue(new String));
-            arrayTwoStrings.addValue(SpValue(new String));
+            arrayTwoStrings.addValue(std::make_shared<String>());
+            arrayTwoStrings.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings,
                                           insertedArrayTwoStringsCount, arrayTwoStrings);
         }
@@ -2845,7 +2845,7 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2887,8 +2887,8 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayTwoBlobs));
             Array  arrayTwoBlobs;
 
-            arrayTwoBlobs.addValue(SpValue(new Blob));
-            arrayTwoBlobs.addValue(SpValue(new Blob));
+            arrayTwoBlobs.addValue(std::make_shared<Blob>());
+            arrayTwoBlobs.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs,
                                           insertedArrayTwoBlobsCount, arrayTwoBlobs);
         }
@@ -2940,7 +2940,7 @@ doTestArrayTwoArraysMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -2990,8 +2990,8 @@ doTestArrayTwoArraysMessage(const char *launchPath,
                                                         sizeof(*insertedBytesForArrayTwoArrays));
             Array  arrayTwoArrays;
 
-            arrayTwoArrays.addValue(SpValue(new Array));
-            arrayTwoArrays.addValue(SpValue(new Array));
+            arrayTwoArrays.addValue(std::make_shared<Array>());
+            arrayTwoArrays.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays,
                                           insertedArrayTwoArraysCount, arrayTwoArrays);
         }
@@ -3043,7 +3043,7 @@ doTestArrayTwoMapsMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3093,8 +3093,8 @@ doTestArrayTwoMapsMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoMaps));
             Array  arrayTwoMaps;
 
-            arrayTwoMaps.addValue(SpValue(new Map));
-            arrayTwoMaps.addValue(SpValue(new Map));
+            arrayTwoMaps.addValue(std::make_shared<Map>());
+            arrayTwoMaps.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps,
                                           insertedArrayTwoMapsCount, arrayTwoMaps);
         }
@@ -3146,7 +3146,7 @@ doTestArrayTwoSetsMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3196,8 +3196,8 @@ doTestArrayTwoSetsMessage(const char *launchPath,
                                                       sizeof(*insertedBytesForArrayTwoSets));
             Array  arrayTwoSets;
 
-            arrayTwoSets.addValue(SpValue(new Set));
-            arrayTwoSets.addValue(SpValue(new Set));
+            arrayTwoSets.addValue(std::make_shared<Set>());
+            arrayTwoSets.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets,
                                           insertedArrayTwoSetsCount, arrayTwoSets);
         }
@@ -3249,7 +3249,7 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3300,8 +3300,8 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneArrayOneMap));
             Array  arrayOneArrayOneMap;
 
-            arrayOneArrayOneMap.addValue(SpValue(new Array));
-            arrayOneArrayOneMap.addValue(SpValue(new Map));
+            arrayOneArrayOneMap.addValue(std::make_shared<Array>());
+            arrayOneArrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap,
                                           insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
         }
@@ -3353,7 +3353,7 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3404,8 +3404,8 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
                                                        sizeof(*insertedBytesForArrayOneMapOneSet));
             Array  arrayOneMapOneSet;
 
-            arrayOneMapOneSet.addValue(SpValue(new Map));
-            arrayOneMapOneSet.addValue(SpValue(new Set));
+            arrayOneMapOneSet.addValue(std::make_shared<Map>());
+            arrayOneMapOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet,
                                           insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
         }
@@ -3457,7 +3457,7 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3508,8 +3508,8 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
                                                      sizeof(*insertedBytesForArrayOneSetOneArray));
             Array  arrayOneSetOneArray;
 
-            arrayOneSetOneArray.addValue(SpValue(new Set));
-            arrayOneSetOneArray.addValue(SpValue(new Array));
+            arrayOneSetOneArray.addValue(std::make_shared<Set>());
+            arrayOneSetOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray,
                                           insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
         }
@@ -3561,7 +3561,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3774,7 +3774,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(SpValue(new Double(ii)));
+                arrayManyDoubles.addValue(std::make_shared<Double>(ii));
             }
             result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles,
                                           insertedArrayManyDoublesCount, arrayManyDoubles);
@@ -3828,7 +3828,7 @@ doTestLogicalMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3868,8 +3868,7 @@ doTestLogicalMapMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForLogicalMap));
             Map    booleanMap;
 
-            booleanMap.addValue(SpValue(new Logical),
-                                SpValue(new Integer(13)));
+            booleanMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap,
                                           insertedLogicalMapCount, booleanMap);
         }
@@ -3921,7 +3920,7 @@ doTestIntegerMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -3961,8 +3960,7 @@ doTestIntegerMapMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForIntegerMap));
             Map    integerMap;
 
-            integerMap.addValue(SpValue(new Integer),
-                                SpValue(new Integer(13)));
+            integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap,
                                           insertedIntegerMapCount, integerMap);
         }
@@ -4014,7 +4012,7 @@ doTestStringMapMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -4055,8 +4053,7 @@ doTestStringMapMessage(const char *launchPath,
                                                    sizeof(*insertedBytesForStringMap));
             Map    stringMap;
 
-            stringMap.addValue(SpValue(new String),
-                               SpValue(new Integer(13)));
+            stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForStringMap,
                                           insertedStringMapCount, stringMap);
         }
@@ -4108,7 +4105,7 @@ doTestLogicalSetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -4145,7 +4142,7 @@ doTestLogicalSetMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForLogicalSet));
             Set    booleanSet;
 
-            booleanSet.addValue(SpValue(new Logical));
+            booleanSet.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet,
                                           insertedLogicalSetCount, booleanSet);
         }
@@ -4197,7 +4194,7 @@ doTestIntegerSetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -4234,7 +4231,7 @@ doTestIntegerSetMessage(const char *launchPath,
                                                     sizeof(*insertedBytesForIntegerSet));
             Set    integerSet;
 
-            integerSet.addValue(SpValue(new Integer));
+            integerSet.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet,
                                           insertedIntegerSetCount, integerSet);
         }
@@ -4286,7 +4283,7 @@ doTestStringSetMessage(const char *launchPath,
 
     try
     {
-        UpMessage stuff(new Message);
+        auto stuff(make_unique<Message>());
 
         if (stuff)
         {
@@ -4324,7 +4321,7 @@ doTestStringSetMessage(const char *launchPath,
                                                    sizeof(*insertedBytesForStringSet));
             Set    stringSet;
 
-            stringSet.addValue(SpValue(new String));
+            stringSet.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForStringSet,
                                           insertedStringSetCount, stringSet);
         }

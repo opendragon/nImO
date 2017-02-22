@@ -155,6 +155,17 @@ toUType(E enumerator) noexcept
     return static_cast<typename std::underlying_type<E>::type>(enumerator);
 } // toUType
 
+/*! @brief Return a unique_ptr for a freshly-allocated object.
+ { From Effective Modern C++. }
+ @param[in] params The arguments for the constructor.
+ @returns A unique_ptr to the newly-allocated object. */
+template<typename T, typename... Ts>
+std::unique_ptr<T>
+make_unique(Ts&&... params)
+{
+    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+} // make_unique
+
 namespace nImO
 {
     // Forward declarations.

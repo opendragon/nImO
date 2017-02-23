@@ -129,7 +129,7 @@ nImO::Value::addToExtractionMap(const DataKind         aByte,
             {
                 ExtractorMap::value_type keyValue(ii, theExtractor);
 
-                gExtractors.insert(keyValue);
+                gExtractors.emplace(keyValue);
             }
         }
     }
@@ -270,7 +270,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &Logical::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     prefixes = Number::getInitialCharacters();
@@ -280,7 +280,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &Number::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     prefixes = String::getInitialCharacters();
@@ -290,7 +290,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &String::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     prefixes = Array::getInitialCharacters();
@@ -300,7 +300,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &Array::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     prefixes = Map::getInitialCharacters();
@@ -310,7 +310,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &Map::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     prefixes = Set::getInitialCharacters();
@@ -320,7 +320,7 @@ nImO::Value::initialize(void)
         {
             BufferReaderValue aValue(*prefixes, &Set::readFromStringBuffer);
 
-            gReaders.insert(aValue);
+            gReaders.emplace(aValue);
         }
     }
     const char *suffixes = Array::getTerminalCharacters();

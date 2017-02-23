@@ -148,7 +148,7 @@ nImO::Map::addValue(nImO::SpValue newKey,
         {
             MapValue keyValue(newKey, newValue);
 
-            result = inherited2::insert(keyValue);
+            result = inherited2::emplace(keyValue);
         }
         else
         {

@@ -146,7 +146,7 @@ BaseArgumentDescriptor::partitionString(const std::string &inString,
                     break;
                 }
 
-                result.push_back(workingCopy.substr(0, innerIndx));
+                result.emplace_back(workingCopy.substr(0, innerIndx));
                 workingCopy = workingCopy.substr(innerIndx + 1);
                 if (0 < workingCopy.length())
                 {
@@ -188,12 +188,12 @@ BaseArgumentDescriptor::partitionString(const std::string &inString,
                     }
 
                 }
-                result.push_back(workingCopy);
+                result.emplace_back(workingCopy);
                 workingCopy = "";
             }
             else
             {
-                result.push_back(workingCopy.substr(0, indx));
+                result.emplace_back(workingCopy.substr(0, indx));
                 workingCopy = workingCopy.substr(indx + 1);
             }
         }
@@ -326,7 +326,7 @@ nImO::ArgumentsToDescriptionArray(const DescriptorVector &arguments,
                     aLine += "(Optional) ";
                 }
                 aLine += anArg->argumentDescription();
-                output.push_back(aLine);
+                output.emplace_back(aLine);
             }
         }
     }

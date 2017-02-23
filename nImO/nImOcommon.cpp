@@ -1162,7 +1162,7 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
             arguments->clear();
             for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
             {
-                arguments->push_back(parse.nonOption(ii));
+                arguments->emplace_back(parse.nonOption(ii));
             }
         }
     }

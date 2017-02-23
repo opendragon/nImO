@@ -142,7 +142,7 @@ nImO::Set::addValue(nImO::SpValue val)
         }
         if (val->enumerationType() == _keyKind)
         {
-            result = inherited2::insert(val);
+            result = inherited2::emplace(val);
         }
         else
         {

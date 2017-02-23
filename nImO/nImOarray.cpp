@@ -127,7 +127,7 @@ nImO::Array::addValue(nImO::SpValue newElement)
     ODL_P1("newElement = ", newElement.get()); //####
     if (nullptr != newElement)
     {
-        inherited2::push_back(newElement);
+        inherited2::emplace_back(newElement);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

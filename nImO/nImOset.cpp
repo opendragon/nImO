@@ -115,12 +115,9 @@ nImO::Set::addEntries(const nImO::Set &other)
     ODL_P1("other = ", &other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
-        for (const_iterator walker(other.inherited2::begin()); other.inherited2::end() != walker;
-             ++walker)
+        for (auto& walker : other)
         {
-            SpValue aValue(*walker);
-
-            addValue(aValue);
+            addValue(walker);
         }
     }
     ODL_EXIT(); //####
@@ -748,7 +745,7 @@ const
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
-        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             SpValue aValue(*walker);
 

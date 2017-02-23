@@ -115,11 +115,10 @@ nImO::Map::addEntries(const nImO::Map &other)
     ODL_P1("other = ", &other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto& walker : other)
         {
-            MapValue aValue = *walker;
-            SpValue  key(aValue.first);
-            SpValue  mappedValue(aValue.second);
+            SpValue key(walker.first);
+            SpValue mappedValue(walker.second);
 
             addValue(key, mappedValue);
         }
@@ -651,15 +650,13 @@ const
     bool first = true;
 
     outBuffer.addChar(kStartMapChar);
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto& walker : *this)
     {
-        MapValue aValue = *walker;
-
         if ((! squished) || (! first))
         {
             outBuffer.addChar(' ');
         }
-        aValue.first->printToStringBuffer(outBuffer);
+        walker.first->printToStringBuffer(outBuffer);
         if (! squished)
         {
             outBuffer.addChar(' ');
@@ -669,7 +666,7 @@ const
         {
             outBuffer.addChar(' ');
         }
-        aValue.second->printToStringBuffer(outBuffer);
+        walker.second->printToStringBuffer(outBuffer);
         first = false;
     }
     if (! squished)
@@ -826,12 +823,10 @@ const
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
         writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
-        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        for (auto& walker : *this)
         {
-            MapValue aValue = *walker;
-
-            aValue.first->writeToMessage(outMessage);
-            aValue.second->writeToMessage(outMessage);
+            walker.first->writeToMessage(outMessage);
+            walker.second->writeToMessage(outMessage);
         }
         outMessage.appendBytes(&endMap, sizeof(endMap));
     }

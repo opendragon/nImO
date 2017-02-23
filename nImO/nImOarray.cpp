@@ -113,10 +113,9 @@ nImO::Array::addEntries(const nImO::Array &other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    for (const_iterator walker(other.inherited2::begin()); other.inherited2::end() != walker;
-         ++walker)
+    for (auto& walker : other)
     {
-        addValue(*walker);
+        addValue(walker);
     }
     ODL_EXIT(); //####
 } // nImO::Array::addEntries
@@ -674,7 +673,7 @@ const
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
         writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
-        for (const_iterator walker(inherited2::begin()); (inherited2::end() != walker); ++walker)
+        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             SpValue aValue(*walker);
 

@@ -104,24 +104,26 @@ ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new ChannelArgumentDescriptor(argumentName(), argumentDescription(),
-                                                argumentMode(), getDefaultValue());
+    SpBaseArgumentDescriptor result(new ChannelArgumentDescriptor(argumentName(),
+                                                                  argumentDescription(),
+                                                                  argumentMode(),
+                                                                  getDefaultValue()));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // ChannelArgumentDescriptor::clone
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -154,10 +156,10 @@ ChannelArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar)
         {
-            result = new ChannelArgumentDescriptor(name, description, argMode, defaultString);
+            result.reset(new ChannelArgumentDescriptor(name, description, argMode, defaultString));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // ChannelArgumentDescriptor::parseArgString
 

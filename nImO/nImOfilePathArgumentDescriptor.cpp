@@ -170,15 +170,17 @@ FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new FilePathArgumentDescriptor(argumentName(), argumentDescription(),
-                                                 argumentMode(), _pathPrefix, _pathSuffix,
-                                                 _forOutput, _useRandomPath);
+    SpBaseArgumentDescriptor result(new FilePathArgumentDescriptor(argumentName(),
+                                                                   argumentDescription(),
+                                                                   argumentMode(), _pathPrefix,
+                                                                   _pathSuffix, _forOutput,
+                                                                   _useRandomPath));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // FilePathArgumentDescriptor::clone
 
@@ -201,13 +203,13 @@ FilePathArgumentDescriptor::getDefaultValue(void)
     return _defaultValue;
 } // FilePathArgumentDescriptor::getDefaultValue
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 6, inVector))
     {
@@ -273,11 +275,11 @@ FilePathArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar)
         {
-            result = new FilePathArgumentDescriptor(name, description, argMode, defaultString,
-                                                    suffixValue, forOutput, usesRandom);
+            result.reset(new FilePathArgumentDescriptor(name, description, argMode, defaultString,
+                                                        suffixValue, forOutput, usesRandom));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // FilePathArgumentDescriptor::parseArgString
 

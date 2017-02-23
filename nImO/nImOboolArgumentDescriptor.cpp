@@ -113,14 +113,15 @@ BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 } // BoolArgumentDescriptor::addValueToBottle
 #endif//0
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 BoolArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new BoolArgumentDescriptor(argumentName(), argumentDescription(),
-                                             argumentMode(), _defaultValue);
+    SpBaseArgumentDescriptor result(new BoolArgumentDescriptor(argumentName(),
+                                                               argumentDescription(),
+                                                               argumentMode(), _defaultValue));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // BoolArgumentDescriptor::clone
 
@@ -144,13 +145,13 @@ BoolArgumentDescriptor::getProcessedValue(void)
     return result;
 } // BoolArgumentDescriptor::getProcessedValue
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 BoolArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -200,10 +201,10 @@ BoolArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar)
         {
-            result = new BoolArgumentDescriptor(name, description, argMode, defaultValue);
+            result.reset(new BoolArgumentDescriptor(name, description, argMode, defaultValue));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // BoolArgumentDescriptor::parseArgString
 

@@ -101,7 +101,7 @@ namespace nImO
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
-        static BaseArgumentDescriptor *
+        static SpBaseArgumentDescriptor
         parseArgString(const std::string &inString);
 
     protected :
@@ -110,7 +110,7 @@ namespace nImO
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual BaseArgumentDescriptor *
+        virtual SpBaseArgumentDescriptor
         clone(void)
         override;
 

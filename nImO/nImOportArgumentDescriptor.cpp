@@ -107,24 +107,26 @@ PortArgumentDescriptor::~PortArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 PortArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new PortArgumentDescriptor(argumentName(), argumentDescription(),
-                                             argumentMode(), _defaultValue, _isSystemPort);
+    SpBaseArgumentDescriptor result(new PortArgumentDescriptor(argumentName(),
+                                                               argumentDescription(),
+                                                               argumentMode(), _defaultValue,
+                                                               _isSystemPort));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // PortArgumentDescriptor::clone
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 PortArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 4, inVector))
     {
@@ -179,11 +181,11 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar)
         {
-            result = new PortArgumentDescriptor(name, description, argMode, defaultValue,
-                                                isSystemPort);
+            result.reset(new PortArgumentDescriptor(name, description, argMode, defaultValue,
+                                                    isSystemPort));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // PortArgumentDescriptor::parseArgString
 

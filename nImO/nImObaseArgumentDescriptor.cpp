@@ -358,11 +358,11 @@ nImO::CombineArguments(const DescriptorVector &arguments,
     return result;
 } // nImO::CombineArguments
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 nImO::ConvertStringToArgument(const std::string &inString)
 {
     ODL_ENTER(); //####
-    BaseArgumentDescriptor *result = nullptr;
+    SpBaseArgumentDescriptor result;
 
     result = AddressArgumentDescriptor::parseArgString(inString);
     if (! result)
@@ -397,7 +397,7 @@ nImO::ConvertStringToArgument(const std::string &inString)
     {
         result = StringArgumentDescriptor::parseArgString(inString);
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::ConvertStringToArguments
 

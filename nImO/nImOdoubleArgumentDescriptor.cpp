@@ -122,15 +122,17 @@ DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 } // DoubleArgumentDescriptor::addValueToBottle
 #endif//0
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new DoubleArgumentDescriptor(argumentName(), argumentDescription(),
-                                               argumentMode(), _defaultValue, _hasMinimumValue,
-                                               _minimumValue, _hasMaximumValue, _maximumValue);
+    SpBaseArgumentDescriptor result(new DoubleArgumentDescriptor(argumentName(),
+                                                                 argumentDescription(),
+                                                                 argumentMode(), _defaultValue,
+                                                                 _hasMinimumValue, _minimumValue,
+                                                                 _hasMaximumValue, _maximumValue));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // DoubleArgumentDescriptor::clone
 
@@ -160,13 +162,13 @@ DoubleArgumentDescriptor::getProcessedValue(void)
     return result;
 } // DoubleArgumentDescriptor::getProcessedValue
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 5, inVector))
     {
@@ -240,12 +242,14 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
             bool hasMaximumValue = (0 < maxValString.length());
             bool hasMinimumValue = (0 < minValString.length());
 
-            result = new DoubleArgumentDescriptor(name, description, argMode, defaultValue,
-                                                  hasMinimumValue, hasMinimumValue ? minValue : 0,
-                                                  hasMaximumValue, hasMaximumValue ? maxValue : 0);
+            result.reset(new DoubleArgumentDescriptor(name, description, argMode, defaultValue,
+                                                      hasMinimumValue,
+                                                      hasMinimumValue ? minValue : 0,
+                                                      hasMaximumValue,
+                                                      hasMaximumValue ? maxValue : 0));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // DoubleArgumentDescriptor::parseArgString
 

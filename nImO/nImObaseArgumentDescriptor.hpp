@@ -106,6 +106,15 @@ namespace nImO
 
     }; // ArgumentMode
 
+    /*! @brief A holder for a shared pointer to an BaseArgumentDescriptor. */
+    using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
+
+    /*! @brief A holder for a non-shared pointer to an Array. */
+    using UpBaseArgumentDescriptor = std::unique_ptr<BaseArgumentDescriptor>;
+
+    /*! @brief A holder for a weak pointer to an Array. */
+    using WpBaseArgumentDescriptor = std::weak_ptr<BaseArgumentDescriptor>;
+
     /*! @brief An argument description.
 
      The external representation of an argument description is:
@@ -202,7 +211,7 @@ namespace nImO
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual BaseArgumentDescriptor *
+        virtual SpBaseArgumentDescriptor
         clone(void) = 0;
 
         /*! @brief Return the default value.
@@ -416,7 +425,7 @@ namespace nImO
     /*! @brief Convert a string in '--args' format into an argument description.
      @param[in] inString The string to be analyzed.
      @returns A newly allocated argument descriptor or @c nullptr if the string is not valid. */
-    BaseArgumentDescriptor *
+    SpBaseArgumentDescriptor
     ConvertStringToArgument(const std::string &inString);
 
 #if 0

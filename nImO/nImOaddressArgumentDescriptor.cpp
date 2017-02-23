@@ -108,24 +108,26 @@ AddressArgumentDescriptor::~AddressArgumentDescriptor(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 AddressArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    auto result = new AddressArgumentDescriptor(argumentName(), argumentDescription(),
-                                                argumentMode(), getDefaultValue());
+    SpBaseArgumentDescriptor result(new AddressArgumentDescriptor(argumentName(),
+                                                                  argumentDescription(),
+                                                                  argumentMode(),
+                                                                  getDefaultValue()));
 
-    ODL_EXIT_P(result);
+    ODL_EXIT_P(result.get());
     return result;
 } // AddressArgumentDescriptor::clone
 
-BaseArgumentDescriptor *
+SpBaseArgumentDescriptor
 AddressArgumentDescriptor::parseArgString(const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    BaseArgumentDescriptor *result = nullptr;
-    StringVector           inVector;
+    SpBaseArgumentDescriptor result;
+    StringVector             inVector;
 
     if (partitionString(inString, 3, inVector))
     {
@@ -162,10 +164,10 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
         }
         if (okSoFar)
         {
-            result = new AddressArgumentDescriptor(name, description, argMode, defaultString);
+            result.reset(new AddressArgumentDescriptor(name, description, argMode, defaultString));
         }
     }
-    ODL_EXIT_P(result); //####
+    ODL_EXIT_P(result.get()); //####
     return result;
 } // AddressArgumentDescriptor::parseArgString
 

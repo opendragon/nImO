@@ -556,6 +556,11 @@ namespace nImO
     B2I(const NumberAsBytes &inString,
         const size_t        numBytes);
 
+    /*! @brief Return @c true if standard input can be used and @c false otherwise.
+     @returns @c true if standard input can be used and @c false otherwise. */
+    bool
+    CanReadFromStandardInput(void);
+
     /*! @brief Compare two byte strings.
      @param[in] first The first byte string.
      @param[in] second The second byte string.
@@ -629,6 +634,71 @@ namespace nImO
     const char *
     NameOfSignal(const int theSignal);
 
+    /*! @brief Merge two DataKind values together.
+     @param[in] leftValue The first value to be merged.
+     @param[in] rightValue The second value to be merged.
+     @returns The result of the bit-wise merge of the two values. */
+    inline constexpr DataKind
+    operator |(const DataKind leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(toUType(leftValue) | toUType(rightValue));
+    } // operator |
+
+    /*! @brief Merge a DataKind value and an unsigned byte together.
+     @param[in] leftValue The first value to be merged.
+     @param[in] rightValue The second value to be merged.
+     @returns The result of the bit-wise merge of the two values. */
+    inline constexpr DataKind
+    operator |(const DataKind leftValue,
+               const uint8_t  rightValue)
+    {
+        return static_cast<DataKind>(toUType(leftValue) | rightValue);
+    } // operator |
+
+    /*! @brief Merge a DataKind value and an unsigned byte together.
+     @param[in] leftValue The first value to be merged.
+     @param[in] rightValue The second value to be merged.
+     @returns The result of the bit-wise merge of the two values. */
+    inline constexpr DataKind
+    operator |(const uint8_t  leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(leftValue | toUType(rightValue));
+    } // operator |
+
+    /*! @brief Mask an unsigned byte with a DataKind mask.
+     @param[in] leftValue The first value to be combined.
+     @param[in] rightValue The second value to be combined.
+     @returns The result of the bit-wise masking of the two values. */
+    inline constexpr DataKind
+    operator &(const DataKind leftValue,
+               const uint8_t  rightValue)
+    {
+        return static_cast<DataKind>(toUType(leftValue) & rightValue);
+    } // operator &
+
+    /*! @brief Mask an unsigned byte with a DataKind mask.
+     @param[in] leftValue The first value to be combined.
+     @param[in] rightValue The second value to be combined.
+     @returns The result of the bit-wise masking of the two values. */
+    inline constexpr DataKind
+    operator &(const uint8_t  leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(leftValue & toUType(rightValue));
+    } // operator &
+
+    /*! @brief Write out a (possibly multi-line) description.
+     @param[in] outStream The stream to write to.
+     @param[in] heading The text to appear on the first line before the beginning of the
+     description.
+     @param[in] description The description, which may contain multiple newlines. */
+    void
+    OutputDescription(std::ostream      &outStream,
+                      const char        *heading,
+                      const std::string &description);
+
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
      returns @c false.
@@ -691,61 +761,6 @@ namespace nImO
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
                 (MAXIMUM_PORT_ALLOWED_ >= aPort));
     } // ValidPortNumber
-
-    /*! @brief Merge two DataKind values together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @returns The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator |(const DataKind leftValue,
-               const DataKind rightValue)
-    {
-        return static_cast<DataKind>(toUType(leftValue) | toUType(rightValue));
-    } // operator |
-
-    /*! @brief Merge a DataKind value and an unsigned byte together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @returns The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator |(const DataKind leftValue,
-               const uint8_t  rightValue)
-    {
-        return static_cast<DataKind>(toUType(leftValue) | rightValue);
-    } // operator |
-
-    /*! @brief Merge a DataKind value and an unsigned byte together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @returns The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator |(const uint8_t  leftValue,
-               const DataKind rightValue)
-    {
-        return static_cast<DataKind>(leftValue | toUType(rightValue));
-    } // operator |
-
-    /*! @brief Mask an unsigned byte with a DataKind mask.
-     @param[in] leftValue The first value to be combined.
-     @param[in] rightValue The second value to be combined.
-     @returns The result of the bit-wise masking of the two values. */
-    inline constexpr DataKind
-    operator &(const DataKind leftValue,
-               const uint8_t  rightValue)
-    {
-        return static_cast<DataKind>(toUType(leftValue) & rightValue);
-    } // operator &
-
-    /*! @brief Mask an unsigned byte with a DataKind mask.
-     @param[in] leftValue The first value to be combined.
-     @param[in] rightValue The second value to be combined.
-     @returns The result of the bit-wise masking of the two values. */
-    inline constexpr DataKind
-    operator &(const uint8_t  leftValue,
-               const DataKind rightValue)
-    {
-        return static_cast<DataKind>(leftValue & toUType(rightValue));
-    } // operator &
 
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char kBlobSeparator;

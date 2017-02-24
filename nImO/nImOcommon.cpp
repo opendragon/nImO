@@ -47,9 +47,11 @@
 //#include <cmath>
 //#include <cstdio>
 //#include <ctime>
-#if (! MAC_OR_LINUX_)
+#if MAC_OR_LINUX_
+# include <unistd.h>
+#else // ! MAC_OR_LINUX_
 # include <Windows.h>
-#endif //! MAC_OR_LINUX_
+#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -674,6 +676,7 @@ Common::Stall(void)
         ConsumeSomeTime();
     }
 } // Common::Stall
+#endif//0
 
 bool
 nImO::CanReadFromStandardInput(void)
@@ -709,6 +712,7 @@ nImO::CanReadFromStandardInput(void)
     return result;
 } // nImO::CanReadFromStandardInput
 
+#if 0
 void
 nImO::ConsumeSomeTime(const double factor)
 {
@@ -762,64 +766,6 @@ nImO::IsRunning(void)
     ODL_EXIT_B(lKeepRunning); //####
     return lKeepRunning;
 } // nImO::IsRunning
-
-bool
-nImO::ListIsReallyDictionary(const yarp::os::Bottle &aList,
-                             yarp::os::Property     &aDictionary)
-{
-    ODL_ENTER(); //####
-    ODL_P2("aList = ", &aList, "aDictionary = ", &aDictionary); //####
-    int  mm = aList.size();
-    bool isDictionary = (0 < mm);
-
-    aDictionary.clear();
-    for (int ii = 0; isDictionary && (mm > ii); ++ii)
-    {
-        yarp::os::Value anEntry(aList.get(ii));
-
-        if (anEntry.isList())
-        {
-            yarp::os::Bottle *entryAsList = anEntry.asList();
-
-            if (entryAsList)
-            {
-                if (2 == entryAsList->size())
-                {
-                    yarp::os::Value key(entryAsList->get(0));
-                    yarp::os::Value data(entryAsList->get(1));
-
-                    if (key.isString())
-                    {
-                        std::string keyAsString(key.toString());
-
-                        if (aDictionary.check(keyAsString))
-                        {
-                            isDictionary = false;
-                        }
-                        else
-                        {
-                            aDictionary.put(keyAsString, data);
-                        }
-                    }
-                    else
-                    {
-                        isDictionary = false;
-                    }
-                }
-                else
-                {
-                    isDictionary = false;
-                }
-            }
-        }
-        else
-        {
-            isDictionary = false;
-        }
-    }
-    ODL_EXIT_B(isDictionary); //####
-    return isDictionary;
-} // nImO::ListIsReallyDictionary
 #endif//0
 
 const char *
@@ -991,7 +937,6 @@ nImO::NameOfSignal(const int theSignal)
     return result;
 } // nImO::NameOfSignal
 
-#if 0
 void
 nImO::OutputDescription(std::ostream      &outStream,
                         const char        *heading,
@@ -1018,7 +963,6 @@ nImO::OutputDescription(std::ostream      &outStream,
 
     outStream << indent << piece.c_str() << endl;
 } // nImO::OutputDescription
-#endif//0
 
 bool
 nImO::ProcessStandardUtilitiesOptions(const int              argc,

@@ -108,13 +108,11 @@ static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageV
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    inherited(false), _cachedForTransmission(nullptr), _cachedTransmissionLength(0),
-    _readPosition(0), _state(MessageState::Unknown), _headerAdded(false)
+    inherited(false), _cachedTransmissionString(), _readPosition(0), _state(MessageState::Unknown),
+    _headerAdded(false)
 {
     ODL_ENTER(); //####
-    ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
-    ODL_LL3("_cachedTransmissionLength <- ", _cachedTransmissionLength, //####
-            "_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
+    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
@@ -122,7 +120,6 @@ nImO::Message::Message(void) :
 nImO::Message::~Message(void)
 {
     ODL_OBJENTER(); //####
-    delete[] _cachedForTransmission;
     ODL_OBJEXIT(); //####
 } // nImO::Message::~Message
 
@@ -138,13 +135,7 @@ nImO::Message::appendBytes(const uint8_t *data,
     ODL_P1("data = ", data); //####
     ODL_LL1("numBytes = ", numBytes); //####
     // Invalidate the cache.
-    if (_cachedForTransmission)
-    {
-        ODL_LOG("(_cachedForTransmission)"); //####
-        delete[] _cachedForTransmission;
-        _cachedForTransmission = nullptr;
-        ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
-    }
+    _cachedTransmissionString.clear();
     inherited::appendBytes(data, numBytes);
     ODL_OBJEXIT(); //####
 } // nImO::Message::appendBytes
@@ -208,33 +199,25 @@ nImO::Message::getBytes(size_t &length)
     return result;
 } // nImO::Message::getBytes
 
-const uint8_t *
-nImO::Message::getBytesForTransmission(size_t &length)
+std::string
+nImO::Message::getBytesForTransmission(void)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("length = ", &length); //####
-    uint8_t *result;
-
-    if (_cachedForTransmission)
+    if (0 == _cachedTransmissionString.size())
     {
-        ODL_LOG("(_cachedForTransmission)"); //####
-        length = _cachedTransmissionLength;
-        ODL_LL1("length <- ", length); //####
-        result = _cachedForTransmission;
-    }
-    else
-    {
-        ODL_LOG("! (_cachedForTransmission)"); //####
+        ODL_LOG("(0 == _cachedTransmissionString.size())"); //####
+        size_t        length = 0;
         const uint8_t *intermediate = getBytes(length);
         
         if (intermediate && (1 < length))
         {
+            ODL_LOG("(intermediate && (1 < length))"); //####
             // First, check that the buffer starts correctly.
             if (DataKind::StartOfMessageValue == (*intermediate & DataKind::StartOfMessageMask))
             {
                 // Next, count the number of bytes that will need to be escaped, and generate the
                 // byte sum.
-                uint64_t sum = 0;
+                uint64_t sum = *intermediate;
                 size_t   escapeCount = 0;
                 
                 for (size_t ii = 1; ii < length; ++ii)
@@ -251,64 +234,59 @@ nImO::Message::getBytesForTransmission(size_t &length)
                 // Calculate the checksum byte and correct the escape and start counts if it will
                 // need to be escaped.
                 uint8_t checkSum = static_cast<uint8_t>(0x00FF & ~sum);
-                
+                ODL_XL2("sum = ", sum, "checkSum = ", checkSum); //####
+
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
                     (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
                 {
                     ++escapeCount;
                 }
-                _cachedTransmissionLength = length + escapeCount + 1;
-                size_t jj = 1;
-                
-                _cachedForTransmission = new uint8_t[_cachedTransmissionLength];
+                ODL_LL1("escapeCount = ", escapeCount); //####
+                _cachedTransmissionString.reserve(length + escapeCount + 1);
                 // Copy the start-of-message byte to the new set of bytes.
-                *_cachedForTransmission = *intermediate;
-                for (size_t ii = 1; ii < length; ++ii, ++jj)
+                _cachedTransmissionString += *intermediate;
+                for (size_t ii = 1; ii < length; ++ii)
                 {
                     uint8_t aByte = intermediate[ii];
                     
                     if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
                         (DataKind::EscapeValue == static_cast<DataKind>(aByte)))
                     {
-                        _cachedForTransmission[jj++] = toUType(DataKind::EscapeValue);
-                        _cachedForTransmission[jj] = (aByte ^ 0x0080);
+                        _cachedTransmissionString += toUType(DataKind::EscapeValue);
+                        _cachedTransmissionString += (aByte ^ 0x0080);
                     }
                     else
                     {
-                        _cachedForTransmission[jj] = aByte;
+                        _cachedTransmissionString += aByte;
                     }
                 }
                 // Copy the checksum to the end of the new set of bytes.
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
                     (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
                 {
-                    _cachedForTransmission[jj++] = toUType(DataKind::EscapeValue);
-                    _cachedForTransmission[jj] = (checkSum ^ 0x0080);
+                    _cachedTransmissionString += toUType(DataKind::EscapeValue);
+                    _cachedTransmissionString += (checkSum ^ 0x0080);
                 }
                 else
                 {
-                    _cachedForTransmission[jj] = checkSum;
+                    _cachedTransmissionString += checkSum;
                 }
-                length = _cachedTransmissionLength;
-                result = _cachedForTransmission;
             }
             else
             {
                 ODL_LOG("! (DataKind::StartOfMessageValue == (*intermediate & " //####
                         "DataKind::StartOfMessageMask))"); //####
-                length = 0;
-                result = nullptr;
             }
         }
         else
         {
             ODL_LOG("! (intermediate && (1 < length))"); //####
-            length = 0;
-            result = nullptr;
         }
     }
-    ODL_OBJEXIT_P(result); //####
-    return result;
+    ODL_PACKET("_cachedTransmissionString", _cachedTransmissionString.data(), //####
+               _cachedTransmissionString.size()); //####
+    ODL_OBJEXIT(); //####
+    return _cachedTransmissionString;
 } // nImO::Message::getBytesForTransmission
 
 size_t
@@ -539,13 +517,7 @@ nImO::Message::reset(void)
 {
     ODL_OBJENTER(); //####
     // Invalidate the cache.
-    if (_cachedForTransmission)
-    {
-        ODL_LOG("(_cachedForTransmission)"); //####
-        delete[] _cachedForTransmission;
-        _cachedForTransmission = nullptr;
-        ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
-    }
+    _cachedTransmissionString.clear();
     lock();
     inherited::reset();
     _headerAdded = false;

@@ -126,9 +126,9 @@ namespace nImO
          start-of-message byte or an escape byte.
          @param[out] length Set to the number of bytes returned.
          @returns A pointer to a copy of the bytes in the Message, ready to be transmitted. */
-        const uint8_t *
-        getBytesForTransmission(size_t &length);
-        
+        std::string
+        getBytesForTransmission(void);
+
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
         virtual size_t
@@ -190,11 +190,7 @@ namespace nImO
     private :
         // Private fields.
 
-        /*! @brief The cached value of the buffer. */
-        uint8_t *_cachedForTransmission;
-        
-        /*! @brief The cached value of the length of the buffer. */
-        size_t _cachedTransmissionLength;
+        std::string _cachedTransmissionString;
 
         /*! @brief The position of the next byte being read. */
         size_t _readPosition;

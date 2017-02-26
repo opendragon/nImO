@@ -22,7 +22,7 @@ bit0..1\
                       bit5..7 Number of bytes to follow-1 (1..8), MSB-first, sign extended from first byte [bit 0 of the first byte is the sign bit]\
 	01 Floating-point (double) [Not Enumerable] \{0x40\}\
                 bit2=0 Short count-1 of floating-point values to follow\
-                      bit3..7 (1..32), bytes follow (8 bytes/value, MSB-first)\
+                      bit3..7 (1..32), count of values which follow (8 bytes/value, MSB-first)\
                 bit2=1 Long count-1 of floating-point values in next byte(s) \{0x20\}\
                       bit3..4 Reserved (set to zero)\
                       bit5..7 Number of bytes for count-1 (1..8) [floating-point values (bytes/value) are MSB-first]\
@@ -48,7 +48,7 @@ bit0..1\
                                     11 Reserved \{0x0C\}\
                              bit6 Reserved (set to zero)\
                              bit7=0 Empty\
-                             bit7=1 Non-empty, number of elements-17 follows, as signed integer \{0x01\}; note that the value is offset by -17 as negative counts are not possible and at least one value is present\
+                             bit7=1 Non-empty, number of elements-17 follows, as signed integer \{0x00\}; note that the value is offset by -17 as negative counts are not possible and at least one value is present\
                        10 End of container (sequence of values) \{0x20\}\
                              bit4..5\
                                     00 Array\
@@ -69,8 +69,8 @@ note that there is no explicit restriction on the elements; for a map, the eleme
 the start / end of container entries are used for validation\
 \
 
-\b to assure correct start-of-message, the appearance of 11110yyy (0xFy [03xx]) bytes in a message are 'escaped' when sent; they are preceded by the escape byte, and have the high bit inverted; occurrences of the escape byte are preceded by the escape byte and have the high bit inverted.\
-the escape byte is 11101110 (0xEE [0356]) - if it appears in a message, it is removed and the next byte has its high bit flipped.\
+\b to assure correct start-of-message, the appearance of 11110yyy (0xF0-0xF7 [0360-0367]) bytes in a message are 'escaped' when sent; they are preceded by the escape byte, and have the high bit inverted; occurrences of the escape byte are preceded by the escape byte and have the high bit inverted.\
+the escape byte is 11011100 (0xDC [0334]) - if it appears in a message, it is removed and the next byte has its high bit flipped.\
 thus, the start-of-message can be located in a byte stream, without the risk of a 'false start'.\
 Also, follow a message by an escaped checksum.\
 

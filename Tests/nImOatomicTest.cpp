@@ -746,13 +746,14 @@ doTestStringBufferWithLogical(const char *launchPath,
                     size_t     length;
                     const char *resultString = stuff->getString(length);
 
-                    if (0 == strcmp(outString, resultString))
+                    if (resultString && (0 == strcmp(outString, resultString)))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
+                        ODL_LOG("! (resultString && (0 == strcmp(outString, " //####
+                                "resultString)))"); //####
                     }
                 }
                 else
@@ -824,13 +825,14 @@ doTestStringBufferWithInteger(const char *launchPath,
                     size_t     length;
                     const char *resultString = stuff->getString(length);
 
-                    if (0 == strcmp(outString, resultString))
+                    if (resultString && (0 == strcmp(outString, resultString)))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (0 == strcmp(outString, resultString))"); //####
+                        ODL_LOG("! (resultString && (0 == strcmp(outString, " //####
+                                "resultString)))"); //####
                     }
                 }
                 else
@@ -1223,13 +1225,13 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
             const char *resultString = stuff->getString(length);
             const char *expectedString = "%0%%";
 
-            if (0 == strcmp(resultString, expectedString))
+            if (resultString && (0 == strcmp(resultString, expectedString)))
             {
                 result = 0;
             }
             else
             {
-                ODL_LOG("! (0 == strcmp(resultString, expectedString))"); //####
+                ODL_LOG("! (resultString && (0 == strcmp(resultString, expectedString)))"); //####
             }
         }
         else
@@ -1315,13 +1317,14 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                if (resultString && (0 == strcmp(resultString, expectedString.c_str())))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
+                            "expectedString.c_str())))"); //####
                 }
             }
             else
@@ -1412,13 +1415,14 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (0 == strcmp(resultString, expectedString.c_str()))
+                if (resultString && (0 == strcmp(resultString, expectedString.c_str())))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == strcmp(resultString, expectedString.c_str()))"); //####
+                    ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
+                            "expectedString.c_str())))"); //####
                 }
             }
             else

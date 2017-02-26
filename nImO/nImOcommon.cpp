@@ -189,7 +189,7 @@ nImO::B2I(const nImO::NumberAsBytes &inString,
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
     ODL_LL1("numBytes = ", numBytes); //####
-    bool          isNegative = (0 != (0x080 &inString[0]));
+    bool          isNegative = (0 != (0x080 & inString[0]));
     const uint8_t *walker = inString;
     int64_t       result = (isNegative ? -1 : 0);
 
@@ -302,8 +302,8 @@ nImO::D2B(const double        inValue,
 
 #if 0
 void
-Common::DumpContactToLog(const char              *tag,
-                         const yarp::os::Contact &aContact)
+nImO::DumpContactToLog(const char              *tag,
+                       const yarp::os::Contact &aContact)
 {
 #if MAC_OR_LINUX_
     if (lLogger)
@@ -362,16 +362,16 @@ Common::DumpContactToLog(const char              *tag,
 # endif // ! USE_YARP_FATAL_NOT_FAIL_
     }
 #endif // MAC_OR_LINUX_
-} // Common::DumpContactToLog
+} // nImO::DumpContactToLog
 
 #if MAC_OR_LINUX_
 yarp::os::impl::Logger &
-Common::GetLogger(void)
+nImO::GetLogger(void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(lLogger);
     return *lLogger;
-} // Common::GetLogger
+} // nImO::GetLogger
 #endif // MAC_OR_LINUX_
 #endif //0
 
@@ -439,7 +439,7 @@ nImO::I2B(const int64_t       inValue,
 
     for (size_t ii = sizeof(inValue); 0 < ii; --ii)
     {
-        outString[ii - 1] = (0x0FF &workValue);
+        outString[ii - 1] = (0x0FF & workValue);
         workValue >>= 8;
     }
     if (0 <= inValue)
@@ -456,7 +456,7 @@ nImO::I2B(const int64_t       inValue,
         {
             uint8_t aByte = outString[sizeof(inValue) - length];
 
-            if (0x00 != (0x080 &aByte))
+            if (0x00 != (0x080 & aByte))
             {
                 ++length;
             }
@@ -476,7 +476,7 @@ nImO::I2B(const int64_t       inValue,
         {
             uint8_t aByte = outString[sizeof(inValue) - length];
 
-            if (0x00 == (0x080 &aByte))
+            if (0x00 == (0x080 & aByte))
             {
                 ++length;
             }
@@ -632,7 +632,7 @@ nImO::SetUpCatcher(void)
 #if 0
 #if MAC_OR_LINUX_
 void
-Common::SetUpLogger(const std::string &progName)
+nImO::SetUpLogger(const std::string &progName)
 {
     ODL_ENTER(); //####
     lLogger = new yarp::os::impl::Logger(progName.c_str());
@@ -641,7 +641,7 @@ Common::SetUpLogger(const std::string &progName)
         lLogger->setVerbosity(1);
     }
     ODL_EXIT(); //####
-} // Common::SetUpLogger
+} // nImO::SetUpLogger
 #endif // MAC_OR_LINUX_
 #endif//0
 
@@ -669,13 +669,13 @@ nImO::ShutDownCatcher(void)
 
 #if 0
 void
-Common::Stall(void)
+nImO::Stall(void)
 {
     for ( ; ; )
     {
         ConsumeSomeTime();
     }
-} // Common::Stall
+} // nImO::Stall
 #endif//0
 
 bool

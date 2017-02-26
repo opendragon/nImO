@@ -134,6 +134,7 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
         ODL_LOG("(data && (0 < numBytes))"); //####
         const uint8_t *walker = data;
 
+        // Invalidate the cache.
         if (_cachedOutput)
         {
             ODL_LOG("(_cachedOutput)"); //####
@@ -301,7 +302,7 @@ nImO::ChunkArray::getBytes(size_t &length)
     }
     ODL_OBJEXIT_P(_cachedOutput); //####
     return _cachedOutput;
-} // getBytes
+} // nImO::ChunkArray::getBytes
 
 size_t
 nImO::ChunkArray::getLength(void)
@@ -330,6 +331,7 @@ nImO::ChunkArray &
 nImO::ChunkArray::reset(void)
 {
     ODL_OBJENTER(); //####
+    // Invalidate the cache.
     if (_cachedOutput)
     {
         ODL_LOG("(_cachedOutput)"); //####

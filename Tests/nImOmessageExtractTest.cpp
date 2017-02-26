@@ -227,13 +227,9 @@ doTestEmptyMessage(const char *launchPath,
             static const DataKind bytesToInsert[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
-                  DataKind::OtherMessageEmptyValue,
+                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
-                  DataKind::OtherMessageEmptyValue
+                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
             const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
@@ -325,16 +321,14 @@ doTestLogicalMessage(const char *launchPath,
             static const DataKind insertedBytesForTrue[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Logical
                 DataKind::Other | DataKind::OtherLogical |
                   DataKind::OtherLogicalTrueValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -343,16 +337,14 @@ doTestLogicalMessage(const char *launchPath,
             static const DataKind insertedBytesForFalse[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Logical
                 DataKind::Other | DataKind::OtherLogical |
                   DataKind::OtherLogicalFalseValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -424,16 +416,14 @@ doTestTinyIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForMinus12[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
                   (-12 & DataKind::IntegerShortValueValueMask),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -442,16 +432,14 @@ doTestTinyIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForZero[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
                   0,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -460,16 +448,14 @@ doTestTinyIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForPlus12[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
                   (12 & DataKind::IntegerShortValueValueMask),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -547,8 +533,7 @@ doTestShortIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForMinus144[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -556,8 +541,7 @@ doTestShortIntegerMessage(const char *launchPath,
                   ((2 - 1) & DataKind::IntegerLongValueCountMask),
                 static_cast<DataKind>(0xFF), static_cast<DataKind>(0x70),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -566,8 +550,7 @@ doTestShortIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForPlus144[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -575,8 +558,7 @@ doTestShortIntegerMessage(const char *launchPath,
                   ((2 - 1) & DataKind::IntegerLongValueCountMask),
                 static_cast<DataKind>(0x00), static_cast<DataKind>(0x90),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -648,8 +630,7 @@ doTestMediumIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForMinus1234567[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -658,8 +639,7 @@ doTestMediumIntegerMessage(const char *launchPath,
                 static_cast<DataKind>(0xED), static_cast<DataKind>(0x29),
                 static_cast<DataKind>(0x79),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -668,8 +648,7 @@ doTestMediumIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForPlus1234567[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -678,8 +657,7 @@ doTestMediumIntegerMessage(const char *launchPath,
                 static_cast<DataKind>(0x12), static_cast<DataKind>(0xD6),
                 static_cast<DataKind>(0x87),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -751,8 +729,7 @@ doTestBigIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForMinusBigNumber[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -762,8 +739,7 @@ doTestBigIntegerMessage(const char *launchPath,
                 static_cast<DataKind>(0xA9), static_cast<DataKind>(0x87),
                 static_cast<DataKind>(0x65), static_cast<DataKind>(0x44),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -772,8 +748,7 @@ doTestBigIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForPlusBigNumber[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Signed Integer
@@ -783,8 +758,7 @@ doTestBigIntegerMessage(const char *launchPath,
                 static_cast<DataKind>(0x56), static_cast<DataKind>(0x78),
                 static_cast<DataKind>(0x9A), static_cast<DataKind>(0xBC),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
@@ -856,8 +830,7 @@ doTestEmptyStringMessage(const char *launchPath,
             static const DataKind insertedBytesForEmptyString[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
@@ -865,8 +838,7 @@ doTestEmptyStringMessage(const char *launchPath,
                   DataKind::StringOrBlobShortLengthValue |
                   (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -932,8 +904,7 @@ doTestShortStringMessage(const char *launchPath,
             static const DataKind insertedBytesForShortString[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
@@ -944,8 +915,7 @@ doTestShortStringMessage(const char *launchPath,
                 static_cast<DataKind>('c'), static_cast<DataKind>('d'),
                 static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -1011,8 +981,7 @@ doTestMediumStringMessage(const char *launchPath,
             static const DataKind insertedBytesForMediumString[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // String
@@ -1042,8 +1011,7 @@ doTestMediumStringMessage(const char *launchPath,
                 static_cast<DataKind>('c'), static_cast<DataKind>('d'),
                 static_cast<DataKind>('e'), static_cast<DataKind>('f'),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -1109,8 +1077,7 @@ doTestEmptyBlobMessage(const char *launchPath,
             static const DataKind insertedBytesForEmptyBlob[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
@@ -1118,8 +1085,7 @@ doTestEmptyBlobMessage(const char *launchPath,
                   DataKind::StringOrBlobShortLengthValue |
                   (0 & DataKind::StringOrBlobShortLengthMask),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -1185,8 +1151,7 @@ doTestShortBlobMessage(const char *launchPath,
             static const DataKind insertedBytesForShortBlob[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
@@ -1197,8 +1162,7 @@ doTestShortBlobMessage(const char *launchPath,
                 static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
                 static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -1269,8 +1233,7 @@ doTestMediumBlobMessage(const char *launchPath,
             static const DataKind insertedBytesForMediumBlob[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
@@ -1300,8 +1263,7 @@ doTestMediumBlobMessage(const char *launchPath,
                 static_cast<DataKind>(0x34), static_cast<DataKind>(0x45),
                 static_cast<DataKind>(0x56), static_cast<DataKind>(0x67),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
@@ -1378,8 +1340,7 @@ doTestSingleFloatMessage(const char *launchPath,
             static const DataKind insertedBytesForPlus42Point5[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
@@ -1391,8 +1352,7 @@ doTestSingleFloatMessage(const char *launchPath,
                 static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
@@ -1401,8 +1361,7 @@ doTestSingleFloatMessage(const char *launchPath,
             static const DataKind insertedBytesForMinus42Point5[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
@@ -1414,8 +1373,7 @@ doTestSingleFloatMessage(const char *launchPath,
                 static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
@@ -1487,8 +1445,7 @@ doTestEmptyArrayMessage(const char *launchPath,
             static const DataKind insertedBytesForEmptyArray[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -1500,8 +1457,7 @@ doTestEmptyArrayMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1567,8 +1523,7 @@ doTestEmptyMapMessage(const char *launchPath,
             static const DataKind insertedBytesForEmptyMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
@@ -1580,8 +1535,7 @@ doTestEmptyMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeMap |
                   DataKind::OtherContainerEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1647,8 +1601,7 @@ doTestEmptySetMessage(const char *launchPath,
             static const DataKind insertedBytesForEmptySet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
@@ -1660,8 +1613,7 @@ doTestEmptySetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1727,8 +1679,7 @@ doTestArrayOneLogicalMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneLogical[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -1748,8 +1699,7 @@ doTestArrayOneLogicalMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1816,8 +1766,7 @@ doTestArrayOneIntegerMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneInteger[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -1837,8 +1786,7 @@ doTestArrayOneIntegerMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1905,8 +1853,7 @@ doTestArrayOneDoubleMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneDouble[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -1931,8 +1878,7 @@ doTestArrayOneDoubleMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -1999,8 +1945,7 @@ doTestArrayOneStringMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneString[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2021,8 +1966,7 @@ doTestArrayOneStringMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2089,8 +2033,7 @@ doTestArrayOneBlobMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneBlob[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2111,8 +2054,7 @@ doTestArrayOneBlobMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2179,8 +2121,7 @@ doTestArrayOneArrayMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneArray[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2205,8 +2146,7 @@ doTestArrayOneArrayMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2273,8 +2213,7 @@ doTestArrayOneMapMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2299,8 +2238,7 @@ doTestArrayOneMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2367,8 +2305,7 @@ doTestArrayOneSetMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneSet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2393,8 +2330,7 @@ doTestArrayOneSetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2461,8 +2397,7 @@ doTestArrayTwoLogicalsMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoLogicals[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2485,8 +2420,7 @@ doTestArrayTwoLogicalsMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2554,8 +2488,7 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoIntegers[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2578,8 +2511,7 @@ doTestArrayTwoIntegersMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2648,8 +2580,7 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoDoubles[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2678,8 +2609,7 @@ doTestArrayTwoDoublesMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2747,8 +2677,7 @@ doTestArrayTwoStringsMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoStrings[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2773,8 +2702,7 @@ doTestArrayTwoStringsMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2842,8 +2770,7 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoBlobs[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2868,8 +2795,7 @@ doTestArrayTwoBlobsMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -2937,8 +2863,7 @@ doTestArrayTwoArraysMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoArrays[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -2971,8 +2896,7 @@ doTestArrayTwoArraysMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3040,8 +2964,7 @@ doTestArrayTwoMapsMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoMaps[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3074,8 +2997,7 @@ doTestArrayTwoMapsMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3143,8 +3065,7 @@ doTestArrayTwoSetsMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayTwoSets[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3177,8 +3098,7 @@ doTestArrayTwoSetsMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3246,8 +3166,7 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneArrayOneMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3280,8 +3199,7 @@ doTestArrayOneArrayOneMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3350,8 +3268,7 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneMapOneSet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3384,8 +3301,7 @@ doTestArrayOneMapOneSetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3454,8 +3370,7 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayOneSetOneArray[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3488,8 +3403,7 @@ doTestArrayOneSetOneArrayMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3559,8 +3473,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
             static const DataKind insertedBytesForArrayManyDoubles[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Array
@@ -3752,8 +3665,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3825,8 +3737,7 @@ doTestLogicalMapMessage(const char *launchPath,
             static const DataKind insertedBytesForLogicalMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
@@ -3849,8 +3760,7 @@ doTestLogicalMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeMap |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -3917,8 +3827,7 @@ doTestIntegerMapMessage(const char *launchPath,
             static const DataKind insertedBytesForIntegerMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
@@ -3941,8 +3850,7 @@ doTestIntegerMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeMap |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -4009,8 +3917,7 @@ doTestStringMapMessage(const char *launchPath,
             static const DataKind insertedBytesForStringMap[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Map
@@ -4034,8 +3941,7 @@ doTestStringMapMessage(const char *launchPath,
                   DataKind::OtherContainerTypeMap |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -4102,8 +4008,7 @@ doTestLogicalSetMessage(const char *launchPath,
             static const DataKind insertedBytesForLogicalSet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
@@ -4123,8 +4028,7 @@ doTestLogicalSetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -4191,8 +4095,7 @@ doTestIntegerSetMessage(const char *launchPath,
             static const DataKind insertedBytesForIntegerSet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
@@ -4212,8 +4115,7 @@ doTestIntegerSetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
@@ -4280,8 +4182,7 @@ doTestStringSetMessage(const char *launchPath,
             static const DataKind insertedBytesForStringSet[] =
             {
                 // Start of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageStartValue |
+                DataKind::StartOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Start of Set
@@ -4302,8 +4203,7 @@ doTestStringSetMessage(const char *launchPath,
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerNonEmptyValue,
                 // End of Message
-                DataKind::Other | DataKind::OtherMessage |
-                  DataKind::OtherMessageEndValue |
+                DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };

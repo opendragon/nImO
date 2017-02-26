@@ -83,6 +83,24 @@ namespace nImO
         virtual
         ~Message(void);
 
+        /*! @brief Add some bytes to the buffer.
+         @param[in] data The bytes to be added.
+         @param[in] numBytes The number of bytes to add. */
+        virtual void
+        appendBytes(const uint8_t *data,
+                    const size_t  numBytes)
+        override;
+        
+        /*! @brief Add some bytes to the buffer.
+         @param[in] data The bytes to be added.
+         @param[in] numBytes The number of bytes to add. */
+        inline void
+        appendBytes(const DataKind *data,
+                    const size_t   numBytes)
+        {
+            appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
+        } // appendBytes
+
         /*! @brief Close the Message, completing its contents.
          @returns The Message object so that cascading can be done. */
         Message &
@@ -92,12 +110,25 @@ namespace nImO
          bytes present.
          Note that the returned pointer may become invalid at any time, so it should be either
          used immediately or copied.
-         @param[out] length Set to the number of valid bytes in the buffer.
+         @param[out] length Set to the number of valid bytes returned.
          @returns A pointer to a copy of the bytes in the buffer. */
         virtual const uint8_t *
         getBytes(size_t &length)
         override;
 
+        /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
+         transmitted.
+         Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
+         except for the initial start-of-message byte.
+         Escaping a byte involves inverting the high bit of the byte and having an escape byte
+         inserted before the byte.
+         The Message bytes are followed by a checksum byte, which is escaped if it matches a
+         start-of-message byte or an escape byte.
+         @param[out] length Set to the number of bytes returned.
+         @returns A pointer to a copy of the bytes in the Message, ready to be transmitted. */
+        const uint8_t *
+        getBytesForTransmission(size_t &length);
+        
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
         virtual size_t
@@ -158,6 +189,12 @@ namespace nImO
 
     private :
         // Private fields.
+
+        /*! @brief The cached value of the buffer. */
+        uint8_t *_cachedForTransmission;
+        
+        /*! @brief The cached value of the length of the buffer. */
+        size_t _cachedTransmissionLength;
 
         /*! @brief The position of the next byte being read. */
         size_t _readPosition;

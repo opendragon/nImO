@@ -1055,7 +1055,7 @@ PrintUsageImplementation::LineWrapper::process(IStringWriter &write,
                     // bit
                     unsigned mask = (static_cast<unsigned>(-1) >> __builtin_clz(ch ^ 0xff));
 
-                    ch = ch &mask; // mask out length bits, we don't verify their correctness
+                    ch = ch & mask; // mask out length bits, we don't verify their correctness
                     for ( ; (maxi + charbytes < len) &&
                          ((static_cast<unsigned char>(data[maxi + charbytes]) ^ 0x80) <= 0x3F); )
                     {

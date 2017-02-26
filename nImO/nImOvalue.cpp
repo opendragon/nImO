@@ -125,7 +125,7 @@ nImO::Value::addToExtractionMap(const DataKind         aByte,
     {
         for (uint8_t ii = 0; 255 > ii; ++ii)
         {
-            if (lByte == (lMask &ii))
+            if (lByte == (lMask & ii))
             {
                 ExtractorMap::value_type keyValue(ii, theExtractor);
 

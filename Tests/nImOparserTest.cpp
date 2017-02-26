@@ -107,14 +107,14 @@ catchSignal(int signal)
  the object representation as a string. */
 static int
 compareValueWithString(const Value &aValue,
-                       const char        *aString)
+                       const char  *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer buff;
-    int                result;
-    size_t             length;
+    int          result;
+    size_t       length;
 
     aValue.printToStringBuffer(buff);
     result = strcmp(buff.getString(length), aString);

@@ -293,14 +293,17 @@ namespace nImO
             /*! @brief The mask for the type of Container. */
             OtherContainerTypeMask = 0x000C,
 
-            /*! @brief The container is an Array. */
+            /*! @brief The Container is an Array. */
             OtherContainerTypeArray = 0x0000,
 
-            /*! @brief The container is a Map. */
+            /*! @brief The Container is a Map. */
             OtherContainerTypeMap = 0x0004,
 
-            /*! @brief The container is a Set. */
+            /*! @brief The Container is a Set. */
             OtherContainerTypeSet = 0x0008,
+
+            /*! @brief An illegal value for the Container type. */
+            OtherContainerTypeReserved = 0x000C,
 
             /*! @brief The mask for the empty / non-empty state of the Container. */
             OtherContainerEmptyMask = 0x0001,
@@ -356,7 +359,19 @@ namespace nImO
                 OtherMessageExpectedStringOrBlobValue = 0x0002,
 
                 /*! @brief The enclosed value in the Message is a Logical or Container. */
-                OtherMessageExpectedOtherValue = 0x0003
+                OtherMessageExpectedOtherValue = 0x0003,
+
+        /*! @brief The mask for detecting the start or end of a Message. */
+        StartOfMessageMask = Other | OtherMessage | OtherMessageStartEndMask,
+
+        /*! @brief The value for the start of a Message. */
+        StartOfMessageValue = Other | OtherMessage | OtherMessageStartValue,
+
+        /*! @brief The value for the start of a Message. */
+        EndOfMessageValue = Other | OtherMessage | OtherMessageEndValue,
+
+        /*! @brief A value that will not normally appear in a Message. */
+        EscapeValue = Other | OtherContainerStart | OtherContainerTypeReserved
 
     }; // DataKind
 
@@ -376,7 +391,7 @@ namespace nImO
     const int DataKindStringOrBlobShortLengthMinValue = 0;
 
     /*! @brief The maximum count representable in a short floating point. */
-    const int StringOrBlobShortLengthMaxValue = 15;
+    const int DataKindStringOrBlobShortLengthMaxValue = 15;
 
     /*! @brief Whether a Value is enumerable. */
     enum class Enumerable
@@ -416,7 +431,7 @@ namespace nImO
     }; // MessageState
 
     /*! @brief The format for the output from command-line tools. */
-    enum class OutputFlavour : uint32_t
+    enum class OutputFlavour
     {
         /*! @brief Normal output with no special processing. */
         Normal,
@@ -453,6 +468,9 @@ namespace nImO
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
+
+    /*! @brief A sequence of bytes. */
+    using ByteVector = std::vector<uint8_t>;
 
     /*! @brief A sequence of argument descriptors. */
     using DescriptorVector = std::vector<BaseArgumentDescriptor *>;

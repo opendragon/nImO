@@ -70,9 +70,7 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const DataKind kInitEmptyMessageValue = (nImO::DataKind::Other |
-                                                nImO::DataKind::OtherMessage |
-                                                nImO::DataKind::OtherMessageStartValue |
+static const DataKind kInitEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
                                                 nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
@@ -82,21 +80,15 @@ static const DataKind kInitTermMessageMask = (nImO::DataKind::Mask |
                                               nImO::DataKind::OtherMessageEmptyMask);
 
 /*! @brief The trailing byte for an empty Message. */
-static const DataKind kTermEmptyMessageValue = (nImO::DataKind::Other |
-                                                nImO::DataKind::OtherMessage |
-                                                nImO::DataKind::OtherMessageEndValue |
+static const DataKind kTermEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
                                                 nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The lead byte for a non-empty Message. */
-static const DataKind kInitNonEmptyMessageValue = (nImO::DataKind::Other |
-                                                   nImO::DataKind::OtherMessage |
-                                                   nImO::DataKind::OtherMessageStartValue |
+static const DataKind kInitNonEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
                                                    nImO::DataKind::OtherMessageNonEmptyValue);
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::Other |
-                                                   nImO::DataKind::OtherMessage |
-                                                   nImO::DataKind::OtherMessageEndValue |
+static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
                                                    nImO::DataKind::OtherMessageNonEmptyValue);
 
 #if defined(__APPLE__)
@@ -116,10 +108,13 @@ static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::Other |
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    inherited(false), _readPosition(0), _state(MessageState::Unknown), _headerAdded(false)
+    inherited(false), _cachedForTransmission(nullptr), _cachedTransmissionLength(0),
+    _readPosition(0), _state(MessageState::Unknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
-    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
+    ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
+    ODL_LL3("_cachedTransmissionLength <- ", _cachedTransmissionLength, //####
+            "_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
@@ -127,12 +122,32 @@ nImO::Message::Message(void) :
 nImO::Message::~Message(void)
 {
     ODL_OBJENTER(); //####
+    delete[] _cachedForTransmission;
     ODL_OBJEXIT(); //####
 } // nImO::Message::~Message
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::Message::appendBytes(const uint8_t *data,
+                           const size_t  numBytes)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("data = ", data); //####
+    ODL_LL1("numBytes = ", numBytes); //####
+    // Invalidate the cache.
+    if (_cachedForTransmission)
+    {
+        ODL_LOG("(_cachedForTransmission)"); //####
+        delete[] _cachedForTransmission;
+        _cachedForTransmission = nullptr;
+        ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
+    }
+    inherited::appendBytes(data, numBytes);
+    ODL_OBJEXIT(); //####
+} // nImO::Message::appendBytes
 
 nImO::Message &
 nImO::Message::close(void)
@@ -149,10 +164,8 @@ nImO::Message::close(void)
         {
             static const DataKind emptyMessage[] =
             {
-                DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageStartValue |
-                  DataKind::OtherMessageEmptyValue,
-                DataKind::Other | DataKind::OtherMessage | DataKind::OtherMessageEndValue |
-                  DataKind::OtherMessageEmptyValue
+                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
+                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
             const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
 
@@ -175,7 +188,7 @@ nImO::Message::getBytes(size_t &length)
 {
     ODL_OBJENTER(); //####
     ODL_P1("length = ", &length); //####
-    const uint8_t * result;
+    const uint8_t *result;
 
     if (MessageState::Closed == _state)
     {
@@ -193,7 +206,110 @@ nImO::Message::getBytes(size_t &length)
     }
     ODL_OBJEXIT_P(result); //####
     return result;
-} // getBytes
+} // nImO::Message::getBytes
+
+const uint8_t *
+nImO::Message::getBytesForTransmission(size_t &length)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("length = ", &length); //####
+    uint8_t *result;
+
+    if (_cachedForTransmission)
+    {
+        ODL_LOG("(_cachedForTransmission)"); //####
+        length = _cachedTransmissionLength;
+        ODL_LL1("length <- ", length); //####
+        result = _cachedForTransmission;
+    }
+    else
+    {
+        ODL_LOG("! (_cachedForTransmission)"); //####
+        const uint8_t *intermediate = getBytes(length);
+        
+        if (intermediate && (1 < length))
+        {
+            // First, check that the buffer starts correctly.
+            if (DataKind::StartOfMessageValue == (*intermediate & DataKind::StartOfMessageMask))
+            {
+                // Next, count the number of bytes that will need to be escaped, and generate the
+                // byte sum.
+                uint64_t sum = 0;
+                size_t   escapeCount = 0;
+                
+                for (size_t ii = 1; ii < length; ++ii)
+                {
+                    uint8_t aByte = intermediate[ii];
+                    
+                    sum += aByte;
+                    if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
+                        (DataKind::EscapeValue == static_cast<DataKind>(aByte)))
+                    {
+                        ++escapeCount;
+                    }
+                }
+                // Calculate the checksum byte and correct the escape and start counts if it will
+                // need to be escaped.
+                uint8_t checkSum = static_cast<uint8_t>(0x00FF & ~sum);
+                
+                if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
+                    (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
+                {
+                    ++escapeCount;
+                }
+                _cachedTransmissionLength = length + escapeCount + 1;
+                size_t jj = 1;
+                
+                _cachedForTransmission = new uint8_t[_cachedTransmissionLength];
+                // Copy the start-of-message byte to the new set of bytes.
+                *_cachedForTransmission = *intermediate;
+                for (size_t ii = 1; ii < length; ++ii, ++jj)
+                {
+                    uint8_t aByte = intermediate[ii];
+                    
+                    if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
+                        (DataKind::EscapeValue == static_cast<DataKind>(aByte)))
+                    {
+                        _cachedForTransmission[jj++] = toUType(DataKind::EscapeValue);
+                        _cachedForTransmission[jj] = (aByte ^ 0x0080);
+                    }
+                    else
+                    {
+                        _cachedForTransmission[jj] = aByte;
+                    }
+                }
+                // Copy the checksum to the end of the new set of bytes.
+                if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
+                    (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
+                {
+                    _cachedForTransmission[jj++] = toUType(DataKind::EscapeValue);
+                    _cachedForTransmission[jj] = (checkSum ^ 0x0080);
+                }
+                else
+                {
+                    _cachedForTransmission[jj] = checkSum;
+                }
+                length = _cachedTransmissionLength;
+                result = _cachedForTransmission;
+            }
+            else
+            {
+                ODL_LOG("! (DataKind::StartOfMessageValue == (*intermediate & " //####
+                        "DataKind::StartOfMessageMask))"); //####
+                length = 0;
+                result = nullptr;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (intermediate && (1 < length))"); //####
+            length = 0;
+            result = nullptr;
+        }
+    }
+    ODL_OBJEXIT_P(result); //####
+    return result;
+} // nImO::Message::getBytesForTransmission
 
 size_t
 nImO::Message::getLength(void)
@@ -239,7 +355,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
         }
         else
         {
-            if (kInitEmptyMessageValue == (aByte &kInitTermMessageMask))
+            if (kInitEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
                 aByte = getByte(++_readPosition);
                 ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
@@ -251,7 +367,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                     ODL_LL2("status <- ", toUType(status), "_readPosition <- ", //####
                             _readPosition); //####
                 }
-                else if (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))
+                else if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
                 {
                     aByte = getByte(++_readPosition);
                     ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
@@ -270,12 +386,12 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                 }
                 else
                 {
-                    ODL_LOG("! (kTermEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
+                    ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
                     status = ReadStatus::Invalid;
                     ODL_LL1("status <- ", toUType(status)); //####
                 }
             }
-            else if (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))
+            else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
                 DataKind initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
 
@@ -323,7 +439,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                                 result.reset();
                                 ODL_P1("result <- ", result.get()); //####
                             }
-                            else if (kTermNonEmptyMessageValue == (aByte &kInitTermMessageMask))
+                            else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
                             {
                                 nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
                                 ODL_XL1("nextTag <- ", toUType(nextTag)); //####
@@ -357,7 +473,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
                             else
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
-                                        "(aByte &kInitTermMessageMask))"); //####
+                                        "(aByte & kInitTermMessageMask))"); //####
                                 status = ReadStatus::Invalid;
                                 ODL_LL1("status <- ", toUType(status)); //####
                                 result.reset();
@@ -375,7 +491,7 @@ nImO::Message::getValue(nImO::ReadStatus &status)
             }
             else
             {
-                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte &kInitTermMessageMask))"); //####
+                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
                 status = ReadStatus::Invalid;
                 ODL_LL1("status <- ", toUType(status)); //####
             }
@@ -422,6 +538,14 @@ nImO::ChunkArray &
 nImO::Message::reset(void)
 {
     ODL_OBJENTER(); //####
+    // Invalidate the cache.
+    if (_cachedForTransmission)
+    {
+        ODL_LOG("(_cachedForTransmission)"); //####
+        delete[] _cachedForTransmission;
+        _cachedForTransmission = nullptr;
+        ODL_P1("_cachedForTransmission <- ", _cachedForTransmission); //####
+    }
     lock();
     inherited::reset();
     _headerAdded = false;
@@ -444,11 +568,9 @@ nImO::Message::setValue(const nImO::Value &theValue)
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         lock();
         DataKind typeTag = theValue.getTypeTag();
-        DataKind headerByte = (DataKind::Other | DataKind::OtherMessage |
-                               DataKind::OtherMessageStartValue |
+        DataKind headerByte = (DataKind::StartOfMessageValue |
                                DataKind::OtherMessageNonEmptyValue | typeTag);
-        DataKind trailerByte = (DataKind::Other | DataKind::OtherMessage |
-                                DataKind::OtherMessageEndValue |
+        DataKind trailerByte = (DataKind::EndOfMessageValue |
                                 DataKind::OtherMessageNonEmptyValue | typeTag);
 
         appendBytes(&headerByte, sizeof(headerByte));

@@ -1802,9 +1802,9 @@ ODLogInit_(const char *prefix,
                               (sizeof(ODL_INIT_FORMAT_) - 1) - 8; // 4 %s
 
 #  if MAC_OR_LINUX_
-    lOdEnableThreadSupport_ = (options &kODLoggingOptionEnableThreadSupport);
-    lOdIncludeProcessID_ = (options &kODLoggingOptionIncludeProcessID);
-    lOdIncludeThreadID_ = (options &kODLoggingOptionIncludeThreadID);
+    lOdEnableThreadSupport_ = (options & kODLoggingOptionEnableThreadSupport);
+    lOdIncludeProcessID_ = (options & kODLoggingOptionIncludeProcessID);
+    lOdIncludeThreadID_ = (options & kODLoggingOptionIncludeThreadID);
 #  endif // MAC_OR_LINUX_
     ODL_CREATE_PREFIX_();
     size_t prefixLength = strlen(prefixString_);
@@ -1822,7 +1822,7 @@ ODLogInit_(const char *prefix,
     memset(stars, '*', starsLength);
     stars[starsLength] = '\0';
 #  if (MAC_OR_LINUX_ && (! defined(__OBJC__)))
-    if (options &kODLoggingOptionWriteToStderr)
+    if (options & kODLoggingOptionWriteToStderr)
     {
         openlog(prefix, LOG_PID | LOG_CONS | LOG_PERROR, ODL_TARGET_);
     }

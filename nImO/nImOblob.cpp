@@ -620,6 +620,7 @@ const
                 DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                                   DataKind::StringOrBlobLongLengthValue |
                                   (DataKind::StringOrBlobLongLengthMask & (numBytes - 1)));
+
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
             }

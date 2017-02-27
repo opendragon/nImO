@@ -174,30 +174,22 @@ nImO::Message::close(void)
     return *this;
 } // nImO::Message::close
 
-const uint8_t *
-nImO::Message::getBytes(size_t &length)
+std::string
+nImO::Message::getBytes(void)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("length = ", &length); //####
-    const uint8_t *result;
+    std::string result;
 
     if (MessageState::Closed == _state)
     {
         ODL_LOG("(MessageState::Closed == _state)"); //####
         lock();
-        result = inherited::getBytes(length);
+        result = inherited::getBytes();
         unlock();
     }
-    else
-    {
-        ODL_LOG("! (MessageState::Closed == _state)"); //####
-        result = nullptr;
-        length = 0;
-        ODL_LL1("length <- ", length); //####
-    }
-    ODL_OBJEXIT_P(result); //####
+    ODL_OBJEXIT(); //####
     return result;
-} // nImO::Message::getBytes
+} // nImO::Message:getBytes
 
 std::string
 nImO::Message::getBytesForTransmission(void)
@@ -206,18 +198,18 @@ nImO::Message::getBytesForTransmission(void)
     if (0 == _cachedTransmissionString.size())
     {
         ODL_LOG("(0 == _cachedTransmissionString.size())"); //####
-        size_t        length = 0;
-        const uint8_t *intermediate = getBytes(length);
+        auto   intermediate(getBytes());
+        size_t length = intermediate.size();
         
-        if (intermediate && (1 < length))
+        if (1 < length)
         {
             ODL_LOG("(intermediate && (1 < length))"); //####
             // First, check that the buffer starts correctly.
-            if (DataKind::StartOfMessageValue == (*intermediate & DataKind::StartOfMessageMask))
+            if (DataKind::StartOfMessageValue == (intermediate[0] & DataKind::StartOfMessageMask))
             {
                 // Next, count the number of bytes that will need to be escaped, and generate the
                 // byte sum.
-                uint64_t sum = *intermediate;
+                uint64_t sum = intermediate[0];
                 size_t   escapeCount = 0;
                 
                 for (size_t ii = 1; ii < length; ++ii)
@@ -244,7 +236,7 @@ nImO::Message::getBytesForTransmission(void)
                 ODL_LL1("escapeCount = ", escapeCount); //####
                 _cachedTransmissionString.reserve(length + escapeCount + 1);
                 // Copy the start-of-message byte to the new set of bytes.
-                _cachedTransmissionString += *intermediate;
+                _cachedTransmissionString += intermediate[0];
                 for (size_t ii = 1; ii < length; ++ii)
                 {
                     uint8_t aByte = intermediate[ii];
@@ -280,7 +272,7 @@ nImO::Message::getBytesForTransmission(void)
         }
         else
         {
-            ODL_LOG("! (intermediate && (1 < length))"); //####
+            ODL_LOG("! (1 < length)"); //####
         }
     }
     ODL_PACKET("_cachedTransmissionString", _cachedTransmissionString.data(), //####

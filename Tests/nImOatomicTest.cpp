@@ -122,11 +122,12 @@ compareValueWithString(const Value &aValue,
     ODL_S1("aString = ", aString); //####
     StringBuffer buff;
     int          result;
-    size_t       length;
 
     aValue.printToStringBuffer(buff);
-    result = strcmp(buff.getString(length), aString);
-    ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
+    auto valString(buff.getString());
+
+    result = valString.compare(aString);
+    ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString
@@ -572,23 +573,16 @@ doTestEmptyStringBuffer(const char *launchPath,
         {
             if (0 == stuff->getLength())
             {
-                size_t     length = 0;
-                const char *outString = stuff->getString(length);
+                auto   outString(stuff->getString());
+                size_t length = outString.size();
 
-                if (outString)
+                if (0 == length)
                 {
-                    if ((0 == length) && (0 == strlen(outString)))
-                    {
-                        result = 0;
-                    }
-                    else
-                    {
-                        ODL_LOG("! ((0 == length) && (0 == strlen(outString)))"); //####
-                    }
+                    result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! outString"); //####
+                    ODL_LOG("! (0 == length)"); //####
                 }
             }
             else
@@ -658,17 +652,17 @@ doTestStringBufferWithCharacters(const char *launchPath,
 
                 if (resultLength == outLength)
                 {
-                    const char *resultString = stuff->getString(resultLength);
+                    auto resultString(stuff->getString());
 
-                    if (resultString && (0 == strcmp(resultString, outString)))
+                    if (0 == resultString.compare(outString))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_S2("outString = ", outString, "resultString = ", resultString); //####
-                        ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
-                                "outString)))"); //####
+                        ODL_S2("outString = ", outString, "resultString = ", //####
+                               resultString.c_str()); //####
+                        ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
                 else
@@ -743,17 +737,15 @@ doTestStringBufferWithLogical(const char *launchPath,
                     bool asBool = (0 != value);
 
                     stuff->addBool(asBool);
-                    size_t     length;
-                    const char *resultString = stuff->getString(length);
+                    auto resultString(stuff->getString());
 
-                    if (resultString && (0 == strcmp(outString, resultString)))
+                    if (0 == resultString.compare(outString))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (resultString && (0 == strcmp(outString, " //####
-                                "resultString)))"); //####
+                        ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
                 else
@@ -822,17 +814,15 @@ doTestStringBufferWithInteger(const char *launchPath,
                 if (stuff)
                 {
                     stuff->addLong(value);
-                    size_t     length;
-                    const char *resultString = stuff->getString(length);
+                    auto resultString(stuff->getString());
 
-                    if (resultString && (0 == strcmp(outString, resultString)))
+                    if (0 == resultString.compare(outString))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (resultString && (0 == strcmp(outString, " //####
-                                "resultString)))"); //####
+                        ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
                 else
@@ -903,16 +893,15 @@ doTestStringBufferWithString(const char *launchPath,
 
                 if (resultLength == outLength)
                 {
-                    const char *resultString = stuff->getString(resultLength);
+                    auto resultString(stuff->getString());
 
-                    if (resultString && (0 == strcmp(resultString, outString)))
+                    if (0 == resultString.compare(outString))
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
-                                "outString)))"); //####
+                        ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
                 else
@@ -985,15 +974,15 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
 
             if (resultLength == outLength)
             {
-                const char *resultString = stuff->getString(resultLength);
+                auto resultString(stuff->getString());
 
-                if (resultString && (0 == strcmp(resultString, outString)))
+                if (0 == resultString.compare(outString))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (resultString && (0 == strcmp(resultString, outString)))"); //####
+                    ODL_LOG("! (0 == resultString.compare(outString))"); //####
                 }
             }
             else
@@ -1061,13 +1050,13 @@ doTestStringBufferWithDouble(const char *launchPath,
                 if (stuff)
                 {
                     stuff->addDouble(value);
-                    size_t     length;
-                    const char *resultString = stuff->getString(length);
+                    auto   resultString(stuff->getString());
+                    size_t ii = 0;
 
-                    for (result = 0; *outString && *resultString; ++outString, ++resultString)
+                    for (result = 0; *outString && resultString[ii]; ++outString, ++ii)
                     {
                         char outChar = tolower(*outString);
-                        char resultChar = tolower(*resultString);
+                        char resultChar = tolower(resultString[ii]);
 
                         if (outChar != resultChar)
                         {
@@ -1075,9 +1064,9 @@ doTestStringBufferWithDouble(const char *launchPath,
                         }
 
                     }
-                    if (*outString || *resultString)
+                    if (*outString || resultString[ii])
                     {
-                        ODL_LOG("(*outString || *resultString)"); //####
+                        ODL_LOG("(*outString || resultString[ii])"); //####
                         result = 1;
                     }
                 }
@@ -1146,19 +1135,20 @@ doTestBigStringBuffer(const char *launchPath,
             {
                 stuff->addString(bigString);
             }
-            size_t     length = 0;
-            const char *resultString = stuff->getString(length);
+            auto resultString(stuff->getString());
+            size_t length = resultString.size();
 
             if ((bigLength * kBigTestSize) == length)
             {
+                auto bytes = resultString.data();
+
                 result = 0;
                 for (size_t ii = 0; (0 == result) && (kBigTestSize > ii);
-                     ++ii, resultString += bigLength)
+                     ++ii, bytes += bigLength)
                 {
-                    if (0 != CompareBytes(bigString, resultString, bigLength))
+                    if (0 != CompareBytes(bigString, bytes, bigLength))
                     {
-                        ODL_LOG("(0 != CompareBytes(bigString, resultString, " //####
-                                "bigLength))"); //####
+                        ODL_LOG("(0 != CompareBytes(bigString, bytes, bigLength))"); //####
                         result = 1;
                     }
                 }
@@ -1221,17 +1211,16 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
         if (stuff)
         {
             stuff->addBytes(nullptr, 0);
-            size_t     length;
-            const char *resultString = stuff->getString(length);
+            auto       resultString(stuff->getString());
             const char *expectedString = "%0%%";
 
-            if (resultString && (0 == strcmp(resultString, expectedString)))
+            if (0 == resultString.compare(expectedString))
             {
                 result = 0;
             }
             else
             {
-                ODL_LOG("! (resultString && (0 == strcmp(resultString, expectedString)))"); //####
+                ODL_LOG("! (0 == resultString.compare(expectedString))"); //####
             }
         }
         else
@@ -1298,8 +1287,7 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                     smallBlob[ii] = aByte;
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
-                size_t            length;
-                const char        *resultString = stuff->getString(length);
+                auto              resultString(stuff->getString());
                 std::string       expectedString("%");
                 std::stringstream buff;
 
@@ -1317,14 +1305,13 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (resultString && (0 == strcmp(resultString, expectedString.c_str())))
+                if (0 == resultString.compare(expectedString))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
-                            "expectedString.c_str())))"); //####
+                    ODL_LOG("! (0 == resultString.compare(expectedString))"); //####
                 }
             }
             else
@@ -1396,8 +1383,7 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                     bigBlob[ii] = aByte;
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
-                size_t            length;
-                const char        *resultString = stuff->getString(length);
+                auto              resultString(stuff->getString());
                 std::string       expectedString("%");
                 std::stringstream buff;
 
@@ -1415,14 +1401,13 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                     expectedString += lowByte;
                 }
                 expectedString += "%";
-                if (resultString && (0 == strcmp(resultString, expectedString.c_str())))
+                if (0 == resultString.compare(expectedString))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (resultString && (0 == strcmp(resultString, " //####
-                            "expectedString.c_str())))"); //####
+                    ODL_LOG("! (0 == resultString.compare(expectedString))"); //####
                 }
             }
             else
@@ -1488,15 +1473,15 @@ doTestStringBufferReset(const char *launchPath,
 
             if (0 == resultLength)
             {
-                const char *resultString = stuff->getString(resultLength);
+                auto resultString(stuff->getString());
 
-                if (resultString && (0 == strlen(resultString)))
+                if (0 == resultString.length())
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (resultString && (0 == strlen(resultString)))"); //####
+                    ODL_LOG("! (0 == resultString.length())"); //####
                 }
             }
             else

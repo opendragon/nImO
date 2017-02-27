@@ -118,11 +118,12 @@ compareValueWithString(const Value &aValue,
     ODL_S1("aString = ", aString); //####
     StringBuffer buff;
     int          result;
-    size_t       length;
 
     aValue.printToStringBuffer(buff);
-    result = strcmp(buff.getString(length), aString);
-    ODL_S2("got: ", buff.getString(length), "expected: ", aString); //####
+    auto resultString(buff.getString());
+
+    result = resultString.compare(aString);
+    ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
     ODL_EXIT_LL(result); //####
     return result;
 } // compareValueWithString

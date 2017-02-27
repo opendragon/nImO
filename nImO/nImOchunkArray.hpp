@@ -106,14 +106,10 @@ namespace nImO
         getByte(const size_t index)
         const;
 
-        /*! @brief Return a copy of the bytes in the buffer as well as the number of valid
-         bytes present.
-         Note that the returned pointer may become invalid at any time, so it should be either
-         used immediately or copied.
-         @param[out] length Set to the number of valid bytes in the buffer.
-         @returns A pointer to a copy of the bytes in the buffer. */
-        virtual const uint8_t *
-        getBytes(size_t &length);
+        /*! @brief Return a copy of the bytes in the buffer.
+         @returns A copy of the bytes in the buffer. */
+        virtual std::string
+        getBytes(void);
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
@@ -157,17 +153,11 @@ namespace nImO
         // Private fields.
 
         /*! @brief The cached value of the buffer. */
-        uint8_t *_cachedOutput;
-
-        /*! @brief The cached value of the length of the buffer. */
-        size_t _cachedLength;
-
-        /*! @brief @c true if the buffers will have an extra byte for @c nullptr termination and
+        std::string _cachedString;
+        
+        /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
          @c false otherwise. */
         bool _buffersArePadded;
-
-        /*! @brief @c true if _cachedOutput just points to the first buffer. */
-        bool _cachedIsFirstBuffer;
 
     }; // ChunkArray
 

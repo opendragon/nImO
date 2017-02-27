@@ -128,35 +128,31 @@ setValueAndCheck(Message        &stuff,
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    size_t        length1 = 0;
-    const uint8_t *contents1 = stuff.getBytes(length1);
-    int           result;
+    auto   contents1(stuff.getBytes());
+    size_t length1 = contents1.size();
+    int    result;
 
     ODL_PACKET("expectedContents1", expectedContents1, expectedSize1); //####
-    ODL_PACKET("contents1", contents1, length1); //####
-    if ((nullptr != contents1) && (expectedSize1 == length1))
+    ODL_PACKET("contents1", contents1.data(), length1); //####
+    if (expectedSize1 == length1)
     {
-        result = CompareBytes(expectedContents1, contents1, expectedSize1);
+        result = CompareBytes(expectedContents1, contents1.data(), expectedSize1);
         if (0 == result)
         {
             if (expectedContents2 && expectedSize2)
             {
-                //size_t        length2 = 0;
-                //const uint8_t *contents2 = stuff.getBytesForTransmission(length2);
                 std::string contents2(stuff.getBytesForTransmission());
                 size_t      length2 = contents2.size();
 
                 ODL_PACKET("expectedContents2", expectedContents2, expectedSize2); //####
                 ODL_PACKET("contents2", contents2.data(), length2); //####
-                //if ((nullptr != contents2) && (expectedSize2 == length2))
                 if (expectedSize2 == length2)
                 {
-                    //result = CompareBytes(expectedContents2, contents2, expectedSize2);
                     result = CompareBytes(expectedContents2, contents2.data(), expectedSize2);
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr != contents2) && (expectedSize2 == length2))"); //####
+                    ODL_LOG("! (expectedSize2 == length2)"); //####
                     result = 1;
                 }
             }
@@ -164,7 +160,7 @@ setValueAndCheck(Message        &stuff,
     }
     else
     {
-        ODL_LOG("! ((nullptr != contents1) && (expectedSize1 == length1))"); //####
+        ODL_LOG("! (expectedSize1 == length1)"); //####
         result = 1;
     }
     ODL_EXIT_LL(result); //####
@@ -216,22 +212,24 @@ doTestInsertEmptyMessage(const char *launchPath,
             const size_t  expectedEmptyByteCount = (sizeof(expectedEmptyBytes) /
                                                     sizeof(*expectedEmptyBytes));
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            size_t        length1 = 0;
-            const uint8_t *contents1 = stuff->getBytes(length1);
+            auto   contents1(stuff->getBytes());
+            size_t length1 = contents1.size();
 
             stuff->open(true);
-            if ((nullptr != contents1) || (0 != length1))
+            if (0 != length1)
             {
-                ODL_LOG("((nullptr != contents1) || (0 != length1))"); //####
+                ODL_LOG("(0 != length1)"); //####
             }
             else
             {
                 stuff->close();
-                contents1 = stuff->getBytes(length1);
-                ODL_PACKET("contents", contents1, length1); //####
-                if ((nullptr != contents1) && (expectedEmptyByteCount == length1))
+                contents1 = stuff->getBytes();
+                length1 = contents1.size();
+                ODL_PACKET("contents", contents1.data(), length1); //####
+                if (expectedEmptyByteCount == length1)
                 {
-                    result = CompareBytes(expectedEmptyBytes, contents1, expectedEmptyByteCount);
+                    result = CompareBytes(expectedEmptyBytes, contents1.data(),
+                                          expectedEmptyByteCount);
                     if (0 == result)
                     {
                         static const uint8_t transmitEmptyBytes[] =
@@ -262,8 +260,7 @@ doTestInsertEmptyMessage(const char *launchPath,
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr != contents1) && " //####
-                            "(expectedEmptyByteCount == length1))"); //####
+                    ODL_LOG("! (expectedEmptyByteCount == length1)"); //####
                 }
             }
         }

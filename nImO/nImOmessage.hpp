@@ -106,14 +106,10 @@ namespace nImO
         Message &
         close(void);
 
-        /*! @brief Return a copy of the bytes in the buffer as well as the number of valid
-         bytes present.
-         Note that the returned pointer may become invalid at any time, so it should be either
-         used immediately or copied.
-         @param[out] length Set to the number of valid bytes returned.
-         @returns A pointer to a copy of the bytes in the buffer. */
-        virtual const uint8_t *
-        getBytes(size_t &length)
+        /*! @brief Return a copy of the bytes in the buffer.
+         @returns A copy of the bytes in the buffer. */
+        virtual std::string
+        getBytes(void)
         override;
 
         /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be

@@ -808,9 +808,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         }
         if (valid)
         {
-            size_t length = 0;
-
-            result.reset(new String(holding.getString(length)));
+            result.reset(new String(holding.getString()));
             if (nullptr != result)
             {
                 position = localIndex;

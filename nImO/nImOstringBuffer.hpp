@@ -152,14 +152,12 @@ namespace nImO
             return inherited::getByte(index);
         } // getChar
 
-        /*! @brief Return a copy of the characters in the buffer as well as the number of valid
-         characters present.
-         @param[in,out] length Set to the number of valid characters in the buffer.
-         @returns A pointer to a copy of the characters in the buffer. */
-        inline const char *
-        getString(size_t &length)
+        /*! @brief Return a copy of the characters in the buffer.
+         @returns A copy of the characters in the buffer. */
+        inline std::string
+        getString(void)
         {
-            return reinterpret_cast<const char *>(inherited::getBytes(length));
+            return inherited::getBytes();
         } // getString
 
         /*! @brief The assignment operator.

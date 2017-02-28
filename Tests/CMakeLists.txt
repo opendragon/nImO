@@ -667,6 +667,8 @@ add_test(NAME TestInsertShortBlobMessage COMMAND ${THIS_TARGET} 11)
 add_test(NAME TestInsertMediumBlobMessage COMMAND ${THIS_TARGET} 12)
 # Test message with single float
 add_test(NAME TestInsertSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+# Test message with multiple escapes
+add_test(NAME TestInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 14)
 
 # Test message with empty array
 add_test(NAME TestInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)

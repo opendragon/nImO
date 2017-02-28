@@ -1606,6 +1606,102 @@ doTestInsertSingleFloatMessage(const char *launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 014 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertMultipleEscapesMessage(const char *launchPath,
+                                   const int  argc,
+                                   char       **argv) // message with multiple escapes
+{
+#if (! defined(ODL_ENABLE_LOGGING_))
+# if MAC_OR_LINUX_
+#  pragma unused(launchPath,argc,argv)
+# endif // MAC_OR_LINUX_
+#endif // ! defined(ODL_ENABLE_LOGGING_)
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+    
+    try
+    {
+        auto stuff(make_unique<Message>());
+        
+        if (stuff)
+        {
+            static const DataKind expectedMultipleEscapesBytes[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (10 & DataKind::StringOrBlobShortLengthMask),
+                static_cast<DataKind>(0xDC), static_cast<DataKind>(0xF0),
+                static_cast<DataKind>(0xF1), static_cast<DataKind>(0xF2),
+                static_cast<DataKind>(0x0D), static_cast<DataKind>(0xF3),
+                static_cast<DataKind>(0xF4), static_cast<DataKind>(0xF5),
+                static_cast<DataKind>(0xF6), static_cast<DataKind>(0xF7),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t expectedMultipleEscapesByteCount = (sizeof(expectedMultipleEscapesBytes) /
+                                                             sizeof(*expectedMultipleEscapesBytes));
+            static const uint8_t actualData[] =
+            {
+                0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
+            };
+            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            static const uint8_t transmitMultipleEscapesBytes[] =
+            {
+                0xF6, // Start of message, next is String or Blob
+                0xAA, 0xDC, 0x5C, 0xDC, 0x70, 0xDC, 0x71, 0xDC, 0x72, 0x0D, 0xDC, 0x73, 0xDC, 0x74,
+                0xDC, 0x75, 0xDC, 0x76, 0xDC, 0x77, // many escapes
+                0xFE, // End of message, last is String or Blob
+                0xDC, 0x5C // Checksum
+            };
+            const size_t transmitMultipleEscapesByteCount = (sizeof(transmitMultipleEscapesBytes) /
+                                                             sizeof(*transmitMultipleEscapesBytes));
+            Blob multipleEscapesValue(actualData, actualDataCount);
+            
+            result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes,
+                                      expectedMultipleEscapesByteCount,
+                                      transmitMultipleEscapesBytes,
+                                      transmitMultipleEscapesByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInsertMultipleEscapesMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -4955,6 +5051,10 @@ main(int  argc,
 
                     case 13 :
                         result = doTestInsertSingleFloatMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 14 :
+                        result = doTestInsertMultipleEscapesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :

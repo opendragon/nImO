@@ -68,6 +68,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOflaw.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOlogical.cpp"
@@ -120,6 +121,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOflaw.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOlogical.hpp"
@@ -157,6 +159,7 @@ if(nImO_DO_SWIG)
         nImOdoubleArgumentDescriptor.cpp nImOdoubleArgumentDescriptor.hpp
         nImOextraArgumentDescriptor.cpp nImOextraArgumentDescriptor.hpp
         nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
+        nImOflaw.cpp nImOflaw.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
         nImOinteger.cpp nImOinteger.hpp
         nImOlogical.cpp nImOlogical.hpp

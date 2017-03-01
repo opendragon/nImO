@@ -17,6 +17,7 @@
 #include "nImOdoubleArgumentDescriptor.hpp"
 #include "nImOextraArgumentDescriptor.hpp"
 #include "nImOfilePathArgumentDescriptor.hpp"
+#include "nImOflaw.hpp"
 #include "nImOintArgumentDescriptor.hpp"
 #include "nImOinteger.hpp"
 #include "nImOlogical.hpp"

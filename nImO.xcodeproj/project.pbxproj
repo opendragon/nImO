@@ -57,6 +57,8 @@
 		F6A4A0561CD236BD005D1AF8 /* nImOmessageExtractTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmessageExtractTest.rc.in; path = Tests/nImOmessageExtractTest.rc.in; sourceTree = "<group>"; };
 		F6A4A0571CD236BD005D1AF8 /* nImOmessageInsertTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessageInsertTest.cpp; path = Tests/nImOmessageInsertTest.cpp; sourceTree = "<group>"; };
 		F6A4A0581CD236BD005D1AF8 /* nImOmessageInsertTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmessageInsertTest.rc.in; path = Tests/nImOmessageInsertTest.rc.in; sourceTree = "<group>"; };
+		F6A787751E65BCD000940F97 /* nImOflaw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOflaw.cpp; path = nImO/nImOflaw.cpp; sourceTree = SOURCE_ROOT; };
+		F6A787771E65BDAD00940F97 /* nImOflaw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOflaw.hpp; path = nImO/nImOflaw.hpp; sourceTree = SOURCE_ROOT; };
 		F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Tests/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388F61C77F3D1004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Connect/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
@@ -298,6 +300,8 @@
 				F60F86551CA4B24C004D35AB /* nImOextraArgumentDescriptor.hpp */,
 				F60F86561CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.cpp */,
 				F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.hpp */,
+				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
+				F6A787771E65BDAD00940F97 /* nImOflaw.hpp */,
 				F60F86581CA4B24C004D35AB /* nImOintArgumentDescriptor.cpp */,
 				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
 				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,

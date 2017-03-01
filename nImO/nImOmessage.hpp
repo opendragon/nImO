@@ -186,6 +186,7 @@ namespace nImO
     private :
         // Private fields.
 
+        /*! @brief The cached value of the buffer for transmission. */
         std::string _cachedTransmissionString;
 
         /*! @brief The position of the next byte being read. */

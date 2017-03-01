@@ -164,6 +164,15 @@ namespace nImO
             return nullptr;
         } // asDouble
 
+        /*! @brief Return non-@c nullptr if the object is a Flaw.
+         @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
+        virtual inline const Flaw *
+        asFlaw(void)
+        const
+        {
+            return nullptr;
+        } // asFlaw
+
         /*! @brief Return non-@c nullptr if the object is an Integer.
          @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual inline const Integer *

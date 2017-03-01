@@ -173,6 +173,7 @@ namespace nImO
     class Array;
     class BaseArgumentDescriptor;
     class BufferChunk;
+    class Flaw;
     class Map;
     class Message;
     class Set;
@@ -481,6 +482,9 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a BufferChunk. */
     using SpBufferChunk = std::shared_ptr<BufferChunk>;
 
+    /*! @brief A holder for a shared pointer to a Flaw. */
+    using SpFlaw = std::shared_ptr<Flaw>;
+
     /*! @brief A holder for a shared pointer to a Map. */
     using SpMap = std::shared_ptr<Map>;
 
@@ -504,6 +508,9 @@ namespace nImO
 
     /*! @brief A holder for a non-shared pointer to a BufferChunk. */
     using UpBufferChunk = std::unique_ptr<BufferChunk>;
+
+    /*! @brief A holder for a non-shared pointer to a Flaw. */
+    using UpFlaw = std::unique_ptr<Flaw>;
 
     /*! @brief A holder for a non-shared pointer to a Map. */
     using UpMap = std::unique_ptr<Map>;
@@ -531,6 +538,9 @@ namespace nImO
 
     /*! @brief A holder for a weak pointer to a BufferChunk. */
     using WpBufferChunk = std::weak_ptr<BufferChunk>;
+
+    /*! @brief A holder for a weak pointer to a Flaw. */
+    using WpFlaw = std::weak_ptr<Flaw>;
 
     /*! @brief A holder for a weak pointer to a Map. */
     using WpMap = std::weak_ptr<Map>;

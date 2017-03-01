@@ -126,13 +126,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Map.
          @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
-        virtual inline const Map *
+        virtual const Map *
         asMap(void)
         const
-        override
-        {
-            return this;
-        } // asMap
+        override;
 
         /*! @brief Return an iterator pointing to the first element of the Array.
          @returns An iterator pointing to the first element of the Array. */
@@ -227,13 +224,10 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline DataKind
+        virtual DataKind
         getTypeTag(void)
         const
-        override
-        {
-            return DataKind::OtherMessageExpectedOtherValue;
-        } // getTypeTag
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.

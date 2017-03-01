@@ -228,33 +228,23 @@ namespace nImO
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
          and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isExtra(void)
-        const
-        {
-            return false;
-        } // isExtra
+        const;
 
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isForFiles(bool &isForOutput)
-        const
-        {
-            isForOutput = false;
-            return false;
-        } // isForFiles
+        const;
 
         /*! @brief Return @c true if the argument is for Logical arguments.
          @returns @c true if the argument is for Logical arguments and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isLogical(void)
-        const
-        {
-            return false;
-        } // isLogical
+        const;
 
         /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
          @returns @c true if the argument is modifiable and @c false otherwise. */

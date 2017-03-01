@@ -81,13 +81,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Number.
          @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-        virtual inline const Number *
+        virtual const Number *
         asNumber(void)
         const
-        override
-        {
-            return this;
-        } // asNumber
+        override;
 
         /*! @brief Return the characters that can appear as the start of a Number.
          @returns The characters that can appear as the start of a Number. */

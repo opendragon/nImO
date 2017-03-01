@@ -114,6 +114,15 @@ nImO::Double::~Double(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Double *
+nImO::Double::asDouble(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Double::asDouble
+
 bool
 nImO::Double::deeplyEqualTo(const nImO::Value &other)
 const
@@ -134,6 +143,17 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Double::deeplyEqualTo
+
+nImO::Enumerable
+nImO::Double::enumerationType(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Enumerable result = Enumerable::NotEnumerable;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Double::enumerationType
 
 bool
 nImO::Double::equalTo(const nImO::Value &other,
@@ -307,6 +327,17 @@ nImO::Double::getExtractionInfo(DataKind               &aByte,
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Double::getExtractionInfo
+
+nImO::DataKind
+nImO::Double::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedDoubleValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Double::getTypeTag
 
 bool
 nImO::Double::greaterThan(const nImO::Value &other,

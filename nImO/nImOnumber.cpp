@@ -97,6 +97,15 @@ nImO::Number::~Number(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Number *
+nImO::Number::asNumber(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Number::asNumber
+
 const char *
 nImO::Number::getInitialCharacters(void)
 {

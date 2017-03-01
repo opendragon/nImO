@@ -81,13 +81,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Container.
          @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
-        virtual inline const Container *
+        virtual const Container *
         asContainer(void)
         const
-        override
-        {
-            return this;
-        } // asContainer
+        override;
 
     protected :
         // Protected methods.

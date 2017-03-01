@@ -119,6 +119,15 @@ nImO::Logical::~Logical(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Logical *
+nImO::Logical::asLogical(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Logical::asLogical
+
 bool
 nImO::Logical::deeplyEqualTo(const nImO::Value &other)
 const
@@ -139,6 +148,17 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Logical::deeplyEqualTo
+
+nImO::Enumerable
+nImO::Logical::enumerationType(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Enumerable result = Enumerable::Logical;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Logical::enumerationType
 
 bool
 nImO::Logical::equalTo(const nImO::Value &other,
@@ -251,6 +271,17 @@ nImO::Logical::getInitialCharacters(void)
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Logical::getInitialCharacters
+
+nImO::DataKind
+nImO::Logical::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Logical::getTypeTag
 
 bool
 nImO::Logical::greaterThan(const nImO::Value &other,

@@ -141,6 +141,15 @@ ExtraArgumentDescriptor::getProcessedValue(void)
     return result;
 } // ExtraArgumentDescriptor::getProcessedValue
 
+bool
+ExtraArgumentDescriptor::isExtra(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
+} // ExtraArgumentDescriptor::isExtra
+
 SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::parseArgString(const std::string &inString)
 {

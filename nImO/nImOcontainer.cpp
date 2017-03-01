@@ -93,6 +93,15 @@ nImO::Container::~Container(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Container *
+nImO::Container::asContainer(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Container::asContainer
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

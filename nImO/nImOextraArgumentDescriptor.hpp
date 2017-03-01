@@ -139,13 +139,10 @@ namespace nImO
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
          and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isExtra(void)
         const
-        override
-        {
-            return true;
-        } // isExtra
+        override;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

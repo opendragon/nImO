@@ -78,13 +78,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Flaw.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-        virtual inline const Flaw *
+        virtual const Flaw *
         asFlaw(void)
         const
-        override
-        {
-            return this;
-        } // asFlaw
+        override;
 
         /*! @brief Return a textual description of the Flaw.
          @returns A textual description of the Flaw. */

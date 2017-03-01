@@ -136,6 +136,137 @@ nImO::Value::addToExtractionMap(const DataKind         aByte,
     ODL_EXIT(); //####
 } // addToExtractionMap
 
+const nImO::Array *
+nImO::Value::asArray(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asArray
+
+const nImO::Blob *
+nImO::Value::asBlob(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asBlob
+
+const nImO::Container *
+nImO::Value::asContainer(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asContainer
+
+const nImO::Double *
+nImO::Value::asDouble(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asDouble
+
+const nImO::Flaw *
+nImO::Value::asFlaw(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asFlaw
+
+const nImO::Integer *
+nImO::Value::asInteger(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asInteger
+
+const nImO::Logical *
+nImO::Value::asLogical(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asLogical
+
+const nImO::Map *
+nImO::Value::asMap(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asMap
+
+const nImO::Number *
+nImO::Value::asNumber(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asNumber
+
+const nImO::Set *
+nImO::Value::asSet(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asSet
+
+const nImO::String *
+nImO::Value::asString(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asString
+
+bool
+nImO::Value::deeplyEqualTo(const nImO::Value &other)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(&other == this); //####
+    return (&other == this);
+} // nImO::Value::deeplyEqualTo
+
+nImO::Enumerable
+nImO::Value::enumerationType(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Enumerable result = Enumerable::NotEnumerable;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Value::enumerationType
+
+bool
+nImO::Value::equalTo(const nImO::Value &other,
+                     bool              &validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    validComparison = (&other == this);
+    ODL_OBJEXIT_B(&other == this);
+    return (&other == this);
+} // nImO::Value::equalTo
+
 int64_t
 nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                                      const int           leadByte,
@@ -218,6 +349,17 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     return result;
 } // nImO::Value::extractInt64FromMessage
 
+nImO::DataKind
+nImO::Value::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = static_cast<DataKind>(0);
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Value::getTypeTag
+
 nImO::SpValue
 nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
                                  size_t              &position,
@@ -257,6 +399,33 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Value::getValueFromMessage
+
+bool
+nImO::Value::greaterThan(const nImO::Value &other,
+                         bool              &validComparison)
+const
+{
+#if MAC_OR_LINUX_
+# pragma unused(other)
+#endif // MAC_OR_LINUX_
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    validComparison = false;
+    ODL_OBJEXIT_B(false); //####
+    return false;
+} // nImO::Value::greaterThan
+
+bool
+nImO::Value::greaterThanOrEqual(const nImO::Value &other,
+                                bool              &validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    validComparison = (&other == this);
+    ODL_OBJEXIT_B(&other == this); //####
+    return (&other == this);
+} // nImO::Value::greaterThanOrEqual
 
 void
 nImO::Value::initialize(void)
@@ -386,6 +555,47 @@ nImO::Value::isLegalTerminator(const char aChar)
     return result;
 } // nImO::Value::isLegalTerminator
 
+bool
+nImO::Value::lessThan(const nImO::Value &other,
+                      bool              &validComparison)
+const
+{
+#if MAC_OR_LINUX_
+# pragma unused(other)
+#endif // MAC_OR_LINUX_
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    validComparison = false;
+    ODL_OBJEXIT_B(false);
+    return false;
+} // nImO::Value::lessThan
+
+bool
+nImO::Value::lessThanOrEqual(const nImO::Value &other,
+                             bool              &validComparison)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    validComparison = (&other == this);
+    ODL_OBJEXIT_B(&other == this); //####
+    return (&other == this);
+} // nImO::Value::lessThanOrEqual
+
+void
+nImO::Value::printToStringBuffer(nImO::StringBuffer &outBuffer,
+                                 const bool         squished)
+const
+{
+#if MAC_OR_LINUX_
+# pragma unused(outBuffer,squished)
+#endif // MAC_OR_LINUX_
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Value::printToStringBuffer
+
 nImO::SpValue
 nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                   size_t                   &position)
@@ -471,6 +681,18 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
     }
     ODL_EXIT(); //####
 } // nImO::Value::writeInt64ToMessage
+
+void
+nImO::Value::writeToMessage(nImO::Message &outMessage)
+const
+{
+#if MAC_OR_LINUX_
+# pragma unused(outMessage)
+#endif // MAC_OR_LINUX_
+    ODL_OBJENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Value::writeToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

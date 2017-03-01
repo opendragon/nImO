@@ -93,6 +93,15 @@ nImO::Flaw::~Flaw(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Flaw *
+nImO::Flaw::asFlaw(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Flaw::asFlaw
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

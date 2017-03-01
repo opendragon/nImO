@@ -133,6 +133,15 @@ nImO::Array::addValue(nImO::SpValue newElement)
     return *this;
 } // nImO::Array::addValue
 
+const nImO::Array *
+nImO::Array::asArray(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Array::asArray
+
 nImO::SpValue
 nImO::Array::at(const nImO::Array::size_type index)
 const
@@ -434,6 +443,17 @@ nImO::Array::getTerminalCharacters(void)
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Array::getTerminalCharacters
+
+nImO::DataKind
+nImO::Array::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+
+    ODL_OBJEXIT_LL(static_cast<int>(result));
+    return result;
+} // nImO::Array::getTypeTag
 
 bool
 nImO::Array::greaterThan(const nImO::Value &other,

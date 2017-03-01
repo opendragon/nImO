@@ -153,6 +153,15 @@ nImO::Set::addValue(nImO::SpValue val)
     return result;
 } // nImO::Set::addValue
 
+const nImO::Set *
+nImO::Set::asSet(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Set::asSet
+
 void
 nImO::Set::clear(void)
 {
@@ -477,6 +486,17 @@ nImO::Set::getTerminalCharacters(void)
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Set::getTerminalCharacters
+
+nImO::DataKind
+nImO::Set::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Set::getTypeTag
 
 bool
 nImO::Set::greaterThan(const nImO::Value &other,

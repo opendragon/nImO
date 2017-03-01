@@ -113,6 +113,34 @@ BaseArgumentDescriptor::~BaseArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 bool
+BaseArgumentDescriptor::isExtra(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(false); //####
+    return false;
+} // BaseArgumentDescriptor::isExtra
+
+bool
+BaseArgumentDescriptor::isForFiles(bool &isForOutput)
+const
+{
+    ODL_OBJENTER(); //####
+    isForOutput = false;
+    ODL_OBJEXIT_B(false); //####
+    return false;
+} // BaseArgumentDescriptor::isForFiles
+
+bool
+BaseArgumentDescriptor::isLogical(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(false); //####
+    return false;
+} // BaseArgumentDescriptor::isLogical
+
+bool
 BaseArgumentDescriptor::partitionString(const std::string &inString,
                                         const size_t      indexOfDefaultValue,
                                         StringVector      &result)

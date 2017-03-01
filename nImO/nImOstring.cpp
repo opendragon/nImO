@@ -121,6 +121,15 @@ nImO::String::~String(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::String *
+nImO::String::asString(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::String::asString
+
 bool
 nImO::String::deeplyEqualTo(const nImO::Value &other)
 const
@@ -141,6 +150,17 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::String::deeplyEqualTo
+
+nImO::Enumerable
+nImO::String::enumerationType(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Enumerable result = Enumerable::String;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::String::enumerationType
 
 bool
 nImO::String::equalTo(const nImO::Value &other,
@@ -309,6 +329,17 @@ nImO::String::getInitialCharacters(void)
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::String::getInitialCharacters
+
+nImO::DataKind
+nImO::String::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedStringOrBlobValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::String::getTypeTag
 
 bool
 nImO::String::greaterThan(const nImO::Value &other,

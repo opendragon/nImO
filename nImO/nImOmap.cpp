@@ -159,6 +159,15 @@ nImO::Map::addValue(nImO::SpValue newKey,
     return result;
 } // nImO::Map::addValue
 
+const nImO::Map *
+nImO::Map::asMap(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Map::asMap
+
 void
 nImO::Map::clear(void)
 {
@@ -520,6 +529,17 @@ nImO::Map::getTerminalCharacters(void)
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Map::getTerminalCharacters
+
+nImO::DataKind
+nImO::Map::getTypeTag(void)
+const
+{
+    ODL_OBJENTER();
+    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Map::getTypeTag
 
 bool
 nImO::Map::greaterThan(const nImO::Value &other,

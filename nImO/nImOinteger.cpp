@@ -115,6 +115,15 @@ nImO::Integer::~Integer(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Integer *
+nImO::Integer::asInteger(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Integer::asInteger
+
 bool
 nImO::Integer::deeplyEqualTo(const nImO::Value &other)
 const
@@ -135,6 +144,17 @@ const
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Integer::deeplyEqualTo
+
+nImO::Enumerable
+nImO::Integer::enumerationType(void)
+const
+{
+    ODL_OBJENTER(); //####
+    Enumerable result = Enumerable::Integer;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Integer::enumerationType
 
 bool
 nImO::Integer::equalTo(const nImO::Value &other,
@@ -233,6 +253,17 @@ nImO::Integer::getExtractionInfo(DataKind               &aByte,
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Integer::getExtractionInfo
+
+nImO::DataKind
+nImO::Integer::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedIntegerValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Integer::getTypeTag
 
 bool
 nImO::Integer::greaterThan(const nImO::Value &other,

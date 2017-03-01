@@ -203,6 +203,16 @@ FilePathArgumentDescriptor::getDefaultValue(void)
     return _defaultValue;
 } // FilePathArgumentDescriptor::getDefaultValue
 
+bool
+FilePathArgumentDescriptor::isForFiles(bool &isForOutput)
+const
+{
+    ODL_OBJENTER(); //####
+    isForOutput = _forOutput;
+    ODL_OBJEXIT_B(true); //####
+    return true;
+} // FilePathArgumentDescriptor::isForFiles
+
 SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::parseArgString(const std::string &inString)
 {

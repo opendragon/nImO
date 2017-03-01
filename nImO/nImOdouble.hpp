@@ -89,13 +89,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Double.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-        virtual inline const Double *
+        virtual const Double *
         asDouble(void)
         const
-        override
-        {
-            return this;
-        } // asDouble
+        override;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -107,13 +104,10 @@ namespace nImO
 
         /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
-        virtual inline Enumerable
+        virtual Enumerable
         enumerationType(void)
         const
-        override
-        {
-            return Enumerable::NotEnumerable;
-        } // enumerationType
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -146,13 +140,10 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline DataKind
+        virtual DataKind
         getTypeTag(void)
         const
-        override
-        {
-            return DataKind::OtherMessageExpectedDoubleValue;
-        } // getTypeTag
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.

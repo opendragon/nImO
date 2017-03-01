@@ -116,13 +116,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is an Array.
          @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
-        virtual inline const Array *
+        virtual const Array *
         asArray(void)
         const
-        override
-        {
-            return this;
-        } // asArray
+        override;
 
         /*! @brief Returns the element at position index in the Array.
          @param[in] index The position of the element in the Array.
@@ -218,13 +215,10 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline DataKind
+        virtual DataKind
         getTypeTag(void)
         const
-        override
-        {
-            return DataKind::OtherMessageExpectedOtherValue;
-        } // getTypeTag
+        override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.

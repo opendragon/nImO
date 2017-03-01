@@ -139,14 +139,10 @@ namespace nImO
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isForFiles(bool &isForOutput)
         const
-        override
-        {
-            isForOutput = _forOutput;
-            return true;
-        } // isForFiles
+        override;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void

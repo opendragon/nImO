@@ -103,13 +103,10 @@ namespace nImO
 
         /*! @brief Return @c true if the argument is for Logical arguments.
          @returns @c true if the argument is for Logical arguments and @c false otherwise. */
-        virtual inline bool
+        virtual bool
         isLogical(void)
         const
-        override
-        {
-            return true;
-        } // isLogical
+        override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.

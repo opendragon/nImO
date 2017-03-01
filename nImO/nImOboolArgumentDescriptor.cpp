@@ -145,6 +145,15 @@ BoolArgumentDescriptor::getProcessedValue(void)
     return result;
 } // BoolArgumentDescriptor::getProcessedValue
 
+bool
+BoolArgumentDescriptor::isLogical(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
+} // BoolArgumentDescriptor::isLogical
+
 SpBaseArgumentDescriptor
 BoolArgumentDescriptor::parseArgString(const std::string &inString)
 {

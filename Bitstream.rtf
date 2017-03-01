@@ -68,13 +68,11 @@ bit0..1\
 note that there is no explicit restriction on the elements; for a map, the elements are expected to be a key / value pair, with the key being an Enumerable, but the format does not add this as a constraint\
 the start / end of container entries are used for validation\
 \
-
-\b to assure correct start-of-message, the appearance of 11110yyy (0xF0-0xF7 [0360-0367]) bytes in a message are 'escaped' when sent; they are preceded by the escape byte, and have the high bit inverted; occurrences of the escape byte are preceded by the escape byte and have the high bit inverted.\
+to assure correct start-of-message, the appearance of 11110yyy (0xF0-0xF7 [0360-0367]) bytes in a message are 'escaped' when sent; they are preceded by the escape byte, and have the high bit inverted; occurrences of the escape byte are preceded by the escape byte and have the high bit inverted.\
 the escape byte is 11011100 (0xDC [0334]) - if it appears in a message, it is removed and the next byte has its high bit flipped.\
 thus, the start-of-message can be located in a byte stream, without the risk of a 'false start'.\
 Also, follow a message by an escaped checksum.\
-
-\b0 \
+\
 Examples - [octal]\
 SME is 11110xyy [036z] (x=0 for empty message, x=1 for non-empty message, yy=value type of first part of message)\
 EME is 11111xyy [037z]\

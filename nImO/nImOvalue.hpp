@@ -130,144 +130,98 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is an Array.
          @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
-        virtual inline const Array *
+        virtual const Array *
         asArray(void)
-        const
-        {
-            return nullptr;
-        } // asArray
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Blob.
          @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
-        virtual inline const Blob *
+        virtual const Blob *
         asBlob(void)
-        const
-        {
-            return nullptr;
-        } // asBlob
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Container.
          @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
-        virtual inline const Container *
+        virtual const Container *
         asContainer(void)
-        const
-        {
-            return nullptr;
-        } // asContainer
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Double.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-        virtual inline const Double *
+        virtual const Double *
         asDouble(void)
-        const
-        {
-            return nullptr;
-        } // asDouble
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Flaw.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-        virtual inline const Flaw *
+        virtual const Flaw *
         asFlaw(void)
-        const
-        {
-            return nullptr;
-        } // asFlaw
+        const;
 
         /*! @brief Return non-@c nullptr if the object is an Integer.
          @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
-        virtual inline const Integer *
+        virtual const Integer *
         asInteger(void)
-        const
-        {
-            return nullptr;
-        } // asInteger
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Logical.
          @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
-        virtual inline const Logical *
+        virtual const Logical *
         asLogical(void)
-        const
-        {
-            return nullptr;
-        } // asLogical
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Map.
          @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
-        virtual inline const Map *
+        virtual const Map *
         asMap(void)
-        const
-        {
-            return nullptr;
-        } // asMap
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Number.
          @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-        virtual inline const Number *
+        virtual const Number *
         asNumber(void)
-        const
-        {
-            return nullptr;
-        } // asNumber
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a Set.
          @returns Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
-        virtual inline const Set *
+        virtual const Set *
         asSet(void)
-        const
-        {
-            return nullptr;
-        } // asSet
+        const;
 
         /*! @brief Return non-@c nullptr if the object is a String.
          @returns Non-@c nullptr if the object is a String and @c nullptr otherwise. */
-        virtual inline const String *
+        virtual const String *
         asString(void)
-        const
-        {
-            return nullptr;
-        } // asString
+        const;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
-        virtual inline bool
+        virtual bool
         deeplyEqualTo(const Value &other)
-        const
-        {
-            return (&other == this);
-        } // deeplyEqualTo
+        const;
 
         /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
-        virtual inline Enumerable
+        virtual Enumerable
         enumerationType(void)
-        const
-        {
-            return Enumerable::NotEnumerable;
-        } // enumerationType
+        const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
          @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual inline bool
+        virtual bool
         equalTo(const Value &other,
                 bool        &validComparison)
-        const
-        {
-            validComparison = (&other == this);
-            return (&other == this);
-        } // equalTo
+        const;
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline DataKind
+        virtual DataKind
         getTypeTag(void)
-        const
-        {
-            return static_cast<DataKind>(0);
-        } // getTypeTag
+        const;
 
         /*! @brief Extract a Value for a Message.
          @param[in] inMessage The Message containing the Value.
@@ -289,31 +243,20 @@ namespace nImO
          @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual inline bool
+        virtual bool
         greaterThan(const Value &other,
                     bool        &validComparison)
-        const
-        {
-# if MAC_OR_LINUX_
-#  pragma unused(other)
-# endif // MAC_OR_LINUX_
-            validComparison = false;
-            return false;
-        } // greaterThan
+        const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
          @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual inline bool
+        virtual bool
         greaterThanOrEqual(const Value &other,
                            bool        &validComparison)
-        const
-        {
-            validComparison = (&other == this);
-            return (&other == this);
-        } // greaterThanOrEqual
+        const;
 
         /*! @brief Set up the global structures used. */
         static void
@@ -324,31 +267,20 @@ namespace nImO
          @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual inline bool
+        virtual bool
         lessThan(const Value &other,
                  bool        &validComparison)
-        const
-        {
-# if MAC_OR_LINUX_
-#  pragma unused(other)
-# endif // MAC_OR_LINUX_
-            validComparison = false;
-            return false;
-        } // lessThan
+        const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
          @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
-        virtual inline bool
+        virtual bool
         lessThanOrEqual(const Value &other,
                         bool        &validComparison)
-        const
-        {
-            validComparison = (&other == this);
-            return (&other == this);
-        } // lessThanOrEqual
+        const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -426,15 +358,10 @@ namespace nImO
          @param[in,out] outBuffer The buffer to be appended to.
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
-        virtual inline void
+        virtual void
         printToStringBuffer(StringBuffer &outBuffer,
                             const bool   squished = false)
-        const
-        {
-# if MAC_OR_LINUX_
-#  pragma unused(outBuffer,squished)
-# endif // MAC_OR_LINUX_
-        } // printToStringBuffer
+        const;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
@@ -446,14 +373,9 @@ namespace nImO
 
         /*! @brief Add a binary representation of the object to the Message.
          @param[in,out] outMessage The Message to be appended to. */
-        virtual inline void
+        virtual void
         writeToMessage(Message &outMessage)
-        const
-        {
-# if MAC_OR_LINUX_
-#  pragma unused(outMessage)
-# endif // MAC_OR_LINUX_
-        } // writeToMessage
+        const;
 
     protected :
         // Protected methods.

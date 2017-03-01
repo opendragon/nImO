@@ -91,13 +91,10 @@ namespace nImO
 
         /*! @brief Return non-@c nullptr if the object is a Blob.
          @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
-        virtual inline const Blob *
+        virtual const Blob *
         asBlob(void)
         const
-        override
-        {
-            return this;
-        } // asBlob
+        override;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -129,13 +126,10 @@ namespace nImO
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
-        virtual inline DataKind
+        virtual DataKind
         getTypeTag(void)
         const
-        override
-        {
-            return DataKind::OtherMessageExpectedStringOrBlobValue;
-        } // getTypeTag
+        override;
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */

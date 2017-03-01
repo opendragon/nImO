@@ -204,6 +204,15 @@ nImO::Blob::~Blob(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+const nImO::Blob *
+nImO::Blob::asBlob(void)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::Blob::asBlob
+
 bool
 nImO::Blob::deeplyEqualTo(const nImO::Value &other)
 const
@@ -383,6 +392,17 @@ nImO::Blob::getExtractionInfo(DataKind               &aByte,
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Blob::getExtractionInfo
+
+nImO::DataKind
+nImO::Blob::getTypeTag(void)
+const
+{
+    ODL_OBJENTER(); //####
+    DataKind result = DataKind::OtherMessageExpectedStringOrBlobValue;
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::Blob::getTypeTag
 
 bool
 nImO::Blob::greaterThan(const nImO::Value &other,

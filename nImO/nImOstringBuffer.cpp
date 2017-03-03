@@ -291,23 +291,26 @@ const
     ODL_P1("result <- ", result.get()); //####
     if (result)
     {
+        bool    atEnd;
         bool    done = false;
         bool    valid = true;
         SpArray holder;
 
         for ( ; ! done; )
         {
-            int aChar = getChar(position);
+            int aChar = getChar(position, atEnd);
 
             // Skip any whitespace after the value
             ODL_C1("aChar <- ", aChar); //####
-            for ( ; isspace(aChar); )
+            ODL_B1("atEnd <- ", atEnd); //####
+            for ( ; (! atEnd) && isspace(aChar); )
             {
-                aChar = getChar(++position);
+                aChar = getChar(++position, atEnd);
                 ODL_C1("aChar <- ", aChar); //####
+                ODL_B1("atEnd <- ", atEnd); //####
                 ODL_LL1("position <- ", position); //####
             }
-            if (kEndToken == aChar)
+            if (atEnd)
             {
                 if (holder)
                 {

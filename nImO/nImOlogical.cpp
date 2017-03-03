@@ -156,7 +156,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::Logical;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::Logical::enumerationType
 
@@ -279,7 +279,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::Logical::getTypeTag
 
@@ -495,25 +495,25 @@ nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    bool              atEnd;
     bool              candidateValue = false;
     SpValue           result;
     size_t            localIndex = position;
-    int               aChar = inBuffer.getChar(localIndex++);
-    const std::string *candidate;
+    int               aChar = inBuffer.getChar(localIndex++, atEnd);
+    const std::string *candidate = nullptr;
 
     // Select which form of the value that is in the buffer:
-    if (('f' == aChar) || ('F' == aChar))
+    if (! atEnd)
     {
-        candidate = &kCanonicalFalse;
-    }
-    else if (('t' == aChar) || ('T' == aChar))
-    {
-        candidate = &kCanonicalTrue;
-        candidateValue = true;
-    }
-    else
-    {
-        candidate = nullptr;
+        if (('f' == aChar) || ('F' == aChar))
+        {
+            candidate = &kCanonicalFalse;
+        }
+        else if (('t' == aChar) || ('T' == aChar))
+        {
+            candidate = &kCanonicalTrue;
+            candidateValue = true;
+        }
     }
     if (nullptr != candidate)
     {
@@ -522,10 +522,14 @@ nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 
         for (size_t ii = 1, len = candidate->length(); ! done; )
         {
-            aChar = tolower(inBuffer.getChar(localIndex));
-            if (isLegalTerminator(aChar))
+            aChar = tolower(inBuffer.getChar(localIndex, atEnd));
+            if (atEnd)
             {
-                done = valid = true; // the character seen is the buffer end
+                done = valid = true; // at the buffer end
+            }
+            else if (isLegalTerminator(aChar))
+            {
+                done = valid = true; // the character seen is a valid terminator
             }
             else if ((*candidate)[ii] == aChar)
             {
@@ -533,7 +537,11 @@ nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 if (len == ++ii)
                 {
                     // the last character of the reference value was seen
-                    valid = isLegalTerminator(inBuffer.getChar(localIndex));
+                    valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
+                    if (atEnd)
+                    {
+                        valid = true;
+                    }
                     done = true;
                 }
             }

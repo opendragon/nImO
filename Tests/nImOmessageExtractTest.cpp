@@ -40,6 +40,7 @@
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImObufferChunk.hpp>
 #include <nImO/nImOdouble.hpp>
+#include <nImO/nImOflaw.hpp>
 #include <nImO/nImOinteger.hpp>
 #include <nImO/nImOlogical.hpp>
 #include <nImO/nImOmap.hpp>
@@ -138,7 +139,13 @@ extractValueAndCheck(Message        &stuff,
     }
     else
     {
-        if (ReadStatus::SuccessfulAtEnd == status)
+        const Flaw * asFlaw = extractedValue->asFlaw();
+
+        if (asFlaw)
+        {
+            ODL_LOG(asFlaw->getDescription().c_str()); //####
+        }
+        else if (ReadStatus::SuccessfulAtEnd == status)
         {
             if (extractedValue->deeplyEqualTo(expectedValue))
             {
@@ -178,9 +185,18 @@ extractValueAndCheck(Message        &stuff,
             }
             else
             {
-                ODL_LOG("! (nullptr == extractedValue)");
-                ODL_LL1("ii = ", ii); //####
-                result = 1;
+                const Flaw * asFlaw = extractedValue->asFlaw();
+
+                if (asFlaw)
+                {
+                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr == extractedValue)");
+                    ODL_LL1("ii = ", ii); //####
+                    result = 1;
+                }
             }
         }
     }

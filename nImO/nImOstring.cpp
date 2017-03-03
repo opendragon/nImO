@@ -158,7 +158,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::String;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::String::enumerationType
 
@@ -215,6 +215,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
+    bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
                        (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
@@ -236,11 +237,11 @@ nImO::String::extractValue(const nImO::Message &theMessage,
 
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position);
+            int aByte = theMessage.getByte(position, atEnd);
 
-            if (Message::kEndToken == aByte)
+            if (atEnd)
             {
-                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                ODL_LOG("(atEnd)"); //####
                 status = ReadStatus::Incomplete;
                 ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
@@ -266,11 +267,11 @@ nImO::String::extractValue(const nImO::Message &theMessage,
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position);
+            int aByte = theMessage.getByte(position, atEnd);
 
-            if (Message::kEndToken == aByte)
+            if (atEnd)
             {
-                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                ODL_LOG("(atEnd)"); //####
                 status = ReadStatus::Incomplete;
                 ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
@@ -337,7 +338,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::String::getTypeTag
 
@@ -565,9 +566,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
     size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex++);
+    bool    atEnd;
+    int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
-    if ((kSingleQuote == aChar) || (kDoubleQuote == aChar))
+    if ((! atEnd) && ((kSingleQuote == aChar) || (kDoubleQuote == aChar)))
     {
         enum class ScanState
         {
@@ -596,10 +598,10 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 
         for ( ; ! done; )
         {
-            aChar = inBuffer.getChar(localIndex++);
-            if (StringBuffer::kEndToken == aChar)
+            aChar = inBuffer.getChar(localIndex++, atEnd);
+            if (atEnd)
             {
-                ODL_LOG("(StringBuffer::kEndToken == aChar)"); //####
+                ODL_LOG("(atEnd)"); //####
                 done = true; // saw end of buffer before delimiter
             }
             else
@@ -609,7 +611,11 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 case ScanState::Normal :
                     if (delimiter == aChar)
                     {
-                        valid = isLegalTerminator(inBuffer.getChar(localIndex));
+                        valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
+                        if (atEnd)
+                        {
+                            valid = true;
+                        }
                         done = true; // possibly ready to use
                     }
                     else if (kEscapeChar == aChar)
@@ -852,7 +858,7 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     }
     else
     {
-        ODL_LOG("! ((kSingleQuote == aChar) || (kDoubleQuote == aChar))"); //####
+        ODL_LOG("! ((! atEnd) && ((kSingleQuote == aChar) || (kDoubleQuote == aChar)))"); //####
     }
     ODL_EXIT_P(result.get()); //####
     return result;

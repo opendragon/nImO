@@ -141,15 +141,16 @@ namespace nImO
         SpValue convertToValue(void)
         const;
 
-        /*! @brief Return the character found at a particular index.
+        /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
-         @returns The character found at the provided index, or the 'end' character if the index
-         is not within the buffer. */
+         @param[out] atEnd @c true if the index is past the end of the buffer.
+         @returns The byte found at the provided index. */
         inline int
-        getChar(const size_t index)
+        getChar(const size_t index,
+                bool         &atEnd)
         const
         {
-            return inherited::getByte(index);
+            return inherited::getByte(index, atEnd);
         } // getChar
 
         /*! @brief Return a copy of the characters in the buffer.

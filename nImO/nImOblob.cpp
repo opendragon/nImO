@@ -289,6 +289,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
+    bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
                        (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
@@ -310,11 +311,11 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
 
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position);
+            int aByte = theMessage.getByte(position, atEnd);
 
-            if (Message::kEndToken == aByte)
+            if (atEnd)
             {
-                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                ODL_LOG("(atEnd)"); //####
                 status = ReadStatus::Incomplete;
                 ODL_LL1("status = ", toUType(status)); //####
                 okSoFar = false;
@@ -340,11 +341,11 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position);
+            int aByte = theMessage.getByte(position, atEnd);
 
-            if (Message::kEndToken == aByte)
+            if (atEnd)
             {
-                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                ODL_LOG("(atEnd)"); //####
                 status = ReadStatus::Incomplete;
                 ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;

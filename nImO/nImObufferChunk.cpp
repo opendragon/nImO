@@ -139,6 +139,28 @@ nImO::BufferChunk::appendData(const void   *data,
     return *this;
 } // nImO::BufferChunk::appendData
 
+size_t
+nImO::BufferChunk::getAvailableBytes(void)
+const
+{
+    ODL_OBJENTER(); //####
+    size_t result = static_cast<size_t>(_bufferEnd - _write);
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // nImO::BufferChunk::getAvailableBytes
+
+size_t
+BufferChunk::getDataSize(void)
+const
+{
+    ODL_OBJENTER(); //####
+    size_t result = static_cast<size_t>(_write - _buffer.get());
+
+    ODL_OBJEXIT_LL(result); //####
+    return result;
+} // BufferChunk::getDataSize
+
 nImO::BufferChunk &
 nImO::BufferChunk::reset(void)
 {

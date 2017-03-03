@@ -251,7 +251,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::NotEnumerable;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::Value::enumerationType
 
@@ -311,15 +311,16 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
             ODL_LOG("! (isShort)"); //####
             size_t        size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
             NumberAsBytes holder;
+            bool          atEnd;
             bool          okSoFar = true;
 
             for (size_t ii = 0; okSoFar && (size > ii); ++ii)
             {
-                int aByte = theMessage.getByte(position);
+                int aByte = theMessage.getByte(position, atEnd);
 
-                if (Message::kEndToken == aByte)
+                if (atEnd)
                 {
-                    ODL_LOG("(Message::kEndToken == aByte)"); //####
+                    ODL_LOG("(atEnd)"); //####
                     status = ReadStatus::Incomplete;
                     ODL_LL1("status <- ", toUType(status)); //####
                     okSoFar = false;
@@ -356,7 +357,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = static_cast<DataKind>(0);
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::Value::getTypeTag
 
@@ -494,11 +495,7 @@ nImO::Value::initialize(void)
     }
     const char *suffixes = Array::getTerminalCharacters();
 
-    gTerminators = StringBuffer::kEndToken;
-    if (nullptr != suffixes)
-    {
-        gTerminators += suffixes;
-    }
+    gTerminators = suffixes;
     suffixes = Map::getTerminalCharacters();
     if (nullptr != suffixes)
     {
@@ -604,16 +601,17 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
     size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex);
+    bool    atEnd;
+    int     aChar = inBuffer.getChar(localIndex, atEnd);
 
     // Skip over whitespace
-    for ( ; isspace(aChar); )
+    for ( ; (! atEnd) && isspace(aChar); )
     {
-        aChar = inBuffer.getChar(++localIndex);
+        aChar = inBuffer.getChar(++localIndex, atEnd);
     }
-    if (StringBuffer::kEndToken == aChar)
+    if (atEnd)
     {
-        ODL_LOG("(StringBuffer::kEndToken == aChar)"); //####
+        ODL_LOG("(atEnd)"); //####
     }
     else
     {
@@ -634,7 +632,11 @@ nImO::Value::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             else
             {
                 result = handler(inBuffer, localIndex);
-                if (nullptr != result)
+                if (nullptr == result)
+                {
+                    ODL_LOG("(nullptr == result)"); //####
+                }
+                else
                 {
                     position = localIndex;
                 }

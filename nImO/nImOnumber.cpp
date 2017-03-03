@@ -131,6 +131,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         ExponentSeen
     }; // ScanState
 
+    bool      atEnd;
     bool      done = false;
     bool      isDouble = false;
     bool      needsAdigit = false;
@@ -150,7 +151,9 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 
     for (int aChar; (! done); )
     {
-        aChar = tolower(inBuffer.getChar(localIndex++));
+        aChar = tolower(inBuffer.getChar(localIndex++, atEnd));
+        ODL_LL2("aChar <- ", aChar, "localIndex <- ", localIndex); //####
+        ODL_B1("atEnd <- ", atEnd); //####
         switch (currentState)
         {
         case ScanState::Initial :
@@ -206,7 +209,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                 isDouble = true;
                 currentState = ScanState::ExponentStart;
             }
-            else if (isLegalTerminator(aChar))
+            else if (atEnd || isLegalTerminator(aChar))
             {
                 // unexpected character seen, but valid so far
                 --localIndex;
@@ -227,7 +230,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         case ScanState::FractionStartSeen :
             if ('e' == aChar)
             {
-                if (needsAdigit)
+            if (needsAdigit)
                 {
                     done = true; // decimal point with no trailing digits
                 }
@@ -236,7 +239,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                     currentState = ScanState::ExponentStart;
                 }
             }
-            else if (isLegalTerminator(aChar))
+            else if (atEnd || isLegalTerminator(aChar))
             {
                 if (needsAdigit)
                 {
@@ -301,7 +304,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             break;
 
         case ScanState::ExponentSeen :
-            if (isLegalTerminator(aChar))
+            if (atEnd || isLegalTerminator(aChar))
             {
                 --localIndex;
                 done = valid = true; // the character seen is the buffer end

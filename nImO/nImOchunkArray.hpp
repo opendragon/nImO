@@ -100,10 +100,11 @@ namespace nImO
 
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
-         @returns The byte found at the provided index, or the 'end' token if the index is not
-         within the buffer. */
+         @param[out] atEnd @c true if the index is past the end of the buffer.
+         @returns The byte found at the provided index. */
         int
-        getByte(const size_t index)
+        getByte(const size_t index,
+                bool         &atEnd)
         const;
 
         /*! @brief Return a copy of the bytes in the buffer.
@@ -137,9 +138,6 @@ namespace nImO
     public :
         // Public fields.
 
-        /*! @brief The value used to represent the end of the buffer. */
-        static const int kEndToken;
-
     protected :
         // Protected fields.
 
@@ -154,7 +152,7 @@ namespace nImO
 
         /*! @brief The cached value of the buffer. */
         std::string _cachedString;
-        
+
         /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
          @c false otherwise. */
         bool _buffersArePadded;

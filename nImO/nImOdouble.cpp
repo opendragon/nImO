@@ -220,6 +220,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
+    bool    atEnd;
     bool    isShort = (DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte));
     int64_t howMany;
 
@@ -238,11 +239,11 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
 
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position);
+            int aByte = theMessage.getByte(position, atEnd);
 
-            if (Message::kEndToken == aByte)
+            if (atEnd)
             {
-                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                ODL_LOG("(atEnd)"); //####
                 status = ReadStatus::Incomplete;
                 ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
@@ -275,11 +276,11 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         {
             for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
             {
-                int aByte = theMessage.getByte(position);
+                int aByte = theMessage.getByte(position, atEnd);
 
-                if (Message::kEndToken == aByte)
+                if (atEnd)
                 {
-                    ODL_LOG("(Message::kEndToken == aByte)"); //####
+                    ODL_LOG("(atEnd)"); //####
                     status = ReadStatus::Incomplete;
                     ODL_LL1("status <- ", toUType(status)); //####
                     okSoFar = false;

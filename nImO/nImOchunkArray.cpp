@@ -70,8 +70,6 @@ using namespace nImO;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const int nImO::ChunkArray::kEndToken = -1;
-
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -85,8 +83,7 @@ const int nImO::ChunkArray::kEndToken = -1;
 #endif // defined(__APPLE__)
 
 nImO::ChunkArray::ChunkArray(const bool padWithNull) :
-    _buffers(new BufferChunk *[1]), _numChunks(1), _cachedString(), 
-    _buffersArePadded(padWithNull)
+    _buffers(new BufferChunk *[1]), _numChunks(1), _cachedString(), _buffersArePadded(padWithNull)
 {
     ODL_ENTER(); //####
     ODL_B1("padWithNull = ", padWithNull); //####
@@ -184,25 +181,33 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
 } // nImO::ChunkArray::appendBytes
 
 int
-nImO::ChunkArray::getByte(const size_t index)
+nImO::ChunkArray::getByte(const size_t index,
+                          bool         &atEnd)
 const
 {
     ODL_OBJENTER(); //####
     ODL_LL1("index = ", index); //####
-    int result = kEndToken;
+    int result = -1;
 
+    atEnd = true;
+    ODL_B1("atEnd <- ", atEnd); //####
     if (_buffers)
     {
         ODL_LOG("(_buffers)"); //####
         size_t chunkNumber = (index / BufferChunk::kBufferSize);
         size_t offset = (index % BufferChunk::kBufferSize);
 
+        ODL_LL2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
             BufferChunk *aChunk = _buffers[chunkNumber];
 
-            if (nullptr != aChunk)
+            if (nullptr == aChunk)
+            {
+                ODL_LOG("(nullptr == aChunk)"); //####
+            }
+            else
             {
                 ODL_LOG("(nullptr != aChunk)"); //####
                 if (offset < aChunk->getDataSize())
@@ -211,9 +216,23 @@ const
                     const uint8_t *thisData = aChunk->getData();
 
                     result = *(thisData + offset);
+                    atEnd = false;
+                    ODL_B1("atEnd <- ", atEnd); //####
+                }
+                else
+                {
+                    ODL_LOG("! (offset < aChunk->getDataSize())"); //####
                 }
             }
         }
+        else
+        {
+            ODL_LOG("! (_numChunks > chunkNumber)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("(_buffers)"); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

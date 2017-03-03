@@ -247,6 +247,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
            "parentValue = ", parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
+    bool    atEnd;
     bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
                        (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
@@ -256,17 +257,18 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     if (isEmpty)
     {
         ODL_LOG("(isEmpty)"); //####
-        aByte = theMessage.getByte(position);
+        aByte = theMessage.getByte(position, atEnd);
         ODL_XL1("aByte <- ", aByte); //####
-        if (Message::kEndToken == aByte)
+        ODL_B1("atEnd <- ", atEnd); //####
+        if (atEnd)
         {
-            ODL_LOG("(Message::kEndToken == aByte)"); //####
+            ODL_LOG("(atEnd)"); //####
             status = ReadStatus::Incomplete;
             ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
-            ODL_LOG("! (Message::kEndToken == aByte)"); //####
+            ODL_LOG("! (atEnd)"); //####
             static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
                                                DataKind::OtherContainerTypeSet |
                                                DataKind::OtherContainerEmptyValue);
@@ -290,17 +292,18 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     else
     {
         ODL_LOG("! (isEmpty)"); //####
-        aByte = theMessage.getByte(position);
+        aByte = theMessage.getByte(position, atEnd);
         ODL_XL1("aByte <- ", aByte); //####
-        if (Message::kEndToken == aByte)
+        ODL_B1("atEnd <- ", atEnd); //####
+        if (atEnd)
         {
-            ODL_LOG("(Message::kEndToken == aByte)"); //####
+            ODL_LOG("(atEnd)"); //####
             status = ReadStatus::Incomplete;
             ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
-            ODL_LOG("! (Message::kEndToken == aByte)"); //####
+            ODL_LOG("! (atEnd)"); //####
             int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
 
             if (ReadStatus::Successful == status)
@@ -331,11 +334,12 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
 
                         for ( ; okSoFar && (elementCount > static_cast<int64_t>(aSet->size())); )
                         {
-                            aByte = theMessage.getByte(position);
+                            aByte = theMessage.getByte(position, atEnd);
                             ODL_XL1("aByte <- ", aByte); //####
-                            if (Message::kEndToken == aByte)
+                            ODL_B1("atEnd <- ", atEnd); //####
+                            if (atEnd)
                             {
-                                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                                ODL_LOG("(atEnd)"); //####
                                 status = ReadStatus::Incomplete;
                                 okSoFar = false;
                             }
@@ -358,18 +362,19 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                         }
                         if (okSoFar)
                         {
-                            aByte = theMessage.getByte(position);
+                            aByte = theMessage.getByte(position, atEnd);
                             ODL_XL1("aByte <- ", aByte); //####
-                            if (Message::kEndToken == aByte)
+                            ODL_B1("atEnd <- ", atEnd); //####
+                            if (atEnd)
                             {
-                                ODL_LOG("(Message::kEndToken == aByte)"); //####
+                                ODL_LOG("(atEnd)"); //####
                                 status = ReadStatus::Incomplete;
                                 ODL_LL1("status <- ", toUType(status)); //####
                                 okSoFar = false;
                             }
                             else
                             {
-                                ODL_LOG("! (Message::kEndToken == aByte)"); //####
+                                ODL_LOG("! (atEnd)"); //####
                                 static const DataKind endMarker = (DataKind::Other |
                                                                    DataKind::OtherContainerEnd |
                                                                    DataKind::OtherContainerTypeSet |
@@ -494,7 +499,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::Set::getTypeTag
 
@@ -655,32 +660,35 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    bool   atEnd;
     bool   done = false;
     bool   valid = false;
     auto   result(std::make_shared<Set>());
     size_t localIndex = position;
-    int    aChar = inBuffer.getChar(localIndex++);
+    int    aChar = inBuffer.getChar(localIndex++, atEnd);
 
     ODL_P1("result <- ", result.get()); //####
     ODL_C1("aChar <- ", aChar); //####
+    ODL_B1("atEnd <- ", atEnd); //####
     ODL_LL1("localIndex <- ", localIndex); //####
-    if (kStartSetChar == aChar)
+    if ((! atEnd) && (kStartSetChar == aChar))
     {
         for ( ; ! done; )
         {
             // Skip whitespace
-            for (aChar = inBuffer.getChar(localIndex); isspace(aChar);
-                 aChar = inBuffer.getChar(++localIndex))
+            for (aChar = inBuffer.getChar(localIndex, atEnd); (! atEnd) && isspace(aChar);
+                 aChar = inBuffer.getChar(++localIndex, atEnd))
             {
                 ODL_LL1("localIndex <- ", localIndex); //####
                 ODL_C1("aChar <- ", aChar); //####
+                ODL_B1("atEnd <- ", atEnd); //####
             }
             ODL_LL1("localIndex = ", localIndex); //####
             ODL_C1("aChar = ", aChar); //####
             // Check for the closing bracket
-            if (StringBuffer::kEndToken == aChar)
+            if (atEnd)
             {
-                ODL_LOG("(StringBuffer::kEndToken == aChar)"); //####
+                ODL_LOG("(atEnd)"); //####
                 done = true;
             }
             else if (kEndSetChar == aChar)
@@ -732,7 +740,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     }
     else
     {
-        ODL_LOG("! (kStartSetChar == aChar)"); //####
+        ODL_LOG("! ((! atEnd) && (kStartSetChar == aChar))"); //####
     }
     if (valid)
     {

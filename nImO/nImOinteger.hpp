@@ -234,8 +234,9 @@ namespace nImO
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
-         a Value was found and processed. */
+         @returns @c nullptr if the Value could not be extracted because the Message ended before
+         the Value did, a Flaw if the Value could not be extracted because it was not correct and
+         a non-Flaw Value if extraction was successful. */
         static SpValue
         extractValue(const Message &theMessage,
                      const int     leadByte,

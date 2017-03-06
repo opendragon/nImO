@@ -281,7 +281,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Set with incorrect end tag"));
+                result.reset(new Invalid("Empty Set with incorrect end tag @", position));
             }
         }
     }
@@ -310,7 +310,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Set with zero or negative count"));
+                    result.reset(new Invalid("Set with zero or negative count @", position));
                 }
                 else
                 {
@@ -345,7 +345,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                                 if (nullptr == aValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null Value read"));
+                                    result.reset(new Invalid("Null Value read @", position));
                                     okSoFar = false;
                                 }
                                 else if (aValue->asFlaw())
@@ -390,7 +390,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result.reset(new Invalid("Non-empty Set with incorrect end "
-                                                             "tag"));
+                                                             "tag @", position));
                                     okSoFar = false;
                                 }
                             }

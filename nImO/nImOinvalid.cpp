@@ -84,6 +84,20 @@ nImO::Invalid::Invalid(const std::string &description) :
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
+nImO::Invalid::Invalid(const std::string &description,
+                       const int64_t     associatedValue) :
+    inherited(), _description(description)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("description = ", description); //####
+    ODL_LL1("associatedValue = ", associatedValue); //####
+    std::stringstream buff;
+    
+    buff << associatedValue;
+    _description += buff.str();
+    ODL_EXIT_P(this); //####
+} // nImO::Invalid::Invalid
+
 nImO::Invalid::~Invalid(void)
 {
     ODL_OBJENTER(); //####

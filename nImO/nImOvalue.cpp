@@ -377,7 +377,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
     if (gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
-        result.reset(new Invalid("Unexpected character in Message"));
+        result.reset(new Invalid("Unexpected character in Message @", position));
     }
     else
     {
@@ -386,7 +386,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
         if (nullptr == handler)
         {
             ODL_LOG("(nullptr == handler)"); //####
-            result.reset(new Invalid("No handler for character in Message"));
+            result.reset(new Invalid("No handler for character in Message @", position));
         }
         else
         {

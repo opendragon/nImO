@@ -301,7 +301,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Map with incorrect end tag"));
+                result.reset(new Invalid("Empty Map with incorrect end tag @", position));
             }
         }
     }
@@ -330,7 +330,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Map with zero or negative count"));
+                    result.reset(new Invalid("Map with zero or negative count @", position));
                 }
                 else
                 {
@@ -365,7 +365,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                                 if (nullptr == kValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null key Value read"));
+                                    result.reset(new Invalid("Null key Value read @", position));
                                     okSoFar = false;
                                 }
                                 else if (kValue->asFlaw())
@@ -394,7 +394,8 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                                         if (nullptr == vValue)
                                         {
                                             ODL_LOG("(nullptr == aValue)"); //####
-                                            result.reset(new Invalid("Null value Value read"));
+                                            result.reset(new Invalid("Null value Value read @",
+                                                                     position));
                                             okSoFar = false;
                                         }
                                         else if (vValue->asFlaw())
@@ -441,7 +442,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result.reset(new Invalid("Non-empty Map with incorrect end "
-                                                             "tag"));
+                                                             "tag @", position));
                                     okSoFar = false;
                                 }
                             }

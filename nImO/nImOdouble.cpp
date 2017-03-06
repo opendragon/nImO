@@ -270,7 +270,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
 
         if (! okSoFar)
         {
-            result.reset(new Invalid("Bad count for Double"));
+            result.reset(new Invalid("Bad count for Double @", position));
         }
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {

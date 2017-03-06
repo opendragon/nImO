@@ -853,6 +853,58 @@ add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
 add_test(NAME TestExtractStringSetMessage COMMAND ${THIS_TARGET} 165)
 
+set(THIS_TARGET nImObadMessageTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else(WIN32)
+    set(VERS_RESOURCE "")
+endif(WIN32)
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImObadMessageTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+if(APPLE)
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+
+endif(APPLE)
+
+## Test parse of logical false value
+#add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 set(THIS_TARGET nImOzeroConfTest)
 
 if(WIN32)

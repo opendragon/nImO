@@ -207,12 +207,11 @@ nImO::SpValue
 nImO::String::extractValue(const nImO::Message &theMessage,
                            const int           leadByte,
                            size_t              &position,
-                           nImO::ReadStatus    &status,
                            nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
@@ -226,8 +225,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     {
         ODL_LOG("(isShort)"); //####
         numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
-        status = ReadStatus::Successful;
-        ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
+        ODL_LL1("numBytes <- ", numBytes); //####
     }
     else
     {
@@ -242,8 +240,6 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             if (atEnd)
             {
                 ODL_LOG("(atEnd)"); //####
-                status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -256,8 +252,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
+            ODL_LL1("numBytes <- ", numBytes); //####
         }
     }
     if (0 < numBytes)
@@ -272,8 +267,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             if (atEnd)
             {
                 ODL_LOG("(atEnd)"); //####
-                status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", toUType(status)); //####
+                result.reset();
                 okSoFar = false;
             }
             else
@@ -287,19 +281,14 @@ nImO::String::extractValue(const nImO::Message &theMessage,
         {
             holder[numBytes] = '\0';
             result.reset(new String(holder.get()));
-            status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
-        }
-        else
-        {
-            result.reset();
+            ODL_LL1("numBytes <- ", numBytes); //####
         }
     }
     else
     {
         result.reset(new String);
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {
         ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);

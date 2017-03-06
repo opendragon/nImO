@@ -133,10 +133,10 @@ namespace nImO
         override;
 
         /*! @brief Return the next Value in the Message.
-         @param[out] status Whether the Value was complete.
-         @returns The next Value in the Message or @c nullptr if the Value cannot be retrieved. */
+         @returns The next Value in the Message or @c nullptr if the Value cannot be retrieved or
+         a Flaw if the Value is invalid. */
         SpValue
-        getValue(ReadStatus &status);
+        getValue(void);
 
         /*! @brief Open the Message, so that data can be read or written.
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
@@ -151,6 +151,15 @@ namespace nImO
         Message &
         operator =(const Message &other) = delete;
 
+        /*! @brief Return @c true if the read position is past the last character.
+         @returns @c true if the read position is past the last character. */
+        inline bool
+        readAtEnd(void)
+        const
+        {
+            return atEnd(_readPosition);
+        } // readAtEnd
+        
         /*! @brief Prepare the Message for reuse.
          @returns The Message object so that cascading can be done. */
         ChunkArray &

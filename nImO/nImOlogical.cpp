@@ -209,7 +209,6 @@ nImO::SpValue
 nImO::Logical::extractValue(const nImO::Message &theMessage,
                             const int           leadByte,
                             size_t              &position,
-                            nImO::ReadStatus    &status,
                             nImO::SpArray       parentValue)
 {
 #if (! defined(ODL_ENABLE_LOGGING_))
@@ -218,15 +217,14 @@ nImO::Logical::extractValue(const nImO::Message &theMessage,
 # endif // MAC_OR_LINUX_
 #endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result(new Logical(DataKind::OtherLogicalTrueValue ==
                                 (DataKind::OtherLogicalValueMask & leadByte)));
 
     ++position; // We will always accept the lead byte
-    status = ReadStatus::Successful;
-    ODL_LL2("position <- ", position, "status <- ", toUType(status)); //####
+    ODL_LL1("position <- ", position); //####
     if ((nullptr != parentValue) && (nullptr != result))
     {
         ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
@@ -523,11 +521,7 @@ nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         for (size_t ii = 1, len = candidate->length(); ! done; )
         {
             aChar = tolower(inBuffer.getChar(localIndex, atEnd));
-            if (atEnd)
-            {
-                done = valid = true; // at the buffer end
-            }
-            else if (isLegalTerminator(aChar))
+            if (atEnd || isLegalTerminator(aChar))
             {
                 done = valid = true; // the character seen is a valid terminator
             }

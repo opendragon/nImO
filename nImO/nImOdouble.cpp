@@ -40,6 +40,7 @@
 
 #include <nImO/nImOarray.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOinvalid.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -212,12 +213,11 @@ nImO::SpValue
 nImO::Double::extractValue(const nImO::Message &theMessage,
                            const int           leadByte,
                            size_t              &position,
-                           nImO::ReadStatus    &status,
                            nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
@@ -244,8 +244,6 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             if (atEnd)
             {
                 ODL_LOG("(atEnd)"); //####
-                status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -270,8 +268,10 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
         bool          okSoFar = ((1 == howMany) || (nullptr != parentValue));
         NumberAsBytes holder;
 
-        status = ReadStatus::Invalid;
-        ODL_LL1("status <- ", toUType(status)); //####
+        if (! okSoFar)
+        {
+            result.reset(new Invalid("Bad count for Double"));
+        }
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {
             for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
@@ -281,8 +281,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
                 if (atEnd)
                 {
                     ODL_LOG("(atEnd)"); //####
-                    status = ReadStatus::Incomplete;
-                    ODL_LL1("status <- ", toUType(status)); //####
+                    result.reset();
                     okSoFar = false;
                 }
                 else
@@ -301,15 +300,6 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
                     parentValue->addValue(result);
                 }
             }
-            else
-            {
-                result.reset();
-            }
-        }
-        if (okSoFar)
-        {
-            status = ReadStatus::Successful;
-            ODL_LL1("status <- ", toUType(status)); //####
         }
     }
     ODL_EXIT_P(result.get()); //####

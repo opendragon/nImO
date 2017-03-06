@@ -27,6 +27,8 @@
 		F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOportArgumentDescriptor.hpp; path = nImO/nImOportArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringArgumentDescriptor.cpp; path = nImO/nImOstringArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringArgumentDescriptor.hpp; path = nImO/nImOstringArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinvalid.cpp; path = nImO/nImOinvalid.cpp; sourceTree = SOURCE_ROOT; };
+		F61B8C011E6CB58E00606F25 /* nImOinvalid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOinvalid.hpp; path = nImO/nImOinvalid.hpp; sourceTree = SOURCE_ROOT; };
 		F666302E1E3AD67000CAD88F /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Monitor/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmonitor.rc.in; path = Monitor/nImOmonitor.rc.in; sourceTree = SOURCE_ROOT; };
 		F66630301E3AD67000CAD88F /* nImOmonitorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmonitorMain.cpp; path = Monitor/nImOmonitorMain.cpp; sourceTree = SOURCE_ROOT; };
@@ -306,6 +308,8 @@
 				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
 				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
 				F6C146291CD18D830045C291 /* nImOinteger.hpp */,
+				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,
+				F61B8C011E6CB58E00606F25 /* nImOinvalid.hpp */,
 				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
 				F6991C801E5C747A00678450 /* nImOlogical.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,

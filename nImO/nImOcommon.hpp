@@ -449,24 +449,6 @@ namespace nImO
 
     }; // OutputFlavour
 
-    /*! @brief The status of a read operation on a Message. */
-    enum class ReadStatus
-    {
-        /*! @brief Reading from the Message was successful; a @c nullptr result indicates and empty
-        Message. */
-        Successful,
-
-        /*! @brief Reading from the Message was successful and all data was processed. */
-        SuccessfulAtEnd,
-
-        /*! @brief The Message was incomplete and more data is needed. */
-        Incomplete,
-
-        /*! @brief Invalid data was found in the Message and reading is not possible. */
-        Invalid
-
-    }; // ReadStatus
-
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
 

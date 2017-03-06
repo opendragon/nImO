@@ -180,6 +180,41 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
     ODL_OBJEXIT(); //####
 } // nImO::ChunkArray::appendBytes
 
+bool
+nImO::ChunkArray::atEnd(const size_t index)
+const
+{
+    ODL_OBJENTER(); //####
+    ODL_LL1("index = ", index); //####
+    bool result = true;
+    
+    if (_buffers)
+    {
+        ODL_LOG("(_buffers)"); //####
+        size_t chunkNumber = (index / BufferChunk::kBufferSize);
+        size_t offset = (index % BufferChunk::kBufferSize);
+        
+        ODL_LL2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
+        if (_numChunks > chunkNumber)
+        {
+            ODL_LOG("(_numChunks > chunkNumber)"); //####
+            BufferChunk *aChunk = _buffers[chunkNumber];
+            
+            if (nullptr != aChunk)
+            {
+                ODL_LOG("(nullptr != aChunk)"); //####
+                if (offset < aChunk->getDataSize())
+                {
+                    ODL_LOG("(offset < aChunk->getDataSize())"); //####
+                    result = false;
+                }
+            }
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::ChunkArray::atEnd
+
 int
 nImO::ChunkArray::getByte(const size_t index,
                           bool         &atEnd)
@@ -203,11 +238,7 @@ const
             ODL_LOG("(_numChunks > chunkNumber)"); //####
             BufferChunk *aChunk = _buffers[chunkNumber];
 
-            if (nullptr == aChunk)
-            {
-                ODL_LOG("(nullptr == aChunk)"); //####
-            }
-            else
+            if (nullptr != aChunk)
             {
                 ODL_LOG("(nullptr != aChunk)"); //####
                 if (offset < aChunk->getDataSize())
@@ -219,20 +250,8 @@ const
                     atEnd = false;
                     ODL_B1("atEnd <- ", atEnd); //####
                 }
-                else
-                {
-                    ODL_LOG("! (offset < aChunk->getDataSize())"); //####
-                }
             }
         }
-        else
-        {
-            ODL_LOG("! (_numChunks > chunkNumber)"); //####
-        }
-    }
-    else
-    {
-        ODL_LOG("(_buffers)"); //####
     }
     ODL_OBJEXIT_LL(result); //####
     return result;

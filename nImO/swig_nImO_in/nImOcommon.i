@@ -20,6 +20,7 @@
 #include "nImOflaw.hpp"
 #include "nImOintArgumentDescriptor.hpp"
 #include "nImOinteger.hpp"
+#include "nImOinvalid.hpp"
 #include "nImOlogical.hpp"
 #include "nImOmap.hpp"
 #include "nImOzeroConfClient.hpp"

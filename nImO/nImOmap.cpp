@@ -40,6 +40,7 @@
 
 #include <nImO/nImOarray.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOinvalid.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -259,12 +260,11 @@ nImO::SpValue
 nImO::Map::extractValue(const nImO::Message &theMessage,
                         const int           leadByte,
                         size_t              &position,
-                        nImO::ReadStatus    &status,
                         nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
@@ -283,8 +283,6 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
         if (atEnd)
         {
             ODL_LOG("(atEnd)"); //####
-            status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
@@ -297,15 +295,13 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(toUType(endMarker) == aByte)"); //####
                 result.reset(new Map);
-                status = ReadStatus::Successful;
                 ++position;
-                ODL_LL2("status <- ", toUType(status), "position <- ", position); //####
+                ODL_LL1("position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                status = ReadStatus::Invalid;
-                ODL_LL1("status <- ", toUType(status)); //####
+                result.reset(new Invalid("Empty Map with incorrect end tag"));
             }
         }
     }
@@ -318,24 +314,23 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
         if (atEnd)
         {
             ODL_LOG("(atEnd)"); //####
-            status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", toUType(status)); //####
         }
         else
         {
             ODL_LOG("! (atEnd)"); //####
-            int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
+            IntStatus numStatus;
+            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position,
+                                                             numStatus);
 
-            if (ReadStatus::Successful == status)
+            if (IntStatus::Successful == numStatus)
             {
-                ODL_LOG("(ReadStatus::Successful == status)"); //####
+                ODL_LOG("(IntStatus::Successful == status)"); //####
                 elementCount -= DataKindIntegerShortValueMinValue - 1;
                 ODL_LL1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    status = ReadStatus::Invalid;
-                    ODL_LL1("status <- ", toUType(status)); //####
+                    result.reset(new Invalid("Map with zero or negative count"));
                 }
                 else
                 {
@@ -345,8 +340,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        status = ReadStatus::Invalid;
-                        ODL_LL1("status <- ", toUType(status)); //####
+                        result.reset(new Invalid("Could not allocate a Map"));
                     }
                     else
                     {
@@ -360,44 +354,58 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
-                                status = ReadStatus::Incomplete;
+                                result.reset();
                                 okSoFar = false;
                             }
                             else
                             {
                                 SpValue kValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   status, nullptr));
+                                                                   nullptr));
 
                                 if (nullptr == kValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
+                                    result.reset(new Invalid("Null key Value read"));
+                                    okSoFar = false;
+                                }
+                                else if (kValue->asFlaw())
+                                {
+                                    ODL_LOG("(kValue->asFlaw())"); //####
+                                    result = kValue;
                                     okSoFar = false;
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (nullptr == aValue)"); //####
+                                    ODL_LOG("! (kValue->asFlaw())"); //####
                                     aByte = theMessage.getByte(position, atEnd);
                                     ODL_XL1("aByte <- ", aByte); //####
                                     ODL_B1("atEnd <- ", atEnd); //####
                                     if (atEnd)
                                     {
                                         ODL_LOG("(atEnd)"); //####
-                                        status = ReadStatus::Incomplete;
+                                        result.reset();
                                         okSoFar = false;
                                     }
                                     else
                                     {
                                         SpValue vValue(getValueFromMessage(theMessage, position,
-                                                                           aByte, status, nullptr));
+                                                                           aByte, nullptr));
 
                                         if (nullptr == vValue)
                                         {
                                             ODL_LOG("(nullptr == aValue)"); //####
+                                            result.reset(new Invalid("Null value Value read"));
+                                            okSoFar = false;
+                                        }
+                                        else if (vValue->asFlaw())
+                                        {
+                                            ODL_LOG("(vValue->asFlaw())"); //####
+                                            result = vValue;
                                             okSoFar = false;
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (nullptr == aValue)"); //####
+                                            ODL_LOG("! (vValue->asFlaw())"); //####
                                             aMap->addValue(kValue, vValue);
                                         }
                                     }
@@ -412,8 +420,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
-                                status = ReadStatus::Incomplete;
-                                ODL_LL1("status <- ", toUType(status)); //####
+                                result.reset();
                                 okSoFar = false;
                             }
                             else
@@ -427,37 +434,30 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                                 if (toUType(endMarker) == aByte)
                                 {
                                     ODL_LOG("(toUType(endMarker) == aByte)"); //####
-                                    status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", toUType(status), "position <- ", //####
-                                            position); //####
+                                    ODL_LL1("position <- ", position); //####
                                 }
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    status = ReadStatus::Invalid;
-                                    ODL_LL1("status <- ", toUType(status)); //####
+                                    result.reset(new Invalid("Non-empty Map with incorrect end "
+                                                             "tag"));
                                     okSoFar = false;
                                 }
                             }
-                        }
-                        if (! okSoFar)
-                        {
-                            ODL_LOG("(! okSoFar)"); //####
-                            result.reset();
                         }
                     }
                 }
             }
             else
             {
-                ODL_LOG("! (ReadStatus::Successful == status)"); //####
+                ODL_LOG("! (IntStatus::Successful == status)"); //####
             }
         }
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####

@@ -213,23 +213,23 @@ nImO::SpValue
 nImO::Integer::extractValue(const nImO::Message &theMessage,
                             const int           leadByte,
                             size_t              &position,
-                            nImO::ReadStatus    &status,
                             nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    SpValue result;
-    int64_t holder = extractInt64FromMessage(theMessage, leadByte, position, status);
+    SpValue   result;
+    IntStatus numStatus;
+    int64_t   holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
 
-    if (ReadStatus::Successful == status)
+    if (IntStatus::Successful == numStatus)
     {
         result.reset(new Integer(holder));
     }
     else
     {
-        ODL_LOG("! (ReadStatus::Successful == status)"); //####
+        ODL_LOG("! (numStatus::Successful == status)"); //####
         result.reset();
     }
     if ((nullptr != parentValue) && (nullptr != result))

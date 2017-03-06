@@ -223,7 +223,6 @@ namespace nImO
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
-         @param[out] status Whether the extraction was successful.
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
@@ -231,7 +230,6 @@ namespace nImO
         extractValue(const Message &theMessage,
                      const int     leadByte,
                      size_t        &position,
-                     ReadStatus    &status,
                      SpArray       parentValue);
 
         /*! @brief Remove all entries. */

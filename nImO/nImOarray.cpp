@@ -40,6 +40,7 @@
 
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOinvalid.hpp>
 #include <nImO/nImOmessage.hpp>
 #include <nImO/nImOstringBuffer.hpp>
 
@@ -237,12 +238,11 @@ nImO::SpValue
 nImO::Array::extractValue(const nImO::Message &theMessage,
                           const int           leadByte,
                           size_t              &position,
-                          nImO::ReadStatus    &status,
                           nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
@@ -258,15 +258,9 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         aByte = theMessage.getByte(position, atEnd);
         ODL_XL1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
-        if (atEnd)
+        if (! atEnd)
         {
-            ODL_LOG("(atEnd)"); //####
-            status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", toUType(status)); //####
-        }
-        else
-        {
-            ODL_LOG("! (atEnd)"); //####
+            ODL_LOG("(! atEnd)"); //####
             static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
                                                DataKind::OtherContainerTypeArray |
                                                DataKind::OtherContainerEmptyValue);
@@ -275,15 +269,13 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(endMarker == aByte)"); //####
                 result.reset(new Array);
-                status = ReadStatus::Successful;
                 ++position;
-                ODL_LL2("status <- ", toUType(status), "position <- ", position); //####
+                ODL_LL1("position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
-                status = ReadStatus::Invalid;
-                ODL_LL1("status <- ", toUType(status)); //####
+                result.reset(new Invalid("Empty Array with incorrect end tag"));
             }
         }
     }
@@ -293,27 +285,22 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
         aByte = theMessage.getByte(position, atEnd);
         ODL_XL1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
-        if (atEnd)
+        if (! atEnd)
         {
-            ODL_LOG("(atEnd)"); //####
-            status = ReadStatus::Incomplete;
-            ODL_LL1("status <- ", toUType(status)); //####
-        }
-        else
-        {
-            ODL_LOG("! (atEnd)"); //####
-            int64_t elementCount = extractInt64FromMessage(theMessage, aByte, position, status);
+            ODL_LOG("(! atEnd)"); //####
+            IntStatus numStatus;
+            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position,
+                                                             numStatus);
 
-            if (ReadStatus::Successful == status)
+            if (IntStatus::Successful == numStatus)
             {
-                ODL_LOG("(ReadStatus::Successful == status)"); //####
+                ODL_LOG("(IntStatus::Successful == status)"); //####
                 elementCount -= DataKindIntegerShortValueMinValue - 1;
                 ODL_LL1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    status = ReadStatus::Invalid;
-                    ODL_LL1("status <- ", toUType(status)); //####
+                    result.reset(new Invalid("Array with zero or negative count"));
                 }
                 else
                 {
@@ -323,8 +310,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        status = ReadStatus::Invalid;
-                        ODL_LL1("status <- ", toUType(status)); //####
+                        result.reset(new Invalid("Could not allocate an Array"));
                     }
                     else
                     {
@@ -338,13 +324,13 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
-                                status = ReadStatus::Incomplete;
+                                result.reset();
                                 okSoFar = false;
                             }
                             else
                             {
                                 SpValue aValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   status, anArray));
+                                                                   anArray));
 
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
@@ -352,6 +338,13 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                 if (nullptr == aValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
+                                    result.reset(new Invalid("Null Value read"));
+                                    okSoFar = false;
+                                }
+                                else if (aValue->asFlaw())
+                                {
+                                    ODL_LOG("(aValue->asFlaw())"); //####
+                                    result = aValue;
                                     okSoFar = false;
                                 }
                             }
@@ -364,8 +357,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
-                                status = ReadStatus::Incomplete;
-                                ODL_LL1("status <- ", toUType(status)); //####
+                                result.reset();
                                 okSoFar = false;
                             }
                             else
@@ -379,37 +371,29 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                                 if (toUType(endMarker) == aByte)
                                 {
                                     ODL_LOG("(toUType(endMarker) == aByte)"); //####
-                                    status = ReadStatus::Successful;
                                     ++position;
-                                    ODL_LL2("status <- ", toUType(status), "position <- ", //####
-                                            position); //####
+                                    ODL_LL1("position <- ", position); //####
                                 }
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    status = ReadStatus::Invalid;
-                                    ODL_LL1("status <- ", toUType(status)); //####
-                                    okSoFar = false;
+                                    result.reset(new Invalid("Non-empty Array with incorrect end "
+                                                             "tag"));
                                 }
                             }
-                        }
-                        if (! okSoFar)
-                        {
-                            ODL_LOG("(! okSoFar)"); //####
-                            result.reset();
                         }
                     }
                 }
             }
             else
             {
-                ODL_LOG("! (ReadStatus::Successful == status)"); //####
+                ODL_LOG("! (IntStatus::Successful == numStatus)"); //####
             }
         }
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####

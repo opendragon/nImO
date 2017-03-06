@@ -127,11 +127,10 @@ extractValueAndCheck(Message        &stuff,
     // First, the 'this-should-work' test:
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
-    ReadStatus status = ReadStatus::Invalid;
-    SpValue    extractedValue(stuff.getValue(status));
+    SpValue extractedValue(stuff.getValue());
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
-    ODL_LL1("status <- ", status); //####
+    ODL_LL1("status <- ", static_cast<int>(status)); //####
     stuff.close();
     if (nullptr == extractedValue)
     {
@@ -139,13 +138,14 @@ extractValueAndCheck(Message        &stuff,
     }
     else
     {
-        const Flaw * asFlaw = extractedValue->asFlaw();
+        const Flaw *asFlaw = extractedValue->asFlaw();
 
         if (asFlaw)
         {
+            ODL_LOG("(asFlaw)"); //####
             ODL_LOG(asFlaw->getDescription().c_str()); //####
         }
-        else if (ReadStatus::SuccessfulAtEnd == status)
+        else if (stuff.readAtEnd())
         {
             if (extractedValue->deeplyEqualTo(expectedValue))
             {
@@ -158,7 +158,7 @@ extractValueAndCheck(Message        &stuff,
         }
         else
         {
-            ODL_LOG("! (ReadStatus::SuccessfulAtEnd == status)"); //####
+            ODL_LOG("! (stuff.readAtEnd())"); //####
         }
     }
     if (0 == result)
@@ -169,26 +169,17 @@ extractValueAndCheck(Message        &stuff,
         {
             stuff.open(false);
             stuff.appendBytes(insertedContents, ii);
-            status = ReadStatus::Invalid;
-            extractedValue = stuff.getValue(status);
+            extractedValue = stuff.getValue();
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            ODL_LL1("status <- ", status); //####
+            ODL_LL1("status <- ", static_cast<int>(status)); //####
             stuff.close();
-            if (nullptr == extractedValue)
+            if (nullptr != extractedValue)
             {
-                if (ReadStatus::Incomplete != status)
-                {
-                    ODL_LOG("(ReadStatus::Incomplete != status)"); //####
-                    ODL_LL1("ii = ", ii); //####
-                    result = 1;
-                }
-            }
-            else
-            {
-                const Flaw * asFlaw = extractedValue->asFlaw();
+                const Flaw *asFlaw = extractedValue->asFlaw();
 
                 if (asFlaw)
                 {
+                    ODL_LOG("(asFlaw)"); //####
                     ODL_LOG(asFlaw->getDescription().c_str()); //####
                 }
                 else
@@ -247,39 +238,60 @@ doTestEmptyMessage(const char *launchPath,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t     insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
-            ReadStatus status;
-            SpValue    extractedValue(stuff->getValue(status));
+            SpValue extractedValue(stuff->getValue());
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            if ((nullptr == extractedValue) && (ReadStatus::Invalid == status))
+            if (stuff->readAtEnd())
             {
-                ODL_LOG("((nullptr == extractedValue) && (ReadStatus::Invalid == status))"); //####
-                stuff->open(true);
-                stuff->close();
-                stuff->open(false);
-                stuff->appendBytes(bytesToInsert, insertionCount);
-                extractedValue = stuff->getValue(status);
-                ODL_P1("extractedValue <- ", extractedValue.get()); //####
-                stuff->close();
-                if ((nullptr == extractedValue) && (ReadStatus::SuccessfulAtEnd == status))
+                if (nullptr == extractedValue)
                 {
-                    ODL_LOG("((nullptr == extractedValue) && " //####
-                            "(ReadStatus::SuccessfulAtEnd == status))"); //####
-                    result = 0;
+                    ODL_LOG("Null Value read"); //####
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr == extractedValue) && " //####
-                            "(ReadStatus::SuccessfulAtEnd == status))"); //####
+                    const Flaw *asFlaw = extractedValue->asFlaw();
+                    
+                    if (asFlaw)
+                    {
+                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
+                        stuff->open(true);
+                        stuff->close();
+                        stuff->open(false);
+                        stuff->appendBytes(bytesToInsert, insertionCount);
+                        extractedValue = stuff->getValue();
+                        ODL_P1("extractedValue <- ", extractedValue.get()); //####
+                        stuff->close();
+                        if (stuff->readAtEnd())
+                        {
+                            if (nullptr == extractedValue)
+                            {
+                                ODL_LOG("(nullptr == extractedValue)"); //####
+                                result = 0;
+                            }
+                            else
+                            {
+                                asFlaw = extractedValue->asFlaw();
+                                if (asFlaw)
+                                {
+                                    ODL_LOG("(asFlaw)"); //####
+                                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (asFlaw)"); //####
+                                }
+                            }
+                        }
+                        stuff->reset();
+                    }
                 }
-                stuff->reset();
             }
             else
             {
-                ODL_LOG("! ((nullptr == extractedValue) && " //####
-                        "(ReadStatus::Invalid == status))"); //####
+                ODL_LOG("! (stuff->readAtEnd())"); //####
             }
         }
         else

@@ -71,6 +71,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOflaw.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOinvalid.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOlogical.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
@@ -124,6 +125,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOflaw.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOinvalid.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOlogical.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
@@ -162,6 +164,7 @@ if(nImO_DO_SWIG)
         nImOflaw.cpp nImOflaw.hpp
         nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
         nImOinteger.cpp nImOinteger.hpp
+        nImOinvalid.cpp nImOinvalid.hpp
         nImOlogical.cpp nImOlogical.hpp
         nImOmap.cpp nImOmap.hpp
         nImOmessage.cpp nImOmessage.hpp

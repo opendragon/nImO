@@ -42,6 +42,7 @@
 #include <nImO/nImOblob.hpp>
 #include <nImO/nImOdouble.hpp>
 #include <nImO/nImOinteger.hpp>
+#include <nImO/nImOinvalid.hpp>
 #include <nImO/nImOlogical.hpp>
 #include <nImO/nImOmap.hpp>
 #include <nImO/nImOmessage.hpp>
@@ -271,7 +272,7 @@ int64_t
 nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                                      const int           leadByte,
                                      size_t              &position,
-                                     nImO::ReadStatus    &status)
+                                     nImO::IntStatus     &status)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
@@ -303,7 +304,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                 ODL_LOG("! (isNegative)"); //####
                 result = toUType(shortBits);
             }
-            status = ReadStatus::Successful;
+            status = IntStatus::Successful;
             ODL_LL1("status <- ", toUType(status)); //####
         }
         else
@@ -321,7 +322,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                 if (atEnd)
                 {
                     ODL_LOG("(atEnd)"); //####
-                    status = ReadStatus::Incomplete;
+                    status = IntStatus::Incomplete;
                     ODL_LL1("status <- ", toUType(status)); //####
                     okSoFar = false;
                 }
@@ -335,7 +336,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
             if (okSoFar)
             {
                 result = B2I(holder, size);
-                status = ReadStatus::Successful;
+                status = IntStatus::Successful;
                 ODL_LL1("status <- ", toUType(status)); //####
             }
         }
@@ -343,7 +344,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     else
     {
         ODL_LOG("! (DataKind::Integer == (leadByte & DataKind::Mask))"); //####
-        status = ReadStatus::Invalid;
+        status = IntStatus::Invalid;
         ODL_LL1("status <- ", toUType(status)); //####
     }
     ODL_EXIT_LL(result); //####
@@ -365,12 +366,10 @@ nImO::SpValue
 nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
                                  size_t              &position,
                                  const int           leadByte,
-                                 nImO::ReadStatus    &status,
                                  nImO::SpArray       parent)
 {
     ODL_ENTER(); //####
-    ODL_P4("inMessage = ", &inMessage, "position = ", &position, "status = ", &status,
-           "parent = ", parent.get()); //####
+    ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue              result;
     ExtractorMapIterator match = gExtractors.find(static_cast<uint8_t>(leadByte));
@@ -378,8 +377,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
     if (gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
-        status = ReadStatus::Invalid;
-        ODL_LL1("status <- ", toUType(status)); //####
+        result.reset(new Invalid("Unexpected character in Message"));
     }
     else
     {
@@ -388,12 +386,11 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
         if (nullptr == handler)
         {
             ODL_LOG("(nullptr == handler)"); //####
-            status = ReadStatus::Invalid;
-            ODL_LL1("status <- ", toUType(status)); //####
+            result.reset(new Invalid("No handler for character in Message"));
         }
         else
         {
-            result = handler(inMessage, leadByte, position, status, parent);
+            result = handler(inMessage, leadByte, position, parent);
             ODL_P1("result <- ", result.get()); //####
         }
     }

@@ -281,12 +281,11 @@ nImO::SpValue
 nImO::Blob::extractValue(const nImO::Message &theMessage,
                          const int           leadByte,
                          size_t              &position,
-                         nImO::ReadStatus    &status,
                          nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P4("theMessage = ", &theMessage, "position = ", &position, "status = ", &status, //####
-           "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
@@ -300,8 +299,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     {
         ODL_LOG("(isShort)"); //####
         numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
-        status = ReadStatus::Successful;
-        ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
+        ODL_LL1("numBytes <- ", numBytes); //####
     }
     else
     {
@@ -316,8 +314,6 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             if (atEnd)
             {
                 ODL_LOG("(atEnd)"); //####
-                status = ReadStatus::Incomplete;
-                ODL_LL1("status = ", toUType(status)); //####
                 okSoFar = false;
             }
             else
@@ -330,8 +326,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
+            ODL_LL1("numBytes <- ", numBytes); //####
         }
     }
     if (0 < numBytes)
@@ -346,8 +341,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             if (atEnd)
             {
                 ODL_LOG("(atEnd)"); //####
-                status = ReadStatus::Incomplete;
-                ODL_LL1("status <- ", toUType(status)); //####
+                result.reset();
                 okSoFar = false;
             }
             else
@@ -360,19 +354,14 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
         if (okSoFar)
         {
             result.reset(new Blob(holder.get(), numBytes));
-            status = ReadStatus::Successful;
-            ODL_LL2("numBytes <- ", numBytes, "status <- ", toUType(status)); //####
-        }
-        else
-        {
-            result = nullptr;
+            ODL_LL1("numBytes <- ", numBytes); //####
         }
     }
     else
     {
         result.reset(new Blob);
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {
         ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
         parentValue->addValue(result);

@@ -55,13 +55,26 @@
 namespace nImO
 {
     // Forward declarations.
-
     class Blob;
     class Container;
     class Double;
     class Integer;
     class Logical;
     class Number;
+
+    /*! @brief The status of a conversion operation from a numeric string to an int64_t value. */
+    enum class IntStatus
+    {
+        /*! @brief Conversion was successful. */
+        Successful,
+        
+        /*! @brief The numeric string was incomplete and more data is needed. */
+        Incomplete,
+        
+        /*! @brief Invalid characters were found in the numeric string. */
+        Invalid
+        
+    }; // IntStatus
 
     /*! @brief A class to provide general value behaviours. */
     class Value
@@ -81,7 +94,6 @@ namespace nImO
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
-         @param[out] status Whether the extraction was successful.
          @param[in] parentValue A pointer to the Value that will contain the new object.
          @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
@@ -89,7 +101,6 @@ namespace nImO
                (const Message &theMessage,
                 const int     leadByte,
                 size_t        &position,
-                ReadStatus    &status,
                 SpArray       parentValue);
 
     private :
@@ -227,7 +238,6 @@ namespace nImO
          @param[in] inMessage The Message containing the Value.
          @param[in,out] position The position in the Message where the Value starts.
          @param[in] leadByte The initial byte of the Value representation.
-         @param[out] status The status of the extraction operation.
          @param[in] parent A pointer to the Value that will contain the new object.
          @returns @c nullptr if the Value was not successfully extracted and non-@c nullptr on
          success. */
@@ -235,7 +245,6 @@ namespace nImO
         getValueFromMessage(const Message &inMessage,
                             size_t        &position,
                             const int     leadByte,
-                            ReadStatus    &status,
                             SpArray       parent);
 
         /*! @brief Return the relative ordering of two Values.
@@ -393,13 +402,14 @@ namespace nImO
         extractInt64FromMessage(const Message &theMessage,
                                 const int     leadByte,
                                 size_t        &position,
-                                ReadStatus    &status);
+                                IntStatus     &status);
 
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
          @param[in] aChar The character of interest.
          @returns @c true if the character can appear immediately after a Value in a string. */
-        static bool isLegalTerminator(const char aChar);
+        static bool
+        isLegalTerminator(const char aChar);
 
         /*! @brief Add a binary representation of an integer to the Message.
          @param[in,out] outMessage The Message to be appended to.

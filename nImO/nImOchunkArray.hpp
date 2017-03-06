@@ -98,6 +98,13 @@ namespace nImO
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
         } // appendBytes
 
+        /*! @brief Return @c true if a particular index is past the end of the buffer.
+         @param[in] index The zero-based location in the buffer.
+         @returns @c true if the index is past the end of the buffer. */
+        bool
+        atEnd(const size_t index)
+        const;
+
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
          @param[out] atEnd @c true if the index is past the end of the buffer.

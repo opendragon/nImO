@@ -14,6 +14,8 @@ Read/nImOread.rc
 Testing
 Tests/nImOatomicTest
 Tests/nImOatomicTest.rc
+Tests/nImObadMessageTest
+Tests/nImObadMessageTest.rc
 Tests/nImOcommonTest
 Tests/nImOcommonTest.rc
 Tests/nImOcontainerTest

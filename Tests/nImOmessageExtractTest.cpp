@@ -130,7 +130,6 @@ extractValueAndCheck(Message        &stuff,
     SpValue extractedValue(stuff.getValue());
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
-    ODL_LL1("status <- ", static_cast<int>(status)); //####
     stuff.close();
     if (nullptr == extractedValue)
     {
@@ -171,7 +170,6 @@ extractValueAndCheck(Message        &stuff,
             stuff.appendBytes(insertedContents, ii);
             extractedValue = stuff.getValue();
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            ODL_LL1("status <- ", static_cast<int>(status)); //####
             stuff.close();
             if (nullptr != extractedValue)
             {
@@ -3497,7 +3495,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
 
         if (stuff)
         {
-            const size_t         numValues = 43;
+            const size_t          numValues = 43;
             static const DataKind insertedBytesForArrayManyDoubles[] =
             {
                 // Start of Message

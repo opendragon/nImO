@@ -885,25 +885,75 @@ if(APPLE)
 
 endif(APPLE)
 
-## Test parse of logical false value
-#add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+## Test message with initial end tag
+add_test(NAME TestMessageInitialEndTag COMMAND ${THIS_TARGET} 1)
+## Test message with terminal start tag
+add_test(NAME TestMessageTerminalStartTag COMMAND ${THIS_TARGET} 2)
+## Test empty message with content
+add_test(NAME TestEmptyMessageWithContent COMMAND ${THIS_TARGET} 3)
+## Test non-empty message without content
+add_test(NAME TestNonEmptyMessageWithoutContent COMMAND ${THIS_TARGET} 4)
+## Test non-empty message with mismatched initial start tag
+add_test(NAME TestNonEmptyMessageWithMismatchedInitialStartTag COMMAND ${THIS_TARGET} 5)
+## Test non-empty message with mismatched terminal end tag
+add_test(NAME TestNonEmptyMessageWithMismatchedTerminalEndTag COMMAND ${THIS_TARGET} 6)
+## Test message with invalid content tag
+add_test(NAME TestNonEmptyMessageWithInvalidContentTag COMMAND ${THIS_TARGET} 7)
+## Test message with bad float count
+add_test(NAME TestNonEmptyMessageWithZeroFloatCount COMMAND ${THIS_TARGET} 8)
+## Test message with string with bad length
+add_test(NAME TestNonEmptyMessageWithStringWithInvalidLength COMMAND ${THIS_TARGET} 9)
+## Test message with blob with invalid length
+add_test(NAME TestNonEmptyMessageWithBlobWithInvalidLength COMMAND ${THIS_TARGET} 10)
 
+## Test message with array with initial end tag
+add_test(NAME TestNonEmptyMessageWithArrayWithInitialEndTag COMMAND ${THIS_TARGET} 20)
+## Test message with array with terminal start tag
+add_test(NAME TestNonEmptyMessageWithArrayWithTerminalStartTag COMMAND ${THIS_TARGET} 21)
+## Test message with empty array with content
+add_test(NAME TestNonEmptyMessageWithEmptyArrayWithContent COMMAND ${THIS_TARGET} 22)
+## Test message with non-empty array without content
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithoutContent COMMAND ${THIS_TARGET} 23)
+## Test message with array with invalid count
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithInvalidCount COMMAND ${THIS_TARGET} 24)
+## Test message with array with too few values
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooFewValues COMMAND ${THIS_TARGET} 25)
+## Test message with array with too many values
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooManyValues COMMAND ${THIS_TARGET} 26)
+## Test message with array with too many float values
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats COMMAND ${THIS_TARGET} 27)
 
+## Test message with map with initial end tag
+add_test(NAME TestNonEmptyMessageWithMapWithInitialEndTag COMMAND ${THIS_TARGET} 40)
+## Test message with map with terminal start tag
+add_test(NAME TestNonEmptyMessageWithMapWithTerminalStartTag COMMAND ${THIS_TARGET} 41)
+## Test message with empty map with content
+add_test(NAME TestNonEmptyMessageWithEmptyMapWithContent COMMAND ${THIS_TARGET} 42)
+## Test message with non-empty map without content
+add_test(NAME TestNonEmptyMessageWithNonEmptyMapWithoutContent COMMAND ${THIS_TARGET} 43)
+## Test message with map with invalid count
+add_test(NAME TestNonEmptyMessageWithNonEmptyMapWithInvalidCount COMMAND ${THIS_TARGET} 44)
+## Test message with map with too few values
+add_test(NAME TestNonEmptyMessageWithNonEmptyMapWithTooFewValues COMMAND ${THIS_TARGET} 45)
+## Test message with map with too many values
+add_test(NAME TestNonEmptyMessageWithNonEmptyMapWithTooManyValues COMMAND ${THIS_TARGET} 46)
+## Test message with map with odd number of values
+add_test(NAME TestNonEmptyMessageWithNonEmptyMapWithIncompletePair COMMAND ${THIS_TARGET} 47)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Test message with set with initial end tag
+add_test(NAME TestNonEmptyMessageWithSetWithInitialEndTag COMMAND ${THIS_TARGET} 60)
+## Test message with set with terminal start tag
+add_test(NAME TestNonEmptyMessageWithSetWithTerminalStartTag COMMAND ${THIS_TARGET} 61)
+## Test message with empty set with content
+add_test(NAME TestNonEmptyMessageWithEmptySetWithContent COMMAND ${THIS_TARGET} 62)
+## Test message with non-empty set without content
+add_test(NAME TestNonEmptyMessageWithNonEmptySetWithoutContent COMMAND ${THIS_TARGET} 63)
+## Test message with set with invalid count
+add_test(NAME TestNonEmptyMessageWithNonEmptySetWithInvalidCount COMMAND ${THIS_TARGET} 64)
+## Test message with set with too few values
+add_test(NAME TestNonEmptyMessageWithNonEmptySetWithTooFewValues COMMAND ${THIS_TARGET} 65)
+## Test message with set with too many values
+add_test(NAME TestNonEmptyMessageWithNonEmptySetWithTooManyValues COMMAND ${THIS_TARGET} 66)
 
 set(THIS_TARGET nImOzeroConfTest)
 

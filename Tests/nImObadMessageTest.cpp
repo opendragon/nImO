@@ -142,9 +142,9 @@ attemptExtractValueAndCheck(Message           &stuff,
         {
             ODL_LOG("(asFlaw)"); //####
             ODL_LOG(asFlaw->getDescription().c_str()); //####
-std::cout << "'" << asFlaw->getDescription() << "' ? '" << expectedFlawString << "'" << std::endl; //####!!!!
             if (asFlaw->getDescription() == expectedFlawString)
             {
+                ODL_LOG("(asFlaw->getDescription() == expectedFlawString)"); //####
                 result = 0;
             }
             stuff.reset();

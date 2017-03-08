@@ -108,10 +108,8 @@ SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new ChannelArgumentDescriptor(argumentName(),
-                                                                  argumentDescription(),
-                                                                  argumentMode(),
-                                                                  getDefaultValue()));
+    auto result = std::make_shared<ChannelArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                              argumentMode(), getDefaultValue());
 
     ODL_EXIT_P(result.get());
     return result;

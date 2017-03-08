@@ -117,9 +117,8 @@ SpBaseArgumentDescriptor
 StringArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new StringArgumentDescriptor(argumentName(),
-                                                                 argumentDescription(),
-                                                                 argumentMode(), _defaultValue));
+    auto result = std::make_shared<StringArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                             argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result.get());
     return result;

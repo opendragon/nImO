@@ -6324,7 +6324,7 @@ doTestLogicalMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        auto          falseString(std::make_shared<String>("false"));
+        auto          falseString = std::make_shared<String>("false");
         SpString      trueString;
 
         stuff.addValue(std::make_shared<Logical>(false), falseString);
@@ -6437,7 +6437,7 @@ doTestIntegerMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        auto          string17(std::make_shared<String>("17"));
+        auto          string17 = std::make_shared<String>("17");
         SpString      string12;
 
         stuff.addValue(std::make_shared<Integer>(17), string17);
@@ -6550,7 +6550,7 @@ doTestStringMapSearches(const char *launchPath,
     {
         Map           stuff;
         Map::iterator iter;
-        auto          stringOneSeven(std::make_shared<String>("17"));
+        auto          stringOneSeven = std::make_shared<String>("17");
         SpString      stringOneTwo;
 
         stuff.addValue(std::make_shared<String>("abc"), stringOneSeven);

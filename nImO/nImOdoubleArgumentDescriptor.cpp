@@ -126,11 +126,10 @@ SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new DoubleArgumentDescriptor(argumentName(),
-                                                                 argumentDescription(),
-                                                                 argumentMode(), _defaultValue,
-                                                                 _hasMinimumValue, _minimumValue,
-                                                                 _hasMaximumValue, _maximumValue));
+    auto result = std::make_shared<DoubleArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                             argumentMode(), _defaultValue,
+                                                             _hasMinimumValue, _minimumValue,
+                                                             _hasMaximumValue, _maximumValue);
 
     ODL_EXIT_P(result.get());
     return result;

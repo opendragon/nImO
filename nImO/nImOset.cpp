@@ -314,7 +314,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    auto aSet(std::make_shared<Set>());
+                    auto aSet = std::make_shared<Set>();
 
                     result = aSet;
                     if (nullptr == result)
@@ -656,7 +656,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     bool   atEnd;
     bool   done = false;
     bool   valid = false;
-    auto   result(std::make_shared<Set>());
+    auto   result = std::make_shared<Set>();
     size_t localIndex = position;
     int    aChar = inBuffer.getChar(localIndex++, atEnd);
 

@@ -304,7 +304,7 @@ nImO::Array::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    auto anArray(std::make_shared<Array>());
+                    auto anArray = std::make_shared<Array>();
 
                     result = anArray;
                     if (nullptr == result)
@@ -600,7 +600,7 @@ nImO::Array::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     bool    atEnd;
     bool    done = false;
     bool    valid = false;
-    auto    result(std::make_shared<Array>());
+    auto    result = std::make_shared<Array>();
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 

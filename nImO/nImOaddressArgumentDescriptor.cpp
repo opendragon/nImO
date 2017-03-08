@@ -112,10 +112,8 @@ SpBaseArgumentDescriptor
 AddressArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new AddressArgumentDescriptor(argumentName(),
-                                                                  argumentDescription(),
-                                                                  argumentMode(),
-                                                                  getDefaultValue()));
+    auto result = std::make_shared<AddressArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                              argumentMode(), getDefaultValue());
 
     ODL_EXIT_P(result.get());
     return result;

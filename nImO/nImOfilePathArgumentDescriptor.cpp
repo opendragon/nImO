@@ -174,11 +174,11 @@ SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new FilePathArgumentDescriptor(argumentName(),
-                                                                   argumentDescription(),
-                                                                   argumentMode(), _pathPrefix,
-                                                                   _pathSuffix, _forOutput,
-                                                                   _useRandomPath));
+    auto result = std::make_shared<FilePathArgumentDescriptor>(argumentName(),
+                                                               argumentDescription(),
+                                                               argumentMode(), _pathPrefix,
+                                                               _pathSuffix, _forOutput,
+                                                               _useRandomPath);
 
     ODL_EXIT_P(result.get());
     return result;

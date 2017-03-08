@@ -114,8 +114,7 @@ SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new ExtraArgumentDescriptor(argumentName(),
-                                                                argumentDescription()));
+    auto result = std::make_shared<ExtraArgumentDescriptor>(argumentName(), argumentDescription());
 
     ODL_EXIT_P(result.get());
     return result;

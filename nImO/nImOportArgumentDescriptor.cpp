@@ -111,10 +111,9 @@ SpBaseArgumentDescriptor
 PortArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new PortArgumentDescriptor(argumentName(),
-                                                               argumentDescription(),
-                                                               argumentMode(), _defaultValue,
-                                                               _isSystemPort));
+    auto result = std::make_shared<PortArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                           argumentMode(), _defaultValue,
+                                                           _isSystemPort);
 
     ODL_EXIT_P(result.get());
     return result;

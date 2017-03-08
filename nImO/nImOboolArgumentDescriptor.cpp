@@ -117,9 +117,8 @@ SpBaseArgumentDescriptor
 BoolArgumentDescriptor::clone(void)
 {
     ODL_OBJENTER(); //####
-    SpBaseArgumentDescriptor result(new BoolArgumentDescriptor(argumentName(),
-                                                               argumentDescription(),
-                                                               argumentMode(), _defaultValue));
+    auto result = std::make_shared<BoolArgumentDescriptor>(argumentName(), argumentDescription(),
+                                                           argumentMode(), _defaultValue);
 
     ODL_EXIT_P(result.get());
     return result;

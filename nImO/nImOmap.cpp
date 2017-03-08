@@ -334,7 +334,7 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
                 }
                 else
                 {
-                    auto aMap(std::make_shared<Map>());
+                    auto aMap = std::make_shared<Map>();
 
                     result = aMap;
                     if (nullptr == result)
@@ -713,7 +713,7 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     bool   atEnd;
     bool   done = false;
     bool   valid = false;
-    auto   result(std::make_shared<Map>());
+    auto   result = std::make_shared<Map>();
     size_t localIndex = position;
     int    aChar = inBuffer.getChar(localIndex++, atEnd);
 

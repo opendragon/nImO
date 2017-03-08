@@ -220,8 +220,8 @@ nImO::Logical::extractValue(const nImO::Message &theMessage,
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
     ODL_XL1("leadByte = ", leadByte); //####
-    SpValue result(new Logical(DataKind::OtherLogicalTrueValue ==
-                                (DataKind::OtherLogicalValueMask & leadByte)));
+    auto result = std::make_shared<Logical>(DataKind::OtherLogicalTrueValue ==
+                                            (DataKind::OtherLogicalValueMask & leadByte));
 
     ++position; // We will always accept the lead byte
     ODL_LL1("position <- ", position); //####

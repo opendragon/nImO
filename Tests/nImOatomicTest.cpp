@@ -1537,7 +1537,7 @@ doTestDefaultLogicalValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<Logical> stuff(new Logical);
+        auto stuff = make_unique<Logical>();
 
         if (stuff)
         {
@@ -1605,7 +1605,7 @@ doTestLogicalValue(const char *launchPath,
 
             if (ConvertToLong(*argv, value) && (0 <= value))
             {
-                std::unique_ptr<Logical> stuff(new Logical(0 != value));
+                auto stuff = make_unique<Logical>(0 != value);
 
                 if (stuff)
                 {
@@ -1676,7 +1676,7 @@ doTestDefaultIntegerValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<Integer> stuff(new Integer);
+        auto stuff = make_unique<Integer>();
 
         if (stuff)
         {
@@ -1745,7 +1745,7 @@ doTestNumberValue(const char *launchPath,
 
             if (ConvertToLong(*argv, intValue))
             {
-                std::unique_ptr<Integer> stuff(new Integer(intValue));
+                auto stuff = make_unique<Integer>(intValue);
 
                 if (stuff)
                 {
@@ -1769,7 +1769,7 @@ doTestNumberValue(const char *launchPath,
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    std::unique_ptr<Double> stuff(new Double(floatValue));
+                    auto stuff = make_unique<Double>(floatValue);
 
                     if (stuff)
                     {
@@ -2033,7 +2033,7 @@ doTestDefaultBlobValue(const char *launchPath,
 
     try
     {
-        std::unique_ptr<Blob> stuff(new Blob);
+        auto stuff = make_unique<Blob>();
 
         if (stuff)
         {
@@ -2105,7 +2105,7 @@ doTestSmallBlobValue(const char *launchPath,
 
                 smallBlob[ii] = aByte;
             }
-            std::unique_ptr<Blob> stuff(new Blob(smallBlob.get(), kSmallTestSize));
+            auto stuff = make_unique<Blob>(smallBlob.get(), kSmallTestSize);
 
             if (stuff)
             {
@@ -2200,7 +2200,7 @@ doTestBigBlobValue(const char *launchPath,
 
                 bigBlob[ii] = aByte;
             }
-            std::unique_ptr<Blob> stuff(new Blob(bigBlob.get(), kBigTestSize));
+            auto stuff = make_unique<Blob>(bigBlob.get(), kBigTestSize);
 
             if (stuff)
             {

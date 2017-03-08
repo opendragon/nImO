@@ -42,6 +42,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <boost/lexical_cast.hpp>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -138,11 +140,8 @@ std::string
 IntArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
-    std::string       result;
-    std::stringstream buff;
+    std::string result = boost::lexical_cast<std::string>(_defaultValue);
 
-    buff << _defaultValue;
-    result = buff.str();
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntArgumentDescriptor::getDefaultValue
@@ -151,11 +150,8 @@ std::string
 IntArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
-    std::string       result;
-    std::stringstream buff;
+    std::string result = boost::lexical_cast<std::string>(_currentValue);
 
-    buff << _currentValue;
-    result = buff.str();
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntArgumentDescriptor::getProcessedValue
@@ -269,18 +265,12 @@ IntArgumentDescriptor::toString(void)
     result += _parameterSeparator;
     if (_hasMinimumValue)
     {
-        std::stringstream buff;
-
-        buff << _minimumValue;
-        result += buff.str();
+        result += boost::lexical_cast<std::string>(_minimumValue);
     }
     result += _parameterSeparator;
     if (_hasMaximumValue)
     {
-        std::stringstream buff;
-
-        buff << _maximumValue;
-        result += buff.str();
+        result += boost::lexical_cast<std::string>(_maximumValue);
     }
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####

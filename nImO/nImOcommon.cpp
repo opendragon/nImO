@@ -44,9 +44,7 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-//#include <cmath>
-//#include <cstdio>
-//#include <ctime>
+#include <boost/lexical_cast.hpp>
 #if MAC_OR_LINUX_
 # include <unistd.h>
 #else // ! MAC_OR_LINUX_
@@ -147,11 +145,9 @@ localCatcher(int signal)
 #if 0
     if (lLogger)
     {
-        std::stringstream buff;
-        std::string       message("Exiting due to signal ");
+        std::string message("Exiting due to signal ");
 
-        buff << signal;
-        message += buff.str();
+        message += boost::lexical_cast<std::string>(signal);
         message += " = ";
         message += NameOfSignal(signal);
 # if USE_YARP_FATAL_NOT_FAIL_
@@ -308,10 +304,8 @@ nImO::DumpContactToLog(const char              *tag,
 #if MAC_OR_LINUX_
     if (lLogger)
     {
-        std::stringstream buff;
-        std::string       message("tag = ");
+        std::string message("tag = ");
 
-        buff << aContact.getPort();
         message += tag;
 # if USE_YARP_FATAL_NOT_FAIL_
         lLogger->info("%s", message.c_str());
@@ -347,7 +341,7 @@ nImO::DumpContactToLog(const char              *tag,
         lLogger->info(message.c_str());
 # endif // ! USE_YARP_FATAL_NOT_FAIL_
         message = "contact.port = ";
-        message += buff.str();
+        message += boost::lexical_cast<std::string>(aContact.getPort());
 # if USE_YARP_FATAL_NOT_FAIL_
         lLogger->info("%s", message.c_str());
 # else // ! USE_YARP_FATAL_NOT_FAIL_

@@ -161,6 +161,17 @@ if(nImO_DO_SWIG)
     set(CMAKE_SWIG_FLAGS "")
 endif(nImO_DO_SWIG)
 
+if(WIN32)
+    set(BOOST_ROOT "??")
+else(WIN32)
+    set(BOOST_ROOT "/opt/boost")
+endif(WIN32)
+find_package(Boost REQUIRED)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    set(Boost_USE_MULTITHREADED)
+endif(Boost_FOUND)
+
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
 
 include_directories("${nImO_SOURCE_DIR}")
@@ -177,7 +188,7 @@ else(WIN32)
     set(BONJOUR_LIB "")
 endif(WIN32)
 
-set(nImO_LINK_LIBRARIES nImOcommon odLogging ${BONJOUR_LIB})
+set(nImO_LINK_LIBRARIES nImOcommon odLogging ${Boost_LIBRARIES} ${BONJOUR_LIB})
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)

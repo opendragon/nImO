@@ -46,6 +46,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <boost/lexical_cast.hpp>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -86,11 +88,9 @@ catchSignal(int signal)
 {
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
-    std::stringstream buff;
-    std::string       message("Exiting due to signal ");
-
-    buff << signal;
-    message += buff.str();
+    std::string message("Exiting due to signal ");
+    
+    message += boost::lexical_cast<std::string>(signal);
     message += " = ";
     message += NameOfSignal(signal);
 #if 0

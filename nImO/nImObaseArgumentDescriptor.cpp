@@ -52,6 +52,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <boost/lexical_cast.hpp>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -237,11 +239,10 @@ const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("tagForField = ", tagForField); //####
-    std::string       result(_argName);
-    std::stringstream buff;
+    std::string result(_argName);
 
-    buff << toUType(_argMode);
-    result += _parameterSeparator + tagForField + _parameterSeparator + buff.str();
+    result += _parameterSeparator + tagForField + _parameterSeparator +
+              boost::lexical_cast<std::string>(toUType(_argMode));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
@@ -455,24 +456,19 @@ nImO::ModeFromString(const std::string &modeString)
 {
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
-    ArgumentMode      result = ArgumentMode::Unknown;
-    std::stringstream buff(modeString.c_str());
-    int               modeAsInt;
+    ArgumentMode result = ArgumentMode::Unknown;
+    int          modeAsInt;
 
-    buff >> modeAsInt;
-    if (! buff.fail())
+    if (boost::conversion::try_lexical_convert(modeString, modeAsInt))
     {
-        int holder = modeAsInt;
-
         // Check that only the known bits are set!
-        holder &= ~toUType(ArgumentMode::Mask);
-        if (! holder)
+        if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))
         {
             // Only known bits were set.
             result = static_cast<ArgumentMode>(modeAsInt);
         }
     }
-    ODL_EXIT(); //####
+    ODL_EXIT_LL(static_cast<int>(result)); //####
     return result;
 } // nImO::ModeFromString
 

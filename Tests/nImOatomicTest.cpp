@@ -47,6 +47,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
+#include <boost/lexical_cast.hpp>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -94,11 +96,9 @@ catchSignal(int signal)
 {
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
-    std::stringstream buff;
-    std::string       message("Exiting due to signal ");
+    std::string message("Exiting due to signal ");
 
-    buff << signal;
-    message += buff.str();
+    message += boost::lexical_cast<std::string>(signal);
     message += " = ";
     message += NameOfSignal(signal);
 #if 0
@@ -1287,12 +1287,10 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
                     smallBlob[ii] = aByte;
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
-                auto              resultString(stuff->getString());
-                std::string       expectedString("%");
-                std::stringstream buff;
+                auto        resultString(stuff->getString());
+                std::string expectedString("%");
 
-                buff << kSmallTestSize;
-                expectedString += buff.str() + "%";
+                expectedString += boost::lexical_cast<std::string>(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
@@ -1383,12 +1381,10 @@ doTestStringBufferWithBigBlob(const char *launchPath,
                     bigBlob[ii] = aByte;
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
-                auto              resultString(stuff->getString());
-                std::string       expectedString("%");
-                std::stringstream buff;
+                auto        resultString(stuff->getString());
+                std::string expectedString("%");
 
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
+                expectedString += boost::lexical_cast<std::string>(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
@@ -2109,11 +2105,9 @@ doTestSmallBlobValue(const char *launchPath,
 
             if (stuff)
             {
-                std::string       expectedString("%");
-                std::stringstream buff;
+                std::string expectedString("%");
 
-                buff << kSmallTestSize;
-                expectedString += buff.str() + "%";
+                expectedString += boost::lexical_cast<std::string>(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
@@ -2204,11 +2198,9 @@ doTestBigBlobValue(const char *launchPath,
 
             if (stuff)
             {
-                std::string       expectedString("%");
-                std::stringstream buff;
+                std::string expectedString("%");
 
-                buff << kBigTestSize;
-                expectedString += buff.str() + "%";
+                expectedString += boost::lexical_cast<std::string>(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',

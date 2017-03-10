@@ -178,14 +178,6 @@ namespace nImO
     private :
         // Private methods.
 
-        /*! @brief Acquire the object. */
-        void
-        lock(void);
-
-        /*! @brief Release the object. */
-        void
-        unlock(void);
-
     public :
         // Public fields.
 
@@ -194,6 +186,9 @@ namespace nImO
 
     private :
         // Private fields.
+        
+        /*! @brief Mutual-exclusion protection. */
+        std::mutex _lock;
 
         /*! @brief The cached value of the buffer for transmission. */
         std::string _cachedTransmissionString;

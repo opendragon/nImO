@@ -109,8 +109,8 @@ static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageV
 #endif // defined(__APPLE__)
 
 nImO::Message::Message(void) :
-    inherited(false), _cachedTransmissionString(), _readPosition(0), _state(MessageState::Unknown),
-    _headerAdded(false)
+    inherited(false), _lock(), _cachedTransmissionString(), _readPosition(0),
+    _state(MessageState::Unknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
     ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
@@ -184,9 +184,9 @@ nImO::Message::getBytes(void)
     if (MessageState::Closed == _state)
     {
         ODL_LOG("(MessageState::Closed == _state)"); //####
-        lock();
+        std::lock_guard<std::mutex> guard(_lock);
+
         result = inherited::getBytes();
-        unlock();
     }
     ODL_OBJEXIT(); //####
     return result;
@@ -445,14 +445,6 @@ nImO::Message::getValue(void)
     return result;
 } // nImO::Message::getValue
 
-void
-nImO::Message::lock(void)
-{
-    ODL_OBJENTER(); //####
-//TBD
-    ODL_OBJEXIT(); //####
-} // nImO::Message::lock
-
 nImO::Message &
 nImO::Message::open(const bool forWriting)
 {
@@ -478,13 +470,13 @@ nImO::Message::reset(void)
     ODL_OBJENTER(); //####
     // Invalidate the cache.
     _cachedTransmissionString.clear();
-    lock();
+    std::lock_guard<std::mutex> guard(_lock);
+
     inherited::reset();
     _headerAdded = false;
     ODL_B1("_headerAdded -> ", _headerAdded); //####
     _readPosition = 0;
     ODL_LL1("_readPosition <- ", _readPosition); //####
-    unlock();
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::reset
@@ -498,7 +490,8 @@ nImO::Message::setValue(const nImO::Value &theValue)
     if (MessageState::OpenForWriting == _state)
     {
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
-        lock();
+        std::lock_guard<std::mutex> guard(_lock);
+
         DataKind typeTag = theValue.getTypeTag();
         DataKind headerByte = (DataKind::StartOfMessageValue |
                                DataKind::OtherMessageNonEmptyValue | typeTag);
@@ -510,7 +503,6 @@ nImO::Message::setValue(const nImO::Value &theValue)
         ODL_B1("_headerAdded <- ", _headerAdded); //####
         theValue.writeToMessage(*this);
         appendBytes(&trailerByte, sizeof(trailerByte));
-        unlock();
     }
     else
     {
@@ -519,14 +511,6 @@ nImO::Message::setValue(const nImO::Value &theValue)
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::setValue
-
-void
-nImO::Message::unlock(void)
-{
-    ODL_OBJENTER(); //####
-//TBD
-    ODL_OBJEXIT(); //####
-} // nImO::Message::unlock
 
 #if defined(__APPLE__)
 # pragma mark Global functions

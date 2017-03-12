@@ -42,8 +42,6 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <boost/lexical_cast.hpp>
-
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -140,7 +138,7 @@ std::string
 IntArgumentDescriptor::getDefaultValue(void)
 {
     ODL_OBJENTER(); //####
-    std::string result = boost::lexical_cast<std::string>(_defaultValue);
+    std::string result = std::to_string(_defaultValue);
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -150,7 +148,7 @@ std::string
 IntArgumentDescriptor::getProcessedValue(void)
 {
     ODL_OBJENTER(); //####
-    std::string result = boost::lexical_cast<std::string>(_currentValue);
+    std::string result = std::to_string(_currentValue);
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -265,12 +263,12 @@ IntArgumentDescriptor::toString(void)
     result += _parameterSeparator;
     if (_hasMinimumValue)
     {
-        result += boost::lexical_cast<std::string>(_minimumValue);
+        result += std::to_string(_minimumValue);
     }
     result += _parameterSeparator;
     if (_hasMaximumValue)
     {
-        result += boost::lexical_cast<std::string>(_maximumValue);
+        result += std::to_string(_maximumValue);
     }
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####

@@ -497,39 +497,6 @@ const
     return result;
 } // nImO::String::lessThanOrEqual
 
-nImO::String &
-nImO::String::operator =(const nImO::String &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        _value = other._value;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::String::operator=
-
-nImO::String &
-nImO::String::operator =(const std::string &value)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
-    _value = value;
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::String::operator=
-
-nImO::String &
-nImO::String::operator =(const char *value)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1("value = ", value); //####
-    _value = value;
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::String::operator=
-
 void
 nImO::String::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                   const bool         squished)

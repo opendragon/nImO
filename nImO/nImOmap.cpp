@@ -169,15 +169,6 @@ const
     return this;
 } // nImO::Map::asMap
 
-void
-nImO::Map::clear(void)
-{
-    ODL_OBJENTER(); //####
-    inherited2::clear();
-    _keyKind = Enumerable::Unknown;
-    ODL_OBJEXIT(); //####
-} // nImO::Map::clear
-
 bool
 nImO::Map::deeplyEqualTo(const nImO::Value &other)
 const
@@ -465,45 +456,6 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
     return result;
 } // nImO::Map::extractValue
 
-nImO::Map::iterator
-nImO::Map::find(nImO::SpValue key)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("key = ", &key); //####
-    iterator result;
-
-    if (key->enumerationType() == _keyKind)
-    {
-        result = inherited2::find(key);
-    }
-    else
-    {
-        result = inherited2::end();
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Map::find
-
-nImO::Map::const_iterator
-nImO::Map::find(const nImO::SpValue key)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("key = ", &key); //####
-    const_iterator result;
-
-    if (key->enumerationType() == _keyKind)
-    {
-        result = inherited2::find(key);
-    }
-    else
-    {
-        result = inherited2::end();
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Map::find
-
 void
 nImO::Map::getExtractionInfo(DataKind               &aByte,
                              DataKind               &aMask,
@@ -651,20 +603,6 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Map::lessThanOrEqual
-
-nImO::Map &
-nImO::Map::operator =(const nImO::Map &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        clear();
-        addEntries(other);
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Map::operator=
 
 void
 nImO::Map::printToStringBuffer(nImO::StringBuffer &outBuffer,

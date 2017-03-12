@@ -41,8 +41,6 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <boost/lexical_cast.hpp>
-
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -93,7 +91,7 @@ nImO::Invalid::Invalid(const std::string &description,
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
     ODL_LL1("associatedValue = ", associatedValue); //####
-    _description += boost::lexical_cast<std::string>(associatedValue);
+    _description += std::to_string(associatedValue);
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 

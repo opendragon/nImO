@@ -139,44 +139,6 @@ nImO::BufferChunk::appendData(const void   *data,
     return *this;
 } // nImO::BufferChunk::appendData
 
-size_t
-nImO::BufferChunk::getAvailableBytes(void)
-const
-{
-    ODL_OBJENTER(); //####
-    size_t result = static_cast<size_t>(_bufferEnd - _write);
-
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // nImO::BufferChunk::getAvailableBytes
-
-size_t
-BufferChunk::getDataSize(void)
-const
-{
-    ODL_OBJENTER(); //####
-    size_t result = static_cast<size_t>(_write - _buffer.get());
-
-    ODL_OBJEXIT_LL(result); //####
-    return result;
-} // BufferChunk::getDataSize
-
-nImO::BufferChunk &
-nImO::BufferChunk::reset(void)
-{
-    ODL_OBJENTER(); //####
-    _write = _buffer.get();
-    ODL_P1("_write <- ", _write); //####
-    ODL_LL1("[size] <- ", getDataSize()); //####
-    if (_padded)
-    {
-        ODL_LOG("(_padded)"); //####
-        *_write = 0;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::BufferChunk::reset
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

@@ -200,20 +200,35 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        String &
-        operator =(const String &other);
+        inline String &
+        operator =(const String &other)
+        {
+            if (this != &other)
+            {
+                _value = other._value;
+            }
+            return *this;
+        } // operator =
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.
          @returns The updated object. */
-        String &
-        operator =(const std::string &value);
+        inline String &
+        operator =(const std::string &value)
+        {
+            _value = value;
+            return *this;
+        } // operator =
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.
          @returns The updated object. */
-        String &
-        operator =(const char *value);
+        inline String &
+        operator =(const char *value)
+        {
+            _value = value;
+            return *this;
+        } // operator =
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

@@ -95,9 +95,12 @@ namespace nImO
 
         /*! @brief Return the number of available bytes in the chunk.
          @returns The number of available bytes in the chunk. */
-        size_t
+        inline size_t
         getAvailableBytes(void)
-        const;
+        const
+        {
+            return static_cast<size_t>(_bufferEnd - _write);
+        } // getAvailableBytes
 
         /*! @brief Return the stored data.
          @returns A pointer to the stored data. */
@@ -110,9 +113,12 @@ namespace nImO
 
         /*! @brief Return the number of bytes used in the chunk.
          @returns The number of bytes used in the chunk. */
-        size_t
+        inline size_t
         getDataSize(void)
-        const;
+        const
+        {
+            return static_cast<size_t>(_write - _buffer.get());
+        } // getDataSize
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -122,8 +128,16 @@ namespace nImO
 
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
-        BufferChunk &
-        reset(void);
+        inline BufferChunk &
+        reset(void)
+        {
+            _write = _buffer.get();
+            if (_padded)
+            {
+                *_write = 0;
+            }
+            return *this;
+        } // reset
 
     protected :
         // Protected methods.

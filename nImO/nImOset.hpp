@@ -144,8 +144,12 @@ namespace nImO
         } // begin
 
         /*! @brief Remove all entries from the Set. */
-        void
-        clear(void);
+        inline void
+        clear(void)
+        {
+            inherited2::clear();
+            _keyKind = Enumerable::Unknown;
+        } // clear
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -188,7 +192,20 @@ namespace nImO
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         iterator
-        find(SpValue key);
+        find(SpValue key)
+        {
+            iterator result;
+            
+            if (key->enumerationType() == _keyKind)
+            {
+                result = inherited2::find(key);
+            }
+            else
+            {
+                result = inherited2::end();
+            }
+            return result;
+        } // find
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
@@ -196,7 +213,20 @@ namespace nImO
          @returns An iterator for the given key key value or Map::end if not found. */
         const_iterator
         find(SpValue key)
-        const;
+        const
+        {
+            const_iterator result;
+            
+            if (key->enumerationType() == _keyKind)
+            {
+                result = inherited2::find(key);
+            }
+            else
+            {
+                result = inherited2::end();
+            }
+            return result;
+        } // find
 
         /*! @brief Get the extraction information for Set objects.
          @param[out] aByte The byte value that indicates the start of a Set value.
@@ -272,7 +302,15 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         Set &
-        operator =(const Set &other);
+        operator =(const Set &other)
+        {
+            if (this != &other)
+            {
+                clear();
+                addEntries(other);
+            }
+            return *this;
+        } // operator =
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

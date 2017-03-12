@@ -111,8 +111,15 @@ namespace nImO
         /*! @brief Add a Value to the end of the Array.
          @param[in] newElement The Value to be added.
          @returns The updated Array. */
-        Array &
-        addValue(SpValue newElement);
+        inline Array &
+        addValue(SpValue newElement)
+        {
+            if (nullptr != newElement)
+            {
+                inherited2::emplace_back(newElement);
+            }
+            return *this;
+        } // addValue
 
         /*! @brief Return non-@c nullptr if the object is an Array.
          @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
@@ -124,9 +131,22 @@ namespace nImO
         /*! @brief Returns the element at position index in the Array.
          @param[in] index The position of the element in the Array.
          @returns The element at the given position, or @c nullptr if the index is out of range. */
-        SpValue
+        inline SpValue
         at(const size_type index)
-        const;
+        const
+        {
+            SpValue result;
+            
+            if (index < inherited2::size())
+            {
+                result = inherited2::at(index);
+            }
+            else
+            {
+                result = nullptr;
+            }
+            return result;
+        } // at
 
         /*! @brief Return an iterator pointing to the first element of the Array.
          @returns An iterator pointing to the first element of the Array. */
@@ -146,8 +166,11 @@ namespace nImO
         } // begin
 
         /*! @brief Remove all entries from the Array. */
-        void
-        clear(void);
+        inline void
+        clear(void)
+        {
+            inherited2::clear();
+        } // clear
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -267,8 +290,16 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        Array &
-        operator =(const Array &other);
+        inline Array &
+        operator =(const Array &other)
+        {
+            if (this != &other)
+            {
+                clear();
+                addEntries(other);
+            }
+            return *this;
+        } // operator =
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.
@@ -337,7 +368,7 @@ namespace nImO
 
         /*! @brief Add the entries from another Array.
           @param[in] other The object to be copied from. */
-        void
+        Array &
         addEntries(const Array &other);
 
         /*! @brief Extracts Value objects from a Message.

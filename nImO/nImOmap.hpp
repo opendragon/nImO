@@ -149,8 +149,12 @@ namespace nImO
         } // begin
 
         /*! @brief Remove all entries from the Map. */
-        void
-        clear(void);
+        inline void
+        clear(void)
+        {
+            inherited2::clear();
+            _keyKind = Enumerable::Unknown;
+        } // clear
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -192,16 +196,43 @@ namespace nImO
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
-        iterator
-        find(SpValue key);
+        inline iterator
+        find(SpValue key)
+        {
+            iterator result;
+            
+            if (key->enumerationType() == _keyKind)
+            {
+                result = inherited2::find(key);
+            }
+            else
+            {
+                result = inherited2::end();
+            }
+            return result;
+        } // find
+
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
-        const_iterator
+        inline const_iterator
         find(const SpValue key)
-        const;
+        const
+        {
+            const_iterator result;
+            
+            if (key->enumerationType() == _keyKind)
+            {
+                result = inherited2::find(key);
+            }
+            else
+            {
+                result = inherited2::end();
+            }
+            return result;
+        } // find
 
         /*! @brief Get the extraction information for Map objects.
          @param[out] aByte The byte value that indicates the start of a Map value.
@@ -276,8 +307,16 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        Map &
-        operator =(const Map &other);
+        inline Map &
+        operator =(const Map &other)
+        {
+            if (this != &other)
+            {
+                clear();
+                addEntries(other);
+            }
+            return *this;
+        } // operator =
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

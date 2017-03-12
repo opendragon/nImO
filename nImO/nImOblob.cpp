@@ -581,7 +581,7 @@ nImO::Blob::operator =(const nImO::Blob &other)
     }
     ODL_OBJEXIT_P(this);
     return *this;
-} // nImO::Blob::operator=
+} // nImO::Blob::operator =
 
 void
 nImO::Blob::printToStringBuffer(nImO::StringBuffer &outBuffer,
@@ -599,15 +599,6 @@ const
     outBuffer.addBytes(_value.get(), _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::printToStringBuffer
-
-void
-nImO::Blob::removeAllEntries(void)
-{
-    ODL_OBJENTER(); //####
-    _value.reset();
-    _size = 0;
-    ODL_OBJEXIT(); //####
-} // nImO::Blob::removeAllEntries
 
 void
 nImO::Blob::writeToMessage(nImO::Message &outMessage)

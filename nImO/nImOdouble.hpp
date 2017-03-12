@@ -192,14 +192,25 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        Double &
-        operator =(const Double &other);
+        inline Double &
+        operator =(const Double &other)
+        {
+            if (this != &other)
+            {
+                _floatValue = other._floatValue;
+            }
+            return *this;
+        } // operator =
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.
          @returns The updated object. */
-        Double &
-        operator =(const double value);
+        inline Double &
+        operator =(const double value)
+        {
+            _floatValue = value;
+            return *this;
+        } // operator =
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[out] outBuffer The buffer to be appended to.

@@ -445,25 +445,6 @@ nImO::Message::getValue(void)
     return result;
 } // nImO::Message::getValue
 
-nImO::Message &
-nImO::Message::open(const bool forWriting)
-{
-    ODL_OBJENTER(); //####
-    ODL_B1("forWriting = ", forWriting); //####
-    if (forWriting)
-    {
-        _state = MessageState::OpenForWriting;
-    }
-    else
-    {
-        _state = MessageState::OpenForReading;
-    }
-    ODL_LL1("_state <- ", toUType(_state)); //####
-    reset();
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Message::open
-
 nImO::ChunkArray &
 nImO::Message::reset(void)
 {

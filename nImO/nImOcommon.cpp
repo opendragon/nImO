@@ -44,7 +44,6 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <boost/lexical_cast.hpp>
 #if MAC_OR_LINUX_
 # include <unistd.h>
 #else // ! MAC_OR_LINUX_
@@ -147,7 +146,7 @@ localCatcher(int signal)
     {
         std::string message("Exiting due to signal ");
 
-        message += boost::lexical_cast<std::string>(signal);
+        message += std::to_string(signal);
         message += " = ";
         message += NameOfSignal(signal);
 # if USE_YARP_FATAL_NOT_FAIL_
@@ -231,6 +230,22 @@ nImO::CompareBytes(const void   *first,
     ODL_EXIT_LL(result); //####
     return result;
 } // nImO::CompareBytes
+
+std::string
+nImO::ConvertDoubleToString(const double value)
+{
+    ODL_ENTER(); //####
+    ODL_D1("value = ", value); //####
+    // Note that the boost::lexical_cast<std::string>(double) generates strings with trailing
+    // digits. That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.cat
+    std::ostringstream holder;
+
+    holder << std::defaultfloat << value;
+    std::string result(holder.str());
+
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ConvertDoubleToString
 
 bool
 nImO::ConvertToDouble(const char *startPtr,
@@ -341,7 +356,7 @@ nImO::DumpContactToLog(const char              *tag,
         lLogger->info(message.c_str());
 # endif // ! USE_YARP_FATAL_NOT_FAIL_
         message = "contact.port = ";
-        message += boost::lexical_cast<std::string>(aContact.getPort());
+        message += std::to_string(aContact.getPort());
 # if USE_YARP_FATAL_NOT_FAIL_
         lLogger->info("%s", message.c_str());
 # else // ! USE_YARP_FATAL_NOT_FAIL_

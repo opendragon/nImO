@@ -52,8 +52,6 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <boost/lexical_cast.hpp>
-
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -241,8 +239,8 @@ const
     ODL_S1s("tagForField = ", tagForField); //####
     std::string result(_argName);
 
-    result += _parameterSeparator + tagForField + _parameterSeparator +
-              boost::lexical_cast<std::string>(toUType(_argMode));
+    result += (_parameterSeparator + tagForField + _parameterSeparator +
+               std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
@@ -457,9 +455,9 @@ nImO::ModeFromString(const std::string &modeString)
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
     ArgumentMode result = ArgumentMode::Unknown;
-    int          modeAsInt;
+    int64_t      modeAsInt;
 
-    if (boost::conversion::try_lexical_convert(modeString, modeAsInt))
+    if (nImO::ConvertToLong(modeString.c_str(), modeAsInt))
     {
         // Check that only the known bits are set!
         if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))
@@ -485,11 +483,7 @@ nImO::ProcessArguments(const DescriptorVector &arguments,
     bool   sawOptional = false;
     size_t numArgs = arguments.size();
     size_t numValues = parseResult.nonOptionsCount();
-#if MAC_OR_LINUX_
-    size_t numToCheck = std::min(numArgs, numValues);
-#else // ! MAC_OR_LINUX_
-    size_t numToCheck = min(numArgs, numValues);
-#endif // ! MAC_OR_LINUX_
+    size_t numToCheck = (std::min)(numArgs, numValues);
 
     ODL_LL3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.

@@ -479,29 +479,6 @@ const
     return result;
 } // nImO::Integer::lessThanOrEqual
 
-nImO::Integer &
-nImO::Integer::operator =(const nImO::Integer &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        _intValue = other._intValue;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Integer::operator=
-
-nImO::Integer &
-nImO::Integer::operator =(const int64_t value)
-{
-    ODL_OBJENTER(); //####
-    ODL_LL1("value = ", value); //####
-    _intValue = value;
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Integer::operator=
-
 void
 nImO::Integer::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                    const bool         squished)

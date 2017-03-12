@@ -234,8 +234,12 @@ namespace nImO
                      SpArray       parentValue);
 
         /*! @brief Remove all entries. */
-        void
-        removeAllEntries(void);
+        inline void
+        removeAllEntries(void)
+        {
+            _value.reset();
+            _size = 0;
+        } // removeAllEntries
 
     public :
         // Public fields.

@@ -163,15 +163,6 @@ const
     return this;
 } // nImO::Set::asSet
 
-void
-nImO::Set::clear(void)
-{
-    ODL_OBJENTER(); //####
-    inherited2::clear();
-    _keyKind = Enumerable::Unknown;
-    ODL_OBJEXIT(); //####
-} // nImO::Set::clear
-
 bool
 nImO::Set::deeplyEqualTo(const nImO::Value &other)
 const
@@ -413,45 +404,6 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     return result;
 } // nImO::Set::extractValue
 
-nImO::Set::iterator
-nImO::Set::find(nImO::SpValue key)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("key = ", key.get()); //####
-    iterator result;
-
-    if (key->enumerationType() == _keyKind)
-    {
-        result = inherited2::find(key);
-    }
-    else
-    {
-        result = inherited2::end();
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Set::find
-
-nImO::Set::const_iterator
-nImO::Set::find(nImO::SpValue key)
-const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("key = ", key.get()); //####
-    const_iterator result;
-
-    if (key->enumerationType() == _keyKind)
-    {
-        result = inherited2::find(key);
-    }
-    else
-    {
-        result = inherited2::end();
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Set::find
-
 void
 nImO::Set::getExtractionInfo(DataKind               &aByte,
                              DataKind               &aMask,
@@ -599,20 +551,6 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Set::lessThanOrEqual
-
-nImO::Set &
-nImO::Set::operator =(const nImO::Set &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        clear();
-        addEntries(other);
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Set::operator=
 
 void
 nImO::Set::printToStringBuffer(nImO::StringBuffer &outBuffer,

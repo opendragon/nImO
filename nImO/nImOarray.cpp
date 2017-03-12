@@ -109,7 +109,7 @@ nImO::Array::~Array(void)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+nImO::Array &
 nImO::Array::addEntries(const nImO::Array &other)
 {
     ODL_ENTER(); //####
@@ -118,21 +118,9 @@ nImO::Array::addEntries(const nImO::Array &other)
     {
         addValue(walker);
     }
-    ODL_EXIT(); //####
-} // nImO::Array::addEntries
-
-nImO::Array &
-nImO::Array::addValue(nImO::SpValue newElement)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("newElement = ", newElement.get()); //####
-    if (nullptr != newElement)
-    {
-        inherited2::emplace_back(newElement);
-    }
-    ODL_OBJEXIT_P(this); //####
+    ODL_EXIT_P(this); //####
     return *this;
-} // nImO::Array::addValue
+} // nImO::Array::addEntries
 
 const nImO::Array *
 nImO::Array::asArray(void)
@@ -142,33 +130,6 @@ const
     ODL_OBJEXIT_P(this); //####
     return this;
 } // nImO::Array::asArray
-
-nImO::SpValue
-nImO::Array::at(const nImO::Array::size_type index)
-const
-{
-    ODL_OBJENTER(); //####
-    SpValue result;
-
-    if (index < inherited2::size())
-    {
-        result = inherited2::at(index);
-    }
-    else
-    {
-        result = nullptr;
-    }
-    ODL_OBJEXIT_P(result.get()); //####
-    return result;
-} // nImO::Array::at
-
-void
-nImO::Array::clear(void)
-{
-    ODL_OBJENTER(); //####
-    inherited2::clear();
-    ODL_OBJEXIT(); //####
-} // nImO::Array::clear
 
 bool
 nImO::Array::deeplyEqualTo(const nImO::Value &other)
@@ -543,20 +504,6 @@ const
     ODL_OBJEXIT_LL(result); //####
     return result;
 } // nImO::Array::lessThanOrEqual
-
-nImO::Array &
-nImO::Array::operator =(const nImO::Array &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        clear();
-        addEntries(other);
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Array::operator=
 
 void
 nImO::Array::printToStringBuffer(nImO::StringBuffer &outBuffer,

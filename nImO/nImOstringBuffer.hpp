@@ -100,20 +100,34 @@ namespace nImO
         /*! @brief Add a character to the buffer.
          @param[in] aChar The character to add.
          @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addChar(const char aChar);
+        inline StringBuffer &
+        addChar(const char aChar)
+        {
+            uint8_t temp = aChar;
+            
+            inherited::appendBytes(&temp, sizeof(temp));
+            return *this;
+        } // addChar
 
         /*! @brief Add a character string representation of a floating-point value to the buffer.
          @param[in] aDouble The value to add.
          @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addDouble(const double aDouble);
+        inline StringBuffer &
+        addDouble(const double aDouble)
+        {
+            addString(ConvertDoubleToString(aDouble));
+            return *this;
+        } // addDouble
 
         /*! @brief Add a character string representation of an integer value to the buffer.
          @param[in] aLong The value to add.
          @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addLong(const int64_t aLong);
+        inline StringBuffer &
+        addLong(const int64_t aLong)
+        {
+            addString(std::to_string(aLong));
+            return *this;
+        } // addLong
 
         /*! @brief Add a character string to the buffer.
          @param[in] aString The value to add.
@@ -133,8 +147,12 @@ namespace nImO
 
         /*! @brief Add a horizontal tab character to the buffer.
          @returns The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addTab(void);
+        inline StringBuffer &
+        addTab(void)
+        {
+            addChar('\t');
+            return *this;
+        } // addTab
 
         /*! @brief Convert the buffer to a Value.
          @returns The Value represented by the buffer contents. */

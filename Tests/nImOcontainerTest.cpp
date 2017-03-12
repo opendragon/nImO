@@ -50,7 +50,6 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <boost/lexical_cast.hpp>
 #include <stdio.h>
 
 #if defined(__APPLE__)
@@ -96,7 +95,7 @@ catchSignal(int signal)
     ODL_LL1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
     
-    message += boost::lexical_cast<std::string>(signal);
+    message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
 #if 0

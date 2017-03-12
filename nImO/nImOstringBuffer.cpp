@@ -46,8 +46,8 @@
 //#include <odl/ODEnableLogging.h>
 #include <odl/ODLogging.h>
 
-#include <stdio.h>
 #include <inttypes.h>
+//#include <stdio.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -69,9 +69,6 @@ using namespace nImO;
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
-
-/*! @brief The size of a scratch buffer to use when formatting numeric values. */
-static const size_t kNumBuffSize = 100;
 
 /*! @brief The canonical names for control characters. */
 static const char *kCanonicalControl[] =
@@ -179,52 +176,6 @@ nImO::StringBuffer::addBytes(const uint8_t *inBytes,
 } // nImO::StringBuffer::addBytes
 
 nImO::StringBuffer &
-nImO::StringBuffer::addChar(const char aChar)
-{
-    ODL_OBJENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
-    uint8_t temp = aChar;
-
-    inherited::appendBytes(&temp, sizeof(temp));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addChar
-
-nImO::StringBuffer &
-nImO::StringBuffer::addDouble(const double aDouble)
-{
-    ODL_OBJENTER(); //####
-    ODL_D1("aDouble = ", aDouble); //####
-    char numBuff[kNumBuffSize];
-
-#if MAC_OR_LINUX_
-    snprintf(numBuff, sizeof(numBuff), "%g", aDouble);
-#else // ! MAC_OR_LINUX_
-    sprintf_s(numBuff, sizeof(numBuff), "%g", aDouble);
-#endif // ! MAC_OR_LINUX_
-    ODL_S1("numBuff <- ", numBuff); //####
-    inherited::appendBytes(reinterpret_cast<uint8_t *>(numBuff),
-                           strlen(numBuff) * sizeof(numBuff[0]));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addDouble
-
-nImO::StringBuffer &
-nImO::StringBuffer::addLong(const int64_t aLong)
-{
-    ODL_OBJENTER(); //####
-    ODL_LL1("aLong = ", aLong); //####
-    char numBuff[kNumBuffSize];
-
-    snprintf(numBuff, sizeof(numBuff), "%" PRId64, aLong);
-    ODL_S1("numBuff <- ", numBuff); //####
-    inherited::appendBytes(reinterpret_cast<uint8_t *>(numBuff),
-                           strlen(numBuff) * sizeof(numBuff[0]));
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addLong
-
-nImO::StringBuffer &
 nImO::StringBuffer::addString(const char *aString,
                               const bool addQuotes)
 {
@@ -270,15 +221,6 @@ nImO::StringBuffer::addString(const std::string &aString,
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addString
-
-nImO::StringBuffer &
-nImO::StringBuffer::addTab(void)
-{
-    ODL_OBJENTER(); //####
-    addChar('\t');
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::StringBuffer::addTab
 
 nImO::SpValue
 nImO::StringBuffer::convertToValue(void)

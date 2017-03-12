@@ -142,8 +142,20 @@ namespace nImO
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
          read.
          @returns The Message object so that cascading can be done. */
-        Message &
-        open(const bool forWriting);
+        inline Message &
+        open(const bool forWriting)
+        {
+            if (forWriting)
+            {
+                _state = MessageState::OpenForWriting;
+            }
+            else
+            {
+                _state = MessageState::OpenForReading;
+            }
+            reset();
+            return *this;
+        } // open
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
@@ -188,7 +200,7 @@ namespace nImO
         // Private fields.
         
         /*! @brief Mutual-exclusion protection. */
-        std::mutex _lock;
+        mutable std::mutex _lock;
 
         /*! @brief The cached value of the buffer for transmission. */
         std::string _cachedTransmissionString;

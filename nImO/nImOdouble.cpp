@@ -544,29 +544,6 @@ const
     return result;
 } // nImO::Double::lessThanOrEqual
 
-nImO::Double &
-nImO::Double::operator =(const nImO::Double &other)
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        _floatValue = other._floatValue;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Double::operator=
-
-nImO::Double &
-nImO::Double::operator =(const double value)
-{
-    ODL_OBJENTER(); //####
-    ODL_D1("value = ", value); //####
-    _floatValue = value;
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Double::operator=
-
 void
 nImO::Double::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                   const bool         squished)

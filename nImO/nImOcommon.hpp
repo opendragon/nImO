@@ -583,6 +583,12 @@ namespace nImO
                  const void   *second,
                  const size_t numBytes);
 
+    /*! @brief Convert a double value to a string.
+     @param[in] value The value to be represented in the string.
+     @returns The string representation of the value. */
+    std::string
+    ConvertDoubleToString(const double value);
+    
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.
      @param[out] result The value represented by the string.

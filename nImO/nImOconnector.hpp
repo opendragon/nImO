@@ -39,7 +39,7 @@
 #if (! defined(nImOconnector_HPP_))
 # define nImOconnector_HPP_ /* Header guard */
 
-# include <nImO/nImOcommon.hpp>
+# include <nImOcommon.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

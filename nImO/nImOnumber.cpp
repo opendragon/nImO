@@ -38,12 +38,12 @@
 
 #include "nImOnumber.hpp"
 
-#include <nImO/nImOdouble.hpp>
-#include <nImO/nImOinteger.hpp>
-#include <nImO/nImOstringBuffer.hpp>
+#include <nImOdouble.hpp>
+#include <nImOinteger.hpp>
+#include <nImOstringBuffer.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

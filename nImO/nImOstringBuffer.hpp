@@ -39,7 +39,7 @@
 #if (! defined(nImOstringBuffer_HPP_))
 # define nImOstringBuffer_HPP_ /* Header guard */
 
-# include <nImO/nImOchunkArray.hpp>
+# include <nImOchunkArray.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

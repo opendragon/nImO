@@ -39,18 +39,18 @@
 
 #include "nImObaseArgumentDescriptor.hpp"
 
-#include <nImO/nImOaddressArgumentDescriptor.hpp>
-#include <nImO/nImOboolArgumentDescriptor.hpp>
-#include <nImO/nImOchannelArgumentDescriptor.hpp>
-#include <nImO/nImOdoubleArgumentDescriptor.hpp>
-#include <nImO/nImOextraArgumentDescriptor.hpp>
-#include <nImO/nImOfilePathArgumentDescriptor.hpp>
-#include <nImO/nImOintArgumentDescriptor.hpp>
-#include <nImO/nImOportArgumentDescriptor.hpp>
-#include <nImO/nImOstringArgumentDescriptor.hpp>
+#include <nImOaddressArgumentDescriptor.hpp>
+#include <nImOboolArgumentDescriptor.hpp>
+#include <nImOchannelArgumentDescriptor.hpp>
+#include <nImOdoubleArgumentDescriptor.hpp>
+#include <nImOextraArgumentDescriptor.hpp>
+#include <nImOfilePathArgumentDescriptor.hpp>
+#include <nImOintArgumentDescriptor.hpp>
+#include <nImOportArgumentDescriptor.hpp>
+#include <nImOstringArgumentDescriptor.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

@@ -40,7 +40,7 @@
 #if (! defined(nImObaseArgumentDescriptor_HPP_))
 # define nImObaseArgumentDescriptor_HPP_ /* Header guard */
 
-# include <nImO/nImOcommon.hpp>
+# include <nImOcommon.hpp>
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wnon-virtual-dtor"
@@ -49,7 +49,8 @@
 #  pragma warning(push)
 #  pragma warning(disable: 4512)
 # endif // ! MAC_OR_LINUX_
-# include <nImO/optionparser.hpp>
+//# include <optionparser.hpp>
+# include "optionparser.hpp"
 # if (! MAC_OR_LINUX_)
 #  pragma warning(pop)
 # endif // ! MAC_OR_LINUX_

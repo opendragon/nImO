@@ -36,19 +36,19 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImO/nImOarray.hpp>
-#include <nImO/nImOblob.hpp>
-#include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOdouble.hpp>
-#include <nImO/nImOinteger.hpp>
-#include <nImO/nImOlogical.hpp>
-#include <nImO/nImOmap.hpp>
-#include <nImO/nImOset.hpp>
-#include <nImO/nImOstring.hpp>
-#include <nImO/nImOstringBuffer.hpp>
+#include <nImOarray.hpp>
+#include <nImOblob.hpp>
+#include <nImObufferChunk.hpp>
+#include <nImOdouble.hpp>
+#include <nImOinteger.hpp>
+#include <nImOlogical.hpp>
+#include <nImOmap.hpp>
+#include <nImOset.hpp>
+#include <nImOstring.hpp>
+#include <nImOstringBuffer.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #include <stdio.h>
 

@@ -39,7 +39,7 @@
 #if (! defined(nImOcommon_HPP_))
 # define nImOcommon_HPP_ /* Header guard */
 
-# include <nImO/nImOconfig.hpp>
+# include <nImOconfig.hpp>
 
 # if (! defined(LINUX_))
 /*! @brief @c TRUE if Linux, @c FALSE otherwise. */

@@ -38,14 +38,14 @@
 
 #include "nImOmessage.hpp"
 
-#include <nImO/nImOarray.hpp>
-#include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOinvalid.hpp>
-#include <nImO/nImOlogical.hpp>
-#include <nImO/nImOvalue.hpp>
+#include <nImOarray.hpp>
+#include <nImObufferChunk.hpp>
+#include <nImOinvalid.hpp>
+#include <nImOlogical.hpp>
+#include <nImOvalue.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #include <inttypes.h>
 

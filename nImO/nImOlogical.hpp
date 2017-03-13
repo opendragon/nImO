@@ -39,7 +39,7 @@
 #if (! defined(nImOlogical_HPP_))
 # define nImOlogical_HPP_ /* Header guard */
 
-# include <nImO/nImOatom.hpp>
+# include <nImOatom.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

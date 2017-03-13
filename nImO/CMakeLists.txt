@@ -87,7 +87,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
 
 target_link_libraries(${THIS_TARGET}
-                        odLogging
+                        ${ODL_LIBRARIES}
                         ${BONJOUR_LIB})
 
 if(LINUX)
@@ -139,7 +139,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
-        DESTINATION include/nImO
+        DESTINATION include
     COMPONENT headers)
 
 if(nImO_DO_SWIG)
@@ -188,7 +188,7 @@ if(nImO_DO_SWIG)
 
     swig_link_libraries(${OTHER_TARGET_CSHARP}
                         ${THIS_TARGET}
-                        odLogging)
+                        ${ODL_LIBRARIES})
 
     install(TARGETS ${OTHER_TARGET_CSHARP}
             DESTINATION lib
@@ -209,7 +209,7 @@ if(nImO_DO_SWIG)
 
     swig_link_libraries(${OTHER_TARGET_PYTHON}
                         ${THIS_TARGET}
-                        odLogging
+                        ${ODL_LIBRARIES}
                         ${PYTHON_LIBRARIES})
 
 # Note the modified target name!

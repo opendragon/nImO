@@ -36,16 +36,16 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImO/nImOblob.hpp>
-#include <nImO/nImObufferChunk.hpp>
-#include <nImO/nImOdouble.hpp>
-#include <nImO/nImOinteger.hpp>
-#include <nImO/nImOlogical.hpp>
-#include <nImO/nImOstring.hpp>
-#include <nImO/nImOstringBuffer.hpp>
+#include <nImOblob.hpp>
+#include <nImObufferChunk.hpp>
+#include <nImOdouble.hpp>
+#include <nImOinteger.hpp>
+#include <nImOlogical.hpp>
+#include <nImOstring.hpp>
+#include <nImOstringBuffer.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

@@ -39,7 +39,7 @@
 #if (! defined(nImOinvalid_HPP_))
 # define nImOinvalid_HPP_ /* Header guard */
 
-# include <nImO/nImOflaw.hpp>
+# include <nImOflaw.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

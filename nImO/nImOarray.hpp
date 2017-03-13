@@ -39,7 +39,7 @@
 #if (! defined(nImOarray_HPP_))
 # define nImOarray_HPP_ /* Header guard */
 
-# include <nImO/nImOcontainer.hpp>
+# include <nImOcontainer.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

@@ -39,8 +39,8 @@
 #if (! defined(nImOset_HPP_))
 # define nImOset_HPP_ /* Header guard */
 
-# include <nImO/nImOcompareValues.hpp>
-# include <nImO/nImOcontainer.hpp>
+# include <nImOcompareValues.hpp>
+# include <nImOcontainer.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

@@ -39,7 +39,7 @@
 #if (! defined(nImOdouble))
 # define nImOdouble /* Header guard */
 
-# include <nImO/nImOnumber.hpp>
+# include <nImOnumber.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

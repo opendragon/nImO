@@ -40,7 +40,7 @@
 #if (! defined(nImOfilePathArgumentDescriptor_HPP_))
 # define nImOfilePathArgumentDescriptor_HPP_ /* Header guard */
 
-# include <nImO/nImOstringArgumentDescriptor.hpp>
+# include <nImOstringArgumentDescriptor.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

@@ -39,7 +39,7 @@
 #if (! defined(nImOblob_HPP_))
 # define nImOblob_HPP_ /* Header guard */
 
-# include <nImO/nImOvalue.hpp>
+# include <nImOvalue.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

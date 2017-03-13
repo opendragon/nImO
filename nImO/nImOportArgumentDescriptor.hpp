@@ -40,7 +40,7 @@
 #if (! defined(nImOportArgumentDescriptor_HPP_))
 # define nImOportArgumentDescriptor_HPP_ /* Header guard */
 
-# include <nImO/nImOintArgumentDescriptor.hpp>
+# include <nImOintArgumentDescriptor.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

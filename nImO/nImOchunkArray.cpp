@@ -38,10 +38,10 @@
 
 #include "nImOchunkArray.hpp"
 
-#include <nImO/nImObufferChunk.hpp>
+#include <nImObufferChunk.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #include <inttypes.h>
 

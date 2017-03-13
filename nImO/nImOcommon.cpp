@@ -38,11 +38,11 @@
 
 #include "nImOcommon.hpp"
 
-#include <nImO/nImObaseArgumentDescriptor.hpp>
-#include <nImO/nImOvalue.hpp>
+#include <nImObaseArgumentDescriptor.hpp>
+#include <nImOvalue.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #if MAC_OR_LINUX_
 # include <unistd.h>

@@ -38,21 +38,21 @@
 
 #include "nImOvalue.hpp"
 
-#include <nImO/nImOarray.hpp>
-#include <nImO/nImOblob.hpp>
-#include <nImO/nImOdouble.hpp>
-#include <nImO/nImOinteger.hpp>
-#include <nImO/nImOinvalid.hpp>
-#include <nImO/nImOlogical.hpp>
-#include <nImO/nImOmap.hpp>
-#include <nImO/nImOmessage.hpp>
-#include <nImO/nImOnumber.hpp>
-#include <nImO/nImOset.hpp>
-#include <nImO/nImOstring.hpp>
-#include <nImO/nImOstringBuffer.hpp>
+#include <nImOarray.hpp>
+#include <nImOblob.hpp>
+#include <nImOdouble.hpp>
+#include <nImOinteger.hpp>
+#include <nImOinvalid.hpp>
+#include <nImOlogical.hpp>
+#include <nImOmap.hpp>
+#include <nImOmessage.hpp>
+#include <nImOnumber.hpp>
+#include <nImOset.hpp>
+#include <nImOstring.hpp>
+#include <nImOstringBuffer.hpp>
 
-//#include <odl/ODEnableLogging.h>
-#include <odl/ODLogging.h>
+//#include <ODEnableLogging.h>
+#include <ODLogging.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

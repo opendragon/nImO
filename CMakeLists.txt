@@ -174,7 +174,7 @@ endif(Boost_FOUND)
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
 
-include_directories("${nImO_SOURCE_DIR}")
+include_directories("${nImO_SOURCE_DIR}/nImO")
 
 if(WIN32)
     set(BONJOUR_DIR "C:/Program Files/Bonjour SDK")
@@ -196,8 +196,6 @@ else(WIN32)
     set(ODL_INCLUDE_DIRS "${ODL_DIR}/include")
 endif(WIN32)
 include_directories(${ODL_INCLUDE_DIRS})
-
-include_directories(${CMAKE_INSTALL_PREFIX}/include)
 
 set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARIES} ${Boost_LIBRARIES} ${BONJOUR_LIB})
 

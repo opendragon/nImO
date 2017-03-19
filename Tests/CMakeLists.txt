@@ -42,9 +42,9 @@ set(THIS_TARGET nImOatomicTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -68,7 +68,7 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 # Test empty buffer chunk
 add_test(NAME TestEmptyBufferChunk COMMAND ${THIS_TARGET} 1)
@@ -190,9 +190,9 @@ set(THIS_TARGET nImOcontainerTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -216,7 +216,7 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 # Test empty array
 add_test(NAME TestEmptyArrayValue COMMAND ${THIS_TARGET} 1)
@@ -331,9 +331,9 @@ set(THIS_TARGET nImOparserTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -357,7 +357,7 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 # Test parse of logical false value
 add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
@@ -613,9 +613,9 @@ set(THIS_TARGET nImOmessageInsertTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -639,7 +639,7 @@ add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -c
 add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                    libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 # Test empty message
 add_test(NAME TestInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
@@ -736,9 +736,9 @@ set(THIS_TARGET nImOmessageExtractTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -762,7 +762,7 @@ add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -c
 add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                    libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 # Test empty message
 add_test(NAME TestExtractEmptyMessage COMMAND ${THIS_TARGET} 1)
@@ -857,9 +857,9 @@ set(THIS_TARGET nImObadMessageTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -883,7 +883,7 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 ## Test message with initial end tag
 add_test(NAME TestMessageInitialEndTag COMMAND ${THIS_TARGET} 1)
@@ -959,9 +959,9 @@ set(THIS_TARGET nImOzeroConfTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else(WIN32)
+else()
     set(VERS_RESOURCE "")
-endif(WIN32)
+endif()
 
 configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
@@ -985,7 +985,7 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
 
-endif(APPLE)
+endif()
 
 ## Test parse of logical false value
 #add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")

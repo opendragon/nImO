@@ -60,7 +60,7 @@
 # define nImO_VERSION_PATCH_ @nImO_VERSION_PATCH@
 
 /*! @brief The version number as a string. */
-# define nImO_VERSION_ "@nImO_VERSION_STRING@"
+# define nImO_VERSION_ "@nImO_VERSION@"
 
 #cmakedefine nImO_ChattyStart /* Report the version numbers when launching an executable. */
 

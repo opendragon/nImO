@@ -104,6 +104,6 @@ if(WIN32)
         Delete \\\"$DESKTOP\\\\nImO manager.lnk\\\"
         ")
 
-endif(WIN32)
+endif()
 
 include(CPack)

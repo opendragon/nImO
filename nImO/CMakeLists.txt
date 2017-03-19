@@ -45,9 +45,9 @@ set(OTHER_TARGET_PYTHON nImOcommon_swig_python)
 if(APPLE)
     set(DO_SHARED "SHARED")
     set(THIS_TARGET_LIB "lib${THIS_TARGET}.dylib")
-else(APPLE)
+else()
     set(DO_SHARED "")
-endif(APPLE)
+endif()
 
 add_library(${THIS_TARGET}
             "${DO_SHARED}"
@@ -93,12 +93,12 @@ target_link_libraries(${THIS_TARGET}
 if(LINUX)
     target_link_libraries(${THIS_TARGET}
                           pthread)
-endif(LINUX)
+endif()
 
 if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                         libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET_LIB})
-endif(APPLE)
+endif()
 
 install(TARGETS ${THIS_TARGET}
         DESTINATION lib
@@ -223,7 +223,7 @@ if(nImO_DO_SWIG)
             DESTINATION python/nImO
             COMPONENT headers)
 
-endif(nImO_DO_SWIG)
+endif()
 
 enable_testing()
 

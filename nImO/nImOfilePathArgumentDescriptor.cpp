@@ -160,6 +160,15 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor(const std::string  &argNa
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
+FilePathArgumentDescriptor::FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other) :
+    inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
+    _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // FilePathArgumentDescriptor::FilePathArgumentDescriptor
+
 FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -172,13 +181,10 @@ FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
 
 SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<FilePathArgumentDescriptor>(argumentName(),
-                                                               argumentDescription(),
-                                                               argumentMode(), _pathPrefix,
-                                                               _pathSuffix, _forOutput,
-                                                               _useRandomPath);
+    auto result = std::make_shared<FilePathArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -305,6 +311,20 @@ FilePathArgumentDescriptor::setToDefaultValue(void)
     ODL_S1s("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // FilePathArgumentDescriptor::setToDefaultValue
+
+void
+FilePathArgumentDescriptor::swap(FilePathArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_pathPrefix, other._pathPrefix);
+    std::swap(_pathSuffix, other._pathSuffix);
+    std::swap(_defaultSet, other._defaultSet);
+    std::swap(_forOutput, other._forOutput);
+    std::swap(_useRandomPath, other._useRandomPath);
+    ODL_OBJEXIT(); //####
+} // FilePathArgumentDescriptor::swap
 
 std::string
 FilePathArgumentDescriptor::toString(void)

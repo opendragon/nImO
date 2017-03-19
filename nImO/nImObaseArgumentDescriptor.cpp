@@ -102,6 +102,15 @@ BaseArgumentDescriptor::BaseArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
+BaseArgumentDescriptor::BaseArgumentDescriptor(const BaseArgumentDescriptor &other) :
+    _valid(other._valid), _argDescription(other._argDescription), _argName(other._argName),
+    _argMode(other._argMode)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // BaseArgumentDescriptor::BaseArgumentDescriptor
+
 BaseArgumentDescriptor::~BaseArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -273,6 +282,18 @@ BaseArgumentDescriptor::suffixFields(const std::string &defaultToUse)
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::suffixFields
+
+void
+BaseArgumentDescriptor::swap(BaseArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    std::swap(_valid, other._valid);
+    std::swap(_argDescription, other._argDescription);
+    std::swap(_argName, other._argName);
+    std::swap(_argMode, other._argMode);
+    ODL_OBJEXIT(); //####
+} // BaseArgumentDescriptor::swap
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -89,23 +89,22 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        AddressArgumentDescriptor(const AddressArgumentDescriptor &other) = delete;
+        AddressArgumentDescriptor(const AddressArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
         ~AddressArgumentDescriptor(void);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        AddressArgumentDescriptor &
-        operator =(const AddressArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString(const std::string &inString);
+
+        /*! @brief Exchanges the contents of the object with those of other.
+         @param[in,out] other The object to be swapped with. */
+        void
+        swap(AddressArgumentDescriptor &other);
 
     protected :
 
@@ -115,6 +114,7 @@ namespace nImO
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
         clone(void)
+        const
         override;
 
         /*! @brief Convert to a printable representation.

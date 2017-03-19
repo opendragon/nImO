@@ -89,6 +89,14 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor(const std::string &argName,
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
+ExtraArgumentDescriptor::ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) :
+    inherited(other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // ExtraArgumentDescriptor::ExtraArgumentDescriptor
+
 ExtraArgumentDescriptor::~ExtraArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -112,9 +120,10 @@ ExtraArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 
 SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<ExtraArgumentDescriptor>(argumentName(), argumentDescription());
+    auto result = std::make_shared<ExtraArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -195,6 +204,15 @@ ExtraArgumentDescriptor::setToDefaultValue(void)
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
 } // ExtraArgumentDescriptor::setToDefaultValue
+
+void
+ExtraArgumentDescriptor::swap(ExtraArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    ODL_OBJEXIT(); //####
+} // ExtraArgumentDescriptor::swap
 
 std::string
 ExtraArgumentDescriptor::toString(void)

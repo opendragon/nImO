@@ -92,6 +92,14 @@ BoolArgumentDescriptor::BoolArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // BoolArgumentDescriptor::BoolArgumentDescriptor
 
+BoolArgumentDescriptor::BoolArgumentDescriptor(const BoolArgumentDescriptor &other) :
+    inherited(other), _defaultValue(other._defaultValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // BoolArgumentDescriptor::BoolArgumentDescriptor
+
 BoolArgumentDescriptor::~BoolArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -115,10 +123,10 @@ BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 
 SpBaseArgumentDescriptor
 BoolArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<BoolArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                           argumentMode(), _defaultValue);
+    auto result = std::make_shared<BoolArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -224,6 +232,18 @@ BoolArgumentDescriptor::setToDefaultValue(void)
     ODL_B1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // BoolArgumentDescriptor::setToDefaultValue
+
+void
+BoolArgumentDescriptor::swap(BoolArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_argumentReference, other._argumentReference);
+    std::swap(_defaultValue, other._defaultValue);
+    std::swap(_currentValue, other._currentValue);
+    ODL_OBJEXIT(); //####
+} // BoolArgumentDescriptor::swap
 
 std::string
 BoolArgumentDescriptor::toString(void)

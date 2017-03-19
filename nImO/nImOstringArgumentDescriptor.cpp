@@ -92,6 +92,14 @@ StringArgumentDescriptor::StringArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // StringArgumentDescriptor::StringArgumentDescriptor
 
+StringArgumentDescriptor::StringArgumentDescriptor(const StringArgumentDescriptor &other) :
+    inherited(other), _defaultValue(other._defaultValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // StringArgumentDescriptor::StringArgumentDescriptor
+
 StringArgumentDescriptor::~StringArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -115,10 +123,10 @@ StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 
 SpBaseArgumentDescriptor
 StringArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<StringArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                             argumentMode(), _defaultValue);
+    auto result = std::make_shared<StringArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -190,6 +198,17 @@ StringArgumentDescriptor::setToDefaultValue(void)
     ODL_S1s("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // StringArgumentDescriptor::setToDefaultValue
+
+void
+StringArgumentDescriptor::swap(StringArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_currentValue, other._currentValue);
+    std::swap(_defaultValue, other._defaultValue);
+    ODL_OBJEXIT(); //####
+} // StringArgumentDescriptor::swap
 
 std::string
 StringArgumentDescriptor::toString(void)

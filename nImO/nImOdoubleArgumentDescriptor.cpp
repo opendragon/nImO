@@ -100,6 +100,16 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
+DoubleArgumentDescriptor::DoubleArgumentDescriptor(const DoubleArgumentDescriptor &other) :
+    inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+    _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
+    _hasMinimumValue(other._hasMinimumValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // DoubleArgumentDescriptor::DoubleArgumentDescriptor
+
 DoubleArgumentDescriptor::~DoubleArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -124,12 +134,10 @@ DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 
 SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<DoubleArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                             argumentMode(), _defaultValue,
-                                                             _hasMinimumValue, _minimumValue,
-                                                             _hasMaximumValue, _maximumValue);
+    auto result = std::make_shared<DoubleArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -254,6 +262,21 @@ DoubleArgumentDescriptor::setToDefaultValue(void)
     ODL_D1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // DoubleArgumentDescriptor::setToDefaultValue
+
+void
+DoubleArgumentDescriptor::swap(DoubleArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_currentValue, other._currentValue);
+    std::swap(_defaultValue, other._defaultValue);
+    std::swap(_maximumValue, other._maximumValue);
+    std::swap(_minimumValue, other._minimumValue);
+    std::swap(_hasMaximumValue, other._hasMaximumValue);
+    std::swap(_hasMinimumValue, other._hasMinimumValue);
+    ODL_OBJEXIT(); //####
+} // DoubleArgumentDescriptor::swap
 
 std::string
 DoubleArgumentDescriptor::toString(void)

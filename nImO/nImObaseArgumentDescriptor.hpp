@@ -170,7 +170,7 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BaseArgumentDescriptor(const BaseArgumentDescriptor &other) = delete;
+        BaseArgumentDescriptor(const BaseArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
@@ -213,7 +213,8 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
-        clone(void) = 0;
+        clone(void)
+        const = 0;
 
         /*! @brief Return the default value.
          @returns The default value. */
@@ -299,9 +300,16 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        BaseArgumentDescriptor &
-        operator =(const BaseArgumentDescriptor &other) = delete;
+        template <typename Type>
+        Type &
+        operator =(const Type &other)
+        {
+            Type temp(other);
 
+            swap(temp);
+            return *this;
+        } // operator =
+        
         /*! @brief Set the associated variable to the default value. */
         virtual void
         setToDefaultValue(void) = 0;
@@ -350,6 +358,11 @@ namespace nImO
         std::string
         suffixFields(const std::string &defaultToUse);
 
+        /*! @brief Exchanges the contents of the object with those of other.
+         @param[in,out] other The object to be swapped with. */
+        void
+        swap(BaseArgumentDescriptor &other);
+        
     private :
 
     public :

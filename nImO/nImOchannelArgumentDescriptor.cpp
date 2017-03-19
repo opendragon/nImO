@@ -94,6 +94,14 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor(const std::string  &argName
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
+ChannelArgumentDescriptor::ChannelArgumentDescriptor(const ChannelArgumentDescriptor &other) :
+    inherited(other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // ChannelArgumentDescriptor::ChannelArgumentDescriptor
+
 ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -106,10 +114,10 @@ ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
 
 SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<ChannelArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                              argumentMode(), getDefaultValue());
+    auto result = std::make_shared<ChannelArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -160,6 +168,15 @@ ChannelArgumentDescriptor::parseArgString(const std::string &inString)
     ODL_EXIT_P(result.get()); //####
     return result;
 } // ChannelArgumentDescriptor::parseArgString
+
+void
+ChannelArgumentDescriptor::swap(ChannelArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    ODL_OBJEXIT(); //####
+} // ChannelArgumentDescriptor::swap
 
 std::string
 ChannelArgumentDescriptor::toString(void)

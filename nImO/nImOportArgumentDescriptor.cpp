@@ -97,6 +97,14 @@ PortArgumentDescriptor::PortArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
+PortArgumentDescriptor::PortArgumentDescriptor(const PortArgumentDescriptor &other) :
+    inherited(other), _isSystemPort(other._isSystemPort)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // PortArgumentDescriptor::PortArgumentDescriptor
+
 PortArgumentDescriptor::~PortArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -109,11 +117,10 @@ PortArgumentDescriptor::~PortArgumentDescriptor(void)
 
 SpBaseArgumentDescriptor
 PortArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<PortArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                           argumentMode(), _defaultValue,
-                                                           _isSystemPort);
+    auto result = std::make_shared<PortArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -187,6 +194,16 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
     ODL_EXIT_P(result.get()); //####
     return result;
 } // PortArgumentDescriptor::parseArgString
+
+void
+PortArgumentDescriptor::swap(PortArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_isSystemPort, other._isSystemPort);
+    ODL_OBJEXIT(); //####
+} // PortArgumentDescriptor::swap
 
 std::string
 PortArgumentDescriptor::toString(void)

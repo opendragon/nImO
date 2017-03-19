@@ -87,17 +87,11 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) = delete;
+        ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
         ~ExtraArgumentDescriptor(void);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @returns The updated object. */
-        ExtraArgumentDescriptor &
-        operator =(const ExtraArgumentDescriptor &other) = delete;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -105,6 +99,11 @@ namespace nImO
         static SpBaseArgumentDescriptor
         parseArgString(const std::string &inString);
 
+        /*! @brief Exchanges the contents of the object with those of other.
+         @param[in,out] other The object to be swapped with. */
+        void
+        swap(ExtraArgumentDescriptor &other);
+        
     protected :
 
     private :
@@ -121,6 +120,7 @@ namespace nImO
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
         clone(void)
+        const
         override;
 
         /*! @brief Return the default value.

@@ -98,6 +98,14 @@ AddressArgumentDescriptor::AddressArgumentDescriptor(const std::string  &argName
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
+AddressArgumentDescriptor::AddressArgumentDescriptor(const AddressArgumentDescriptor &other) :
+    inherited(other), _addrBuff(nullptr)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // AddressArgumentDescriptor::AddressArgumentDescriptor
+
 AddressArgumentDescriptor::~AddressArgumentDescriptor(void)
 {
     ODL_OBJENTER(); //####
@@ -110,10 +118,10 @@ AddressArgumentDescriptor::~AddressArgumentDescriptor(void)
 
 SpBaseArgumentDescriptor
 AddressArgumentDescriptor::clone(void)
+const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<AddressArgumentDescriptor>(argumentName(), argumentDescription(),
-                                                              argumentMode(), getDefaultValue());
+    auto result = std::make_shared<AddressArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -168,6 +176,16 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
     ODL_EXIT_P(result.get()); //####
     return result;
 } // AddressArgumentDescriptor::parseArgString
+
+void
+AddressArgumentDescriptor::swap(AddressArgumentDescriptor &other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    inherited::swap(other);
+    std::swap(_addrBuff, other._addrBuff);
+    ODL_OBJEXIT(); //####
+} // AddressArgumentDescriptor::swap
 
 std::string
 AddressArgumentDescriptor::toString(void)

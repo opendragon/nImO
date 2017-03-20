@@ -162,7 +162,7 @@ if(nImO_DO_SWIG)
 endif()
 
 if(WIN32)
-#    set(BOOST_ROOT "??")
+set(BOOST_ROOT "C:/Boost")
 else()
     set(BOOST_ROOT "/opt/boost")
 endif()

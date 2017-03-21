@@ -39,8 +39,8 @@
 
 #include "nImOfilePathArgumentDescriptor.hpp"
 
-//#include <ODEnableLogging.h>
-#include <ODLogging.h>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
 #if MAC_OR_LINUX_
 # include <unistd.h>

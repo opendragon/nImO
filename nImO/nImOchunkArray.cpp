@@ -40,8 +40,8 @@
 
 #include <nImObufferChunk.hpp>
 
-//#include <ODEnableLogging.h>
-#include <ODLogging.h>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
 #include <inttypes.h>
 

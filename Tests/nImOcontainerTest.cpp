@@ -47,8 +47,8 @@
 #include <nImOstring.hpp>
 #include <nImOstringBuffer.hpp>
 
-//#include <ODEnableLogging.h>
-#include <ODLogging.h>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
 #include <stdio.h>
 

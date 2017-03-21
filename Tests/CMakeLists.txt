@@ -66,7 +66,7 @@ if(APPLE)
                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -214,7 +214,7 @@ if(APPLE)
                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -355,7 +355,7 @@ if(APPLE)
                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -633,11 +633,11 @@ add_executable(${THIS_TARGET}
 target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 if(APPLE)
-add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                   libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
-add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                   libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -756,11 +756,11 @@ add_executable(${THIS_TARGET}
 target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 if(APPLE)
-add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                   libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
-add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                   libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -881,7 +881,7 @@ if(APPLE)
                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 
@@ -983,7 +983,7 @@ if(APPLE)
                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                       libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET})
+                       ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 

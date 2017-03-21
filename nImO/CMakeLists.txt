@@ -97,9 +97,7 @@ endif()
 
 if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        libodLogging.dylib "@rpath/libodLogging.dylib" ${THIS_TARGET_LIB})
-    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        libodLogging.dylib "${ODL_LIBRARY}" ${THIS_TARGET_LIB})
+                        ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
 endif()
 
 install(TARGETS ${THIS_TARGET}

@@ -62,7 +62,7 @@ if(APPLE)
                         libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        libodLogging.dylib "${ODL_LIBRARY}" ${THIS_TARGET})
+                        ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
 
 endif()
 

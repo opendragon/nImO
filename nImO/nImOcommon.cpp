@@ -236,8 +236,8 @@ nImO::ConvertDoubleToString(const double value)
 {
     ODL_ENTER(); //####
     ODL_D1("value = ", value); //####
-    // Note that the boost::lexical_cast<std::string>(double) generates strings with trailing
-    // digits. That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.cat
+    // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
+    // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream holder;
 
     holder << std::defaultfloat << value;

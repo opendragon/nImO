@@ -102,25 +102,32 @@ main(int  argc,
                                               NIMO_COPYRIGHT_NAME_, flavour))
     {
         std::string nImOversionString;
+        std::string odlVersionString;
 
         nImO::Initialize(progName);
         switch (flavour)
         {
             case nImO::OutputFlavour::Tabs :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                cout << nImOversionString.c_str() << endl;
+                odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                cout << nImOversionString.c_str() << "\t" << odlVersionString << endl;
                 break;
 
             case nImO::OutputFlavour::JSON :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_);
+                odlVersionString = nImO::SanitizeString(ODL_VERSION_);
                 cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
                            CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
-                        T_(CHAR_DOUBLEQUOTE_ " }") << endl;
+                        T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
+                           "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                        odlVersionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
 
             case nImO::OutputFlavour::Normal :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                cout << "nImO Version: " << nImOversionString.c_str() << endl;
+                odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                cout << "nImO Version: " << nImOversionString.c_str() << ", ODL Version: " <<
+                        odlVersionString << endl;
                 break;
 
             default :

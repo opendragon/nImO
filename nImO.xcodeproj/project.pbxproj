@@ -37,14 +37,6 @@
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
 		F67032551CB1CBB500E04BBC /* nImOcompareValues.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcompareValues.hpp; path = nImO/nImOcompareValues.hpp; sourceTree = "<group>"; };
-		F6747F891CA70BA20070B240 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = odl/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		F6747F8A1CA70BA20070B240 /* ODDisableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODDisableLogging.h; path = odl/ODDisableLogging.h; sourceTree = SOURCE_ROOT; };
-		F6747F8B1CA70BA20070B240 /* ODEnableLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODEnableLogging.h; path = odl/ODEnableLogging.h; sourceTree = SOURCE_ROOT; };
-		F6747F8C1CA70BA20070B240 /* ODLogging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ODLogging.cpp; path = odl/ODLogging.cpp; sourceTree = SOURCE_ROOT; };
-		F6747F8D1CA70BA20070B240 /* ODLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODLogging.h; path = odl/ODLogging.h; sourceTree = SOURCE_ROOT; };
-		F6747F8E1CA70BA20070B240 /* ODLogging.inc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ODLogging.inc.c; path = odl/ODLogging.inc.c; sourceTree = SOURCE_ROOT; };
-		F6747F8F1CA70BA20070B240 /* ODLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODLogging.m; path = odl/ODLogging.m; sourceTree = SOURCE_ROOT; };
-		F6747F901CA70BA20070B240 /* ODLogging.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = ODLogging.i; path = odl/swig_odl_in/ODLogging.i; sourceTree = SOURCE_ROOT; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObufferChunk.hpp; path = nImO/nImObufferChunk.hpp; sourceTree = SOURCE_ROOT; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
@@ -150,29 +142,6 @@
 			name = Monitor;
 			sourceTree = SOURCE_ROOT;
 		};
-		F6747F911CA70BB40070B240 /* odl */ = {
-			isa = PBXGroup;
-			children = (
-				F6747F891CA70BA20070B240 /* CMakeLists.txt */,
-				F6747F8A1CA70BA20070B240 /* ODDisableLogging.h */,
-				F6747F8B1CA70BA20070B240 /* ODEnableLogging.h */,
-				F6747F8C1CA70BA20070B240 /* ODLogging.cpp */,
-				F6747F8D1CA70BA20070B240 /* ODLogging.h */,
-				F6747F8E1CA70BA20070B240 /* ODLogging.inc.c */,
-				F6747F8F1CA70BA20070B240 /* ODLogging.m */,
-				F6747F921CA70BC40070B240 /* swig */,
-			);
-			name = odl;
-			sourceTree = "<group>";
-		};
-		F6747F921CA70BC40070B240 /* swig */ = {
-			isa = PBXGroup;
-			children = (
-				F6747F901CA70BA20070B240 /* ODLogging.i */,
-			);
-			name = swig;
-			sourceTree = SOURCE_ROOT;
-		};
 		F6B388DF1C77F18B004B2D42 = {
 			isa = PBXGroup;
 			children = (
@@ -184,7 +153,6 @@
 				F6B388F11C77F2BC004B2D42 /* List */,
 				F666302D1E3AD65000CAD88F /* Monitor */,
 				F6B388F21C77F2E0004B2D42 /* nImO */,
-				F6747F911CA70BB40070B240 /* odl */,
 				F6B388F31C77F2EF004B2D42 /* Read */,
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F6B388F41C77F2F9004B2D42 /* Version */,

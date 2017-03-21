@@ -57,14 +57,7 @@ add_executable(${THIS_TARGET}
 # processed once.
 target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
-if(APPLE)
-    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${THIS_TARGET})
-
-    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET})
-
-endif()
+fix_dynamic_libs(${THIS_TARGET})
 
 install(TARGETS ${THIS_TARGET}
         DESTINATION bin

@@ -205,6 +205,21 @@ if(LINUX)
     set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread)
 endif()
 
+if(APPLE)
+    function(fix_dynamic_libs target)
+        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                            libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${target})
+
+        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                            ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${target})
+
+    endfunction()
+else()
+# Do nothing
+    function(fix_dynamic_libs target)
+    endfunction()
+endif()
+
 add_subdirectory(Connect)
 add_subdirectory(Disconnect)
 add_subdirectory(Info)

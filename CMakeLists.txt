@@ -162,7 +162,7 @@ if(nImO_DO_SWIG)
 endif()
 
 if(WIN32)
-    set(BOOST_ROOT "C:/Boost")
+    set(BOOST_ROOT "C:/local/Boost_1_63_0")
 else()
     set(BOOST_ROOT "/opt/boost")
 endif()
@@ -198,11 +198,20 @@ if(ODL_FOUND)
     include_directories(${ODL_INCLUDE_DIRS})
 endif()
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB})
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads REQUIRED)
+
+if(WIN32)
+    set(OTHER_LIBS "ws2_32.lib")
+else()
+    set(OTHER_LIBS "")
+endif()
+
+set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB} ${OTHER_LIBS} Threads::Threads)
 
 if(LINUX)
-#    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread dns_sd)
-    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} pthread)
+#    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)
 endif()
 
 if(APPLE)

@@ -178,7 +178,7 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
 
             if (nImO::ConvertToLong(defaultString.c_str(), intValue))
             {
-                defaultValue = intValue;
+                defaultValue = static_cast<int>(intValue);
             }
             else
             {

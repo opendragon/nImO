@@ -611,7 +611,9 @@ nImO::SetSignalHandlers(nImO::SignalHandler theHandler)
 # if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
     yarp::os::signal(SIGUSR2, theHandler);
 # endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+#if 0
     yarp::os::signal(SIGTERM, theHandler);
+#endif//0
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
 } // Common::SetSignalHandlers

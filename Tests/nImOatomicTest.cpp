@@ -2658,8 +2658,8 @@ doTestBlobCopyAndAssign(const char *launchPath,
 
                 smallBlob[ii] = aByte;
             }
-            Blob    smallStuff(smallBlob.get(), kSmallTestSize);
-            Blob    bigStuff(bigBlob.get(), kBigTestSize);
+            Blob          smallStuff(smallBlob.get(), kSmallTestSize);
+            Blob          bigStuff(bigBlob.get(), kBigTestSize);
             size_t        smallLength = 0;
             size_t        bigLength = 0;
             const uint8_t *smallValue = smallStuff.getValue(smallLength);
@@ -2668,14 +2668,15 @@ doTestBlobCopyAndAssign(const char *launchPath,
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
+                result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(),
+                                                       kSmallTestSize));
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
+                    result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
                 }
             }
             if (0 == result)
@@ -2689,14 +2690,16 @@ doTestBlobCopyAndAssign(const char *launchPath,
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = CompareBytes(smallValue, smallBlob.get(), kSmallTestSize);
+                    result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(),
+                                                           kSmallTestSize));
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = CompareBytes(bigValue, bigBlob.get(), kBigTestSize);
+                        result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(),
+                                                               kBigTestSize));
                     }
                 }
                 if (0 == result)
@@ -2709,14 +2712,16 @@ doTestBlobCopyAndAssign(const char *launchPath,
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = CompareBytes(smallValue, bigBlob.get(), kBigTestSize);
+                        result = static_cast<int>(CompareBytes(smallValue, bigBlob.get(),
+                                                               kBigTestSize));
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = CompareBytes(bigValue, smallBlob.get(), kSmallTestSize);
+                            result = static_cast<int>(CompareBytes(bigValue, smallBlob.get(),
+                                                                   kSmallTestSize));
                         }
                     }
                 }

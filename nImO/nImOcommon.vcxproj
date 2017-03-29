@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{D19B8439-C726-3A69-9F1A-4D054C24F103}</ProjectGUID>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>nImOcommon</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\turin\Documents\git.repositories\nImO\nImO\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nImOcommon.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nImOcommon</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\turin\Documents\git.repositories\nImO\nImO\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nImOcommon.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nImOcommon</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\Users\turin\Documents\git.repositories\nImO\nImO;C:\Program Files\Bonjour SDK\Include;C:\Program Files\ODL\include;C:\Users\turin\Documents\git.repositories\nImO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/turin/Documents/git.repositories/nImO/nImO/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/Users/turin/Documents/git.repositories/nImO -BC:/Users/turin/Documents/git.repositories/nImO --check-stamp-file C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/turin/Documents/git.repositories/nImO/nImO/CMakeLists.txt;C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeLists.txt;C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/turin/Documents/git.repositories/nImO/nImO/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/Users/turin/Documents/git.repositories/nImO -BC:/Users/turin/Documents/git.repositories/nImO --check-stamp-file C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/turin/Documents/git.repositories/nImO/nImO/CMakeLists.txt;C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeLists.txt;C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\turin\Documents\git.repositories\nImO\nImO\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOaddressArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOarray.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOatom.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImObaseArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOblob.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOboolArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImObufferChunk.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOchannelArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOchunkArray.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOcommon.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOcompareValues.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOconnector.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOcontainer.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOdouble.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOdoubleArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOextraArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOfilePathArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOflaw.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOintArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOinteger.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOinvalid.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOlogical.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOmap.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOmessage.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOnumber.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOportArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOset.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOstring.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOstringArgumentDescriptor.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOstringBuffer.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOvalue.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOzeroConfClient.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\nImOzeroConfService.cpp"  />
+    <ClCompile Include="C:\Users\turin\Documents\git.repositories\nImO\nImO\optionparser.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/turin/Documents/git.repositories/nImO/ZERO_CHECK.vcxproj">
+      <Project>2C344B1E-6B68-3E7B-93B4-DF9EAC4BF93B</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

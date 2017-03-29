@@ -618,9 +618,11 @@ const
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                                  DataKind::StringOrBlobLongLengthValue |
-                                  (DataKind::StringOrBlobLongLengthMask & (numBytes - 1)));
+                DataKind stuff = static_cast<DataKind>(DataKind::StringOrBlob |
+                                                       DataKind::StringOrBlobBlobValue |
+                                                       DataKind::StringOrBlobLongLengthValue |
+                                                       (DataKind::StringOrBlobLongLengthMask &
+                                                        static_cast<DataKind>(numBytes - 1)));
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -629,9 +631,11 @@ const
         else
         {
             ODL_LOG("! (15 < _size)"); //####
-            DataKind stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                              DataKind::StringOrBlobShortLengthValue |
-                              (DataKind::StringOrBlobShortLengthMask & _size));
+            DataKind stuff = static_cast<DataKind>(DataKind::StringOrBlob |
+                                                   DataKind::StringOrBlobBlobValue |
+                                                   DataKind::StringOrBlobShortLengthValue |
+                                                   (DataKind::StringOrBlobShortLengthMask &
+                                                    static_cast<DataKind>(_size)));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }

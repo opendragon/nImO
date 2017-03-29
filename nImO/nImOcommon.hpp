@@ -684,7 +684,18 @@ namespace nImO
         return static_cast<DataKind>(leftValue | toUType(rightValue));
     } // operator |
 
-    /*! @brief Mask an unsigned byte with a DataKind mask.
+      /*! @brief Merge two DataKind values together.
+      @param[in] leftValue The first value to be merged.
+      @param[in] rightValue The second value to be merged.
+      @returns The result of the bit-wise merge of the two values. */
+    inline constexpr DataKind
+    operator &(const DataKind leftValue,
+               const DataKind rightValue)
+    {
+        return static_cast<DataKind>(toUType(leftValue) & toUType(rightValue));
+    } // operator &
+
+      /*! @brief Mask an unsigned byte with a DataKind mask.
      @param[in] leftValue The first value to be combined.
      @param[in] rightValue The second value to be combined.
      @returns The result of the bit-wise masking of the two values. */

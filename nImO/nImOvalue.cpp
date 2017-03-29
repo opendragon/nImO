@@ -656,8 +656,9 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
     {
         ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        DataKind stuff = (DataKind::Integer | DataKind::IntegerShortValue |
-                          (outValue & DataKind::IntegerShortValueValueMask));
+        DataKind stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerShortValue |
+                                               (static_cast<DataKind>(outValue) &
+                                                   DataKind::IntegerShortValueValueMask));
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
@@ -671,8 +672,9 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            DataKind stuff = (DataKind::Integer | DataKind::IntegerLongValue |
-                              ((numBytes - 1) & DataKind::IntegerLongValueCountMask));
+            DataKind stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerLongValue |
+                                                   (static_cast<DataKind>(numBytes - 1) &
+                                                       DataKind::IntegerLongValueCountMask));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
             outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

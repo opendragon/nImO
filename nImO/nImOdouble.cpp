@@ -599,8 +599,10 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                DataKind countTag = (DataKind::Double | DataKind::DoubleLongCount |
-                                     (DataKind::DoubleLongCountMask & (numBytes - 1)));
+                DataKind countTag = static_cast<DataKind>(DataKind::Double |
+                                                          DataKind::DoubleLongCount |
+                                                          (DataKind::DoubleLongCountMask &
+                                                           static_cast<DataKind>(numBytes - 1)));
 
                 outMessage.appendBytes(&countTag, sizeof(countTag));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -609,8 +611,10 @@ nImO::Double::writeValuesToMessage(std::queue<double> &values,
         else
         {
             ODL_LOG("! (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
-            DataKind countTag = (DataKind::Double | DataKind::DoubleShortCount |
-                                 ((numValues - DataKindDoubleShortCountMinValue) &
+            DataKind countTag = static_cast<DataKind>(DataKind::Double |
+                                                      DataKind::DoubleShortCount |
+                                                      (static_cast<DataKind>(numValues -
+                                                                DataKindDoubleShortCountMinValue) &
                                                        DataKind::DoubleShortCountMask));
 
             outMessage.appendBytes(&countTag, sizeof(countTag));

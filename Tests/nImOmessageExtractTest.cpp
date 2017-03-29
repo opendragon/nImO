@@ -3507,7 +3507,8 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(numValues + DataKindIntegerShortValueMinValue - 1),
+                static_cast<DataKind>(static_cast<int>(numValues) +
+                    DataKindIntegerShortValueMinValue - 1),
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
@@ -3700,7 +3701,7 @@ doTestArrayWithManyDoublesMessage(const char *launchPath,
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(std::make_shared<Double>(ii));
+                arrayManyDoubles.addValue(std::make_shared<Double>(static_cast<double>(ii)));
             }
             result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles,
                                           insertedArrayManyDoublesCount, arrayManyDoubles);

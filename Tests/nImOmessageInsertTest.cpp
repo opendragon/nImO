@@ -134,7 +134,8 @@ setValueAndCheck(Message        &stuff,
     ODL_PACKET("contents1", contents1.data(), length1); //####
     if (expectedSize1 == length1)
     {
-        result = CompareBytes(expectedContents1, contents1.data(), expectedSize1);
+        result = static_cast<int>(CompareBytes(expectedContents1, contents1.data(),
+                                               expectedSize1));
         if (0 == result)
         {
             if (expectedContents2 && expectedSize2)
@@ -146,7 +147,8 @@ setValueAndCheck(Message        &stuff,
                 ODL_PACKET("contents2", contents2.data(), length2); //####
                 if (expectedSize2 == length2)
                 {
-                    result = CompareBytes(expectedContents2, contents2.data(), expectedSize2);
+                    result = static_cast<int>(CompareBytes(expectedContents2, contents2.data(),
+                                                           expectedSize2));
                 }
                 else
                 {
@@ -226,8 +228,8 @@ doTestInsertEmptyMessage(const char *launchPath,
                 ODL_PACKET("contents", contents1.data(), length1); //####
                 if (expectedEmptyByteCount == length1)
                 {
-                    result = CompareBytes(expectedEmptyBytes, contents1.data(),
-                                          expectedEmptyByteCount);
+                    result = static_cast<int>(CompareBytes(expectedEmptyBytes, contents1.data(),
+                                                           expectedEmptyByteCount));
                     if (0 == result)
                     {
                         static const uint8_t transmitEmptyBytes[] =
@@ -246,8 +248,9 @@ doTestInsertEmptyMessage(const char *launchPath,
                         ODL_PACKET("contents2", contents2.data(), length2); //####
                         if (transmitEmptyByteCount == length2)
                         {
-                            result = CompareBytes(transmitEmptyBytes, contents2.data(),
-                                                  transmitEmptyByteCount);
+                            result = static_cast<int>(CompareBytes(transmitEmptyBytes,
+                                                                   contents2.data(),
+                                                                   transmitEmptyByteCount));
                         }
                         else
                         {
@@ -4076,7 +4079,8 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(numValues + DataKindIntegerShortValueMinValue - 1),
+                static_cast<DataKind>(static_cast<int>(numValues) +
+                                      DataKindIntegerShortValueMinValue - 1),
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
@@ -4324,7 +4328,7 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(std::make_shared<Double>(ii));
+                arrayManyDoubles.addValue(std::make_shared<Double>(static_cast<double>(ii)));
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes,
                                       expectedArrayManyDoublesByteCount,

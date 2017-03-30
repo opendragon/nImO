@@ -167,15 +167,10 @@ compareValueWithString(const Value &aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayValue(const char *launchPath,
-                      const int  argc,
-                      char       **argv) // empty array value
+doTestEmptyArrayValue(UNUSED_ const char *launchPath,
+                      UNUSED_ const int  argc,
+                      UNUSED_ char       **argv) // empty array value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -246,15 +241,10 @@ doTestEmptyArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularArrayValue(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // singular array value
+doTestSingularArrayValue(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // singular array value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -330,15 +320,10 @@ doTestSingularArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallArrayValue(const char *launchPath,
-                      const int  argc,
-                      char       **argv) // small array value
+doTestSmallArrayValue(UNUSED_ const char *launchPath,
+                      UNUSED_ const int  argc,
+                      UNUSED_ char       **argv) // small array value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -423,15 +408,10 @@ doTestSmallArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigArrayValue(const char *launchPath,
-                    const int  argc,
-                    char       **argv) // big array value
+doTestBigArrayValue(UNUSED_ const char *launchPath,
+                    UNUSED_ const int  argc,
+                    UNUSED_ char       **argv) // big array value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -523,15 +503,10 @@ doTestBigArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapValue(const char *launchPath,
-                    const int  argc,
-                    char       **argv) // empty map
+doTestEmptyMapValue(UNUSED_ const char *launchPath,
+                    UNUSED_ const int  argc,
+                    UNUSED_ char       **argv) // empty map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -602,15 +577,10 @@ doTestEmptyMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularLogicalMapValue(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // singular boolean map
+doTestSingularLogicalMapValue(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // singular boolean map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -688,15 +658,10 @@ doTestSingularLogicalMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerMapValue(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // singular integer map
+doTestSingularIntegerMapValue(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // singular integer map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -772,15 +737,10 @@ doTestSingularIntegerMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringMapValue(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // singular string map
+doTestSingularStringMapValue(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // singular string map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -858,15 +818,10 @@ doTestSingularStringMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallLogicalMapValue(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // small boolean map
+doTestSmallLogicalMapValue(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // small boolean map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -947,15 +902,10 @@ doTestSmallLogicalMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerMapValue(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // small integer map
+doTestSmallIntegerMapValue(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // small integer map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1037,15 +987,10 @@ doTestSmallIntegerMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringMapValue(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // small string map
+doTestSmallStringMapValue(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // small string map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1133,15 +1078,10 @@ doTestSmallStringMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetValue(const char *launchPath,
-                    const int  argc,
-                    char       **argv) // empty map
+doTestEmptySetValue(UNUSED_ const char *launchPath,
+                    UNUSED_ const int  argc,
+                    UNUSED_ char       **argv) // empty map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1212,15 +1152,10 @@ doTestEmptySetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularLogicalSetValue(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // singular boolean map
+doTestSingularLogicalSetValue(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // singular boolean map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1296,15 +1231,10 @@ doTestSingularLogicalSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerSetValue(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // singular integer map
+doTestSingularIntegerSetValue(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // singular integer map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1380,15 +1310,10 @@ doTestSingularIntegerSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringSetValue(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // singular string map
+doTestSingularStringSetValue(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // singular string map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1464,15 +1389,10 @@ doTestSingularStringSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallLogicalSetValue(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // small boolean map
+doTestSmallLogicalSetValue(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // small boolean map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1553,15 +1473,10 @@ doTestSmallLogicalSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerSetValue(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // small integer map
+doTestSmallIntegerSetValue(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // small integer map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1650,15 +1565,10 @@ doTestSmallIntegerSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringSetValue(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // small string map
+doTestSmallStringSetValue(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // small string map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1747,15 +1657,10 @@ doTestSmallStringSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithArrayValue(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // array with array value
+doTestArrayWithArrayValue(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // array with array value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1831,15 +1736,10 @@ doTestArrayWithArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithMapValue(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // array with map
+doTestArrayWithMapValue(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // array with map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1915,15 +1815,10 @@ doTestArrayWithMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithSetValue(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // array with set
+doTestArrayWithSetValue(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // array with set
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1999,15 +1894,10 @@ doTestArrayWithSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithArrayValue(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // map with array
+doTestMapWithArrayValue(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // map with array
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2085,15 +1975,10 @@ doTestMapWithArrayValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithMapValue(const char *launchPath,
-                      const int  argc,
-                      char       **argv) // map with map
+doTestMapWithMapValue(UNUSED_ const char *launchPath,
+                      UNUSED_ const int  argc,
+                      UNUSED_ char       **argv) // map with map
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2171,15 +2056,10 @@ doTestMapWithMapValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithSetValue(const char *launchPath,
-                      const int  argc,
-                      char       **argv) // map with set
+doTestMapWithSetValue(UNUSED_ const char *launchPath,
+                      UNUSED_ const int  argc,
+                      UNUSED_ char       **argv) // map with set
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2257,15 +2137,10 @@ doTestMapWithSetValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapValueWithIncompatibleKeys(const char *launchPath,
-                                          const int  argc,
-                                          char       **argv) // boolean map with incompatible keys
+doTestLogicalMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                          UNUSED_ const int  argc,
+                                          UNUSED_ char       **argv) // boolean map with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2346,15 +2221,10 @@ doTestLogicalMapValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
-                                          const int  argc,
-                                          char       **argv) // integer map with incompatible keys
+doTestIntegerMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                          UNUSED_ const int  argc,
+                                          UNUSED_ char       **argv) // integer map with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2433,15 +2303,10 @@ doTestIntegerMapValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
-                                         const int  argc,
-                                         char       **argv) // string map with incompatible keys
+doTestStringMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                         UNUSED_ const int  argc,
+                                         UNUSED_ char       **argv) // string map with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2522,15 +2387,10 @@ doTestStringMapValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetValueWithIncompatibleKeys(const char *launchPath,
-                                          const int  argc,
-                                          char       **argv) // boolean set with incompatible keys
+doTestLogicalSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                          UNUSED_ const int  argc,
+                                          UNUSED_ char       **argv) // boolean set with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2609,15 +2469,10 @@ doTestLogicalSetValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
-                                          const int  argc,
-                                          char       **argv) // integer set with incompatible keys
+doTestIntegerSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                          UNUSED_ const int  argc,
+                                          UNUSED_ char       **argv) // integer set with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2696,15 +2551,10 @@ doTestIntegerSetValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
-                                         const int  argc,
-                                         char       **argv) // string set with incompatible keys
+doTestStringSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
+                                         UNUSED_ const int  argc,
+                                         UNUSED_ char       **argv) // string set with incompatible keys
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2783,15 +2633,10 @@ doTestStringSetValueWithIncompatibleKeys(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidArrayCompares(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // valid array compares
+doTestValidArrayCompares(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // valid array compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3579,15 +3424,10 @@ doTestValidArrayCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalMapCompares(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // valid boolean map compares
+doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // valid boolean map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3975,15 +3815,10 @@ doTestValidLogicalMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerMapCompares(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // valid integer map compares
+doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // valid integer map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4220,15 +4055,10 @@ doTestValidIntegerMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringMapCompares(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // valid string map compares
+doTestValidStringMapCompares(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // valid string map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4450,15 +4280,10 @@ doTestValidStringMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalSetCompares(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // valid boolean set compares
+doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // valid boolean set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4846,15 +4671,10 @@ doTestValidLogicalSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerSetCompares(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // valid integer set compares
+doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // valid integer set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5091,15 +4911,10 @@ doTestValidIntegerSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringSetCompares(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // valid string set compares
+doTestValidStringSetCompares(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // valid string set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5321,15 +5136,10 @@ doTestValidStringSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidArrayCompares(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // invalid array compares
+doTestInvalidArrayCompares(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // invalid array compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5445,15 +5255,10 @@ doTestInvalidArrayCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalMapCompares(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // invalid boolean map compares
+doTestInvalidLogicalMapCompares(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // invalid boolean map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5567,15 +5372,10 @@ doTestInvalidLogicalMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerMapCompares(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // invalid integer map compares
+doTestInvalidIntegerMapCompares(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // invalid integer map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5688,15 +5488,10 @@ doTestInvalidIntegerMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringMapCompares(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // invalid string map compares
+doTestInvalidStringMapCompares(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // invalid string map compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5811,15 +5606,10 @@ doTestInvalidStringMapCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalSetCompares(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // invalid boolean set compares
+doTestInvalidLogicalSetCompares(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // invalid boolean set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -5933,15 +5723,10 @@ doTestInvalidLogicalSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerSetCompares(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // invalid integer set compares
+doTestInvalidIntegerSetCompares(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // invalid integer set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6054,15 +5839,10 @@ doTestInvalidIntegerSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringSetCompares(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // invalid string set compares
+doTestInvalidStringSetCompares(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // invalid string set compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6177,15 +5957,10 @@ doTestInvalidStringSetCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayIndices(const char *launchPath,
-                   const int  argc,
-                   char       **argv) // array indices
+doTestArrayIndices(UNUSED_ const char *launchPath,
+                   UNUSED_ const int  argc,
+                   UNUSED_ char       **argv) // array indices
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6303,15 +6078,10 @@ doTestArrayIndices(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapSearches(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // boolean map searches
+doTestLogicalMapSearches(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // boolean map searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6416,15 +6186,10 @@ doTestLogicalMapSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapSearches(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // integer map searches
+doTestIntegerMapSearches(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // integer map searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6529,15 +6294,10 @@ doTestIntegerMapSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapSearches(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // string map searches
+doTestStringMapSearches(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // string map searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6642,15 +6402,10 @@ doTestStringMapSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetSearches(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // boolean set searches
+doTestLogicalSetSearches(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // boolean set searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6742,15 +6497,10 @@ doTestLogicalSetSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetSearches(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // integer set searches
+doTestIntegerSetSearches(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // integer set searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -6842,15 +6592,10 @@ doTestIntegerSetSearches(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetSearches(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // string set searches
+doTestStringSetSearches(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // string set searches
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####

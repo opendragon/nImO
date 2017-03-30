@@ -145,6 +145,12 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 #  define TRUE 1
 # endif // ! defined(TRUE)
 
+# if MAC_OR_LINUX_
+#  define UNUSED_ [[gnu::unused]]
+# else // ! MAC_OR_LINUX_
+#  define UNUSED_ /* */
+# endif // ! MAC_OR_LINUX_
+
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
  @param[in] enumerator The value to be converted.

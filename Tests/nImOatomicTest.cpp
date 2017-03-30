@@ -144,15 +144,10 @@ compareValueWithString(const Value &aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBufferChunk(const char *launchPath,
-                       const int  argc,
-                       char       **argv) // empty buffer chunk
+doTestEmptyBufferChunk(UNUSED_ const char *launchPath,
+                       UNUSED_ const int  argc,
+                       UNUSED_ char       **argv) // empty buffer chunk
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -205,15 +200,10 @@ doTestEmptyBufferChunk(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkWithSingleByte(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // buffer chunk with 1 byte of data
+doTestBufferChunkWithSingleByte(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // buffer chunk with 1 byte of data
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -278,15 +268,10 @@ doTestBufferChunkWithSingleByte(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFilledBufferChunk(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // buffer chunk filled with data
+doTestFilledBufferChunk(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // buffer chunk filled with data
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -377,15 +362,10 @@ doTestFilledBufferChunk(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestOverfilledBufferChunk(const char *launchPath,
-                            const int  argc,
-                            char       **argv) // buffer chunk overfilled with data
+doTestOverfilledBufferChunk(UNUSED_ const char *launchPath,
+                            UNUSED_ const int  argc,
+                            UNUSED_ char       **argv) // buffer chunk overfilled with data
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -476,15 +456,10 @@ doTestOverfilledBufferChunk(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkReset(const char *launchPath,
-                       const int  argc,
-                       char       **argv) // resetting buffer chunk
+doTestBufferChunkReset(UNUSED_ const char *launchPath,
+                       UNUSED_ const int  argc,
+                       UNUSED_ char       **argv) // resetting buffer chunk
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -548,15 +523,10 @@ doTestBufferChunkReset(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringBuffer(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // empty string buffer
+doTestEmptyStringBuffer(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // empty string buffer
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -619,15 +589,10 @@ doTestEmptyStringBuffer(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithCharacters(const char *launchPath,
-                                 const int  argc,
-                                 char       **argv) // string buffer with character string
+doTestStringBufferWithCharacters(UNUSED_ const char *launchPath,
+                                 UNUSED_ const int  argc,
+                                 UNUSED_ char       **argv) // string buffer with character string
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -704,15 +669,10 @@ doTestStringBufferWithCharacters(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithLogical(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // string buffer with boolean
+doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
+                              const int          argc,
+                              char               **argv) // string buffer with boolean
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -783,15 +743,10 @@ doTestStringBufferWithLogical(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithInteger(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // string buffer with integer
+doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
+                              const int          argc,
+                              char               **argv) // string buffer with integer
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -860,15 +815,10 @@ doTestStringBufferWithInteger(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithString(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // string buffer with string
+doTestStringBufferWithString(UNUSED_ const char *launchPath,
+                             const int          argc,
+                             char               **argv) // string buffer with string
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -943,15 +893,10 @@ doTestStringBufferWithString(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSpecialCharacters(const char *launchPath,
-                                        const int  argc,
-                                        char       **argv) // string buffer with special chars
+doTestStringBufferWithSpecialCharacters(UNUSED_ const char *launchPath,
+                                        UNUSED_ const int  argc,
+                                        UNUSED_ char       **argv) // string buffer with special chars
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1019,15 +964,10 @@ doTestStringBufferWithSpecialCharacters(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithDouble(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // string buffer with floating point
+doTestStringBufferWithDouble(UNUSED_ const char *launchPath,
+                             const int          argc,
+                             char               **argv) // string buffer with floating point
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1105,15 +1045,10 @@ doTestStringBufferWithDouble(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigStringBuffer(const char *launchPath,
-                      const int  argc,
-                      char       **argv) // big string buffer
+doTestBigStringBuffer(UNUSED_ const char *launchPath,
+                      UNUSED_ const int  argc,
+                      UNUSED_ char       **argv) // big string buffer
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1187,15 +1122,10 @@ doTestBigStringBuffer(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithEmptyBlob(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // string buffer with empty blob
+doTestStringBufferWithEmptyBlob(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // string buffer with empty blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1252,15 +1182,10 @@ doTestStringBufferWithEmptyBlob(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSmallBlob(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // string buffer with simple blob
+doTestStringBufferWithSmallBlob(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // string buffer with simple blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1346,15 +1271,10 @@ doTestStringBufferWithSmallBlob(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithBigBlob(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // string buffer with big blob
+doTestStringBufferWithBigBlob(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // string buffer with big blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1440,15 +1360,10 @@ doTestStringBufferWithBigBlob(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferReset(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // resetting string buffer
+doTestStringBufferReset(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // resetting string buffer
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1514,15 +1429,10 @@ doTestStringBufferReset(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultLogicalValue(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // default boolean value
+doTestDefaultLogicalValue(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // default boolean value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1575,15 +1485,10 @@ doTestDefaultLogicalValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalValue(const char *launchPath,
-                   const int  argc,
-                   char       **argv) // boolean values
+doTestLogicalValue(UNUSED_ const char *launchPath,
+                   const int          argc,
+                   char               **argv) // boolean values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1653,15 +1558,10 @@ doTestLogicalValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultIntegerValue(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // default integer value
+doTestDefaultIntegerValue(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // default integer value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1715,15 +1615,10 @@ doTestDefaultIntegerValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNumberValue(const char *launchPath,
-                  const int  argc,
-                  char       **argv) // number values
+doTestNumberValue(UNUSED_ const char *launchPath,
+                  const int          argc,
+                  char               **argv) // number values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1818,15 +1713,10 @@ doTestNumberValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultStringValue(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // default string value
+doTestDefaultStringValue(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // default string value
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1879,15 +1769,10 @@ doTestDefaultStringValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValue(const char *launchPath,
-                  const int  argc,
-                  char       **argv) // string values
+doTestStringValue(UNUSED_ const char *launchPath,
+                  const int          argc,
+                  char               **argv) // string values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1947,15 +1832,10 @@ doTestStringValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValueWithEscapes(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // string value with escapes
+doTestStringValueWithEscapes(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // string value with escapes
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2010,15 +1890,10 @@ doTestStringValueWithEscapes(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultBlobValue(const char *launchPath,
-                       const int  argc,
-                       char       **argv) // default blob
+doTestDefaultBlobValue(UNUSED_ const char *launchPath,
+                       UNUSED_ const int  argc,
+                       UNUSED_ char       **argv) // default blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2071,15 +1946,10 @@ doTestDefaultBlobValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBlobValue(const char *launchPath,
-                     const int  argc,
-                     char       **argv) // small blob
+doTestSmallBlobValue(UNUSED_ const char *launchPath,
+                     UNUSED_ const int  argc,
+                     UNUSED_ char       **argv) // small blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2164,15 +2034,10 @@ doTestSmallBlobValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigBlobValue(const char *launchPath,
-                   const int  argc,
-                   char       **argv) // big blob
+doTestBigBlobValue(UNUSED_ const char *launchPath,
+                   UNUSED_ const int  argc,
+                   UNUSED_ char       **argv) // big blob
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2257,15 +2122,10 @@ doTestBigBlobValue(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalCopyAndAssign(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // boolean copy and assign
+doTestLogicalCopyAndAssign(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // boolean copy and assign
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2338,15 +2198,10 @@ doTestLogicalCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerCopyAndAssign(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // integer copy and assign
+doTestIntegerCopyAndAssign(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // integer copy and assign
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2439,15 +2294,10 @@ doTestIntegerCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDoubleCopyAndAssign(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // floating point copy and assign
+doTestDoubleCopyAndAssign(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // floating point copy and assign
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2539,15 +2389,10 @@ doTestDoubleCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringCopyAndAssign(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // string copy and assign
+doTestStringCopyAndAssign(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // string copy and assign
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2622,15 +2467,10 @@ doTestStringCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBlobCopyAndAssign(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // blob copy and assign
+doTestBlobCopyAndAssign(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // blob copy and assign
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2754,15 +2594,10 @@ doTestBlobCopyAndAssign(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalCompares(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // valid boolean compares
+doTestValidLogicalCompares(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // valid boolean compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2904,15 +2739,10 @@ doTestValidLogicalCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidNumberCompares(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // valid number compares
+doTestValidNumberCompares(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // valid number compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2925,61 +2755,61 @@ doTestValidNumberCompares(const char *launchPath,
         {
             int64_t _leftValue;
             int64_t _rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testsI2I
         struct testsI2R
         {
             int64_t _leftValue;
-            double _rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            double  _rightValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testsI2R
         struct testsR2I
         {
-            double _leftValue;
+            double  _leftValue;
             int64_t _rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testsR2I
         struct testsR2R
         {
             double _leftValue;
             double _rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool   _lessThanResult;
+            bool   _lessThanValid;
+            bool   _greaterThanResult;
+            bool   _greaterThanValid;
+            bool   _lessThanOrEqualResult;
+            bool   _lessThanOrEqualValid;
+            bool   _greaterThanOrEqualResult;
+            bool   _greaterThanOrEqualValid;
+            bool   _equalToResult;
+            bool   _equalToValid;
         }; // testsR2R
 
         const testsI2I testSet1[] =
@@ -3378,15 +3208,10 @@ doTestValidNumberCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringCompares(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // valid string compares
+doTestValidStringCompares(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // valid string compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3399,16 +3224,16 @@ doTestValidStringCompares(const char *launchPath,
         {
             const char *_leftValue;
             const char *_rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool       _lessThanResult;
+            bool       _lessThanValid;
+            bool       _greaterThanResult;
+            bool       _greaterThanValid;
+            bool       _lessThanOrEqualResult;
+            bool       _lessThanOrEqualValid;
+            bool       _greaterThanOrEqualResult;
+            bool       _greaterThanOrEqualValid;
+            bool       _equalToResult;
+            bool       _equalToValid;
         }; // tests
 
         const tests testSet[] =
@@ -3532,15 +3357,10 @@ doTestValidStringCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBlobCompares(const char *launchPath,
-                        const int  argc,
-                        char       **argv) // valid blob compares
+doTestValidBlobCompares(UNUSED_ const char *launchPath,
+                        UNUSED_ const int  argc,
+                        UNUSED_ char       **argv) // valid blob compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3553,16 +3373,16 @@ doTestValidBlobCompares(const char *launchPath,
         {
             const Blob *_leftValue;
             const Blob *_rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool       _lessThanResult;
+            bool       _lessThanValid;
+            bool       _greaterThanResult;
+            bool       _greaterThanValid;
+            bool       _lessThanOrEqualResult;
+            bool       _lessThanOrEqualValid;
+            bool       _greaterThanOrEqualResult;
+            bool       _greaterThanOrEqualValid;
+            bool       _equalToResult;
+            bool       _equalToValid;
         }; // tests
 
         const uint8_t blobData1[] = { 1, 2, 3, 4, 5, 6 };
@@ -3696,15 +3516,10 @@ doTestValidBlobCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalCompares(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // invalid boolean compares
+doTestInvalidLogicalCompares(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // invalid boolean compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3713,13 +3528,13 @@ doTestInvalidLogicalCompares(const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Logical leftValue;
-        Number  rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool         valid = false;
+        Logical      leftValue;
+        Number       rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -3808,15 +3623,10 @@ doTestInvalidLogicalCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidNumberCompares(const char *launchPath,
-                            const int  argc,
-                            char       **argv) // invalid number compares
+doTestInvalidNumberCompares(UNUSED_ const char *launchPath,
+                            UNUSED_ const int  argc,
+                            UNUSED_ char       **argv) // invalid number compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3825,13 +3635,13 @@ doTestInvalidNumberCompares(const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Number  leftValue;
-        Logical rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool         valid = false;
+        Number       leftValue;
+        Logical      rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -3920,15 +3730,10 @@ doTestInvalidNumberCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringCompares(const char *launchPath,
-                            const int  argc,
-                            char       **argv) // invalid string compares
+doTestInvalidStringCompares(UNUSED_ const char *launchPath,
+                            UNUSED_ const int  argc,
+                            UNUSED_ char       **argv) // invalid string compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3937,13 +3742,13 @@ doTestInvalidStringCompares(const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        String  leftValue;
-        Logical rightValue1;
-        Number  rightValue2;
-        Blob    rightValue3;
-        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool         valid = false;
+        String       leftValue;
+        Logical      rightValue1;
+        Number       rightValue2;
+        Blob         rightValue3;
+        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -4032,15 +3837,10 @@ doTestInvalidStringCompares(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBlobCompares(const char *launchPath,
-                          const int  argc,
-                          char       **argv) // invalid blob compares
+doTestInvalidBlobCompares(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // invalid blob compares
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4049,13 +3849,13 @@ doTestInvalidBlobCompares(const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Blob    leftValue;
-        Logical rightValue1;
-        Number  rightValue2;
-        String  rightValue3;
-        Value   *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool         valid = false;
+        Blob         leftValue;
+        Logical      rightValue1;
+        Number       rightValue2;
+        String       rightValue3;
+        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {

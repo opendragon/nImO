@@ -181,15 +181,10 @@ setValueAndCheck(Message        &stuff,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyMessage(const char *launchPath,
-                         const int  argc,
-                         char       **argv) // empty message
+doTestInsertEmptyMessage(UNUSED_ const char *launchPath,
+                         UNUSED_ const int  argc,
+                         UNUSED_ char       **argv) // empty message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -296,15 +291,10 @@ doTestInsertEmptyMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalMessage(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // boolean message
+doTestInsertLogicalMessage(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // boolean message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -410,15 +400,10 @@ doTestInsertLogicalMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertTinyIntegerMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // tiny integer message
+doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // tiny integer message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -557,15 +542,10 @@ doTestInsertTinyIntegerMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortIntegerMessage(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // short integer message
+doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // short integer message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -674,15 +654,10 @@ doTestInsertShortIntegerMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumIntegerMessage(const char *launchPath,
-                                 const int  argc,
-                                 char       **argv) // medium integer message
+doTestInsertMediumIntegerMessage(UNUSED_ const char *launchPath,
+                                 UNUSED_ const int  argc,
+                                 UNUSED_ char       **argv) // medium integer message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -793,15 +768,10 @@ doTestInsertMediumIntegerMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertBigIntegerMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // big integer message
+doTestInsertBigIntegerMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // big integer message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -915,15 +885,10 @@ doTestInsertBigIntegerMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyStringMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // empty string message
+doTestInsertEmptyStringMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // empty string message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -999,15 +964,10 @@ doTestInsertEmptyStringMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortStringMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // short string message
+doTestInsertShortStringMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // short string message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1086,15 +1046,10 @@ doTestInsertShortStringMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumStringMessage(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // medium string message
+doTestInsertMediumStringMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // medium string message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1195,15 +1150,10 @@ doTestInsertMediumStringMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyBlobMessage(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // empty blob message
+doTestInsertEmptyBlobMessage(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // empty blob message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1279,15 +1229,10 @@ doTestInsertEmptyBlobMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortBlobMessage(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // short blob message
+doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // short blob message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1371,15 +1316,10 @@ doTestInsertShortBlobMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumBlobMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // medium blob message
+doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // medium blob message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1494,15 +1434,10 @@ doTestInsertMediumBlobMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertSingleFloatMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // single float message
+doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // single float message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1620,15 +1555,10 @@ doTestInsertSingleFloatMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMultipleEscapesMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // message with multiple escapes
+doTestInsertMultipleEscapesMessage(UNUSED_ const char *launchPath,
+                                   UNUSED_ const int  argc,
+                                   UNUSED_ char       **argv) // message with multiple escapes
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1716,15 +1646,10 @@ doTestInsertMultipleEscapesMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyArrayMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // empty array message
+doTestInsertEmptyArrayMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // empty array message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1805,15 +1730,10 @@ doTestInsertEmptyArrayMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyMapMessage(const char *launchPath,
-                            const int  argc,
-                            char       **argv) // empty map message
+doTestInsertEmptyMapMessage(UNUSED_ const char *launchPath,
+                            UNUSED_ const int  argc,
+                            UNUSED_ char       **argv) // empty map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1894,15 +1814,10 @@ doTestInsertEmptyMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptySetMessage(const char *launchPath,
-                            const int  argc,
-                            char       **argv) // empty set message
+doTestInsertEmptySetMessage(UNUSED_ const char *launchPath,
+                            UNUSED_ const int  argc,
+                            UNUSED_ char       **argv) // empty set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1983,15 +1898,10 @@ doTestInsertEmptySetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneLogicalMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // array with one boolean message
+doTestInsertArrayOneLogicalMessage(UNUSED_ const char *launchPath,
+                                   UNUSED_ const int  argc,
+                                   UNUSED_ char       **argv) // array with one boolean message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2083,15 +1993,10 @@ doTestInsertArrayOneLogicalMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneIntegerMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // array with one integer message
+doTestInsertArrayOneIntegerMessage(UNUSED_ const char *launchPath,
+                                   UNUSED_ const int  argc,
+                                   UNUSED_ char       **argv) // array with one integer message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2183,15 +2088,10 @@ doTestInsertArrayOneIntegerMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneDoubleMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // array with one double message
+doTestInsertArrayOneDoubleMessage(UNUSED_ const char *launchPath,
+                                  UNUSED_ const int  argc,
+                                  UNUSED_ char       **argv) // array with one double message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2287,15 +2187,10 @@ doTestInsertArrayOneDoubleMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneStringMessage(const char *launchPath,
-                                  const int  argc,
-                                  char       **argv) // array with one string message
+doTestInsertArrayOneStringMessage(UNUSED_ const char *launchPath,
+                                  UNUSED_ const int  argc,
+                                  UNUSED_ char       **argv) // array with one string message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2387,15 +2282,10 @@ doTestInsertArrayOneStringMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneBlobMessage(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // array with one blob message
+doTestInsertArrayOneBlobMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // array with one blob message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2487,15 +2377,10 @@ doTestInsertArrayOneBlobMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneArrayMessage(const char *launchPath,
-                                 const int  argc,
-                                 char       **argv) // array with one array message
+doTestInsertArrayOneArrayMessage(UNUSED_ const char *launchPath,
+                                 UNUSED_ const int  argc,
+                                 UNUSED_ char       **argv) // array with one array message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2592,15 +2477,10 @@ doTestInsertArrayOneArrayMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneMapMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // array with one map message
+doTestInsertArrayOneMapMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // array with one map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2697,15 +2577,10 @@ doTestInsertArrayOneMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneSetMessage(const char *launchPath,
-                               const int  argc,
-                               char       **argv) // array with one set message
+doTestInsertArrayOneSetMessage(UNUSED_ const char *launchPath,
+                               UNUSED_ const int  argc,
+                               UNUSED_ char       **argv) // array with one set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2802,15 +2677,10 @@ doTestInsertArrayOneSetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoLogicalsMessage(const char *launchPath,
-                                    const int  argc,
-                                    char       **argv) // array with two booleans message
+doTestInsertArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
+                                    UNUSED_ const int  argc,
+                                    UNUSED_ char       **argv) // array with two booleans message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2908,15 +2778,10 @@ doTestInsertArrayTwoLogicalsMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoIntegersMessage(const char *launchPath,
-                                    const int  argc,
-                                    char       **argv) // array with two integers message
+doTestInsertArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
+                                    UNUSED_ const int  argc,
+                                    UNUSED_ char       **argv) // array with two integers message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3014,15 +2879,10 @@ doTestInsertArrayTwoIntegersMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoDoublesMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // array with two doubles message
+doTestInsertArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
+                                   UNUSED_ const int  argc,
+                                   UNUSED_ char       **argv) // array with two doubles message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3126,15 +2986,10 @@ doTestInsertArrayTwoDoublesMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoStringsMessage(const char *launchPath,
-                                   const int  argc,
-                                   char       **argv) // array with two strings message
+doTestInsertArrayTwoStringsMessage(UNUSED_ const char *launchPath,
+                                   UNUSED_ const int  argc,
+                                   UNUSED_ char       **argv) // array with two strings message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3232,15 +3087,10 @@ doTestInsertArrayTwoStringsMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoBlobsMessage(const char *launchPath,
-                                 const int  argc,
-                                 char       **argv) // array with two blobs message
+doTestInsertArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
+                                 UNUSED_ const int  argc,
+                                 UNUSED_ char       **argv) // array with two blobs message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3337,15 +3187,10 @@ doTestInsertArrayTwoBlobsMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoArraysMessage(const char *launchPath,
-                                  const int  argc,
-                                  char       **argv) // array with two arrays message
+doTestInsertArrayTwoArraysMessage(UNUSED_ const char *launchPath,
+                                  UNUSED_ const int  argc,
+                                  UNUSED_ char       **argv) // array with two arrays message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3453,15 +3298,10 @@ doTestInsertArrayTwoArraysMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoMapsMessage(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // array with two maps message
+doTestInsertArrayTwoMapsMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // array with two maps message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3569,15 +3409,10 @@ doTestInsertArrayTwoMapsMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoSetsMessage(const char *launchPath,
-                                const int  argc,
-                                char       **argv) // array with two sets message
+doTestInsertArrayTwoSetsMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // array with two sets message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3685,15 +3520,10 @@ doTestInsertArrayTwoSetsMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
-                                       const int  argc,
-                                       char       **argv) // array with array and map message
+doTestInsertArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
+                                       UNUSED_ const int  argc,
+                                       UNUSED_ char       **argv) // array with array and map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3805,15 +3635,10 @@ doTestInsertArrayOneArrayOneMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
-                                     const int  argc,
-                                     char       **argv) // array with map and set message
+doTestInsertArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
+                                     UNUSED_ const int  argc,
+                                     UNUSED_ char       **argv) // array with map and set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -3924,15 +3749,10 @@ doTestInsertArrayOneMapOneSetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
-                                       const int  argc,
-                                       char       **argv) // array with set and array message
+doTestInsertArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
+                                       UNUSED_ const int  argc,
+                                       UNUSED_ char       **argv) // array with set and array message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4044,15 +3864,10 @@ doTestInsertArrayOneSetOneArrayMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
-                                        const int  argc,
-                                        char       **argv) // array with many doubles message
+doTestInsertArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
+                                        UNUSED_ const int  argc,
+                                        UNUSED_ char       **argv) // array with many doubles message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4368,15 +4183,10 @@ doTestInsertArrayWithManyDoublesMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalMapMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // boolean map message
+doTestInsertLogicalMapMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // boolean map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4471,15 +4281,10 @@ doTestInsertLogicalMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertIntegerMapMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // integer map message
+doTestInsertIntegerMapMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // integer map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4574,15 +4379,10 @@ doTestInsertIntegerMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertStringMapMessage(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // integer map message
+doTestInsertStringMapMessage(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // integer map message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4678,15 +4478,10 @@ doTestInsertStringMapMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalSetMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // boolean set message
+doTestInsertLogicalSetMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // boolean set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4777,15 +4572,10 @@ doTestInsertLogicalSetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertIntegerSetMessage(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // integer set message
+doTestInsertIntegerSetMessage(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // integer set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -4876,15 +4666,10 @@ doTestInsertIntegerSetMessage(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertStringSetMessage(const char *launchPath,
-                             const int  argc,
-                             char       **argv) // integer set message
+doTestInsertStringSetMessage(UNUSED_ const char *launchPath,
+                             UNUSED_ const int  argc,
+                             UNUSED_ char       **argv) // integer set message
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####

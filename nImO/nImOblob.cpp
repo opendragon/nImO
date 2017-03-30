@@ -583,22 +583,24 @@ nImO::Blob::operator =(const nImO::Blob &other)
     return *this;
 } // nImO::Blob::operator =
 
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
 void
 nImO::Blob::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                const bool         squished)
+                                UNUSED_ const bool squished)
 const
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(squished)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
     outBuffer.addBytes(_value.get(), _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::printToStringBuffer
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
 
 void
 nImO::Blob::writeToMessage(nImO::Message &outMessage)

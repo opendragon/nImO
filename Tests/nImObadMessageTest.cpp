@@ -166,15 +166,10 @@ attemptExtractValueAndCheck(Message           &stuff,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageInitialEndTag(const char *launchPath,
-                           const int  argc,
-                           char       **argv) // message wrong initial tag
+doTestMessageInitialEndTag(UNUSED_ const char *launchPath,
+                           UNUSED_ const int  argc,
+                           UNUSED_ char       **argv) // message wrong initial tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -230,15 +225,10 @@ doTestMessageInitialEndTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageTerminalStartTag(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // message wrong terminal tag
+doTestMessageTerminalStartTag(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // message wrong terminal tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -294,15 +284,10 @@ doTestMessageTerminalStartTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMessageWithContent(const char *launchPath,
-                              const int  argc,
-                              char       **argv) // empty message with content
+doTestEmptyMessageWithContent(UNUSED_ const char *launchPath,
+                              UNUSED_ const int  argc,
+                              UNUSED_ char       **argv) // empty message with content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -361,15 +346,10 @@ doTestEmptyMessageWithContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithoutContent(const char *launchPath,
-                                    const int  argc,
-                                    char       **argv) // non-empty message without content
+doTestNonEmptyMessageWithoutContent(UNUSED_ const char *launchPath,
+                                    UNUSED_ const int  argc,
+                                    UNUSED_ char       **argv) // non-empty message without content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -429,15 +409,10 @@ doTestNonEmptyMessageWithoutContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMismatchedInitialStartTag(const char *launchPath,
-                                                   const int  argc,
-                                                   char       **argv) // message with mismatched tag
+doTestNonEmptyMessageWithMismatchedInitialStartTag(UNUSED_ const char *launchPath,
+                                                   UNUSED_ const int  argc,
+                                                   UNUSED_ char       **argv) // message with mismatched tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -500,15 +475,10 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMismatchedTerminalEndTag(const char *launchPath,
-                                                  const int  argc,
-                                                  char       **argv) // message with mismatched tag
+doTestNonEmptyMessageWithMismatchedTerminalEndTag(UNUSED_ const char *launchPath,
+                                                  UNUSED_ const int  argc,
+                                                  UNUSED_ char       **argv) // message with mismatched tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -571,15 +541,10 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithInvalidContentTag(const char *launchPath,
-                                           const int  argc,
-                                           char       **argv) // message with invalid content tag
+doTestNonEmptyMessageWithInvalidContentTag(UNUSED_ const char *launchPath,
+                                           UNUSED_ const int  argc,
+                                           UNUSED_ char       **argv) // message with invalid content tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -641,15 +606,10 @@ doTestNonEmptyMessageWithInvalidContentTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithZeroFloatCount(const char *launchPath,
-                                        const int  argc,
-                                        char       **argv) // message with bad float count
+doTestNonEmptyMessageWithZeroFloatCount(UNUSED_ const char *launchPath,
+                                        UNUSED_ const int  argc,
+                                        UNUSED_ char       **argv) // message with bad float count
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -713,16 +673,11 @@ doTestNonEmptyMessageWithZeroFloatCount(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithStringWithInvalidLength(const char *launchPath,
-                                                 const int  argc,
-                                                 char       **argv) // message with string with
+doTestNonEmptyMessageWithStringWithInvalidLength(UNUSED_ const char *launchPath,
+                                                 UNUSED_ const int  argc,
+                                                 UNUSED_ char       **argv) // message with string with
                                                                     // invalid length
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -787,16 +742,11 @@ doTestNonEmptyMessageWithStringWithInvalidLength(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithBlobWithInvalidLength(const char *launchPath,
-                                               const int  argc,
-                                               char       **argv) // message with blob with
+doTestNonEmptyMessageWithBlobWithInvalidLength(UNUSED_ const char *launchPath,
+                                               UNUSED_ const int  argc,
+                                               UNUSED_ char       **argv) // message with blob with
                                                                   // invalid length
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -861,16 +811,11 @@ doTestNonEmptyMessageWithBlobWithInvalidLength(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithArrayWithInitialEndTag(const char *launchPath,
-                                                const int  argc,
-                                                char       **argv) // message with array with
+doTestNonEmptyMessageWithArrayWithInitialEndTag(UNUSED_ const char *launchPath,
+                                                UNUSED_ const int  argc,
+                                                UNUSED_ char       **argv) // message with array with
                                                                    // initial end tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -938,16 +883,11 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithArrayWithTerminalStartTag(const char *launchPath,
-                                                   const int  argc,
-                                                   char       **argv) // message with array with
+doTestNonEmptyMessageWithArrayWithTerminalStartTag(UNUSED_ const char *launchPath,
+                                                   UNUSED_ const int  argc,
+                                                   UNUSED_ char       **argv) // message with array with
                                                                       // terminal start tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1015,16 +955,11 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptyArrayWithContent(const char *launchPath,
-                                               const int  argc,
-                                               char       **argv) // message with empty array with
+doTestNonEmptyMessageWithEmptyArrayWithContent(UNUSED_ const char *launchPath,
+                                               UNUSED_ const int  argc,
+                                               UNUSED_ char       **argv) // message with empty array with
                                                                   // content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1095,16 +1030,11 @@ doTestNonEmptyMessageWithEmptyArrayWithContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(const char *launchPath,
-                                                     const int  argc,
-                                                     char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(UNUSED_ const char *launchPath,
+                                                     UNUSED_ const int  argc,
+                                                     UNUSED_ char       **argv) // message with nonempty
                                                                         // array without content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1177,17 +1107,12 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(const char *launchPath,
-                                                       const int  argc,
-                                                       char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(UNUSED_ const char *launchPath,
+                                                       UNUSED_ const int  argc,
+                                                       UNUSED_ char       **argv) // message with nonempty
                                                                           // array with invalid
                                                                           // count
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1259,16 +1184,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(const char *launchPath,
-                                                       const int  argc,
-                                                       char       **argv) // message with array with
+doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(UNUSED_ const char *launchPath,
+                                                       UNUSED_ const int  argc,
+                                                       UNUSED_ char       **argv) // message with array with
                                                                           // too few values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1347,16 +1267,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(const char *launchPath,
-                                                        const int  argc,
-                                                        char       **argv) // message with array
+doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *launchPath,
+                                                        UNUSED_ const int  argc,
+                                                        UNUSED_ char       **argv) // message with array
                                                                            // with too many values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1438,16 +1353,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(const char *launchPath,
-                                                        const int  argc,
-                                                        char       **argv) // message with array
+doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(UNUSED_ const char *launchPath,
+                                                        UNUSED_ const int  argc,
+                                                        UNUSED_ char       **argv) // message with array
                                                                            // with too many floats
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1539,16 +1449,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMapWithInitialEndTag(const char *launchPath,
-                                              const int  argc,
-                                              char       **argv) // message with map with
+doTestNonEmptyMessageWithMapWithInitialEndTag(UNUSED_ const char *launchPath,
+                                              UNUSED_ const int  argc,
+                                              UNUSED_ char       **argv) // message with map with
                                                                  // initial end tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1616,16 +1521,11 @@ doTestNonEmptyMessageWithMapWithInitialEndTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMapWithTerminalStartTag(const char *launchPath,
-                                                 const int  argc,
-                                                 char       **argv) // message with map with
+doTestNonEmptyMessageWithMapWithTerminalStartTag(UNUSED_ const char *launchPath,
+                                                 UNUSED_ const int  argc,
+                                                 UNUSED_ char       **argv) // message with map with
                                                                     // terminal start tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1693,16 +1593,11 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptyMapWithContent(const char *launchPath,
-                                             const int  argc,
-                                             char       **argv) // message with empty map with
+doTestNonEmptyMessageWithEmptyMapWithContent(UNUSED_ const char *launchPath,
+                                             UNUSED_ const int  argc,
+                                             UNUSED_ char       **argv) // message with empty map with
                                                                 // content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1773,16 +1668,11 @@ doTestNonEmptyMessageWithEmptyMapWithContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithoutContent(const char *launchPath,
-                                                   const int  argc,
-                                                   char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptyMapWithoutContent(UNUSED_ const char *launchPath,
+                                                   UNUSED_ const int  argc,
+                                                   UNUSED_ char       **argv) // message with nonempty
                                                                       // map without content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1855,16 +1745,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(const char *launchPath,
-                                                     const int  argc,
-                                                     char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(UNUSED_ const char *launchPath,
+                                                     UNUSED_ const int  argc,
+                                                     UNUSED_ char       **argv) // message with nonempty
                                                                         // map with invalid count
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -1936,16 +1821,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(const char *launchPath,
-                                                     const int  argc,
-                                                     char       **argv) // message with map with
+doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(UNUSED_ const char *launchPath,
+                                                     UNUSED_ const int  argc,
+                                                     UNUSED_ char       **argv) // message with map with
                                                                         // too few values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2030,16 +1910,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(const char *launchPath,
-                                                      const int  argc,
-                                                      char       **argv) // message with map with
+doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(UNUSED_ const char *launchPath,
+                                                      UNUSED_ const int  argc,
+                                                      UNUSED_ char       **argv) // message with map with
                                                                          // too many values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2124,16 +1999,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(const char *launchPath,
-                                                       const int  argc,
-                                                       char       **argv) // message with map with
+doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(UNUSED_ const char *launchPath,
+                                                       UNUSED_ const int  argc,
+                                                       UNUSED_ char       **argv) // message with map with
                                                                           // incomplete pair
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2215,16 +2085,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithSetWithInitialEndTag(const char *launchPath,
-                                              const int  argc,
-                                              char       **argv) // message with set with
+doTestNonEmptyMessageWithSetWithInitialEndTag(UNUSED_ const char *launchPath,
+                                              UNUSED_ const int  argc,
+                                              UNUSED_ char       **argv) // message with set with
                                                                  // initial end tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2292,16 +2157,11 @@ doTestNonEmptyMessageWithSetWithInitialEndTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithSetWithTerminalStartTag(const char *launchPath,
-                                                 const int  argc,
-                                                 char       **argv) // message with set with
+doTestNonEmptyMessageWithSetWithTerminalStartTag(UNUSED_ const char *launchPath,
+                                                 UNUSED_ const int  argc,
+                                                 UNUSED_ char       **argv) // message with set with
                                                                     // terminal start tag
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2369,16 +2229,11 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptySetWithContent(const char *launchPath,
-                                             const int  argc,
-                                             char       **argv) // message with empty set with
+doTestNonEmptyMessageWithEmptySetWithContent(UNUSED_ const char *launchPath,
+                                             UNUSED_ const int  argc,
+                                             UNUSED_ char       **argv) // message with empty set with
                                                                 // content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2449,16 +2304,11 @@ doTestNonEmptyMessageWithEmptySetWithContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithoutContent(const char *launchPath,
-                                                   const int  argc,
-                                                   char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptySetWithoutContent(UNUSED_ const char *launchPath,
+                                                   UNUSED_ const int  argc,
+                                                   UNUSED_ char       **argv) // message with nonempty
                                                                       // set without content
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2531,16 +2381,11 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(const char *launchPath,
-                                                     const int  argc,
-                                                     char       **argv) // message with nonempty
+doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(UNUSED_ const char *launchPath,
+                                                     UNUSED_ const int  argc,
+                                                     UNUSED_ char       **argv) // message with nonempty
                                                                         // set with invalid count
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2612,16 +2457,11 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(const char *launchPath,
-                                                     const int  argc,
-                                                     char       **argv) // message with set with
+doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(UNUSED_ const char *launchPath,
+                                                     UNUSED_ const int  argc,
+                                                     UNUSED_ char       **argv) // message with set with
                                                                         // too few values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####
@@ -2700,16 +2540,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(const char *launchPath,
-                                                      const int  argc,
-                                                      char       **argv) // message with set with
+doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(UNUSED_ const char *launchPath,
+                                                      UNUSED_ const int  argc,
+                                                      UNUSED_ char       **argv) // message with set with
                                                                          // too many values
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(launchPath,argc,argv)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_LL1("argc = ", argc); //####

@@ -132,13 +132,8 @@ const std::string nImO::kDirectorySeparator = "\\";
 /*! @brief The signal handler to catch requests to stop the service.
  @param[in] signal The signal being handled. */
 static void
-localCatcher(int signal)
+localCatcher(UNUSED_ int signal)
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(signal)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
 #if 0
@@ -500,13 +495,8 @@ nImO::I2B(const int64_t       inValue,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Initialize(const std::string &progName)
+nImO::Initialize(UNUSED_ const std::string &progName)
 {
-#if ((! defined(MpM_ChattyStart)) && (! defined(ODL_ENABLE_LOGGING_)))
-# if MAC_OR_LINUX_
-#  pragma unused(progName)
-# endif // MAC_OR_LINUX_
-#endif // (! defined(MpM_ChattyStart)) && (! defined(ODL_ENABLE_LOGGING_))
     ODL_ENTER(); //####
     ODL_S1s("progName = ", progName); //####
     try
@@ -1206,13 +1196,8 @@ nImO::StopRunning(void)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::SignalRunningStop(const int signal)
+nImO::SignalRunningStop(UNUSED_ const int signal)
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(signal)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_LL1("signal = ", signal); //####
     StopRunning();

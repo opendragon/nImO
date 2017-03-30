@@ -206,16 +206,11 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 nImO::SpValue
-nImO::Logical::extractValue(const nImO::Message &theMessage,
-                            const int           leadByte,
-                            size_t              &position,
-                            nImO::SpArray       parentValue)
+nImO::Logical::extractValue(UNUSED_ const nImO::Message &theMessage,
+                            const int                   leadByte,
+                            size_t                      &position,
+                            nImO::SpArray               parentValue)
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(theMessage)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
@@ -470,22 +465,24 @@ nImO::Logical::operator =(const bool value)
     return *this;
 } // nImO::Logical::operator=
 
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
 void
 nImO::Logical::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                   const bool         squished)
+                                   UNUSED_ const bool squished)
 const
 {
-#if (! defined(ODL_ENABLE_LOGGING_))
-# if MAC_OR_LINUX_
-#  pragma unused(squished)
-# endif // MAC_OR_LINUX_
-#endif // ! defined(ODL_ENABLE_LOGGING_)
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
 nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,

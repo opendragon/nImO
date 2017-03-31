@@ -589,8 +589,8 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Value::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                 UNUSED_ const bool squished)
+nImO::Value::printToStringBuffer(UNUSED_ nImO::StringBuffer &outBuffer,
+                                 UNUSED_ const bool         squished)
 const
 {
     ODL_OBJENTER(); //####

@@ -131,6 +131,7 @@ const std::string nImO::kDirectorySeparator = "\\";
 #if MAC_OR_LINUX_
 /*! @brief The signal handler to catch requests to stop the service.
  @param[in] signal The signal being handled. */
+[[noreturn]]
 static void
 localCatcher(UNUSED_ int signal)
 {

@@ -88,6 +88,7 @@ static const size_t kBigTestSize = 100000;
 
 /*! @brief The signal handler to catch requests to stop the service.
  @param[in] signal The signal being handled. */
+[[noreturn]]
 static void
 catchSignal(int signal)
 {

@@ -128,6 +128,8 @@
 		F6EE0ADF1CA2C7F4004748ED /* nImOcommon.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = nImOcommon.i; path = nImO/swig_nImO_in/nImOcommon.i; sourceTree = SOURCE_ROOT; };
 		F6F238531CD96F290005554A /* nImOchunkArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchunkArray.cpp; path = nImO/nImOchunkArray.cpp; sourceTree = "<group>"; };
 		F6F238541CD96F290005554A /* nImOchunkArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOchunkArray.hpp; path = nImO/nImOchunkArray.hpp; sourceTree = "<group>"; };
+		F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfig.cmake; sourceTree = "<group>"; };
+		F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfigVersion.cmake.in; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -146,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */,
+				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
+				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
 				F6B388ED1C77F298004B2D42 /* Connect */,
 				F6B388EE1C77F2A3004B2D42 /* CPack */,
 				F6B388EF1C77F2AA004B2D42 /* Disconnect */,

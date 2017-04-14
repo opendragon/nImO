@@ -101,7 +101,8 @@ if(APPLE)
 endif()
 
 install(TARGETS ${THIS_TARGET}
-        DESTINATION lib
+        EXPORT ${PROJECT_NAME}
+        DESTINATION ${LIB_DEST}
         COMPONENT libraries)
 
 install(FILES
@@ -139,8 +140,8 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
         "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
-        DESTINATION include
-    COMPONENT headers)
+        DESTINATION ${INCLUDE_DEST}
+        COMPONENT headers)
 
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES swig_nImO_in/nImOcommon.i
@@ -191,7 +192,8 @@ if(nImO_DO_SWIG)
                         ${ODL_LIBRARIES})
 
     install(TARGETS ${OTHER_TARGET_CSHARP}
-            DESTINATION lib
+            EXPORT ${PROJECT_NAME}
+            DESTINATION ${LIB_DEST}
             COMPONENT libraries)
 
     install(FILES
@@ -214,7 +216,8 @@ if(nImO_DO_SWIG)
 
 # Note the modified target name!
     install(TARGETS _${OTHER_TARGET_PYTHON}
-            DESTINATION lib
+            EXPORT ${PROJECT_NAME}
+            DESTINATION ${LIB_DEST}
             COMPONENT libraries)
 
     install(FILES

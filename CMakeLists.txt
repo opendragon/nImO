@@ -43,6 +43,11 @@ if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)
 endif()
 
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for Mac OSX" FORCE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
+endif()
+
 project(nImO)
 
 set(nImO_VERSION_MAJOR 0)
@@ -52,11 +57,13 @@ set(nImO_VERSION "${nImO_VERSION_MAJOR}.${nImO_VERSION_MINOR}.${nImO_VERSION_PAT
 set(nImO_COMPANY "OpenDragon")
 
 set(nImO_SOURCE_DIR "${PROJECT_SOURCE_DIR}")
+set(nImO_CONFIG_DIR "${PROJECT_SOURCE_DIR}")
+
+set(LIB_DEST "lib")
+set(INCLUDE_DEST "include")
 
 # Make some flags to control the build flags visibilities
 mark_as_advanced(CLEAR BUILD_SHARED_LIBS)
-mark_as_advanced(CLEAR CMAKE_OSX_ARCHITECTURES)
-#mark_as_advanced(CLEAR CMAKE_OSX_DEPLOYMENT_TARGET)
 mark_as_advanced(SET CMAKE_INSTALL_RPATH)
 mark_as_advanced(SET CMAKE_BUILD_WITH_INSTALL_RPATH)
 
@@ -74,8 +81,6 @@ endif()
 
 if(APPLE)
     set(E_PATH "@executable_path")
-    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for Mac OSX" FORCE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++11" CACHE STRING "Fixes linking error for nImO"
         FORCE)
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
@@ -171,6 +176,8 @@ if(Boost_FOUND)
 endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
+configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
+                ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
 
 include_directories("${nImO_SOURCE_DIR}/nImO")
 
@@ -227,6 +234,15 @@ else()
     function(fix_dynamic_libs target)
     endfunction()
 endif()
+
+install(FILES
+        ${nImO_CONFIG_DIR}/nImOConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake
+        DESTINATION ${LIB_DEST}
+        COMPONENT scripts)
+
+install(EXPORT ${PROJECT_NAME}
+        DESTINATION ${LIB_DEST})
 
 add_subdirectory(Connect)
 add_subdirectory(Disconnect)

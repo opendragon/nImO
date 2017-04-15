@@ -436,8 +436,8 @@ add_test(NAME TestStringValue05 COMMAND ${THIS_TARGET} 3 t "\"\\\"\"" "'\"'")
 # Test parse of string value
 add_test(NAME TestStringValue06 COMMAND ${THIS_TARGET} 3 t "\"'\"" "\"'\"")
 # Test parse of string value
-add_test(NAME TestStringValue07 COMMAND ${THIS_TARGET} 3 t "\"@\\a\\b\\t\\n\\v\\f\\r\\e\\s=\""
-         "\"@\\a\\b\\t\\n\\v\\f\\r\\e =\"")
+add_test(NAME TestStringValue07 COMMAND ${THIS_TARGET} 3 t "\"@\\a\\b\\t\\n\\v\\f\\r\\s=\""
+         "\"@\\a\\b\\t\\n\\v\\f\\r =\"")
 # Test parse of string value
 add_test(NAME TestStringValue08 COMMAND ${THIS_TARGET} 3 t
          "\"@\\007\\010\\011\\012\\013\\014\\015\\033\\040=\"" "\"@\\a\\b\\t\\n\\v\\f\\r\\e =\"")

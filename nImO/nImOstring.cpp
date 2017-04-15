@@ -551,8 +551,8 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         int               octalSum;
         ScanState         state = ScanState::Normal;
         StringBuffer      holding;
-        static const char *standardEscapes = "abtnvfres";
-        static const char *standardEscapesActual = "\a\b\t\n\v\f\r\e ";
+        static const char *standardEscapes = "abtnvfrs";
+        static const char *standardEscapesActual = "\a\b\t\n\v\f\r ";
 
         for ( ; ! done; )
         {

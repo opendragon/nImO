@@ -23,7 +23,7 @@
 <escape-character> ::= '\\';\
 <non-escaped-character> ::= <printable-character>; ## quotes need to be escaped\
 <special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
-<escape-sequence> ::= 'a' | 'b' | 'e' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
+<escape-sequence> ::= 'a' | 'b' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
 <octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
 <octal-digit> ::= '0' .. '7';\
 <control-sequence> ::= <control-sequence1> | <control-sequence2>;\

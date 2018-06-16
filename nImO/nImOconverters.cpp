@@ -273,3 +273,4 @@ nImO::ConvertPacketOrderToLong(const uint8_t *start,
 {
     return -1;
 } /* nImO:ConvertPacketOrderToLong */
+

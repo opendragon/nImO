@@ -497,10 +497,10 @@ const
     return result;
 } // nImO::String::lessThanOrEqual
 
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 void
 nImO::String::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                   UNUSED_ const bool squished)
@@ -512,9 +512,9 @@ const
     outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(pop)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
 nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,

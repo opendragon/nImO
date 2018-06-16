@@ -45,15 +45,15 @@
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wnon-virtual-dtor"
 # endif // defined(__APPLE__)
-# if (! defined(MAC_OR_LINUX_))
+# if (! MAC_OR_LINUX_)
 #  pragma warning(push)
 #  pragma warning(disable: 4512)
-# endif // ! defined(MAC_OR_LINUX_)
+# endif // ! MAC_OR_LINUX_
 //# include <optionparser.hpp>
 # include "optionparser.hpp"
-# if (! defined(MAC_OR_LINUX_))
+# if (! MAC_OR_LINUX_)
 #  pragma warning(pop)
-# endif // ! defined(MAC_OR_LINUX_)
+# endif // ! MAC_OR_LINUX_
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

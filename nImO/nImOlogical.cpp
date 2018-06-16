@@ -201,10 +201,10 @@ const
     return result;
 } // nImO::Logical::equalTo
 
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 nImO::SpValue
 nImO::Logical::extractValue(UNUSED_ const nImO::Message &theMessage,
                             const int                   leadByte,
@@ -228,9 +228,9 @@ nImO::Logical::extractValue(UNUSED_ const nImO::Message &theMessage,
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Logical::extractValue
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(pop)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 
 const std::string &
 nImO::Logical::getCanonicalRepresentation(const bool aValue)
@@ -465,10 +465,10 @@ nImO::Logical::operator =(const bool value)
     return *this;
 } // nImO::Logical::operator=
 
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 void
 nImO::Logical::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                    UNUSED_ const bool squished)
@@ -480,9 +480,9 @@ const
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(pop)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
 nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,

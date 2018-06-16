@@ -544,10 +544,10 @@ const
     return result;
 } // nImO::Double::lessThanOrEqual
 
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 void
 nImO::Double::printToStringBuffer(nImO::StringBuffer &outBuffer,
                                   UNUSED_ const bool squished)
@@ -559,9 +559,9 @@ const
     outBuffer.addDouble(_floatValue);
     ODL_OBJEXIT(); //####
 } // nImO::Double::printToStringBuffer
-#if (! defined(MAC_OR_LINUX_))
+#if (! MAC_OR_LINUX_)
 # pragma warning(pop)
-#endif // ! defined(MAC_OR_LINUX_)
+#endif // ! MAC_OR_LINUX_
 
 void
 nImO::Double::writeToMessage(nImO::Message &outMessage)

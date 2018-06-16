@@ -41,18 +41,28 @@
 
 # include <nImOconfig.hpp>
 
+# if (! defined(TRUE))
+#  define TRUE 1
+# endif // ! defined(TRUE)
+# if (! defined(FALSE))
+#  define FALSE 0
+# endif // ! defined(FALSE)
 # if (! defined(LINUX_))
-/*! @brief @c Defined if Linux, undefined otherwise. */
+/*! @brief @c TRUE if Linux, FALSE otherwise. */
 #  if defined(__linux__)
-#   define LINUX_ /* */
-#  endif // defined(__linux__)
+#   define LINUX_ TRUE
+#  else // ! defined(__linux__)
+#   define LINUX_ FALSE
+#  endif // ! defined(__linux__)
 # endif // ! defined(LINUX_)
 # if (! defined(MAC_OR_LINUX_))
-/*! @brief Defined if non-Windows, undefined if Windows. */
+/* TRUE if non-Windows, FALSE if Windows. */
 #  if defined(__APPLE__)
-#    define MAC_OR_LINUX_ /* */
+#   define MAC_OR_LINUX_ TRUE
 #  elif defined(__linux__)
-#    define MAC_OR_LINUX_ /* */
+#   define MAC_OR_LINUX_ TRUE
+#  else // ! defined(__linux__)
+#   define MAC_OR_LINUX_ FALSE
 #  endif // ! defined(__linux__)
 # endif // ! defined(MAC_OR_LINUX_)
 
@@ -74,18 +84,18 @@
 //# include <time.h>
 # include <vector>
 
-# if defined(MAC_OR_LINUX_)
+# if MAC_OR_LINUX_
 #  include <arpa/inet.h>
 #  include <sys/socket.h>
 #  define SOCKET         int /* Standard socket type in *nix. */
 #  define INVALID_SOCKET -1
-# else // ! defined(MAC_OR_LINUX_)
+# else // ! MAC_OR_LINUX_
 #  pragma warning(push)
 #  pragma warning(disable: 4996)
 #  include <WinSock2.h>
 #  include <Ws2tcpip.h>
 #  pragma warning(pop)
-# endif // ! defined(MAC_OR_LINUX_)
+# endif // ! MAC_OR_LINUX_
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -138,11 +148,11 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 # define SELF_ADDRESS_NAME_         "localhost"
 
 /*! @brief The signal to use for internally-detected timeouts. */
-# if defined(MAC_OR_LINUX_)
+# if MAC_OR_LINUX_
 #  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
-# else // ! defined(MAC_OR_LINUX_)
+# else // ! MAC_OR_LINUX_
 #  define STANDARD_SIGNAL_TO_USE_   42
-# endif // ! defined(MAC_OR_LINUX_)
+# endif // ! MAC_OR_LINUX_
 
 /*! @brief A simple macro to hold the pieces of a string together. */
 # define T_(xx_)                    xx_
@@ -151,11 +161,11 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 #  define TRUE 1
 # endif // ! defined(TRUE)
 
-# if defined(MAC_OR_LINUX_)
+# if MAC_OR_LINUX_
 #  define UNUSED_ [[gnu::unused]]
-# else // ! defined(MAC_OR_LINUX_)
+# else // ! MAC_OR_LINUX_
 #  define UNUSED_ /* */
-# endif // ! defined(MAC_OR_LINUX_)
+# endif // ! MAC_OR_LINUX_
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }

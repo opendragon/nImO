@@ -225,10 +225,10 @@ ExtraArgumentDescriptor::toString(void)
     return result;
 } // ExtraArgumentDescriptor::toString
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 bool
 ExtraArgumentDescriptor::validate(UNUSED_ const std::string &value)
 {
@@ -239,9 +239,9 @@ ExtraArgumentDescriptor::validate(UNUSED_ const std::string &value)
     ODL_OBJEXIT_B(_valid); //####
     return _valid;
 } // ExtraArgumentDescriptor::validate
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -94,6 +94,8 @@
 		F6C1462A1CD18D830045C291 /* nImOinteger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinteger.cpp; path = nImO/nImOinteger.cpp; sourceTree = "<group>"; };
 		F6C1462B1CD18D830045C291 /* nImOdouble.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOdouble.hpp; path = nImO/nImOdouble.hpp; sourceTree = "<group>"; };
 		F6C1462C1CD18D830045C291 /* nImOdouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdouble.cpp; path = nImO/nImOdouble.cpp; sourceTree = "<group>"; };
+		F6D00FB420D4915000C29946 /* nImOconverters.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOconverters.hpp; path = nImO/nImOconverters.hpp; sourceTree = "<group>"; };
+		F6D00FB520D4915000C29946 /* nImOconverters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconverters.cpp; path = nImO/nImOconverters.cpp; sourceTree = "<group>"; };
 		F6EDEF231E4E9D8A00E0CF1B /* nImOzeroConfClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOzeroConfClient.cpp; path = nImO/nImOzeroConfClient.cpp; sourceTree = "<group>"; };
 		F6EDEF241E4E9D8A00E0CF1B /* nImOzeroConfClient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOzeroConfClient.hpp; path = nImO/nImOzeroConfClient.hpp; sourceTree = "<group>"; };
 		F6EDEF251E4E9D8A00E0CF1B /* nImOzeroConfService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOzeroConfService.cpp; path = nImO/nImOzeroConfService.cpp; sourceTree = "<group>"; };
@@ -270,6 +272,8 @@
 				F6EE0ACE1CA2C7F4004748ED /* nImOconnector.hpp */,
 				F6866F011CA4145E00849A76 /* nImOcontainer.cpp */,
 				F6866F021CA4145E00849A76 /* nImOcontainer.hpp */,
+				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
+				F6D00FB420D4915000C29946 /* nImOconverters.hpp */,
 				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,
 				F6C1462B1CD18D830045C291 /* nImOdouble.hpp */,
 				F60F86521CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.cpp */,

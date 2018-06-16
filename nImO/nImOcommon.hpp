@@ -42,12 +42,18 @@
 # include <nImOconfig.hpp>
 
 # if (! defined(LINUX_))
-/*! @brief @c TRUE if Linux, @c FALSE otherwise. */
-#  define LINUX_ defined(__linux__)
+/*! @brief @c Defined if Linux, undefined otherwise. */
+#  if defined(__linux__)
+#   define LINUX_ /* */
+#  endif // defined(__linux__)
 # endif // ! defined(LINUX_)
 # if (! defined(MAC_OR_LINUX_))
-/*! @brief @c TRUE if non-Windows, @c FALSE if Windows. */
-#  define MAC_OR_LINUX_ (defined(__APPLE__) || defined(__linux__))
+/*! @brief Defined if non-Windows, undefined if Windows. */
+#  if defined(__APPLE__)
+#    define MAC_OR_LINUX_ /* */
+#  elif defined(__linux__)
+#    define MAC_OR_LINUX_ /* */
+#  endif // ! defined(__linux__)
 # endif // ! defined(MAC_OR_LINUX_)
 
 //# include <algorithm>
@@ -68,18 +74,18 @@
 //# include <time.h>
 # include <vector>
 
-# if MAC_OR_LINUX_
+# if defined(MAC_OR_LINUX_)
 #  include <arpa/inet.h>
 #  include <sys/socket.h>
 #  define SOCKET         int /* Standard socket type in *nix. */
 #  define INVALID_SOCKET -1
-# else // ! MAC_OR_LINUX_
+# else // ! defined(MAC_OR_LINUX_)
 #  pragma warning(push)
 #  pragma warning(disable: 4996)
 #  include <WinSock2.h>
 #  include <Ws2tcpip.h>
 #  pragma warning(pop)
-# endif // ! MAC_OR_LINUX_
+# endif // ! defined(MAC_OR_LINUX_)
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -132,11 +138,11 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 # define SELF_ADDRESS_NAME_         "localhost"
 
 /*! @brief The signal to use for internally-detected timeouts. */
-# if MAC_OR_LINUX_
+# if defined(MAC_OR_LINUX_)
 #  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
-# else // ! MAC_OR_LINUX_
+# else // ! defined(MAC_OR_LINUX_)
 #  define STANDARD_SIGNAL_TO_USE_   42
-# endif // ! MAC_OR_LINUX_
+# endif // ! defined(MAC_OR_LINUX_)
 
 /*! @brief A simple macro to hold the pieces of a string together. */
 # define T_(xx_)                    xx_
@@ -145,11 +151,11 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 #  define TRUE 1
 # endif // ! defined(TRUE)
 
-# if MAC_OR_LINUX_
+# if defined(MAC_OR_LINUX_)
 #  define UNUSED_ [[gnu::unused]]
-# else // ! MAC_OR_LINUX_
+# else // ! defined(MAC_OR_LINUX_)
 #  define UNUSED_ /* */
-# endif // ! MAC_OR_LINUX_
+# endif // ! defined(MAC_OR_LINUX_)
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }

@@ -162,11 +162,11 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
             {
                 defaultString = SELF_ADDRESS_IPADDR_;
             }
-#if MAC_OR_LINUX_
+#if defined(MAC_OR_LINUX_)
             okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // ! defined(MAC_OR_LINUX_)
             okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
         }
         if (okSoFar)
         {
@@ -214,22 +214,22 @@ AddressArgumentDescriptor::validate(const std::string &value)
     }
     if (_addrBuff)
     {
-#if MAC_OR_LINUX_
+#if defined(MAC_OR_LINUX_)
         _valid = (0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // ! defined(MAC_OR_LINUX_)
         _valid = (0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
         ODL_B1("_valid <- ", _valid); //####
     }
     else
     {
         struct in_addr addrBuff;
 
-#if MAC_OR_LINUX_
+#if defined(MAC_OR_LINUX_)
         _valid = (0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // ! defined(MAC_OR_LINUX_)
         _valid = (0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
         ODL_B1("_valid <- ", _valid); //####
     }
     if (_valid)

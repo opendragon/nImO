@@ -172,10 +172,10 @@ setValueAndCheck(Message        &stuff,
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -274,18 +274,18 @@ doTestInsertEmptyMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptyMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -383,18 +383,18 @@ doTestInsertLogicalMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertLogicalMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 003 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -525,18 +525,18 @@ doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertTinyIntegerMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 004 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -637,18 +637,18 @@ doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertShortIntegerMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 005 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -751,18 +751,18 @@ doTestInsertMediumIntegerMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertMediumIntegerMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 006 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -868,18 +868,18 @@ doTestInsertBigIntegerMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertBigIntegerMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 007 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -947,18 +947,18 @@ doTestInsertEmptyStringMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptyStringMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 008 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1029,18 +1029,18 @@ doTestInsertShortStringMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertShortStringMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 009 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1133,18 +1133,18 @@ doTestInsertMediumStringMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertMediumStringMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 010 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1212,18 +1212,18 @@ doTestInsertEmptyBlobMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptyBlobMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 011 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1299,18 +1299,18 @@ doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertShortBlobMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 012 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1417,18 +1417,18 @@ doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertMediumBlobMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 013 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1538,18 +1538,18 @@ doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertSingleFloatMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 014 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1629,18 +1629,18 @@ doTestInsertMultipleEscapesMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertMultipleEscapesMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1713,18 +1713,18 @@ doTestInsertEmptyArrayMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptyArrayMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1797,18 +1797,18 @@ doTestInsertEmptyMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptyMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1881,18 +1881,18 @@ doTestInsertEmptySetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertEmptySetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1976,18 +1976,18 @@ doTestInsertArrayOneLogicalMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneLogicalMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2071,18 +2071,18 @@ doTestInsertArrayOneIntegerMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneIntegerMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2170,18 +2170,18 @@ doTestInsertArrayOneDoubleMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneDoubleMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2265,18 +2265,18 @@ doTestInsertArrayOneStringMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneStringMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 114 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2360,18 +2360,18 @@ doTestInsertArrayOneBlobMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneBlobMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 115 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2460,18 +2460,18 @@ doTestInsertArrayOneArrayMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneArrayMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 116 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2560,18 +2560,18 @@ doTestInsertArrayOneMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 117 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2660,18 +2660,18 @@ doTestInsertArrayOneSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneSetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 130 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2761,18 +2761,18 @@ doTestInsertArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoLogicalsMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 131 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2862,18 +2862,18 @@ doTestInsertArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoIntegersMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 132 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2969,18 +2969,18 @@ doTestInsertArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoDoublesMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 133 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3070,18 +3070,18 @@ doTestInsertArrayTwoStringsMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoStringsMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 134 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3170,18 +3170,18 @@ doTestInsertArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoBlobsMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 135 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3281,18 +3281,18 @@ doTestInsertArrayTwoArraysMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoArraysMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 136 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3392,18 +3392,18 @@ doTestInsertArrayTwoMapsMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoMapsMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 137 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3503,18 +3503,18 @@ doTestInsertArrayTwoSetsMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayTwoSetsMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 138 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3618,18 +3618,18 @@ doTestInsertArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneArrayOneMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 139 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3732,18 +3732,18 @@ doTestInsertArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneMapOneSetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 140 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3847,18 +3847,18 @@ doTestInsertArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertArrayOneSetOneArrayMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 141 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4165,19 +4165,19 @@ doTestInsertArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
     return result;
 } // doTestInsertArrayWithManyDoublesMessage
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 160 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4264,18 +4264,18 @@ doTestInsertLogicalMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertLogicalMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 161 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4362,18 +4362,18 @@ doTestInsertIntegerMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertIntegerMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 162 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4461,18 +4461,18 @@ doTestInsertStringMapMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertStringMapMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 163 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4555,18 +4555,18 @@ doTestInsertLogicalSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertLogicalSetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 164 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4649,18 +4649,18 @@ doTestInsertIntegerSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertIntegerSetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 165 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(push)
 # pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4744,9 +4744,9 @@ doTestInsertStringSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestInsertStringSetMessage
-#if (! MAC_OR_LINUX_)
+#if (! defined(MAC_OR_LINUX_))
 # pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
+#endif // ! defined(MAC_OR_LINUX_)
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4771,9 +4771,9 @@ main(int  argc,
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
 #if 0
-#if MAC_OR_LINUX_
+#if defined(MAC_OR_LINUX_)
     SetUpLogger(progName);
-#endif // MAC_OR_LINUX_
+#endif // defined(MAC_OR_LINUX_)
 #endif//0
     int result = 1;
 

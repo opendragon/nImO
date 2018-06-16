@@ -64,6 +64,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOcontainer.cpp"
+            "${nImO_SOURCE_DIR}/nImO/nImOconverters.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOdouble.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.cpp"
             "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.cpp"
@@ -119,6 +120,7 @@ install(FILES
         "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOcontainer.hpp"
+        "${nImO_SOURCE_DIR}/nImO/nImOconverters.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOdouble.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.hpp"
         "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.hpp"
@@ -158,6 +160,7 @@ if(nImO_DO_SWIG)
         nImOcompareValues.cpp nImOcompareValues.hpp
         nImOconnector.cpp nImOconnector.hpp
         nImOcontainer.cpp nImOcontainer.hpp
+        nImOconverters.cpp nImOconverters.hpp
         nImOdouble.cpp nImOdouble.hpp
         nImOdoubleArgumentDescriptor.cpp nImOdoubleArgumentDescriptor.hpp
         nImOextraArgumentDescriptor.cpp nImOextraArgumentDescriptor.hpp

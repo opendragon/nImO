@@ -53,6 +53,8 @@
 		F6A4A0581CD236BD005D1AF8 /* nImOmessageInsertTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmessageInsertTest.rc.in; path = Tests/nImOmessageInsertTest.rc.in; sourceTree = "<group>"; };
 		F6A787751E65BCD000940F97 /* nImOflaw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOflaw.cpp; path = nImO/nImOflaw.cpp; sourceTree = SOURCE_ROOT; };
 		F6A787771E65BDAD00940F97 /* nImOflaw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOflaw.hpp; path = nImO/nImOflaw.hpp; sourceTree = SOURCE_ROOT; };
+		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
+		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388EB1C77F1E6004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Tests/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B388F61C77F3D1004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Connect/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
@@ -176,6 +178,8 @@
 				F6B8B9FB1E6D976B0094EF96 /* nImObadMessageTest.rc.in */,
 				F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */,
 				F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */,
+				F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */,
+				F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */,
 				F6A4A0551CD236BD005D1AF8 /* nImOmessageExtractTest.cpp */,
 				F6A4A0561CD236BD005D1AF8 /* nImOmessageExtractTest.rc.in */,
 				F6A4A0571CD236BD005D1AF8 /* nImOmessageInsertTest.cpp */,

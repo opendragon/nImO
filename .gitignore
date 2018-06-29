@@ -21,6 +21,8 @@ Tests/nImOcommonTest
 Tests/nImOcommonTest.rc
 Tests/nImOcontainerTest
 Tests/nImOcontainerTest.rc
+Tests/nImOconvertersTest
+Tests/nImOconvertersTest.rc
 Tests/nImOmessageExtractTest
 Tests/nImOmessageExtractTest.rc
 Tests/nImOmessageInsertTest

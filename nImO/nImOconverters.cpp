@@ -72,6 +72,23 @@ using namespace nImO;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+#if ((BYTE_ORDER != BIG_ENDIAN) && (BYTE_ORDER != LITTLE_ENDIAN))
+# error Unknown byte order.
+#endif // (BYTE_ORDER != BIG_ENDIAN) && (BYTE_ORDER != LITTLE_ENDIAN)
+
+/*! @brief Swap the contents of a uint8_t array.
+ @param[in,out] buffer The array to be swapped.
+ @param[in] bufferSize The number of elements in the array. */
+static void
+swapBytes(uint8_t      *buffer,
+          const size_t bufferSize)
+{
+    for (size_t ii = 0; ii < (bufferSize / 2); ++ii)
+    {
+        std::swap(buffer[ii], buffer[bufferSize - (ii + 1)]);
+    }
+} // swapBytes
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -88,189 +105,203 @@ using namespace nImO;
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/* IEEE Standard 754 Single Precision Storage Format (float):
- *
- *        31 30           23 22            0
- * +--------+---------------+---------------+
- * | s 1bit | e[30:23] 8bit | f[22:0] 23bit |
- * +--------+---------------+---------------+
- * B0------------------->B1------->B2-->B3-->
- *
- * IEEE Standard 754 Double Precision Storage Format (double):
- *
- *        63 62            52 51            32   31            0
- * +--------+----------------+----------------+ +---------------+
- * | s 1bit | e[62:52] 11bit | f[51:32] 20bit | | f[31:0] 32bit |
- * +--------+----------------+----------------+ +---------------+
- * B0--------------->B1---------->B2--->B3---->  B4->B5->B6->B7->
- */
-
-/*
-    Transfer format for 'float' values:
-
-    +-------------------------------+
-    | byte 0                        |
-    .-------------------------------.
-    | S | top 7 bits of mantissa    | S = negative bit, mantissa[22..16]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 1                        |
-    .-------------------------------.
-    | exponent (8 bits)             | exponent[7..0]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 2                        |
-    .-------------------------------.
-    | middle 8 bits of mantissa     | mantissa[15..8]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 3                        |
-    .-------------------------------.
-    | bottom 8 bits of mantissa     | mantissa[7..0]
-    +-------------------------------+
-*/
-
-/*
-    Transfer format for 'double' values:
-
-    +-------------------------------+
-    | byte 0                        |
-    .-------------------------------.
-    | S | top 7 bits of exponent    | S = negative bit, exponent[10..4]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 1                        |
-    .-------------------------------.
-    | bottom 4 exp | top 4 mantissa | exponent[3..0], mantissa[51..48]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 2                        |
-    .-------------------------------.
-    | high mid 8 bits of mantissa   | mantissa[47..40]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 3                        |
-    .-------------------------------.
-    | mid mid 8 bits of mantissa    | mantissa[39..32]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 4                        |
-    .-------------------------------.
-    | low mid 8 bits of mantissa    | mantissa[31..24]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 5                        |
-    .-------------------------------.
-    | high bot 8 bits of mantissa   | mantissa[23..16]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 6                        |
-    .-------------------------------.
-    | mid bot 8 bits of mantissa    | mantissa[15..8]
-    +-------------------------------+
-    +-------------------------------+
-    | byte 7                        |
-    .-------------------------------.
-    | low bot 8 bits of mantissa    | mantissa[7..0]
-    +-------------------------------+
-*/
-
-# if (BYTE_ORDER == LITTLE_ENDIAN)
-    union FloatAsBits
-    {
-        float _float;
-        struct
-        {
-            unsigned int _mantissa : 23;
-            unsigned int _exponent : 8;
-            unsigned int _sign : 1;
-        } _bits;
-    }; // FloatAsBits
-    
-    union DoubleAsBits
-    {
-        double _double;
-        struct
-        {
-            unsigned int _mantissa_low : 32;
-            unsigned int _mantissa_high : 20;
-            unsigned int _exponent : 11;
-            unsigned int _sign : 1;
-        } _bits;
-    }; // DoubleAsBits
-# elif (BYTE_ORDER == BIG_ENDIAN)
-    union FloatAsBits
-    {
-        float _float;
-        struct
-        {
-            unsigned int _sign : 1;
-            unsigned int _exponent : 8;
-            unsigned int _mantissa : 23;
-        } _bits;
-    }; // FloatAsBits
-    
-    union DoubleAsBits
-    {
-        double _double;
-        struct
-        {
-            unsigned int _sign : 1;
-            unsigned int _exponent : 11;
-            unsigned int _mantissa_high : 20;
-            unsigned int _mantissa_low : 32;
-        } _bits;
-    }; // DoubleAsBits
-# else /* (BYTE_ORDER != LITTLE_ENDIAN) && (BYTE_ORDER != BIG_ENDIAN) */
-#  error unknown ENDIAN type
-# endif /* (BYTE_ORDER != LITTLE_ENDIAN) && (BYTE_ORDER != BIG_ENDIAN) */
-
 int
-nImO::ConvertDoubleToPacketOrder(uint8_t         *start,
+nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
                                  const uint8_t *end,
-                                 const double    value)
+                                 const double  value)
 {
-    return -1;
+    int result;
+
+    if (nullptr == start)
+    {
+        result = sizeof(double);
+    }
+    else if (nullptr == end)
+    {
+        result = -1;
+    }
+    else if ((start + sizeof(double)) > end)
+    {
+        result = -1;
+    }
+    else
+    {
+#if (BYTE_ORDER != NIMO_PACKET_ORDER)
+        uint8_t buffer[sizeof(double)];
+#endif // BYTE_ORDER != NIMO_PACKET_ORDER
+        
+#if (BYTE_ORDER == NIMO_PACKET_ORDER)
+        memcpy(start, &value, sizeof(double));
+#else // BYTE_ORDER != NIMO_PACKET_ORDER
+        memcpy(buffer, &value, sizeof(buffer));
+        swapBytes(buffer, sizeof(buffer));
+        memcpy(start, buffer, sizeof(buffer));
+#endif // BYTE_ORDER != NIMO_PACKET_ORDER
+        result = sizeof(double);
+    }
+    return result;
 } /* nImO:ConvertDoubleToPacketOrder */
 
-int
-nImO::ConvertFloatToPacketOrder(uint8_t       *start,
-                                const uint8_t *end,
-                                const float   value)
-{
-    return -1;
-} /* nImO:ConvertFloatToPacketOrder */
- 
 int
 nImO::ConvertLongToPacketOrder(uint8_t       *start,
                                const uint8_t *end,
                                const int64_t value)
 {
-    return -1;
+    int     result;
+    uint8_t buffer[sizeof(int64_t)];
+    int     numBytes = 1;
+    int64_t valueCopy = value;
+    
+    // Store the bytes of the value, MSB first.
+    for (size_t ii = sizeof(buffer); ii > 0; --ii)
+    {
+        buffer[ii - 1] = (valueCopy & 0x00FF);
+        valueCopy >>= 8;
+    }
+    // Determine the number of significant bytes.
+    if (value >= 0)
+    {
+        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+        {
+            if (buffer[ii] != 0)
+            {
+                numBytes = sizeof(buffer) - ii;
+                // Correct for the high bit being set.
+                if ((buffer[ii] & 0x80) == 0x80)
+                {
+                    ++numBytes;
+                }
+                break;
+            }
+
+        }
+    }
+    else
+    {
+        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+        {
+            if (buffer[ii] != 0xFF)
+            {
+                numBytes = sizeof(buffer) - ii;
+                // Correct for the high bit not being set.
+                if ((buffer[ii] & 0x80) == 0x00)
+                {
+                    ++numBytes;
+                }
+                break;
+            }
+            
+        }
+    }
+    if (nullptr == start)
+    {
+        result = numBytes;
+    }
+    else if (nullptr == end)
+    {
+        result = -1;
+    }
+    else
+    {
+#if (NIMO_PACKET_ORDER == BIG_ENDIAN)
+        memcpy(start, buffer + sizeof(buffer) - numBytes, numBytes);
+#else // NIMO_PACKET_ORDER != BIG_ENDIAN
+        swapBytes(buffer, sizeof(buffer));
+        memcpy(start, buffer, numBytes);
+#endif // NIMO_PACKET_ORDER != BIG_ENDIAN
+        result = numBytes;
+    }
+    return result;
 } /* nImO:ConvertLongToPacketOrder */
    
 int
 nImO::ConvertPacketOrderToDouble(const uint8_t *start,
                                  const uint8_t *end,
-                                 const double  &value)
+                                 double        &value)
 {
-    return -1;
-} /* nImO:ConvertPacketOrderToDouble */
+    int result;
+    
+    if ((nullptr == start) || (nullptr == end))
+    {
+        result = -1;
+    }
+    else if ((start + sizeof(double) - 1) > end)
+    {
+        result = -1;
+    }
+    else
+    {
+#if (BYTE_ORDER != NIMO_PACKET_ORDER)
+        uint8_t buffer[sizeof(double)];
+#endif // BYTE_ORDER != NIMO_PACKET_ORDER
 
-int
-nImO::ConvertPacketOrderToFloat(const uint8_t *start,
-                                const uint8_t *end,
-                                const float   &value)
-{
-    return -1;
-} /* nImO:ConvertPacketOrderToFloat */
+#if (BYTE_ORDER == NIMO_PACKET_ORDER)
+        memcpy(&value, start, sizeof(value));
+#else // BYTE_ORDER != NIMO_PACKET_ORDER
+        memcpy(buffer, start, sizeof(buffer));
+        swapBytes(buffer, sizeof(buffer));
+        memcpy(&value, buffer, sizeof(value));
+#endif // BYTE_ORDER != NIMO_PACKET_ORDER
+        result = sizeof(double);
+    }
+    return result;
+} /* nImO:ConvertPacketOrderToDouble */
 
 int
 nImO::ConvertPacketOrderToLong(const uint8_t *start,
                                const uint8_t *end,
                                const size_t  numBytes,
-                               const int64_t &value)
+                               int64_t       &value)
 {
-    return -1;
+    int result;
+    
+    if ((nullptr == start) || (nullptr == end) || (0 == numBytes) || (sizeof(value) < numBytes))
+    {
+        result = -1;
+    }
+    else if ((start + numBytes - 1) > end)
+    {
+        result = -1;
+    }
+    else
+    {
+        uint8_t buffer[sizeof(value)];
+
+        // Fill the buffer, in MSB order.
+#if (NIMO_PACKET_ORDER == BIG_ENDIAN)
+        memcpy(buffer + sizeof(buffer) - numBytes, start, numBytes);
+#else // NIMO_PACKET_ORDER != BIG_ENDIAN
+        memcpy(buffer, start, numBytes);
+        swapBytes(buffer, sizeof(buffer));
+#endif // NIMO_PACKET_ORDER != BIG_ENDIAN
+        // Find the sign bit and perform a sign-extension.
+        if (numBytes < sizeof(value))
+        {
+            uint8_t aByte = buffer[sizeof(buffer) - numBytes];
+            
+            if (0x80 == (aByte & 0x80))
+            {
+                for (size_t ii = 0; ii < (sizeof(buffer) - numBytes); ++ii)
+                {
+                    buffer[ii] = 0xFF;
+                }
+            }
+            else
+            {
+                for (size_t ii = 0; ii < (sizeof(buffer) - numBytes); ++ii)
+                {
+                    buffer[ii] = 0x00;
+                }
+            }
+        }
+        // Reconstruct the value.
+        value = 0;
+        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+        {
+            value = ((value << 8) | buffer[ii]);
+        }
+        result = numBytes;
+    }
+    return result;
 } /* nImO:ConvertPacketOrderToLong */
 

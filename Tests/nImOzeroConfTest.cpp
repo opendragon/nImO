@@ -737,6 +737,10 @@ main(int  argc,
                     ODL_LL1("%%%%%%% unit test failure = ", result); //####
                 }
             }
+            else
+            {
+                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
+            }
         }
         else
         {

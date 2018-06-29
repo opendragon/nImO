@@ -38,6 +38,192 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
+set(THIS_TARGET nImOconvertersTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               nImOconvertersTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test integer size for value of 0
+add_test(NAME TestIntegerSize0 COMMAND ${THIS_TARGET} 1 0 1)
+# Test integer size for value of 1
+add_test(NAME TestIntegerSize1 COMMAND ${THIS_TARGET} 1 1 1)
+# Test integer size for value of -1
+add_test(NAME TestIntegerSizeMinus1 COMMAND ${THIS_TARGET} 1 -1 1)
+# Test integer size for value of 127
+add_test(NAME TestIntegerSize127 COMMAND ${THIS_TARGET} 1 127 1)
+# Test integer size for value of -128
+add_test(NAME TestIntegerSizeMinus128 COMMAND ${THIS_TARGET} 1 -128 1)
+# Test integer size for value of 240
+add_test(NAME TestIntegerSize240 COMMAND ${THIS_TARGET} 1 240 2)
+# Test integer size for value of -240
+add_test(NAME TestIntegerSizeMinus240 COMMAND ${THIS_TARGET} 1 -240 2)
+# Test integer size for value of 255
+add_test(NAME TestIntegerSize255 COMMAND ${THIS_TARGET} 1 255 2)
+# Test integer size for value of -255
+add_test(NAME TestIntegerSizeMinus255 COMMAND ${THIS_TARGET} 1 -255 2)
+# Test integer size for value of 1024
+add_test(NAME TestIntegerSize1024 COMMAND ${THIS_TARGET} 1 1024 2)
+# Test integer size for value of -1024
+add_test(NAME TestIntegerSizeMinus1024 COMMAND ${THIS_TARGET} 1 -1024 2)
+# Test integer size for value of 32767
+add_test(NAME TestIntegerSize32767 COMMAND ${THIS_TARGET} 1 32767 2)
+# Test integer size for value of -32768
+add_test(NAME TestIntegerSizeMinus32768 COMMAND ${THIS_TARGET} 1 -32768 2)
+# Test integer size for value of 48000
+add_test(NAME TestIntegerSize48k COMMAND ${THIS_TARGET} 1 48000 3)
+# Test integer size for value of -48000
+add_test(NAME TestIntegerSizeMinus48k COMMAND ${THIS_TARGET} 1 -48000 3)
+# Test integer size for value of 8000000
+add_test(NAME TestIntegerSize8m COMMAND ${THIS_TARGET} 1 8000000 3)
+# Test integer size for value of -8000000
+add_test(NAME TestIntegerSizeMinus8m COMMAND ${THIS_TARGET} 1 -8000000 3)
+# Test integer size for value of 16000000
+add_test(NAME TestIntegerSize16m COMMAND ${THIS_TARGET} 1 16000000 4)
+# Test integer size for value of -16000000
+add_test(NAME TestIntegerSizeMinus16m COMMAND ${THIS_TARGET} 1 -16000000 4)
+# Test integer size for value of 20000000
+add_test(NAME TestIntegerSize20m COMMAND ${THIS_TARGET} 1 20000000 4)
+# Test integer size for value of -20000000
+add_test(NAME TestIntegerSizeMinus20m COMMAND ${THIS_TARGET} 1 -20000000 4)
+# Test integer size for value of 2000000000
+add_test(NAME TestIntegerSize2g COMMAND ${THIS_TARGET} 1 2000000000 4)
+# Test integer size for value of -2000000000
+add_test(NAME TestIntegerSizeMinus2g COMMAND ${THIS_TARGET} 1 -2000000000 4)
+# Test integer size for value of 4000000000
+add_test(NAME TestIntegerSize4g COMMAND ${THIS_TARGET} 1 4000000000 5)
+# Test integer size for value of -4000000000
+add_test(NAME TestIntegerSizeMinus4g COMMAND ${THIS_TARGET} 1 -4000000000 5)
+# Test integer size for value of 8000000000
+add_test(NAME TestIntegerSize8g COMMAND ${THIS_TARGET} 1 8000000000 5)
+# Test integer size for value of -8000000000
+add_test(NAME TestIntegerSizeMinus8g COMMAND ${THIS_TARGET} 1 -8000000000 5)
+# Test integer size for value of 500000000000
+add_test(NAME TestIntegerSize500g COMMAND ${THIS_TARGET} 1 500000000000 5)
+# Test integer size for value of -500000000000
+add_test(NAME TestIntegerSizeMinus500g COMMAND ${THIS_TARGET} 1 -500000000000 5)
+# Test integer size for value of 2000000000000
+add_test(NAME TestIntegerSize2t COMMAND ${THIS_TARGET} 1 2000000000000 6)
+# Test integer size for value of -2000000000000
+add_test(NAME TestIntegerSizeMinus2t COMMAND ${THIS_TARGET} 1 -2000000000000 6)
+# Test integer size for value of 35000000000000
+add_test(NAME TestIntegerSize35t COMMAND ${THIS_TARGET} 1 35000000000000 6)
+# Test integer size for value of -35000000000000
+add_test(NAME TestIntegerSizeMinus35t COMMAND ${THIS_TARGET} 1 -35000000000000 6)
+# Test integer size for value of 280000000000000
+add_test(NAME TestIntegerSize280t COMMAND ${THIS_TARGET} 1 280000000000000 7)
+# Test integer size for value of -280000000000000
+add_test(NAME TestIntegerSizeMinus280t COMMAND ${THIS_TARGET} 1 -280000000000000 7)
+# Test integer size for value of 2200000000000000
+add_test(NAME TestIntegerSize2200t COMMAND ${THIS_TARGET} 1 2200000000000000 7)
+# Test integer size for value of -2200000000000000
+add_test(NAME TestIntegerSizeMinus2200t COMMAND ${THIS_TARGET} 1 -2200000000000000 7)
+# Test integer size for value of 4600000000000000000
+add_test(NAME TestIntegerSize4600kt COMMAND ${THIS_TARGET} 1 4600000000000000000 8)
+# Test integer size for value of -4600000000000000000
+add_test(NAME TestIntegerSizeMinus4600kt COMMAND ${THIS_TARGET} 1 -4600000000000000000 8)
+# Test floating point size
+add_test(NAME TestFloatingPointSize COMMAND ${THIS_TARGET} 2)
+# Test integer conversion for value of 0
+add_test(NAME TestIntegerConversion0 COMMAND ${THIS_TARGET} 3 0)
+# Test integer conversion for value of 1
+add_test(NAME TestIntegerConversion1 COMMAND ${THIS_TARGET} 3 1)
+# Test integer conversion for value of -1
+add_test(NAME TestIntegerConversionMinus1 COMMAND ${THIS_TARGET} 3 -1)
+# Test integer conversion for value of 127
+add_test(NAME TestIntegerConversion127 COMMAND ${THIS_TARGET} 3 127)
+# Test integer conversion for value of -128
+add_test(NAME TestIntegerConversionMinus128 COMMAND ${THIS_TARGET} 3 -128)
+# Test integer conversion for value of 240
+add_test(NAME TestIntegerConversion240 COMMAND ${THIS_TARGET} 3 240)
+# Test integer conversion for value of -240
+add_test(NAME TestIntegerConversionMinus240 COMMAND ${THIS_TARGET} 3 -240)
+# Test integer conversion for value of 255
+add_test(NAME TestIntegerConversion255 COMMAND ${THIS_TARGET} 3 255)
+# Test integer conversion for value of -255
+add_test(NAME TestIntegerConversionMinus255 COMMAND ${THIS_TARGET} 3 -255)
+# Test integer conversion for value of 1024
+add_test(NAME TestIntegerConversion1024 COMMAND ${THIS_TARGET} 3 1024)
+# Test integer conversion for value of -1024
+add_test(NAME TestIntegerConversionMinus1024 COMMAND ${THIS_TARGET} 3 -1024)
+# Test integer conversion for value of 32767
+add_test(NAME TestIntegerConversion32767 COMMAND ${THIS_TARGET} 3 32767)
+# Test integer conversion for value of -32768
+add_test(NAME TestIntegerConversionMinus32768 COMMAND ${THIS_TARGET} 3 -32768)
+# Test integer conversion for value of 48000
+add_test(NAME TestIntegerConversion48k COMMAND ${THIS_TARGET} 3 48000)
+# Test integer conversion for value of -48000
+add_test(NAME TestIntegerConversionMinus48k COMMAND ${THIS_TARGET} 3 -48000)
+# Test integer conversion for value of 8000000
+add_test(NAME TestIntegerConversion8m COMMAND ${THIS_TARGET} 3 8000000)
+# Test integer conversion for value of -8000000
+add_test(NAME TestIntegerConversionMinus8m COMMAND ${THIS_TARGET} 3 -8000000)
+# Test integer conversion for value of 16000000
+add_test(NAME TestIntegerConversion16m COMMAND ${THIS_TARGET} 3 16000000)
+# Test integer conversion for value of -16000000
+add_test(NAME TestIntegerConversionMinus16m COMMAND ${THIS_TARGET} 3 -16000000)
+# Test integer conversion for value of 20000000
+add_test(NAME TestIntegerConversion20m COMMAND ${THIS_TARGET} 3 20000000)
+# Test integer conversion for value of -20000000
+add_test(NAME TestIntegerConversionMinus20m COMMAND ${THIS_TARGET} 3 -20000000)
+# Test integer conversion for value of 2000000000
+add_test(NAME TestIntegerConversion2g COMMAND ${THIS_TARGET} 3 2000000000)
+# Test integer conversion for value of -2000000000
+add_test(NAME TestIntegerConversionMinus2g COMMAND ${THIS_TARGET} 3 -2000000000)
+# Test integer conversion for value of 4000000000
+add_test(NAME TestIntegerConversion4g COMMAND ${THIS_TARGET} 3 4000000000)
+# Test integer conversion for value of -4000000000
+add_test(NAME TestIntegerConversionMinus4g COMMAND ${THIS_TARGET} 3 -4000000000)
+# Test integer conversion for value of 8000000000
+add_test(NAME TestIntegerConversion8g COMMAND ${THIS_TARGET} 3 8000000000)
+# Test integer conversion for value of -8000000000
+add_test(NAME TestIntegerConversionMinus8g COMMAND ${THIS_TARGET} 3 -8000000000)
+# Test integer conversion for value of 500000000000
+add_test(NAME TestIntegerConversion500g COMMAND ${THIS_TARGET} 3 500000000000)
+# Test integer conversion for value of -500000000000
+add_test(NAME TestIntegerConversionMinus500h COMMAND ${THIS_TARGET} 3 -500000000000)
+# Test integer conversion for value of 2000000000000
+add_test(NAME TestIntegerConversion2t COMMAND ${THIS_TARGET} 3 2000000000000)
+# Test integer conversion for value of -2000000000000
+add_test(NAME TestIntegerConversionMinus2t COMMAND ${THIS_TARGET} 3 -2000000000000)
+# Test integer conversion for value of 35000000000000
+add_test(NAME TestIntegerConversion35t COMMAND ${THIS_TARGET} 3 35000000000000)
+# Test integer conversion for value of -35000000000000
+add_test(NAME TestIntegerConversionMinus35t COMMAND ${THIS_TARGET} 3 -35000000000000)
+# Test integer conversion for value of 280000000000000
+add_test(NAME TestIntegerConversion280t COMMAND ${THIS_TARGET} 3 280000000000000)
+# Test integer conversion for value of -280000000000000
+add_test(NAME TestIntegerConversionMinus280t COMMAND ${THIS_TARGET} 3 -280000000000000)
+# Test integer conversion for value of 2200000000000000
+add_test(NAME TestIntegerConversion2200t COMMAND ${THIS_TARGET} 3 2200000000000000)
+# Test integer conversion for value of -2200000000000000
+add_test(NAME TestIntegerConversionMinus2200t COMMAND ${THIS_TARGET} 3 -2200000000000000)
+# Test integer conversion for value of 4600000000000000000
+add_test(NAME TestIntegerConversion4600kt COMMAND ${THIS_TARGET} 3 4600000000000000000)
+# Test integer conversion for value of -4600000000000000000
+add_test(NAME TestIntegerConversionMinus4600kt COMMAND ${THIS_TARGET} 3 -4600000000000000000)
+# Test floating point conversion
+add_test(NAME TestFloatingPointConversion COMMAND ${THIS_TARGET} 4)
+
 set(THIS_TARGET nImOatomicTest)
 
 if(WIN32)

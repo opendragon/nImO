@@ -712,6 +712,10 @@ doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
                     ODL_LOG("! (stuff)"); //####
                 }
             }
+            else
+            {
+                ODL_LOG("! (ConvertToLong(*argv, value) && (0 <= value))"); //####
+            }
         }
         else
         {
@@ -783,6 +787,10 @@ doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
                 {
                     ODL_LOG("! (stuff)"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! ConvertToLong(*argv, value)"); //####
             }
         }
         else
@@ -1013,6 +1021,10 @@ doTestStringBufferWithDouble(UNUSED_ const char *launchPath,
                 {
                     ODL_LOG("! (stuff)"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! ConvertToDouble(*argv, value)"); //####
             }
         }
         else
@@ -1525,7 +1537,7 @@ doTestLogicalValue(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! ((startPtr != endPtr) && (! *endPtr) && (0 <= value))"); //####
+                ODL_LOG("! (ConvertToLong(*argv, value) && (0 <= value))"); //####
             }
         }
         else
@@ -1679,7 +1691,7 @@ doTestNumberValue(UNUSED_ const char *launchPath,
                 }
                 else
                 {
-                    ODL_LOG("! ((startPtr != endPtr) && (! *endPtr))"); //####
+                    ODL_LOG("! ConvertToDouble(*argv, floatValue)"); //####
                 }
             }
         }
@@ -4145,6 +4157,10 @@ main(int  argc,
                 {
                     ODL_LL1("%%%%%%% unit test failure = ", result); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
             }
         }
         else

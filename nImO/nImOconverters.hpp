@@ -55,36 +55,56 @@
 namespace nImO
 {
 
+    /*! @brief Convert a double value to a sequence of bytes.
+     @param[in,out] start The address of the first byte that is available;
+     if @c NULL, do not store any bytes.
+     @param[in] end The address of the last byte that is available.
+     @param[in] value The value to be stored.
+     @returns @c -1 if there is insufficient room to store the value, or the number of bytes
+     stored (if start is non-@c NULL) or the number of bytes that would have been stored, if
+     start is @c NULL. */
     int
     ConvertDoubleToPacketOrder(uint8_t       *start,
                                const uint8_t *end,
                                const double  value);
 
-    int
-    ConvertFloatToPacketOrder(uint8_t       *start,
-                              const uint8_t *end,
-                              const float   value);
- 
+
+    /*! @brief Convert an integer value to a sequence of bytes.
+     @param[in,out] start The address of the first byte that is available;
+     if @c NULL, do not store any bytes.
+     @param[in] end The address of the last byte that is available.
+     @param[in] value The value to be stored.
+     @returns @c -1 if there is insufficient room to store the value, or the number of bytes
+     stored (if start is non-@c NULL) or the number of bytes that would have been stored, if
+     start is @c NULL. */
     int
     ConvertLongToPacketOrder(uint8_t       *start,
                              const uint8_t *end,
                              const int64_t value);
    
+    /*! @brief Convert a sequence of bytes to a double value.
+     @param[in] start The address of the first byte that contains the value.
+     @param[in] end The address of the last byte that contains data.
+     @param[out] value The location to store the value.
+     @returns @c -1 if the sequence was too short to hold the value or a parameter was invalid,
+     or the number of bytes read. */
     int
     ConvertPacketOrderToDouble(const uint8_t *start,
                                const uint8_t *end,
-                               const double  &value);
+                               double        &value);
     
-    int
-    ConvertPacketOrderToFloat(const uint8_t *start,
-                              const uint8_t *end,
-                              const float   &value);
-
+    /*! @brief Convert a sequence of bytes to an integer value.
+     @param[in] start The address of the first byte that contains the value.
+     @param[in] end The address of the last byte that contains data.
+     @param[in] numBytes The number of bytes of the sequence to use.
+     @param[out] value The location to store the value.
+     @returns @c -1 if the sequence was too short to hold the value or a parameter was invalid,
+     or the number of bytes read. */
     int
     ConvertPacketOrderToLong(const uint8_t *start,
                              const uint8_t *end,
                              const size_t  numBytes,
-                             const int64_t &value);
+                             int64_t       &value);
     
 } // nImO
 

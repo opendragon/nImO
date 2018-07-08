@@ -93,7 +93,15 @@ if(APPLE)
     cmake_policy(SET CMP0042 OLD)
 endif()
 if(LINUX)
-#    set(CMAKE_CXX_FLAGS "-std=c++11" CACHE STRING "Fixes compile problems with JavaScript" FORCE)
+    set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++11" CACHE STRING "Fixes linking error for nImO"
+        FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
+        FORCE)
+    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
+        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 endif()
 
 if(WIN32)

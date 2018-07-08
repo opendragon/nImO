@@ -46,7 +46,11 @@ if(APPLE)
     set(DO_SHARED "SHARED")
     set(THIS_TARGET_LIB "lib${THIS_TARGET}.dylib")
 else()
-    set(DO_SHARED "")
+    if(LINUX)
+        set(DO_SHARED "SHARED")
+    else()
+        set(DO_SHARED "")
+    endif()
 endif()
 
 add_library(${THIS_TARGET}

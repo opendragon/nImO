@@ -105,12 +105,12 @@ swapBytes(uint8_t      *buffer,
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-int
+size_t
 nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
                                  const uint8_t *end,
                                  const double  value)
 {
-    int result;
+    size_t  result;
 
     if (nullptr == start)
     {
@@ -118,11 +118,11 @@ nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
     }
     else if (nullptr == end)
     {
-        result = -1;
+        result = 0;
     }
     else if ((start + sizeof(double)) > end)
     {
-        result = -1;
+        result = 0;
     }
     else
     {
@@ -142,92 +142,91 @@ nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
     return result;
 } /* nImO:ConvertDoubleToPacketOrder */
 
-int
+size_t
 nImO::ConvertLongToPacketOrder(uint8_t       *start,
                                const uint8_t *end,
                                const int64_t value)
 {
-    int     result;
+    size_t  result;
     uint8_t buffer[sizeof(int64_t)];
-    int     numBytes = 1;
+    size_t  numBytes = 1;
     int64_t valueCopy = value;
-    
-    // Store the bytes of the value, MSB first.
-    for (size_t ii = sizeof(buffer); ii > 0; --ii)
+ 
+    if ((nullptr != start) && ((nullptr == end) || (start > end)))
     {
-        buffer[ii - 1] = (valueCopy & 0x00FF);
-        valueCopy >>= 8;
+        result = 0;
     }
-    // Determine the number of significant bytes.
-    if (value >= 0)
-    {
-        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+    else
+    {   
+        // Store the bytes of the value, MSB first.
+        for (size_t ii = sizeof(buffer); ii > 0; --ii)
         {
-            if (buffer[ii] != 0)
+            buffer[ii - 1] = (valueCopy & 0x00FF);
+            valueCopy >>= 8;
+        }
+        // Determine the number of significant bytes.
+        if (value >= 0)
+        {
+            for (size_t ii = 0; ii < sizeof(buffer); ++ii)
             {
-                numBytes = sizeof(buffer) - ii;
-                // Correct for the high bit being set.
-                if ((buffer[ii] & 0x80) == 0x80)
+                if (buffer[ii] != 0)
                 {
-                    ++numBytes;
+                    numBytes = sizeof(buffer) - ii;
+                    // Correct for the high bit being set.
+                    if ((buffer[ii] & 0x80) == 0x80)
+                    {
+                        ++numBytes;
+                    }
+                    break;
                 }
-                break;
-            }
 
-        }
-    }
-    else
-    {
-        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
-        {
-            if (buffer[ii] != 0xFF)
-            {
-                numBytes = sizeof(buffer) - ii;
-                // Correct for the high bit not being set.
-                if ((buffer[ii] & 0x80) == 0x00)
-                {
-                    ++numBytes;
-                }
-                break;
             }
-            
         }
-    }
-    if (nullptr == start)
-    {
-        result = numBytes;
-    }
-    else if (nullptr == end)
-    {
-        result = -1;
-    }
-    else
-    {
+        else
+        {
+            for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+            {
+                if (buffer[ii] != 0xFF)
+                {
+                    numBytes = sizeof(buffer) - ii;
+                    // Correct for the high bit not being set.
+                    if ((buffer[ii] & 0x80) == 0x00)
+                    {
+                        ++numBytes;
+                    }
+                    break;
+                }
+            
+            }
+        }
+        if (nullptr == start)
+        {
+            result = numBytes;
+        }
+        else
+        {
 #if (NIMO_PACKET_ORDER == BIG_ENDIAN)
-        memcpy(start, buffer + sizeof(buffer) - numBytes, numBytes);
+            memcpy(start, buffer + sizeof(buffer) - numBytes, numBytes);
 #else // NIMO_PACKET_ORDER != BIG_ENDIAN
-        swapBytes(buffer, sizeof(buffer));
-        memcpy(start, buffer, numBytes);
+            swapBytes(buffer, sizeof(buffer));
+            memcpy(start, buffer, numBytes);
 #endif // NIMO_PACKET_ORDER != BIG_ENDIAN
-        result = numBytes;
+            result = numBytes;
+        }
     }
     return result;
 } /* nImO:ConvertLongToPacketOrder */
    
-int
+size_t
 nImO::ConvertPacketOrderToDouble(const uint8_t *start,
                                  const uint8_t *end,
                                  double        &value)
 {
-    int result;
+    size_t  result;
     
-    if ((nullptr == start) || (nullptr == end))
+    if ((nullptr == start) || (nullptr == end) || (end < start) || (start < (end + 1 - sizeof(double))))
     {
-        result = -1;
-    }
-    else if ((start + sizeof(double) - 1) > end)
-    {
-        result = -1;
+        result = 0;
     }
     else
     {
@@ -247,25 +246,21 @@ nImO::ConvertPacketOrderToDouble(const uint8_t *start,
     return result;
 } /* nImO:ConvertPacketOrderToDouble */
 
-int
+size_t
 nImO::ConvertPacketOrderToLong(const uint8_t *start,
                                const uint8_t *end,
-                               const size_t  numBytes,
                                int64_t       &value)
 {
-    int result;
+    size_t  result;
     
-    if ((nullptr == start) || (nullptr == end) || (0 == numBytes) || (sizeof(value) < numBytes))
+    if ((nullptr == start) || (nullptr == end) || (end < start) || (start < (end + 1 - sizeof(int64_t))))
     {
-        result = -1;
-    }
-    else if ((start + numBytes - 1) > end)
-    {
-        result = -1;
+        result = 0;
     }
     else
     {
         uint8_t buffer[sizeof(value)];
+        size_t  numBytes = end + 1 - start;
 
         // Fill the buffer, in MSB order.
 #if (NIMO_PACKET_ORDER == BIG_ENDIAN)

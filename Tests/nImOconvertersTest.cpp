@@ -114,6 +114,94 @@ catchSignal(int signal)
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
+doTestInvalidArgs(UNUSED_ const char *launchPath,
+                  UNUSED_ const int  argc,
+                  UNUSED_ char       **argv) // invalid args
+{
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+    
+    try
+    {
+        if (0 < argc)
+        {
+            int64_t choice;
+
+            if (ConvertToLong(*argv, choice))
+            {
+                uint8_t buffer[kBufferSize];
+                int64_t newInteger;
+                double  newFloat;
+
+                switch (choice)
+                {
+                    case 1:
+                        // Test conversion bad NULL arguments
+                        if ((0 == ConvertLongToPacketOrder(buffer, NULL, 42)) &&
+                            (0 == ConvertDoubleToPacketOrder(buffer, NULL, 42.0)) &&
+                            (0 == ConvertPacketOrderToLong(buffer, NULL, newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer, NULL, newFloat)) &&
+                            (0 == ConvertPacketOrderToLong(NULL, buffer, newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(NULL, buffer, newFloat)))
+                        {
+                            result = 0;
+                        }
+                        break;
+
+                    case 2:
+                        // Test conversion bad pointer arguments
+                        if ((0 == ConvertLongToPacketOrder(buffer + 1, buffer, 42)) &&
+                            (0 == ConvertDoubleToPacketOrder(buffer + 1, buffer, 42.0)) &&
+                            (0 == ConvertPacketOrderToLong(buffer + 1, buffer, newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer + 1, buffer, newFloat)) &&
+                            (0 == ConvertPacketOrderToLong(buffer, buffer + sizeof(int64_t), newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer, buffer + sizeof(double), newFloat)))
+                        {
+                            result = 0;
+                        }
+                        break;
+
+                }
+            }
+            else
+            {
+                ODL_LOG("! ConvertToLong(*argv, choice)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestInvalidArgs
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 02 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
 doTestIntegerSize(UNUSED_ const char *launchPath,
                   UNUSED_ const int  argc,
                   UNUSED_ char       **argv) // integer size
@@ -133,9 +221,9 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
         
             if (ConvertToLong(*argv, value) && ConvertToLong(argv[1], length))
             {
-                int64_t calcLength = ConvertLongToPacketOrder(NULL, NULL, value);
+                size_t  calcLength = ConvertLongToPacketOrder(NULL, NULL, value);
                 
-                if (calcLength == length)
+                if (static_cast<int64_t>(calcLength) == length)
                 {
                     result = 0;
                 }
@@ -167,7 +255,7 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 02 ***
+# pragma mark *** Test Case 03 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -193,10 +281,10 @@ doTestFloatingPointSize(UNUSED_ const char *launchPath,
     try
     {
         double  value = ((rand() % 10000) * 0.1);
-        int     expectedLength = sizeof(double);
+        size_t  expectedLength = sizeof(double);
         int64_t calcLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
         
-        if (calcLength == expectedLength)
+        if (calcLength == static_cast<int64_t>(expectedLength))
         {
             result = 0;
         }
@@ -218,7 +306,7 @@ doTestFloatingPointSize(UNUSED_ const char *launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
+# pragma mark *** Test Case 04 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -249,16 +337,14 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
             
             if (ConvertToLong(*argv, value))
             {
-                int     expectedLength = ConvertLongToPacketOrder(NULL, NULL, value);
+                size_t  expectedLength = ConvertLongToPacketOrder(NULL, NULL, value);
                 uint8_t buffer[kBufferSize];
-                int     convLength = ConvertLongToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
-                                                              value);
+                size_t  convLength = ConvertLongToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    int     newLength = ConvertPacketOrderToLong(buffer, buffer + convLength - 1,
-                                                                 convLength, newValue);
+                    size_t  newLength = ConvertPacketOrderToLong(buffer, buffer + convLength - 1, newValue);
                     
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -266,11 +352,13 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
                     }
                     else
                     {
+cerr << newValue << " " << value << endl << newLength << " " << convLength << endl;
                         ODL_LOG("! ((newValue == value) && (newLength == convLength))"); //####
                     }
                 }
                 else
                 {
+cerr << "expectedLength != convLength" << endl;
                     ODL_LOG("expectedLength != convLength"); //####
                 }
             }
@@ -297,7 +385,7 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
+# pragma mark *** Test Case 05 ***
 #endif // defined(__APPLE__)
 
 #if (! MAC_OR_LINUX_)
@@ -325,16 +413,14 @@ doTestFloatingPointConversion(UNUSED_ const char *launchPath,
         for (int ii = 0; ii < kNumFloatTests; ++ii)
         {
             double  value = ((rand() % 10000) * 0.1);
-            int     expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
+            size_t  expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
             uint8_t buffer[kBufferSize];
-            int     convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
-                                                            value);
+            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
             
             if (expectedLength == convLength)
             {
                 double  newValue;
-                int     newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1,
-                                                               newValue);
+                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue);
                 
                 if ((newValue == value) && (newLength == convLength))
                 {
@@ -415,18 +501,22 @@ main(int  argc,
                         break;
 
                     case 1 :
+                        result = doTestInvalidArgs(*argv, argc - 1, argv + 2);
+                        break;
+                        
+                    case 2 :
                         result = doTestIntegerSize(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 2 :
+                    case 3 :
                         result = doTestFloatingPointSize(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 3 :
+                    case 4 :
                         result = doTestIntegerConversion(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 4 :
+                    case 5 :
                         result = doTestFloatingPointConversion(*argv, argc - 1, argv + 2);
                         break;
 

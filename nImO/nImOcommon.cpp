@@ -275,14 +275,14 @@ nImO::ConvertToLong(const char *startPtr,
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
-    bool okSoFar;
-    char *endPtr;
-    long value = strtol(startPtr, &endPtr, 10);
+    bool    okSoFar;
+    char    *endPtr;
+    int64_t value = strtoll(startPtr, &endPtr, 10);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
-        ODL_L1("result <- ", result); //####
+        ODL_LL1("result <- ", result); //####
         okSoFar = true;
     }
     else

@@ -139,7 +139,6 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     bool      sawInitialPlus = false;
     bool      sawExponentMinus = false;
     bool      sawExponentPlus = false;
-    bool      sawDecimalPoint = false;
     bool      valid = false;
     int64_t   integerPart = 0;
     int64_t   fractionPart = 0;
@@ -183,7 +182,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             }
             else if ('.' == aChar)
             {
-                sawDecimalPoint = needsAdigit = isDouble = true;
+                needsAdigit = isDouble = true;
                 currentState = ScanState::FractionStartSeen;
             }
             else if (isdigit(aChar))

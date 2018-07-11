@@ -174,9 +174,9 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
     {
         ArgumentMode argMode;
         bool         okSoFar = true;
-        int          defaultValue;
+        int          defaultValue = 0;
         int          maxValue;
-        int          minValue;
+        int          minValue = 0;
         std::string  name(inVector[0]);
         std::string  typeTag(inVector[1]);
         std::string  modeString(inVector[2]);

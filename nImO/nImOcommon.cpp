@@ -167,8 +167,9 @@ nImO::B2D(const nImO::NumberAsBytes &inString)
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
     int64_t inValueCopy = B2I(inString, sizeof(inValueCopy));
-    double  result = *reinterpret_cast<double *>(&inValueCopy);
+    double  result;
 
+    memcpy(&result, &inValueCopy, sizeof(result));
     ODL_EXIT_D(result); //####
     return result;
 } // nImO::B2D
@@ -301,8 +302,9 @@ nImO::D2B(const double        inValue,
     ODL_D1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
     double  inValueCopy = inValue;
-    int64_t inValueAsInt = *reinterpret_cast<int64_t *>(&inValueCopy);
+    int64_t inValueAsInt;
 
+    memcpy(&inValueAsInt, &inValueCopy, sizeof(inValueAsInt));
     I2B(inValueAsInt, outString);
     ODL_EXIT(); //####
 } // nImO::D2B

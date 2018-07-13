@@ -628,8 +628,8 @@ namespace nImO
      @returns @c true if the string contained a representation of an integer and @c false
      otherwise. */
     bool
-    ConvertToLong(const char *startPtr,
-                  int64_t    &result);
+    ConvertToInt64(const char *startPtr,
+                   int64_t    &result);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.

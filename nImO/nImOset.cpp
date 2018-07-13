@@ -703,7 +703,7 @@ const
                            DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
-        writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, static_cast<int>(inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
         for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             SpValue aValue(*walker);

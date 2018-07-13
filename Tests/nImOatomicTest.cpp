@@ -687,7 +687,7 @@ doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
 
-            if (ConvertToLong(*argv, value) && (0 <= value))
+            if (ConvertToInt64(*argv, value) && (0 <= value))
             {
                 auto stuff(make_unique<StringBuffer>());
 
@@ -714,7 +714,7 @@ doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(*argv, value) && (0 <= value))"); //####
+                ODL_LOG("! (ConvertToInt64(*argv, value) && (0 <= value))"); //####
             }
         }
         else
@@ -765,7 +765,7 @@ doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
 
-            if (ConvertToLong(*argv, value))
+            if (ConvertToInt64(*argv, value))
             {
                 auto stuff(make_unique<StringBuffer>());
 
@@ -790,7 +790,7 @@ doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! ConvertToLong(*argv, value)"); //####
+                ODL_LOG("! ConvertToInt64(*argv, value)"); //####
             }
         }
         else
@@ -1515,7 +1515,7 @@ doTestLogicalValue(UNUSED_ const char *launchPath,
             const char *outString = argv[1];
             int64_t    value;
 
-            if (ConvertToLong(*argv, value) && (0 <= value))
+            if (ConvertToInt64(*argv, value) && (0 <= value))
             {
                 auto stuff = make_unique<Logical>(0 != value);
 
@@ -1537,7 +1537,7 @@ doTestLogicalValue(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(*argv, value) && (0 <= value))"); //####
+                ODL_LOG("! (ConvertToInt64(*argv, value) && (0 <= value))"); //####
             }
         }
         else
@@ -1645,7 +1645,7 @@ doTestNumberValue(UNUSED_ const char *launchPath,
             const char *outString = argv[1];
             int64_t    intValue;
 
-            if (ConvertToLong(*argv, intValue))
+            if (ConvertToInt64(*argv, intValue))
             {
                 auto stuff = make_unique<Integer>(intValue);
 
@@ -3979,7 +3979,7 @@ main(int  argc,
         {
             int64_t selector;
 
-            if (ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);
                 switch (selector)
@@ -4160,7 +4160,7 @@ main(int  argc,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
+                ODL_LOG("! (ConvertToInt64(argv[1], selector) && (0 < selector))"); //####
             }
         }
         else

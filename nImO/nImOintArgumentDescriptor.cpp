@@ -202,7 +202,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         {
             int64_t intValue;
 
-            if (nImO::ConvertToLong(defaultString.c_str(), intValue))
+            if (nImO::ConvertToInt64(defaultString.c_str(), intValue))
             {
                 defaultValue = static_cast<int>(intValue);
             }
@@ -215,7 +215,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         {
             int64_t intValue;
 
-            if (nImO::ConvertToLong(minValString.c_str(), intValue))
+            if (nImO::ConvertToInt64(minValString.c_str(), intValue))
             {
                 minValue = static_cast<int>(intValue);
             }
@@ -228,7 +228,7 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
         {
             int64_t intValue;
 
-            if (nImO::ConvertToLong(maxValString.c_str(), intValue))
+            if (nImO::ConvertToInt64(maxValString.c_str(), intValue))
             {
                 maxValue = static_cast<int>(intValue);
             }
@@ -305,7 +305,7 @@ IntArgumentDescriptor::validate(const std::string &value)
     ODL_OBJENTER(); //####
     int64_t intValue;
 
-    if (nImO::ConvertToLong(value.c_str(), intValue))
+    if (nImO::ConvertToInt64(value.c_str(), intValue))
     {
         _valid = true;
         ODL_B1("_valid <- ", _valid); //####

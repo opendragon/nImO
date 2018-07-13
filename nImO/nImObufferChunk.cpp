@@ -125,6 +125,7 @@ nImO::BufferChunk::appendData(const void   *data,
     if (0 < actualCount)
     {
         ODL_LOG("(0 < actualCount)"); //####
+	ODL_PACKET("data", data, actualCount); //####
         memcpy(_write, data, actualCount);
         _write += actualCount;
         ODL_P1("_write <- ", _write); //####

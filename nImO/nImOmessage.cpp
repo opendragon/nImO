@@ -376,8 +376,7 @@ nImO::Message::getValue(void)
                     {
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, nullptr);
                         ODL_P1("result <- ", result.get()); //####
-                        ODL_LL2("_readPosition <- ", _readPosition, "status <- ", //####
-                                toUType(status)); //####
+                        ODL_LL1("_readPosition <- ", _readPosition); //####
                         if (nullptr == result)
                         {
                             result.reset(new Invalid("Null Value read @", _readPosition));

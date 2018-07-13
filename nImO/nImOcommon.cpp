@@ -270,8 +270,8 @@ nImO::ConvertToDouble(const char *startPtr,
 } // nImO::ConvertToDouble
 
 bool
-nImO::ConvertToLong(const char *startPtr,
-                    int64_t    &result)
+nImO::ConvertToInt64(const char *startPtr,
+                     int64_t    &result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -292,7 +292,7 @@ nImO::ConvertToLong(const char *startPtr,
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ConvertToLong
+} // nImO::ConvertToInt64
 
 void
 nImO::D2B(const double        inValue,

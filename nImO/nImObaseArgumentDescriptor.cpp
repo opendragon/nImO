@@ -478,7 +478,7 @@ nImO::ModeFromString(const std::string &modeString)
     ArgumentMode result = ArgumentMode::Unknown;
     int64_t      modeAsInt;
 
-    if (nImO::ConvertToLong(modeString.c_str(), modeAsInt))
+    if (nImO::ConvertToInt64(modeString.c_str(), modeAsInt))
     {
         // Check that only the known bits are set!
         if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))

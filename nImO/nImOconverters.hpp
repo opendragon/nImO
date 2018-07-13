@@ -78,9 +78,9 @@ namespace nImO
      stored (if start is non-@c NULL) or the number of bytes that would have been stored, if
      start is @c NULL. */
     size_t
-    ConvertLongToPacketOrder(uint8_t       *start,
-                             const uint8_t *end,
-                             const int64_t value);
+    ConvertInt64ToPacketOrder(uint8_t       *start,
+                              const uint8_t *end,
+                              const int64_t value);
    
     /*! @brief Convert a sequence of bytes to a double value.
      @param[in] start The address of the first byte that contains the value.
@@ -100,9 +100,9 @@ namespace nImO
      @returns @c -1 if the sequence was too short to hold the value or a parameter was invalid,
      or the number of bytes read. */
     size_t
-    ConvertPacketOrderToLong(const uint8_t *start,
-                             const uint8_t *end,
-                             int64_t       &value);
+    ConvertPacketOrderToInt64(const uint8_t *start,
+                              const uint8_t *end,
+                              int64_t       &value);
     
 } // nImO
 

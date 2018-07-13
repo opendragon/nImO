@@ -156,7 +156,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::Logical;
 
-    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
+    ODL_OBJEXIT_L(static_cast<int>(result)); //####
     return result;
 } // nImO::Logical::enumerationType
 

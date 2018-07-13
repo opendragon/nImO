@@ -4084,7 +4084,7 @@ main(int  argc,
         {
             int64_t selector;
 
-            if (ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);
                 switch (selector)
@@ -4268,7 +4268,7 @@ main(int  argc,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
+                ODL_LOG("! (ConvertToInt64(argv[1], selector) && (0 < selector))"); //####
             }
         }
         else

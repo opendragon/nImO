@@ -130,7 +130,7 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
         {
             int64_t choice;
 
-            if (ConvertToLong(*argv, choice))
+            if (ConvertToInt64(*argv, choice))
             {
                 uint8_t buffer[kBufferSize];
                 int64_t newInteger;
@@ -140,11 +140,11 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
                 {
                     case 1:
                         // Test conversion bad NULL arguments
-                        if ((0 == ConvertLongToPacketOrder(buffer, NULL, 42)) &&
+                        if ((0 == ConvertInt64ToPacketOrder(buffer, NULL, 42)) &&
                             (0 == ConvertDoubleToPacketOrder(buffer, NULL, 42.0)) &&
-                            (0 == ConvertPacketOrderToLong(buffer, NULL, newInteger)) &&
+                            (0 == ConvertPacketOrderToInt64(buffer, NULL, newInteger)) &&
                             (0 == ConvertPacketOrderToDouble(buffer, NULL, newFloat)) &&
-                            (0 == ConvertPacketOrderToLong(NULL, buffer, newInteger)) &&
+                            (0 == ConvertPacketOrderToInt64(NULL, buffer, newInteger)) &&
                             (0 == ConvertPacketOrderToDouble(NULL, buffer, newFloat)))
                         {
                             result = 0;
@@ -153,11 +153,11 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
 
                     case 2:
                         // Test conversion bad pointer arguments
-                        if ((0 == ConvertLongToPacketOrder(buffer + 1, buffer, 42)) &&
+                        if ((0 == ConvertInt64ToPacketOrder(buffer + 1, buffer, 42)) &&
                             (0 == ConvertDoubleToPacketOrder(buffer + 1, buffer, 42.0)) &&
-                            (0 == ConvertPacketOrderToLong(buffer + 1, buffer, newInteger)) &&
+                            (0 == ConvertPacketOrderToInt64(buffer + 1, buffer, newInteger)) &&
                             (0 == ConvertPacketOrderToDouble(buffer + 1, buffer, newFloat)) &&
-                            (0 == ConvertPacketOrderToLong(buffer, buffer + sizeof(int64_t), newInteger)) &&
+                            (0 == ConvertPacketOrderToInt64(buffer, buffer + sizeof(int64_t), newInteger)) &&
                             (0 == ConvertPacketOrderToDouble(buffer, buffer + sizeof(double), newFloat)))
                         {
                             result = 0;
@@ -168,7 +168,7 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! ConvertToLong(*argv, choice)"); //####
+                ODL_LOG("! ConvertToInt64(*argv, choice)"); //####
             }
         }
         else
@@ -219,9 +219,9 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
             int64_t value;
             int64_t length;
         
-            if (ConvertToLong(*argv, value) && ConvertToLong(argv[1], length))
+            if (ConvertToInt64(*argv, value) && ConvertToInt64(argv[1], length))
             {
-                size_t  calcLength = ConvertLongToPacketOrder(NULL, NULL, value);
+                size_t  calcLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
                 
                 if (static_cast<int64_t>(calcLength) == length)
                 {
@@ -234,7 +234,7 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(*argv, value) && ConvertToLong(argv[1], length))"); //####
+                ODL_LOG("! (ConvertToInt64(*argv, value) && ConvertToInt64(argv[1], length))"); //####
             }
         }
         else
@@ -335,16 +335,16 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
         {
             int64_t value;
             
-            if (ConvertToLong(*argv, value))
+            if (ConvertToInt64(*argv, value))
             {
-                size_t  expectedLength = ConvertLongToPacketOrder(NULL, NULL, value);
+                size_t  expectedLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
                 uint8_t buffer[kBufferSize];
-                size_t  convLength = ConvertLongToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
+                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    size_t  newLength = ConvertPacketOrderToLong(buffer, buffer + convLength - 1, newValue);
+                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue);
                     
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -364,7 +364,7 @@ cerr << "expectedLength != convLength" << endl;
             }
             else
             {
-                ODL_LOG("! ConvertToLong(*argv, value)"); //####
+                ODL_LOG("! ConvertToInt64(*argv, value)"); //####
             }
         }
         else
@@ -490,7 +490,7 @@ main(int  argc,
         {
             int64_t selector;
 
-            if (ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);
                 switch (selector)
@@ -531,7 +531,7 @@ main(int  argc,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
+                ODL_LOG("! (ConvertToInt64(argv[1], selector) && (0 < selector))"); //####
             }
         }
         else

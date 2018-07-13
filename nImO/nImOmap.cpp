@@ -791,7 +791,7 @@ const
                            DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
-        writeInt64ToMessage(outMessage, inherited2::size() + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, static_cast<int>(inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
         for (auto& walker : *this)
         {
             walker.first->writeToMessage(outMessage);

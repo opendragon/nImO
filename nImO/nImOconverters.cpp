@@ -143,9 +143,9 @@ nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
 } /* nImO:ConvertDoubleToPacketOrder */
 
 size_t
-nImO::ConvertLongToPacketOrder(uint8_t       *start,
-                               const uint8_t *end,
-                               const int64_t value)
+nImO::ConvertInt64ToPacketOrder(uint8_t       *start,
+                                const uint8_t *end,
+                                const int64_t value)
 {
     size_t  result;
     uint8_t buffer[sizeof(int64_t)];
@@ -215,7 +215,7 @@ nImO::ConvertLongToPacketOrder(uint8_t       *start,
         }
     }
     return result;
-} /* nImO:ConvertLongToPacketOrder */
+} /* nImO:ConvertInt64ToPacketOrder */
    
 size_t
 nImO::ConvertPacketOrderToDouble(const uint8_t *start,
@@ -247,9 +247,9 @@ nImO::ConvertPacketOrderToDouble(const uint8_t *start,
 } /* nImO:ConvertPacketOrderToDouble */
 
 size_t
-nImO::ConvertPacketOrderToLong(const uint8_t *start,
-                               const uint8_t *end,
-                               int64_t       &value)
+nImO::ConvertPacketOrderToInt64(const uint8_t *start,
+                                const uint8_t *end,
+                                int64_t       &value)
 {
     size_t  result;
     
@@ -298,5 +298,5 @@ nImO::ConvertPacketOrderToLong(const uint8_t *start,
         result = numBytes;
     }
     return result;
-} /* nImO:ConvertPacketOrderToLong */
+} /* nImO:ConvertPacketOrderToInt64 */
 

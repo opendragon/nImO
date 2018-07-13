@@ -692,7 +692,7 @@ main(int  argc,
         {
             int64_t selector;
 
-            if (ConvertToLong(argv[1], selector) && (0 < selector))
+            if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
 
@@ -739,7 +739,7 @@ main(int  argc,
             }
             else
             {
-                ODL_LOG("! (ConvertToLong(argv[1], selector) && (0 < selector))"); //####
+                ODL_LOG("! (ConvertToInt64(argv[1], selector) && (0 < selector))"); //####
             }
         }
         else

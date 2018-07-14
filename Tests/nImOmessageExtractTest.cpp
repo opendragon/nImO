@@ -4359,10 +4359,10 @@ doTestMessageWithArrayWithRangeOfIntegers(UNUSED_ const char *launchPath,
                         static_cast<DataKind>(0x9C), // -100
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerShortValue |
-                          0xF6 & DataKind::IntegerShortValueValueMask, // -10
+                          (0xF6 & DataKind::IntegerShortValueValueMask), // -10
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerShortValue |
-                          0xFF & DataKind::IntegerShortValueValueMask, // -1
+                          (0xFF & DataKind::IntegerShortValueValueMask), // -1
                         // End of Array
                         DataKind::Other | DataKind::OtherContainerEnd |
                           DataKind::OtherContainerTypeArray |

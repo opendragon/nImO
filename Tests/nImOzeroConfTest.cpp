@@ -141,7 +141,7 @@ compareValueWithString(const Value &aValue,
 static int
 doTestParseLogicalValue(const bool expected,
                         const char *inString,
-                        const char *expectedString) // boolean values
+                        const char *expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####

@@ -147,7 +147,8 @@ namespace nImO
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
-        inline const std::string &getValue(void)
+        inline const std::string &
+        getValue(void)
         const
         {
             return _value;

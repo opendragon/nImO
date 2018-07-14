@@ -957,7 +957,7 @@ PrintUsageImplementation::LinePartIterator::next(void)
                 ++ptr;
                 continue;
 
-        } // switch
+        }
 
         if (line_in_block == target_line_in_block)
         {

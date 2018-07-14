@@ -190,7 +190,7 @@ doTestMessageInitialEndTag(UNUSED_ const char *launchPath,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with incorrect start tag @0");
@@ -249,7 +249,7 @@ doTestMessageTerminalStartTag(UNUSED_ const char *launchPath,
                 // End of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1");
@@ -311,7 +311,7 @@ doTestEmptyMessageWithContent(UNUSED_ const char *launchPath,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1");
@@ -374,7 +374,7 @@ doTestNonEmptyMessageWithoutContent(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1");
@@ -440,7 +440,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag(UNUSED_ const char *launchPat
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1");
@@ -506,7 +506,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag(UNUSED_ const char *launchPath
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched end Value tag @2");
@@ -571,7 +571,7 @@ doTestNonEmptyMessageWithInvalidContentTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -607,9 +607,9 @@ doTestNonEmptyMessageWithInvalidContentTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithZeroFloatCount(UNUSED_ const char *launchPath,
-                                        UNUSED_ const int  argc,
-                                        UNUSED_ char       **argv) // message with bad float count
+doTestNonEmptyMessageWithZeroDoubleCount(UNUSED_ const char *launchPath,
+                                         UNUSED_ const int  argc,
+                                         UNUSED_ char       **argv) // message with bad double count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -638,7 +638,7 @@ doTestNonEmptyMessageWithZeroFloatCount(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Bad count for Double @2");
@@ -655,7 +655,7 @@ doTestNonEmptyMessageWithZeroFloatCount(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestNonEmptyMessageWithZeroFloatCount
+} // doTestNonEmptyMessageWithZeroDoubleCount
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -677,7 +677,7 @@ static int
 doTestNonEmptyMessageWithStringWithInvalidLength(UNUSED_ const char *launchPath,
                                                  UNUSED_ const int  argc,
                                                  UNUSED_ char       **argv) // message with string with
-                                                                    // invalid length
+                                                                            // invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -707,7 +707,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
@@ -746,7 +746,7 @@ static int
 doTestNonEmptyMessageWithBlobWithInvalidLength(UNUSED_ const char *launchPath,
                                                UNUSED_ const int  argc,
                                                UNUSED_ char       **argv) // message with blob with
-                                                                  // invalid length
+                                                                          // invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -776,7 +776,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
@@ -815,7 +815,7 @@ static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag(UNUSED_ const char *launchPath,
                                                 UNUSED_ const int  argc,
                                                 UNUSED_ char       **argv) // message with array with
-                                                                   // initial end tag
+                                                                           // initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -848,7 +848,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -920,7 +920,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag(UNUSED_ const char *launchPat
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
@@ -959,7 +959,7 @@ static int
 doTestNonEmptyMessageWithEmptyArrayWithContent(UNUSED_ const char *launchPath,
                                                UNUSED_ const int  argc,
                                                UNUSED_ char       **argv) // message with empty array with
-                                                                  // content
+                                                                          // content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -995,7 +995,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
@@ -1034,7 +1034,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(UNUSED_ const char *launchPath,
                                                      UNUSED_ const int  argc,
                                                      UNUSED_ char       **argv) // message with nonempty
-                                                                        // array without content
+                                                                                // array without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1072,7 +1072,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(UNUSED_ const char *launchP
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -1111,8 +1111,8 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(UNUSED_ const char *launchPath,
                                                        UNUSED_ const int  argc,
                                                        UNUSED_ char       **argv) // message with nonempty
-                                                                          // array with invalid
-                                                                          // count
+                                                                                  // array with invalid
+                                                                                  // count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1149,7 +1149,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(UNUSED_ const char *launc
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Array with zero or negative count @4");
@@ -1188,7 +1188,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(UNUSED_ const char *launchPath,
                                                        UNUSED_ const int  argc,
                                                        UNUSED_ char       **argv) // message with array with
-                                                                          // too few values
+                                                                                  // too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1232,7 +1232,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(UNUSED_ const char *launc
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
@@ -1271,7 +1271,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *launchPath,
                                                         UNUSED_ const int  argc,
                                                         UNUSED_ char       **argv) // message with array
-                                                                           // with too many values
+                                                                                   // with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1318,7 +1318,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *laun
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @5");
@@ -1354,10 +1354,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *laun
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(UNUSED_ const char *launchPath,
-                                                        UNUSED_ const int  argc,
-                                                        UNUSED_ char       **argv) // message with array
-                                                                           // with too many floats
+doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(UNUSED_ const char *launchPath,
+                                                         UNUSED_ const int  argc,
+                                                         UNUSED_ char       **argv) // message with array
+                                                                                    // with too many doubles
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1414,7 +1414,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(UNUSED_ const char *laun
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @29");
@@ -1431,7 +1431,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(UNUSED_ const char *laun
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats
+} // doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1453,7 +1453,7 @@ static int
 doTestNonEmptyMessageWithMapWithInitialEndTag(UNUSED_ const char *launchPath,
                                               UNUSED_ const int  argc,
                                               UNUSED_ char       **argv) // message with map with
-                                                                 // initial end tag
+                                                                         // initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1486,7 +1486,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -1525,7 +1525,7 @@ static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag(UNUSED_ const char *launchPath,
                                                  UNUSED_ const int  argc,
                                                  UNUSED_ char       **argv) // message with map with
-                                                                    // terminal start tag
+                                                                            // terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1558,7 +1558,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
@@ -1597,7 +1597,7 @@ static int
 doTestNonEmptyMessageWithEmptyMapWithContent(UNUSED_ const char *launchPath,
                                              UNUSED_ const int  argc,
                                              UNUSED_ char       **argv) // message with empty map with
-                                                                // content
+                                                                        // content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1633,7 +1633,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
@@ -1672,7 +1672,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent(UNUSED_ const char *launchPath,
                                                    UNUSED_ const int  argc,
                                                    UNUSED_ char       **argv) // message with nonempty
-                                                                      // map without content
+                                                                              // map without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1710,7 +1710,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent(UNUSED_ const char *launchPat
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -1749,7 +1749,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(UNUSED_ const char *launchPath,
                                                      UNUSED_ const int  argc,
                                                      UNUSED_ char       **argv) // message with nonempty
-                                                                        // map with invalid count
+                                                                                // map with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1786,7 +1786,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(UNUSED_ const char *launchP
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Map with zero or negative count @4");
@@ -1825,7 +1825,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(UNUSED_ const char *launchPath,
                                                      UNUSED_ const int  argc,
                                                      UNUSED_ char       **argv) // message with map with
-                                                                        // too few values
+                                                                                // too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1875,7 +1875,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(UNUSED_ const char *launchP
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @7");
@@ -1914,7 +1914,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(UNUSED_ const char *launchPath,
                                                       UNUSED_ const int  argc,
                                                       UNUSED_ char       **argv) // message with map with
-                                                                         // too many values
+                                                                                 // too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1964,7 +1964,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(UNUSED_ const char *launch
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Map with incorrect end tag @5");
@@ -2003,7 +2003,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(UNUSED_ const char *launchPath,
                                                        UNUSED_ const int  argc,
                                                        UNUSED_ char       **argv) // message with map with
-                                                                          // incomplete pair
+                                                                                  // incomplete pair
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2050,7 +2050,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(UNUSED_ const char *launc
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
@@ -2089,7 +2089,7 @@ static int
 doTestNonEmptyMessageWithSetWithInitialEndTag(UNUSED_ const char *launchPath,
                                               UNUSED_ const int  argc,
                                               UNUSED_ char       **argv) // message with set with
-                                                                 // initial end tag
+                                                                         // initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2122,7 +2122,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -2194,7 +2194,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
@@ -2233,7 +2233,7 @@ static int
 doTestNonEmptyMessageWithEmptySetWithContent(UNUSED_ const char *launchPath,
                                              UNUSED_ const int  argc,
                                              UNUSED_ char       **argv) // message with empty set with
-                                                                // content
+                                                                        // content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2269,7 +2269,7 @@ doTestNonEmptyMessageWithEmptySetWithContent(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
@@ -2308,7 +2308,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent(UNUSED_ const char *launchPath,
                                                    UNUSED_ const int  argc,
                                                    UNUSED_ char       **argv) // message with nonempty
-                                                                      // set without content
+                                                                              // set without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2346,7 +2346,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent(UNUSED_ const char *launchPat
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -2385,7 +2385,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(UNUSED_ const char *launchPath,
                                                      UNUSED_ const int  argc,
                                                      UNUSED_ char       **argv) // message with nonempty
-                                                                        // set with invalid count
+                                                                                // set with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2422,7 +2422,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(UNUSED_ const char *launchP
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Set with zero or negative count @4");
@@ -2461,7 +2461,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(UNUSED_ const char *launchPath,
                                                      UNUSED_ const int  argc,
                                                      UNUSED_ char       **argv) // message with set with
-                                                                        // too few values
+                                                                                // too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2505,7 +2505,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(UNUSED_ const char *launchP
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
@@ -2544,7 +2544,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(UNUSED_ const char *launchPath,
                                                       UNUSED_ const int  argc,
                                                       UNUSED_ char       **argv) // message with set with
-                                                                         // too many values
+                                                                                 // too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2591,7 +2591,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(UNUSED_ const char *launch
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
@@ -2687,7 +2687,7 @@ main(int  argc,
                         break;
 
                     case 8 :
-                        result = doTestNonEmptyMessageWithZeroFloatCount(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptyMessageWithZeroDoubleCount(*argv, argc - 1, argv + 2);
                         break;
 
                     case 9 :
@@ -2740,9 +2740,9 @@ main(int  argc,
                         break;
 
                     case 27 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats(*argv,
-                                                                                         argc - 1,
-                                                                                         argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(*argv,
+                                                                                          argc - 1,
+                                                                                          argv + 2);
                         break;
 
                     case 40 :

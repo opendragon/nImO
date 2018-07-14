@@ -71,7 +71,7 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of random floating point numbers to convert. */
-static const int kNumFloatTests = 100;
+static const int kNumDoubleTests = 100;
 
 /*! @brief The expected maximum size of a buffer needed for conversion. */
 static const size_t kBufferSize = 20;
@@ -134,7 +134,7 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
             {
                 uint8_t buffer[kBufferSize];
                 int64_t newInteger;
-                double  newFloat;
+                double  newDouble;
 
                 switch (choice)
                 {
@@ -143,9 +143,9 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
                         if ((0 == ConvertInt64ToPacketOrder(buffer, NULL, 42)) &&
                             (0 == ConvertDoubleToPacketOrder(buffer, NULL, 42.0)) &&
                             (0 == ConvertPacketOrderToInt64(buffer, NULL, newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(buffer, NULL, newFloat)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer, NULL, newDouble)) &&
                             (0 == ConvertPacketOrderToInt64(NULL, buffer, newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(NULL, buffer, newFloat)))
+                            (0 == ConvertPacketOrderToDouble(NULL, buffer, newDouble)))
                         {
                             result = 0;
                         }
@@ -156,9 +156,9 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
                         if ((0 == ConvertInt64ToPacketOrder(buffer + 1, buffer, 42)) &&
                             (0 == ConvertDoubleToPacketOrder(buffer + 1, buffer, 42.0)) &&
                             (0 == ConvertPacketOrderToInt64(buffer + 1, buffer, newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(buffer + 1, buffer, newFloat)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer + 1, buffer, newDouble)) &&
                             (0 == ConvertPacketOrderToInt64(buffer, buffer + sizeof(int64_t), newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(buffer, buffer + sizeof(double), newFloat)))
+                            (0 == ConvertPacketOrderToDouble(buffer, buffer + sizeof(double), newDouble)))
                         {
                             result = 0;
                         }
@@ -268,9 +268,9 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFloatingPointSize(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // floating point size
+doTestDoubleSize(UNUSED_ const char *launchPath,
+                 UNUSED_ const int  argc,
+                 UNUSED_ char       **argv) // double size
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -300,7 +300,7 @@ doTestFloatingPointSize(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestFloatingPointSize
+} // doTestDoubleSize
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -339,12 +339,14 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
             {
                 size_t  expectedLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
                 uint8_t buffer[kBufferSize];
-                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
+                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
+                                                               value);
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue);
+                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1,
+                                                                  newValue);
                     
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -352,13 +354,11 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
                     }
                     else
                     {
-cerr << newValue << " " << value << endl << newLength << " " << convLength << endl;
                         ODL_LOG("! ((newValue == value) && (newLength == convLength))"); //####
                     }
                 }
                 else
                 {
-cerr << "expectedLength != convLength" << endl;
                     ODL_LOG("expectedLength != convLength"); //####
                 }
             }
@@ -398,9 +398,9 @@ cerr << "expectedLength != convLength" << endl;
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFloatingPointConversion(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // floating point conversion
+doTestDoubleConversion(UNUSED_ const char *launchPath,
+                       UNUSED_ const int  argc,
+                       UNUSED_ char       **argv) // double conversion
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -410,17 +410,19 @@ doTestFloatingPointConversion(UNUSED_ const char *launchPath,
 
     try
     {
-        for (int ii = 0; ii < kNumFloatTests; ++ii)
+        for (int ii = 0; ii < kNumDoubleTests; ++ii)
         {
             double  value = ((rand() % 10000) * 0.1);
             size_t  expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
             uint8_t buffer[kBufferSize];
-            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
+            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
+                                                            value);
             
             if (expectedLength == convLength)
             {
                 double  newValue;
-                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue);
+                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1,
+                                                               newValue);
                 
                 if ((newValue == value) && (newLength == convLength))
                 {
@@ -449,7 +451,7 @@ doTestFloatingPointConversion(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestFloatingPointConversion
+} // doTestDoubleConversion
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -509,7 +511,7 @@ main(int  argc,
                         break;
 
                     case 3 :
-                        result = doTestFloatingPointSize(*argv, argc - 1, argv + 2);
+                        result = doTestDoubleSize(*argv, argc - 1, argv + 2);
                         break;
 
                     case 4 :
@@ -517,7 +519,7 @@ main(int  argc,
                         break;
 
                     case 5 :
-                        result = doTestFloatingPointConversion(*argv, argc - 1, argv + 2);
+                        result = doTestDoubleConversion(*argv, argc - 1, argv + 2);
                         break;
 
                     default :
@@ -547,14 +549,3 @@ main(int  argc,
     ODL_EXIT_L(result); //####
     return result;
 } // main
-
-/*
-# Test integer size for value of 0
-#add_test(NAME TestIntegerSize COMMAND ${THIS_TARGET} 1 0 1)
-# Test floating point size
-#add_test(NAME TestFloatingPointSize COMMAND ${THIS_TARGET} 2)
-# Test integer conversion for value of 0
-#add_test(NAME TestIntegerConversion COMMAND ${THIS_TARGET} 3 0)
-# Test floating point conversion
-#add_test(NAME TestFloatingPointConversion COMMAN ${THIS_TARGET} 4)
-*/

@@ -61,7 +61,7 @@ set(nImO_CONFIG_DIR "${PROJECT_SOURCE_DIR}")
 set(LIB_DEST "lib")
 set(INCLUDE_DEST "include")
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -94,8 +94,7 @@ if(APPLE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 # 'rpath' warning
     cmake_policy(SET CMP0042 OLD)
-endif()
-if(LINUX)
+elseif(LINUX)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
         FORCE)
@@ -104,9 +103,7 @@ if(LINUX)
 "${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
-endif()
-
-if(WIN32)
+else()
     if(NOT ("${CMAKE_EXE_LINKER_FLAGS}" MATCHES ".*NODEFAULTLIB:libcmt.*"))
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt" CACHE STRING
             "Flags used by the linker." FORCE)

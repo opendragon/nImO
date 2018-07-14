@@ -45,12 +45,10 @@ set(OTHER_TARGET_PYTHON nImOcommon_swig_python)
 if(APPLE)
     set(DO_SHARED "SHARED")
     set(THIS_TARGET_LIB "lib${THIS_TARGET}.dylib")
+elseif(LINUX)
+    set(DO_SHARED "SHARED")
 else()
-    if(LINUX)
-        set(DO_SHARED "SHARED")
-    else()
-        set(DO_SHARED "")
-    endif()
+    set(DO_SHARED "")
 endif()
 
 add_library(${THIS_TARGET}
@@ -92,7 +90,7 @@ add_library(${THIS_TARGET}
             "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
 
 target_link_libraries(${THIS_TARGET}
-                        ${ODL_LIBRARIES}
+                        ${ODL_LIBRARY}
                         ${BONJOUR_LIB})
 
 if(LINUX)
@@ -196,7 +194,7 @@ if(nImO_DO_SWIG)
 
     swig_link_libraries(${OTHER_TARGET_CSHARP}
                         ${THIS_TARGET}
-                        ${ODL_LIBRARIES})
+                        ${ODL_LIBRARY})
 
     install(TARGETS ${OTHER_TARGET_CSHARP}
             EXPORT ${PROJECT_NAME}
@@ -218,7 +216,7 @@ if(nImO_DO_SWIG)
 
     swig_link_libraries(${OTHER_TARGET_PYTHON}
                         ${THIS_TARGET}
-                        ${ODL_LIBRARIES}
+                        ${ODL_LIBRARY}
                         ${PYTHON_LIBRARIES})
 
 # Note the modified target name!

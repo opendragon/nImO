@@ -155,173 +155,173 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
         ODL_B1("atEnd <- ", atEnd); //####
         switch (currentState)
         {
-        case ScanState::Initial :
-            if ('+' == aChar)
-            {
-               if (sawInitialMinus || sawInitialPlus)
-               {
-                   ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
-                   done = true; // more than one sign character
-               }
-               else
-               {
-                   sawInitialPlus = true;
-               }
-            }
-            else if ('-' == aChar)
-            {
-               if (sawInitialMinus || sawInitialPlus)
-               {
-                   ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
-                   done = true; // more than one sign character
-               }
-               else
-               {
-                   sawInitialMinus = true;
-               }
-            }
-            else if ('.' == aChar)
-            {
-                needsAdigit = isDouble = true;
-                currentState = ScanState::FractionStartSeen;
-            }
-            else if (isdigit(aChar))
-            {
-                currentState = ScanState::IntegerDigitSeen;
-                integerPart = aChar - '0';
-            }
-            else
-            {
-                ODL_LOG("! (isdigit(aChar))"); //####
-                done = true; // unexpected character
-            }
-            break;
-
-        case ScanState::IntegerDigitSeen :
-            if ('.' == aChar)
-            {
-                isDouble = true;
-                currentState = ScanState::FractionStartSeen;
-            }
-            else if ('e' == aChar)
-            {
-                isDouble = true;
-                currentState = ScanState::ExponentStart;
-            }
-            else if (atEnd || isLegalTerminator(aChar))
-            {
-                // unexpected character seen, but valid so far
-                --localIndex;
-                done = valid = true;
-            }
-            else if (isdigit(aChar))
-            {
-                integerPart *= 10;
-                integerPart += aChar - '0';
-            }
-            else
-            {
-                ODL_LOG("! (isDigit(aChar))"); //####
-                done = true;
-            }
-            break;
-
-        case ScanState::FractionStartSeen :
-            if ('e' == aChar)
-            {
-            if (needsAdigit)
+            case ScanState::Initial :
+                if ('+' == aChar)
                 {
-                    done = true; // decimal point with no trailing digits
+                   if (sawInitialMinus || sawInitialPlus)
+                   {
+                       ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
+                       done = true; // more than one sign character
+                   }
+                   else
+                   {
+                       sawInitialPlus = true;
+                   }
+                }
+                else if ('-' == aChar)
+                {
+                   if (sawInitialMinus || sawInitialPlus)
+                   {
+                       ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
+                       done = true; // more than one sign character
+                   }
+                   else
+                   {
+                       sawInitialMinus = true;
+                   }
+                }
+                else if ('.' == aChar)
+                {
+                    needsAdigit = isDouble = true;
+                    currentState = ScanState::FractionStartSeen;
+                }
+                else if (isdigit(aChar))
+                {
+                    currentState = ScanState::IntegerDigitSeen;
+                    integerPart = aChar - '0';
                 }
                 else
                 {
+                    ODL_LOG("! (isdigit(aChar))"); //####
+                    done = true; // unexpected character
+                }
+                break;
+
+            case ScanState::IntegerDigitSeen :
+                if ('.' == aChar)
+                {
+                    isDouble = true;
+                    currentState = ScanState::FractionStartSeen;
+                }
+                else if ('e' == aChar)
+                {
+                    isDouble = true;
                     currentState = ScanState::ExponentStart;
                 }
-            }
-            else if (atEnd || isLegalTerminator(aChar))
-            {
-                if (needsAdigit)
+                else if (atEnd || isLegalTerminator(aChar))
                 {
-                    ODL_LOG("(needsAdigit)"); //####
-                    done = true; // decimal point with no trailing digits
+                    // unexpected character seen, but valid so far
+                    --localIndex;
+                    done = valid = true;
+                }
+                else if (isdigit(aChar))
+                {
+                    integerPart *= 10;
+                    integerPart += aChar - '0';
                 }
                 else
                 {
-                    --localIndex;
-                    done = valid = true; // the character seen is the end of the value
+                    ODL_LOG("! (isDigit(aChar))"); //####
+                    done = true;
                 }
-            }
-            else if (isdigit(aChar))
-            {
-                needsAdigit = false;
-                fractionPart *= 10;
-                fractionPart += aChar - '0';
-                ++fractionPower;
-            }
-            else
-            {
-                ODL_LOG("! (isDigit(aChar))"); //####
-                done = true; // decimal point with no trailing digits
-            }
-            break;
+                break;
 
-        case ScanState::ExponentStart :
-            if ('+' == aChar)
-            {
-               if (sawExponentMinus || sawExponentPlus)
-               {
-                   ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
-                   done = true; // more than one sign character
-               }
-               else
-               {
-                   sawExponentPlus = true;
-               }
-            }
-            else if ('-' == aChar)
-            {
-               if (sawExponentMinus || sawExponentPlus)
-               {
-                   ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
-                   done = true; // more than one sign character
-               }
-               else
-               {
-                   sawExponentMinus = true;
-               }
-            }
-            else if (isdigit(aChar))
-            {
-                currentState = ScanState::ExponentSeen;
-                exponent = aChar - '0';
-            }
-            else
-            {
-                ODL_LOG("! (isdigit(aChar))"); //####
-                done = true; // unexpected character
-            }
-            break;
+            case ScanState::FractionStartSeen :
+                if ('e' == aChar)
+                {
+                if (needsAdigit)
+                    {
+                        done = true; // decimal point with no trailing digits
+                    }
+                    else
+                    {
+                        currentState = ScanState::ExponentStart;
+                    }
+                }
+                else if (atEnd || isLegalTerminator(aChar))
+                {
+                    if (needsAdigit)
+                    {
+                        ODL_LOG("(needsAdigit)"); //####
+                        done = true; // decimal point with no trailing digits
+                    }
+                    else
+                    {
+                        --localIndex;
+                        done = valid = true; // the character seen is the end of the value
+                    }
+                }
+                else if (isdigit(aChar))
+                {
+                    needsAdigit = false;
+                    fractionPart *= 10;
+                    fractionPart += aChar - '0';
+                    ++fractionPower;
+                }
+                else
+                {
+                    ODL_LOG("! (isDigit(aChar))"); //####
+                    done = true; // decimal point with no trailing digits
+                }
+                break;
 
-        case ScanState::ExponentSeen :
-            if (atEnd || isLegalTerminator(aChar))
-            {
-                --localIndex;
-                done = valid = true; // the character seen is the buffer end
-            }
-            else if (isdigit(aChar))
-            {
-                exponent *= 10;
-                exponent += aChar - '0';
-            }
-            else
-            {
-                ODL_LOG("! (isDigit(aChar))"); //####
-                done = true;
-            }
-            break;
+            case ScanState::ExponentStart :
+                if ('+' == aChar)
+                {
+                   if (sawExponentMinus || sawExponentPlus)
+                   {
+                       ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
+                       done = true; // more than one sign character
+                   }
+                   else
+                   {
+                       sawExponentPlus = true;
+                   }
+                }
+                else if ('-' == aChar)
+                {
+                   if (sawExponentMinus || sawExponentPlus)
+                   {
+                       ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
+                       done = true; // more than one sign character
+                   }
+                   else
+                   {
+                       sawExponentMinus = true;
+                   }
+                }
+                else if (isdigit(aChar))
+                {
+                    currentState = ScanState::ExponentSeen;
+                    exponent = aChar - '0';
+                }
+                else
+                {
+                    ODL_LOG("! (isdigit(aChar))"); //####
+                    done = true; // unexpected character
+                }
+                break;
 
-        default :
-            break;
+            case ScanState::ExponentSeen :
+                if (atEnd || isLegalTerminator(aChar))
+                {
+                    --localIndex;
+                    done = valid = true; // the character seen is the buffer end
+                }
+                else if (isdigit(aChar))
+                {
+                    exponent *= 10;
+                    exponent += aChar - '0';
+                }
+                else
+                {
+                    ODL_LOG("! (isDigit(aChar))"); //####
+                    done = true;
+                }
+                break;
+
+            default :
+                break;
 
         }
     }

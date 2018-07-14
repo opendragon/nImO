@@ -566,40 +566,85 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             {
                 switch (state)
                 {
-                case ScanState::Normal :
-                    if (delimiter == aChar)
-                    {
-                        valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
-                        if (atEnd)
+                    case ScanState::Normal :
+                        if (delimiter == aChar)
                         {
-                            valid = true;
-                        }
-                        done = true; // possibly ready to use
-                    }
-                    else if (kEscapeChar == aChar)
-                    {
-                        state = ScanState::SawEscape;
-                    }
-                    else
-                    {
-                        holding.addChar(aChar);
-                    }
-                    break;
-
-                case ScanState::SawEscape :
-                    if (delimiter == aChar)
-                    {
-                        holding.addChar(aChar);
-                        state = ScanState::Normal;
-                    }
-                    else
-                    {
-                        const char *whichEscape = strchr(standardEscapes, aChar);
-
-                        if (nullptr == whichEscape)
-                        {
-                            switch (aChar)
+                            valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
+                            if (atEnd)
                             {
+                                valid = true;
+                            }
+                            done = true; // possibly ready to use
+                        }
+                        else if (kEscapeChar == aChar)
+                        {
+                            state = ScanState::SawEscape;
+                        }
+                        else
+                        {
+                            holding.addChar(aChar);
+                        }
+                        break;
+
+                    case ScanState::SawEscape :
+                        if (delimiter == aChar)
+                        {
+                            holding.addChar(aChar);
+                            state = ScanState::Normal;
+                        }
+                        else
+                        {
+                            const char *whichEscape = strchr(standardEscapes, aChar);
+
+                            if (nullptr == whichEscape)
+                            {
+                                switch (aChar)
+                                {
+                                    case '0' :
+                                    case '1' :
+                                    case '2' :
+                                    case '3' :
+                                    case '4' :
+                                    case '5' :
+                                    case '6' :
+                                    case '7' :
+                                        octalSum = aChar - '0';
+                                        state = ScanState::SawEscapeOctal1;
+                                        break;
+
+                                    case 'c' :
+                                        state = ScanState::SawEscapeSmallC;
+                                        break;
+
+                                    case 'C' :
+                                        state = ScanState::SawEscapeBigC;
+                                        break;
+
+                                    case 'M' :
+                                        state = ScanState::SawEscapeBigM;
+                                        break;
+
+                                    default :
+                                        ODL_LOG("default"); //####
+                                        done = true; // unrecognized escape sequence
+                                        break;
+
+                                }
+                            }
+                            else
+                            {
+                                const char *replacement = standardEscapesActual +
+                                                          (whichEscape - standardEscapes);
+
+                                holding.addChar(*replacement);
+                                state = ScanState::Normal;
+                            }
+                        }
+                        break;
+
+                    case ScanState::SawEscapeOctal1 :
+                        switch (aChar)
+                        {
                             case '0' :
                             case '1' :
                             case '2' :
@@ -608,20 +653,9 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                             case '5' :
                             case '6' :
                             case '7' :
-                                octalSum = aChar - '0';
-                                state = ScanState::SawEscapeOctal1;
-                                break;
-
-                            case 'c' :
-                                state = ScanState::SawEscapeSmallC;
-                                break;
-
-                            case 'C' :
-                                state = ScanState::SawEscapeBigC;
-                                break;
-
-                            case 'M' :
-                                state = ScanState::SawEscapeBigM;
+                                octalSum *= 8;
+                                octalSum += aChar - '0';
+                                state = ScanState::SawEscapeOctal2;
                                 break;
 
                             default :
@@ -629,174 +663,140 @@ nImO::String::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
                                 done = true; // unrecognized escape sequence
                                 break;
 
-                            }
+                        }
+                        break;
+
+                    case ScanState::SawEscapeOctal2 :
+                        switch (aChar)
+                        {
+                            case '0' :
+                            case '1' :
+                            case '2' :
+                            case '3' :
+                            case '4' :
+                            case '5' :
+                            case '6' :
+                            case '7' :
+                                octalSum *= 8;
+                                octalSum += aChar - '0';
+                                holding.addChar(static_cast<char>(octalSum));
+                                state = ScanState::Normal;
+                                break;
+
+                            default :
+                                ODL_LOG("default"); //####
+                                done = true; // unrecognized escape sequence
+                                break;
+
+                        }
+                        break;
+
+                    case ScanState::SawEscapeSmallC :
+                        aChar = toupper(aChar);
+                        if (('@' <= aChar) && ('_' >= aChar))
+                        {
+                            holding.addChar(aChar - '@');
+                            state = ScanState::Normal;
                         }
                         else
                         {
-                            const char *replacement = standardEscapesActual +
-                                                      (whichEscape - standardEscapes);
+                            ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
 
-                            holding.addChar(*replacement);
+                    case ScanState::SawEscapeBigC :
+                        if ('-' == aChar)
+                        {
+                            state = ScanState::SawEscapeBigCminus;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ('-' == aChar)"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
+
+                    case ScanState::SawEscapeBigCminus :
+                        aChar = toupper(aChar);
+                        if (('@' <= aChar) && ('_' >= aChar))
+                        {
+                            holding.addChar(aChar - '@');
                             state = ScanState::Normal;
                         }
-                    }
-                    break;
+                        else
+                        {
+                            ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
 
-                case ScanState::SawEscapeOctal1 :
-                    switch (aChar)
-                    {
-                    case '0' :
-                    case '1' :
-                    case '2' :
-                    case '3' :
-                    case '4' :
-                    case '5' :
-                    case '6' :
-                    case '7' :
-                        octalSum *= 8;
-                        octalSum += aChar - '0';
-                        state = ScanState::SawEscapeOctal2;
+                    case ScanState::SawEscapeBigM :
+                        if ('-' == aChar)
+                        {
+                            state = ScanState::SawEscapeBigMminus;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ('-' == aChar)"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
+
+                    case ScanState::SawEscapeBigMminus :
+                        if (kEscapeChar == aChar)
+                        {
+                            state = ScanState::SawEscapeBigMminusEscape;
+                        }
+                        else
+                        {
+                            holding.addChar(aChar | 0x080);
+                            state = ScanState::Normal;
+                        }
+                        break;
+
+                    case ScanState::SawEscapeBigMminusEscape :
+                        if ('C' == aChar)
+                        {
+                            state = ScanState::SawEscapeBigMminusEscapeBigC;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ('C' == aChar)"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
+
+                    case ScanState::SawEscapeBigMminusEscapeBigC :
+                        if ('-' == aChar)
+                        {
+                            state = ScanState::SawEscapeBigMminusEscapeBigCminus;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ('-' == aChar)"); //####
+                            done = true; // unrecognized escape sequence
+                        }
+                        break;
+
+                    case ScanState::SawEscapeBigMminusEscapeBigCminus :
+                        aChar = toupper(aChar);
+                        if (('@' <= aChar) && ('_' >= aChar))
+                        {
+                            holding.addChar((aChar - '@') | 0x080);
+                            state = ScanState::Normal;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
+                            done = true; // unrecognized escape sequence
+                        }
                         break;
 
                     default :
                         ODL_LOG("default"); //####
-                        done = true; // unrecognized escape sequence
+                        done = true; // unrecognized sequence
                         break;
-
-                    }
-                    break;
-
-                case ScanState::SawEscapeOctal2 :
-                    switch (aChar)
-                    {
-                    case '0' :
-                    case '1' :
-                    case '2' :
-                    case '3' :
-                    case '4' :
-                    case '5' :
-                    case '6' :
-                    case '7' :
-                        octalSum *= 8;
-                        octalSum += aChar - '0';
-                        holding.addChar(static_cast<char>(octalSum));
-                        state = ScanState::Normal;
-                        break;
-
-                    default :
-                        ODL_LOG("default"); //####
-                        done = true; // unrecognized escape sequence
-                        break;
-
-                    }
-                    break;
-
-                case ScanState::SawEscapeSmallC :
-                    aChar = toupper(aChar);
-                    if (('@' <= aChar) && ('_' >= aChar))
-                    {
-                        holding.addChar(aChar - '@');
-                        state = ScanState::Normal;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigC :
-                    if ('-' == aChar)
-                    {
-                        state = ScanState::SawEscapeBigCminus;
-                    }
-                    else
-                    {
-                        ODL_LOG("! ('-' == aChar)"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigCminus :
-                    aChar = toupper(aChar);
-                    if (('@' <= aChar) && ('_' >= aChar))
-                    {
-                        holding.addChar(aChar - '@');
-                        state = ScanState::Normal;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigM :
-                    if ('-' == aChar)
-                    {
-                        state = ScanState::SawEscapeBigMminus;
-                    }
-                    else
-                    {
-                        ODL_LOG("! ('-' == aChar)"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigMminus :
-                    if (kEscapeChar == aChar)
-                    {
-                        state = ScanState::SawEscapeBigMminusEscape;
-                    }
-                    else
-                    {
-                        holding.addChar(aChar | 0x080);
-                        state = ScanState::Normal;
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigMminusEscape :
-                    if ('C' == aChar)
-                    {
-                        state = ScanState::SawEscapeBigMminusEscapeBigC;
-                    }
-                    else
-                    {
-                        ODL_LOG("! ('C' == aChar)"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigMminusEscapeBigC :
-                    if ('-' == aChar)
-                    {
-                        state = ScanState::SawEscapeBigMminusEscapeBigCminus;
-                    }
-                    else
-                    {
-                        ODL_LOG("! ('-' == aChar)"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                case ScanState::SawEscapeBigMminusEscapeBigCminus :
-                    aChar = toupper(aChar);
-                    if (('@' <= aChar) && ('_' >= aChar))
-                    {
-                        holding.addChar((aChar - '@') | 0x080);
-                        state = ScanState::Normal;
-                    }
-                    else
-                    {
-                        ODL_LOG("! (('@' <= aChar) && ('_' >= aChar))"); //####
-                        done = true; // unrecognized escape sequence
-                    }
-                    break;
-
-                default :
-                    ODL_LOG("default"); //####
-                    done = true; // unrecognized sequence
-                    break;
 
                 }
             }

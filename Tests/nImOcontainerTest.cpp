@@ -580,7 +580,7 @@ doTestEmptyMapValue(UNUSED_ const char *launchPath,
 static int
 doTestSingularLogicalMapValue(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular boolean map
+                              UNUSED_ char       **argv) // singular logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -821,7 +821,7 @@ doTestSingularStringMapValue(UNUSED_ const char *launchPath,
 static int
 doTestSmallLogicalMapValue(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small boolean map
+                           UNUSED_ char       **argv) // small logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1081,7 +1081,7 @@ doTestSmallStringMapValue(UNUSED_ const char *launchPath,
 static int
 doTestEmptySetValue(UNUSED_ const char *launchPath,
                     UNUSED_ const int  argc,
-                    UNUSED_ char       **argv) // empty map
+                    UNUSED_ char       **argv) // empty set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1155,7 +1155,7 @@ doTestEmptySetValue(UNUSED_ const char *launchPath,
 static int
 doTestSingularLogicalSetValue(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular boolean map
+                              UNUSED_ char       **argv) // singular logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1234,7 +1234,7 @@ doTestSingularLogicalSetValue(UNUSED_ const char *launchPath,
 static int
 doTestSingularIntegerSetValue(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular integer map
+                              UNUSED_ char       **argv) // singular integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1313,7 +1313,7 @@ doTestSingularIntegerSetValue(UNUSED_ const char *launchPath,
 static int
 doTestSingularStringSetValue(UNUSED_ const char *launchPath,
                              UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // singular string map
+                             UNUSED_ char       **argv) // singular string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1392,7 +1392,7 @@ doTestSingularStringSetValue(UNUSED_ const char *launchPath,
 static int
 doTestSmallLogicalSetValue(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small boolean map
+                           UNUSED_ char       **argv) // small logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1476,7 +1476,7 @@ doTestSmallLogicalSetValue(UNUSED_ const char *launchPath,
 static int
 doTestSmallIntegerSetValue(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small integer map
+                           UNUSED_ char       **argv) // small integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1568,7 +1568,7 @@ doTestSmallIntegerSetValue(UNUSED_ const char *launchPath,
 static int
 doTestSmallStringSetValue(UNUSED_ const char *launchPath,
                           UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // small string map
+                          UNUSED_ char       **argv) // small string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2140,7 +2140,7 @@ doTestMapWithSetValue(UNUSED_ const char *launchPath,
 static int
 doTestLogicalMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
                                           UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // boolean map with incompatible keys
+                                          UNUSED_ char       **argv) // logical map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2390,7 +2390,7 @@ doTestStringMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
 static int
 doTestLogicalSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
                                           UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // boolean set with incompatible keys
+                                          UNUSED_ char       **argv) // logical set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2661,7 +2661,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             bool _equalToValid;
         }; // testLogicals
 
-        Array         stuff;
+        Array               stuff;
         static testLogicals testSet1l[] =
         {
             // test  <            >            <=           >=           ==
@@ -2682,7 +2682,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
         stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -2755,7 +2755,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -2849,7 +2849,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -2924,7 +2924,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -3056,7 +3056,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             stuff.addValue(std::make_shared<Double>(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
-                bool         valid = false;
+                bool   valid = false;
                 Double aValue(testSet3l[ii]._testValue);
 
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -3131,7 +3131,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             }
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
-                bool         valid = false;
+                bool   valid = false;
                 Double aValue(testSet3r[ii]._testValue);
 
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -3249,7 +3249,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
-                bool         valid = false;
+                bool   valid = false;
                 String aValue(testSet4l[ii]._testValue);
 
                 if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -3324,7 +3324,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
             }
             for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
             {
-                bool         valid = false;
+                bool   valid = false;
                 String aValue(testSet4r[ii]._testValue);
 
                 if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -3427,7 +3427,7 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
 static int
 doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid boolean map compares
+                              UNUSED_ char       **argv) // valid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3466,14 +3466,14 @@ doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Map           stuff;
+        Map                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -3546,7 +3546,7 @@ doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -3640,7 +3640,7 @@ doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -3715,7 +3715,7 @@ doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -3876,7 +3876,7 @@ doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Map          stuff;
+        Map                stuff;
 
         stuff.addValue(std::make_shared<Integer>(123), std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<Integer>(200), std::make_shared<String>("def"));
@@ -3885,7 +3885,7 @@ doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
         stuff.addValue(std::make_shared<Integer>(0), std::make_shared<String>("mno"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -3958,7 +3958,7 @@ doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -4103,14 +4103,14 @@ doTestValidStringMapCompares(UNUSED_ const char *launchPath,
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Map          stuff;
+        Map                stuff;
 
         stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         stuff.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
         stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool         valid = false;
+            bool   valid = false;
             String aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -4183,7 +4183,7 @@ doTestValidStringMapCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool         valid = false;
+            bool   valid = false;
             String aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -4283,7 +4283,7 @@ doTestValidStringMapCompares(UNUSED_ const char *launchPath,
 static int
 doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid boolean set compares
+                              UNUSED_ char       **argv) // valid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4322,14 +4322,14 @@ doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
         const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Set           stuff;
+        Set                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -4402,7 +4402,7 @@ doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -4496,7 +4496,7 @@ doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
                 if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -4571,7 +4571,7 @@ doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool          valid = false;
+                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
                 if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -4732,7 +4732,7 @@ doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Set          stuff;
+        Set                stuff;
 
         stuff.addValue(std::make_shared<Integer>(123));
         stuff.addValue(std::make_shared<Integer>(200));
@@ -4741,7 +4741,7 @@ doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
         stuff.addValue(std::make_shared<Integer>(0));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -4814,7 +4814,7 @@ doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -4959,14 +4959,14 @@ doTestValidStringSetCompares(UNUSED_ const char *launchPath,
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
         const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Set          stuff;
+        Set                stuff;
 
         stuff.addValue(std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool         valid = false;
+            bool   valid = false;
             String aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
@@ -5039,7 +5039,7 @@ doTestValidStringSetCompares(UNUSED_ const char *launchPath,
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool         valid = false;
+            bool   valid = false;
             String aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
@@ -5149,17 +5149,17 @@ doTestInvalidArrayCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Array   leftValue;
-        Logical rightValue1;
-        Double  rightValue2;
-        String  rightValue3;
-        Blob    rightValue4;
-        Array   rightValue5;
-        Map     rightValue6;
-        Set     rightValue7;
-        Integer rightValue8;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Array        leftValue;
+        Logical      rightValue1;
+        Double       rightValue2;
+        String       rightValue3;
+        Blob         rightValue4;
+        Array        rightValue5;
+        Map          rightValue6;
+        Set          rightValue7;
+        Integer      rightValue8;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
@@ -5258,7 +5258,7 @@ doTestInvalidArrayCompares(UNUSED_ const char *launchPath,
 static int
 doTestInvalidLogicalMapCompares(UNUSED_ const char *launchPath,
                                 UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid boolean map compares
+                                UNUSED_ char       **argv) // invalid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5268,21 +5268,21 @@ doTestInvalidLogicalMapCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Map     leftValue;
-        Integer rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Double  rightValue7;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Map          leftValue;
+        Integer      rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Double       rightValue7;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
@@ -5385,19 +5385,19 @@ doTestInvalidIntegerMapCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Map     leftValue;
-        Logical rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Map          leftValue;
+        Logical      rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
@@ -5501,21 +5501,21 @@ doTestInvalidStringMapCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Map     leftValue;
-        Double  rightValue1;
-        Logical rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Integer rightValue7;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Map          leftValue;
+        Double       rightValue1;
+        Logical      rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Integer      rightValue7;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
@@ -5609,7 +5609,7 @@ doTestInvalidStringMapCompares(UNUSED_ const char *launchPath,
 static int
 doTestInvalidLogicalSetCompares(UNUSED_ const char *launchPath,
                                 UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid boolean set compares
+                                UNUSED_ char       **argv) // invalid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5619,21 +5619,21 @@ doTestInvalidLogicalSetCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Set     leftValue;
-        Double  rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Integer rightValue7;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Set          leftValue;
+        Double       rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Integer      rightValue7;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<Logical>(false));
         leftValue.addValue(std::make_shared<Logical>(true));
@@ -5736,19 +5736,19 @@ doTestInvalidIntegerSetCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Set     leftValue;
-        Logical rightValue1;
-        String  rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Set          leftValue;
+        Logical      rightValue1;
+        String       rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<Integer>(42));
         leftValue.addValue(std::make_shared<Integer>(17));
@@ -5852,21 +5852,21 @@ doTestInvalidStringSetCompares(UNUSED_ const char *launchPath,
 
     try
     {
-        bool          valid = false;
-        Set     leftValue;
-        Double  rightValue1;
-        Logical rightValue2;
-        Blob    rightValue3;
-        Array   rightValue4;
-        Map     rightValue5;
-        Set     rightValue6;
-        Integer rightValue7;
-        Value   *rightValues[] =
+        bool         valid = false;
+        Set          leftValue;
+        Double       rightValue1;
+        Logical      rightValue2;
+        Blob         rightValue3;
+        Array        rightValue4;
+        Map          rightValue5;
+        Set          rightValue6;
+        Integer      rightValue7;
+        Value        *rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
 
         leftValue.addValue(std::make_shared<String>("abc"));
         leftValue.addValue(std::make_shared<String>("def"));
@@ -6081,7 +6081,7 @@ doTestArrayIndices(UNUSED_ const char *launchPath,
 static int
 doTestLogicalMapSearches(UNUSED_ const char *launchPath,
                          UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // boolean map searches
+                         UNUSED_ char       **argv) // logical map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6405,7 +6405,7 @@ doTestStringMapSearches(UNUSED_ const char *launchPath,
 static int
 doTestLogicalSetSearches(UNUSED_ const char *launchPath,
                          UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // boolean set searches
+                         UNUSED_ char       **argv) // logical set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####

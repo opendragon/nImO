@@ -145,8 +145,8 @@ add_test(NAME TestConversionIntegerSizeMinus2200t COMMAND ${THIS_TARGET} 2 -2200
 add_test(NAME TestConversionIntegerSize4600kt COMMAND ${THIS_TARGET} 2 4600000000000000000 8)
 # Test integer size for value of -4600000000000000000
 add_test(NAME TestConversionIntegerSizeMinus4600kt COMMAND ${THIS_TARGET} 2 -4600000000000000000 8)
-# Test floating point size
-add_test(NAME TestConversionFloatingPointSize COMMAND ${THIS_TARGET} 3)
+# Test double size
+add_test(NAME TestConversionDoubleSize COMMAND ${THIS_TARGET} 3)
 # Test integer conversion for value of 0
 add_test(NAME TestConversionIntegers0 COMMAND ${THIS_TARGET} 4 0)
 # Test integer conversion for value of 1
@@ -225,8 +225,8 @@ add_test(NAME TestConversionIntegersMinus2200t COMMAND ${THIS_TARGET} 4 -2200000
 add_test(NAME TestConversionIntegers4600kt COMMAND ${THIS_TARGET} 4 4600000000000000000)
 # Test integer conversion for value of -4600000000000000000
 add_test(NAME TestConversionIntegersMinus4600kt COMMAND ${THIS_TARGET} 4 -4600000000000000000)
-# Test floating point conversion
-add_test(NAME TestConversionFloatingPoints COMMAND ${THIS_TARGET} 5)
+# Test double conversion
+add_test(NAME TestConversionDoubles COMMAND ${THIS_TARGET} 5)
 
 set(THIS_TARGET nImOatomicTest)
 
@@ -294,18 +294,18 @@ add_test(NAME TestStringBufferWithStringWithSnglQuotes COMMAND ${THIS_TARGET} 14
          "\"ab'cde\"")
 # Test string buffer with string with escaped characters
 add_test(NAME TestStringBufferWithStringWithEscapedChars COMMAND ${THIS_TARGET} 15)
-# Test string buffer with floating point zero
-add_test(NAME TestStringBufferWithFloatingPointZero COMMAND ${THIS_TARGET} 16 "0.0" "0")
-# Test string buffer with simple positive floating point
-add_test(NAME TestStringBufferWithPositiveFloatingPoint COMMAND ${THIS_TARGET} 16 "1234.5"
+# Test string buffer with double zero
+add_test(NAME TestStringBufferWithDoubleZero COMMAND ${THIS_TARGET} 16 "0.0" "0")
+# Test string buffer with simple positive double
+add_test(NAME TestStringBufferWithPositiveDouble COMMAND ${THIS_TARGET} 16 "1234.5"
          "1234.5")
-# Test string buffer with simple negative floating point
-add_test(NAME TestStringBufferWithNegativeFloatingPoint COMMAND ${THIS_TARGET} 16 "-1234.5"
+# Test string buffer with simple negative double
+add_test(NAME TestStringBufferWithNegativeDouble COMMAND ${THIS_TARGET} 16 "-1234.5"
          "-1234.5")
-# Test string buffer with very small floating point
-add_test(NAME TestStringBufferWithVerySmallFloatingPoint COMMAND ${THIS_TARGET} 16 "1e-20" "1E-20")
-# Test string buffer with very big floating point
-add_test(NAME TestStringBufferWithVeryBigFloatingPoint COMMAND ${THIS_TARGET} 16 "1e22" "1E+22")
+# Test string buffer with very small double
+add_test(NAME TestStringBufferWithVerySmallDouble COMMAND ${THIS_TARGET} 16 "1e-20" "1E-20")
+# Test string buffer with very big double
+add_test(NAME TestStringBufferWithVeryBigDouble COMMAND ${THIS_TARGET} 16 "1e22" "1E+22")
 # Test big string buffer
 add_test(NAME TestBigStringBuffer COMMAND ${THIS_TARGET} 17)
 # Test string buffer with empty blob
@@ -327,8 +327,8 @@ add_test(NAME TestTrueLogicalValue COMMAND ${THIS_TARGET} 51 1 "true")
 add_test(NAME TestDefaultIntegerValue COMMAND ${THIS_TARGET} 52)
 # Test integer number value
 add_test(NAME TestIntegerNumberValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
-# Test floating point number value
-add_test(NAME TestFloatingPointNumberValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
+# Test double number value
+add_test(NAME TestDoubleNumberValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
 # Test default string value
 add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 54)
 # Test short string value
@@ -345,8 +345,8 @@ add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
 add_test(NAME TestLogicalCopyAndAssign COMMAND ${THIS_TARGET} 60)
 # Test integer number copy constructor and assignment operators
 add_test(NAME TestIntegerCopyAndAssign COMMAND ${THIS_TARGET} 61)
-# Test floating point copy constructor and assignment operators
-add_test(NAME TestFloatingPointCopyAndAssign COMMAND ${THIS_TARGET} 62)
+# Test double copy constructor and assignment operators
+add_test(NAME TestDoubleCopyAndAssign COMMAND ${THIS_TARGET} 62)
 # Test string copy constructor and assignment operators
 add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
 # Test blob copy constructor and assignment operator
@@ -810,7 +810,7 @@ add_test(NAME TestInsertLogicalMessage COMMAND ${THIS_TARGET} 2)
 # Test message with tiny integer
 add_test(NAME TestInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
 # Test message with short integer 
-add_test(NAME TestInsertShortIntegerMessage COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestInsertSmallIntegerMessage COMMAND ${THIS_TARGET} 4)
 # Test message with medium integer
 add_test(NAME TestInsertMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
 # Test message with big integer 
@@ -824,11 +824,11 @@ add_test(NAME TestInsertMediumStringMessage COMMAND ${THIS_TARGET} 9)
 # Test message with empty blob
 add_test(NAME TestInsertEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
 # Test message with short blob
-add_test(NAME TestInsertShortBlobMessage COMMAND ${THIS_TARGET} 11)
+add_test(NAME TestInsertSmallBlobMessage COMMAND ${THIS_TARGET} 11)
 # Test message with medium blob
 add_test(NAME TestInsertMediumBlobMessage COMMAND ${THIS_TARGET} 12)
-# Test message with single float
-add_test(NAME TestInsertSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+# Test message with single double
+add_test(NAME TestInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
 # Test message with multiple escapes
 add_test(NAME TestInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 14)
 
@@ -926,7 +926,7 @@ add_test(NAME TestExtractLogicalMessage COMMAND ${THIS_TARGET} 2)
 # Test message with tiny integer
 add_test(NAME TestExtractTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
 # Test message with short integer 
-add_test(NAME TestExtractShortIntegerMessage COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestExtractSmallIntegerMessage COMMAND ${THIS_TARGET} 4)
 # Test message with medium integer
 add_test(NAME TestExtractMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
 # Test message with big integer 
@@ -940,11 +940,11 @@ add_test(NAME TestExtractMediumStringMessage COMMAND ${THIS_TARGET} 9)
 # Test message with empty blob
 add_test(NAME TestExtractEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
 # Test message with short blob
-add_test(NAME TestExtractShortBlobMessage COMMAND ${THIS_TARGET} 11)
+add_test(NAME TestExtractSmallBlobMessage COMMAND ${THIS_TARGET} 11)
 # Test message with medium blob
 add_test(NAME TestExtractMediumBlobMessage COMMAND ${THIS_TARGET} 12)
-# Test message with single float
-add_test(NAME TestExtractSingleFloatMessage COMMAND ${THIS_TARGET} 13)
+# Test message with single double
+add_test(NAME TestExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
 
 # Test message with empty array
 add_test(NAME TestExtractEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
@@ -1008,6 +1008,9 @@ add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
 add_test(NAME TestExtractStringSetMessage COMMAND ${THIS_TARGET} 165)
 
+# Test message with array with range of integers
+add_test(NAME TestMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 180)
+
 set(THIS_TARGET nImObadMessageTest)
 
 if(WIN32)
@@ -1047,8 +1050,8 @@ add_test(NAME TestNonEmptyMessageWithMismatchedInitialStartTag COMMAND ${THIS_TA
 add_test(NAME TestNonEmptyMessageWithMismatchedTerminalEndTag COMMAND ${THIS_TARGET} 6)
 ## Test message with invalid content tag
 add_test(NAME TestNonEmptyMessageWithInvalidContentTag COMMAND ${THIS_TARGET} 7)
-## Test message with bad float count
-add_test(NAME TestNonEmptyMessageWithZeroFloatCount COMMAND ${THIS_TARGET} 8)
+## Test message with bad double count
+add_test(NAME TestNonEmptyMessageWithZeroDoubleCount COMMAND ${THIS_TARGET} 8)
 ## Test message with string with bad length
 add_test(NAME TestNonEmptyMessageWithStringWithInvalidLength COMMAND ${THIS_TARGET} 9)
 ## Test message with blob with invalid length
@@ -1068,8 +1071,8 @@ add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithInvalidCount COMMAND ${THI
 add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooFewValues COMMAND ${THIS_TARGET} 25)
 ## Test message with array with too many values
 add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooManyValues COMMAND ${THIS_TARGET} 26)
-## Test message with array with too many float values
-add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooManyFloats COMMAND ${THIS_TARGET} 27)
+## Test message with array with too many double values
+add_test(NAME TestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles COMMAND ${THIS_TARGET} 27)
 
 ## Test message with map with initial end tag
 add_test(NAME TestNonEmptyMessageWithMapWithInitialEndTag COMMAND ${THIS_TARGET} 40)

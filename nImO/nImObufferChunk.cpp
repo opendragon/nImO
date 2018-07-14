@@ -125,7 +125,7 @@ nImO::BufferChunk::appendData(const void   *data,
     if (0 < actualCount)
     {
         ODL_LOG("(0 < actualCount)"); //####
-	ODL_PACKET("data", data, actualCount); //####
+        ODL_PACKET("data", data, actualCount); //####
         memcpy(_write, data, actualCount);
         _write += actualCount;
         ODL_P1("_write <- ", _write); //####
@@ -139,6 +139,19 @@ nImO::BufferChunk::appendData(const void   *data,
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::BufferChunk::appendData
+
+nImO::BufferChunk &
+nImO::BufferChunk::reset(void)
+{
+    ODL_OBJENTER(); //####
+    _write = _buffer.get();
+    if (_padded)
+    {
+        *_write = 0;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::BufferChunk::reset
 
 #if defined(__APPLE__)
 # pragma mark Global functions

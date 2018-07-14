@@ -230,9 +230,9 @@ doTestEmptyMessage(UNUSED_ const char *launchPath,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
-            SpValue extractedValue(stuff->getValue());
+            SpValue               extractedValue(stuff->getValue());
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             if (stuff->readAtEnd())
@@ -319,7 +319,7 @@ doTestEmptyMessage(UNUSED_ const char *launchPath,
 static int
 doTestLogicalMessage(UNUSED_ const char *launchPath,
                      UNUSED_ const int  argc,
-                     UNUSED_ char       **argv) // boolean message
+                     UNUSED_ char       **argv) // logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -347,8 +347,8 @@ doTestLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedTrueCount = (sizeof(insertedBytesForTrue) /
-                                              sizeof(*insertedBytesForTrue));
+            const size_t          insertedTrueCount = (sizeof(insertedBytesForTrue) /
+                                                       sizeof(*insertedBytesForTrue));
             static const DataKind insertedBytesForFalse[] =
             {
                 // Start of Message
@@ -363,10 +363,10 @@ doTestLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t  insertedFalseCount = (sizeof(insertedBytesForFalse) /
-                                                sizeof(*insertedBytesForFalse));
-            Logical falseValue(false);
-            Logical trueValue(true);
+            const size_t          insertedFalseCount = (sizeof(insertedBytesForFalse) /
+                                                        sizeof(*insertedBytesForFalse));
+            Logical               falseValue(false);
+            Logical               trueValue(true);
 
             result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount,
                                           trueValue);
@@ -437,8 +437,8 @@ doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertedMinus12Count = (sizeof(insertedBytesForMinus12) /
-                                                 sizeof(*insertedBytesForMinus12));
+            const size_t          insertedMinus12Count = (sizeof(insertedBytesForMinus12) /
+                                                          sizeof(*insertedBytesForMinus12));
             static const DataKind insertedBytesForZero[] =
             {
                 // Start of Message
@@ -453,8 +453,8 @@ doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertedZeroCount = (sizeof(insertedBytesForZero) /
-                                              sizeof(*insertedBytesForZero));
+            const size_t          insertedZeroCount = (sizeof(insertedBytesForZero) /
+                                                       sizeof(*insertedBytesForZero));
             static const DataKind insertedBytesForPlus12[] =
             {
                 // Start of Message
@@ -469,11 +469,11 @@ doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t  insertedPlus12Count = (sizeof(insertedBytesForPlus12) /
-                                                 sizeof(*insertedBytesForPlus12));
-            Integer minus12Value(-12);
-            Integer zeroValue(0);
-            Integer plus12Value(12);
+            const size_t          insertedPlus12Count = (sizeof(insertedBytesForPlus12) /
+                                                         sizeof(*insertedBytesForPlus12));
+            Integer               minus12Value(-12);
+            Integer               zeroValue(0);
+            Integer               plus12Value(12);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count,
                                           minus12Value);
@@ -519,9 +519,9 @@ doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortIntegerMessage(UNUSED_ const char *launchPath,
+doTestSmallIntegerMessage(UNUSED_ const char *launchPath,
                           UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // short integer message
+                          UNUSED_ char       **argv) // small integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -550,8 +550,8 @@ doTestShortIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertedMinus144Count = (sizeof(insertedBytesForMinus144) /
-                                                  sizeof(*insertedBytesForMinus144));
+            const size_t          insertedMinus144Count = (sizeof(insertedBytesForMinus144) /
+                                                           sizeof(*insertedBytesForMinus144));
             static const DataKind insertedBytesForPlus144[] =
             {
                 // Start of Message
@@ -567,10 +567,10 @@ doTestShortIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t  insertedPlus144Count = (sizeof(insertedBytesForPlus144) /
-                                                  sizeof(*insertedBytesForPlus144));
-            Integer minus144Value(-144);
-            Integer plus144Value(144);
+            const size_t          insertedPlus144Count = (sizeof(insertedBytesForPlus144) /
+                                                          sizeof(*insertedBytesForPlus144));
+            Integer               minus144Value(-144);
+            Integer               plus144Value(144);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count,
                                           minus144Value);
@@ -592,7 +592,7 @@ doTestShortIntegerMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestShortIntegerMessage
+} // doTestSmallIntegerMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -643,8 +643,9 @@ doTestMediumIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertedMinus1234567Count = (sizeof(insertedBytesForMinus1234567) /
-                                                      sizeof(*insertedBytesForMinus1234567));
+            const size_t          insertedMinus1234567Count =
+                                                            (sizeof(insertedBytesForMinus1234567) /
+                                                             sizeof(*insertedBytesForMinus1234567));
             static const DataKind insertedBytesForPlus1234567[] =
             {
                 // Start of Message
@@ -661,10 +662,10 @@ doTestMediumIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t  insertedPlus1234567Count = (sizeof(insertedBytesForPlus1234567) /
-                                                      sizeof(*insertedBytesForPlus1234567));
-            Integer minus1234567Value(-1234567);
-            Integer plus1234567Value(1234567);
+            const size_t          insertedPlus1234567Count = (sizeof(insertedBytesForPlus1234567) /
+                                                              sizeof(*insertedBytesForPlus1234567));
+            Integer               minus1234567Value(-1234567);
+            Integer               plus1234567Value(1234567);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567,
                                           insertedMinus1234567Count, minus1234567Value);
@@ -738,8 +739,9 @@ doTestBigIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t insertedMinusBigNumberCount = (sizeof(insertedBytesForMinusBigNumber) /
-                                                        sizeof(*insertedBytesForMinusBigNumber));
+            const size_t          insertedMinusBigNumberCount =
+                                                        (sizeof(insertedBytesForMinusBigNumber) /
+                                                         sizeof(*insertedBytesForMinusBigNumber));
             static const DataKind insertedBytesForPlusBigNumber[] =
             {
                 // Start of Message
@@ -757,10 +759,11 @@ doTestBigIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t  insertedPlusBigNumberCount = (sizeof(insertedBytesForPlusBigNumber) /
-                                                        sizeof(*insertedBytesForPlusBigNumber));
-            Integer minusBigNumberValue(-20015998343868);
-            Integer plusBigNumberValue(20015998343868);
+            const size_t          insertedPlusBigNumberCount =
+                                                        (sizeof(insertedBytesForPlusBigNumber) /
+                                                         sizeof(*insertedBytesForPlusBigNumber));
+            Integer               minusBigNumberValue(-20015998343868);
+            Integer               plusBigNumberValue(20015998343868);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber,
                                           insertedMinusBigNumberCount, minusBigNumberValue);
@@ -832,9 +835,9 @@ doTestEmptyStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedEmptyStringCount = (sizeof(insertedBytesForEmptyString) /
-                                                     sizeof(*insertedBytesForEmptyString));
-            String emptyStringValue;
+            const size_t          insertedEmptyStringCount = (sizeof(insertedBytesForEmptyString) /
+                                                              sizeof(*insertedBytesForEmptyString));
+            String                emptyStringValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyString,
                                           insertedEmptyStringCount, emptyStringValue);
@@ -904,9 +907,9 @@ doTestShortStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedShortStringCount = (sizeof(insertedBytesForShortString) /
-                                                     sizeof(*insertedBytesForShortString));
-            String shortStringValue("abcdef");
+            const size_t          insertedShortStringCount = (sizeof(insertedBytesForShortString) /
+                                                              sizeof(*insertedBytesForShortString));
+            String                shortStringValue("abcdef");
 
             result = extractValueAndCheck(*stuff, insertedBytesForShortString,
                                           insertedShortStringCount, shortStringValue);
@@ -995,9 +998,10 @@ doTestMediumStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedMediumStringCount = (sizeof(insertedBytesForMediumString) /
-                                                      sizeof(*insertedBytesForMediumString));
-            String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            const size_t          insertedMediumStringCount =
+                                                            (sizeof(insertedBytesForMediumString) /
+                                                             sizeof(*insertedBytesForMediumString));
+            String                mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumString,
                                           insertedMediumStringCount, mediumStringValue);
@@ -1064,9 +1068,9 @@ doTestEmptyBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedEmptyBlobCount = (sizeof(insertedBytesForEmptyBlob) /
-                                                   sizeof(*insertedBytesForEmptyBlob));
-            Blob   emptyBlobValue;
+            const size_t          insertedEmptyBlobCount = (sizeof(insertedBytesForEmptyBlob) /
+                                                            sizeof(*insertedBytesForEmptyBlob));
+            Blob                  emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob,
                                           insertedEmptyBlobCount, emptyBlobValue);
@@ -1102,9 +1106,9 @@ doTestEmptyBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortBlobMessage(UNUSED_ const char *launchPath,
+doTestSmallBlobMessage(UNUSED_ const char *launchPath,
                        UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // short blob message
+                       UNUSED_ char       **argv) // small blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1118,7 +1122,7 @@ doTestShortBlobMessage(UNUSED_ const char *launchPath,
 
         if (stuff)
         {
-            static const DataKind insertedBytesForShortBlob[] =
+            static const DataKind insertedBytesForSmallBlob[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1136,17 +1140,17 @@ doTestShortBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedShortBlobCount = (sizeof(insertedBytesForShortBlob) /
-                                                   sizeof(*insertedBytesForShortBlob));
-            static const uint8_t actualData[] =
+            const size_t          insertedSmallBlobCount = (sizeof(insertedBytesForSmallBlob) /
+                                                            sizeof(*insertedBytesForSmallBlob));
+            static const uint8_t  actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            Blob   shortBlobValue(actualData, actualDataCount);
+            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            Blob                  shortBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForShortBlob,
-                                          insertedShortBlobCount, shortBlobValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob,
+                                          insertedSmallBlobCount, shortBlobValue);
         }
         else
         {
@@ -1160,7 +1164,7 @@ doTestShortBlobMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestShortBlobMessage
+} // doTestSmallBlobMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1232,9 +1236,9 @@ doTestMediumBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t insertedMediumBlobCount = (sizeof(insertedBytesForMediumBlob) /
-                                                    sizeof(*insertedBytesForMediumBlob));
-            static const uint8_t actualData[] =
+            const size_t          insertedMediumBlobCount = (sizeof(insertedBytesForMediumBlob) /
+                                                             sizeof(*insertedBytesForMediumBlob));
+            static const uint8_t  actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1244,8 +1248,8 @@ doTestMediumBlobMessage(UNUSED_ const char *launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            Blob   mediumBlobValue(actualData, actualDataCount);
+            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            Blob                  mediumBlobValue(actualData, actualDataCount);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob,
                                           insertedMediumBlobCount, mediumBlobValue);
@@ -1281,9 +1285,9 @@ doTestMediumBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingleFloatMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // single float message
+doTestSingleDoubleMessage(UNUSED_ const char *launchPath,
+                          UNUSED_ const int  argc,
+                          UNUSED_ char       **argv) // single double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1316,8 +1320,9 @@ doTestSingleFloatMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t insertedPlus42Point5Count = (sizeof(insertedBytesForPlus42Point5) /
-                                                      sizeof(*insertedBytesForPlus42Point5));
+            const size_t          insertedPlus42Point5Count =
+                                                            (sizeof(insertedBytesForPlus42Point5) /
+                                                             sizeof(*insertedBytesForPlus42Point5));
             static const DataKind insertedBytesForMinus42Point5[] =
             {
                 // Start of Message
@@ -1337,10 +1342,11 @@ doTestSingleFloatMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t insertedMinus42Point5Count = (sizeof(insertedBytesForMinus42Point5) /
-                                                       sizeof(*insertedBytesForMinus42Point5));
-            Double plus42Point5(42.5);
-            Double minus42Point5(-42.5);
+            const size_t          insertedMinus42Point5Count =
+                                                        (sizeof(insertedBytesForMinus42Point5) /
+                                                         sizeof(*insertedBytesForMinus42Point5));
+            Double                plus42Point5(42.5);
+            Double                minus42Point5(-42.5);
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5,
                                           insertedMinus42Point5Count, minus42Point5);
@@ -1362,7 +1368,7 @@ doTestSingleFloatMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestSingleFloatMessage
+} // doTestSingleDoubleMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1416,9 +1422,9 @@ doTestEmptyArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedEmptyArrayCount = (sizeof(insertedBytesForEmptyArray) /
-                                                    sizeof(*insertedBytesForEmptyArray));
-            Array  emptyArray;
+            const size_t          insertedEmptyArrayCount = (sizeof(insertedBytesForEmptyArray) /
+                                                             sizeof(*insertedBytesForEmptyArray));
+            Array                 emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray,
                                           insertedEmptyArrayCount, emptyArray);
@@ -1489,9 +1495,9 @@ doTestEmptyMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedEmptyMapCount = (sizeof(insertedBytesForEmptyMap) /
-                                                  sizeof(*insertedBytesForEmptyMap));
-            Map    emptyMap;
+            const size_t          insertedEmptyMapCount = (sizeof(insertedBytesForEmptyMap) /
+                                                           sizeof(*insertedBytesForEmptyMap));
+            Map                   emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap,
                                           insertedEmptyMapCount, emptyMap);
@@ -1562,9 +1568,9 @@ doTestEmptySetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedEmptySetCount = (sizeof(insertedBytesForEmptySet) /
-                                                  sizeof(*insertedBytesForEmptySet));
-            Set    emptySet;
+            const size_t          insertedEmptySetCount = (sizeof(insertedBytesForEmptySet) /
+                                                           sizeof(*insertedBytesForEmptySet));
+            Set                   emptySet;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptySet,
                                           insertedEmptySetCount, emptySet);
@@ -1602,7 +1608,7 @@ doTestEmptySetMessage(UNUSED_ const char *launchPath,
 static int
 doTestArrayOneLogicalMessage(UNUSED_ const char *launchPath,
                              UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // array with one boolean message
+                             UNUSED_ char       **argv) // array with one logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1643,9 +1649,10 @@ doTestArrayOneLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneLogicalCount = (sizeof(insertedBytesForArrayOneLogical) /
+            const size_t          insertedArrayOneLogicalCount =
+                                                        (sizeof(insertedBytesForArrayOneLogical) /
                                                          sizeof(*insertedBytesForArrayOneLogical));
-            Array  arrayOneLogical;
+            Array                 arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical,
@@ -1725,9 +1732,10 @@ doTestArrayOneIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneIntegerCount = (sizeof(insertedBytesForArrayOneInteger) /
+            const size_t          insertedArrayOneIntegerCount =
+                                                        (sizeof(insertedBytesForArrayOneInteger) /
                                                          sizeof(*insertedBytesForArrayOneInteger));
-            Array  arrayOneInteger;
+            Array                 arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger,
@@ -1812,9 +1820,10 @@ doTestArrayOneDoubleMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneDoubleCount = (sizeof(insertedBytesForArrayOneDouble) /
-                                                        sizeof(*insertedBytesForArrayOneDouble));
-            Array  arrayOneDouble;
+            const size_t          insertedArrayOneDoubleCount =
+                                                        (sizeof(insertedBytesForArrayOneDouble) /
+                                                         sizeof(*insertedBytesForArrayOneDouble));
+            Array                 arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble,
@@ -1895,9 +1904,10 @@ doTestArrayOneStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneStringCount = (sizeof(insertedBytesForArrayOneString) /
-                                                        sizeof(*insertedBytesForArrayOneString));
-            Array  arrayOneString;
+            const size_t          insertedArrayOneStringCount =
+                                                        (sizeof(insertedBytesForArrayOneString) /
+                                                         sizeof(*insertedBytesForArrayOneString));
+            Array                 arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString,
@@ -1978,9 +1988,10 @@ doTestArrayOneBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneBlobCount = (sizeof(insertedBytesForArrayOneBlob) /
-                                                      sizeof(*insertedBytesForArrayOneBlob));
-            Array  arrayOneBlob;
+            const size_t          insertedArrayOneBlobCount =
+                                                            (sizeof(insertedBytesForArrayOneBlob) /
+                                                             sizeof(*insertedBytesForArrayOneBlob));
+            Array                 arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob,
@@ -2065,9 +2076,10 @@ doTestArrayOneArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneArrayCount = (sizeof(insertedBytesForArrayOneArray) /
-                                                       sizeof(*insertedBytesForArrayOneArray));
-            Array  arrayOneArray;
+            const size_t          insertedArrayOneArrayCount =
+                                                        (sizeof(insertedBytesForArrayOneArray) /
+                                                         sizeof(*insertedBytesForArrayOneArray));
+            Array                 arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray,
@@ -2152,9 +2164,9 @@ doTestArrayOneMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneMapCount = (sizeof(insertedBytesForArrayOneMap) /
-                                                     sizeof(*insertedBytesForArrayOneMap));
-            Array  arrayOneMap;
+            const size_t          insertedArrayOneMapCount = (sizeof(insertedBytesForArrayOneMap) /
+                                                              sizeof(*insertedBytesForArrayOneMap));
+            Array                 arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap,
@@ -2239,9 +2251,9 @@ doTestArrayOneSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneSetCount = (sizeof(insertedBytesForArrayOneSet) /
-                                                     sizeof(*insertedBytesForArrayOneSet));
-            Array  arrayOneSet;
+            const size_t          insertedArrayOneSetCount = (sizeof(insertedBytesForArrayOneSet) /
+                                                              sizeof(*insertedBytesForArrayOneSet));
+            Array                 arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet,
@@ -2280,7 +2292,7 @@ doTestArrayOneSetMessage(UNUSED_ const char *launchPath,
 static int
 doTestArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // array with two booleans message
+                              UNUSED_ char       **argv) // array with two logicals message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2324,9 +2336,10 @@ doTestArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoLogicalsCount = (sizeof(insertedBytesForArrayTwoLogicals) /
+            const size_t          insertedArrayTwoLogicalsCount =
+                                                        (sizeof(insertedBytesForArrayTwoLogicals) /
                                                          sizeof(*insertedBytesForArrayTwoLogicals));
-            Array  arrayTwoLogicals;
+            Array                 arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
@@ -2410,10 +2423,10 @@ doTestArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoIntegersCount =
+            const size_t          insertedArrayTwoIntegersCount =
                                                      (sizeof(insertedBytesForArrayTwoIntegers) /
                                                       sizeof(*insertedBytesForArrayTwoIntegers));
-            Array  arrayTwoIntegers;
+            Array                 arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
@@ -2503,9 +2516,10 @@ doTestArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoDoublesCount = (sizeof(insertedBytesForArrayTwoDoubles) /
+            const size_t          insertedArrayTwoDoublesCount =
+                                                        (sizeof(insertedBytesForArrayTwoDoubles) /
                                                          sizeof(*insertedBytesForArrayTwoDoubles));
-            Array  arrayTwoDoubles;
+            Array                 arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
@@ -2591,9 +2605,10 @@ doTestArrayTwoStringsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoStringsCount = (sizeof(insertedBytesForArrayTwoStrings) /
+            const size_t          insertedArrayTwoStringsCount =
+                                                        (sizeof(insertedBytesForArrayTwoStrings) /
                                                          sizeof(*insertedBytesForArrayTwoStrings));
-            Array  arrayTwoStrings;
+            Array                 arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
@@ -2679,9 +2694,10 @@ doTestArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoBlobsCount = (sizeof(insertedBytesForArrayTwoBlobs) /
-                                                       sizeof(*insertedBytesForArrayTwoBlobs));
-            Array  arrayTwoBlobs;
+            const size_t          insertedArrayTwoBlobsCount =
+                                                        (sizeof(insertedBytesForArrayTwoBlobs) /
+                                                         sizeof(*insertedBytesForArrayTwoBlobs));
+            Array                 arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
@@ -2775,9 +2791,10 @@ doTestArrayTwoArraysMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoArraysCount = (sizeof(insertedBytesForArrayTwoArrays) /
-                                                        sizeof(*insertedBytesForArrayTwoArrays));
-            Array  arrayTwoArrays;
+            const size_t          insertedArrayTwoArraysCount =
+                                                        (sizeof(insertedBytesForArrayTwoArrays) /
+                                                         sizeof(*insertedBytesForArrayTwoArrays));
+            Array                 arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
@@ -2871,9 +2888,10 @@ doTestArrayTwoMapsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoMapsCount = (sizeof(insertedBytesForArrayTwoMaps) /
-                                                      sizeof(*insertedBytesForArrayTwoMaps));
-            Array  arrayTwoMaps;
+            const size_t          insertedArrayTwoMapsCount =
+                                                            (sizeof(insertedBytesForArrayTwoMaps) /
+                                                             sizeof(*insertedBytesForArrayTwoMaps));
+            Array                 arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
@@ -2967,9 +2985,10 @@ doTestArrayTwoSetsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayTwoSetsCount = (sizeof(insertedBytesForArrayTwoSets) /
-                                                      sizeof(*insertedBytesForArrayTwoSets));
-            Array  arrayTwoSets;
+            const size_t          insertedArrayTwoSetsCount =
+                                                            (sizeof(insertedBytesForArrayTwoSets) /
+                                                             sizeof(*insertedBytesForArrayTwoSets));
+            Array                 arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
@@ -3063,10 +3082,10 @@ doTestArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneArrayOneMapCount =
+            const size_t          insertedArrayOneArrayOneMapCount =
                                                     (sizeof(insertedBytesForArrayOneArrayOneMap) /
                                                      sizeof(*insertedBytesForArrayOneArrayOneMap));
-            Array  arrayOneArrayOneMap;
+            Array                 arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
@@ -3160,10 +3179,10 @@ doTestArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneMapOneSetCount =
+            const size_t          insertedArrayOneMapOneSetCount =
                                                       (sizeof(insertedBytesForArrayOneMapOneSet) /
                                                        sizeof(*insertedBytesForArrayOneMapOneSet));
-            Array  arrayOneMapOneSet;
+            Array                 arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
@@ -3257,10 +3276,10 @@ doTestArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayOneSetOneArrayCount =
+            const size_t          insertedArrayOneSetOneArrayCount =
                                                     (sizeof(insertedBytesForArrayOneSetOneArray) /
                                                      sizeof(*insertedBytesForArrayOneSetOneArray));
-            Array  arrayOneSetOneArray;
+            Array                 arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
@@ -3314,7 +3333,7 @@ doTestArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
 
         if (stuff)
         {
-            const size_t          numValues = 43;
+            static const size_t   numValues = 43;
             static const DataKind insertedBytesForArrayManyDoubles[] =
             {
                 // Start of Message
@@ -3515,10 +3534,10 @@ doTestArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedArrayManyDoublesCount =
+            const size_t          insertedArrayManyDoublesCount =
                                                      (sizeof(insertedBytesForArrayManyDoubles) /
                                                       sizeof(*insertedBytesForArrayManyDoubles));
-            Array  arrayManyDoubles;
+            Array                 arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
@@ -3561,7 +3580,7 @@ doTestArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
 static int
 doTestLogicalMapMessage(UNUSED_ const char *launchPath,
                         UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // boolean map message
+                        UNUSED_ char       **argv) // logical map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3605,13 +3624,13 @@ doTestLogicalMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedLogicalMapCount = (sizeof(insertedBytesForLogicalMap) /
-                                                    sizeof(*insertedBytesForLogicalMap));
-            Map    booleanMap;
+            const size_t          insertedLogicalMapCount = (sizeof(insertedBytesForLogicalMap) /
+                                                             sizeof(*insertedBytesForLogicalMap));
+            Map                   logicalMap;
 
-            booleanMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
+            logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap,
-                                          insertedLogicalMapCount, booleanMap);
+                                          insertedLogicalMapCount, logicalMap);
         }
         else
         {
@@ -3690,9 +3709,9 @@ doTestIntegerMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedIntegerMapCount = (sizeof(insertedBytesForIntegerMap) /
-                                                    sizeof(*insertedBytesForIntegerMap));
-            Map    integerMap;
+            const size_t          insertedIntegerMapCount = (sizeof(insertedBytesForIntegerMap) /
+                                                             sizeof(*insertedBytesForIntegerMap));
+            Map                   integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap,
@@ -3731,7 +3750,7 @@ doTestIntegerMapMessage(UNUSED_ const char *launchPath,
 static int
 doTestStringMapMessage(UNUSED_ const char *launchPath,
                        UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // integer map message
+                       UNUSED_ char       **argv) // string map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3776,9 +3795,9 @@ doTestStringMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedStringMapCount = (sizeof(insertedBytesForStringMap) /
-                                                   sizeof(*insertedBytesForStringMap));
-            Map    stringMap;
+            const size_t          insertedStringMapCount = (sizeof(insertedBytesForStringMap) /
+                                                            sizeof(*insertedBytesForStringMap));
+            Map                   stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForStringMap,
@@ -3817,7 +3836,7 @@ doTestStringMapMessage(UNUSED_ const char *launchPath,
 static int
 doTestLogicalSetMessage(UNUSED_ const char *launchPath,
                         UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // boolean set message
+                        UNUSED_ char       **argv) // logical set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3858,13 +3877,13 @@ doTestLogicalSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedLogicalSetCount = (sizeof(insertedBytesForLogicalSet) /
-                                                    sizeof(*insertedBytesForLogicalSet));
-            Set    booleanSet;
+            const size_t          insertedLogicalSetCount = (sizeof(insertedBytesForLogicalSet) /
+                                                             sizeof(*insertedBytesForLogicalSet));
+            Set                   logicalSet;
 
-            booleanSet.addValue(std::make_shared<Logical>());
+            logicalSet.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet,
-                                          insertedLogicalSetCount, booleanSet);
+                                          insertedLogicalSetCount, logicalSet);
         }
         else
         {
@@ -3940,9 +3959,9 @@ doTestIntegerSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedIntegerSetCount = (sizeof(insertedBytesForIntegerSet) /
-                                                    sizeof(*insertedBytesForIntegerSet));
-            Set    integerSet;
+            const size_t          insertedIntegerSetCount = (sizeof(insertedBytesForIntegerSet) /
+                                                             sizeof(*insertedBytesForIntegerSet));
+            Set                   integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet,
@@ -3981,7 +4000,7 @@ doTestIntegerSetMessage(UNUSED_ const char *launchPath,
 static int
 doTestStringSetMessage(UNUSED_ const char *launchPath,
                        UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // integer set message
+                       UNUSED_ char       **argv) // string set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4023,9 +4042,9 @@ doTestStringSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t insertedStringSetCount = (sizeof(insertedBytesForStringSet) /
-                                                   sizeof(*insertedBytesForStringSet));
-            Set    stringSet;
+            const size_t          insertedStringSetCount = (sizeof(insertedBytesForStringSet) /
+                                                            sizeof(*insertedBytesForStringSet));
+            Set                   stringSet;
 
             stringSet.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForStringSet,
@@ -4044,6 +4063,355 @@ doTestStringSetMessage(UNUSED_ const char *launchPath,
     ODL_EXIT_L(result); //####
     return result;
 } // doTestStringSetMessage
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 180 ***
+#endif // defined(__APPLE__)
+
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4100)
+#endif // ! MAC_OR_LINUX_
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @returns @c 0 on success and @c 1 on failure. */
+static int
+doTestMessageWithArrayWithRangeOfIntegers(UNUSED_ const char *launchPath,
+                                          UNUSED_ const int  argc,
+                                          UNUSED_ char       **argv) // array with range of integers
+{
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_LL1("argc = ", argc); //####
+    ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto stuff(make_unique<Message>());
+
+        if (stuff)
+        {
+            static const size_t kNumValues = 18;
+            Array               arrayWithIntegers;
+            int64_t             posValue = 1;
+
+            for (size_t ii = 0; kNumValues > ii; ++ii)
+            {
+                arrayWithIntegers.addValue(std::make_shared<Integer>(posValue));
+                posValue *= 10;
+            }
+            for ( ; 0 < posValue; )
+            {
+                arrayWithIntegers.addValue(std::make_shared<Integer>(- posValue));
+                posValue /= 10;
+            }
+            if (arrayWithIntegers.size() == ((2 * kNumValues) + 1))
+            {
+                // Insert the array into the message.
+                stuff->open(true);
+                stuff->setValue(arrayWithIntegers);
+                stuff->close();
+                // Extract objects from the message and compare with the expected contents.
+                SpValue extractedValue(stuff->getValue(true));
+                
+                ODL_P1("extractedValue <- ", extractedValue.get()); //####
+                if (nullptr == extractedValue)
+                {
+                    ODL_LOG("(nullptr == extractedValue)"); //####
+                }
+                else
+                {
+                    const Flaw *asFlaw = extractedValue->asFlaw();
+                    
+                    if (asFlaw)
+                    {
+                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
+                    }
+                    else if (stuff->readAtEnd())
+                    {
+                        if (extractedValue->deeplyEqualTo(arrayWithIntegers))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (extractedValue->deeplyEqualTo(arrayWithIntegers))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (stuff->readAtEnd())"); //####
+                    }
+                }
+                if (0 == result)
+                {
+                    // Compare the bytes with the expected minimal bytes.
+                    static const DataKind expectedBytesForArrayWithIntegers[] =
+                    {
+                        // Start of Message
+                        DataKind::StartOfMessageValue |
+                          DataKind::OtherMessageNonEmptyValue |
+                          DataKind::OtherMessageExpectedOtherValue,
+                        // Start of Array
+                        DataKind::Other | DataKind::OtherContainerStart |
+                          DataKind::OtherContainerTypeArray |
+                          DataKind::OtherContainerNonEmptyValue,
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(static_cast<int>((2 * kNumValues) + 1) +
+                                              DataKindIntegerShortValueMinValue - 1),
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0x01, // 1
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0x0A, // 10
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x64), // 100
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x03), static_cast<DataKind>(0xE8), // 1000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x27), static_cast<DataKind>(0x10), // 10000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x01), static_cast<DataKind>(0x86),
+                        static_cast<DataKind>(0xA0), // 100000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x0F), static_cast<DataKind>(0x42),
+                        static_cast<DataKind>(0x40), // 1000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x00), static_cast<DataKind>(0x98),
+                        static_cast<DataKind>(0x96), static_cast<DataKind>(0x80), // 10000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x05), static_cast<DataKind>(0xF5),
+                        static_cast<DataKind>(0xE1), static_cast<DataKind>(0x00), // 100000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x3B), static_cast<DataKind>(0x9A),
+                        static_cast<DataKind>(0xCA), static_cast<DataKind>(0x00), // 1000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x02), static_cast<DataKind>(0x54),
+                        static_cast<DataKind>(0x0B), static_cast<DataKind>(0xE4),
+                        static_cast<DataKind>(0x00), // 10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x17), static_cast<DataKind>(0x48),
+                        static_cast<DataKind>(0x76), static_cast<DataKind>(0xE8),
+                        static_cast<DataKind>(0x00), // 10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x00), static_cast<DataKind>(0xE8),
+                        static_cast<DataKind>(0xD4), static_cast<DataKind>(0xA5),
+                        static_cast<DataKind>(0x10), static_cast<DataKind>(0x00), // 100000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x09), static_cast<DataKind>(0x18),
+                        static_cast<DataKind>(0x4E), static_cast<DataKind>(0x72),
+                        static_cast<DataKind>(0xA0), static_cast<DataKind>(0x00), // 1000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x5A), static_cast<DataKind>(0xF3),
+                        static_cast<DataKind>(0x10), static_cast<DataKind>(0x7A),
+                        static_cast<DataKind>(0x40), static_cast<DataKind>(0x00), // 10000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x03), static_cast<DataKind>(0x8D),
+                        static_cast<DataKind>(0x7E), static_cast<DataKind>(0xA4),
+                        static_cast<DataKind>(0xC6), static_cast<DataKind>(0x80),
+                        static_cast<DataKind>(0x00), // 100000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x23), static_cast<DataKind>(0x86),
+                        static_cast<DataKind>(0xF2), static_cast<DataKind>(0x6F),
+                        static_cast<DataKind>(0xC1), static_cast<DataKind>(0x00),
+                        static_cast<DataKind>(0x00), // 10000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x01), static_cast<DataKind>(0x63),
+                        static_cast<DataKind>(0x45), static_cast<DataKind>(0x78),
+                        static_cast<DataKind>(0x5D), static_cast<DataKind>(0x8A),
+                        static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 100000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xF2), static_cast<DataKind>(0x1F),
+                        static_cast<DataKind>(0x49), static_cast<DataKind>(0x4C),
+                        static_cast<DataKind>(0x58), static_cast<DataKind>(0x9C),
+                        static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // -1000000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFE), static_cast<DataKind>(0x9C),
+                        static_cast<DataKind>(0xBA), static_cast<DataKind>(0x87),
+                        static_cast<DataKind>(0xA2), static_cast<DataKind>(0x76),
+                        static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // -100000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xDC), static_cast<DataKind>(0x79),
+                        static_cast<DataKind>(0x0D), static_cast<DataKind>(0x90),
+                        static_cast<DataKind>(0x3F), static_cast<DataKind>(0x00),
+                        static_cast<DataKind>(0x00), // -10000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFC), static_cast<DataKind>(0x72),
+                        static_cast<DataKind>(0x81), static_cast<DataKind>(0x5B),
+                        static_cast<DataKind>(0x39), static_cast<DataKind>(0x80),
+                        static_cast<DataKind>(0x00), // -1000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xA5), static_cast<DataKind>(0x0C),
+                        static_cast<DataKind>(0xEF), static_cast<DataKind>(0x85),
+                        static_cast<DataKind>(0xC0), static_cast<DataKind>(0x00), // -100000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xF6), static_cast<DataKind>(0xE7),
+                        static_cast<DataKind>(0xB1), static_cast<DataKind>(0x8D),
+                        static_cast<DataKind>(0x60), static_cast<DataKind>(0x00), // -10000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFF), static_cast<DataKind>(0x17),
+                        static_cast<DataKind>(0x2B), static_cast<DataKind>(0x5A),
+                        static_cast<DataKind>(0xF0), static_cast<DataKind>(0x00), // -1000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xE8), static_cast<DataKind>(0xB7),
+                        static_cast<DataKind>(0x89), static_cast<DataKind>(0x18),
+                        static_cast<DataKind>(0x00), // -100000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFD), static_cast<DataKind>(0xAB),
+                        static_cast<DataKind>(0xF4), static_cast<DataKind>(0x1C),
+                        static_cast<DataKind>(0x00), // -10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xC4), static_cast<DataKind>(0x65),
+                        static_cast<DataKind>(0x36), static_cast<DataKind>(0x00), // -1000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFA), static_cast<DataKind>(0x0A),
+                        static_cast<DataKind>(0x1F), static_cast<DataKind>(0x00), // -100000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFF), static_cast<DataKind>(0x67),
+                        static_cast<DataKind>(0x69), static_cast<DataKind>(0x80), // -10000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xF0), static_cast<DataKind>(0xBD),
+                        static_cast<DataKind>(0xC0), // -1000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFE), static_cast<DataKind>(0x79),
+                        static_cast<DataKind>(0x60), // -100000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xD8), static_cast<DataKind>(0xF0), // -10000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0xFC), static_cast<DataKind>(0x18), // -1000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        static_cast<DataKind>(0x9C), // -100
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0xF6 & DataKind::IntegerShortValueValueMask, // -10
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0xFF & DataKind::IntegerShortValueValueMask, // -1
+                        // End of Array
+                        DataKind::Other | DataKind::OtherContainerEnd |
+                          DataKind::OtherContainerTypeArray |
+                          DataKind::OtherContainerNonEmptyValue,
+                        // End of Message
+                        DataKind::EndOfMessageValue |
+                          DataKind::OtherMessageNonEmptyValue |
+                          DataKind::OtherMessageExpectedOtherValue
+                    };
+                    const size_t          expectedBytesForArrayWithIntegersCount =
+                                                    (sizeof(expectedBytesForArrayWithIntegers) /
+                                                     sizeof(*expectedBytesForArrayWithIntegers));
+                    auto                  contents(stuff->getBytes());
+                    size_t                length = contents.size();
+                    ODL_PACKET("contents", contents.data(), length); //####
+                    ODL_PACKET("expected", expectedBytesForArrayWithIntegers, //####
+                               expectedBytesForArrayWithIntegersCount); //####
+                    
+                    if (expectedBytesForArrayWithIntegersCount == length)
+                    {
+                        result = static_cast<int>(CompareBytes(expectedBytesForArrayWithIntegers,
+                                                               contents.data(),
+                                                           expectedBytesForArrayWithIntegersCount));
+                    }
+                    else
+                    {
+                        ODL_LOG("! (expectedBytesForArrayWithIntegersCount == length)"); //####
+                        result = 1;
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (arrayWithIntegers.size() == ((2 * kNumValues) + 1))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_L(result); //####
+    return result;
+} // doTestMessageWithArrayWithRangeOfIntegers
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -4102,7 +4470,7 @@ main(int  argc,
                         break;
 
                     case 4 :
-                        result = doTestShortIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestSmallIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
@@ -4130,7 +4498,7 @@ main(int  argc,
                         break;
 
                     case 11 :
-                        result = doTestShortBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestSmallBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 12 :
@@ -4138,7 +4506,7 @@ main(int  argc,
                         break;
 
                     case 13 :
-                        result = doTestSingleFloatMessage(*argv, argc - 1, argv + 2);
+                        result = doTestSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
@@ -4255,6 +4623,11 @@ main(int  argc,
 
                     case 165 :
                         result = doTestStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 180 :
+                        result = doTestMessageWithArrayWithRangeOfIntegers(*argv, argc - 1,
+                                                                           argv + 2);
                         break;
 
                     default :

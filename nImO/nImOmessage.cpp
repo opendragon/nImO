@@ -135,6 +135,7 @@ nImO::Message::appendBytes(const uint8_t *data,
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
     ODL_LL1("numBytes = ", numBytes); //####
+    ODL_PACKET("data", data, numBytes); //####
     // Invalidate the cache.
     _cachedTransmissionString.clear();
     inherited::appendBytes(data, numBytes);
@@ -147,26 +148,26 @@ nImO::Message::close(void)
     ODL_OBJENTER(); //####
     switch (_state)
     {
-    case MessageState::OpenForReading :
-        // TBD
-        break;
+        case MessageState::OpenForReading :
+            // TBD
+            break;
 
-    case MessageState::OpenForWriting :
-        if (! _headerAdded)
-        {
-            static const DataKind emptyMessage[] =
+        case MessageState::OpenForWriting :
+            if (! _headerAdded)
             {
-                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
-                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
-            };
-            const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
+                static const DataKind emptyMessage[] =
+                {
+                    DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
+                    DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
+                };
+                const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
 
-            appendBytes(emptyMessage, emptyMessageLength);
-        }
-        break;
+                appendBytes(emptyMessage, emptyMessageLength);
+            }
+            break;
 
-    default :
-        break;
+        default :
+            break;
 
     }
     _state = MessageState::Closed;
@@ -304,14 +305,16 @@ const
 } // nImO::Message::getLength
 
 nImO::SpValue
-nImO::Message::getValue(void)
+nImO::Message::getValue(const bool allowClosed)
 {
     ODL_OBJENTER(); //####
     SpValue result;
 
-    if (MessageState::OpenForReading == _state)
+    if ((MessageState::OpenForReading == _state) ||
+        (allowClosed && (MessageState::Closed == _state)))
     {
-        ODL_LOG("(MessageState::OpenForReading == _state)"); //####
+        ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####
+                "(MessageState::Closed == _state)))"); //####
         size_t savedPosition = _readPosition;
         bool   atEnd;
         int    aByte = getByte(_readPosition, atEnd);
@@ -437,12 +440,31 @@ nImO::Message::getValue(void)
     }
     else
     {
-        ODL_LOG("! (MessageState::OpenForReading == _state)"); //####
-        result.reset(new Invalid("Message is not open for reading"));
+        ODL_LOG("! ((MessageState::OpenForReading == _state) || (allowClosed && " //####
+                "(MessageState::Closed == _state)))"); //####
+        result.reset(new Invalid("Message is not open for reading or is not closed"));
     }
     ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::Message::getValue
+
+nImO::Message &
+nImO::Message::open(const bool forWriting)
+{
+    ODL_OBJENTER(); //####
+    ODL_B1("forWriting = ", forWriting); //####
+    if (forWriting)
+    {
+        _state = MessageState::OpenForWriting;
+    }
+    else
+    {
+        _state = MessageState::OpenForReading;
+    }
+    reset();
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Message::open
 
 nImO::ChunkArray &
 nImO::Message::reset(void)

@@ -128,16 +128,8 @@ namespace nImO
 
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
-        inline BufferChunk &
-        reset(void)
-        {
-            _write = _buffer.get();
-            if (_padded)
-            {
-                *_write = 0;
-            }
-            return *this;
-        } // reset
+        BufferChunk &
+        reset(void);
 
     protected :
         // Protected methods.

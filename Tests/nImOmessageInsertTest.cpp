@@ -157,7 +157,7 @@ setValueAndCheck(Message        &stuff,
                     result = 1;
                 }
             }
-	    else
+            else
             {
                 ODL_LOG("! (expectedContents2 && expectedSize2)"); //####
             }
@@ -209,11 +209,11 @@ doTestInsertEmptyMessage(UNUSED_ const char *launchPath,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t  expectedEmptyByteCount = (sizeof(expectedEmptyBytes) /
-                                                    sizeof(*expectedEmptyBytes));
+            const size_t          expectedEmptyByteCount = (sizeof(expectedEmptyBytes) /
+                                                            sizeof(*expectedEmptyBytes));
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto   contents1(stuff->getBytes());
-            size_t length1 = contents1.size();
+            auto                  contents1(stuff->getBytes());
+            size_t                length1 = contents1.size();
 
             stuff->open(true);
             if (0 != length1)
@@ -238,10 +238,10 @@ doTestInsertEmptyMessage(UNUSED_ const char *launchPath,
                             0xF8, // End of message
                             0x17 // Checksum
                         };
-                        const size_t transmitEmptyByteCount = (sizeof(transmitEmptyBytes) /
-                                                               sizeof(*transmitEmptyBytes));
-                        std::string  contents2(stuff->getBytesForTransmission());
-                        size_t       length2 = contents2.size();
+                        const size_t         transmitEmptyByteCount = (sizeof(transmitEmptyBytes) /
+                                                                       sizeof(*transmitEmptyBytes));
+                        std::string          contents2(stuff->getBytesForTransmission());
+                        size_t               length2 = contents2.size();
 
                         ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
                                    transmitEmptyByteCount); //####
@@ -298,7 +298,7 @@ doTestInsertEmptyMessage(UNUSED_ const char *launchPath,
 static int
 doTestInsertLogicalMessage(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // boolean message
+                           UNUSED_ char       **argv) // logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -326,8 +326,8 @@ doTestInsertLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedTrueByteCount = (sizeof(expectedTrueBytes) /
-                                                  sizeof(*expectedTrueBytes));
+            const size_t          expectedTrueByteCount = (sizeof(expectedTrueBytes) /
+                                                           sizeof(*expectedTrueBytes));
             static const DataKind expectedFalseBytes[] =
             {
                 // Start of Message
@@ -342,28 +342,28 @@ doTestInsertLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedFalseByteCount = (sizeof(expectedFalseBytes) /
-                                                   sizeof(*expectedFalseBytes));
-            static const uint8_t transmitFalseBytes[] =
+            const size_t          expectedFalseByteCount = (sizeof(expectedFalseBytes) /
+                                                            sizeof(*expectedFalseBytes));
+            static const uint8_t  transmitFalseBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xC0, // Logical False
                 0xFF, // End of message, last is Other
                 0x49 // Checksum
             };
-            const size_t transmitFalseByteCount = (sizeof(transmitFalseBytes) /
-                                                   sizeof(*transmitFalseBytes));
-            static const uint8_t transmitTrueBytes[] =
+            const size_t          transmitFalseByteCount = (sizeof(transmitFalseBytes) /
+                                                            sizeof(*transmitFalseBytes));
+            static const uint8_t  transmitTrueBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xC1, // Logical true
                 0xFF, // End of message, last is Other
                 0x48 // Checksum
             };
-            const size_t transmitTrueByteCount = (sizeof(transmitTrueBytes) /
-                                                  sizeof(*transmitTrueBytes));
-            Logical falseValue(false);
-            Logical trueValue(true);
+            const size_t          transmitTrueByteCount = (sizeof(transmitTrueBytes) /
+                                                           sizeof(*transmitTrueBytes));
+            Logical               falseValue(false);
+            Logical               trueValue(true);
 
             result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount,
                                       transmitTrueBytes, transmitTrueByteCount);
@@ -435,8 +435,8 @@ doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedMinus12ByteCount = (sizeof(expectedMinus12Bytes) /
-                                                     sizeof(*expectedMinus12Bytes));
+            const size_t          expectedMinus12ByteCount = (sizeof(expectedMinus12Bytes) /
+                                                              sizeof(*expectedMinus12Bytes));
             static const DataKind expectedZeroBytes[] =
             {
                 // Start of Message
@@ -451,8 +451,8 @@ doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedZeroByteCount = (sizeof(expectedZeroBytes) /
-                                                  sizeof(*expectedZeroBytes));
+            const size_t          expectedZeroByteCount = (sizeof(expectedZeroBytes) /
+                                                           sizeof(*expectedZeroBytes));
             static const DataKind expectedPlus12Bytes[] =
             {
                 // Start of Message
@@ -467,38 +467,38 @@ doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedPlus12ByteCount = (sizeof(expectedPlus12Bytes) /
-                                                    sizeof(*expectedPlus12Bytes));
-            static const uint8_t transmitMinus12Bytes[] =
+            const size_t          expectedPlus12ByteCount = (sizeof(expectedPlus12Bytes) /
+                                                             sizeof(*expectedPlus12Bytes));
+            static const uint8_t  transmitMinus12Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x14, // Integer -12
                 0xFC, // End of message, last is Integer
                 0xFB // Checksum
             };
-            const size_t transmitMinus12ByteCount = (sizeof(transmitMinus12Bytes) /
-                                                   sizeof(*transmitMinus12Bytes));
-            static const uint8_t transmitZeroBytes[] =
+            const size_t          transmitMinus12ByteCount = (sizeof(transmitMinus12Bytes) /
+                                                              sizeof(*transmitMinus12Bytes));
+            static const uint8_t  transmitZeroBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x00, // Integer 0
                 0xFC, // End of message, last is Integer
                 0x0F // Checksum
             };
-            const size_t transmitZeroByteCount = (sizeof(transmitZeroBytes) /
-                                                  sizeof(*transmitZeroBytes));
-            static const uint8_t transmitPlus12Bytes[] =
+            const size_t          transmitZeroByteCount = (sizeof(transmitZeroBytes) /
+                                                           sizeof(*transmitZeroBytes));
+            static const uint8_t  transmitPlus12Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x0C, // Integer 12
                 0xFC, // End of message, last is Integer
                 0x03 // Checksum
             };
-            const size_t transmitPlus12ByteCount = (sizeof(transmitPlus12Bytes) /
-                                                     sizeof(*transmitPlus12Bytes));
-            Integer minus12Value(-12);
-            Integer zeroValue(0);
-            Integer plus12Value(12);
+            const size_t          transmitPlus12ByteCount = (sizeof(transmitPlus12Bytes) /
+                                                             sizeof(*transmitPlus12Bytes));
+            Integer               minus12Value(-12);
+            Integer               zeroValue(0);
+            Integer               plus12Value(12);
 
             result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes,
                                       expectedMinus12ByteCount, transmitMinus12Bytes,
@@ -547,9 +547,9 @@ doTestInsertTinyIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
+doTestInsertSmallIntegerMessage(UNUSED_ const char *launchPath,
                                 UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // short integer message
+                                UNUSED_ char       **argv) // small integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -578,8 +578,8 @@ doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedMinus144ByteCount = (sizeof(expectedMinus144Bytes) /
-                                                      sizeof(*expectedMinus144Bytes));
+            const size_t          expectedMinus144ByteCount = (sizeof(expectedMinus144Bytes) /
+                                                               sizeof(*expectedMinus144Bytes));
             static const DataKind expectedPlus144Bytes[] =
             {
                 // Start of Message
@@ -595,28 +595,28 @@ doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedPlus144ByteCount = (sizeof(expectedPlus144Bytes) /
-                                                     sizeof(*expectedPlus144Bytes));
-            static const uint8_t transmitMinus144Bytes[] =
+            const size_t          expectedPlus144ByteCount = (sizeof(expectedPlus144Bytes) /
+                                                              sizeof(*expectedPlus144Bytes));
+            static const uint8_t  transmitMinus144Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x21, 0xFF, 0x70, // Integer -144
                 0xFC, // End of message, last is Integer
                 0x7F // Checksum
             };
-            const size_t transmitMinus144ByteCount = (sizeof(transmitMinus144Bytes) /
-                                                      sizeof(*transmitMinus144Bytes));
-            static const uint8_t transmitPlus144Bytes[] =
+            const size_t          transmitMinus144ByteCount = (sizeof(transmitMinus144Bytes) /
+                                                               sizeof(*transmitMinus144Bytes));
+            static const uint8_t  transmitPlus144Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x21, 0x00, 0x90, // Integer 144
                 0xFC, // End of message, last is Integer
                 0x5E // Checksum
             };
-            const size_t transmitPlus144ByteCount = (sizeof(transmitPlus144Bytes) /
-                                                     sizeof(*transmitPlus144Bytes));
-            Integer minus144Value(-144);
-            Integer plus144Value(144);
+            const size_t          transmitPlus144ByteCount = (sizeof(transmitPlus144Bytes) /
+                                                              sizeof(*transmitPlus144Bytes));
+            Integer               minus144Value(-144);
+            Integer               plus144Value(144);
 
             result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes,
                                       expectedMinus144ByteCount, transmitMinus144Bytes,
@@ -640,7 +640,7 @@ doTestInsertShortIntegerMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertShortIntegerMessage
+} // doTestInsertSmallIntegerMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -691,8 +691,9 @@ doTestInsertMediumIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedMinus1234567ByteCount = (sizeof(expectedMinus1234567Bytes) /
-                                                          sizeof(*expectedMinus1234567Bytes));
+            const size_t          expectedMinus1234567ByteCount =
+                                                            (sizeof(expectedMinus1234567Bytes) /
+                                                             sizeof(*expectedMinus1234567Bytes));
             static const DataKind expectedPlus1234567Bytes[] =
             {
                 // Start of Message
@@ -709,28 +710,31 @@ doTestInsertMediumIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedPlus1234567ByteCount = (sizeof(expectedPlus1234567Bytes) /
-                                                         sizeof(*expectedPlus1234567Bytes));
-            static const uint8_t transmitMinus1234567Bytes[] =
+            const size_t          expectedPlus1234567ByteCount =
+                                                                (sizeof(expectedPlus1234567Bytes) /
+                                                                 sizeof(*expectedPlus1234567Bytes));
+            static const uint8_t  transmitMinus1234567Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x22, 0xED, 0x29, 0x79, // Integer -1234567
                 0xFC, // End of message, last is Integer
                 0x5E // Checksum
             };
-            const size_t transmitMinus1234567ByteCount = (sizeof(transmitMinus1234567Bytes) /
-                                                          sizeof(*transmitMinus1234567Bytes));
-            static const uint8_t transmitPlus1234567Bytes[] =
+            const size_t          transmitMinus1234567ByteCount =
+                                                            (sizeof(transmitMinus1234567Bytes) /
+                                                             sizeof(*transmitMinus1234567Bytes));
+            static const uint8_t  transmitPlus1234567Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x22, 0x12, 0xD6, 0x87, // Integer 1234567
                 0xFC, // End of message, last is Integer
                 0x7E // Checksum
             };
-            const size_t transmitPlus1234567ByteCount = (sizeof(transmitPlus1234567Bytes) /
-                                                         sizeof(*transmitPlus1234567Bytes));
-            Integer minus1234567Value(-1234567);
-            Integer plus1234567Value(1234567);
+            const size_t          transmitPlus1234567ByteCount =
+                                                                (sizeof(transmitPlus1234567Bytes) /
+                                                                 sizeof(*transmitPlus1234567Bytes));
+            Integer               minus1234567Value(-1234567);
+            Integer               plus1234567Value(1234567);
 
             result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes,
                                       expectedMinus1234567ByteCount, transmitMinus1234567Bytes,
@@ -806,8 +810,9 @@ doTestInsertBigIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedMinusBigNumberByteCount = (sizeof(expectedMinusBigNumberBytes) /
-                                                            sizeof(*expectedMinusBigNumberBytes));
+            const size_t          expectedMinusBigNumberByteCount =
+                                                            (sizeof(expectedMinusBigNumberBytes) /
+                                                             sizeof(*expectedMinusBigNumberBytes));
             static const DataKind expectedPlusBigNumberBytes[] =
             {
                 // Start of Message
@@ -825,28 +830,31 @@ doTestInsertBigIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t expectedPlusBigNumberByteCount = (sizeof(expectedPlusBigNumberBytes) /
-                                                           sizeof(*expectedPlusBigNumberBytes));
-            static const uint8_t transmitMinusBigNumberBytes[] =
+            const size_t          expectedPlusBigNumberByteCount =
+                                                            (sizeof(expectedPlusBigNumberBytes) /
+                                                             sizeof(*expectedPlusBigNumberBytes));
+            static const uint8_t  transmitMinusBigNumberBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x25, 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44, // Integer -20015998343868
                 0xFC, // End of message, last is Integer
                 0x59 // Checksum
             };
-            const size_t transmitMinusBigNumberByteCount = (sizeof(transmitMinusBigNumberBytes) /
-                                                            sizeof(*transmitMinusBigNumberBytes));
-            static const uint8_t transmitPlusBigNumberBytes[] =
+            const size_t          transmitMinusBigNumberByteCount =
+                                                            (sizeof(transmitMinusBigNumberBytes) /
+                                                             sizeof(*transmitMinusBigNumberBytes));
+            static const uint8_t  transmitPlusBigNumberBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x25, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, // Integer 20015998343868
                 0xFC, // End of message, last is Integer
                 0x80 // Checksum
             };
-            const size_t transmitPlusBigNumberByteCount = (sizeof(transmitPlusBigNumberBytes) /
-                                                           sizeof(*transmitPlusBigNumberBytes));
-            Integer minusBigNumberValue(-20015998343868);
-            Integer plusBigNumberValue(20015998343868);
+            const size_t          transmitPlusBigNumberByteCount =
+                                                            (sizeof(transmitPlusBigNumberBytes) /
+                                                             sizeof(*transmitPlusBigNumberBytes));
+            Integer               minusBigNumberValue(-20015998343868);
+            Integer               plusBigNumberValue(20015998343868);
 
             result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes,
                                       expectedMinusBigNumberByteCount, transmitMinusBigNumberBytes,
@@ -921,18 +929,20 @@ doTestInsertEmptyStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedEmptyStringByteCount = (sizeof(expectedEmptyStringBytes) /
-                                                         sizeof(*expectedEmptyStringBytes));
-            static const uint8_t transmitEmptyStringBytes[] =
+            const size_t          expectedEmptyStringByteCount =
+                                                                (sizeof(expectedEmptyStringBytes) /
+                                                                 sizeof(*expectedEmptyStringBytes));
+            static const uint8_t  transmitEmptyStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x80, // String - empty
                 0xFE, // End of message, last is String or Blob
                 0x8B // Checksum
             };
-            const size_t transmitEmptyStringByteCount = (sizeof(transmitEmptyStringBytes) /
-                                                         sizeof(*transmitEmptyStringBytes));
-            String emptyStringValue("");
+            const size_t          transmitEmptyStringByteCount =
+                                                                (sizeof(transmitEmptyStringBytes) /
+                                                                 sizeof(*transmitEmptyStringBytes));
+            String                emptyStringValue("");
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes,
                                       expectedEmptyStringByteCount, transmitEmptyStringBytes,
@@ -1003,18 +1013,20 @@ doTestInsertShortStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedShortStringByteCount = (sizeof(expectedShortStringBytes) /
-                                                         sizeof(*expectedShortStringBytes));
-            static const uint8_t transmitShortStringBytes[] =
+            const size_t          expectedShortStringByteCount =
+                                                                (sizeof(expectedShortStringBytes) /
+                                                                 sizeof(*expectedShortStringBytes));
+            static const uint8_t  transmitShortStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x86, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'
                 0xFE, // End of message, last is String or Blob
                 0x30 // Checksum
             };
-            const size_t transmitShortStringByteCount = (sizeof(transmitShortStringBytes) /
-                                                         sizeof(*transmitShortStringBytes));
-            String shortStringValue("abcdef");
+            const size_t          transmitShortStringByteCount =
+                                                                (sizeof(transmitShortStringBytes) /
+                                                                 sizeof(*transmitShortStringBytes));
+            String                shortStringValue("abcdef");
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes,
                                       expectedShortStringByteCount, transmitShortStringBytes,
@@ -1104,9 +1116,10 @@ doTestInsertMediumStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedMediumStringByteCount = (sizeof(expectedMediumStringBytes) /
-                                                          sizeof(*expectedMediumStringBytes));
-            static const uint8_t transmitMediumStringBytes[] =
+            const size_t          expectedMediumStringByteCount =
+                                                            (sizeof(expectedMediumStringBytes) /
+                                                             sizeof(*expectedMediumStringBytes));
+            static const uint8_t  transmitMediumStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x90, 0x2A, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'*7, length = 42
@@ -1116,9 +1129,10 @@ doTestInsertMediumStringMessage(UNUSED_ const char *launchPath,
                 0xFE, // End of message, last is String or Blob
                 0xFE // Checksum
             };
-            const size_t transmitMediumStringByteCount = (sizeof(transmitMediumStringBytes) /
-                                                          sizeof(*transmitMediumStringBytes));
-            String mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            const size_t          transmitMediumStringByteCount =
+                                                            (sizeof(transmitMediumStringBytes) /
+                                                             sizeof(*transmitMediumStringBytes));
+            String                mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes,
                                       expectedMediumStringByteCount, transmitMediumStringBytes,
@@ -1186,18 +1200,18 @@ doTestInsertEmptyBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedEmptyBlobByteCount = (sizeof(expectedEmptyBlobBytes) /
-                                                       sizeof(*expectedEmptyBlobBytes));
-            static const uint8_t transmitEmptyBlobBytes[] =
+            const size_t          expectedEmptyBlobByteCount = (sizeof(expectedEmptyBlobBytes) /
+                                                                sizeof(*expectedEmptyBlobBytes));
+            static const uint8_t  transmitEmptyBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xA0, // Empty Blob
                 0xFE, // End of message, last is String or Blob
                 0x6B // Checksum
             };
-            const size_t transmitEmptyBlobByteCount = (sizeof(transmitEmptyBlobBytes) /
-                                                       sizeof(*transmitEmptyBlobBytes));
-            Blob emptyBlobValue;
+            const size_t          transmitEmptyBlobByteCount = (sizeof(transmitEmptyBlobBytes) /
+                                                                sizeof(*transmitEmptyBlobBytes));
+            Blob                  emptyBlobValue;
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes,
                                       expectedEmptyBlobByteCount, transmitEmptyBlobBytes,
@@ -1234,9 +1248,9 @@ doTestInsertEmptyBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
+doTestInsertSmallBlobMessage(UNUSED_ const char *launchPath,
                              UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // short blob message
+                             UNUSED_ char       **argv) // small blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1250,7 +1264,7 @@ doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
 
         if (stuff)
         {
-            static const DataKind expectedShortBlobBytes[] =
+            static const DataKind expectedSmallBlobBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1268,27 +1282,27 @@ doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedShortBlobByteCount = (sizeof(expectedShortBlobBytes) /
-                                                       sizeof(*expectedShortBlobBytes));
-            static const uint8_t actualData[] =
+            const size_t          expectedSmallBlobByteCount = (sizeof(expectedSmallBlobBytes) /
+                                                                sizeof(*expectedSmallBlobBytes));
+            static const uint8_t  actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t transmitShortBlobBytes[] =
+            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            static const uint8_t  transmitSmallBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xA6, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Short Blob
                 0xFE, // End of message, last is String or Blob
                 0xFA // Checksum
             };
-            const size_t transmitShortBlobByteCount = (sizeof(transmitShortBlobBytes) /
-                                                       sizeof(*transmitShortBlobBytes));
-            Blob shortBlobValue(actualData, actualDataCount);
+            const size_t          transmitSmallBlobByteCount = (sizeof(transmitSmallBlobBytes) /
+                                                                sizeof(*transmitSmallBlobBytes));
+            Blob                  shortBlobValue(actualData, actualDataCount);
 
-            result = setValueAndCheck(*stuff, shortBlobValue, expectedShortBlobBytes,
-                                      expectedShortBlobByteCount, transmitShortBlobBytes,
-                                      transmitShortBlobByteCount);
+            result = setValueAndCheck(*stuff, shortBlobValue, expectedSmallBlobBytes,
+                                      expectedSmallBlobByteCount, transmitSmallBlobBytes,
+                                      transmitSmallBlobByteCount);
         }
         else
         {
@@ -1302,7 +1316,7 @@ doTestInsertShortBlobMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertShortBlobMessage
+} // doTestInsertSmallBlobMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1374,9 +1388,9 @@ doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedMediumBlobByteCount = (sizeof(expectedMediumBlobBytes) /
-                                                        sizeof(*expectedMediumBlobBytes));
-            static const uint8_t actualData[] =
+            const size_t          expectedMediumBlobByteCount = (sizeof(expectedMediumBlobBytes) /
+                                                                 sizeof(*expectedMediumBlobBytes));
+            static const uint8_t  actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1386,8 +1400,8 @@ doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t transmitMediumBlobBytes[] =
+            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            static const uint8_t  transmitMediumBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xB0, 0x2A, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Medium Blob, length = 42
@@ -1400,9 +1414,9 @@ doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
                 0xFE, // End of message, last is String or Blob
                 0x44 // Checksum
             };
-            const size_t transmitMediumBlobByteCount = (sizeof(transmitMediumBlobBytes) /
-                                                        sizeof(*transmitMediumBlobBytes));
-            Blob mediumBlobValue(actualData, actualDataCount);
+            const size_t          transmitMediumBlobByteCount = (sizeof(transmitMediumBlobBytes) /
+                                                                 sizeof(*transmitMediumBlobBytes));
+            Blob                  mediumBlobValue(actualData, actualDataCount);
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes,
                                       expectedMediumBlobByteCount, transmitMediumBlobBytes,
@@ -1439,9 +1453,9 @@ doTestInsertMediumBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
-                               UNUSED_ const int  argc,
-                               UNUSED_ char       **argv) // single float message
+doTestInsertSingleDoubleMessage(UNUSED_ const char *launchPath,
+                                UNUSED_ const int  argc,
+                                UNUSED_ char       **argv) // single double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1474,8 +1488,9 @@ doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t expectedPlus42Point5ByteCount = (sizeof(expectedPlus42Point5Bytes) /
-                                                          sizeof(*expectedPlus42Point5Bytes));
+            const size_t          expectedPlus42Point5ByteCount =
+                                                            (sizeof(expectedPlus42Point5Bytes) /
+                                                             sizeof(*expectedPlus42Point5Bytes));
             static const DataKind expectedMinus42Point5Bytes[] =
             {
                 // Start of Message
@@ -1495,28 +1510,31 @@ doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t expectedMinus42Point5ByteCount = (sizeof(expectedMinus42Point5Bytes) /
-                                                           sizeof(*expectedMinus42Point5Bytes));
-            static const uint8_t transmitMinus42Point5Bytes[] =
+            const size_t          expectedMinus42Point5ByteCount =
+                                                            (sizeof(expectedMinus42Point5Bytes) /
+                                                             sizeof(*expectedMinus42Point5Bytes));
+            static const uint8_t  transmitMinus42Point5Bytes[] =
             {
-                0xF5, // Start of message, next is Floating-point
+                0xF5, // Start of message, next is Doubleing-point
                 0x40, 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, -42.5
-                0xFD, // End of message, last is Floating-point
+                0xFD, // End of message, last is Doubleing-point
                 0x88 // Checksum
             };
-            const size_t transmitMinus42Point5ByteCount = (sizeof(transmitMinus42Point5Bytes) /
-                                                           sizeof(*transmitMinus42Point5Bytes));
-            static const uint8_t transmitPlus42Point5Bytes[] =
+            const size_t          transmitMinus42Point5ByteCount =
+                                                            (sizeof(transmitMinus42Point5Bytes) /
+                                                             sizeof(*transmitMinus42Point5Bytes));
+            static const uint8_t  transmitPlus42Point5Bytes[] =
             {
-                0xF5, // Start of message, next is Floating-point
+                0xF5, // Start of message, next is Doubleing-point
                 0x40, 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, 42.5
-                0xFD, // End of message, last is Floating-point
+                0xFD, // End of message, last is Doubleing-point
                 0x08 // Checksum
             };
-            const size_t transmitPlus42Point5ByteCount = (sizeof(transmitPlus42Point5Bytes) /
-                                                          sizeof(*transmitPlus42Point5Bytes));
-            Double plus42Point5(42.5);
-            Double minus42Point5(-42.5);
+            const size_t          transmitPlus42Point5ByteCount =
+                                                            (sizeof(transmitPlus42Point5Bytes) /
+                                                             sizeof(*transmitPlus42Point5Bytes));
+            Double                plus42Point5(42.5);
+            Double                minus42Point5(-42.5);
 
             result = setValueAndCheck(*stuff, plus42Point5, expectedPlus42Point5Bytes,
                                       expectedPlus42Point5ByteCount, transmitPlus42Point5Bytes,
@@ -1541,7 +1559,7 @@ doTestInsertSingleFloatMessage(UNUSED_ const char *launchPath,
     }
     ODL_EXIT_L(result); //####
     return result;
-} // doTestInsertSingleFloatMessage
+} // doTestInsertSingleDoubleMessage
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
@@ -1580,12 +1598,12 @@ doTestInsertMultipleEscapesMessage(UNUSED_ const char *launchPath,
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue,
                 // Blob
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (10 & DataKind::StringOrBlobShortLengthMask),
+                  DataKind::StringOrBlobShortLengthValue |
+                  (10 & DataKind::StringOrBlobShortLengthMask),
                 static_cast<DataKind>(0xDC), static_cast<DataKind>(0xF0),
                 static_cast<DataKind>(0xF1), static_cast<DataKind>(0xF2),
                 static_cast<DataKind>(0x0D), static_cast<DataKind>(0xF3),
@@ -1593,17 +1611,18 @@ doTestInsertMultipleEscapesMessage(UNUSED_ const char *launchPath,
                 static_cast<DataKind>(0xF6), static_cast<DataKind>(0xF7),
                 // End of Message
                 DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t expectedMultipleEscapesByteCount = (sizeof(expectedMultipleEscapesBytes) /
+            const size_t          expectedMultipleEscapesByteCount =
+                                                            (sizeof(expectedMultipleEscapesBytes) /
                                                              sizeof(*expectedMultipleEscapesBytes));
-            static const uint8_t actualData[] =
+            static const uint8_t  actualData[] =
             {
                 0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
             };
-            const size_t actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t transmitMultipleEscapesBytes[] =
+            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
+            static const uint8_t  transmitMultipleEscapesBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xAA, 0xDC, 0x5C, 0xDC, 0x70, 0xDC, 0x71, 0xDC, 0x72, 0x0D, 0xDC, 0x73, 0xDC, 0x74,
@@ -1611,9 +1630,10 @@ doTestInsertMultipleEscapesMessage(UNUSED_ const char *launchPath,
                 0xFE, // End of message, last is String or Blob
                 0xDC, 0x5C // Checksum
             };
-            const size_t transmitMultipleEscapesByteCount = (sizeof(transmitMultipleEscapesBytes) /
+            const size_t          transmitMultipleEscapesByteCount =
+                                                            (sizeof(transmitMultipleEscapesBytes) /
                                                              sizeof(*transmitMultipleEscapesBytes));
-            Blob multipleEscapesValue(actualData, actualDataCount);
+            Blob                  multipleEscapesValue(actualData, actualDataCount);
             
             result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes,
                                       expectedMultipleEscapesByteCount,
@@ -1686,9 +1706,9 @@ doTestInsertEmptyArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptyArrayByteCount = (sizeof(expectedEmptyArrayBytes) /
-                                                        sizeof(*expectedEmptyArrayBytes));
-            static const uint8_t transmitEmptyArrayBytes[] =
+            const size_t          expectedEmptyArrayByteCount = (sizeof(expectedEmptyArrayBytes) /
+                                                                 sizeof(*expectedEmptyArrayBytes));
+            static const uint8_t  transmitEmptyArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD0, // Start of empty Array
@@ -1696,9 +1716,9 @@ doTestInsertEmptyArrayMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x59 // Checksum
             };
-            const size_t transmitEmptyArrayByteCount = (sizeof(transmitEmptyArrayBytes) /
-                                                        sizeof(*transmitEmptyArrayBytes));
-            Array emptyArray;
+            const size_t          transmitEmptyArrayByteCount = (sizeof(transmitEmptyArrayBytes) /
+                                                                 sizeof(*transmitEmptyArrayBytes));
+            Array                 emptyArray;
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes,
                                       expectedEmptyArrayByteCount, transmitEmptyArrayBytes,
@@ -1770,9 +1790,9 @@ doTestInsertEmptyMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptyMapByteCount = (sizeof(expectedEmptyMapBytes) /
-                                                      sizeof(*expectedEmptyMapBytes));
-            static const uint8_t transmitEmptyMapBytes[] =
+            const size_t          expectedEmptyMapByteCount = (sizeof(expectedEmptyMapBytes) /
+                                                               sizeof(*expectedEmptyMapBytes));
+            static const uint8_t  transmitEmptyMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD4, // Start of empty Map
@@ -1780,9 +1800,9 @@ doTestInsertEmptyMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x51 // Checksum
             };
-            const size_t transmitEmptyMapByteCount = (sizeof(transmitEmptyMapBytes) /
-                                                      sizeof(*transmitEmptyMapBytes));
-            Map emptyMap;
+            const size_t          transmitEmptyMapByteCount = (sizeof(transmitEmptyMapBytes) /
+                                                               sizeof(*transmitEmptyMapBytes));
+            Map                   emptyMap;
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes,
                                       expectedEmptyMapByteCount, transmitEmptyMapBytes,
@@ -1854,9 +1874,9 @@ doTestInsertEmptySetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedEmptySetByteCount = (sizeof(expectedEmptySetBytes) /
-                                                      sizeof(*expectedEmptySetBytes));
-            static const uint8_t transmitEmptySetBytes[] =
+            const size_t          expectedEmptySetByteCount = (sizeof(expectedEmptySetBytes) /
+                                                               sizeof(*expectedEmptySetBytes));
+            static const uint8_t  transmitEmptySetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD8, // Start of empty Set
@@ -1864,9 +1884,9 @@ doTestInsertEmptySetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x49 // Checksum
             };
-            const size_t transmitEmptySetByteCount = (sizeof(transmitEmptySetBytes) /
-                                                      sizeof(*transmitEmptySetBytes));
-            Set emptySet;
+            const size_t          transmitEmptySetByteCount = (sizeof(transmitEmptySetBytes) /
+                                                               sizeof(*transmitEmptySetBytes));
+            Set                   emptySet;
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes,
                                       expectedEmptySetByteCount, transmitEmptySetBytes,
@@ -1905,7 +1925,7 @@ doTestInsertEmptySetMessage(UNUSED_ const char *launchPath,
 static int
 doTestInsertArrayOneLogicalMessage(UNUSED_ const char *launchPath,
                                    UNUSED_ const int  argc,
-                                   UNUSED_ char       **argv) // array with one boolean message
+                                   UNUSED_ char       **argv) // array with one logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1946,9 +1966,10 @@ doTestInsertArrayOneLogicalMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneLogicalByteCount = (sizeof(expectedArrayOneLogicalBytes) /
+            const size_t          expectedArrayOneLogicalByteCount =
+                                                            (sizeof(expectedArrayOneLogicalBytes) /
                                                              sizeof(*expectedArrayOneLogicalBytes));
-            static const uint8_t transmitArrayOneLogicalBytes[] =
+            static const uint8_t  transmitArrayOneLogicalBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -1957,9 +1978,10 @@ doTestInsertArrayOneLogicalMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x87 // Checksum
             };
-            const size_t transmitArrayOneLogicalByteCount = (sizeof(transmitArrayOneLogicalBytes) /
+            const size_t          transmitArrayOneLogicalByteCount =
+                                                            (sizeof(transmitArrayOneLogicalBytes) /
                                                              sizeof(*transmitArrayOneLogicalBytes));
-            Array arrayOneLogical;
+            Array                 arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes,
@@ -2041,9 +2063,10 @@ doTestInsertArrayOneIntegerMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneIntegerByteCount = (sizeof(expectedArrayOneIntegerBytes) /
+            const size_t          expectedArrayOneIntegerByteCount =
+                                                            (sizeof(expectedArrayOneIntegerBytes) /
                                                              sizeof(*expectedArrayOneIntegerBytes));
-            static const uint8_t transmitArrayOneIntegerBytes[] =
+            static const uint8_t  transmitArrayOneIntegerBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2052,9 +2075,10 @@ doTestInsertArrayOneIntegerMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x47 // Checksum
             };
-            const size_t transmitArrayOneIntegerByteCount = (sizeof(transmitArrayOneIntegerBytes) /
+            const size_t          transmitArrayOneIntegerByteCount =
+                                                            (sizeof(transmitArrayOneIntegerBytes) /
                                                              sizeof(*transmitArrayOneIntegerBytes));
-            Array arrayOneInteger;
+            Array                 arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes,
@@ -2141,9 +2165,10 @@ doTestInsertArrayOneDoubleMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneDoubleByteCount = (sizeof(expectedArrayOneDoubleBytes) /
-                                                            sizeof(*expectedArrayOneDoubleBytes));
-            static const uint8_t transmitArrayOneDoubleBytes[] =
+            const size_t          expectedArrayOneDoubleByteCount =
+                                                            (sizeof(expectedArrayOneDoubleBytes) /
+                                                             sizeof(*expectedArrayOneDoubleBytes));
+            static const uint8_t  transmitArrayOneDoubleBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2152,9 +2177,10 @@ doTestInsertArrayOneDoubleMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x07 // Checksum
             };
-            const size_t transmitArrayOneDoubleByteCount = (sizeof(transmitArrayOneDoubleBytes) /
-                                                            sizeof(*transmitArrayOneDoubleBytes));
-            Array arrayOneDouble;
+            const size_t          transmitArrayOneDoubleByteCount =
+                                                            (sizeof(transmitArrayOneDoubleBytes) /
+                                                             sizeof(*transmitArrayOneDoubleBytes));
+            Array                 arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes,
@@ -2236,9 +2262,10 @@ doTestInsertArrayOneStringMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneStringByteCount = (sizeof(expectedArrayOneStringBytes) /
-                                                            sizeof(*expectedArrayOneStringBytes));
-            static const uint8_t transmitArrayOneStringBytes[] =
+            const size_t          expectedArrayOneStringByteCount =
+                                                            (sizeof(expectedArrayOneStringBytes) /
+                                                             sizeof(*expectedArrayOneStringBytes));
+            static const uint8_t  transmitArrayOneStringBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2247,9 +2274,10 @@ doTestInsertArrayOneStringMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xC7 // Checksum
             };
-            const size_t transmitArrayOneStringByteCount = (sizeof(transmitArrayOneStringBytes) /
-                                                            sizeof(*transmitArrayOneStringBytes));
-            Array arrayOneString;
+            const size_t          transmitArrayOneStringByteCount =
+                                                            (sizeof(transmitArrayOneStringBytes) /
+                                                             sizeof(*transmitArrayOneStringBytes));
+            Array                 arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes,
@@ -2331,9 +2359,10 @@ doTestInsertArrayOneBlobMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneBlobByteCount = (sizeof(expectedArrayOneBlobBytes) /
-                                                          sizeof(*expectedArrayOneBlobBytes));
-            static const uint8_t transmitArrayOneBlobBytes[] =
+            const size_t          expectedArrayOneBlobByteCount =
+                                                            (sizeof(expectedArrayOneBlobBytes) /
+                                                             sizeof(*expectedArrayOneBlobBytes));
+            static const uint8_t  transmitArrayOneBlobBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2342,9 +2371,10 @@ doTestInsertArrayOneBlobMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xA7 // Checksum
             };
-            const size_t transmitArrayOneBlobByteCount = (sizeof(transmitArrayOneBlobBytes) /
-                                                          sizeof(*transmitArrayOneBlobBytes));
-            Array arrayOneBlob;
+            const size_t          transmitArrayOneBlobByteCount =
+                                                            (sizeof(transmitArrayOneBlobBytes) /
+                                                             sizeof(*transmitArrayOneBlobBytes));
+            Array                 arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes,
@@ -2430,9 +2460,10 @@ doTestInsertArrayOneArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneArrayByteCount = (sizeof(expectedArrayOneArrayBytes) /
-                                                           sizeof(*expectedArrayOneArrayBytes));
-            static const uint8_t transmitArrayOneArrayBytes[] =
+            const size_t          expectedArrayOneArrayByteCount =
+                                                            (sizeof(expectedArrayOneArrayBytes) /
+                                                             sizeof(*expectedArrayOneArrayBytes));
+            static const uint8_t  transmitArrayOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2442,9 +2473,10 @@ doTestInsertArrayOneArrayMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x97 // Checksum
             };
-            const size_t transmitArrayOneArrayByteCount = (sizeof(transmitArrayOneArrayBytes) /
-                                                           sizeof(*transmitArrayOneArrayBytes));
-            Array arrayOneArray;
+            const size_t          transmitArrayOneArrayByteCount =
+                                                            (sizeof(transmitArrayOneArrayBytes) /
+                                                             sizeof(*transmitArrayOneArrayBytes));
+            Array                 arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes,
@@ -2530,9 +2562,10 @@ doTestInsertArrayOneMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneMapByteCount = (sizeof(expectedArrayOneMapBytes) /
-                                                         sizeof(*expectedArrayOneMapBytes));
-            static const uint8_t transmitArrayOneMapBytes[] =
+            const size_t          expectedArrayOneMapByteCount =
+                                                                (sizeof(expectedArrayOneMapBytes) /
+                                                                 sizeof(*expectedArrayOneMapBytes));
+            static const uint8_t  transmitArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2542,9 +2575,10 @@ doTestInsertArrayOneMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x8F // Checksum
             };
-            const size_t transmitArrayOneMapByteCount = (sizeof(transmitArrayOneMapBytes) /
-                                                         sizeof(*transmitArrayOneMapBytes));
-            Array arrayOneMap;
+            const size_t          transmitArrayOneMapByteCount =
+                                                                (sizeof(transmitArrayOneMapBytes) /
+                                                                 sizeof(*transmitArrayOneMapBytes));
+            Array                 arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes,
@@ -2630,9 +2664,10 @@ doTestInsertArrayOneSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneSetByteCount = (sizeof(expectedArrayOneSetBytes) /
-                                                         sizeof(*expectedArrayOneSetBytes));
-            static const uint8_t transmitArrayOneSetBytes[] =
+            const size_t          expectedArrayOneSetByteCount =
+                                                                (sizeof(expectedArrayOneSetBytes) /
+                                                                 sizeof(*expectedArrayOneSetBytes));
+            static const uint8_t  transmitArrayOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2642,9 +2677,10 @@ doTestInsertArrayOneSetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x87 // Checksum
             };
-            const size_t transmitArrayOneSetByteCount = (sizeof(transmitArrayOneSetBytes) /
-                                                         sizeof(*transmitArrayOneSetBytes));
-            Array arrayOneSet;
+            const size_t          transmitArrayOneSetByteCount =
+                                                                (sizeof(transmitArrayOneSetBytes) /
+                                                                 sizeof(*transmitArrayOneSetBytes));
+            Array                 arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes,
@@ -2684,7 +2720,7 @@ doTestInsertArrayOneSetMessage(UNUSED_ const char *launchPath,
 static int
 doTestInsertArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
                                     UNUSED_ const int  argc,
-                                    UNUSED_ char       **argv) // array with two booleans message
+                                    UNUSED_ char       **argv) // array with two logicals message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2728,10 +2764,10 @@ doTestInsertArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoLogicalsByteCount =
-                                                     (sizeof(expectedArrayTwoLogicalsBytes) /
-                                                      sizeof(*expectedArrayTwoLogicalsBytes));
-            static const uint8_t transmitArrayTwoLogicalsBytes[] =
+            const size_t          expectedArrayTwoLogicalsByteCount =
+                                                         (sizeof(expectedArrayTwoLogicalsBytes) /
+                                                          sizeof(*expectedArrayTwoLogicalsBytes));
+            static const uint8_t  transmitArrayTwoLogicalsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -2740,10 +2776,10 @@ doTestInsertArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xC6 // Checksum
             };
-            const size_t transmitArrayTwoLogicalsByteCount =
+            const size_t          transmitArrayTwoLogicalsByteCount =
                                                         (sizeof(transmitArrayTwoLogicalsBytes) /
                                                          sizeof(*transmitArrayTwoLogicalsBytes));
-            Array arrayTwoLogicals;
+            Array                 arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
@@ -2829,10 +2865,10 @@ doTestInsertArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoIntegersByteCount =
+            const size_t          expectedArrayTwoIntegersByteCount =
                                                         (sizeof(expectedArrayTwoIntegersBytes) /
                                                          sizeof(*expectedArrayTwoIntegersBytes));
-            static const uint8_t transmitArrayTwoIntegersBytes[] =
+            static const uint8_t  transmitArrayTwoIntegersBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -2841,10 +2877,10 @@ doTestInsertArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x46 // Checksum
             };
-            const size_t transmitArrayTwoIntegersByteCount =
+            const size_t          transmitArrayTwoIntegersByteCount =
                                                         (sizeof(transmitArrayTwoIntegersBytes) /
                                                          sizeof(*transmitArrayTwoIntegersBytes));
-            Array arrayTwoIntegers;
+            Array                 arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
@@ -2936,9 +2972,10 @@ doTestInsertArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoDoublesByteCount = (sizeof(expectedArrayTwoDoublesBytes) /
+            const size_t          expectedArrayTwoDoublesByteCount =
+                                                            (sizeof(expectedArrayTwoDoublesBytes) /
                                                              sizeof(*expectedArrayTwoDoublesBytes));
-            static const uint8_t transmitArrayTwoDoublesBytes[] =
+            static const uint8_t  transmitArrayTwoDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -2948,10 +2985,10 @@ doTestInsertArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x05 // Checksum
             };
-            const size_t transmitArrayTwoDoublesByteCount =
+            const size_t          transmitArrayTwoDoublesByteCount =
                                                             (sizeof(transmitArrayTwoDoublesBytes) /
                                                              sizeof(*transmitArrayTwoDoublesBytes));
-            Array arrayTwoDoubles;
+            Array                 arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
@@ -3039,9 +3076,10 @@ doTestInsertArrayTwoStringsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoStringsByteCount = (sizeof(expectedArrayTwoStringsBytes) /
+            const size_t          expectedArrayTwoStringsByteCount =
+                                                            (sizeof(expectedArrayTwoStringsBytes) /
                                                              sizeof(*expectedArrayTwoStringsBytes));
-            static const uint8_t transmitArrayTwoStringsBytes[] =
+            static const uint8_t  transmitArrayTwoStringsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3050,9 +3088,10 @@ doTestInsertArrayTwoStringsMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x46 // Checksum
             };
-            const size_t transmitArrayTwoStringsByteCount = (sizeof(transmitArrayTwoStringsBytes) /
+            const size_t          transmitArrayTwoStringsByteCount =
+                                                            (sizeof(transmitArrayTwoStringsBytes) /
                                                              sizeof(*transmitArrayTwoStringsBytes));
-            Array arrayTwoStrings;
+            Array                 arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
@@ -3140,9 +3179,10 @@ doTestInsertArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoBlobsByteCount = (sizeof(expectedArrayTwoBlobsBytes) /
-                                                           sizeof(*expectedArrayTwoBlobsBytes));
-            static const uint8_t transmitArrayTwoBlobsBytes[] =
+            const size_t          expectedArrayTwoBlobsByteCount =
+                                                            (sizeof(expectedArrayTwoBlobsBytes) /
+                                                             sizeof(*expectedArrayTwoBlobsBytes));
+            static const uint8_t  transmitArrayTwoBlobsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3151,9 +3191,10 @@ doTestInsertArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x06 // Checksum
             };
-            const size_t transmitArrayTwoBlobsByteCount = (sizeof(transmitArrayTwoBlobsBytes) /
-                                                           sizeof(*transmitArrayTwoBlobsBytes));
-            Array arrayTwoBlobs;
+            const size_t          transmitArrayTwoBlobsByteCount =
+                                                            (sizeof(transmitArrayTwoBlobsBytes) /
+                                                             sizeof(*transmitArrayTwoBlobsBytes));
+            Array                 arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
@@ -3248,9 +3289,10 @@ doTestInsertArrayTwoArraysMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoArraysByteCount = (sizeof(expectedArrayTwoArraysBytes) /
-                                                            sizeof(*expectedArrayTwoArraysBytes));
-            static const uint8_t transmitArrayTwoArraysBytes[] =
+            const size_t          expectedArrayTwoArraysByteCount =
+                                                            (sizeof(expectedArrayTwoArraysBytes) /
+                                                             sizeof(*expectedArrayTwoArraysBytes));
+            static const uint8_t  transmitArrayTwoArraysBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3262,9 +3304,10 @@ doTestInsertArrayTwoArraysMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xE6 // Checksum
             };
-            const size_t transmitArrayTwoArraysByteCount = (sizeof(transmitArrayTwoArraysBytes) /
-                                                            sizeof(*transmitArrayTwoArraysBytes));
-            Array arrayTwoArrays;
+            const size_t          transmitArrayTwoArraysByteCount =
+                                                            (sizeof(transmitArrayTwoArraysBytes) /
+                                                             sizeof(*transmitArrayTwoArraysBytes));
+            Array                 arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
@@ -3359,9 +3402,10 @@ doTestInsertArrayTwoMapsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoMapsByteCount = (sizeof(expectedArrayTwoMapsBytes) /
-                                                          sizeof(*expectedArrayTwoMapsBytes));
-            static const uint8_t transmitArrayTwoMapsBytes[] =
+            const size_t          expectedArrayTwoMapsByteCount =
+                                                            (sizeof(expectedArrayTwoMapsBytes) /
+                                                             sizeof(*expectedArrayTwoMapsBytes));
+            static const uint8_t  transmitArrayTwoMapsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3373,9 +3417,10 @@ doTestInsertArrayTwoMapsMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xD6 // Checksum
             };
-            const size_t transmitArrayTwoMapsByteCount = (sizeof(transmitArrayTwoMapsBytes) /
-                                                          sizeof(*transmitArrayTwoMapsBytes));
-            Array arrayTwoMaps;
+            const size_t          transmitArrayTwoMapsByteCount =
+                                                            (sizeof(transmitArrayTwoMapsBytes) /
+                                                             sizeof(*transmitArrayTwoMapsBytes));
+            Array                 arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
@@ -3470,9 +3515,10 @@ doTestInsertArrayTwoSetsMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayTwoSetsByteCount = (sizeof(expectedArrayTwoSetsBytes) /
-                                                          sizeof(*expectedArrayTwoSetsBytes));
-            static const uint8_t transmitArrayTwoSetsBytes[] =
+            const size_t          expectedArrayTwoSetsByteCount =
+                                                            (sizeof(expectedArrayTwoSetsBytes) /
+                                                             sizeof(*expectedArrayTwoSetsBytes));
+            static const uint8_t  transmitArrayTwoSetsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3484,9 +3530,10 @@ doTestInsertArrayTwoSetsMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xC6 // Checksum
             };
-            const size_t transmitArrayTwoSetsByteCount = (sizeof(transmitArrayTwoSetsBytes) /
-                                                          sizeof(*transmitArrayTwoSetsBytes));
-            Array arrayTwoSets;
+            const size_t          transmitArrayTwoSetsByteCount =
+                                                            (sizeof(transmitArrayTwoSetsBytes) /
+                                                             sizeof(*transmitArrayTwoSetsBytes));
+            Array                 arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
@@ -3581,10 +3628,10 @@ doTestInsertArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneArrayOneMapByteCount =
+            const size_t          expectedArrayOneArrayOneMapByteCount =
                                                     (sizeof(expectedArrayOneArrayOneMapBytes) /
                                                      sizeof(*expectedArrayOneArrayOneMapBytes));
-            static const uint8_t transmitArrayOneArrayOneMapBytes[] =
+            static const uint8_t  transmitArrayOneArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3596,10 +3643,10 @@ doTestInsertArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xDE // Checksum
             };
-            const size_t transmitArrayOneArrayOneMapByteCount =
+            const size_t          transmitArrayOneArrayOneMapByteCount =
                                                         (sizeof(transmitArrayOneArrayOneMapBytes) /
                                                          sizeof(*transmitArrayOneArrayOneMapBytes));
-            Array arrayOneArrayOneMap;
+            Array                 arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
@@ -3696,10 +3743,10 @@ doTestInsertArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneMapOneSetByteCount =
+            const size_t          expectedArrayOneMapOneSetByteCount =
                                                         (sizeof(expectedArrayOneMapOneSetBytes) /
                                                          sizeof(*expectedArrayOneMapOneSetBytes));
-            static const uint8_t transmitArrayOneMapOneSetBytes[] =
+            static const uint8_t  transmitArrayOneMapOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3711,10 +3758,10 @@ doTestInsertArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xCE // Checksum
             };
-            const size_t transmitArrayOneMapOneSetByteCount =
+            const size_t          transmitArrayOneMapOneSetByteCount =
                                                         (sizeof(transmitArrayOneMapOneSetBytes) /
                                                          sizeof(*transmitArrayOneMapOneSetBytes));
-            Array arrayOneMapOneSet;
+            Array                 arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
@@ -3810,10 +3857,10 @@ doTestInsertArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayOneSetOneArrayByteCount =
+            const size_t          expectedArrayOneSetOneArrayByteCount =
                                                         (sizeof(expectedArrayOneSetOneArrayBytes) /
                                                          sizeof(*expectedArrayOneSetOneArrayBytes));
-            static const uint8_t transmitArrayOneSetOneArrayBytes[] =
+            static const uint8_t  transmitArrayOneSetOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3825,10 +3872,10 @@ doTestInsertArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xD6 // Checksum
             };
-            const size_t transmitArrayOneSetOneArrayByteCount =
+            const size_t          transmitArrayOneSetOneArrayByteCount =
                                                         (sizeof(transmitArrayOneSetOneArrayBytes) /
                                                          sizeof(*transmitArrayOneSetOneArrayBytes));
-            Array arrayOneSetOneArray;
+            Array                 arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
@@ -4086,10 +4133,10 @@ doTestInsertArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedArrayManyDoublesByteCount =
+            const size_t          expectedArrayManyDoublesByteCount =
                                                         (sizeof(expectedArrayManyDoublesBytes) /
                                                          sizeof(*expectedArrayManyDoublesBytes));
-            static const uint8_t transmitArrayManyDoublesBytes[] =
+            static const uint8_t  transmitArrayManyDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x20, 0x1A, // Start of non-empty Array, 42 elements
@@ -4141,10 +4188,10 @@ doTestInsertArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xBA // Checksum
             };
-            const size_t transmitArrayManyDoublesByteCount =
+            const size_t          transmitArrayManyDoublesByteCount =
                                                         (sizeof(transmitArrayManyDoublesBytes) /
                                                          sizeof(*transmitArrayManyDoublesBytes));
-            Array arrayManyDoubles;
+            Array                 arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
@@ -4190,7 +4237,7 @@ doTestInsertArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
 static int
 doTestInsertLogicalMapMessage(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // boolean map message
+                              UNUSED_ char       **argv) // logical map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4234,9 +4281,9 @@ doTestInsertLogicalMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedLogicalMapByteCount = (sizeof(expectedLogicalMapBytes) /
-                                                        sizeof(*expectedLogicalMapBytes));
-            static const uint8_t transmitLogicalMapBytes[] =
+            const size_t          expectedLogicalMapByteCount = (sizeof(expectedLogicalMapBytes) /
+                                                                 sizeof(*expectedLogicalMapBytes));
+            static const uint8_t  transmitLogicalMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4246,9 +4293,9 @@ doTestInsertLogicalMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x72 // Checksum
             };
-            const size_t transmitLogicalMapByteCount = (sizeof(transmitLogicalMapBytes) /
-                                                        sizeof(*transmitLogicalMapBytes));
-            Map logicalMap;
+            const size_t          transmitLogicalMapByteCount = (sizeof(transmitLogicalMapBytes) /
+                                                                 sizeof(*transmitLogicalMapBytes));
+            Map                   logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes,
@@ -4332,9 +4379,9 @@ doTestInsertIntegerMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedIntegerMapByteCount = (sizeof(expectedIntegerMapBytes) /
-                                                        sizeof(*expectedIntegerMapBytes));
-            static const uint8_t transmitIntegerMapBytes[] =
+            const size_t          expectedIntegerMapByteCount = (sizeof(expectedIntegerMapBytes) /
+                                                                 sizeof(*expectedIntegerMapBytes));
+            static const uint8_t  transmitIntegerMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4344,9 +4391,9 @@ doTestInsertIntegerMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x32 // Checksum
             };
-            const size_t transmitIntegerMapByteCount = (sizeof(transmitIntegerMapBytes) /
-                                                        sizeof(*transmitIntegerMapBytes));
-            Map integerMap;
+            const size_t          transmitIntegerMapByteCount = (sizeof(transmitIntegerMapBytes) /
+                                                                 sizeof(*transmitIntegerMapBytes));
+            Map                   integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes,
@@ -4431,9 +4478,9 @@ doTestInsertStringMapMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedStringMapByteCount = (sizeof(expectedStringMapBytes) /
-                                                       sizeof(*expectedStringMapBytes));
-            static const uint8_t transmitStringMapBytes[] =
+            const size_t          expectedStringMapByteCount = (sizeof(expectedStringMapBytes) /
+                                                                sizeof(*expectedStringMapBytes));
+            static const uint8_t  transmitStringMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4443,9 +4490,9 @@ doTestInsertStringMapMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xB2 // Checksum
             };
-            const size_t transmitStringMapByteCount = (sizeof(transmitStringMapBytes) /
-                                                       sizeof(*transmitStringMapBytes));
-            Map stringMap;
+            const size_t          transmitStringMapByteCount = (sizeof(transmitStringMapBytes) /
+                                                                sizeof(*transmitStringMapBytes));
+            Map                   stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes,
@@ -4485,7 +4532,7 @@ doTestInsertStringMapMessage(UNUSED_ const char *launchPath,
 static int
 doTestInsertLogicalSetMessage(UNUSED_ const char *launchPath,
                               UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // boolean set message
+                              UNUSED_ char       **argv) // logical set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4526,9 +4573,9 @@ doTestInsertLogicalSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedLogicalSetByteCount = (sizeof(expectedLogicalSetBytes) /
-                                                        sizeof(*expectedLogicalSetBytes));
-            static const uint8_t transmitLogicalSetBytes[] =
+            const size_t          expectedLogicalSetByteCount = (sizeof(expectedLogicalSetBytes) /
+                                                                 sizeof(*expectedLogicalSetBytes));
+            static const uint8_t  transmitLogicalSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4537,9 +4584,9 @@ doTestInsertLogicalSetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x77 // Checksum
             };
-            const size_t transmitLogicalSetByteCount = (sizeof(transmitLogicalSetBytes) /
-                                                        sizeof(*transmitLogicalSetBytes));
-            Set logicalSet;
+            const size_t          transmitLogicalSetByteCount = (sizeof(transmitLogicalSetBytes) /
+                                                                 sizeof(*transmitLogicalSetBytes));
+            Set                   logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes,
@@ -4620,9 +4667,9 @@ doTestInsertIntegerSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedIntegerSetByteCount = (sizeof(expectedIntegerSetBytes) /
-                                                        sizeof(*expectedIntegerSetBytes));
-            static const uint8_t transmitIntegerSetBytes[] =
+            const size_t          expectedIntegerSetByteCount = (sizeof(expectedIntegerSetBytes) /
+                                                                 sizeof(*expectedIntegerSetBytes));
+            static const uint8_t  transmitIntegerSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4631,9 +4678,9 @@ doTestInsertIntegerSetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0x37 // Checksum
             };
-            const size_t transmitIntegerSetByteCount = (sizeof(transmitIntegerSetBytes) /
-                                                        sizeof(*transmitIntegerSetBytes));
-            Set integerSet;
+            const size_t          transmitIntegerSetByteCount = (sizeof(transmitIntegerSetBytes) /
+                                                                 sizeof(*transmitIntegerSetBytes));
+            Set                   integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes,
@@ -4715,9 +4762,9 @@ doTestInsertStringSetMessage(UNUSED_ const char *launchPath,
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t expectedStringSetByteCount = (sizeof(expectedStringSetBytes) /
-                                                       sizeof(*expectedStringSetBytes));
-            static const uint8_t transmitStringSetBytes[] =
+            const size_t          expectedStringSetByteCount = (sizeof(expectedStringSetBytes) /
+                                                                sizeof(*expectedStringSetBytes));
+            static const uint8_t  transmitStringSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4726,9 +4773,9 @@ doTestInsertStringSetMessage(UNUSED_ const char *launchPath,
                 0xFF, // End of message, last is Other
                 0xB7 // Checksum
             };
-            const size_t transmitStringSetByteCount = (sizeof(transmitStringSetBytes) /
-                                                       sizeof(*transmitStringSetBytes));
-            Set stringSet;
+            const size_t          transmitStringSetByteCount = (sizeof(transmitStringSetBytes) /
+                                                                sizeof(*transmitStringSetBytes));
+            Set                   stringSet;
 
             stringSet.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes,
@@ -4806,7 +4853,7 @@ main(int  argc,
                         break;
 
                     case 4 :
-                        result = doTestInsertShortIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertSmallIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
@@ -4834,7 +4881,7 @@ main(int  argc,
                         break;
 
                     case 11 :
-                        result = doTestInsertShortBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertSmallBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 12 :
@@ -4842,7 +4889,7 @@ main(int  argc,
                         break;
 
                     case 13 :
-                        result = doTestInsertSingleFloatMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 14 :

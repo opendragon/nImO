@@ -133,29 +133,19 @@ namespace nImO
         override;
 
         /*! @brief Return the next Value in the Message.
+         @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
+         opened for reading
          @returns The next Value in the Message or @c nullptr if the Value cannot be retrieved or
          a Flaw if the Value is invalid. */
         SpValue
-        getValue(void);
+        getValue(const bool allowClosed = false);
 
         /*! @brief Open the Message, so that data can be read or written.
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
          read.
          @returns The Message object so that cascading can be done. */
-        inline Message &
-        open(const bool forWriting)
-        {
-            if (forWriting)
-            {
-                _state = MessageState::OpenForWriting;
-            }
-            else
-            {
-                _state = MessageState::OpenForReading;
-            }
-            reset();
-            return *this;
-        } // open
+        Message &
+        open(const bool forWriting);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.

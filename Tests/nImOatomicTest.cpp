@@ -672,7 +672,7 @@ doTestStringBufferWithCharacters(UNUSED_ const char *launchPath,
 static int
 doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
                               const int          argc,
-                              char               **argv) // string buffer with boolean
+                              char               **argv) // string buffer with logical
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1197,7 +1197,7 @@ doTestStringBufferWithEmptyBlob(UNUSED_ const char *launchPath,
 static int
 doTestStringBufferWithSmallBlob(UNUSED_ const char *launchPath,
                                 UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // string buffer with simple blob
+                                UNUSED_ char       **argv) // string buffer with small blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1444,7 +1444,7 @@ doTestStringBufferReset(UNUSED_ const char *launchPath,
 static int
 doTestDefaultLogicalValue(UNUSED_ const char *launchPath,
                           UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // default boolean value
+                          UNUSED_ char       **argv) // default logical value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1500,7 +1500,7 @@ doTestDefaultLogicalValue(UNUSED_ const char *launchPath,
 static int
 doTestLogicalValue(UNUSED_ const char *launchPath,
                    const int          argc,
-                   char               **argv) // boolean values
+                   char               **argv) // logical values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2137,7 +2137,7 @@ doTestBigBlobValue(UNUSED_ const char *launchPath,
 static int
 doTestLogicalCopyAndAssign(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // boolean copy and assign
+                           UNUSED_ char       **argv) // logical copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2226,9 +2226,9 @@ doTestIntegerCopyAndAssign(UNUSED_ const char *launchPath,
         static const int64_t value1 = -1234;
         static const int64_t value2 = 0;
         static const int64_t value3 = 2345;
-        Integer negativeStuff(value1);
-        Integer zeroStuff(value2);
-        Integer positiveStuff(value3);
+        Integer              negativeStuff(value1);
+        Integer              zeroStuff(value2);
+        Integer              positiveStuff(value3);
 
         if ((value1 == negativeStuff.getIntegerValue()) &&
             (value2 == zeroStuff.getIntegerValue()) &&
@@ -2322,9 +2322,9 @@ doTestDoubleCopyAndAssign(UNUSED_ const char *launchPath,
         static const double value1 = -1234.5;
         static const double value2 = 0.0;
         static const double value3 = 2345.6;
-        Double negativeStuff(value1);
-        Double zeroStuff(value2);
-        Double positiveStuff(value3);
+        Double              negativeStuff(value1);
+        Double              zeroStuff(value2);
+        Double              positiveStuff(value3);
 
         if ((value1 == negativeStuff.getDoubleValue()) &&
             (value2 == zeroStuff.getDoubleValue()) &&
@@ -2609,7 +2609,7 @@ doTestBlobCopyAndAssign(UNUSED_ const char *launchPath,
 static int
 doTestValidLogicalCompares(UNUSED_ const char *launchPath,
                            UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // valid boolean compares
+                           UNUSED_ char       **argv) // valid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3265,7 +3265,7 @@ doTestValidStringCompares(UNUSED_ const char *launchPath,
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            bool         valid = false;
+            bool   valid = false;
             String leftValue(testSet[ii]._leftValue);
             String rightValue(testSet[ii]._rightValue);
 
@@ -3404,10 +3404,10 @@ doTestValidBlobCompares(UNUSED_ const char *launchPath,
         const size_t  blobSize1 = (sizeof(blobData1) / sizeof(blobData1[0]));
         const size_t  blobSize2 = (sizeof(blobData2) / sizeof(blobData2[0]));
         const size_t  blobSize3 = (sizeof(blobData3) / sizeof(blobData3[0]));
-        Blob    blob0;
-        Blob    blob1(blobData1, blobSize1);
-        Blob    blob2(blobData2, blobSize2);
-        Blob    blob3(blobData3, blobSize3);
+        Blob          blob0;
+        Blob          blob1(blobData1, blobSize1);
+        Blob          blob2(blobData2, blobSize2);
+        Blob          blob3(blobData3, blobSize3);
         const tests   testSet[] =
         {
             // left   right   <            >            <=           >=           ==
@@ -3424,7 +3424,7 @@ doTestValidBlobCompares(UNUSED_ const char *launchPath,
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            bool             valid = false;
+            bool       valid = false;
             const Blob &leftValue = *testSet[ii]._leftValue;
             const Blob &rightValue = *testSet[ii]._rightValue;
 
@@ -3531,7 +3531,7 @@ doTestValidBlobCompares(UNUSED_ const char *launchPath,
 static int
 doTestInvalidLogicalCompares(UNUSED_ const char *launchPath,
                              UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // invalid boolean compares
+                             UNUSED_ char       **argv) // invalid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####

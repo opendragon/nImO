@@ -41,6 +41,7 @@ Makefile
 Connect/nImOconnect
 Connect/nImOconnect.rc
 *.so
+*.xcscheme
 nImO/swig_nImO_out_csharp
 nImO/swig_nImO_out_python
 odl/swig_odl_out_csharp

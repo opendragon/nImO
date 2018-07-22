@@ -1,6 +1,7 @@
 #General Packaging Stuff
 set(CPACK_CREATE_DESKTOP_LINKS "nImO manager")
 set(CPACK_DISPLAY_NAME "n-Input m-Output")
+set(CPACK_PACKAGE_CONTACT "turing@shaw.ca")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "nImO Package")
 set(CPACK_PACKAGE_EXECUTABLES "nImO manager" "nImO manager")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "nImO")
@@ -111,7 +112,7 @@ elseif(APPLE)
     set(CPACK_TOPLEVEL_TAG "/opt")
 else()
     #Linux specific install step
-    set(CPACK_GENERATOR RPM)
+    set(CPACK_GENERATOR RPM DEB)
     set(CPACK_TOPLEVEL_TAG "/opt")
     set(CPACK_RPM_PACKAGE_LICENSE "BSD")
 endif()

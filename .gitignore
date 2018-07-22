@@ -78,3 +78,5 @@ List/nImOlist.dir/
 Tests/nImOzeroConfTest.dir/
 *.dmg
 _CPack_Packages
+*.deb
+*.rpm

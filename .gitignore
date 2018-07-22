@@ -80,3 +80,5 @@ Tests/nImOzeroConfTest.dir/
 _CPack_Packages
 *.deb
 *.rpm
+CPackConfig.cmake
+CPackSourceConfig.cmake

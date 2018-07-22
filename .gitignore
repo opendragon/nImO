@@ -53,6 +53,12 @@ cmake_install.cmake
 CMakeCache.txt
 CTestTestfile.cmake
 install_manifest.txt
+install_manifest_applications.txt
+install_manifest_exampleapps.txt
+install_manifest_headers.txt
+install_manifest_libraries.txt
+install_manifest_manuals.txt
+install_manifest_sourcecode.txt
 CMakeFiles
 Connect/nImOconnect.dir/
 Tests/nImOmessageInsertTest.dir/
@@ -70,3 +76,5 @@ Info/nImOinfo.dir/
 Monitor/nImOmonitor.dir/
 List/nImOlist.dir/
 Tests/nImOzeroConfTest.dir/
+*.dmg
+_CPack_Packages

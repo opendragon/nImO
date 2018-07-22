@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddressArgumentDescriptor.cpp; path = nImO/nImOaddressArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F864B1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOaddressArgumentDescriptor.hpp; path = nImO/nImOaddressArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F864C1CA4B24C004D35AB /* nImObaseArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObaseArgumentDescriptor.cpp; path = nImO/nImObaseArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -151,7 +153,9 @@
 		F6B388DF1C77F18B004B2D42 = {
 			isa = PBXGroup;
 			children = (
+				F60B49742104F787009D2CDA /* README.md */,
 				F6B388EA1C77F1C4004B2D42 /* CMakeLists.txt */,
+				F60B49732104F760009D2CDA /* LICENSE.txt */,
 				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
 				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
 				F6B388ED1C77F298004B2D42 /* Connect */,

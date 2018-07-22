@@ -47,7 +47,8 @@ if(APPLE)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
 endif()
 
-project(nImO)
+project(nImO
+        HOMEPAGE_URL "https://github.com/opendragon/ODL")
 
 set(nImO_VERSION_MAJOR 0)
 set(nImO_VERSION_MINOR 1)
@@ -261,6 +262,6 @@ add_subdirectory(Tests)
 add_subdirectory(Version)
 add_subdirectory(Write)
 
-#add_subdirectory(CPack)
+add_subdirectory(CPack)
 
 enable_testing()

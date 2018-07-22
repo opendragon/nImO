@@ -6,13 +6,13 @@ set(CPACK_PACKAGE_EXECUTABLES "nImO manager" "nImO manager")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "nImO")
 set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY_ "nImO")
 set(CPACK_PACKAGE_NAME "nImO")
-set(CPACK_PACKAGE_VERSION "${nImO_VERSION_STRING}")
+set(CPACK_PACKAGE_VENDOR "OpenDragon")
+set(CPACK_PACKAGE_VERSION "${nImO_VERSION}")
 set(CPACK_PACKAGE_VERSION_MAJOR "${nImO_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${nImO_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${nImO_VERSION_PATCH}")
 set(CPACK_RESOURCE_FILE_LICENSE "${nImO_SOURCE_DIR}/license.txt")
-set(CPACK_RESOURCE_FILE_README "${nImO_SOURCE_DIR}/README.txt")
-set(CPACK_VENDOR "OpenDragon")
+set(CPACK_RESOURCE_FILE_README "${nImO_SOURCE_DIR}/README.md")
 
 #display name for our components
 set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Standard Applications")
@@ -103,7 +103,17 @@ if(WIN32)
         "
         Delete \\\"$DESKTOP\\\\nImO manager.lnk\\\"
         ")
-
+elseif(APPLE)
+    #Macintosh specific install step
+    set(CPACK_GENERATOR DragNDrop)
+    set(CPACK_DMG_DISABLE_APPLICATIONS_SYMLINK ON)
+    set(CPACK_DMG_FORMAT UDRO)
+    set(CPACK_TOPLEVEL_TAG "/opt")
+else()
+    #Linux specific install step
+    set(CPACK_GENERATOR RPM)
+    set(CPACK_TOPLEVEL_TAG "/opt")
+    set(CPACK_RPM_PACKAGE_LICENSE "BSD")
 endif()
 
 include(CPack)

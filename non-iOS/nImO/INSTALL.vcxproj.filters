@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\turin\Documents\git.repositories\nImO\CMakeFiles\7b0c402aacc4f99c5ff3aabe3fe59e8c\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{58E2C260-C3F8-3194-8FAB-9AD108C97AE8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

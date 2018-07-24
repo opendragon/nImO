@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Read/CMakeLists.txt
+#  File:       Version/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Read application.
+#  Contains:   The CMAKE definitions for the Version application.
 #
 #  Written by: Norman Jaffe
 #
@@ -38,7 +38,8 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOread)
+set(THIS_TARGET nImOversion)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Version)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,11 +47,11 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               nImOreadMain.cpp
+               ${THIS_SOURCE_DIR}/nImOversionMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

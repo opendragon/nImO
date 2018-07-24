@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Connect/CMakeLists.txt
+#  File:       Write/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Connect application.
+#  Contains:   The CMAKE definitions for the Write application.
 #
 #  Written by: Norman Jaffe
 #
@@ -38,7 +38,8 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOconnect)
+set(THIS_TARGET nImOwrite)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Write)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,11 +47,11 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               nImOconnectMain.cpp
+               ${THIS_SOURCE_DIR}/nImOwriteMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

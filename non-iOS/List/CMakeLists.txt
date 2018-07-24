@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Write/CMakeLists.txt
+#  File:       List/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Write application.
+#  Contains:   The CMAKE definitions for the List application.
 #
 #  Written by: Norman Jaffe
 #
@@ -38,7 +38,8 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOwrite)
+set(THIS_TARGET nImOlist)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/List)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,11 +47,11 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               nImOwriteMain.cpp
+               ${THIS_SOURCE_DIR}/nImOlistMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

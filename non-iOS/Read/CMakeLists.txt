@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Disconnect/CMakeLists.txt
+#  File:       Read/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Disconnect application.
+#  Contains:   The CMAKE definitions for the Read application.
 #
 #  Written by: Norman Jaffe
 #
@@ -37,8 +37,9 @@
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Read)
 
-set(THIS_TARGET nImOdisconnect)
+set(THIS_TARGET nImOread)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,11 +47,11 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               nImOdisconnectMain.cpp
+               ${THIS_SOURCE_DIR}/nImOreadMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

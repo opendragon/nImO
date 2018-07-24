@@ -39,6 +39,7 @@
 include_directories("${nImO_SOURCE_DIR}")
 
 set(THIS_TARGET nImOconvertersTest)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tests)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,14 +47,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOconvertersTest.cpp
+               ${THIS_SOURCE_DIR}/nImOconvertersTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -236,14 +237,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOatomicTest.cpp
+               ${THIS_SOURCE_DIR}/nImOatomicTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -377,14 +378,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOcontainerTest.cpp
+               ${THIS_SOURCE_DIR}/nImOcontainerTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -511,14 +512,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOparserTest.cpp
+               ${THIS_SOURCE_DIR}/nImOparserTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -786,14 +787,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOmessageInsertTest.cpp
+               ${THIS_SOURCE_DIR}/nImOmessageInsertTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -902,14 +903,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOmessageExtractTest.cpp
+               ${THIS_SOURCE_DIR}/nImOmessageExtractTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -1019,14 +1020,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImObadMessageTest.cpp
+               ${THIS_SOURCE_DIR}/nImObadMessageTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -1114,14 +1115,14 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 #add_library(nImOcommonTestSupport)
 
 enable_testing()
 
 add_executable(${THIS_TARGET}
-               nImOzeroConfTest.cpp
+               ${THIS_SOURCE_DIR}/nImOzeroConfTest.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

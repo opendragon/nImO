@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Monitor/CMakeLists.txt
+#  File:       Disconnect/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Monitor application.
+#  Contains:   The CMAKE definitions for the Disconnect application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2017 by OpenDragon.
+#  Copyright:  (c) 2016 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,13 +32,14 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2017-01-26
+#  Created:    2016-02-19
 #
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOmonitor)
+set(THIS_TARGET nImOdisconnect)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Disconnect)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -46,11 +47,11 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
-configure_file(${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               nImOmonitorMain.cpp
+               ${THIS_SOURCE_DIR}/nImOdisconnectMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

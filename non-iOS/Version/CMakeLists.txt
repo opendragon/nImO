@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Version/CMakeLists.txt
+#  File:       non-iOS/Version/CMakeLists.txt
 #
 #  Project:    nImO
 #

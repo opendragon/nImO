@@ -8,6 +8,8 @@ non-iOS/Info/nImOinfo.rc
 non-iOS/List/nImOlist
 non-iOS/List/nImOlist.rc
 libnImOcommon.dylib
+libnImOCi.a
+libnImOOCi.a
 nImOconfig.hpp
 non-iOS/Monitor/nImOmonitor
 non-iOS/Monitor/nImOmonitor.rc

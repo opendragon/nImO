@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Monitor/CMakeLists.txt
+#  File:       nImOcommonSettings.cmake
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Monitor application.
+#  Contains:   The common CMAKE settings for the debugging library.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2017 by OpenDragon.
+#  Copyright:  (c) 2018 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,36 +32,19 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2017-01-26
+#  Created:    2018-07-24
 #
 #--------------------------------------------------------------------------------------------------
 
-include_directories("${nImO_SOURCE_DIR}")
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Monitor)
+set(nImO_VERSION_MAJOR 0)
+set(nImO_VERSION_MINOR 1)
+set(nImO_VERSION_PATCH 0)
+set(nImO_VERSION "${nImO_VERSION_MAJOR}.${nImO_VERSION_MINOR}.${nImO_VERSION_PATCH}")
+set(nImO_COMPANY "OpenDragon")
 
-set(THIS_TARGET nImOmonitor)
+set(nImO_SOURCE_DIR "${PROJECT_SOURCE_DIR}/..")
+set(nImO_CONFIG_DIR "${PROJECT_SOURCE_DIR}/..")
 
-if(WIN32)
-    set(VERS_RESOURCE ${THIS_TARGET}.rc)
-else()
-    set(VERS_RESOURCE "")
-endif()
+set(LIB_DEST "lib")
+set(INCLUDE_DEST "include")
 
-configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
-
-# Set up our program
-add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOmonitorMain.cpp
-               ${VERS_RESOURCE})
-
-# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
-# processed once.
-target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
-
-fix_dynamic_libs(${THIS_TARGET})
-
-install(TARGETS ${THIS_TARGET}
-        DESTINATION bin
-        COMPONENT applications)
-
-enable_testing()

@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       CMakeLists.txt
+#  File:       iOS/CMakeLists.txt
 #
 #  Project:    nImO
 #
@@ -48,19 +48,9 @@ if(APPLE)
 endif()
 
 project(nImO
-        HOMEPAGE_URL "https://github.com/opendragon/ODL")
+        HOMEPAGE_URL "https://github.com/opendragon/nImO")
 
-set(nImO_VERSION_MAJOR 0)
-set(nImO_VERSION_MINOR 1)
-set(nImO_VERSION_PATCH 0)
-set(nImO_VERSION "${nImO_VERSION_MAJOR}.${nImO_VERSION_MINOR}.${nImO_VERSION_PATCH}")
-set(nImO_COMPANY "OpenDragon")
-
-set(nImO_SOURCE_DIR "${PROJECT_SOURCE_DIR}")
-set(nImO_CONFIG_DIR "${PROJECT_SOURCE_DIR}")
-
-set(LIB_DEST "lib")
-set(INCLUDE_DEST "include")
+include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -249,17 +239,17 @@ install(FILES
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
-add_subdirectory(Connect)
-add_subdirectory(Disconnect)
-add_subdirectory(Info)
-add_subdirectory(List)
-add_subdirectory(Monitor)
+#add_subdirectory(Connect)
+#add_subdirectory(Disconnect)
+#add_subdirectory(Info)
+#add_subdirectory(List)
+#add_subdirectory(Monitor)
 add_subdirectory(nImO)
-add_subdirectory(Read)
-add_subdirectory(Tests)
-add_subdirectory(Version)
-add_subdirectory(Write)
+#add_subdirectory(Read)
+#add_subdirectory(Tests)
+#add_subdirectory(Version)
+#add_subdirectory(Write)
 
-add_subdirectory(CPack)
+#add_subdirectory(CPack)
 
-enable_testing()
+#enable_testing()

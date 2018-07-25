@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Disconnect/CMakeLists.txt
+#  File:       non-iOS/Disconnect/CMakeLists.txt
 #
 #  Project:    nImO
 #

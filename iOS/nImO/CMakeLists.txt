@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       nImO/CMakeLists.txt
+#  File:       iOS/nImO/CMakeLists.txt
 #
 #  Project:    nImO
 #
@@ -39,200 +39,158 @@
 include_directories("${nImO_SOURCE_DIR}")
 
 set(THIS_TARGET nImOcommon)
-set(OTHER_TARGET_CSHARP nImOcommon_swig_csharp)
-set(OTHER_TARGET_PYTHON nImOcommon_swig_python)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/nImO)
 
-if(APPLE)
-    set(DO_SHARED "SHARED")
-    set(THIS_TARGET_LIB "lib${THIS_TARGET}.dylib")
-elseif(LINUX)
-    set(DO_SHARED "SHARED")
-else()
-    set(DO_SHARED "")
-endif()
+macro(ADD_FRAMEWORK fwname appname)
+    find_library(FRAMEWORK_${fwname}
+                NAMES ${fwname}
+                PATHS ${CMAKE_OSX_SYSROOT}/System/Library
+                PATH_SUFFIXES Frameworks
+                NO_DEFAULT_PATH)
+    if( ${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
+        MESSAGE(ERROR ": Framework ${fwname} not found")
+    else()
+        TARGET_LINK_LIBRARIES(${appname} ${FRAMEWORK_${fwname}})
+        MESSAGE(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
+    endif()
+endmacro(ADD_FRAMEWORK)
 
-add_library(${THIS_TARGET}
-            "${DO_SHARED}"
-            "${nImO_SOURCE_DIR}/nImO/nImOaddressArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOarray.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOatom.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOblob.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOcommon.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOconnector.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOcontainer.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOconverters.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOdouble.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOflaw.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOinteger.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOinvalid.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOlogical.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOmap.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOmessage.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOnumber.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOset.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOstring.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOvalue.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.cpp"
-            "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.cpp"
-            "${nImO_SOURCE_DIR}/nImO/optionparser.cpp")
+set(TARGET_ONE nImOCi)
 
-target_link_libraries(${THIS_TARGET}
-                        ${ODL_LIBRARY}
-                        ${BONJOUR_LIB})
+add_library(${TARGET_ONE}
+            STATIC
+            "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOarray.cpp"
+            "${THIS_SOURCE_DIR}/nImOatom.cpp"
+            "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOblob.cpp"
+            "${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImObufferChunk.cpp"
+            "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOchunkArray.cpp"
+            "${THIS_SOURCE_DIR}/nImOcommon.cpp"
+            "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
+            "${THIS_SOURCE_DIR}/nImOconnector.cpp"
+            "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
+            "${THIS_SOURCE_DIR}/nImOconverters.cpp"
+            "${THIS_SOURCE_DIR}/nImOdouble.cpp"
+            "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOflaw.cpp"
+            "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOinteger.cpp"
+            "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
+            "${THIS_SOURCE_DIR}/nImOlogical.cpp"
+            "${THIS_SOURCE_DIR}/nImOmap.cpp"
+            "${THIS_SOURCE_DIR}/nImOmessage.cpp"
+            "${THIS_SOURCE_DIR}/nImOnumber.cpp"
+            "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOset.cpp"
+            "${THIS_SOURCE_DIR}/nImOstring.cpp"
+            "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOstringBuffer.cpp"
+            "${THIS_SOURCE_DIR}/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
+            "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
+            "${THIS_SOURCE_DIR}/optionparser.cpp")
+#target_include_directories(${TARGET_ONE} PUBLIC
+#                            $<BUILD_INTERFACE:${nImO_SOURCE_DIR}> # for headers when building
+#                            $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode
+#                            )
 
-if(LINUX)
-    target_link_libraries(${THIS_TARGET}
-                          pthread)
-endif()
+install(TARGETS ${TARGET_ONE}
+        EXPORT ${PROJECT_NAME}
+        DESTINATION ${LIB_DEST}
+        COMPONENT libraries)
 
-if(APPLE)
-    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
-endif()
+set(TARGET_TWO nImOOCi)
 
-install(TARGETS ${THIS_TARGET}
+add_library(${TARGET_TWO}
+            STATIC
+            "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOarray.cpp"
+            "${THIS_SOURCE_DIR}/nImOatom.cpp"
+            "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOblob.cpp"
+            "${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImObufferChunk.cpp"
+            "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOchunkArray.cpp"
+            "${THIS_SOURCE_DIR}/nImOcommon.cpp"
+            "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
+            "${THIS_SOURCE_DIR}/nImOconnector.cpp"
+            "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
+            "${THIS_SOURCE_DIR}/nImOconverters.cpp"
+            "${THIS_SOURCE_DIR}/nImOdouble.cpp"
+            "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOflaw.cpp"
+            "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOinteger.cpp"
+            "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
+            "${THIS_SOURCE_DIR}/nImOlogical.cpp"
+            "${THIS_SOURCE_DIR}/nImOmap.cpp"
+            "${THIS_SOURCE_DIR}/nImOmessage.cpp"
+            "${THIS_SOURCE_DIR}/nImOnumber.cpp"
+            "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOset.cpp"
+            "${THIS_SOURCE_DIR}/nImOstring.cpp"
+            "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOstringBuffer.cpp"
+            "${THIS_SOURCE_DIR}/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
+            "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
+            "${THIS_SOURCE_DIR}/optionparser.cpp")
+add_framework(Foundation ${TARGET_TWO})
+#target_include_directories(${TARGET_TWO} PUBLIC
+#                            $<BUILD_INTERFACE:${nImO_SOURCE_DIR}> # for headers when building
+#                            $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode
+#                            )
+install(TARGETS ${TARGET_TWO}
         EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST}
         COMPONENT libraries)
 
 install(FILES
-        "${nImO_SOURCE_DIR}/nImO/nImOaddressArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOarray.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOatom.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImObaseArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOblob.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOboolArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImObufferChunk.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOchannelArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOchunkArray.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOcommon.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOcompareValues.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOconnector.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOcontainer.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOconverters.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOdouble.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOdoubleArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOextraArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOfilePathArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOflaw.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOintArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOinteger.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOinvalid.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOlogical.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOmap.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOmessage.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOnumber.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOportArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOset.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOstring.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOstringArgumentDescriptor.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOstringBuffer.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOvalue.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfClient.hpp"
-        "${nImO_SOURCE_DIR}/nImO/nImOzeroConfService.hpp"
-        "${nImO_SOURCE_DIR}/nImO/optionparser.hpp"
+        "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOarray.hpp"
+        "${THIS_SOURCE_DIR}/nImOatom.hpp"
+        "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOblob.hpp"
+        "${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImObufferChunk.hpp"
+        "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOchunkArray.hpp"
+        "${THIS_SOURCE_DIR}/nImOcommon.hpp"
+        "${THIS_SOURCE_DIR}/nImOcompareValues.hpp"
+        "${THIS_SOURCE_DIR}/nImOconnector.hpp"
+        "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
+        "${THIS_SOURCE_DIR}/nImOconverters.hpp"
+        "${THIS_SOURCE_DIR}/nImOdouble.hpp"
+        "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOflaw.hpp"
+        "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOinteger.hpp"
+        "${THIS_SOURCE_DIR}/nImOinvalid.hpp"
+        "${THIS_SOURCE_DIR}/nImOlogical.hpp"
+        "${THIS_SOURCE_DIR}/nImOmap.hpp"
+        "${THIS_SOURCE_DIR}/nImOmessage.hpp"
+        "${THIS_SOURCE_DIR}/nImOnumber.hpp"
+        "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOset.hpp"
+        "${THIS_SOURCE_DIR}/nImOstring.hpp"
+        "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOstringBuffer.hpp"
+        "${THIS_SOURCE_DIR}/nImOvalue.hpp"
+        "${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp"
+        "${THIS_SOURCE_DIR}/nImOzeroConfService.hpp"
+        "${THIS_SOURCE_DIR}/optionparser.hpp"
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 
-if(nImO_DO_SWIG)
-    set(nImO_SWIG_SOURCES swig_nImO_in/nImOcommon.i
-        nImOaddressArgumentDescriptor.cpp nImOaddressArgumentDescriptor.hpp
-        nImOarray.cpp nImOarray.hpp
-        nImOatom.cpp nImOatom.hpp
-        nImObaseArgumentDescriptor.cpp nImObaseArgumentDescriptor.hpp
-        nImOblob.cpp nImOblob.hpp
-        nImOboolArgumentDescriptor.cpp nImOboolArgumentDescriptor.hpp
-        nImObufferChunk.cpp nImObufferChunk.hpp
-        nImOchannelArgumentDescriptor.cpp nImOchannelArgumentDescriptor.hpp
-        nImOchunkArray.cpp nImOchunkArray.hpp
-        nImOcommon.cpp nImOcommon.hpp
-        nImOcompareValues.cpp nImOcompareValues.hpp
-        nImOconnector.cpp nImOconnector.hpp
-        nImOcontainer.cpp nImOcontainer.hpp
-        nImOconverters.cpp nImOconverters.hpp
-        nImOdouble.cpp nImOdouble.hpp
-        nImOdoubleArgumentDescriptor.cpp nImOdoubleArgumentDescriptor.hpp
-        nImOextraArgumentDescriptor.cpp nImOextraArgumentDescriptor.hpp
-        nImOfilePathArgumentDescriptor.cpp nImOfilePathArgumentDescriptor.hpp
-        nImOflaw.cpp nImOflaw.hpp
-        nImOintArgumentDescriptor.cpp nImOintArgumentDescriptor.hpp
-        nImOinteger.cpp nImOinteger.hpp
-        nImOinvalid.cpp nImOinvalid.hpp
-        nImOlogical.cpp nImOlogical.hpp
-        nImOmap.cpp nImOmap.hpp
-        nImOmessage.cpp nImOmessage.hpp
-        nImOnumber.cpp nImOnumber.hpp
-        nImOportArgumentDescriptor.cpp nImOportArgumentDescriptor.hpp
-        nImOset.cpp nImOset.hpp
-        nImOstring.cpp nImOstring.hpp
-        nImOstringArgumentDescriptor.cpp nImOstringArgumentDescriptor.hpp
-        nImOstringBuffer.cpp nImOstringBuffer.hpp
-        nImOvalue.cpp nImOvalue.hpp
-        nImOzeroConfClient.cpp mImOzeroConfClient.hpp
-        nImOzeroConfService.cpp mImOzeroConfService.hpp)
-
-    include_directories("${nImO_SOURCE_DIR}/nImO")
-    set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)
-    set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES SWIG_FLAGS "-includeall")
-
-    set(CMAKE_SWIG_OUTDIR "${nImO_SOURCE_DIR}/nImO/swig_nImO_out_csharp")
-
-    swig_add_module(${OTHER_TARGET_CSHARP} csharp ${nImO_SWIG_SOURCES})
-
-    swig_link_libraries(${OTHER_TARGET_CSHARP}
-                        ${THIS_TARGET}
-                        ${ODL_LIBRARY})
-
-    install(TARGETS ${OTHER_TARGET_CSHARP}
-            EXPORT ${PROJECT_NAME}
-            DESTINATION ${LIB_DEST}
-            COMPONENT libraries)
-
-    install(FILES
-            swig_nImO_out_csharp/nImO.cs
-            swig_nImO_out_csharp/nImOPINVOKE.cs
-            DESTINATION csharp/nImO
-            COMPONENT headers)
-
-    set(CMAKE_SWIG_OUTDIR "${nImO_SOURCE_DIR}/nImO/swig_nImO_out_python")
-
-    find_package(PythonLibs)
-    include_directories(${PYTHON_INCLUDE_PATH})
-
-    swig_add_module(${OTHER_TARGET_PYTHON} python ${nImO_SWIG_SOURCES})
-
-    swig_link_libraries(${OTHER_TARGET_PYTHON}
-                        ${THIS_TARGET}
-                        ${ODL_LIBRARY}
-                        ${PYTHON_LIBRARIES})
-
-# Note the modified target name!
-    install(TARGETS _${OTHER_TARGET_PYTHON}
-            EXPORT ${PROJECT_NAME}
-            DESTINATION ${LIB_DEST}
-            COMPONENT libraries)
-
-    install(FILES
-            swig_nImO_out_python/nImO.py
-            swig_nImO_out_python/nImOcommonPYTHON_wrap.cxx
-            DESTINATION python/nImO
-            COMPONENT headers)
-
-endif()
-
-enable_testing()
-
-#packing stuff
+install(EXPORT ${PROJECT_NAME}
+        DESTINATION ${LIB_DEST})

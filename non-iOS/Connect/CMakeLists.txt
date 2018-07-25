@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       Connect/CMakeLists.txt
+#  File:       non-iOS/Connect/CMakeLists.txt
 #
 #  Project:    nImO
 #

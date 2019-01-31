@@ -89,7 +89,7 @@ static void
 catchSignal(int signal)
 {
     ODL_ENTER(); //####
-    ODL_LL1("signal = ", signal); //####
+    ODL_I1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
     
     message += std::to_string(signal);
@@ -123,7 +123,7 @@ compareValueWithString(const Value &aValue,
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
-    ODL_EXIT_LL(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
 #endif//0
@@ -200,7 +200,7 @@ doTestParseLogicalValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseLogicalValue
 
@@ -275,7 +275,7 @@ doTestParseNumberValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseNumberValue
 
@@ -350,7 +350,7 @@ doTestParseStringValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseStringValue
 
@@ -425,7 +425,7 @@ doTestParseArrayValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseArrayValue
 
@@ -500,7 +500,7 @@ doTestParseSetValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseSetValue
 
@@ -575,7 +575,7 @@ doTestParseMapValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseMapValue
 
@@ -650,7 +650,7 @@ doTestParseImplicitArrayValue(const bool expected,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestParseImplicitArrayValue
 #endif//0
@@ -734,7 +734,7 @@ main(int  argc,
                 }
                 if (result)
                 {
-                    ODL_LL1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }
             }
             else
@@ -753,6 +753,6 @@ main(int  argc,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // main

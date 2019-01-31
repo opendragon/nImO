@@ -87,7 +87,7 @@ static void
 catchSignal(int signal)
 {
     ODL_ENTER(); //####
-    ODL_LL1("signal = ", signal); //####
+    ODL_I1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
 
     message += std::to_string(signal);
@@ -120,7 +120,7 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    ODL_LL1("argc = ", argc); //####
+    ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
     
@@ -181,7 +181,7 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidArgs
 #if (! MAC_OR_LINUX_)
@@ -208,7 +208,7 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    ODL_LL1("argc = ", argc); //####
+    ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
 
@@ -247,7 +247,7 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerSize
 #if (! MAC_OR_LINUX_)
@@ -274,7 +274,7 @@ doTestDoubleSize(UNUSED_ const char *launchPath,
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    ODL_LL1("argc = ", argc); //####
+    ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
 
@@ -298,7 +298,7 @@ doTestDoubleSize(UNUSED_ const char *launchPath,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestDoubleSize
 #if (! MAC_OR_LINUX_)
@@ -325,7 +325,7 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    ODL_LL1("argc = ", argc); //####
+    ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
 
@@ -377,7 +377,7 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerConversion
 #if (! MAC_OR_LINUX_)
@@ -404,7 +404,7 @@ doTestDoubleConversion(UNUSED_ const char *launchPath,
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
-    ODL_LL1("argc = ", argc); //####
+    ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
 
@@ -449,7 +449,7 @@ doTestDoubleConversion(UNUSED_ const char *launchPath,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // doTestDoubleConversion
 #if (! MAC_OR_LINUX_)
@@ -528,7 +528,7 @@ main(int  argc,
                 }
                 if (result)
                 {
-                    ODL_LL1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }
             }
             else
@@ -546,6 +546,6 @@ main(int  argc,
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_L(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // main

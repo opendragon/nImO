@@ -128,6 +128,6 @@ main(int  argc,
     {
         nImO::Initialize(progName);
     }
-    ODL_EXIT_L(0); //####
+    ODL_EXIT_I(0); //####
     return 0;
 } // main

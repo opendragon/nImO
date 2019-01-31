@@ -88,7 +88,7 @@ nImO::ChunkArray::ChunkArray(const bool padWithNull) :
     ODL_ENTER(); //####
     ODL_B1("padWithNull = ", padWithNull); //####
     ODL_P1("_buffers <- ", _buffers); //####
-    ODL_LL1("_numChunks <- ", _numChunks); //####
+    ODL_I1("_numChunks <- ", _numChunks); //####
     ODL_B1("_buffersArePadded <- ", _buffersArePadded); //####
     *_buffers = new BufferChunk(_buffersArePadded);
     ODL_EXIT_P(this); //####
@@ -119,7 +119,7 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     if (data && (0 < numBytes))
     {
         ODL_LOG("(data && (0 < numBytes))"); //####
@@ -157,7 +157,7 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
                         _buffers = newBuffers;
                         ODL_P1("_buffers <- ", _buffers); //####
                         _buffers[_numChunks++] = lastChunk;
-                        ODL_LL1("_numChunks <- ", _numChunks); //####
+                        ODL_I1("_numChunks <- ", _numChunks); //####
                         prevChunk->appendData(walker, available);
                         walker += available;
                         bytesLeft -= available;
@@ -185,7 +185,7 @@ nImO::ChunkArray::atEnd(const size_t index)
 const
 {
     ODL_OBJENTER(); //####
-    ODL_LL1("index = ", index); //####
+    ODL_I1("index = ", index); //####
     bool result = true;
     
     if (_buffers)
@@ -194,7 +194,7 @@ const
         size_t chunkNumber = (index / BufferChunk::kBufferSize);
         size_t offset = (index % BufferChunk::kBufferSize);
         
-        ODL_LL2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
+        ODL_I2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
@@ -221,7 +221,7 @@ nImO::ChunkArray::getByte(const size_t index,
 const
 {
     ODL_OBJENTER(); //####
-    ODL_LL1("index = ", index); //####
+    ODL_I1("index = ", index); //####
     int result = -1;
 
     atEnd = true;
@@ -232,7 +232,7 @@ const
         size_t chunkNumber = (index / BufferChunk::kBufferSize);
         size_t offset = (index % BufferChunk::kBufferSize);
 
-        ODL_LL2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
+        ODL_I2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
@@ -253,7 +253,7 @@ const
             }
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::ChunkArray::getByte
 
@@ -266,7 +266,7 @@ nImO::ChunkArray::getBytes(void)
         ODL_LOG("(0 == _cachedString.size())"); //####
         size_t length = getLength();
 
-        ODL_LL1("length = ", length); //####
+        ODL_I1("length = ", length); //####
         _cachedString.reserve(length + (_buffersArePadded ? 1 : 0));
         for (size_t ii = 0; _numChunks > ii; ++ii)
         {
@@ -306,7 +306,7 @@ const
             totalLength += aChunk->getDataSize();
         }
     }
-    ODL_OBJEXIT_LL(totalLength); //####
+    ODL_OBJEXIT_I(totalLength); //####
     return totalLength;
 } // nImO::ChunkArray::getLength
 

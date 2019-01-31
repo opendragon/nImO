@@ -151,7 +151,7 @@ nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     for (int aChar; (! done); )
     {
         aChar = tolower(inBuffer.getChar(localIndex++, atEnd));
-        ODL_LL2("aChar <- ", aChar, "localIndex <- ", localIndex); //####
+        ODL_I2("aChar <- ", aChar, "localIndex <- ", localIndex); //####
         ODL_B1("atEnd <- ", atEnd); //####
         switch (currentState)
         {

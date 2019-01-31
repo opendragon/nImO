@@ -113,7 +113,7 @@ nImO::Message::Message(void) :
     _state(MessageState::Unknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
-    ODL_LL2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
+    ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
@@ -134,7 +134,7 @@ nImO::Message::appendBytes(const uint8_t *data,
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     ODL_PACKET("data", data, numBytes); //####
     // Invalidate the cache.
     _cachedTransmissionString.clear();
@@ -171,7 +171,7 @@ nImO::Message::close(void)
 
     }
     _state = MessageState::Closed;
-    ODL_LL1("_state <- ", toUType(_state)); //####
+    ODL_I1("_state <- ", toUType(_state)); //####
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::close
@@ -228,14 +228,14 @@ nImO::Message::getBytesForTransmission(void)
                 // Calculate the checksum byte and correct the escape and start counts if it will
                 // need to be escaped.
                 uint8_t checkSum = static_cast<uint8_t>(0x00FF & ~sum);
-                ODL_XL2("sum = ", sum, "checkSum = ", checkSum); //####
+                ODL_X2("sum = ", sum, "checkSum = ", checkSum); //####
 
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
                     (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
                 {
                     ++escapeCount;
                 }
-                ODL_LL1("escapeCount = ", escapeCount); //####
+                ODL_I1("escapeCount = ", escapeCount); //####
                 _cachedTransmissionString.reserve(length + escapeCount + 1);
                 // Copy the start-of-message byte to the new set of bytes.
                 _cachedTransmissionString += intermediate[0];
@@ -300,7 +300,7 @@ const
         ODL_LOG("! (MessageState::Closed == _state)"); //####
         totalLength = 0;
     }
-    ODL_OBJEXIT_LL(totalLength); //####
+    ODL_OBJEXIT_I(totalLength); //####
     return totalLength;
 } // nImO::Message::getLength
 
@@ -319,32 +319,32 @@ nImO::Message::getValue(const bool allowClosed)
         bool   atEnd;
         int    aByte = getByte(_readPosition, atEnd);
 
-        ODL_XL1("aByte <- ", aByte); //####
+        ODL_X1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
         if (atEnd)
         {
             ODL_LOG("(atEnd)"); //####
             _readPosition = savedPosition;
-            ODL_LL1("_readPosition <- ", _readPosition); //####
+            ODL_I1("_readPosition <- ", _readPosition); //####
         }
         else
         {
             if (kInitEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
                 aByte = getByte(++_readPosition, atEnd);
-                ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                ODL_I2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
                 ODL_B1("atEnd <- ", atEnd); //####
                 if (atEnd)
                 {
                     ODL_LOG("(atEnd)"); //####
                     _readPosition = savedPosition;
-                    ODL_LL1("_readPosition <- ", _readPosition); //####
+                    ODL_I1("_readPosition <- ", _readPosition); //####
                 }
                 else if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
                 {
                     // Step to the next byte.
                     ++_readPosition;
-                    ODL_LL1("_readPosition <- ", _readPosition); //####
+                    ODL_I1("_readPosition <- ", _readPosition); //####
                 }
                 else
                 {
@@ -357,15 +357,15 @@ nImO::Message::getValue(const bool allowClosed)
             {
                 DataKind initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
 
-                ODL_XL1("initTag <- ", toUType(initTag)); //####
+                ODL_X1("initTag <- ", toUType(initTag)); //####
                 aByte = getByte(++_readPosition, atEnd);
-                ODL_LL2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                ODL_I2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
                 ODL_B1("atEnd <- ", atEnd); //####
                 if (atEnd)
                 {
                     ODL_LOG("(atEnd)"); //####
                     _readPosition = savedPosition;
-                    ODL_LL1("_readPosition <- ", _readPosition); //####
+                    ODL_I1("_readPosition <- ", _readPosition); //####
                 }
                 else
                 {
@@ -374,12 +374,12 @@ nImO::Message::getValue(const bool allowClosed)
                                           toUType(DataKind::OtherMessageExpectedTypeShift)) &
                                         DataKind::OtherMessageExpectedTypeMask);
 
-                    ODL_XL1("nextTag <- ", toUType(nextTag)); //####
+                    ODL_X1("nextTag <- ", toUType(nextTag)); //####
                     if (nextTag == initTag)
                     {
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, nullptr);
                         ODL_P1("result <- ", result.get()); //####
-                        ODL_LL1("_readPosition <- ", _readPosition); //####
+                        ODL_I1("_readPosition <- ", _readPosition); //####
                         if (nullptr == result)
                         {
                             result.reset(new Invalid("Null Value read @", _readPosition));
@@ -388,20 +388,20 @@ nImO::Message::getValue(const bool allowClosed)
                         {
                             ODL_LOG("(! result->asFlaw())"); //####
                             aByte = getByte(_readPosition, atEnd);
-                            ODL_XL1("aByte <- ", aByte); //####
+                            ODL_X1("aByte <- ", aByte); //####
                             ODL_B1("atEnd <- ", atEnd); //####
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 _readPosition = savedPosition;
-                                ODL_LL1("_readPosition <- ", _readPosition); //####
+                                ODL_I1("_readPosition <- ", _readPosition); //####
                                 result.reset();
                                 ODL_P1("result <- ", result.get()); //####
                             }
                             else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
                             {
                                 nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
-                                ODL_XL1("nextTag <- ", toUType(nextTag)); //####
+                                ODL_X1("nextTag <- ", toUType(nextTag)); //####
                                 if (nextTag == initTag)
                                 {
                                     // Step to the next byte.
@@ -478,7 +478,7 @@ nImO::Message::reset(void)
     _headerAdded = false;
     ODL_B1("_headerAdded -> ", _headerAdded); //####
     _readPosition = 0;
-    ODL_LL1("_readPosition <- ", _readPosition); //####
+    ODL_I1("_readPosition <- ", _readPosition); //####
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Message::reset

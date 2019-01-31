@@ -156,7 +156,7 @@ BaseArgumentDescriptor::partitionString(const std::string &inString,
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    ODL_LL1("indexOfDefaultValue = ", indexOfDefaultValue); //####
+    ODL_I1("indexOfDefaultValue = ", indexOfDefaultValue); //####
     ODL_P1("result = ", &result); //####
     bool        okSoFar = false;
     std::string workingCopy(inString);
@@ -487,7 +487,7 @@ nImO::ModeFromString(const std::string &modeString)
             result = static_cast<ArgumentMode>(modeAsInt);
         }
     }
-    ODL_EXIT_LL(static_cast<int>(result)); //####
+    ODL_EXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::ModeFromString
 
@@ -506,7 +506,7 @@ nImO::ProcessArguments(const DescriptorVector &arguments,
     size_t numValues = parseResult.nonOptionsCount();
     size_t numToCheck = (std::min)(numArgs, numValues);
 
-    ODL_LL3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
+    ODL_I3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
     badArgs = "";
     for (size_t ii = 0; numArgs > ii; ++ii)
@@ -582,7 +582,7 @@ nImO::ProcessArguments(const DescriptorVector &arguments,
         if (anArg && (! anArg->isExtra()))
         {
             ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
-            ODL_LL1("arg mode = ", anArg->argumentMode()); //####
+            ODL_I1("arg mode = ", anArg->argumentMode()); //####
             if (! anArg->isOptional())
             {
                 ODL_LOG("(! anArg->isOptional())"); //####

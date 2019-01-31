@@ -152,7 +152,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::NotEnumerable;
 
-    ODL_OBJEXIT_L(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Double::enumerationType
 
@@ -218,18 +218,18 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort = (DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte));
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
-    ODL_LL1("position <- ", position); //####
+    ODL_I1("position <- ", position); //####
     if (isShort)
     {
         howMany = toUType(DataKind::DoubleShortCountMask & leadByte) + 1;
-        ODL_LL1("howMany <- ", howMany);
+        ODL_I1("howMany <- ", howMany);
     }
     else
     {
@@ -250,13 +250,13 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
             {
                 holder[ii] = static_cast<uint8_t>(aByte);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
         }
         if (okSoFar)
         {
             howMany = B2I(holder, size);
-            ODL_LL1("howMany <- ", howMany);
+            ODL_I1("howMany <- ", howMany);
         }
         else
         {
@@ -288,7 +288,7 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
                 {
                     holder[jj] = static_cast<uint8_t>(aByte);
                     ++position;
-                    ODL_LL1("position <- ", position); //####
+                    ODL_I1("position <- ", position); //####
                 }
             }
             if (okSoFar)
@@ -326,7 +326,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedDoubleValue;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Double::getTypeTag
 

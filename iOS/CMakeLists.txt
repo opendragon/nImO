@@ -38,19 +38,18 @@
 
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
-if(WIN32)
-    set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)
-endif()
+set(PROJECT_NAME "nImO")
 
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for Mac OSX" FORCE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
-endif()
+include(iOS.cmake)
 
 project(nImO
         HOMEPAGE_URL "https://github.com/opendragon/nImO")
 
 include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -58,54 +57,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Make some flags to control the build flags visibilities
 mark_as_advanced(CLEAR BUILD_SHARED_LIBS)
-mark_as_advanced(SET CMAKE_INSTALL_RPATH)
-mark_as_advanced(SET CMAKE_BUILD_WITH_INSTALL_RPATH)
 
-if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
-    set(LINUX ON)
-    if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "unknown")
-        set(UNKNOWN_CPU ON)
-    else()
-        set(UNKNOWN_CPU OFF)
-    endif()
-else()
-    set(LINUX OFF)
-    set(UNKNOWN_CPU OFF)
-endif()
+set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET 9.0)
+set(CMAKE_C_FLAGS "-miphoneos-version-min=9.0" CACHE STRING "Make sure version is supportable" FORCE)
 
-if(APPLE)
-    set(E_PATH "@executable_path")
-    set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
-    set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
-        FORCE)
-    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
-    set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
-        CACHE STRING "Fixes rpath" FORCE)
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
+set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
 # 'rpath' warning
-    cmake_policy(SET CMP0042 OLD)
-elseif(LINUX)
-    set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
-    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
-    set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
-        CACHE STRING "Fixes rpath" FORCE)
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
-else()
-    if(NOT ("${CMAKE_EXE_LINKER_FLAGS}" MATCHES ".*NODEFAULTLIB:libcmt.*"))
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt" CACHE STRING
-            "Flags used by the linker." FORCE)
-    endif()
-endif()
-
-set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
-
-if(WIN32)
-    option(WIN64 "Build 64-bit binaries" ON)
-else()
-    set(WIN64 OFF)
-endif()
+cmake_policy(SET CMP0042 OLD)
 
 option(nImO_ChattyStart "Report the version numbers when launching an executable")
 
@@ -147,28 +106,21 @@ option(nImO_DoExplicitCheckForOK "Check OK responses for validity")
 #option(nImO_UseTimeoutsInRetryLoops "Use timeouts in retry loops")
 #mark_as_advanced(nImO_UseTimeoutsInRetryLoops)
 
-option(nImO_DO_SWIG "Build the SWIG files" OFF)
+#option(nImO_DO_SWIG "Build the SWIG files" OFF)
 
 # Add the nImO target path so that nImO can be found
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
-# Find SWIG
-if(nImO_DO_SWIG)
-    find_package(SWIG REQUIRED)
-    include(${SWIG_USE_FILE})
-    set(CMAKE_SWIG_FLAGS "")
-endif()
-
-if(WIN32)
-    set(BOOST_ROOT "C:/local/Boost_1_63_0")
-else()
+#if(WIN32)
+#    set(BOOST_ROOT "C:/local/Boost_1_63_0")
+#else()
     set(BOOST_ROOT "/opt/boost")
-endif()
-find_package(Boost REQUIRED)
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    set(Boost_USE_MULTITHREADED)
-endif()
+#endif()
+#find_package(Boost REQUIRED)
+#if(Boost_FOUND)
+#    include_directories(${Boost_INCLUDE_DIRS})
+#    set(Boost_USE_MULTITHREADED)
+#endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
@@ -176,23 +128,9 @@ configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
 
 include_directories("${nImO_SOURCE_DIR}/nImO")
 
-if(WIN32)
-    set(BONJOUR_DIR "C:/Program Files/Bonjour SDK")
-    if(WIN64)
-        set(BONJOUR_LIB "${BONJOUR_DIR}/Lib/x64/dnssd.lib")
-    else()
-        set(BONJOUR_LIB "${BONJOUR_DIR}/Lib/Win32/dnssd.lib")
-    endif()
-    include_directories("${BONJOUR_DIR}/Include")
-else()
-    set(BONJOUR_LIB "")
-endif()
+set(BONJOUR_LIB "")
 
-if(WIN32)
-    set(ODL_DIR "C:/Program Files/ODL/lib")
-else()
-    set(ODL_DIR "/opt/odl/lib")
-endif()
+set(ODL_DIR "/opt/odl/lib")
 find_package(ODL 1.0.0 REQUIRED)
 if(ODL_FOUND)
     include_directories(${ODL_INCLUDE_DIRS})
@@ -202,33 +140,13 @@ set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
-if(WIN32)
-    set(OTHER_LIBS "ws2_32.lib")
-else()
-    set(OTHER_LIBS "")
-endif()
+set(OTHER_LIBS "")
 
 set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB} ${OTHER_LIBS}
     Threads::Threads)
 
-if(LINUX)
-#    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)
-endif()
-
-if(APPLE)
-    function(fix_dynamic_libs target)
-        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                            libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${target})
-
-        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                            ${ODL_LIBRARY_ROOT} "@rpath/${ODL_LIBRARY_ROOT}" ${target})
-
-    endfunction()
-else()
-# Do nothing
-    function(fix_dynamic_libs target)
-    endfunction()
-endif()
+function(fix_dynamic_libs target)
+endfunction()
 
 install(FILES
         ${nImO_CONFIG_DIR}/nImOConfig.cmake
@@ -239,17 +157,7 @@ install(FILES
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
-#add_subdirectory(Connect)
-#add_subdirectory(Disconnect)
-#add_subdirectory(Info)
-#add_subdirectory(List)
-#add_subdirectory(Monitor)
 add_subdirectory(nImO)
-#add_subdirectory(Read)
-#add_subdirectory(Tests)
-#add_subdirectory(Version)
-#add_subdirectory(Write)
-
 #add_subdirectory(CPack)
 
 #enable_testing()

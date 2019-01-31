@@ -223,7 +223,7 @@ const
             result &= aValue->equalTo(other, validComparison);
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Set::equalTo
 
@@ -236,7 +236,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
@@ -244,12 +244,12 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     int     aByte;
 
     ++position; // We will always accept the lead byte
-    ODL_LL1("position <- ", position); //####
+    ODL_I1("position <- ", position); //####
     if (isEmpty)
     {
         ODL_LOG("(isEmpty)"); //####
         aByte = theMessage.getByte(position, atEnd);
-        ODL_XL1("aByte <- ", aByte); //####
+        ODL_X1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
         if (atEnd)
         {
@@ -267,7 +267,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                 ODL_LOG("(toUType(endMarker) == aByte)"); //####
                 result.reset(new Set);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
             else
             {
@@ -280,7 +280,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
     {
         ODL_LOG("! (isEmpty)"); //####
         aByte = theMessage.getByte(position, atEnd);
-        ODL_XL1("aByte <- ", aByte); //####
+        ODL_X1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
         if (atEnd)
         {
@@ -297,7 +297,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
             {
                 ODL_LOG("(IntStatus::Successful == status)"); //####
                 elementCount -= DataKindIntegerShortValueMinValue - 1;
-                ODL_LL1("elementCount <- ", elementCount); //####
+                ODL_I1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
@@ -320,7 +320,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                         for ( ; okSoFar && (elementCount > static_cast<int64_t>(aSet->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
-                            ODL_XL1("aByte <- ", aByte); //####
+                            ODL_X1("aByte <- ", aByte); //####
                             ODL_B1("atEnd <- ", atEnd); //####
                             if (atEnd)
                             {
@@ -355,7 +355,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                         if (okSoFar)
                         {
                             aByte = theMessage.getByte(position, atEnd);
-                            ODL_XL1("aByte <- ", aByte); //####
+                            ODL_X1("aByte <- ", aByte); //####
                             ODL_B1("atEnd <- ", atEnd); //####
                             if (atEnd)
                             {
@@ -375,7 +375,7 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
                                 {
                                     ODL_LOG("(toUType(endMarker) == aByte)"); //####
                                     ++position;
-                                    ODL_LL1("position <- ", position); //####
+                                    ODL_I1("position <- ", position); //####
                                 }
                                 else
                                 {
@@ -444,7 +444,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Set::getTypeTag
 
@@ -470,7 +470,7 @@ const
             result &= aValue->greaterThan(other, validComparison);
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Set::greaterThan
 
@@ -496,7 +496,7 @@ const
             result &= aValue->greaterThanOrEqual(other, validComparison);
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Set::greaterThanOrEqual
 
@@ -522,7 +522,7 @@ const
             result &= aValue->lessThan(other, validComparison);
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Set::lessThan
 
@@ -548,7 +548,7 @@ const
             result &= aValue->lessThanOrEqual(other, validComparison);
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Set::lessThanOrEqual
 
@@ -601,7 +601,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
     ODL_P1("result <- ", result.get()); //####
     ODL_C1("aChar <- ", aChar); //####
     ODL_B1("atEnd <- ", atEnd); //####
-    ODL_LL1("localIndex <- ", localIndex); //####
+    ODL_I1("localIndex <- ", localIndex); //####
     if ((! atEnd) && (kStartSetChar == aChar))
     {
         for ( ; ! done; )
@@ -610,11 +610,11 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             for (aChar = inBuffer.getChar(localIndex, atEnd); (! atEnd) && isspace(aChar);
                  aChar = inBuffer.getChar(++localIndex, atEnd))
             {
-                ODL_LL1("localIndex <- ", localIndex); //####
+                ODL_I1("localIndex <- ", localIndex); //####
                 ODL_C1("aChar <- ", aChar); //####
                 ODL_B1("atEnd <- ", atEnd); //####
             }
-            ODL_LL1("localIndex = ", localIndex); //####
+            ODL_I1("localIndex = ", localIndex); //####
             ODL_C1("aChar = ", aChar); //####
             // Check for the closing bracket
             if (atEnd)
@@ -630,7 +630,7 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
             {
                 SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
 
-                ODL_LL1("localIndex <- ", localIndex); //####
+                ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == element)
                 {
                     ODL_LOG("(nullptr == element)"); //####

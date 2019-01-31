@@ -136,7 +136,7 @@ static void
 localCatcher(UNUSED_ int signal)
 {
     ODL_ENTER(); //####
-    ODL_LL1("signal = ", signal); //####
+    ODL_I1("signal = ", signal); //####
 #if 0
     if (lLogger)
     {
@@ -180,7 +180,7 @@ nImO::B2I(const nImO::NumberAsBytes &inString,
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     bool          isNegative = (0 != (0x080 & inString[0]));
     const uint8_t *walker = inString;
     int64_t       result = (isNegative ? -1 : 0);
@@ -191,7 +191,7 @@ nImO::B2I(const nImO::NumberAsBytes &inString,
 
         result = ((result << 8) | aByte);
     }
-    ODL_EXIT_LL(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // nImO::B2I
 
@@ -202,7 +202,7 @@ nImO::CompareBytes(const void   *first,
 {
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     size_t result = 0;
 
     if (memcmp(first, second, numBytes))
@@ -217,14 +217,14 @@ nImO::CompareBytes(const void   *first,
 
             if (firstByte != secondByte)
             {
-                ODL_LL1("mismatch at index: ", ii); //####
+                ODL_I1("mismatch at index: ", ii); //####
                 result = ii + 1;
                 break;
             }
 
         }
     }
-    ODL_EXIT_LL(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // nImO::CompareBytes
 
@@ -283,7 +283,7 @@ nImO::ConvertToInt64(const char *startPtr,
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
-        ODL_LL1("result <- ", result); //####
+        ODL_I1("result <- ", result); //####
         okSoFar = true;
     }
     else
@@ -439,7 +439,7 @@ nImO::I2B(const int64_t       inValue,
           nImO::NumberAsBytes &outString)
 {
     ODL_ENTER(); //####
-    ODL_XL1("inValue = ", inValue); //####
+    ODL_X1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
     int64_t workValue = inValue;
     size_t  length = 0;
@@ -489,7 +489,7 @@ nImO::I2B(const int64_t       inValue,
             }
         }
     }
-    ODL_EXIT_LL(length); //####
+    ODL_EXIT_I(length); //####
     return length;
 } // nImO::I2B
 
@@ -534,7 +534,7 @@ nImO::Initialize(UNUSED_ const std::string &progName)
 # endif // MAC_OR_LINUX_
 #endif // defined(MpM_ChattyStart)
         ODL_D2("time = ", now, "fraction = ", fraction); //####
-        ODL_LL1("seed = ", seed); //####
+        ODL_I1("seed = ", seed); //####
         yarp::os::Random::seed(seed);
 #endif//0
     }
@@ -980,7 +980,7 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
                                       nImO::StringVector     *arguments)
 {
     ODL_ENTER(); //####
-    ODL_L2("argc = ", argc, "year = ", year); //####
+    ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
            "flavour = ", &flavour, "arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
@@ -1202,7 +1202,7 @@ void
 nImO::SignalRunningStop(UNUSED_ const int signal)
 {
     ODL_ENTER(); //####
-    ODL_LL1("signal = ", signal); //####
+    ODL_I1("signal = ", signal); //####
     StopRunning();
     ODL_EXIT(); //####
 } // nImO::SignalRunningStop

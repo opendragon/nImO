@@ -93,7 +93,7 @@ nImO::Integer::Integer(const int64_t initialValue) :
     inherited(), _intValue(initialValue)
 {
     ODL_ENTER(); //####
-    ODL_LL1("initialValue = ", initialValue); //####
+    ODL_I1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
@@ -152,7 +152,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::Integer;
 
-    ODL_OBJEXIT_L(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Integer::enumerationType
 
@@ -218,7 +218,7 @@ nImO::Integer::extractValue(const nImO::Message &theMessage,
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue   result;
     IntStatus numStatus;
     int64_t   holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
@@ -261,7 +261,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedIntegerValue;
 
-    ODL_OBJEXIT_L(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Integer::getTypeTag
 

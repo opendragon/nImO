@@ -90,7 +90,7 @@ nImO::Invalid::Invalid(const std::string &description,
 {
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
-    ODL_LL1("associatedValue = ", associatedValue); //####
+    ODL_I1("associatedValue = ", associatedValue); //####
     _description += std::to_string(associatedValue);
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid

@@ -93,7 +93,7 @@ nImO::BufferChunk::BufferChunk(const bool addPadding) :
         _write = _buffer.get();
         _bufferEnd = _write + kBufferSize;
         ODL_P2("_bufferEnd <- ", _bufferEnd, "_write <- ", _write); //####
-        ODL_LL1("[size] <- ", getDataSize()); //####
+        ODL_I1("[size] <- ", getDataSize()); //####
         if (_padded)
         {
             ODL_LOG("(_padded)"); //####
@@ -119,7 +119,7 @@ nImO::BufferChunk::appendData(const void   *data,
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     size_t actualCount = ((getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes);
 
     if (0 < actualCount)
@@ -129,7 +129,7 @@ nImO::BufferChunk::appendData(const void   *data,
         memcpy(_write, data, actualCount);
         _write += actualCount;
         ODL_P1("_write <- ", _write); //####
-        ODL_LL1("[size] <- ", getDataSize()); //####
+        ODL_I1("[size] <- ", getDataSize()); //####
         if (_padded)
         {
             ODL_LOG("(_padded)"); //####

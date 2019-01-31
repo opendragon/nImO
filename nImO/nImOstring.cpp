@@ -158,7 +158,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::String;
 
-    ODL_OBJEXIT_L(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::String::enumerationType
 
@@ -212,7 +212,7 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
@@ -220,12 +220,12 @@ nImO::String::extractValue(const nImO::Message &theMessage,
     size_t  numBytes = 0;
 
     ++position; // We will always accept the lead byte
-    ODL_LL1("position <- ", position); //####
+    ODL_I1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
         numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
-        ODL_LL1("numBytes <- ", numBytes); //####
+        ODL_I1("numBytes <- ", numBytes); //####
     }
     else
     {
@@ -246,13 +246,13 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             {
                 holder[ii] = static_cast<uint8_t>(aByte);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
         }
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            ODL_LL1("numBytes <- ", numBytes); //####
+            ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     if (0 < numBytes)
@@ -274,14 +274,14 @@ nImO::String::extractValue(const nImO::Message &theMessage,
             {
                 holder[ii] = static_cast<char>(aByte);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
         }
         if (okSoFar)
         {
             holder[numBytes] = '\0';
             result.reset(new String(holder.get()));
-            ODL_LL1("numBytes <- ", numBytes); //####
+            ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     else
@@ -327,7 +327,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
-    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::String::getTypeTag
 

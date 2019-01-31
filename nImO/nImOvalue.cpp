@@ -117,7 +117,7 @@ nImO::Value::addToExtractionMap(const DataKind         aByte,
                                 nImO::Value::Extractor theExtractor)
 {
     ODL_ENTER(); //####
-    ODL_LL2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
+    ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
     ODL_P1("theExtractor = ", &theExtractor); //####
     uint8_t lByte = toUType(aByte);
     uint8_t lMask = toUType(aMask);
@@ -252,7 +252,7 @@ const
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::NotEnumerable;
 
-    ODL_OBJEXIT_L(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Value::enumerationType
 
@@ -276,7 +276,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     int64_t result = 0;
 
     if (DataKind::Integer == (leadByte & DataKind::Mask))
@@ -284,7 +284,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
         bool isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
 
         ++position; // We can accept the lead byte
-        ODL_LL1("position <- ", position); //####
+        ODL_I1("position <- ", position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
@@ -305,7 +305,7 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                 result = toUType(shortBits);
             }
             status = IntStatus::Successful;
-            ODL_LL1("status <- ", toUType(status)); //####
+            ODL_I1("status <- ", toUType(status)); //####
         }
         else
         {
@@ -323,21 +323,21 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
                 {
                     ODL_LOG("(atEnd)"); //####
                     status = IntStatus::Incomplete;
-                    ODL_LL1("status <- ", toUType(status)); //####
+                    ODL_I1("status <- ", toUType(status)); //####
                     okSoFar = false;
                 }
                 else
                 {
                     holder[ii] = static_cast<uint8_t>(aByte);
                     ++position;
-                    ODL_LL1("position <- ", position); //####
+                    ODL_I1("position <- ", position); //####
                 }
             }
             if (okSoFar)
             {
                 result = B2I(holder, size);
                 status = IntStatus::Successful;
-                ODL_LL1("status <- ", toUType(status)); //####
+                ODL_I1("status <- ", toUType(status)); //####
             }
         }
     }
@@ -345,9 +345,9 @@ nImO::Value::extractInt64FromMessage(const nImO::Message &theMessage,
     {
         ODL_LOG("! (DataKind::Integer == (leadByte & DataKind::Mask))"); //####
         status = IntStatus::Invalid;
-        ODL_LL1("status <- ", toUType(status)); //####
+        ODL_I1("status <- ", toUType(status)); //####
     }
-    ODL_EXIT_LL(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // nImO::Value::extractInt64FromMessage
 
@@ -358,7 +358,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = static_cast<DataKind>(0);
 
-    ODL_OBJEXIT_LL(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
 } // nImO::Value::getTypeTag
 
@@ -370,7 +370,7 @@ nImO::Value::getValueFromMessage(const nImO::Message &inMessage,
 {
     ODL_ENTER(); //####
     ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue              result;
     ExtractorMapIterator match = gExtractors.find(static_cast<uint8_t>(leadByte));
 
@@ -662,7 +662,7 @@ nImO::Value::writeInt64ToMessage(nImO::Message &outMessage,
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    ODL_LL1("outValue = ", outValue); //####
+    ODL_I1("outValue = ", outValue); //####
     if ((DataKindIntegerShortValueMinValue <= outValue) &&
         (DataKindIntegerShortValueMaxValue >= outValue))
     {

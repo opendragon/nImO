@@ -144,7 +144,7 @@ compareBytes(const uint8_t *leftValue,
             }
         }
     }
-    ODL_EXIT_LL(result); //####
+    ODL_EXIT_I(result); //####
     return result;
 } // compareBytes
 
@@ -169,7 +169,7 @@ nImO::Blob::Blob(const uint8_t *data,
 {
     ODL_ENTER(); //####
     ODL_P1("datat = ", data); //####
-    ODL_LL1("size = ", size); //####
+    ODL_I1("size = ", size); //####
     if (data && (0 < size))
     {
         _size = size;
@@ -273,7 +273,7 @@ const
             ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::equalTo
 
@@ -286,7 +286,7 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
-    ODL_XL1("leadByte = ", leadByte); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue ==
@@ -294,12 +294,12 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
     size_t  numBytes = 0;
 
     ++position; // We will always accept the lead byte
-    ODL_LL1("position <- ", position); //####
+    ODL_I1("position <- ", position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
         numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
-        ODL_LL1("numBytes <- ", numBytes); //####
+        ODL_I1("numBytes <- ", numBytes); //####
     }
     else
     {
@@ -320,13 +320,13 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             {
                 holder[ii] = static_cast<uint8_t>(aByte);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
         }
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            ODL_LL1("numBytes <- ", numBytes); //####
+            ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     if (0 < numBytes)
@@ -348,13 +348,13 @@ nImO::Blob::extractValue(const nImO::Message &theMessage,
             {
                 holder[ii] = static_cast<uint8_t>(aByte);
                 ++position;
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
         }
         if (okSoFar)
         {
             result.reset(new Blob(holder.get(), numBytes));
-            ODL_LL1("numBytes <- ", numBytes); //####
+            ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     else
@@ -390,7 +390,7 @@ const
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::getTypeTag
 
@@ -433,7 +433,7 @@ const
             ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::greaterThan
 
@@ -475,7 +475,7 @@ const
             ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::greaterThanOrEqual
 
@@ -518,7 +518,7 @@ const
             ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::lessThan
 
@@ -560,7 +560,7 @@ const
             ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_LL(result); //####
+    ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Blob::lessThanOrEqual
 

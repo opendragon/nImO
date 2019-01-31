@@ -156,7 +156,7 @@ nImO::StringBuffer::addBytes(const uint8_t *inBytes,
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
-    ODL_LL1("numBytes = ", numBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     static const char hexDigits[16] =
     {
         '0', '1', '2', '3', '4', '5', '6', '7',
@@ -250,7 +250,7 @@ const
                 aChar = getChar(++position, atEnd);
                 ODL_C1("aChar <- ", aChar); //####
                 ODL_B1("atEnd <- ", atEnd); //####
-                ODL_LL1("position <- ", position); //####
+                ODL_I1("position <- ", position); //####
             }
             if (atEnd)
             {
@@ -306,7 +306,7 @@ nImO::StringBuffer::processCharacters(const char   *aString,
 {
     ODL_ENTER(); //####
     ODL_S1("aString = ", aString); //####
-    ODL_LL1("length = ", length); //####
+    ODL_I1("length = ", length); //####
     // First, determine how many of each kind of quote character there are, and if there are
     // 'special' characters - control characters or characters with the high bit set
     bool   hasSpecials = false;

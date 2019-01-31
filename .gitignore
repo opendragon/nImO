@@ -1,3 +1,4 @@
+.vscode
 nImOConfigVersion.cmake
 non-iOS/Connect/nImOconnect
 non-iOS/Connect/nImOconnect.rc

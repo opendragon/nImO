@@ -169,10 +169,13 @@ if(nImO_DO_SWIG)
     set(CMAKE_SWIG_FLAGS "")
 endif()
 
-find_package(Boost REQUIRED)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_DEBUG_LIBS OFF)
+set(Boost_USE_RELEASE_LIBS ON)
+find_package(Boost 1.50 REQUIRED COMPONENTS thread system iostreams coroutine program_options timer context)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    set(Boost_USE_MULTITHREADED)
+    link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
@@ -214,7 +217,7 @@ else()
     set(OTHER_LIBS "")
 endif()
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB} ${OTHER_LIBS}
+set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
     Threads::Threads)
 
 if(LINUX)

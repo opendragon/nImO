@@ -102,6 +102,9 @@ endif()
 if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                         ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
+
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -id
+                        ${THIS_TARGET_LIB} ${THIS_TARGET_LIB})
 endif()
 
 install(TARGETS ${THIS_TARGET}

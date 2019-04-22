@@ -70,11 +70,13 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Connector(void);
+        Connector
+            (void);
 
         /*! @brief The destructor. */
         virtual
-        ~Connector(void);
+        ~Connector
+            (void);
 
     protected :
         // Protected methods.

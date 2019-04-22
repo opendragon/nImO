@@ -77,20 +77,23 @@ namespace nImO
 
         /*! @brief The destructor. */
         virtual
-        ~Container(void);
+        ~Container
+            (void);
 
         /*! @brief Return non-@c nullptr if the object is a Container.
          @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual const Container *
-        asContainer(void)
-        const
-        override;
+        asContainer
+            (void)
+            const
+            override;
 
     protected :
         // Protected methods.
 
         /*! @brief The constructor. */
-        Container(void);
+        Container
+            (void);
 
     private :
         // Private methods.

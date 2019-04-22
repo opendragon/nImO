@@ -173,9 +173,10 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
  { From Effective Modern C++. }
  @param[in] enumerator The value to be converted.
  @returns The input value as its underlying type. */
-template<typename E>
+template <typename E>
 constexpr typename std::underlying_type<E>::type
-toUType(E enumerator) noexcept
+toUType
+    (E enumerator) noexcept
 {
     return static_cast<typename std::underlying_type<E>::type>(enumerator);
 } // toUType
@@ -184,9 +185,10 @@ toUType(E enumerator) noexcept
  { From Effective Modern C++. }
  @param[in] params The arguments for the constructor.
  @returns A unique_ptr to the newly-allocated object. */
-template<typename T, typename... Ts>
+template <typename T, typename... Ts>
 std::unique_ptr<T>
-make_unique(Ts&&... params)
+make_unique
+    (Ts&&... params)
 {
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
 } // make_unique
@@ -581,20 +583,23 @@ namespace nImO
      @param[in] inString The byte string to be processed.
      @returns The floating-point value stored in the bytes. */
     double
-    B2D(const NumberAsBytes &inString);
+    B2D
+        (const NumberAsBytes &inString);
 
     /*! @brief Convert a set of bytes into an integer value.
      @param[in] inString The byte string to be processed.
      @param[in] numBytes The number of bytes to be processed.
      @returns The integer value stored in the bytes. */
     int64_t
-    B2I(const NumberAsBytes &inString,
-        const size_t        numBytes);
+    B2I
+        (const NumberAsBytes &inString,
+         const size_t        numBytes);
 
     /*! @brief Return @c true if standard input can be used and @c false otherwise.
      @returns @c true if standard input can be used and @c false otherwise. */
     bool
-    CanReadFromStandardInput(void);
+    CanReadFromStandardInput
+        (void);
 
     /*! @brief Compare two byte strings.
      @param[in] first The first byte string.
@@ -603,15 +608,17 @@ namespace nImO
      @returns @c 0 if the two byte strings are identical or the positive index (1-origin) where the
      two byte strings differ. */
     size_t
-    CompareBytes(const void   *first,
-                 const void   *second,
-                 const size_t numBytes);
+    CompareBytes
+        (const void   *first,
+         const void   *second,
+         const size_t numBytes);
 
     /*! @brief Convert a double value to a string.
      @param[in] value The value to be represented in the string.
      @returns The string representation of the value. */
     std::string
-    ConvertDoubleToString(const double value);
+    ConvertDoubleToString
+        (const double value);
     
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.
@@ -619,8 +626,9 @@ namespace nImO
      @returns @c true if the string contained a representation of a double and @c false
      otherwise. */
     bool
-    ConvertToDouble(const char *startPtr,
-                    double      &result);
+    ConvertToDouble
+        (const char *startPtr,
+         double      &result);
 
     /*! @brief Convert a string to an integer value.
      @param[in] startPtr The string to be converted.
@@ -628,30 +636,35 @@ namespace nImO
      @returns @c true if the string contained a representation of an integer and @c false
      otherwise. */
     bool
-    ConvertToInt64(const char *startPtr,
-                   int64_t    &result);
+    ConvertToInt64
+        (const char *startPtr,
+         int64_t    &result);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */
     void
-    D2B(const double  inValue,
-        NumberAsBytes &outString);
+    D2B
+        (const double  inValue,
+         NumberAsBytes &outString);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
-    GetRandomChannelName(const char *channelRoot = DEFAULT_CHANNEL_ROOT_);
+    GetRandomChannelName
+        (const char *channelRoot = DEFAULT_CHANNEL_ROOT_);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
-    GetRandomChannelName(const std::string &channelRoot);
+    GetRandomChannelName
+        (const std::string &channelRoot);
 
     /*! @brief Return a random string of hexadecimal digits.
      @returns A random string of hexadecimal digits. */
     std::string
-    GetRandomHexString(void);
+    GetRandomHexString
+        (void);
 
     /*! @brief Convert an integer value into a set of bytes and return the minimum number of bytes
      needed to represent the value.
@@ -659,29 +672,33 @@ namespace nImO
      @param[out] outString The byte string to be filled.
      @returns The minimum number of bytes needed to represent the value. */
     size_t
-    I2B(const int64_t inValue,
-        NumberAsBytes &outString);
+    I2B
+        (const int64_t inValue,
+         NumberAsBytes &outString);
 
     /*! @brief Perform initialization of internal resources.
      @param[in] progName The name of the executing program.
 
      Should be called in the main() function of each application or service. */
     void
-    Initialize(const std::string &progName);
+    Initialize
+        (const std::string &progName);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
      @returns A string description of the signal. */
     const char *
-    NameOfSignal(const int theSignal);
+    NameOfSignal
+        (const int theSignal);
 
     /*! @brief Merge two DataKind values together.
      @param[in] leftValue The first value to be merged.
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |(const DataKind leftValue,
-               const DataKind rightValue)
+    operator |
+        (const DataKind leftValue,
+         const DataKind rightValue)
     {
         return static_cast<DataKind>(toUType(leftValue) | toUType(rightValue));
     } // operator |
@@ -691,8 +708,9 @@ namespace nImO
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |(const DataKind leftValue,
-               const uint8_t  rightValue)
+    operator |
+        (const DataKind leftValue,
+         const uint8_t  rightValue)
     {
         return static_cast<DataKind>(toUType(leftValue) | rightValue);
     } // operator |
@@ -702,8 +720,9 @@ namespace nImO
      @param[in] rightValue The second value to be merged.
      @returns The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |(const uint8_t  leftValue,
-               const DataKind rightValue)
+    operator |
+        (const uint8_t  leftValue,
+         const DataKind rightValue)
     {
         return static_cast<DataKind>(leftValue | toUType(rightValue));
     } // operator |
@@ -713,8 +732,9 @@ namespace nImO
       @param[in] rightValue The second value to be merged.
       @returns The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator &(const DataKind leftValue,
-               const DataKind rightValue)
+    operator &
+        (const DataKind leftValue,
+         const DataKind rightValue)
     {
         return static_cast<DataKind>(toUType(leftValue) & toUType(rightValue));
     } // operator &
@@ -724,8 +744,9 @@ namespace nImO
      @param[in] rightValue The second value to be combined.
      @returns The result of the bit-wise masking of the two values. */
     inline constexpr DataKind
-    operator &(const DataKind leftValue,
-               const uint8_t  rightValue)
+    operator &
+        (const DataKind leftValue,
+         const uint8_t  rightValue)
     {
         return static_cast<DataKind>(toUType(leftValue) & rightValue);
     } // operator &
@@ -735,8 +756,9 @@ namespace nImO
      @param[in] rightValue The second value to be combined.
      @returns The result of the bit-wise masking of the two values. */
     inline constexpr DataKind
-    operator &(const uint8_t  leftValue,
-               const DataKind rightValue)
+    operator &
+        (const uint8_t  leftValue,
+         const DataKind rightValue)
     {
         return static_cast<DataKind>(leftValue & toUType(rightValue));
     } // operator &
@@ -747,9 +769,10 @@ namespace nImO
      description.
      @param[in] description The description, which may contain multiple newlines. */
     void
-    OutputDescription(std::ostream      &outStream,
-                      const char        *heading,
-                      const std::string &description);
+    OutputDescription
+        (std::ostream      &outStream,
+         const char        *heading,
+         const std::string &description);
 
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
@@ -771,44 +794,50 @@ namespace nImO
      @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
-    ProcessStandardUtilitiesOptions(const int         argc,
-                                    char              **argv,
-                                    DescriptorVector  &argumentDescriptions,
-                                    const std::string &utilityDescription,
-                                    const int         year,
-                                    const char        *copyrightHolder,
-                                    OutputFlavour     &flavour,
-                                    const bool        ignoreFlavours = false,
-                                    StringVector      *arguments = nullptr);
+    ProcessStandardUtilitiesOptions
+        (const int         argc,
+         char              **argv,
+         DescriptorVector  &argumentDescriptions,
+         const std::string &utilityDescription,
+         const int         year,
+         const char        *copyrightHolder,
+         OutputFlavour     &flavour,
+         const bool        ignoreFlavours = false,
+         StringVector      *arguments = nullptr);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
      @param[in] allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
      @returns A string with special characters escaped. */
     std::string
-    SanitizeString(const std::string &inString,
-                   const bool        allowDoubleQuotes = false);
+    SanitizeString
+        (const std::string &inString,
+         const bool        allowDoubleQuotes = false);
 
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */
     void
-    SetSignalHandlers(SignalHandler theHandler);
+    SetSignalHandlers
+        (SignalHandler theHandler);
 
     /*! @brief Set up the signal-handling behaviour so that this thread will catch our signal. */
     void
-    SetUpCatcher(void);
+    SetUpCatcher
+        (void);
 
     /*! @brief Restore the normal signal-handling behaviour. */
     void
-    ShutDownCatcher(void);
+    ShutDownCatcher
+        (void);
 
     /*! @brief Checks a network port number for validity.
      @param[in] aPort The port number to be checked.
      @param[in] systemAllowed @c true if system port numbers are valid and @c false otherwise.
      @returns @c true if the port number is valid and @c false otherwise. */
     inline bool
-    ValidPortNumber(const int  aPort,
-                    const bool systemAllowed = false)
+    ValidPortNumber
+        (const int  aPort,
+         const bool systemAllowed = false)
     {
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
                 (MAXIMUM_PORT_ALLOWED_ >= aPort));

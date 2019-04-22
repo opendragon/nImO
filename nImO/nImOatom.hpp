@@ -74,13 +74,15 @@ namespace nImO
 
         /*! @brief The destructor. */
         virtual
-        ~Atom(void);
+        ~Atom
+            (void);
 
     protected :
         // Protected methods.
 
         /*! @brief The constructor. */
-        Atom(void);
+        Atom
+            (void);
 
     private :
         // Private methods.

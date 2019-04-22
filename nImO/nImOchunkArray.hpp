@@ -71,29 +71,34 @@ namespace nImO
 
         /*! @brief The constructor.
          @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
-        ChunkArray(const bool padWithNull = false);
+        ChunkArray
+            (const bool padWithNull = false);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChunkArray(const ChunkArray &other) = delete;
+        ChunkArray
+            (const ChunkArray &other) = delete;
 
         /*! @brief The destructor. */
         virtual
-        ~ChunkArray(void);
+        ~ChunkArray
+            (void);
 
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         virtual void
-        appendBytes(const uint8_t *data,
-                    const size_t  numBytes);
+        appendBytes
+            (const uint8_t *data,
+             const size_t  numBytes);
 
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         inline void
-        appendBytes(const DataKind *data,
-                    const size_t   numBytes)
+        appendBytes
+            (const DataKind *data,
+             const size_t   numBytes)
         {
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
         } // appendBytes
@@ -102,39 +107,45 @@ namespace nImO
          @param[in] index The zero-based location in the buffer.
          @returns @c true if the index is past the end of the buffer. */
         bool
-        atEnd(const size_t index)
-        const;
+        atEnd
+            (const size_t index)
+            const;
 
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
          @param[out] atEnd @c true if the index is past the end of the buffer.
          @returns The byte found at the provided index. */
         int
-        getByte(const size_t index,
-                bool         &atEnd)
+        getByte
+            (const size_t index,
+             bool         &atEnd)
         const;
 
         /*! @brief Return a copy of the bytes in the buffer.
          @returns A copy of the bytes in the buffer. */
         virtual std::string
-        getBytes(void);
+        getBytes
+            (void);
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
         virtual size_t
-        getLength(void)
-        const;
+        getLength
+            (void)
+            const;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         ChunkArray &
-        operator =(const ChunkArray &other) = delete;
+        operator =
+            (const ChunkArray &other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
          @returns The ChunkArray object so that cascading can be done. */
         virtual ChunkArray &
-        reset(void);
+        reset
+            (void);
 
     protected :
         // Protected methods.

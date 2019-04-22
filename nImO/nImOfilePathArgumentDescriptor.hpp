@@ -91,32 +91,37 @@ namespace nImO
          @param[in] forOutput @c true if the file will be used for output and @c false otherwise.
          @param[in] useRandomPath @c true if the file path will be constructed with a random number
          and @c false if the file path is fixed. */
-        FilePathArgumentDescriptor(const std::string  &argName,
-                                   const std::string  &argDescription,
-                                   const ArgumentMode argMode,
-                                   const std::string  &pathPrefix,
-                                   const std::string  &pathSuffix,
-                                   const bool         forOutput = false,
-                                   const bool         useRandomPath = false);
+        FilePathArgumentDescriptor
+            (const std::string  &argName,
+             const std::string  &argDescription,
+             const ArgumentMode argMode,
+             const std::string  &pathPrefix,
+             const std::string  &pathSuffix,
+             const bool         forOutput = false,
+             const bool         useRandomPath = false);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other);
+        FilePathArgumentDescriptor
+            (const FilePathArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
-        ~FilePathArgumentDescriptor(void);
+        ~FilePathArgumentDescriptor
+            (void);
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
-        parseArgString(const std::string &inString);
+        parseArgString
+            (const std::string &inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
-        swap(FilePathArgumentDescriptor &other);
+        swap
+            (FilePathArgumentDescriptor &other);
         
     protected :
 
@@ -125,43 +130,49 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
-        clone(void)
-        const
-        override;
+        clone
+            (void)
+            const
+            override;
 
         /*! @brief Return the default value.
          @returns The default value. */
         virtual std::string
-        getDefaultValue(void)
-        override;
+        getDefaultValue
+            (void)
+            override;
 
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
         virtual bool
-        isForFiles(bool &isForOutput)
-        const
-        override;
+        isForFiles
+            (bool &isForOutput)
+            const
+            override;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
-        setToDefaultValue(void)
-        override;
+        setToDefaultValue
+            (void)
+            override;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void)
-        override;
+        toString
+            (void)
+            override;
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string &value)
-        override;
+        validate
+            (const std::string &value)
+            override;
 
     public :
 

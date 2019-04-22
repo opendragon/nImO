@@ -73,41 +73,48 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Integer(void);
+        Integer
+            (void);
 
         /*! @brief The constructor.
           @param[in] initialValue The initial value for the object. */
-        explicit Integer(const int64_t initialValue);
+        explicit Integer
+            (const int64_t initialValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Integer(const Integer &other);
+        Integer
+            (const Integer &other);
 
         /*! @brief The destructor. */
         virtual
-        ~Integer(void);
+        ~Integer
+            (void);
 
         /*! @brief Return non-@c nullptr if the object is an Integer.
          @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual const Integer *
-        asInteger(void)
-        const
-        override;
+        asInteger
+            (void)
+            const
+            override;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual bool
-        deeplyEqualTo(const Value &other)
-        const
-        override;
+        deeplyEqualTo
+            (const Value &other)
+            const
+            override;
 
         /*! @brief Return the enumeration type of an object.
          @returns The enumeration type of an object. */
         virtual Enumerable
-        enumerationType(void)
-        const
-        override;
+        enumerationType
+            (void)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -115,25 +122,28 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        equalTo(const Value &other,
-                bool        &validComparison)
-        const
-        override;
+        equalTo
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Get the extraction information for Integer objects.
          @param[out] aByte The byte value that indicates the start of a Integer value.
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
-        getExtractionInfo(DataKind  &aByte,
-                          DataKind  &aMask,
-                          Extractor &theExtractor);
+        getExtractionInfo
+            (DataKind  &aByte,
+             DataKind  &aMask,
+             Extractor &theExtractor);
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         inline int64_t
-        getIntegerValue(void)
-        const
+        getIntegerValue
+            (void)
+            const
         {
             return _intValue;
         } // getIntegerValue
@@ -141,9 +151,10 @@ namespace nImO
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
         virtual DataKind
-        getTypeTag(void)
-        const
-        override;
+        getTypeTag
+            (void)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -151,10 +162,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThan(const Value &other,
-                    bool        &validComparison)
-        const
-        override;
+        greaterThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -162,10 +174,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThanOrEqual(const Value &other,
-                           bool        &validComparison)
-        const
-        override;
+        greaterThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -173,10 +186,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThan(const Value &other,
-                 bool        &validComparison)
-        const
-        override;
+        lessThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -184,16 +198,18 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThanOrEqual(const Value &other,
-                        bool        &validComparison)
-        const
-        override;
+        lessThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         inline Integer &
-        operator =(const Integer &other)
+        operator =
+            (const Integer &other)
         {
             if (this != &other)
             {
@@ -206,7 +222,8 @@ namespace nImO
          @param[in] value The value to be assigned.
          @returns The updated object. */
         inline Integer &
-        operator =(const int64_t value)
+        operator =
+            (const int64_t value)
         {
             _intValue = value;
             return *this;
@@ -217,17 +234,19 @@ namespace nImO
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual void
-        printToStringBuffer(StringBuffer &outBuffer,
-                            const bool   squished = false)
-        const
-        override;
+        printToStringBuffer
+            (StringBuffer &outBuffer,
+             const bool   squished = false)
+            const
+            override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
-        writeToMessage(Message &outMessage)
-        const
-        override;
+        writeToMessage
+            (Message &outMessage)
+            const
+            override;
 
     protected :
         // Protected methods.
@@ -249,10 +268,11 @@ namespace nImO
          the Value did, a Flaw if the Value could not be extracted because it was not correct and
          a non-Flaw Value if extraction was successful. */
         static SpValue
-        extractValue(const Message &theMessage,
-                     const int     leadByte,
-                     size_t        &position,
-                     SpArray       parentValue);
+        extractValue
+            (const Message &theMessage,
+             const int     leadByte,
+             size_t        &position,
+             SpArray       parentValue);
 
     public :
         // Public fields.

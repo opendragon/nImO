@@ -73,31 +73,36 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Number(void);
+        Number
+            (void);
 
         /*! @brief The destructor. */
         virtual
-        ~Number(void);
+        ~Number
+            (void);
 
         /*! @brief Return non-@c nullptr if the object is a Number.
          @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
         virtual const Number *
-        asNumber(void)
-        const
-        override;
+        asNumber
+            (void)
+            const
+            override;
 
         /*! @brief Return the characters that can appear as the start of a Number.
          @returns The characters that can appear as the start of a Number. */
         static const char *
-        getInitialCharacters(void);
+        getInitialCharacters
+            (void);
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
-        readFromStringBuffer(const StringBuffer &inBuffer,
-                             size_t             &position);
+        readFromStringBuffer
+            (const StringBuffer &inBuffer,
+             size_t             &position);
 
     protected :
         // Protected methods.

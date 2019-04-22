@@ -74,13 +74,15 @@ namespace nImO
 
         /*! @brief The destructor. */
         virtual
-        ~ZeroConfClient(void);
+        ~ZeroConfClient
+            (void);
 
     protected :
         // Protected methods.
 
         /*! @brief The constructor. */
-        ZeroConfClient(void);
+        ZeroConfClient
+            (void);
 
     private :
         // Private methods.

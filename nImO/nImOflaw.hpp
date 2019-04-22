@@ -74,26 +74,30 @@ namespace nImO
 
         /*! @brief The destructor. */
         virtual
-        ~Flaw(void);
+        ~Flaw
+            (void);
 
         /*! @brief Return non-@c nullptr if the object is a Flaw.
          @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual const Flaw *
-        asFlaw(void)
-        const
-        override;
+        asFlaw
+            (void)
+            const
+            override;
 
         /*! @brief Return a textual description of the Flaw.
          @returns A textual description of the Flaw. */
         virtual std::string
-        getDescription(void)
-        const = 0;
+        getDescription
+            (void)
+            const = 0;
 
     protected :
         // Protected methods.
 
         /*! @brief The constructor. */
-        Flaw(void);
+        Flaw
+            (void);
         
     private :
         // Private methods.

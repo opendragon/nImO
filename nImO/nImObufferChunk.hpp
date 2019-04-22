@@ -73,15 +73,18 @@ namespace nImO
          @param[in] addPadding @c true if a single byte of padding is added to each buffer.
          The padding is to support direct access to a chunk as a @c nullptr-terminated
          string. */
-        BufferChunk(const bool addPadding);
+        BufferChunk
+            (const bool addPadding);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BufferChunk(const BufferChunk &other) = delete;
+        BufferChunk
+            (const BufferChunk &other) = delete;
 
         /*! @brief The destructor. */
         virtual
-        ~BufferChunk(void);
+        ~BufferChunk
+            (void);
 
         /*! @brief Add a sequence of bytes to the chunk.
          @param[in] data The bytes to be added.
@@ -90,14 +93,16 @@ namespace nImO
          Note that if there is insufficient space, the added data will be truncated.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
-        appendData(const void   *data,
-                   const size_t numBytes);
+        appendData
+            (const void   *data,
+             const size_t numBytes);
 
         /*! @brief Return the number of available bytes in the chunk.
          @returns The number of available bytes in the chunk. */
         inline size_t
-        getAvailableBytes(void)
-        const
+        getAvailableBytes
+            (void)
+            const
         {
             return static_cast<size_t>(_bufferEnd - _write);
         } // getAvailableBytes
@@ -105,8 +110,9 @@ namespace nImO
         /*! @brief Return the stored data.
          @returns A pointer to the stored data. */
         inline const uint8_t *
-        getData(void)
-        const
+        getData
+            (void)
+            const
         {
             return _buffer.get();
         } // getData
@@ -114,8 +120,9 @@ namespace nImO
         /*! @brief Return the number of bytes used in the chunk.
          @returns The number of bytes used in the chunk. */
         inline size_t
-        getDataSize(void)
-        const
+        getDataSize
+            (void)
+            const
         {
             return static_cast<size_t>(_write - _buffer.get());
         } // getDataSize
@@ -124,12 +131,14 @@ namespace nImO
          @param[in] other The object to be copied.
          @returns The updated object. */
         BufferChunk &
-        operator =(const BufferChunk &other) = delete;
+        operator =
+            (const BufferChunk &other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
-        reset(void);
+        reset
+            (void);
 
     protected :
         // Protected methods.

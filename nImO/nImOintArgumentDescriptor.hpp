@@ -93,28 +93,32 @@ namespace nImO
          @param[in] hasMaximumValue @c true if the value must be less than or equal to a specified
          maximum and @c false otherwise.
          @param[in] maximumValue The maximum value that is acceptable. */
-        IntArgumentDescriptor(const std::string  &argName,
-                              const std::string  &argDescription,
-                              const ArgumentMode argMode,
-                              const int          defaultValue,
-                              const bool         hasMinimumValue,
-                              const int          minimumValue,
-                              const bool         hasMaximumValue,
-                              const int          maximumValue);
+        IntArgumentDescriptor
+            (const std::string  &argName,
+             const std::string  &argDescription,
+             const ArgumentMode argMode,
+             const int          defaultValue,
+             const bool         hasMinimumValue,
+             const int          minimumValue,
+             const bool         hasMaximumValue,
+             const int          maximumValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        IntArgumentDescriptor(const IntArgumentDescriptor &other);
+        IntArgumentDescriptor
+            (const IntArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
-        ~IntArgumentDescriptor(void);
+        ~IntArgumentDescriptor
+            (void);
 
         /*! @brief Return the current value.
          @returns The current value. */
         inline int
-        getCurrentValue(void)
-        const
+        getCurrentValue
+            (void)
+            const
         {
             return _currentValue;
         } // getCurrentValue
@@ -123,20 +127,23 @@ namespace nImO
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
-        parseArgString(const std::string &inString);
+        parseArgString
+            (const std::string &inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
-        swap(IntArgumentDescriptor &other);
+        swap
+            (IntArgumentDescriptor &other);
         
     protected :
 
         /*! @brief Return the default value.
          @returns The default value. */
         virtual std::string
-        getDefaultValue(void)
-        override;
+        getDefaultValue
+            (void)
+            override;
 
     private :
 
@@ -144,41 +151,47 @@ namespace nImO
         /*! @brief Add the processed value to a bottle.
          @param[in,out] container The bottle to be modified. */
         virtual void
-        addValueToBottle(yarp::os::Bottle &container)
-        override;
+        addValueToBottle
+            (yarp::os::Bottle &container)
+            override;
 #endif//0
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
-        clone(void)
-        const
-        override;
+        clone
+            (void)
+            const
+            override;
 
         /*! @brief Return the processed value.
          @returns The processed value. */
         virtual std::string
-        getProcessedValue(void)
-        override;
+        getProcessedValue
+            (void)
+            override;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
-        setToDefaultValue(void)
-        override;
+        setToDefaultValue
+            (void)
+            override;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void)
-        override;
+        toString
+            (void)
+            override;
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string &value)
-        override;
+        validate
+            (const std::string &value)
+            override;
 
     public :
 

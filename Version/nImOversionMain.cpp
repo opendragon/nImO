@@ -37,6 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
+#include <boost/version.hpp>
+#include <regex>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -74,6 +76,20 @@ using std::endl;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Return the version coming from the Boost macros as a
+ more 'normal' representation.
+ @returns The Boost version string with underscores replaced with
+ periods. */
+static std::string
+getBoostVersion
+    (void)
+{
+    std::string source(BOOST_LIB_VERSION);
+    std::regex  exp("_");
+    
+    return std::regex_replace(source, exp, ".");
+} // getBoostVersion
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -85,7 +101,8 @@ using std::endl;
  @param[in] argv The arguments to be used with the application.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);
@@ -110,7 +127,8 @@ main(int  argc,
             case nImO::OutputFlavour::Tabs :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                cout << nImOversionString.c_str() << "\t" << odlVersionString << endl;
+                cout << nImOversionString.c_str() << "\t" << odlVersionString << "\t" <<
+                        getBoostVersion() << endl;
                 break;
 
             case nImO::OutputFlavour::JSON :
@@ -120,14 +138,17 @@ main(int  argc,
                            CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                         T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
                            "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        odlVersionString.c_str() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
+                        odlVersionString.c_str() <<
+                        T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
+                           CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                        getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                 break;
 
             case nImO::OutputFlavour::Normal :
                 nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                 odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
                 cout << "nImO Version: " << nImOversionString.c_str() << ", ODL Version: " <<
-                        odlVersionString << endl;
+                        odlVersionString << ", Boost Version: " << getBoostVersion() << endl;
                 break;
 
             default :

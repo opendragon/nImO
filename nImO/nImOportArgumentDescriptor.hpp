@@ -83,30 +83,35 @@ namespace nImO
          @param[in] defaultValue The default value for the command-line argument.
          @param[in] isSystemPort @c true if the value can be a system port and @c false
          otherwise. */
-        PortArgumentDescriptor(const std::string  &argName,
-                               const std::string  &argDescription,
-                               const ArgumentMode argMode,
-                               const int          defaultValue,
-                               const bool         isSystemPort);
+        PortArgumentDescriptor
+            (const std::string  &argName,
+             const std::string  &argDescription,
+             const ArgumentMode argMode,
+             const int          defaultValue,
+             const bool         isSystemPort);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        PortArgumentDescriptor(const PortArgumentDescriptor &other);
+        PortArgumentDescriptor
+            (const PortArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
-        ~PortArgumentDescriptor(void);
+        ~PortArgumentDescriptor
+            (void);
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
-        parseArgString(const std::string &inString);
+        parseArgString
+            (const std::string &inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
-        swap(PortArgumentDescriptor &other);
+        swap
+            (PortArgumentDescriptor &other);
         
     protected :
 
@@ -115,15 +120,17 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
-        clone(void)
-        const
-        override;
+        clone
+            (void)
+            const
+            override;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void)
-        override;
+        toString
+            (void)
+            override;
 
     public :
 

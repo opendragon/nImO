@@ -73,28 +73,33 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Invalid(void);
+        Invalid
+            (void);
 
         /*! @brief The constructor.
           @param[in] description A textual description of the problem encountered. */
-        explicit Invalid(const std::string &description);
+        explicit Invalid
+            (const std::string &description);
 
         /*! @brief The constructor.
          @param[in] description A textual description of the problem encountered.
          @param[in] associatedValue A number that is concatenated to the description. */
-        Invalid(const std::string &description,
-                const int64_t     associatedValue);
+        Invalid
+            (const std::string &description,
+             const int64_t     associatedValue);
         
         /*! @brief The destructor. */
         virtual
-        ~Invalid(void);
+        ~Invalid
+            (void);
 
         /*! @brief Return a textual description of the Flaw.
          @returns A textual description of the Flaw. */
         virtual std::string
-        getDescription(void)
-        const
-        override;
+        getDescription
+            (void)
+            const
+            override;
         
     protected :
         // Protected methods.

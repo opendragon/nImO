@@ -105,15 +105,18 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Map(void);
+        Map
+            (void);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Map(const Map &other);
+        Map
+            (const Map &other);
 
         /*! @brief The destructor. */
         virtual
-        ~Map(void);
+        ~Map
+            (void);
 
         /*! @brief Override the standard insert operation to ignore inserting incompatible values.
          @param[in] newKey The key for the Value.
@@ -121,20 +124,23 @@ namespace nImO
          @returns A pair<iterator, bool> indicating the success or failure of the insert
          operation. */
         InsertResult
-        addValue(SpValue newKey,
-                 SpValue newValue);
+        addValue
+            (SpValue newKey,
+             SpValue newValue);
 
         /*! @brief Return non-@c nullptr if the object is a Map.
          @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
         virtual const Map *
-        asMap(void)
-        const
-        override;
+        asMap
+            (void)
+            const
+            override;
 
         /*! @brief Return an iterator pointing to the first element of the Array.
          @returns An iterator pointing to the first element of the Array. */
         inline iterator
-        begin(void)
+        begin
+            (void)
         {
             return inherited2::begin();
         } // begin
@@ -142,15 +148,17 @@ namespace nImO
         /*! @brief Return an iterator pointing to the first element of the Array.
          @returns An iterator pointing to the first element of the Array. */
         inline const_iterator
-        begin(void)
-        const
+        begin
+            (void)
+            const
         {
             return inherited2::begin();
         } // begin
 
         /*! @brief Remove all entries from the Map. */
         inline void
-        clear(void)
+        clear
+            (void)
         {
             inherited2::clear();
             _keyKind = Enumerable::Unknown;
@@ -160,14 +168,16 @@ namespace nImO
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual bool
-        deeplyEqualTo(const Value &other)
-        const
-        override;
+        deeplyEqualTo
+            (const Value &other)
+            const
+            override;
 
         /*! @brief Return an iterator pointing past the last element of the Array.
          @returns An iterator pointing past the last element of the Array. */
         inline iterator
-        end(void)
+        end
+            (void)
         {
             return inherited2::end();
         } // end
@@ -175,8 +185,9 @@ namespace nImO
         /*! @brief Return an iterator pointing past the last element of the Array.
          @returns An iterator pointing past the last element of the Array. */
         inline const_iterator
-        end(void)
-        const
+        end
+            (void)
+            const
         {
             return inherited2::end();
         } // end
@@ -187,17 +198,19 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        equalTo(const Value &other,
-                bool        &validComparison)
-        const
-        override;
+        equalTo
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Search the Map for an element with the given key value an return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         inline iterator
-        find(SpValue key)
+        find
+            (SpValue key)
         {
             iterator result;
             
@@ -218,7 +231,8 @@ namespace nImO
          @param[in] key The key to be searched for.
          @returns An iterator for the given key key value or Map::end if not found. */
         inline const_iterator
-        find(const SpValue key)
+        find
+            (const SpValue key)
         const
         {
             const_iterator result;
@@ -239,26 +253,30 @@ namespace nImO
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
-        getExtractionInfo(DataKind  &aByte,
-                          DataKind  &aMask,
-                          Extractor &theExtractor);
+        getExtractionInfo
+            (DataKind  &aByte,
+             DataKind  &aMask,
+             Extractor &theExtractor);
 
         /*! @brief Return the characters that can appear as the start of a Map.
          @returns The characters that can appear as the start of a Map. */
         static const char *
-        getInitialCharacters(void);
+        getInitialCharacters
+            (void);
 
         /*! @brief Return the characters that can appear as the end of a Map.
          @returns The characters that can appear as the end of a Map. */
         static const char *
-        getTerminalCharacters(void);
+        getTerminalCharacters
+            (void);
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
         virtual DataKind
-        getTypeTag(void)
-        const
-        override;
+        getTypeTag
+            (void)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -266,10 +284,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThan(const Value &other,
-                    bool        &validComparison)
-        const
-        override;
+        greaterThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -277,10 +296,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThanOrEqual(const Value &other,
-                           bool        &validComparison)
-        const
-        override;
+        greaterThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -288,10 +308,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThan(const Value &other,
-                 bool        &validComparison)
-        const
-        override;
+        lessThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -299,16 +320,18 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThanOrEqual(const Value &other,
-                        bool        &validComparison)
-        const
-        override;
+        lessThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         inline Map &
-        operator =(const Map &other)
+        operator =
+            (const Map &other)
         {
             if (this != &other)
             {
@@ -323,24 +346,27 @@ namespace nImO
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual void
-        printToStringBuffer(StringBuffer &outBuffer,
-                            const bool   squished = false)
-        const
-        override;
+        printToStringBuffer
+            (StringBuffer &outBuffer,
+             const bool   squished = false)
+            const
+            override;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
-        readFromStringBuffer(const StringBuffer &inBuffer,
-                             size_t             &position);
+        readFromStringBuffer
+            (const StringBuffer &inBuffer,
+             size_t             &position);
 
         /*! @brief Returns the number of elements in the Map.
          @returns The number of elements in the Map. */
         inline size_type
-        size(void)
-        const
+        size
+            (void)
+            const
         {
             return inherited2::size();
         } // size
@@ -348,9 +374,10 @@ namespace nImO
         /*! @brief Add a binary representation of the object to the message.
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
-        writeToMessage(Message &outMessage)
-        const
-        override;
+        writeToMessage
+            (Message &outMessage)
+            const
+            override;
 
     protected :
         // Protected methods.
@@ -361,7 +388,8 @@ namespace nImO
         /*! @brief Add the entries from another Map.
           @param[in] other The object to be copied from. */
         void
-        addEntries(const Map &other);
+        addEntries
+            (const Map &other);
 
         /*! @brief Extracts Value objects from a Message.
          Note that the parentValue argument is normally @c nullptr, and is used for handling
@@ -377,10 +405,11 @@ namespace nImO
          the Value did, a Flaw if the Value could not be extracted because it was not correct and
          a non-Flaw Value if extraction was successful. */
         static SpValue
-        extractValue(const Message &theMessage,
-                     const int     leadByte,
-                     size_t        &position,
-                     SpArray       parentValue);
+        extractValue
+            (const Message &theMessage,
+             const int     leadByte,
+             size_t        &position,
+             SpArray       parentValue);
 
     public :
         // Public fields.

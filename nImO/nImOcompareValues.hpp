@@ -70,19 +70,22 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        CompareValues(void);
+        CompareValues
+            (void);
 
         /*! @brief The destructor. */
         virtual
-        ~CompareValues(void);
+        ~CompareValues
+            (void);
 
         /*! @brief Compare two Values, returning @c true if the first is less than the second.
          @param[in] lhs The first Value to be compared.
          @param[in] rhs The second Value to be compared.
          @returns @c true if the first Value is less than the second. */
         bool
-        operator() (SpValue lhs,
-                    SpValue rhs)
+        operator()
+            (SpValue lhs,
+             SpValue rhs)
         const;
 
     protected :

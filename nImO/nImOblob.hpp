@@ -73,36 +73,42 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Blob(void);
+        Blob
+            (void);
 
         /*! @brief The constructor.
          @param[in] data The data to be placed in the object.
          @param[in] size The number of bytes in the data. */
-        Blob(const uint8_t *data,
+        Blob
+            (const uint8_t *data,
              const size_t  size);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Blob(const Blob &other);
+        Blob
+            (const Blob &other);
 
         /*! @brief The destructor. */
         virtual
-        ~Blob(void);
+        ~Blob
+            (void);
 
         /*! @brief Return non-@c nullptr if the object is a Blob.
          @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
         virtual const Blob *
-        asBlob(void)
-        const
-        override;
+        asBlob
+            (void)
+            const
+            override;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @returns @c true if the two Values are structurally identical. */
         virtual bool
-        deeplyEqualTo(const Value &other)
-        const
-        override;
+        deeplyEqualTo
+            (const Value &other)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -110,8 +116,9 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        equalTo(const Value &other,
-                bool        &validComparison)
+        equalTo
+            (const Value &other,
+             bool        &validComparison)
         const
         override;
 
@@ -120,22 +127,25 @@ namespace nImO
          @param[out] aMask The mask to apply to a lead byte.
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
-        getExtractionInfo(DataKind  &aByte,
-                          DataKind  &aMask,
-                          Extractor &theExtractor);
+        getExtractionInfo
+            (DataKind  &aByte,
+             DataKind  &aMask,
+             Extractor &theExtractor);
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
         virtual DataKind
-        getTypeTag(void)
-        const
-        override;
+        getTypeTag
+            (void)
+            const
+            override;
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
         inline const uint8_t *
-        getValue(size_t &length)
-        const
+        getValue
+            (size_t &length)
+            const
         {
             length = _size;
             return _value.get();
@@ -147,10 +157,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThan(const Value &other,
-                    bool        &validComparison)
-        const
-        override;
+        greaterThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -158,10 +169,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        greaterThanOrEqual(const Value &other,
-                           bool        &validComparison)
-        const
-        override;
+        greaterThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -169,10 +181,11 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThan(const Value &other,
-                 bool        &validComparison)
-        const
-        override;
+        lessThan
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -180,33 +193,37 @@ namespace nImO
          if @c false, the returned value should be ignored.
          @returns The relative ordering of the two Values. */
         virtual bool
-        lessThanOrEqual(const Value &other,
-                        bool        &validComparison)
-        const
-        override;
+        lessThanOrEqual
+            (const Value &other,
+             bool        &validComparison)
+            const
+            override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         Blob &
-        operator =(const Blob &other);
+        operator =
+            (const Blob &other);
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[out] outBuffer The buffer to be appended to.
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible. */
         virtual void
-        printToStringBuffer(StringBuffer &outBuffer,
-                            const bool   squished = false)
-        const
-        override;
+        printToStringBuffer
+            (StringBuffer &outBuffer,
+             const bool   squished = false)
+            const
+            override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in] outMessage The Message to be appended to. */
         virtual void
-        writeToMessage(Message &outMessage)
-        const
-        override;
+        writeToMessage
+            (Message &outMessage)
+            const
+            override;
 
     protected :
         // Protected methods.
@@ -228,14 +245,16 @@ namespace nImO
          the Value did, a Flaw if the Value could not be extracted because it was not correct and
          a non-Flaw Value if extraction was successful. */
         static SpValue
-        extractValue(const Message &theMessage,
-                     const int     leadByte,
-                     size_t        &position,
-                     SpArray       parentValue);
+        extractValue
+            (const Message &theMessage,
+             const int     leadByte,
+             size_t        &position,
+             SpArray       parentValue);
 
         /*! @brief Remove all entries. */
         inline void
-        removeAllEntries(void)
+        removeAllEntries
+            (void)
         {
             _value.reset();
             _size = 0;

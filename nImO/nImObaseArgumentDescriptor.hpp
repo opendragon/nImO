@@ -164,30 +164,35 @@ namespace nImO
          @param[in] argName The name of the command-line argument.
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument. */
-        BaseArgumentDescriptor(const std::string  &argName,
-                               const std::string  &argDescription,
-                               const ArgumentMode argMode);
+        BaseArgumentDescriptor
+            (const std::string  &argName,
+             const std::string  &argDescription,
+             const ArgumentMode argMode);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BaseArgumentDescriptor(const BaseArgumentDescriptor &other);
+        BaseArgumentDescriptor
+            (const BaseArgumentDescriptor &other);
 
         /*! @brief The destructor. */
         virtual
-        ~BaseArgumentDescriptor(void);
+        ~BaseArgumentDescriptor
+            (void);
 
 #if 0
         /*! @brief Add the processed value to a bottle.
          @param[in] container The bottle to be modified. */
         virtual void
-        addValueToBottle(yarp::os::Bottle &container) = 0;
+        addValueToBottle
+            (yarp::os::Bottle &container) = 0;
 #endif//0
 
         /*! @brief Return the description of the command-line argument.
          @returns The description of the command-line argument. */
         inline const std::string &
-        argumentDescription(void)
-        const
+        argumentDescription
+            (void)
+            const
         {
             return _argDescription;
         } // argumentDescription
@@ -195,8 +200,9 @@ namespace nImO
         /*! @brief Return the mode of the command-line argument.
          @returns The mode of the command-line argument. */
         inline ArgumentMode
-        argumentMode(void)
-        const
+        argumentMode
+            (void)
+            const
         {
             return _argMode;
         } // argumentMode
@@ -204,8 +210,9 @@ namespace nImO
         /*! @brief Return the name of the command-line argument.
          @returns The name of the command-line argument. */
         inline const std::string &
-        argumentName(void)
-        const
+        argumentName
+            (void)
+            const
         {
             return _argName;
         } // argumentName
@@ -213,46 +220,53 @@ namespace nImO
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @returns A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
-        clone(void)
-        const = 0;
+        clone
+            (void)
+            const = 0;
 
         /*! @brief Return the default value.
          @returns The default value. */
         virtual std::string
-        getDefaultValue(void) = 0;
+        getDefaultValue
+            (void) = 0;
 
         /*! @brief Return the processed value.
          @returns The processed value. */
         virtual std::string
-        getProcessedValue(void) = 0;
+        getProcessedValue
+            (void) = 0;
 
         /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
          arguments.
          @returns @c true if the argument is a placeholder for zero of more trailing arguments
          and @c false otherwise. */
         virtual bool
-        isExtra(void)
-        const;
+        isExtra
+            (void)
+            const;
 
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.
          @returns @c true if the argument is for file paths and @c false otherwise. */
         virtual bool
-        isForFiles(bool &isForOutput)
-        const;
+        isForFiles
+            (bool &isForOutput)
+            const;
 
         /*! @brief Return @c true if the argument is for Logical arguments.
          @returns @c true if the argument is for Logical arguments and @c false otherwise. */
         virtual bool
-        isLogical(void)
-        const;
+        isLogical
+            (void)
+            const;
 
         /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
          @returns @c true if the argument is modifiable and @c false otherwise. */
         inline bool
-        isModifiable(void)
-        const
+        isModifiable
+            (void)
+            const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
                     (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
@@ -261,8 +275,9 @@ namespace nImO
         /*! @brief Return @c true if the argument is optional and @c false otherwise.
          @returns @c true if the argument is optional and @c false otherwise. */
         inline bool
-        isOptional(void)
-        const
+        isOptional
+            (void)
+            const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
                     (0 != (toUType(_argMode) & toUType(ArgumentMode::Optional))));
@@ -271,8 +286,9 @@ namespace nImO
         /*! @brief Return @c true if the argument is a password and @c false otherwise.
          @returns @c true if the argument is a password and @c false otherwise. */
         inline bool
-        isPassword(void)
-        const
+        isPassword
+            (void)
+            const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
                     (0 != (toUType(_argMode) & toUType(ArgumentMode::Password))));
@@ -281,8 +297,9 @@ namespace nImO
         /*! @brief Return @c true if the argument is required and @c false otherwise.
          @returns @c true if the argument is required and @c false otherwise. */
         inline bool
-        isRequired(void)
-        const
+        isRequired
+            (void)
+            const
         {
             return ((ArgumentMode::Unknown != _argMode) &&
                     (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
@@ -291,8 +308,9 @@ namespace nImO
         /*! @brief Return @c true if the argument is valid and @c false otherwise.
          @returns @c true if the argument is valid and @c false otherwise. */
         inline bool
-        isValid(void)
-        const
+        isValid
+            (void)
+            const
         {
             return _valid;
         } // isValid
@@ -302,7 +320,8 @@ namespace nImO
          @returns The updated object. */
         template <typename Type>
         Type &
-        operator =(const Type &other)
+        operator =
+            (const Type &other)
         {
             Type temp(other);
 
@@ -312,19 +331,22 @@ namespace nImO
         
         /*! @brief Set the associated variable to the default value. */
         virtual void
-        setToDefaultValue(void) = 0;
+        setToDefaultValue
+            (void) = 0;
 
         /*! @brief Convert to a printable representation.
          @returns A printable representation of the descriptor. */
         virtual std::string
-        toString(void) = 0;
+        toString
+            (void) = 0;
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
          @returns @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
-        validate(const std::string &value) = 0;
+        validate
+            (const std::string &value) = 0;
 
     protected :
 
@@ -336,9 +358,10 @@ namespace nImO
          @returns @c true if the correct number of fields appear within the input string and
          @c false otherwise. */
         static bool
-        partitionString(const std::string &inString,
-                        const size_t      indexOfDefaultValue,
-                        StringVector      &result);
+        partitionString
+            (const std::string &inString,
+             const size_t      indexOfDefaultValue,
+             StringVector      &result);
 
         /*! @brief Returns a string that contains a printable representation of the standard
          prefix fields for a command-line argument.
@@ -346,8 +369,9 @@ namespace nImO
          @returns A string that contains a printable representation of the standard prefix
          fields for a command-line argument. */
         std::string
-        prefixFields(const std::string &tagForField)
-        const;
+        prefixFields
+            (const std::string &tagForField)
+            const;
 
         /*! @brief Returns a string that contains a printable representation of the standard
          fields for a command-line argument.
@@ -356,12 +380,14 @@ namespace nImO
          @returns A string that contains a printable representation of the standard fields for
          a command-line argument. */
         std::string
-        suffixFields(const std::string &defaultToUse);
+        suffixFields
+            (const std::string &defaultToUse);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
-        swap(BaseArgumentDescriptor &other);
+        swap
+            (BaseArgumentDescriptor &other);
         
     private :
 
@@ -406,7 +432,8 @@ namespace nImO
      @returns A string containing the standard 'argument list' representation of the argument
      sequence. */
     std::string
-    ArgumentsToArgString(const DescriptorVector &arguments);
+    ArgumentsToArgString
+        (const DescriptorVector &arguments);
 
     /*! @brief Generate the standard 'argument description' from an argument sequence.
      @param[in] arguments The argument sequence.
@@ -414,38 +441,43 @@ namespace nImO
      @param[in] minSpace The number of characters between the argument names and their
      descriptions. */
     void
-    ArgumentsToDescriptionArray(const DescriptorVector &arguments,
-                                StringVector           &output,
-                                const size_t           minSpace);
+    ArgumentsToDescriptionArray
+        (const DescriptorVector &arguments,
+         StringVector           &output,
+         const size_t           minSpace);
 
     /*! @brief Return the resulting argument values.
      @param[in] arguments The argument sequence.
      @param[in] sep The separator string between the argument values.
      @returns The argument values, separated by 'sep'. */
     std::string
-    CombineArguments(const DescriptorVector &arguments,
-                     const std::string      &sep);
+    CombineArguments
+        (const DescriptorVector &arguments,
+         const std::string      &sep);
 
     /*! @brief Convert a string in '--args' format into an argument description.
      @param[in] inString The string to be analyzed.
      @returns A newly allocated argument descriptor or @c nullptr if the string is not valid. */
     SpBaseArgumentDescriptor
-    ConvertStringToArgument(const std::string &inString);
+    ConvertStringToArgument
+        (const std::string &inString);
 
 #if 0
     /*! @brief Copy the argument values to a bottle.
      @param[in] arguments The argument sequence.
      @param[out] container The bottle to be modified. */
     void
-    CopyArgumentsToBottle(const DescriptorVector &arguments,
-                          yarp::os::Bottle       &container);
+    CopyArgumentsToBottle
+        (const DescriptorVector &arguments,
+         yarp::os::Bottle       &container);
 #endif//0
 
     /*! @brief Return the mode corresponding to a string.
      @param[in] modeString The mode value as a string.
      @returns The mode corresponding to a string. */
     ArgumentMode
-    ModeFromString(const std::string &modeString);
+    ModeFromString
+        (const std::string &modeString);
 
     /*! @brief Update the arguments data from the parsed argument list.
      @param[in] arguments The argument sequence.
@@ -454,15 +486,17 @@ namespace nImO
      @returns @c true if the parsed argument list matches the argument sequence and @c false
      otherwise. */
     bool
-    ProcessArguments(const DescriptorVector &arguments,
-                     Option_::Parser        &parseResult,
-                     std::string            &badArgs);
+    ProcessArguments
+        (const DescriptorVector &arguments,
+         Option_::Parser        &parseResult,
+         std::string            &badArgs);
 
     /*! @brief Prompt the user for the value of each of the arguments.
      @param[in] arguments The argument sequence.
      @returns @c true if all arguments are valid and @c false otherwise. */
     bool
-    PromptForValues(const DescriptorVector &arguments);
+    PromptForValues
+        (const DescriptorVector &arguments);
 
 } // nImO
 

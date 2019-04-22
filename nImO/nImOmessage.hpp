@@ -73,30 +73,35 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Message(void);
+        Message
+            (void);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        Message(const Message &other) = delete;
+        Message
+            (const Message &other) = delete;
 
         /*! @brief The destructor. */
         virtual
-        ~Message(void);
+        ~Message
+            (void);
 
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         virtual void
-        appendBytes(const uint8_t *data,
-                    const size_t  numBytes)
-        override;
+        appendBytes
+            (const uint8_t *data,
+             const size_t  numBytes)
+            override;
         
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         inline void
-        appendBytes(const DataKind *data,
-                    const size_t   numBytes)
+        appendBytes
+            (const DataKind *data,
+             const size_t   numBytes)
         {
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
         } // appendBytes
@@ -104,13 +109,15 @@ namespace nImO
         /*! @brief Close the Message, completing its contents.
          @returns The Message object so that cascading can be done. */
         Message &
-        close(void);
+        close
+            (void);
 
         /*! @brief Return a copy of the bytes in the buffer.
          @returns A copy of the bytes in the buffer. */
         virtual std::string
-        getBytes(void)
-        override;
+        getBytes
+            (void)
+            override;
 
         /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
          transmitted.
@@ -123,14 +130,16 @@ namespace nImO
          @param[out] length Set to the number of bytes returned.
          @returns A pointer to a copy of the bytes in the Message, ready to be transmitted. */
         std::string
-        getBytesForTransmission(void);
+        getBytesForTransmission
+            (void);
 
         /*! @brief Return the number of valid bytes in the buffer.
          @returns The number of valid bytes in the buffer. */
         virtual size_t
-        getLength(void)
-        const
-        override;
+        getLength
+            (void)
+            const
+            override;
 
         /*! @brief Return the next Value in the Message.
          @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
@@ -138,26 +147,30 @@ namespace nImO
          @returns The next Value in the Message or @c nullptr if the Value cannot be retrieved or
          a Flaw if the Value is invalid. */
         SpValue
-        getValue(const bool allowClosed = false);
+        getValue
+            (const bool allowClosed = false);
 
         /*! @brief Open the Message, so that data can be read or written.
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
          read.
          @returns The Message object so that cascading can be done. */
         Message &
-        open(const bool forWriting);
+        open
+            (const bool forWriting);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
         Message &
-        operator =(const Message &other) = delete;
+        operator =
+            (const Message &other) = delete;
 
         /*! @brief Return @c true if the read position is past the last character.
          @returns @c true if the read position is past the last character. */
         inline bool
-        readAtEnd(void)
-        const
+        readAtEnd
+            (void)
+            const
         {
             return atEnd(_readPosition);
         } // readAtEnd
@@ -165,14 +178,16 @@ namespace nImO
         /*! @brief Prepare the Message for reuse.
          @returns The Message object so that cascading can be done. */
         ChunkArray &
-        reset(void)
-        override;
+        reset
+            (void)
+            override;
 
         /*! @brief Set the contents of the Message.
          @param[in] theValue The value to be put in the Message.
          @returns The Message object so that cascading can be done. */
         Message &
-        setValue(const Value &theValue);
+        setValue
+            (const Value &theValue);
 
     protected :
         // Protected methods.

@@ -425,12 +425,13 @@ namespace Option_
         /**
          *@brief The constructor.
          */
-        Descriptor(const unsigned    index_ = 0,
-                   const int         type_ = 0,
-                   const char *const shortopt_ = nullptr,
-                   const char *const longopt_ = nullptr,
-                   const CheckArg    check_arg_ = nullptr,
-                   const char        *help_ = nullptr);
+        Descriptor
+            (const unsigned    index_ = 0,
+             const int         type_ = 0,
+             const char *const shortopt_ = nullptr,
+             const char *const longopt_ = nullptr,
+             const CheckArg    check_arg_ = nullptr,
+             const char        *help_ = nullptr);
 
     }; // Descriptor
 
@@ -545,8 +546,9 @@ namespace Option_
          *@endcode
          */
         inline int
-        type(void)
-        const
+        type
+            (void)
+            const
         {
             return (desc ? desc->type : 0);
         } // type
@@ -556,8 +558,9 @@ namespace Option_
          *is invalid (unused).
          */
         inline int
-        index(void)
-        const
+        index
+            (void)
+            const
         {
             return (desc ? desc->index : -1);
         } // index
@@ -575,7 +578,8 @@ namespace Option_
          *Returns 0 when called for an unused/invalid option.
          */
         int
-        count(void);
+        count
+            (void);
 
         /**
          *@brief Returns true iff this is the first element of the linked list.
@@ -586,8 +590,9 @@ namespace Option_
          *Returns true for an unused/invalid option.
          */
         inline bool
-        isFirst(void)
-        const
+        isFirst
+            (void)
+            const
         {
             return isTagged(prev_);
         } // isFirst
@@ -601,8 +606,9 @@ namespace Option_
          *Returns true for an unused/invalid option.
          */
         bool
-        isLast(void)
-        const
+        isLast
+            (void)
+            const
         {
             return isTagged(next_);
         } // isLast
@@ -619,7 +625,8 @@ namespace Option_
          *option itself.
          */
         Option *
-        first(void);
+        first
+            (void);
 
         /**
          *@brief Returns a pointer to the last element of the linked list.
@@ -638,7 +645,8 @@ namespace Option_
          *<code> last()->type() </code> to get the state listed last on the command line.
          */
         inline Option *
-        last(void)
+        last
+            (void)
         {
             return first()->prevwrap();
         } // last
@@ -652,7 +660,8 @@ namespace Option_
          *line.
          */
         inline Option *
-        prev(void)
+        prev
+            (void)
         {
             return (isFirst() ? nullptr : prev_);
         } // prev
@@ -666,7 +675,8 @@ namespace Option_
          *line.
          */
         inline Option *
-        prevwrap(void)
+        prevwrap
+            (void)
         {
             return untag(prev_);
         } // prevwrap
@@ -680,7 +690,8 @@ namespace Option_
          *line.
          */
         inline Option *
-        next(void)
+        next
+            (void)
         {
             return (isLast() ? nullptr : next_);
         } // next
@@ -694,7 +705,8 @@ namespace Option_
          *line.
          */
         inline Option *
-        nextwrap(void)
+        nextwrap
+            (void)
         {
             return untag(next_);
         } // nextwrap
@@ -710,7 +722,8 @@ namespace Option_
          *this method does not unchain @c new_last from an existing list.
          */
         void
-        append(Option *new_last);
+        append
+            (Option *new_last);
 
         /**
          *@brief Casts from Option to const Option* but only if this Option is valid.
@@ -728,8 +741,9 @@ namespace Option_
          *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
          *fname = opt->arg; ... @endcode
          */
-        inline operator const Option *(void)
-        const
+        inline operator const Option *
+            (void)
+            const
         {
             return (desc ? this : nullptr);
         } // operator const Option *
@@ -750,7 +764,8 @@ namespace Option_
          *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
          *fname = opt->arg; ... @endcode
          */
-        inline operator Option *(void)
+        inline operator Option *
+            (void)
         {
             return (desc ? this : nullptr);
         } // operator Option *
@@ -759,7 +774,8 @@ namespace Option_
          *@brief Creates a new Option that is a one-element linked list and has nullptr
          *@ref desc, @ref name, @ref arg and @ref namelen.
          */
-        Option(void);
+        Option
+            (void);
 
         /**
          *@brief Creates a new Option that is a one-element linked list and has the given
@@ -769,9 +785,10 @@ namespace Option_
          *short option and @ref namelen will be set to 1. Otherwise the length will extend to
          *the first '=' character or the string's 0-terminator.
          */
-        Option(const Descriptor *desc_,
-               const char       *name_,
-               const char       *arg_);
+        Option
+            (const Descriptor *desc_,
+             const char       *name_,
+             const char       *arg_);
 
         /**
          *@brief Makes @c *this a copy of @c orig except for the linked list pointers.
@@ -779,14 +796,16 @@ namespace Option_
          *After this operation @c *this will be a one-element linked list.
          */
         void
-        operator =(const Option &orig);
+        operator =
+            (const Option &orig);
 
         /**
          *@brief Makes @c *this a copy of @c orig except for the linked list pointers.
          *
          *After this operation @c *this will be a one-element linked list.
          */
-        Option(const Option &orig);
+        Option
+            (const Option &orig);
 
     private :
         /**
@@ -799,25 +818,29 @@ namespace Option_
          *the first '=' character or the string's 0-terminator.
          */
         void
-        init(const Descriptor *desc_,
+        init
+            (const Descriptor *desc_,
              const char       *name_,
              const char       *arg_);
 
         inline static Option *
-        tag(Option *ptr)
+        tag
+            (Option *ptr)
         {
             return reinterpret_cast<Option *>(reinterpret_cast<size_t>(ptr) | 1);
         } // tag
 
         inline static Option *
-        untag(Option *ptr)
+        untag
+            (Option *ptr)
         {
             return reinterpret_cast<Option *>(reinterpret_cast<size_t>(ptr) &
                                               ~static_cast<size_t>(1));
         } // untag
 
         inline static bool
-        isTagged(Option *ptr)
+        isTagged
+            (Option *ptr)
         {
             return (reinterpret_cast<size_t>(ptr) & 1);
         } // isTagged
@@ -882,7 +905,8 @@ namespace Option_
     {
         //! @brief For options that don't take an argument: Returns ARG_NONE.
         inline static ArgStatus
-        None(const Option &,
+        None
+            (const Option &,
              const bool)
         {
             return ARG_NONE;
@@ -890,8 +914,9 @@ namespace Option_
 
         //! @brief Returns ARG_OK if the argument is attached and ARG_IGNORE otherwise.
         inline static ArgStatus
-        Optional(const Option &option,
-                 const bool)
+        Optional
+            (const Option &option,
+             const bool)
         {
             ArgStatus result;
 
@@ -909,8 +934,9 @@ namespace Option_
 
         //! @brief Returns ARG_OK if the argument is attached and ARG_ILLEGAL otherwise.
         inline static ArgStatus
-        Required(const Option &option,
-                 const bool)
+        Required
+            (const Option &option,
+             const bool)
         {
             ArgStatus result;
 
@@ -966,7 +992,8 @@ namespace Option_
         /**
          *@brief Creates a Stats object with counts set to 1 (for the sentinel element).
          */
-        Stats(void);
+        Stats
+            (void);
 
         /**
          *@brief Creates a new Stats object and immediately updates it for the
@@ -977,34 +1004,38 @@ namespace Option_
          *The calls to Stats methods must match the later calls to Parser methods.
          *See Parser::parse() for the meaning of the arguments.
          */
-        Stats(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false);
+        Stats
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief Stats(...) with non-const argv.
-        Stats(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false);
+        Stats
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief POSIX Stats(...) (gnu==false).
-        Stats(const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false);
+        Stats
+            (const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief POSIX Stats(...) (gnu==false) with non-const argv.
-        Stats(const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false);
+        Stats
+            (const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         /**
          *@brief Updates this Stats object for the
@@ -1016,37 +1047,41 @@ namespace Option_
          *See Parser::parse() for the meaning of the arguments.
          */
         void
-        add(const bool       gnu,
-            const Descriptor *usage,
-            const int        argc,
-            const char       **argv,
-            const int        min_abbr_len = 0,
-            const bool       single_minus_longopt = false);
+        add
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief add() with non-const argv.
         void
-        add(const bool       gnu,
-            const Descriptor *usage,
-            const int        argc,
-            char             **argv,
-            const int        min_abbr_len = 0,
-            const bool       single_minus_longopt = false);
+        add
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief POSIX add() (gnu==false).
         void
-        add(const Descriptor *usage,
-            const int        argc,
-            const char       **argv,
-            const int        min_abbr_len = 0,
-            const bool       single_minus_longopt = false);
+        add
+            (const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
         //! @brief POSIX add() (gnu==false) with non-const argv.
         void
-        add(const Descriptor *usage,
-            const int        argc,
-            char             **argv,
-            const int        min_abbr_len = 0,
-            const bool       single_minus_longopt = false);
+        add
+            (const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false);
 
     private :
         class CountOptionsAction;
@@ -1083,52 +1118,57 @@ namespace Option_
         /**
          *@brief Creates a new Parser.
          */
-        Parser(void);
+        Parser
+            (void);
 
         /**
          *@brief Creates a new Parser and immediately parses the given argument vector.
          *@copydetails parse()
          */
-        Parser(const bool       gnu,
-               const Descriptor *usage,
-               const int        argc,
-               const char       **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len = 0,
-               const bool       single_minus_longopt = false,
-               const int        bufmax = -1);
+        Parser
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         //! @brief Parser(...) with non-const argv.
-        Parser(const bool       gnu,
-               const Descriptor *usage,
-               const int        argc,
-               char             **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len = 0,
-               const bool       single_minus_longopt = false,
-               const int        bufmax = -1);
+        Parser
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         //! @brief POSIX Parser(...) (gnu==false).
-        Parser(const Descriptor *usage,
-               const int        argc,
-               const char       **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len = 0,
-               const bool       single_minus_longopt = false,
-               const int          bufmax = -1);
+        Parser
+            (const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int          bufmax = -1);
 
         //! @brief POSIX Parser(...) (gnu==false) with non-const argv.
-        Parser(const Descriptor *usage,
-               const int        argc,
-               char             **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len = 0,
-               const bool       single_minus_longopt = false,
-               const int        bufmax = -1);
+        Parser
+            (const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         /**
          *@brief Parses the given argument vector.
@@ -1192,49 +1232,53 @@ namespace Option_
          *@c options[buffer[i].index()].
          */
         void
-        parse(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false,
-              const int        bufmax = -1);
+        parse
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         //! @brief parse() with non-const argv.
         void
-        parse(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false,
-              const int        bufmax = -1);
+        parse
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         //! @brief POSIX parse() (gnu==false).
         void
-        parse(const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false,
-              const int        bufmax = -1);
+        parse
+            (const Descriptor *usage,
+             const int        argc,
+             const char       **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         //! @brief POSIX parse() (gnu==false) with non-const argv.
         void
-        parse(const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len = 0,
-              const bool       single_minus_longopt = false,
-              const int        bufmax = -1);
+        parse
+            (const Descriptor *usage,
+             const int        argc,
+             char             **argv,
+             Option           *options,
+             Option           *buffer,
+             const int        min_abbr_len = 0,
+             const bool       single_minus_longopt = false,
+             const int        bufmax = -1);
 
         /**
          *@brief Returns the number of valid Option objects in @c buffer[].
@@ -1246,8 +1290,9 @@ namespace Option_
          *(see Descriptor::longopt).
          */
         inline int
-        optionsCount(void)
-        const
+        optionsCount
+            (void)
+            const
         {
             return op_count;
         } // optionsCount
@@ -1267,8 +1312,9 @@ namespace Option_
          *effect.
          */
         inline int
-        nonOptionsCount(void)
-        const
+        nonOptionsCount
+            (void)
+            const
         {
             return nonop_count;
         } // nonOptionsCount
@@ -1285,8 +1331,9 @@ namespace Option_
          *options, will not change nonOptions().
          */
         inline const char **
-        nonOptions(void)
-        const
+        nonOptions
+            (void)
+            const
         {
             return nonop_args;
         } // nonOptions
@@ -1296,8 +1343,9 @@ namespace Option_
          *range!).
          */
         inline const char *
-        nonOption(const int ii)
-        const
+        nonOption
+            (const int ii)
+            const
         {
             return nonOptions()[ii];
         } // nonOption
@@ -1318,8 +1366,9 @@ namespace Option_
          *
          */
         bool
-        error(void)
-        const
+        error
+            (void)
+            const
         {
             return err;
         } // error
@@ -1335,14 +1384,15 @@ namespace Option_
          *@retval false iff an unrecoverable error occurred.
          */
         static bool
-        workhorse(const bool       gnu,
-                  const Descriptor *usage,
-                  const int        numargsIn,
-                  const char       **args,
-                  Action           &action,
-                  const bool       single_minus_longopt,
-                  const bool       print_errors,
-                  const int        min_abbr_len);
+        workhorse
+            (const bool       gnu,
+             const Descriptor *usage,
+             const int        numargsIn,
+             const char       **args,
+             Action           &action,
+             const bool       single_minus_longopt,
+             const bool       print_errors,
+             const int        min_abbr_len);
 
         /**
          *@internal
@@ -1359,8 +1409,9 @@ namespace Option_
          *@endcode
          */
         static bool
-        streq(const char* st1,
-              const char* st2);
+        streq
+            (const char* st1,
+             const char* st2);
 
         /**
          *@internal
@@ -1389,9 +1440,10 @@ namespace Option_
          *@endcode
          */
         static bool
-        streqabbr(const char  *st1,
-                  const char  *st2,
-                  const size_t min);
+        streqabbr
+            (const char  *st1,
+             const char  *st2,
+             const size_t min);
 
         /**
          *@internal
@@ -1400,8 +1452,9 @@ namespace Option_
          *Returns @c true for @c ch==0 .
          */
         static bool
-        instr(const char ch,
-              const char *st);
+        instr
+            (const char ch,
+             const char *st);
 
         /**
          *@internal
@@ -1409,8 +1462,9 @@ namespace Option_
          *<code>args[0],args[-count],...,args[-1]</code>.
          */
         static void
-        shift(const char **args,
-              const int  count);
+        shift
+            (const char **args,
+             const int  count);
 
     }; // Parser
 
@@ -1430,7 +1484,8 @@ namespace Option_
          *Returns @c false iff a fatal error has occured and the parse should be aborted.
          */
         virtual bool
-        perform(Option &);
+        perform
+            (Option &);
 
         /**
          *@brief Called by Parser::workhorse() after finishing the parse.
@@ -1441,8 +1496,9 @@ namespace Option_
          *@c false iff a fatal error has occurred.
          */
         virtual bool
-        finished(const int  numargs,
-                 const char **args);
+        finished
+            (const int  numargs,
+             const char **args);
 
     }; // Parser::Action
 
@@ -1459,10 +1515,12 @@ namespace Option_
          *Creates a new CountOptionsAction that will increase @c *buffer_max_ for each
          *parsed Option.
          */
-        CountOptionsAction(unsigned *buffer_max_);
+        CountOptionsAction
+            (unsigned *buffer_max_);
 
         bool
-        perform(Option &);
+        perform
+            (Option &);
     }; // Stats::CountOptionsAction
 
     /**
@@ -1485,17 +1543,20 @@ namespace Option_
          *@param buffer_ each Option is appended to this array as long as there's a free slot.
          *@param bufmax_ number of slots in @c buffer_. @c -1 means "large enough".
          */
-        StoreOptionAction(Parser    &parser_,
-                          Option    *options_,
-                          Option    *buffer_,
-                          const int bufmax_);
+        StoreOptionAction
+            (Parser    &parser_,
+             Option    *options_,
+             Option    *buffer_,
+             const int bufmax_);
 
         bool
-        perform(Option &option);
+        perform
+            (Option &option);
 
         bool
-        finished(const int  numargs,
-                 const char **args);
+        finished
+            (const int  numargs,
+             const char **args);
     }; // Parser::StoreOptionAction
 
     /**
@@ -1514,8 +1575,9 @@ namespace Option_
              *@brief Writes the given number of chars beginning at the given pointer somewhere.
              */
             virtual void
-            operator ()(const char *,
-                        const int);
+            operator ()
+                (const char *,
+                 const int);
         };
 
         /**
@@ -1528,14 +1590,16 @@ namespace Option_
             Function *write;
 
             virtual void
-            operator ()(const char *str,
-                        const int  size)
+            operator ()
+                (const char *str,
+                 const int  size)
             {
                 (*write) (str, size);
             } // operator ()
 
-            FunctionWriter(Function *w) :
-                write(w)
+            FunctionWriter
+                (Function *w) :
+                    write(w)
             {
             } // FunctionWriter
         };
@@ -1550,14 +1614,16 @@ namespace Option_
             OStream &ostream;
 
             virtual void
-            operator ()(const char *str,
-                        const int  size)
+            operator ()
+                (const char *str,
+                 const int  size)
             {
                 ostream.write(str, size);
             } // operator ()
 
-            OStreamWriter(OStream &o) :
-                ostream(o)
+            OStreamWriter
+                (OStream &o) :
+                    ostream(o)
             {
             } // OStreamWriter
         };
@@ -1572,14 +1638,16 @@ namespace Option_
             const Temporary &userstream;
 
             virtual void
-            operator ()(const char *str,
-                        const int  size)
+            operator ()
+                (const char *str,
+                 const int  size)
             {
                 userstream.write(str, size);
             } // operator ()
 
-            TemporaryWriter(const Temporary &uu) :
-                userstream(uu)
+            TemporaryWriter
+                (const Temporary &uu) :
+                    userstream(uu)
             {
             } // TemporaryWriter
         };
@@ -1596,15 +1664,17 @@ namespace Option_
             int     fd;
 
             virtual void
-            operator ()(const char *str,
-                        const int  size)
+            operator ()
+                (const char *str,
+                 const int  size)
             {
                 (*write) (fd, str, size);
             } // operator ()
 
-            SyscallWriter(Syscall   *ww,
-                          const int ff) :
-                write(ww), fd(ff)
+            SyscallWriter
+                (Syscall   *ww,
+                 const int ff) :
+                    write(ww), fd(ff)
             {
             } // SyscallWriter
         };
@@ -1619,15 +1689,17 @@ namespace Option_
             Stream   *stream;
 
             virtual void
-            operator ()(const char *str,
-                        const int  size)
+            operator ()
+                (const char *str,
+                 const int  size)
             {
                 (*fwrite) (str, size, 1, stream);
             } // operator ()
 
-            StreamWriter(Function *ww,
-                         Stream   *ss) :
-                fwrite(ww), stream(ss)
+            StreamWriter
+                (Function *ww,
+                 Stream   *ss) :
+                    fwrite(ww), stream(ss)
             {
             } // StreamWriter
         };
@@ -1637,8 +1709,9 @@ namespace Option_
          *@brief Sets <code> i1 = max(i1, i2) </code>
          */
         inline static void
-        upmax(int       &i1,
-              const int i2)
+        upmax
+            (int       &i1,
+             const int i2)
         {
             i1 = ((i1 >= i2) ? i1 : i2);
         } // upmax
@@ -1655,9 +1728,10 @@ namespace Option_
          *@param want_x the desired indentation.
          */
         static void
-        indent(IStringWriter &write,
-               int           &xx,
-               const int     want_x);
+        indent
+            (IStringWriter &write,
+             int           &xx,
+             const int     want_x);
 
         /**
          *@brief Returns true if ch is the unicode code point of a wide character.
@@ -1678,7 +1752,8 @@ namespace Option_
          *@endcode
          */
         static bool
-        isWideChar(const unsigned ch);
+        isWideChar
+            (const unsigned ch);
 
         /**
          *@internal
@@ -1739,11 +1814,13 @@ namespace Option_
              *stores them in @ref len and @ref screenlen respectively.
              */
             void
-            update_length(void);
+            update_length
+                (void);
 
         public :
             //! @brief Creates an iterator for @c usage.
-            LinePartIterator(const Descriptor *usage);
+            LinePartIterator
+                (const Descriptor *usage);
 
             /**
              *@brief Moves iteration to the next table (if any). Has to be called once on a new
@@ -1751,13 +1828,15 @@ namespace Option_
              *@retval false if moving to next table failed because no further table exists.
              */
             bool
-            nextTable(void);
+            nextTable
+                (void);
 
             /**
              *@brief Reset iteration to the beginning of the current table.
              */
             void
-            restartTable(void);
+            restartTable
+                (void);
 
             /**
              *@brief Moves iteration to the next row (if any). Has to be called once after each
@@ -1765,13 +1844,15 @@ namespace Option_
              *@retval false if moving to next row failed because no further row exists.
              */
             bool
-            nextRow(void);
+            nextRow
+                (void);
 
             /**
              *@brief Reset iteration to the beginning of the current row.
              */
             void
-            restartRow(void);
+            restartRow
+                (void);
 
             /**
              *@brief Moves iteration to the next part (if any). Has to be called once after each
@@ -1781,15 +1862,17 @@ namespace Option_
              *See @ref LinePartIterator for details about the iteration.
              */
             bool
-            next(void);
+            next
+                (void);
 
             /**
              *@brief Returns the index (counting from 0) of the column in which
              *the part pointed to by @ref data() is located.
              */
             inline int
-            column(void)
-            const
+            column
+                (void)
+                const
             {
                 return col;
             } // column
@@ -1799,8 +1882,9 @@ namespace Option_
              *this part belongs to.
              */
             inline int
-            line(void)
-            const
+            line
+                (void)
+                const
             {
                 return target_line_in_block; // NOT line_in_block !!! It would be wrong if
                 // !hit_target_line
@@ -1811,8 +1895,9 @@ namespace Option_
              *UTF-8 characters).
              */
             inline int
-            length(void)
-            const
+            length
+                (void)
+                const
             {
                 return len;
             } // length
@@ -1822,8 +1907,9 @@ namespace Option_
              *Takes multi-byte UTF-8 sequences and wide characters into account.
              */
             inline int
-            screenLength(void)
-            const
+            screenLength
+                (void)
+                const
             {
                 return screenlen;
             } // screenLength
@@ -1832,8 +1918,9 @@ namespace Option_
              *@brief Returns the current part of the iteration.
              */
             inline const char *
-            data(void)
-            const
+            data
+                (void)
+                const
             {
                 return ptr;
             } // data
@@ -1898,26 +1985,30 @@ namespace Option_
             bool wrote_something;
 
             inline bool
-            buf_empty(void)
-            const
+            buf_empty
+                (void)
+                const
             {
                 return (((tail + 1) & bufmask) == head);
             } // buf_empty
 
             inline bool
-            buf_full(void)
-            const
+            buf_full
+                (void)
+                const
             {
                 return (tail == head);
             } // buf_full
 
             void
-            buf_store(const char *data,
-                      const int  len);
+            buf_store
+                (const char *data,
+                 const int  len);
 
             //! @brief Call BEFORE reading ...buf[tail].
             inline void
-            buf_next(void)
+            buf_next
+                (void)
             {
                 tail = ((tail + 1) & bufmask);
             } // buf_next
@@ -1927,15 +2018,17 @@ namespace Option_
              *is flushed out of the buffer into @c write.
              */
             void
-            output(IStringWriter &write,
-                   const char    *data,
-                   const int     len);
+            output
+                (IStringWriter &write,
+                 const char    *data,
+                 const int     len);
 
             /**
              *@brief Writes a single line of output from the buffer to @c write.
              */
             void
-            write_one_line(IStringWriter &write);
+            write_one_line
+                (IStringWriter &write);
 
         public :
 
@@ -1945,7 +2038,8 @@ namespace Option_
              *will output a \\n at the end (but only if something has been written).
              */
             void
-            flush(IStringWriter &write);
+            flush
+                (IStringWriter &write);
 
             /**
              *@brief Process, wrap and output the next piece of data.
@@ -1966,9 +2060,10 @@ namespace Option_
              *@param len the length of the chunk of data to write.
              */
             void
-            process(IStringWriter &write,
-                    const char    *data,
-                    const int     len);
+            process
+                (IStringWriter &write,
+                 const char    *data,
+                 const int     len);
 
             /**
              *@brief Constructs a LineWrapper that wraps its output to fit into
@@ -1976,8 +2071,9 @@ namespace Option_
              *
              *@c x1 gives the indentation LineWrapper uses if it needs to indent.
              */
-            LineWrapper(const int x1,
-                        const int x2);
+            LineWrapper
+                (const int x1,
+                 const int x2);
         }; // LineWrapper
 
         /**
@@ -1986,11 +2082,12 @@ namespace Option_
          *Because all printUsage() templates share this implementation, there is no template bloat.
          */
         static void
-        printUsage(IStringWriter    &write,
-                   const Descriptor *usage,
-                   const int        widthIn = 80,
-                   const int        last_column_min_percent = 50,
-                   const int        last_column_own_line_max_percent = 75);
+        printUsage
+            (IStringWriter    &write,
+             const Descriptor *usage,
+             const int        widthIn = 80,
+             const int        last_column_min_percent = 50,
+             const int        last_column_own_line_max_percent = 75);
 
     }; // PrintUsageImplementation
 
@@ -2192,11 +2289,12 @@ namespace Option_
      *@endcode
      */
     template<typename OStream> void
-    printUsage(OStream          &prn,
-               const Descriptor *usage,
-               const int        width = 80,
-               const int        last_column_min_percent = 50,
-               const int        last_column_own_line_max_percent = 75)
+    printUsage
+        (OStream          &prn,
+         const Descriptor *usage,
+         const int        width = 80,
+         const int        last_column_min_percent = 50,
+         const int        last_column_own_line_max_percent = 75)
     {
         PrintUsageImplementation::OStreamWriter<OStream> write(prn);
 
@@ -2205,11 +2303,12 @@ namespace Option_
     } // printUsage
 
     template<typename Function> void
-    printUsage(Function         *prn,
-               const Descriptor *usage,
-               const int        width = 80,
-               const int        last_column_min_percent = 50,
-               const int        last_column_own_line_max_percent = 75)
+    printUsage
+        (Function         *prn,
+         const Descriptor *usage,
+         const int        width = 80,
+         const int        last_column_min_percent = 50,
+         const int        last_column_own_line_max_percent = 75)
     {
         PrintUsageImplementation::FunctionWriter<Function> write(prn);
 
@@ -2218,11 +2317,12 @@ namespace Option_
     } // printUsage
 
     template<typename Temporary> void
-    printUsage(const Temporary  &prn,
-               const Descriptor *usage,
-               const int        width = 80,
-               const int        last_column_min_percent = 50,
-               const int        last_column_own_line_max_percent = 75)
+    printUsage
+        (const Temporary  &prn,
+         const Descriptor *usage,
+         const int        width = 80,
+         const int        last_column_min_percent = 50,
+         const int        last_column_own_line_max_percent = 75)
     {
         PrintUsageImplementation::TemporaryWriter<Temporary> write(prn);
 
@@ -2231,12 +2331,13 @@ namespace Option_
     } // printUsage
 
     template<typename Syscall> void
-    printUsage(Syscall          *prn,
-               const int        fd,
-               const Descriptor *usage,
-               const int        width = 80,
-               const int        last_column_min_percent = 50,
-               const int        last_column_own_line_max_percent = 75)
+    printUsage
+        (Syscall          *prn,
+         const int        fd,
+         const Descriptor *usage,
+         const int        width = 80,
+         const int        last_column_min_percent = 50,
+         const int        last_column_own_line_max_percent = 75)
     {
         PrintUsageImplementation::SyscallWriter<Syscall> write(prn, fd);
 
@@ -2245,12 +2346,13 @@ namespace Option_
     } // printUsage
 
     template<typename Function, typename Stream> void
-    printUsage(Function         *prn,
-               Stream           *stream,
-               const Descriptor *usage,
-               const int        width = 80,
-               const int        last_column_min_percent = 50,
-               const int        last_column_own_line_max_percent = 75)
+    printUsage
+        (Function         *prn,
+         Stream           *stream,
+         const Descriptor *usage,
+         const int        width = 80,
+         const int        last_column_min_percent = 50,
+         const int        last_column_own_line_max_percent = 75)
     {
         PrintUsageImplementation::StreamWriter<Function, Stream> write(prn, stream);
 

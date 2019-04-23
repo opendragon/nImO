@@ -198,6 +198,41 @@ nImO::B2I
     return result;
 } // nImO::B2I
 
+bool
+nImO::CanReadFromStandardInput
+(void)
+{
+    ODL_ENTER(); //####
+#if MAC_OR_LINUX_
+    pid_t fg = tcgetpgrp(STDIN_FILENO);
+#else // ! MAC_OR_LINUX_
+    HWND  wind = GetConsoleWindow();
+#endif // ! MAC_OR_LINUX_
+    bool  result = false;
+
+#if MAC_OR_LINUX_
+    if (-1 == fg)
+    {
+        // Piped
+        result = true;
+    }
+    else if (getpgrp() == fg)
+    {
+        // Foreground
+        result = true;
+    }
+    else
+    {
+        // Background
+        result = false;
+    }
+#else // ! MAC_OR_LINUX_
+    result = (nullptr != wind);
+#endif // ! MAC_OR_LINUX_
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::CanReadFromStandardInput
+
 size_t
 nImO::CompareBytes
     (const void   *first,
@@ -231,6 +266,18 @@ nImO::CompareBytes
     ODL_EXIT_I(result); //####
     return result;
 } // nImO::CompareBytes
+
+#if 0
+void
+nImO::ConsumeSomeTime
+(const double factor)
+{
+    ODL_ENTER(); //####
+    yarp::os::Time::delay(ONE_SECOND_DELAY_ / factor);
+    yarp::os::Time::yield();
+    ODL_EXIT(); //####
+} // nImO::ConsumeSomeTime
+#endif//0
 
 std::string
 nImO::ConvertDoubleToString
@@ -379,7 +426,9 @@ nImO::DumpContactToLog
     }
 #endif // MAC_OR_LINUX_
 } // nImO::DumpContactToLog
+#endif//0
 
+#if 0
 #if MAC_OR_LINUX_
 yarp::os::impl::Logger &
 nImO::GetLogger
@@ -446,6 +495,31 @@ nImO::GetRandomChannelName
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
 
+std::string
+nImO::GetRandomHexString
+(void)
+{
+    ODL_ENTER(); //####
+    int               randNumb;
+    std::string       result;
+    std::stringstream buff;
+
+    if (! lRandomSeeded)
+    {
+#if defined(__APPLE__)
+        sranddev();
+#else // ! defined(__APPLE__)
+        srand(clock());
+#endif // ! defined(__APPLE__)
+        lRandomSeeded = true;
+    }
+    randNumb = (rand() % 10000);
+    buff << std::hex << randNumb;
+    result = buff.str();
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::GetRandomHexString
+
 size_t
 nImO::I2B
     (const int64_t       inValue,
@@ -506,6 +580,20 @@ nImO::I2B
     return length;
 } // nImO::I2B
 
+#if 0
+void
+nImO::IdleUntilNotRunning
+(void)
+{
+    ODL_ENTER(); //####
+    for ( ; IsRunning(); )
+    {
+        ConsumeSomeTime();
+    }
+    ODL_EXIT(); //####
+} // nImO::IdleUntilNotRunning
+#endif//0
+
 #if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
@@ -563,232 +651,10 @@ nImO::Initialize
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
 
-void
-nImO::SetSignalHandlers
-    (nImO::SignalHandler theHandler)
-{
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    sigset_t         blocking;
-    struct sigaction act;
-#endif // MAC_OR_LINUX_
-
-#if MAC_OR_LINUX_
-    act.sa_handler = theHandler;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-# if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGABRT, &act, nullptr);
-# endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGHUP, &act, nullptr);
-# endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGINT, &act, nullptr);
-# endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGQUIT, &act, nullptr);
-# endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGUSR1, &act, nullptr);
-# endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
-    sigaction(SIGUSR2, &act, nullptr);
-# endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-    sigemptyset(&blocking);
-    sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
-#else // ! MAC_OR_LINUX_
-# if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
-    //yarp::os::signal(SIGABRT, theHandler);
-    signal(SIGABRT, theHandler); //windows doesn't like the yarp signals for some reason
-# endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGHUP, theHandler);
-# endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
-    //yarp::os::signal(SIGINT, theHandler);
-    signal(SIGINT, theHandler); //windows doesn't like the yarp signals for some reason
-# endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGQUIT, theHandler);
-# endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGUSR1, theHandler);
-# endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
-# if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGUSR2, theHandler);
-# endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 #if 0
-    yarp::os::signal(SIGTERM, theHandler);
-#endif//0
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT(); //####
-} // Common::SetSignalHandlers
-
-void
-nImO::SetUpCatcher
-    (void)
-{
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    sigset_t         unblocking;
-    struct sigaction act;
-#endif // MAC_OR_LINUX_
-
-#if MAC_OR_LINUX_
-    sigemptyset(&unblocking);
-    sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_UNBLOCK, &unblocking, nullptr);
-    act.sa_handler = localCatcher;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
-#else // ! MAC_OR_LINUX_
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT(); //####
-} // nImO::SetUpCatcher
-
-#if 0
-#if MAC_OR_LINUX_
-void
-nImO::SetUpLogger
-    (const std::string &progName)
-{
-    ODL_ENTER(); //####
-    lLogger = new yarp::os::impl::Logger(progName.c_str());
-    if (lLogger)
-    {
-        lLogger->setVerbosity(1);
-    }
-    ODL_EXIT(); //####
-} // nImO::SetUpLogger
-#endif // MAC_OR_LINUX_
-#endif//0
-
-void
-nImO::ShutDownCatcher
-    (void)
-{
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    sigset_t         blocking;
-    struct sigaction act;
-#endif // MAC_OR_LINUX_
-
-#if MAC_OR_LINUX_
-    sigemptyset(&blocking);
-    sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
-    act.sa_handler = SIG_DFL;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
-#else // ! MAC_OR_LINUX_
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT(); //####
-} // nImO::ShutDownCatcher
-
-#if 0
-void
-nImO::Stall
-    (void)
-{
-    for ( ; ; )
-    {
-        ConsumeSomeTime();
-    }
-} // nImO::Stall
-#endif//0
-
-bool
-nImO::CanReadFromStandardInput
-    (void)
-{
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    pid_t fg = tcgetpgrp(STDIN_FILENO);
-#else // ! MAC_OR_LINUX_
-    HWND  wind = GetConsoleWindow();
-#endif // ! MAC_OR_LINUX_
-    bool  result = false;
-
-#if MAC_OR_LINUX_
-    if (-1 == fg)
-    {
-        // Piped
-        result = true;
-    }
-    else if (getpgrp() == fg)
-    {
-        // Foreground
-        result = true;
-    }
-    else
-    {
-        // Background
-        result = false;
-    }
-#else // ! MAC_OR_LINUX_
-    result = (nullptr != wind);
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT_B(result); //####
-    return result;
-} // nImO::CanReadFromStandardInput
-
-#if 0
-void
-nImO::ConsumeSomeTime
-    (const double factor)
-{
-    ODL_ENTER(); //####
-    yarp::os::Time::delay(ONE_SECOND_DELAY_ / factor);
-    yarp::os::Time::yield();
-    ODL_EXIT(); //####
-} // nImO::ConsumeSomeTime
-#endif//0
-
-std::string
-nImO::GetRandomHexString
-    (void)
-{
-    ODL_ENTER(); //####
-    int               randNumb;
-    std::string       result;
-    std::stringstream buff;
-
-    if (! lRandomSeeded)
-    {
-#if defined(__APPLE__)
-        sranddev();
-#else // ! defined(__APPLE__)
-        srand(clock());
-#endif // ! defined(__APPLE__)
-        lRandomSeeded = true;
-    }
-    randNumb = (rand() % 10000);
-    buff << std::hex << randNumb;
-    result = buff.str();
-    ODL_EXIT_s(result); //####
-    return result;
-} // nImO::GetRandomHexString
-
-#if 0
-void
-nImO::IdleUntilNotRunning
-    (void)
-{
-    ODL_ENTER(); //####
-    for ( ; IsRunning(); )
-    {
-        ConsumeSomeTime();
-    }
-    ODL_EXIT(); //####
-} // nImO::IdleUntilNotRunning
-
 bool
 nImO::IsRunning
-    (void)
+(void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_B(lKeepRunning); //####
@@ -798,7 +664,7 @@ nImO::IsRunning
 
 const char *
 nImO::NameOfSignal
-    (const int theSignal)
+(const int theSignal)
 {
     const char *result;
 
@@ -968,9 +834,9 @@ nImO::NameOfSignal
 
 void
 nImO::OutputDescription
-    (std::ostream      &outStream,
-     const char        *heading,
-     const std::string &description)
+(std::ostream      &outStream,
+ const char        *heading,
+ const std::string &description)
 {
     size_t      descriptionLength = description.length();
     size_t      indentSize = strlen(heading);
@@ -996,15 +862,15 @@ nImO::OutputDescription
 
 bool
 nImO::ProcessStandardUtilitiesOptions
-    (const int              argc,
-     char                   **argv,
-     nImO::DescriptorVector &argumentDescriptions,
-     const std::string      &utilityDescription,
-     const int              year,
-     const char             *copyrightHolder,
-     nImO::OutputFlavour    &flavour,
-     const bool             ignoreFlavours,
-     nImO::StringVector     *arguments)
+(const int              argc,
+ char                   **argv,
+ nImO::DescriptorVector &argumentDescriptions,
+ const std::string      &utilityDescription,
+ const int              year,
+ const char             *copyrightHolder,
+ nImO::OutputFlavour    &flavour,
+ const bool             ignoreFlavours,
+ nImO::StringVector     *arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -1027,8 +893,8 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "",
                                         Option_::Arg::None, nullptr);
     Option_::Descriptor helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help",
-                                        Option_::Arg::None,
-                                        T_("  --help, -h    Print usage and exit"));
+                                       Option_::Arg::None,
+                                       T_("  --help, -h    Print usage and exit"));
     Option_::Descriptor infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info",
                                        Option_::Arg::None,
                                        T_("  --info, -i    Print type and description and exit"));
@@ -1114,7 +980,7 @@ nImO::ProcessStandardUtilitiesOptions
         std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
 
         cout << "Version " << nImOversionString.c_str() << ": Copyright (c) " << year << " by " <<
-                copyrightHolder << "." << endl;
+        copyrightHolder << "." << endl;
         keepGoing = false;
     }
     else if (options[static_cast<size_t>(OptionIndex::INFO)])
@@ -1152,8 +1018,8 @@ nImO::ProcessStandardUtilitiesOptions
 
 std::string
 nImO::SanitizeString
-    (const std::string &inString,
-     const bool        allowDoubleQuotes)
+(const std::string &inString,
+ const bool        allowDoubleQuotes)
 {
     ODL_ENTER(); //####
     ODL_S1s("channelRoot = ", inString); //####
@@ -1205,32 +1071,140 @@ nImO::SanitizeString
     return outString;
 } // nImO::SanitizeString
 
+void
+nImO::SetSignalHandlers
+    (nImO::SignalHandler theHandler)
+{
+    ODL_ENTER(); //####
+#if MAC_OR_LINUX_
+    sigset_t         blocking;
+    struct sigaction act;
+#endif // MAC_OR_LINUX_
+
+#if MAC_OR_LINUX_
+    act.sa_handler = theHandler;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+# if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGABRT, &act, nullptr);
+# endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGHUP, &act, nullptr);
+# endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGINT, &act, nullptr);
+# endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGQUIT, &act, nullptr);
+# endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGUSR1, &act, nullptr);
+# endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
+    sigaction(SIGUSR2, &act, nullptr);
+# endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+    sigemptyset(&blocking);
+    sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
+    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
+#else // ! MAC_OR_LINUX_
+# if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
+    //yarp::os::signal(SIGABRT, theHandler);
+    signal(SIGABRT, theHandler); //windows doesn't like the yarp signals for some reason
+# endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
+    yarp::os::signal(SIGHUP, theHandler);
+# endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
+    //yarp::os::signal(SIGINT, theHandler);
+    signal(SIGINT, theHandler); //windows doesn't like the yarp signals for some reason
+# endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
+    yarp::os::signal(SIGQUIT, theHandler);
+# endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
+    yarp::os::signal(SIGUSR1, theHandler);
+# endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
+# if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
+    yarp::os::signal(SIGUSR2, theHandler);
+# endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 #if 0
+    yarp::os::signal(SIGTERM, theHandler);
+#endif//0
+#endif // ! MAC_OR_LINUX_
+    ODL_EXIT(); //####
+} // Common::SetSignalHandlers
+
 void
-nImO::StartRunning
+nImO::SetUpCatcher
     (void)
 {
     ODL_ENTER(); //####
-    lKeepRunning = true;
+#if MAC_OR_LINUX_
+    sigset_t         unblocking;
+    struct sigaction act;
+#endif // MAC_OR_LINUX_
+
+#if MAC_OR_LINUX_
+    sigemptyset(&unblocking);
+    sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
+    pthread_sigmask(SIG_UNBLOCK, &unblocking, nullptr);
+    act.sa_handler = localCatcher;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
+#else // ! MAC_OR_LINUX_
+#endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
-} // nImO::StartRunning
+} // nImO::SetUpCatcher
+
+#if 0
+#if MAC_OR_LINUX_
+void
+nImO::SetUpLogger
+    (const std::string &progName)
+{
+    ODL_ENTER(); //####
+    lLogger = new yarp::os::impl::Logger(progName.c_str());
+    if (lLogger)
+    {
+        lLogger->setVerbosity(1);
+    }
+    ODL_EXIT(); //####
+} // nImO::SetUpLogger
+#endif // MAC_OR_LINUX_
+#endif//0
 
 void
-nImO::StopRunning
+nImO::ShutDownCatcher
     (void)
 {
     ODL_ENTER(); //####
-    lKeepRunning = false;
-    ODL_EXIT(); //####
-} // nImO::StopRunning
+#if MAC_OR_LINUX_
+    sigset_t         blocking;
+    struct sigaction act;
+#endif // MAC_OR_LINUX_
 
+#if MAC_OR_LINUX_
+    sigemptyset(&blocking);
+    sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
+    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
+    act.sa_handler = SIG_DFL;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
+#else // ! MAC_OR_LINUX_
+#endif // ! MAC_OR_LINUX_
+    ODL_EXIT(); //####
+} // nImO::ShutDownCatcher
+
+#if 0
 #if (! MAC_OR_LINUX_)
 # pragma warning(push)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
 nImO::SignalRunningStop
-    (UNUSED_ const int signal)
+(UNUSED_ const int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -1240,4 +1214,38 @@ nImO::SignalRunningStop
 #if (! MAC_OR_LINUX_)
 # pragma warning(pop)
 #endif // ! MAC_OR_LINUX_
+#endif//0
+
+#if 0
+void
+nImO::Stall
+    (void)
+{
+    for ( ; ; )
+    {
+        ConsumeSomeTime();
+    }
+} // nImO::Stall
+#endif//0
+
+#if 0
+void
+nImO::StartRunning
+    (void)
+{
+    ODL_ENTER(); //####
+    lKeepRunning = true;
+    ODL_EXIT(); //####
+} // nImO::StartRunning
+#endif//0
+
+#if 0
+void
+nImO::StopRunning
+    (void)
+{
+    ODL_ENTER(); //####
+    lKeepRunning = false;
+    ODL_EXIT(); //####
+} // nImO::StopRunning
 #endif//0

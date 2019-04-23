@@ -76,14 +76,16 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Atom::Atom(void) :
-    inherited()
+nImO::Atom::Atom
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Atom::Atom
 
-nImO::Atom::~Atom(void)
+nImO::Atom::~Atom
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####

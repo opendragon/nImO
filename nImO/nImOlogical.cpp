@@ -86,30 +86,34 @@ static const std::string kCanonicalTrue("true");
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Logical::Logical(void) :
-    inherited(), _value(false)
+nImO::Logical::Logical
+    (void) :
+        inherited(), _value(false)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
-nImO::Logical::Logical(const bool initialValue) :
-    inherited(), _value(initialValue)
+nImO::Logical::Logical
+    (const bool initialValue) :
+        inherited(), _value(initialValue)
 {
     ODL_ENTER(); //####
     ODL_B1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
-nImO::Logical::Logical(const nImO::Logical &other) :
-    inherited(), _value(other._value)
+nImO::Logical::Logical
+    (const nImO::Logical &other) :
+        inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
-nImO::Logical::~Logical(void)
+nImO::Logical::~Logical
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -120,8 +124,9 @@ nImO::Logical::~Logical(void)
 #endif // defined(__APPLE__)
 
 const nImO::Logical *
-nImO::Logical::asLogical(void)
-const
+nImO::Logical::asLogical
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -129,8 +134,9 @@ const
 } // nImO::Logical::asLogical
 
 bool
-nImO::Logical::deeplyEqualTo(const nImO::Value &other)
-const
+nImO::Logical::deeplyEqualTo
+    (const nImO::Value &other)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -150,8 +156,9 @@ const
 } // nImO::Logical::deeplyEqualTo
 
 nImO::Enumerable
-nImO::Logical::enumerationType(void)
-const
+nImO::Logical::enumerationType
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::Logical;
@@ -161,9 +168,10 @@ const
 } // nImO::Logical::enumerationType
 
 bool
-nImO::Logical::equalTo(const nImO::Value &other,
-                       bool              &validComparison)
-const
+nImO::Logical::equalTo
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -206,10 +214,11 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 nImO::SpValue
-nImO::Logical::extractValue(UNUSED_ const nImO::Message &theMessage,
-                            const int                   leadByte,
-                            size_t                      &position,
-                            nImO::SpArray               parentValue)
+nImO::Logical::extractValue
+    (UNUSED_ const nImO::Message &theMessage,
+     const int                   leadByte,
+     size_t                      &position,
+     nImO::SpArray               parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -233,7 +242,8 @@ nImO::Logical::extractValue(UNUSED_ const nImO::Message &theMessage,
 #endif // ! MAC_OR_LINUX_
 
 const std::string &
-nImO::Logical::getCanonicalRepresentation(const bool aValue)
+nImO::Logical::getCanonicalRepresentation
+    (const bool aValue)
 {
     ODL_ENTER(); //####
     const std::string &result = (aValue ? kCanonicalTrue : kCanonicalFalse);
@@ -243,9 +253,10 @@ nImO::Logical::getCanonicalRepresentation(const bool aValue)
 } // nImO::Logical::getCanonicalRepresentation
 
 void
-nImO::Logical::getExtractionInfo(DataKind               &aByte,
-                                 DataKind               &aMask,
-                                 nImO::Value::Extractor &theExtractor)
+nImO::Logical::getExtractionInfo
+    (DataKind               &aByte,
+     DataKind               &aMask,
+     nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -256,7 +267,8 @@ nImO::Logical::getExtractionInfo(DataKind               &aByte,
 } // nImO::Logical::getExtractionInfo
 
 const char *
-nImO::Logical::getInitialCharacters(void)
+nImO::Logical::getInitialCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char *initialChars = "ftFT";
@@ -266,8 +278,9 @@ nImO::Logical::getInitialCharacters(void)
 } // nImO::Logical::getInitialCharacters
 
 nImO::DataKind
-nImO::Logical::getTypeTag(void)
-const
+nImO::Logical::getTypeTag
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
@@ -277,9 +290,10 @@ const
 } // nImO::Logical::getTypeTag
 
 bool
-nImO::Logical::greaterThan(const nImO::Value &other,
-                           bool              &validComparison)
-const
+nImO::Logical::greaterThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -319,9 +333,10 @@ const
 } // nImO::Logical::greaterThan
 
 bool
-nImO::Logical::greaterThanOrEqual(const nImO::Value &other,
-                                  bool              &validComparison)
-const
+nImO::Logical::greaterThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -360,9 +375,10 @@ const
 } // nImO::Logical::greaterThanOrEqual
 
 bool
-nImO::Logical::lessThan(const nImO::Value &other,
-                        bool              &validComparison)
-const
+nImO::Logical::lessThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -402,9 +418,10 @@ const
 } // nImO::Logical::lessThan
 
 bool
-nImO::Logical::lessThanOrEqual(const nImO::Value &other,
-                               bool              &validComparison)
-const
+nImO::Logical::lessThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -443,7 +460,8 @@ const
 } // nImO::Logical::lessThanOrEqual
 
 nImO::Logical &
-nImO::Logical::operator =(const nImO::Logical &other)
+nImO::Logical::operator =
+    (const nImO::Logical &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -456,7 +474,8 @@ nImO::Logical::operator =(const nImO::Logical &other)
 } // nImO::Logical::operator=
 
 nImO::Logical &
-nImO::Logical::operator =(const bool value)
+nImO::Logical::operator =
+    (const bool value)
 {
     ODL_OBJENTER(); //####
     ODL_B1("value = ", value); //####
@@ -470,9 +489,10 @@ nImO::Logical::operator =(const bool value)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Logical::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                   UNUSED_ const bool squished)
-const
+nImO::Logical::printToStringBuffer
+    (nImO::StringBuffer &outBuffer,
+     UNUSED_ const bool squished)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -485,8 +505,9 @@ const
 #endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
-nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
-                                    size_t                   &position)
+nImO::Logical::readFromStringBuffer
+    (const nImO::StringBuffer &inBuffer,
+     size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -556,8 +577,9 @@ nImO::Logical::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 } // nImO::Logical::readFromStringBuffer
 
 void
-nImO::Logical::writeToMessage(nImO::Message &outMessage)
-const
+nImO::Logical::writeToMessage
+    (nImO::Message &outMessage)
+    const
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####

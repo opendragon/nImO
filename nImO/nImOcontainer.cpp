@@ -76,14 +76,16 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Container::Container(void) :
-    inherited()
+nImO::Container::Container
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Container::Container
 
-nImO::Container::~Container(void)
+nImO::Container::~Container
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -94,8 +96,9 @@ nImO::Container::~Container(void)
 #endif // defined(__APPLE__)
 
 const nImO::Container *
-nImO::Container::asContainer(void)
-const
+nImO::Container::asContainer
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####

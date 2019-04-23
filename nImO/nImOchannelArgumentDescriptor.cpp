@@ -82,11 +82,12 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ChannelArgumentDescriptor::ChannelArgumentDescriptor(const std::string  &argName,
-                                                     const std::string  &argDescription,
-                                                     const ArgumentMode argMode,
-                                                     const std::string  &defaultValue) :
-    inherited(argName, argDescription, argMode, defaultValue)
+ChannelArgumentDescriptor::ChannelArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const std::string  &defaultValue) :
+        inherited(argName, argDescription, argMode, defaultValue)
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
@@ -94,15 +95,17 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor(const std::string  &argName
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
-ChannelArgumentDescriptor::ChannelArgumentDescriptor(const ChannelArgumentDescriptor &other) :
-    inherited(other)
+ChannelArgumentDescriptor::ChannelArgumentDescriptor
+    (const ChannelArgumentDescriptor &other) :
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
-ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
+ChannelArgumentDescriptor::~ChannelArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -113,8 +116,9 @@ ChannelArgumentDescriptor::~ChannelArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-ChannelArgumentDescriptor::clone(void)
-const
+ChannelArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<ChannelArgumentDescriptor>(*this);
@@ -124,7 +128,8 @@ const
 } // ChannelArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
-ChannelArgumentDescriptor::parseArgString(const std::string &inString)
+ChannelArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -170,7 +175,8 @@ ChannelArgumentDescriptor::parseArgString(const std::string &inString)
 } // ChannelArgumentDescriptor::parseArgString
 
 void
-ChannelArgumentDescriptor::swap(ChannelArgumentDescriptor &other)
+ChannelArgumentDescriptor::swap
+    (ChannelArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -179,7 +185,8 @@ ChannelArgumentDescriptor::swap(ChannelArgumentDescriptor &other)
 } // ChannelArgumentDescriptor::swap
 
 std::string
-ChannelArgumentDescriptor::toString(void)
+ChannelArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("C"));
@@ -190,7 +197,8 @@ ChannelArgumentDescriptor::toString(void)
 } // ChannelArgumentDescriptor::toString
 
 bool
-ChannelArgumentDescriptor::validate(const std::string &value)
+ChannelArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
 #if 0

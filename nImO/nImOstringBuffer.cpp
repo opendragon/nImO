@@ -123,14 +123,16 @@ static const char *kCanonicalControl[] =
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StringBuffer::StringBuffer(void) :
-    inherited(true)
+nImO::StringBuffer::StringBuffer
+    (void) :
+        inherited(true)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
-nImO::StringBuffer::~StringBuffer(void)
+nImO::StringBuffer::~StringBuffer
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -141,7 +143,8 @@ nImO::StringBuffer::~StringBuffer(void)
 #endif // defined(__APPLE__)
 
 nImO::StringBuffer &
-nImO::StringBuffer::addBool(const bool aBool)
+nImO::StringBuffer::addBool
+    (const bool aBool)
 {
     ODL_OBJENTER(); //####
     ODL_B1("aBool = ", aBool); //####
@@ -151,8 +154,9 @@ nImO::StringBuffer::addBool(const bool aBool)
 } // nImO::StringBuffer::addBool
 
 nImO::StringBuffer &
-nImO::StringBuffer::addBytes(const uint8_t *inBytes,
-                             const size_t  numBytes)
+nImO::StringBuffer::addBytes
+    (const uint8_t *inBytes,
+     const size_t  numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
@@ -176,8 +180,9 @@ nImO::StringBuffer::addBytes(const uint8_t *inBytes,
 } // nImO::StringBuffer::addBytes
 
 nImO::StringBuffer &
-nImO::StringBuffer::addString(const char *aString,
-                              const bool addQuotes)
+nImO::StringBuffer::addString
+    (const char *aString,
+     const bool addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1("aString = ", aString); //####
@@ -201,8 +206,9 @@ nImO::StringBuffer::addString(const char *aString,
 } // nImO::StringBuffer::addString
 
 nImO::StringBuffer &
-nImO::StringBuffer::addString(const std::string &aString,
-                              const bool        addQuotes)
+nImO::StringBuffer::addString
+    (const std::string &aString,
+     const bool        addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
@@ -223,8 +229,9 @@ nImO::StringBuffer::addString(const std::string &aString,
 } // nImO::StringBuffer::addString
 
 nImO::SpValue
-nImO::StringBuffer::convertToValue(void)
-const
+nImO::StringBuffer::convertToValue
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     size_t  position = 0;
@@ -301,8 +308,9 @@ const
 } // nImO::StringBuffer::convertToValue
 
 void
-nImO::StringBuffer::processCharacters(const char   *aString,
-                                      const size_t length)
+nImO::StringBuffer::processCharacters
+    (const char   *aString,
+     const size_t length)
 {
     ODL_ENTER(); //####
     ODL_S1("aString = ", aString); //####
@@ -436,8 +444,9 @@ nImO::StringBuffer::processCharacters(const char   *aString,
 #endif // defined(__APPLE__)
 
 std::ostream &
-nImO::operator <<(std::ostream             &out,
-                  const nImO::StringBuffer &aBuffer)
+nImO::operator <<
+    (std::ostream             &out,
+     const nImO::StringBuffer &aBuffer)
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####

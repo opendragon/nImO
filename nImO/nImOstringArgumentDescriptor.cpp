@@ -80,11 +80,12 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-StringArgumentDescriptor::StringArgumentDescriptor(const std::string  &argName,
-                                                   const std::string  &argDescription,
-                                                   const ArgumentMode argMode,
-                                                   const std::string  &defaultValue) :
-    inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+StringArgumentDescriptor::StringArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const std::string  &defaultValue) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
@@ -92,15 +93,17 @@ StringArgumentDescriptor::StringArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // StringArgumentDescriptor::StringArgumentDescriptor
 
-StringArgumentDescriptor::StringArgumentDescriptor(const StringArgumentDescriptor &other) :
-    inherited(other), _defaultValue(other._defaultValue)
+StringArgumentDescriptor::StringArgumentDescriptor
+    (const StringArgumentDescriptor &other) :
+        inherited(other), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // StringArgumentDescriptor::StringArgumentDescriptor
 
-StringArgumentDescriptor::~StringArgumentDescriptor(void)
+StringArgumentDescriptor::~StringArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -112,7 +115,8 @@ StringArgumentDescriptor::~StringArgumentDescriptor(void)
 
 #if 0
 void
-StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
+StringArgumentDescriptor::addValueToBottle
+    (yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -122,8 +126,9 @@ StringArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 #endif//0
 
 SpBaseArgumentDescriptor
-StringArgumentDescriptor::clone(void)
-const
+StringArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<StringArgumentDescriptor>(*this);
@@ -133,7 +138,8 @@ const
 } // StringArgumentDescriptor::clone
 
 std::string
-StringArgumentDescriptor::getDefaultValue(void)
+StringArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(_defaultValue);
@@ -143,7 +149,8 @@ StringArgumentDescriptor::getDefaultValue(void)
 } // StringArgumentDescriptor::getDefaultValue
 
 std::string
-StringArgumentDescriptor::getProcessedValue(void)
+StringArgumentDescriptor::getProcessedValue
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(_currentValue); //####
@@ -151,7 +158,8 @@ StringArgumentDescriptor::getProcessedValue(void)
 } // StringArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
-StringArgumentDescriptor::parseArgString(const std::string &inString)
+StringArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -191,7 +199,8 @@ StringArgumentDescriptor::parseArgString(const std::string &inString)
 } // StringArgumentDescriptor::parseArgString
 
 void
-StringArgumentDescriptor::setToDefaultValue(void)
+StringArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -200,7 +209,8 @@ StringArgumentDescriptor::setToDefaultValue(void)
 } // StringArgumentDescriptor::setToDefaultValue
 
 void
-StringArgumentDescriptor::swap(StringArgumentDescriptor &other)
+StringArgumentDescriptor::swap
+    (StringArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -211,7 +221,8 @@ StringArgumentDescriptor::swap(StringArgumentDescriptor &other)
 } // StringArgumentDescriptor::swap
 
 std::string
-StringArgumentDescriptor::toString(void)
+StringArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("S"));
@@ -222,7 +233,8 @@ StringArgumentDescriptor::toString(void)
 } // StringArgumentDescriptor::toString
 
 bool
-StringArgumentDescriptor::validate(const std::string &value)
+StringArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     _valid = true;

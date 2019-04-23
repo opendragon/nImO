@@ -80,17 +80,18 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-DoubleArgumentDescriptor::DoubleArgumentDescriptor(const std::string  &argName,
-                                                   const std::string  &argDescription,
-                                                   const ArgumentMode argMode,
-                                                   const double       defaultValue,
-                                                   const bool         hasMinimumValue,
-                                                   const double       minimumValue,
-                                                   const bool         hasMaximumValue,
-                                                   const double       maximumValue) :
-    inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
-    _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
-    _hasMinimumValue(hasMinimumValue)
+DoubleArgumentDescriptor::DoubleArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const double       defaultValue,
+     const bool         hasMinimumValue,
+     const double       minimumValue,
+     const bool         hasMaximumValue,
+     const double       maximumValue) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
+        _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
+        _hasMinimumValue(hasMinimumValue)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -100,17 +101,19 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
-DoubleArgumentDescriptor::DoubleArgumentDescriptor(const DoubleArgumentDescriptor &other) :
-    inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
-    _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
-    _hasMinimumValue(other._hasMinimumValue)
+DoubleArgumentDescriptor::DoubleArgumentDescriptor
+    (const DoubleArgumentDescriptor &other) :
+        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
+        _hasMinimumValue(other._hasMinimumValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
-DoubleArgumentDescriptor::~DoubleArgumentDescriptor(void)
+DoubleArgumentDescriptor::~DoubleArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -122,7 +125,8 @@ DoubleArgumentDescriptor::~DoubleArgumentDescriptor(void)
 
 #if 0
 void
-DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
+DoubleArgumentDescriptor::addValueToBottle
+    (yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -133,8 +137,9 @@ DoubleArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 #endif//0
 
 SpBaseArgumentDescriptor
-DoubleArgumentDescriptor::clone(void)
-const
+DoubleArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<DoubleArgumentDescriptor>(*this);
@@ -144,7 +149,8 @@ const
 } // DoubleArgumentDescriptor::clone
 
 std::string
-DoubleArgumentDescriptor::getDefaultValue(void)
+DoubleArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result = nImO::ConvertDoubleToString(_defaultValue);
@@ -154,7 +160,8 @@ DoubleArgumentDescriptor::getDefaultValue(void)
 } // DoubleArgumentDescriptor::getDefaultValue
 
 std::string
-DoubleArgumentDescriptor::getProcessedValue(void)
+DoubleArgumentDescriptor::getProcessedValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result = nImO::ConvertDoubleToString(_currentValue);
@@ -164,7 +171,8 @@ DoubleArgumentDescriptor::getProcessedValue(void)
 } // DoubleArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
-DoubleArgumentDescriptor::parseArgString(const std::string &inString)
+DoubleArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -255,7 +263,8 @@ DoubleArgumentDescriptor::parseArgString(const std::string &inString)
 } // DoubleArgumentDescriptor::parseArgString
 
 void
-DoubleArgumentDescriptor::setToDefaultValue(void)
+DoubleArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -264,7 +273,8 @@ DoubleArgumentDescriptor::setToDefaultValue(void)
 } // DoubleArgumentDescriptor::setToDefaultValue
 
 void
-DoubleArgumentDescriptor::swap(DoubleArgumentDescriptor &other)
+DoubleArgumentDescriptor::swap
+    (DoubleArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -279,7 +289,8 @@ DoubleArgumentDescriptor::swap(DoubleArgumentDescriptor &other)
 } // DoubleArgumentDescriptor::swap
 
 std::string
-DoubleArgumentDescriptor::toString(void)
+DoubleArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("D"));
@@ -300,7 +311,8 @@ DoubleArgumentDescriptor::toString(void)
 } // DoubleArgumentDescriptor::toString
 
 bool
-DoubleArgumentDescriptor::validate(const std::string &value)
+DoubleArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     double dblValue;

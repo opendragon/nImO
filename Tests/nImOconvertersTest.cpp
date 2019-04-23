@@ -84,7 +84,8 @@ static const size_t kBufferSize = 20;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -114,9 +115,10 @@ catchSignal(int signal)
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidArgs(UNUSED_ const char *launchPath,
-                  UNUSED_ const int  argc,
-                  UNUSED_ char       **argv) // invalid args
+doTestInvalidArgs
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid args
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -202,9 +204,10 @@ doTestInvalidArgs(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSize(UNUSED_ const char *launchPath,
-                  UNUSED_ const int  argc,
-                  UNUSED_ char       **argv) // integer size
+doTestIntegerSize
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer size
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -268,9 +271,10 @@ doTestIntegerSize(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDoubleSize(UNUSED_ const char *launchPath,
-                 UNUSED_ const int  argc,
-                 UNUSED_ char       **argv) // double size
+doTestDoubleSize
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // double size
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -319,9 +323,10 @@ doTestDoubleSize(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerConversion(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // integer conversion
+doTestIntegerConversion
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer conversion
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -398,9 +403,10 @@ doTestIntegerConversion(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDoubleConversion(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // double conversion
+doTestDoubleConversion
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // double conversion
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -469,7 +475,8 @@ doTestDoubleConversion(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

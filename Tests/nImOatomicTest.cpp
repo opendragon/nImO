@@ -91,7 +91,8 @@ static const size_t kBigTestSize = 100000;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -113,8 +114,9 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const Value &aValue,
-                       const char  *aString)
+compareValueWithString
+    (const Value &aValue,
+     const char  *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -145,9 +147,10 @@ compareValueWithString(const Value &aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBufferChunk(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // empty buffer chunk
+doTestEmptyBufferChunk
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty buffer chunk
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -201,9 +204,10 @@ doTestEmptyBufferChunk(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkWithSingleByte(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // buffer chunk with 1 byte of data
+doTestBufferChunkWithSingleByte
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // buffer chunk with 1 byte of data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -269,9 +273,10 @@ doTestBufferChunkWithSingleByte(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestFilledBufferChunk(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // buffer chunk filled with data
+doTestFilledBufferChunk
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // buffer chunk filled with data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -363,9 +368,10 @@ doTestFilledBufferChunk(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestOverfilledBufferChunk(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // buffer chunk overfilled with data
+doTestOverfilledBufferChunk
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // buffer chunk overfilled with data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -457,9 +463,10 @@ doTestOverfilledBufferChunk(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBufferChunkReset(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // resetting buffer chunk
+doTestBufferChunkReset
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // resetting buffer chunk
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -524,9 +531,10 @@ doTestBufferChunkReset(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringBuffer(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // empty string buffer
+doTestEmptyStringBuffer
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -590,9 +598,10 @@ doTestEmptyStringBuffer(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithCharacters(UNUSED_ const char *launchPath,
-                                 UNUSED_ const int  argc,
-                                 UNUSED_ char       **argv) // string buffer with character string
+doTestStringBufferWithCharacters
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string buffer with character string
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -670,9 +679,10 @@ doTestStringBufferWithCharacters(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
-                              const int          argc,
-                              char               **argv) // string buffer with logical
+doTestStringBufferWithLogical
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // string buffer with logical
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -748,9 +758,10 @@ doTestStringBufferWithLogical(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
-                              const int          argc,
-                              char               **argv) // string buffer with integer
+doTestStringBufferWithInteger
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // string buffer with integer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -824,9 +835,10 @@ doTestStringBufferWithInteger(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithString(UNUSED_ const char *launchPath,
-                             const int          argc,
-                             char               **argv) // string buffer with string
+doTestStringBufferWithString
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // string buffer with string
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -902,9 +914,10 @@ doTestStringBufferWithString(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSpecialCharacters(UNUSED_ const char *launchPath,
-                                        UNUSED_ const int  argc,
-                                        UNUSED_ char       **argv) // string buffer with special chars
+doTestStringBufferWithSpecialCharacters
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string buffer with special chars
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -973,9 +986,10 @@ doTestStringBufferWithSpecialCharacters(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithDouble(UNUSED_ const char *launchPath,
-                             const int          argc,
-                             char               **argv) // string buffer with floating point
+doTestStringBufferWithDouble
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // string buffer with floating point
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1058,9 +1072,10 @@ doTestStringBufferWithDouble(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigStringBuffer(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // big string buffer
+doTestBigStringBuffer
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // big string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1135,9 +1150,10 @@ doTestBigStringBuffer(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithEmptyBlob(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // string buffer with empty blob
+doTestStringBufferWithEmptyBlob
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string buffer with empty blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1195,9 +1211,10 @@ doTestStringBufferWithEmptyBlob(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithSmallBlob(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // string buffer with small blob
+doTestStringBufferWithSmallBlob
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string buffer with small blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1284,9 +1301,10 @@ doTestStringBufferWithSmallBlob(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferWithBigBlob(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // string buffer with big blob
+doTestStringBufferWithBigBlob
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string buffer with big blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1373,9 +1391,10 @@ doTestStringBufferWithBigBlob(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringBufferReset(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // resetting string buffer
+doTestStringBufferReset
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // resetting string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1442,9 +1461,10 @@ doTestStringBufferReset(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultLogicalValue(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // default logical value
+doTestDefaultLogicalValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // default logical value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1498,9 +1518,10 @@ doTestDefaultLogicalValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalValue(UNUSED_ const char *launchPath,
-                   const int          argc,
-                   char               **argv) // logical values
+doTestLogicalValue
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // logical values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1571,9 +1592,10 @@ doTestLogicalValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultIntegerValue(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // default integer value
+doTestDefaultIntegerValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // default integer value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1628,9 +1650,10 @@ doTestDefaultIntegerValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNumberValue(UNUSED_ const char *launchPath,
-                  const int          argc,
-                  char               **argv) // number values
+doTestNumberValue
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // number values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1726,9 +1749,10 @@ doTestNumberValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultStringValue(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // default string value
+doTestDefaultStringValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // default string value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1782,9 +1806,10 @@ doTestDefaultStringValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValue(UNUSED_ const char *launchPath,
-                  const int          argc,
-                  char               **argv) // string values
+doTestStringValue
+    (UNUSED_ const char *launchPath,
+     const int          argc,
+     char               **argv) // string values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1845,9 +1870,10 @@ doTestStringValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringValueWithEscapes(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // string value with escapes
+doTestStringValueWithEscapes
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string value with escapes
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1903,9 +1929,10 @@ doTestStringValueWithEscapes(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDefaultBlobValue(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // default blob
+doTestDefaultBlobValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // default blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1959,9 +1986,10 @@ doTestDefaultBlobValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBlobValue(UNUSED_ const char *launchPath,
-                     UNUSED_ const int  argc,
-                     UNUSED_ char       **argv) // small blob
+doTestSmallBlobValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2047,9 +2075,10 @@ doTestSmallBlobValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigBlobValue(UNUSED_ const char *launchPath,
-                   UNUSED_ const int  argc,
-                   UNUSED_ char       **argv) // big blob
+doTestBigBlobValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // big blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2135,9 +2164,10 @@ doTestBigBlobValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalCopyAndAssign(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // logical copy and assign
+doTestLogicalCopyAndAssign
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2211,9 +2241,10 @@ doTestLogicalCopyAndAssign(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerCopyAndAssign(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // integer copy and assign
+doTestIntegerCopyAndAssign
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2307,9 +2338,10 @@ doTestIntegerCopyAndAssign(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestDoubleCopyAndAssign(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // floating point copy and assign
+doTestDoubleCopyAndAssign
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // floating point copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2402,9 +2434,10 @@ doTestDoubleCopyAndAssign(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringCopyAndAssign(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // string copy and assign
+doTestStringCopyAndAssign
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2480,9 +2513,10 @@ doTestStringCopyAndAssign(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBlobCopyAndAssign(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // blob copy and assign
+doTestBlobCopyAndAssign
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // blob copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2607,9 +2641,10 @@ doTestBlobCopyAndAssign(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalCompares(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // valid logical compares
+doTestValidLogicalCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2752,9 +2787,10 @@ doTestValidLogicalCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidNumberCompares(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // valid number compares
+doTestValidNumberCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid number compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3221,9 +3257,10 @@ doTestValidNumberCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringCompares(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // valid string compares
+doTestValidStringCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid string compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3370,9 +3407,10 @@ doTestValidStringCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidBlobCompares(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // valid blob compares
+doTestValidBlobCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid blob compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3529,9 +3567,10 @@ doTestValidBlobCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalCompares(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // invalid logical compares
+doTestInvalidLogicalCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3636,9 +3675,10 @@ doTestInvalidLogicalCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidNumberCompares(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // invalid number compares
+doTestInvalidNumberCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid number compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3743,9 +3783,10 @@ doTestInvalidNumberCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringCompares(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // invalid string compares
+doTestInvalidStringCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid string compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3850,9 +3891,10 @@ doTestInvalidStringCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidBlobCompares(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // invalid blob compares
+doTestInvalidBlobCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid blob compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3956,7 +3998,8 @@ doTestInvalidBlobCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

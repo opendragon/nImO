@@ -133,7 +133,8 @@ const std::string nImO::kDirectorySeparator = "\\";
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-localCatcher(UNUSED_ int signal)
+localCatcher
+    (UNUSED_ int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -162,7 +163,8 @@ localCatcher(UNUSED_ int signal)
 #endif // defined(__APPLE__)
 
 double
-nImO::B2D(const nImO::NumberAsBytes &inString)
+nImO::B2D
+    (const nImO::NumberAsBytes &inString)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -175,8 +177,9 @@ nImO::B2D(const nImO::NumberAsBytes &inString)
 } // nImO::B2D
 
 int64_t
-nImO::B2I(const nImO::NumberAsBytes &inString,
-          const size_t              numBytes)
+nImO::B2I
+    (const nImO::NumberAsBytes &inString,
+     const size_t              numBytes)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -196,9 +199,10 @@ nImO::B2I(const nImO::NumberAsBytes &inString,
 } // nImO::B2I
 
 size_t
-nImO::CompareBytes(const void   *first,
-                   const void   *second,
-                   const size_t numBytes)
+nImO::CompareBytes
+    (const void   *first,
+     const void   *second,
+     const size_t numBytes)
 {
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
@@ -229,7 +233,8 @@ nImO::CompareBytes(const void   *first,
 } // nImO::CompareBytes
 
 std::string
-nImO::ConvertDoubleToString(const double value)
+nImO::ConvertDoubleToString
+    (const double value)
 {
     ODL_ENTER(); //####
     ODL_D1("value = ", value); //####
@@ -245,8 +250,9 @@ nImO::ConvertDoubleToString(const double value)
 } // nImO::ConvertDoubleToString
 
 bool
-nImO::ConvertToDouble(const char *startPtr,
-                      double     &result)
+nImO::ConvertToDouble
+    (const char *startPtr,
+     double     &result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -270,8 +276,9 @@ nImO::ConvertToDouble(const char *startPtr,
 } // nImO::ConvertToDouble
 
 bool
-nImO::ConvertToInt64(const char *startPtr,
-                     int64_t    &result)
+nImO::ConvertToInt64
+    (const char *startPtr,
+     int64_t    &result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -295,8 +302,9 @@ nImO::ConvertToInt64(const char *startPtr,
 } // nImO::ConvertToInt64
 
 void
-nImO::D2B(const double        inValue,
-          nImO::NumberAsBytes &outString)
+nImO::D2B
+    (const double        inValue,
+     nImO::NumberAsBytes &outString)
 {
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
@@ -311,8 +319,9 @@ nImO::D2B(const double        inValue,
 
 #if 0
 void
-nImO::DumpContactToLog(const char              *tag,
-                       const yarp::os::Contact &aContact)
+nImO::DumpContactToLog
+    (const char              *tag,
+     const yarp::os::Contact &aContact)
 {
 #if MAC_OR_LINUX_
     if (lLogger)
@@ -373,7 +382,8 @@ nImO::DumpContactToLog(const char              *tag,
 
 #if MAC_OR_LINUX_
 yarp::os::impl::Logger &
-nImO::GetLogger(void)
+nImO::GetLogger
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(lLogger);
@@ -383,7 +393,8 @@ nImO::GetLogger(void)
 #endif //0
 
 std::string
-nImO::GetRandomChannelName(const char *channelRoot)
+nImO::GetRandomChannelName
+    (const char *channelRoot)
 {
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####
@@ -429,14 +440,16 @@ nImO::GetRandomChannelName(const char *channelRoot)
 } // nImO::GetRandomChannelName
 
 std::string
-nImO::GetRandomChannelName(const std::string &channelRoot)
+nImO::GetRandomChannelName
+    (const std::string &channelRoot)
 {
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
 
 size_t
-nImO::I2B(const int64_t       inValue,
-          nImO::NumberAsBytes &outString)
+nImO::I2B
+    (const int64_t       inValue,
+     nImO::NumberAsBytes &outString)
 {
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
@@ -498,7 +511,8 @@ nImO::I2B(const int64_t       inValue,
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Initialize(UNUSED_ const std::string &progName)
+nImO::Initialize
+    (UNUSED_ const std::string &progName)
 {
     ODL_ENTER(); //####
     ODL_S1s("progName = ", progName); //####
@@ -550,7 +564,8 @@ nImO::Initialize(UNUSED_ const std::string &progName)
 #endif // ! MAC_OR_LINUX_
 
 void
-nImO::SetSignalHandlers(nImO::SignalHandler theHandler)
+nImO::SetSignalHandlers
+    (nImO::SignalHandler theHandler)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -612,7 +627,8 @@ nImO::SetSignalHandlers(nImO::SignalHandler theHandler)
 } // Common::SetSignalHandlers
 
 void
-nImO::SetUpCatcher(void)
+nImO::SetUpCatcher
+    (void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -636,7 +652,8 @@ nImO::SetUpCatcher(void)
 #if 0
 #if MAC_OR_LINUX_
 void
-nImO::SetUpLogger(const std::string &progName)
+nImO::SetUpLogger
+    (const std::string &progName)
 {
     ODL_ENTER(); //####
     lLogger = new yarp::os::impl::Logger(progName.c_str());
@@ -650,7 +667,8 @@ nImO::SetUpLogger(const std::string &progName)
 #endif//0
 
 void
-nImO::ShutDownCatcher(void)
+nImO::ShutDownCatcher
+    (void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -673,7 +691,8 @@ nImO::ShutDownCatcher(void)
 
 #if 0
 void
-nImO::Stall(void)
+nImO::Stall
+    (void)
 {
     for ( ; ; )
     {
@@ -683,7 +702,8 @@ nImO::Stall(void)
 #endif//0
 
 bool
-nImO::CanReadFromStandardInput(void)
+nImO::CanReadFromStandardInput
+    (void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -718,7 +738,8 @@ nImO::CanReadFromStandardInput(void)
 
 #if 0
 void
-nImO::ConsumeSomeTime(const double factor)
+nImO::ConsumeSomeTime
+    (const double factor)
 {
     ODL_ENTER(); //####
     yarp::os::Time::delay(ONE_SECOND_DELAY_ / factor);
@@ -728,7 +749,8 @@ nImO::ConsumeSomeTime(const double factor)
 #endif//0
 
 std::string
-nImO::GetRandomHexString(void)
+nImO::GetRandomHexString
+    (void)
 {
     ODL_ENTER(); //####
     int               randNumb;
@@ -753,7 +775,8 @@ nImO::GetRandomHexString(void)
 
 #if 0
 void
-nImO::IdleUntilNotRunning(void)
+nImO::IdleUntilNotRunning
+    (void)
 {
     ODL_ENTER(); //####
     for ( ; IsRunning(); )
@@ -764,7 +787,8 @@ nImO::IdleUntilNotRunning(void)
 } // nImO::IdleUntilNotRunning
 
 bool
-nImO::IsRunning(void)
+nImO::IsRunning
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_B(lKeepRunning); //####
@@ -773,7 +797,8 @@ nImO::IsRunning(void)
 #endif//0
 
 const char *
-nImO::NameOfSignal(const int theSignal)
+nImO::NameOfSignal
+    (const int theSignal)
 {
     const char *result;
 
@@ -942,9 +967,10 @@ nImO::NameOfSignal(const int theSignal)
 } // nImO::NameOfSignal
 
 void
-nImO::OutputDescription(std::ostream      &outStream,
-                        const char        *heading,
-                        const std::string &description)
+nImO::OutputDescription
+    (std::ostream      &outStream,
+     const char        *heading,
+     const std::string &description)
 {
     size_t      descriptionLength = description.length();
     size_t      indentSize = strlen(heading);
@@ -969,15 +995,16 @@ nImO::OutputDescription(std::ostream      &outStream,
 } // nImO::OutputDescription
 
 bool
-nImO::ProcessStandardUtilitiesOptions(const int              argc,
-                                      char                   **argv,
-                                      nImO::DescriptorVector &argumentDescriptions,
-                                      const std::string      &utilityDescription,
-                                      const int              year,
-                                      const char             *copyrightHolder,
-                                      nImO::OutputFlavour    &flavour,
-                                      const bool             ignoreFlavours,
-                                      nImO::StringVector     *arguments)
+nImO::ProcessStandardUtilitiesOptions
+    (const int              argc,
+     char                   **argv,
+     nImO::DescriptorVector &argumentDescriptions,
+     const std::string      &utilityDescription,
+     const int              year,
+     const char             *copyrightHolder,
+     nImO::OutputFlavour    &flavour,
+     const bool             ignoreFlavours,
+     nImO::StringVector     *arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -1087,7 +1114,7 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
         std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
 
         cout << "Version " << nImOversionString.c_str() << ": Copyright (c) " << year << " by " <<
-        copyrightHolder << "." << endl;
+                copyrightHolder << "." << endl;
         keepGoing = false;
     }
     else if (options[static_cast<size_t>(OptionIndex::INFO)])
@@ -1124,8 +1151,9 @@ nImO::ProcessStandardUtilitiesOptions(const int              argc,
 } // nImO::ProcessStandardUtilitiesOptions
 
 std::string
-nImO::SanitizeString(const std::string &inString,
-                     const bool        allowDoubleQuotes)
+nImO::SanitizeString
+    (const std::string &inString,
+     const bool        allowDoubleQuotes)
 {
     ODL_ENTER(); //####
     ODL_S1s("channelRoot = ", inString); //####
@@ -1179,7 +1207,8 @@ nImO::SanitizeString(const std::string &inString,
 
 #if 0
 void
-nImO::StartRunning(void)
+nImO::StartRunning
+    (void)
 {
     ODL_ENTER(); //####
     lKeepRunning = true;
@@ -1187,7 +1216,8 @@ nImO::StartRunning(void)
 } // nImO::StartRunning
 
 void
-nImO::StopRunning(void)
+nImO::StopRunning
+    (void)
 {
     ODL_ENTER(); //####
     lKeepRunning = false;
@@ -1199,7 +1229,8 @@ nImO::StopRunning(void)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::SignalRunningStop(UNUSED_ const int signal)
+nImO::SignalRunningStop
+    (UNUSED_ const int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####

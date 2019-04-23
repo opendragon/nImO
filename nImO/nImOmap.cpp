@@ -82,15 +82,17 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Map::Map(void) :
-    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+nImO::Map::Map
+    (void) :
+        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Map::
 
-nImO::Map::Map(const nImO::Map &other) :
-    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+nImO::Map::Map
+    (const nImO::Map &other) :
+        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -98,7 +100,8 @@ nImO::Map::Map(const nImO::Map &other) :
     ODL_EXIT_P(this); //####
 } // nImO::Map::Map
 
-nImO::Map::~Map(void)
+nImO::Map::~Map
+    (void)
 {
     ODL_OBJENTER(); //####
     clear();
@@ -110,7 +113,8 @@ nImO::Map::~Map(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::Map::addEntries(const nImO::Map &other)
+nImO::Map::addEntries
+    (const nImO::Map &other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -128,8 +132,9 @@ nImO::Map::addEntries(const nImO::Map &other)
 } // nImO::Map::addEntries
 
 nImO::Map::InsertResult
-nImO::Map::addValue(nImO::SpValue newKey,
-                    nImO::SpValue newValue)
+nImO::Map::addValue
+    (nImO::SpValue newKey,
+     nImO::SpValue newValue)
 {
     ODL_OBJENTER(); //####
     ODL_P2("newKey = ", newKey.get(), "newValue = ", newValue.get()); //####
@@ -161,8 +166,9 @@ nImO::Map::addValue(nImO::SpValue newKey,
 } // nImO::Map::addValue
 
 const nImO::Map *
-nImO::Map::asMap(void)
-const
+nImO::Map::asMap
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -170,8 +176,9 @@ const
 } // nImO::Map::asMap
 
 bool
-nImO::Map::deeplyEqualTo(const nImO::Value &other)
-const
+nImO::Map::deeplyEqualTo
+    (const nImO::Value &other)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -222,9 +229,10 @@ const
 } // nImO::Map::deeplyEqualTo
 
 bool
-nImO::Map::equalTo(const nImO::Value &other,
-                   bool              &validComparison)
-const
+nImO::Map::equalTo
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -248,10 +256,11 @@ const
 } // nImO::Map::equalTo
 
 nImO::SpValue
-nImO::Map::extractValue(const nImO::Message &theMessage,
-                        const int           leadByte,
-                        size_t              &position,
-                        nImO::SpArray       parentValue)
+nImO::Map::extractValue
+    (const nImO::Message &theMessage,
+     const int           leadByte,
+     size_t              &position,
+     nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -457,9 +466,10 @@ nImO::Map::extractValue(const nImO::Message &theMessage,
 } // nImO::Map::extractValue
 
 void
-nImO::Map::getExtractionInfo(DataKind               &aByte,
-                             DataKind               &aMask,
-                             nImO::Value::Extractor &theExtractor)
+nImO::Map::getExtractionInfo
+    (DataKind               &aByte,
+     DataKind               &aMask,
+     nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -470,7 +480,8 @@ nImO::Map::getExtractionInfo(DataKind               &aByte,
 } // nImO::Map::getExtractionInfo
 
 const char *
-nImO::Map::getInitialCharacters(void)
+nImO::Map::getInitialCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char initialChars[] = { kStartMapChar, '\0' };
@@ -480,7 +491,8 @@ nImO::Map::getInitialCharacters(void)
 } // nImO::Map::getInitialCharacters
 
 const char *
-nImO::Map::getTerminalCharacters(void)
+nImO::Map::getTerminalCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char terminalChars[] = { kEndMapChar, kKeyValueSeparator, '\0' };
@@ -490,8 +502,9 @@ nImO::Map::getTerminalCharacters(void)
 } // nImO::Map::getTerminalCharacters
 
 nImO::DataKind
-nImO::Map::getTypeTag(void)
-const
+nImO::Map::getTypeTag
+    (void)
+    const
 {
     ODL_OBJENTER();
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
@@ -501,9 +514,10 @@ const
 } // nImO::Map::getTypeTag
 
 bool
-nImO::Map::greaterThan(const nImO::Value &other,
-                       bool              &validComparison)
-const
+nImO::Map::greaterThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -527,9 +541,10 @@ const
 } // nImO::Map::greaterThan
 
 bool
-nImO::Map::greaterThanOrEqual(const nImO::Value &other,
-                              bool              &validComparison)
-const
+nImO::Map::greaterThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -553,9 +568,10 @@ const
 } // nImO::Map::greaterThanOrEqual
 
 bool
-nImO::Map::lessThan(const nImO::Value &other,
-                    bool              &validComparison)
-const
+nImO::Map::lessThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -579,9 +595,10 @@ const
 } // nImO::Map::lessThan
 
 bool
-nImO::Map::lessThanOrEqual(const nImO::Value &other,
-                           bool              &validComparison)
-const
+nImO::Map::lessThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -605,9 +622,10 @@ const
 } // nImO::Map::lessThanOrEqual
 
 void
-nImO::Map::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                               const bool         squished)
-const
+nImO::Map::printToStringBuffer
+    (nImO::StringBuffer &outBuffer,
+     const bool         squished)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -643,8 +661,9 @@ const
 } // nImO::Map::printToStringBuffer
 
 nImO::SpValue
-nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
-                                size_t                   &position)
+nImO::Map::readFromStringBuffer
+    (const nImO::StringBuffer &inBuffer,
+     size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -775,8 +794,9 @@ nImO::Map::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 } // nImO::Map::readFromStringBuffer
 
 void
-nImO::Map::writeToMessage(nImO::Message &outMessage)
-const
+nImO::Map::writeToMessage
+    (nImO::Message &outMessage)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####

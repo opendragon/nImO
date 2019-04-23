@@ -80,14 +80,16 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Number::Number(void) :
-    inherited()
+nImO::Number::Number
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number
 
-nImO::Number::~Number(void)
+nImO::Number::~Number
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -98,8 +100,9 @@ nImO::Number::~Number(void)
 #endif // defined(__APPLE__)
 
 const nImO::Number *
-nImO::Number::asNumber(void)
-const
+nImO::Number::asNumber
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -107,7 +110,8 @@ const
 } // nImO::Number::asNumber
 
 const char *
-nImO::Number::getInitialCharacters(void)
+nImO::Number::getInitialCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char *initialChars = "+-.0123456789";
@@ -117,8 +121,9 @@ nImO::Number::getInitialCharacters(void)
 } // nImO::Number::getInitialCharacters
 
 nImO::SpValue
-nImO::Number::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
-                                   size_t                   &position)
+nImO::Number::readFromStringBuffer
+    (const nImO::StringBuffer &inBuffer,
+     size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####

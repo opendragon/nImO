@@ -84,9 +84,10 @@ using namespace nImO;
  @param[in] emptyIsOK @c true if the file path can be empty and @c false otherwise.
  @returns @c true if the file path is acceptable and @c false otherwise. */
 static bool
-checkFilePath(const char *thePath,
-              const bool forOutput,
-              const bool emptyIsOK)
+checkFilePath
+    (const char *thePath,
+     const bool forOutput,
+     const bool emptyIsOK)
 {
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####
@@ -141,16 +142,17 @@ checkFilePath(const char *thePath,
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-FilePathArgumentDescriptor::FilePathArgumentDescriptor(const std::string  &argName,
-                                                       const std::string  &argDescription,
-                                                       const ArgumentMode argMode,
-                                                       const std::string  &pathPrefix,
-                                                       const std::string  &pathSuffix,
-                                                       const bool         forOutput,
-                                                       const bool         useRandomPath) :
-    inherited(argName, argDescription, argMode, pathPrefix),
-    _pathPrefix(pathPrefix), _pathSuffix(pathSuffix), _defaultSet(false), _forOutput(forOutput),
-    _useRandomPath(useRandomPath)
+FilePathArgumentDescriptor::FilePathArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const std::string  &pathPrefix,
+     const std::string  &pathSuffix,
+     const bool         forOutput,
+     const bool         useRandomPath) :
+        inherited(argName, argDescription, argMode, pathPrefix),
+        _pathPrefix(pathPrefix), _pathSuffix(pathSuffix), _defaultSet(false), _forOutput(forOutput),
+        _useRandomPath(useRandomPath)
 {
     ODL_ENTER(); //####
     ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", //####
@@ -160,16 +162,18 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor(const std::string  &argNa
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
-FilePathArgumentDescriptor::FilePathArgumentDescriptor(const FilePathArgumentDescriptor &other) :
-    inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
-    _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+FilePathArgumentDescriptor::FilePathArgumentDescriptor
+    (const FilePathArgumentDescriptor &other) :
+        inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
+        _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
-FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
+FilePathArgumentDescriptor::~FilePathArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -180,8 +184,9 @@ FilePathArgumentDescriptor::~FilePathArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-FilePathArgumentDescriptor::clone(void)
-const
+FilePathArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<FilePathArgumentDescriptor>(*this);
@@ -191,7 +196,8 @@ const
 } // FilePathArgumentDescriptor::clone
 
 std::string
-FilePathArgumentDescriptor::getDefaultValue(void)
+FilePathArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     _defaultValue = _pathPrefix;
@@ -210,8 +216,9 @@ FilePathArgumentDescriptor::getDefaultValue(void)
 } // FilePathArgumentDescriptor::getDefaultValue
 
 bool
-FilePathArgumentDescriptor::isForFiles(bool &isForOutput)
-const
+FilePathArgumentDescriptor::isForFiles
+    (bool &isForOutput)
+    const
 {
     ODL_OBJENTER(); //####
     isForOutput = _forOutput;
@@ -220,7 +227,8 @@ const
 } // FilePathArgumentDescriptor::isForFiles
 
 SpBaseArgumentDescriptor
-FilePathArgumentDescriptor::parseArgString(const std::string &inString)
+FilePathArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -300,7 +308,8 @@ FilePathArgumentDescriptor::parseArgString(const std::string &inString)
 } // FilePathArgumentDescriptor::parseArgString
 
 void
-FilePathArgumentDescriptor::setToDefaultValue(void)
+FilePathArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     if (! _defaultSet)
@@ -313,7 +322,8 @@ FilePathArgumentDescriptor::setToDefaultValue(void)
 } // FilePathArgumentDescriptor::setToDefaultValue
 
 void
-FilePathArgumentDescriptor::swap(FilePathArgumentDescriptor &other)
+FilePathArgumentDescriptor::swap
+    (FilePathArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -327,7 +337,8 @@ FilePathArgumentDescriptor::swap(FilePathArgumentDescriptor &other)
 } // FilePathArgumentDescriptor::swap
 
 std::string
-FilePathArgumentDescriptor::toString(void)
+FilePathArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string oldDefault(_defaultValue);
@@ -342,7 +353,8 @@ FilePathArgumentDescriptor::toString(void)
 } // FilePathArgumentDescriptor::toString
 
 bool
-FilePathArgumentDescriptor::validate(const std::string &value)
+FilePathArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     _valid = checkFilePath(value.c_str(), _forOutput, false);

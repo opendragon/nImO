@@ -82,15 +82,17 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Set::Set(void) :
-    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+nImO::Set::Set
+    (void) :
+        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
 
-nImO::Set::Set(const nImO::Set &other) :
-    inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+nImO::Set::Set
+    (const nImO::Set &other) :
+        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -98,7 +100,8 @@ nImO::Set::Set(const nImO::Set &other) :
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
 
-nImO::Set::~Set(void)
+nImO::Set::~Set
+    (void)
 {
     ODL_OBJENTER(); //####
     clear();
@@ -110,7 +113,8 @@ nImO::Set::~Set(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::Set::addEntries(const nImO::Set &other)
+nImO::Set::addEntries
+    (const nImO::Set &other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -125,7 +129,8 @@ nImO::Set::addEntries(const nImO::Set &other)
 } // nImO::Set::addEntries
 
 nImO::Set::InsertResult
-nImO::Set::addValue(nImO::SpValue val)
+nImO::Set::addValue
+    (nImO::SpValue val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", &val); //####
@@ -155,8 +160,9 @@ nImO::Set::addValue(nImO::SpValue val)
 } // nImO::Set::addValue
 
 const nImO::Set *
-nImO::Set::asSet(void)
-const
+nImO::Set::asSet
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -164,8 +170,9 @@ const
 } // nImO::Set::asSet
 
 bool
-nImO::Set::deeplyEqualTo(const nImO::Value &other)
-const
+nImO::Set::deeplyEqualTo
+    (const nImO::Value &other)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -202,9 +209,10 @@ const
 } // nImO::Set::deeplyEqualTo
 
 bool
-nImO::Set::equalTo(const nImO::Value &other,
-                   bool              &validComparison)
-const
+nImO::Set::equalTo
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -228,10 +236,11 @@ const
 } // nImO::Set::equalTo
 
 nImO::SpValue
-nImO::Set::extractValue(const nImO::Message &theMessage,
-                        const int           leadByte,
-                        size_t              &position,
-                        nImO::SpArray       parentValue)
+nImO::Set::extractValue
+    (const nImO::Message &theMessage,
+     const int           leadByte,
+     size_t              &position,
+     nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -405,9 +414,10 @@ nImO::Set::extractValue(const nImO::Message &theMessage,
 } // nImO::Set::extractValue
 
 void
-nImO::Set::getExtractionInfo(DataKind               &aByte,
-                             DataKind               &aMask,
-                             nImO::Value::Extractor &theExtractor)
+nImO::Set::getExtractionInfo
+    (DataKind               &aByte,
+     DataKind               &aMask,
+     nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -418,7 +428,8 @@ nImO::Set::getExtractionInfo(DataKind               &aByte,
 } // nImO::Set::getExtractionInfo
 
 const char *
-nImO::Set::getInitialCharacters(void)
+nImO::Set::getInitialCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char initialChars[] = { kStartSetChar, '\0' };
@@ -428,7 +439,8 @@ nImO::Set::getInitialCharacters(void)
 } // nImO::Set::getInitialCharacters
 
 const char *
-nImO::Set::getTerminalCharacters(void)
+nImO::Set::getTerminalCharacters
+    (void)
 {
     ODL_ENTER(); //####
     static const char terminalChars[] = { kEndSetChar, '\0' };
@@ -438,8 +450,9 @@ nImO::Set::getTerminalCharacters(void)
 } // nImO::Set::getTerminalCharacters
 
 nImO::DataKind
-nImO::Set::getTypeTag(void)
-const
+nImO::Set::getTypeTag
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedOtherValue;
@@ -449,9 +462,10 @@ const
 } // nImO::Set::getTypeTag
 
 bool
-nImO::Set::greaterThan(const nImO::Value &other,
-                       bool              &validComparison)
-const
+nImO::Set::greaterThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -475,9 +489,10 @@ const
 } // nImO::Set::greaterThan
 
 bool
-nImO::Set::greaterThanOrEqual(const nImO::Value &other,
-                              bool              &validComparison)
-const
+nImO::Set::greaterThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -501,9 +516,10 @@ const
 } // nImO::Set::greaterThanOrEqual
 
 bool
-nImO::Set::lessThan(const nImO::Value &other,
-                    bool              &validComparison)
-const
+nImO::Set::lessThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -527,9 +543,10 @@ const
 } // nImO::Set::lessThan
 
 bool
-nImO::Set::lessThanOrEqual(const nImO::Value &other,
-                           bool              &validComparison)
-const
+nImO::Set::lessThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -553,9 +570,10 @@ const
 } // nImO::Set::lessThanOrEqual
 
 void
-nImO::Set::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                               const bool         squished)
-const
+nImO::Set::printToStringBuffer
+    (nImO::StringBuffer &outBuffer,
+     const bool         squished)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -586,8 +604,9 @@ const
 } // nImO::Set::printToStringBuffer
 
 nImO::SpValue
-nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
-                                size_t                   &position)
+nImO::Set::readFromStringBuffer
+    (const nImO::StringBuffer &inBuffer,
+     size_t                   &position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -687,8 +706,9 @@ nImO::Set::readFromStringBuffer(const nImO::StringBuffer &inBuffer,
 } // nImO::Set::readFromStringBuffer
 
 void
-nImO::Set::writeToMessage(nImO::Message &outMessage)
-const
+nImO::Set::writeToMessage
+    (nImO::Message &outMessage)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####

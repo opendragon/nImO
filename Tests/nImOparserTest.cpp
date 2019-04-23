@@ -83,7 +83,8 @@ using std::endl;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -105,8 +106,9 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const Value &aValue,
-                       const char  *aString)
+compareValueWithString
+    (const Value &aValue,
+     const char  *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -133,9 +135,10 @@ compareValueWithString(const Value &aValue,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseLogicalValue(const bool expected,
-                        const char *inString,
-                        const char *expectedString) // logical values
+doTestParseLogicalValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -208,9 +211,10 @@ doTestParseLogicalValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseNumberValue(const bool expected,
-                       const char *inString,
-                       const char *expectedString) // number values
+doTestParseNumberValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -283,9 +287,10 @@ doTestParseNumberValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseStringValue(const bool expected,
-                       const char *inString,
-                       const char *expectedString) // string values
+doTestParseStringValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -358,9 +363,10 @@ doTestParseStringValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseArrayValue(const bool expected,
-                      const char *inString,
-                      const char *expectedString) // array values
+doTestParseArrayValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -433,9 +439,10 @@ doTestParseArrayValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseSetValue(const bool expected,
-                    const char *inString,
-                    const char *expectedString) // set values
+doTestParseSetValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // set values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -508,9 +515,10 @@ doTestParseSetValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseMapValue(const bool expected,
-                    const char *inString,
-                    const char *expectedString) // map values
+doTestParseMapValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // map values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -583,9 +591,10 @@ doTestParseMapValue(const bool expected,
  @param[in] expectedString The expected output from the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestParseImplicitArrayValue(const bool expected,
-                              const char *inString,
-                              const char *expectedString) // implicit array values
+doTestParseImplicitArrayValue
+    (const bool expected,
+     const char *inString,
+     const char *expectedString) // implicit array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -661,7 +670,8 @@ doTestParseImplicitArrayValue(const bool expected,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

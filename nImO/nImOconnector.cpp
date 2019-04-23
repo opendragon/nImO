@@ -76,13 +76,15 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Connector::Connector(void)
+nImO::Connector::Connector
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Connector::Connector
 
-nImO::Connector::~Connector(void)
+nImO::Connector::~Connector
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####

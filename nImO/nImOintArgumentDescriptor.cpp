@@ -80,17 +80,18 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-IntArgumentDescriptor::IntArgumentDescriptor(const std::string  &argName,
-                                             const std::string  &argDescription,
-                                             const ArgumentMode argMode,
-                                             const int          defaultValue,
-                                             const bool         hasMinimumValue,
-                                             const int          minimumValue,
-                                             const bool         hasMaximumValue,
-                                             const int          maximumValue) :
-    inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
-    _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
-    _hasMinimumValue(hasMinimumValue)
+IntArgumentDescriptor::IntArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const int          defaultValue,
+     const bool         hasMinimumValue,
+     const int          minimumValue,
+     const bool         hasMaximumValue,
+     const int          maximumValue) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
+        _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
+        _hasMinimumValue(hasMinimumValue)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -100,17 +101,19 @@ IntArgumentDescriptor::IntArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // IntArgumentDescriptor::IntArgumentDescriptor
 
-IntArgumentDescriptor::IntArgumentDescriptor(const IntArgumentDescriptor &other) :
-    inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
-    _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
-    _hasMinimumValue(other._hasMinimumValue)
+IntArgumentDescriptor::IntArgumentDescriptor
+    (const IntArgumentDescriptor &other) :
+        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
+        _hasMinimumValue(other._hasMinimumValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // IntArgumentDescriptor::IntArgumentDescriptor
 
-IntArgumentDescriptor::~IntArgumentDescriptor(void)
+IntArgumentDescriptor::~IntArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -122,7 +125,8 @@ IntArgumentDescriptor::~IntArgumentDescriptor(void)
 
 #if 0
 void
-IntArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
+IntArgumentDescriptor::addValueToBottle
+    (yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -132,8 +136,9 @@ IntArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 #endif//0
 
 SpBaseArgumentDescriptor
-IntArgumentDescriptor::clone(void)
-const
+IntArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<IntArgumentDescriptor>(*this);
@@ -143,7 +148,8 @@ const
 } // IntArgumentDescriptor::clone
 
 std::string
-IntArgumentDescriptor::getDefaultValue(void)
+IntArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result = std::to_string(_defaultValue);
@@ -153,7 +159,8 @@ IntArgumentDescriptor::getDefaultValue(void)
 } // IntArgumentDescriptor::getDefaultValue
 
 std::string
-IntArgumentDescriptor::getProcessedValue(void)
+IntArgumentDescriptor::getProcessedValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result = std::to_string(_currentValue);
@@ -163,7 +170,8 @@ IntArgumentDescriptor::getProcessedValue(void)
 } // IntArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
-IntArgumentDescriptor::parseArgString(const std::string &inString)
+IntArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -254,7 +262,8 @@ IntArgumentDescriptor::parseArgString(const std::string &inString)
 } // IntArgumentDescriptor::parseArgString
 
 void
-IntArgumentDescriptor::setToDefaultValue(void)
+IntArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -263,7 +272,8 @@ IntArgumentDescriptor::setToDefaultValue(void)
 } // IntArgumentDescriptor::setToDefaultValue
 
 void
-IntArgumentDescriptor::swap(IntArgumentDescriptor &other)
+IntArgumentDescriptor::swap
+    (IntArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -279,7 +289,8 @@ IntArgumentDescriptor::swap(IntArgumentDescriptor &other)
 } // IntArgumentDescriptor::swap
 
 std::string
-IntArgumentDescriptor::toString(void)
+IntArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("I"));
@@ -300,7 +311,8 @@ IntArgumentDescriptor::toString(void)
 } // IntArgumentDescriptor::toString
 
 bool
-IntArgumentDescriptor::validate(const std::string &value)
+IntArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     int64_t intValue;

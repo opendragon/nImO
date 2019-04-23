@@ -88,7 +88,8 @@ using std::endl;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -111,10 +112,11 @@ catchSignal(int signal)
  @param[in] expectedFlawString The expected Flaw result from the Message.
  @returns Zero on success and non-zero on failure. */
 static int
-attemptExtractValueAndCheck(Message           &stuff,
-                            const DataKind    *insertedContents,
-                            const size_t      insertedSize,
-                            const std::string &expectedFlawString)
+attemptExtractValueAndCheck
+    (Message           &stuff,
+     const DataKind    *insertedContents,
+     const size_t      insertedSize,
+     const std::string &expectedFlawString)
 {
     ODL_ENTER(); //####
     ODL_P2("stuff = ", &stuff, "insertedContents = ", insertedContents); //####
@@ -167,9 +169,10 @@ attemptExtractValueAndCheck(Message           &stuff,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageInitialEndTag(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // message wrong initial tag
+doTestMessageInitialEndTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message wrong initial tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -226,9 +229,10 @@ doTestMessageInitialEndTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageTerminalStartTag(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // message wrong terminal tag
+doTestMessageTerminalStartTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message wrong terminal tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -285,9 +289,10 @@ doTestMessageTerminalStartTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMessageWithContent(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // empty message with content
+doTestEmptyMessageWithContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty message with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -347,9 +352,10 @@ doTestEmptyMessageWithContent(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithoutContent(UNUSED_ const char *launchPath,
-                                    UNUSED_ const int  argc,
-                                    UNUSED_ char       **argv) // non-empty message without content
+doTestNonEmptyMessageWithoutContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // non-empty message without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -410,9 +416,10 @@ doTestNonEmptyMessageWithoutContent(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMismatchedInitialStartTag(UNUSED_ const char *launchPath,
-                                                   UNUSED_ const int  argc,
-                                                   UNUSED_ char       **argv) // message with mismatched tag
+doTestNonEmptyMessageWithMismatchedInitialStartTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with mismatched tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -476,9 +483,10 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag(UNUSED_ const char *launchPat
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMismatchedTerminalEndTag(UNUSED_ const char *launchPath,
-                                                  UNUSED_ const int  argc,
-                                                  UNUSED_ char       **argv) // message with mismatched tag
+doTestNonEmptyMessageWithMismatchedTerminalEndTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with mismatched tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -542,9 +550,10 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag(UNUSED_ const char *launchPath
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithInvalidContentTag(UNUSED_ const char *launchPath,
-                                           UNUSED_ const int  argc,
-                                           UNUSED_ char       **argv) // message with invalid content tag
+doTestNonEmptyMessageWithInvalidContentTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with invalid content tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -607,9 +616,10 @@ doTestNonEmptyMessageWithInvalidContentTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithZeroDoubleCount(UNUSED_ const char *launchPath,
-                                         UNUSED_ const int  argc,
-                                         UNUSED_ char       **argv) // message with bad double count
+doTestNonEmptyMessageWithZeroDoubleCount
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with bad double count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -674,10 +684,10 @@ doTestNonEmptyMessageWithZeroDoubleCount(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithStringWithInvalidLength(UNUSED_ const char *launchPath,
-                                                 UNUSED_ const int  argc,
-                                                 UNUSED_ char       **argv) // message with string with
-                                                                            // invalid length
+doTestNonEmptyMessageWithStringWithInvalidLength
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with string with invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -743,10 +753,10 @@ doTestNonEmptyMessageWithStringWithInvalidLength(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithBlobWithInvalidLength(UNUSED_ const char *launchPath,
-                                               UNUSED_ const int  argc,
-                                               UNUSED_ char       **argv) // message with blob with
-                                                                          // invalid length
+doTestNonEmptyMessageWithBlobWithInvalidLength
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with blob with invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -812,10 +822,10 @@ doTestNonEmptyMessageWithBlobWithInvalidLength(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithArrayWithInitialEndTag(UNUSED_ const char *launchPath,
-                                                UNUSED_ const int  argc,
-                                                UNUSED_ char       **argv) // message with array with
-                                                                           // initial end tag
+doTestNonEmptyMessageWithArrayWithInitialEndTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with array with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -884,10 +894,10 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithArrayWithTerminalStartTag(UNUSED_ const char *launchPath,
-                                                   UNUSED_ const int  argc,
-                                                   UNUSED_ char       **argv) // message with array with
-                                                                      // terminal start tag
+doTestNonEmptyMessageWithArrayWithTerminalStartTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with array with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -956,10 +966,10 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag(UNUSED_ const char *launchPat
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptyArrayWithContent(UNUSED_ const char *launchPath,
-                                               UNUSED_ const int  argc,
-                                               UNUSED_ char       **argv) // message with empty array with
-                                                                          // content
+doTestNonEmptyMessageWithEmptyArrayWithContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with empty array with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1031,10 +1041,10 @@ doTestNonEmptyMessageWithEmptyArrayWithContent(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(UNUSED_ const char *launchPath,
-                                                     UNUSED_ const int  argc,
-                                                     UNUSED_ char       **argv) // message with nonempty
-                                                                                // array without content
+doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty array without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1108,11 +1118,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(UNUSED_ const char *launchP
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(UNUSED_ const char *launchPath,
-                                                       UNUSED_ const int  argc,
-                                                       UNUSED_ char       **argv) // message with nonempty
-                                                                                  // array with invalid
-                                                                                  // count
+doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty array with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1185,10 +1194,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(UNUSED_ const char *launc
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(UNUSED_ const char *launchPath,
-                                                       UNUSED_ const int  argc,
-                                                       UNUSED_ char       **argv) // message with array with
-                                                                                  // too few values
+doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with array with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1268,10 +1277,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(UNUSED_ const char *launc
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *launchPath,
-                                                        UNUSED_ const int  argc,
-                                                        UNUSED_ char       **argv) // message with array
-                                                                                   // with too many values
+doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with array with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1354,10 +1363,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(UNUSED_ const char *laun
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(UNUSED_ const char *launchPath,
-                                                         UNUSED_ const int  argc,
-                                                         UNUSED_ char       **argv) // message with array
-                                                                                    // with too many doubles
+doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with array with too many doubles
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1450,10 +1459,10 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(UNUSED_ const char *lau
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMapWithInitialEndTag(UNUSED_ const char *launchPath,
-                                              UNUSED_ const int  argc,
-                                              UNUSED_ char       **argv) // message with map with
-                                                                         // initial end tag
+doTestNonEmptyMessageWithMapWithInitialEndTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with map with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1522,10 +1531,10 @@ doTestNonEmptyMessageWithMapWithInitialEndTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithMapWithTerminalStartTag(UNUSED_ const char *launchPath,
-                                                 UNUSED_ const int  argc,
-                                                 UNUSED_ char       **argv) // message with map with
-                                                                            // terminal start tag
+doTestNonEmptyMessageWithMapWithTerminalStartTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with map with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1594,10 +1603,10 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptyMapWithContent(UNUSED_ const char *launchPath,
-                                             UNUSED_ const int  argc,
-                                             UNUSED_ char       **argv) // message with empty map with
-                                                                        // content
+doTestNonEmptyMessageWithEmptyMapWithContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with empty map with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1669,10 +1678,10 @@ doTestNonEmptyMessageWithEmptyMapWithContent(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithoutContent(UNUSED_ const char *launchPath,
-                                                   UNUSED_ const int  argc,
-                                                   UNUSED_ char       **argv) // message with nonempty
-                                                                              // map without content
+doTestNonEmptyMessageWithNonEmptyMapWithoutContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty map without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1746,10 +1755,10 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent(UNUSED_ const char *launchPat
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(UNUSED_ const char *launchPath,
-                                                     UNUSED_ const int  argc,
-                                                     UNUSED_ char       **argv) // message with nonempty
-                                                                                // map with invalid count
+doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty map with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1822,10 +1831,10 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(UNUSED_ const char *launchP
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(UNUSED_ const char *launchPath,
-                                                     UNUSED_ const int  argc,
-                                                     UNUSED_ char       **argv) // message with map with
-                                                                                // too few values
+doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with map with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1911,10 +1920,10 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(UNUSED_ const char *launchP
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(UNUSED_ const char *launchPath,
-                                                      UNUSED_ const int  argc,
-                                                      UNUSED_ char       **argv) // message with map with
-                                                                                 // too many values
+doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with map with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2000,10 +2009,10 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(UNUSED_ const char *launch
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(UNUSED_ const char *launchPath,
-                                                       UNUSED_ const int  argc,
-                                                       UNUSED_ char       **argv) // message with map with
-                                                                                  // incomplete pair
+doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with map with incomplete pair
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2086,10 +2095,10 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(UNUSED_ const char *launc
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithSetWithInitialEndTag(UNUSED_ const char *launchPath,
-                                              UNUSED_ const int  argc,
-                                              UNUSED_ char       **argv) // message with set with
-                                                                         // initial end tag
+doTestNonEmptyMessageWithSetWithInitialEndTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with set with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2158,10 +2167,10 @@ doTestNonEmptyMessageWithSetWithInitialEndTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithSetWithTerminalStartTag(UNUSED_ const char *launchPath,
-                                                 UNUSED_ const int  argc,
-                                                 UNUSED_ char       **argv) // message with set with
-                                                                    // terminal start tag
+doTestNonEmptyMessageWithSetWithTerminalStartTag
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with set with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2230,10 +2239,10 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithEmptySetWithContent(UNUSED_ const char *launchPath,
-                                             UNUSED_ const int  argc,
-                                             UNUSED_ char       **argv) // message with empty set with
-                                                                        // content
+doTestNonEmptyMessageWithEmptySetWithContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with empty set with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2305,10 +2314,10 @@ doTestNonEmptyMessageWithEmptySetWithContent(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithoutContent(UNUSED_ const char *launchPath,
-                                                   UNUSED_ const int  argc,
-                                                   UNUSED_ char       **argv) // message with nonempty
-                                                                              // set without content
+doTestNonEmptyMessageWithNonEmptySetWithoutContent
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty set without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2382,10 +2391,10 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent(UNUSED_ const char *launchPat
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(UNUSED_ const char *launchPath,
-                                                     UNUSED_ const int  argc,
-                                                     UNUSED_ char       **argv) // message with nonempty
-                                                                                // set with invalid count
+doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with nonempty set with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2458,10 +2467,10 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(UNUSED_ const char *launchP
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(UNUSED_ const char *launchPath,
-                                                     UNUSED_ const int  argc,
-                                                     UNUSED_ char       **argv) // message with set with
-                                                                                // too few values
+doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with set with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2541,10 +2550,10 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(UNUSED_ const char *launchP
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(UNUSED_ const char *launchPath,
-                                                      UNUSED_ const int  argc,
-                                                      UNUSED_ char       **argv) // message with set with
-                                                                                 // too many values
+doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // message with set with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2626,7 +2635,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(UNUSED_ const char *launch
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

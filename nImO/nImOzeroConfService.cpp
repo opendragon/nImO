@@ -76,14 +76,16 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ZeroConfService::ZeroConfService(void) :
-    inherited()
+nImO::ZeroConfService::ZeroConfService
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::ZeroConfService::ZeroConfService
 
-nImO::ZeroConfService::~ZeroConfService(void)
+nImO::ZeroConfService::~ZeroConfService
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####

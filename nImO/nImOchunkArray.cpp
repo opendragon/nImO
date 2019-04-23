@@ -82,8 +82,9 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ChunkArray::ChunkArray(const bool padWithNull) :
-    _buffers(new BufferChunk *[1]), _numChunks(1), _cachedString(), _buffersArePadded(padWithNull)
+nImO::ChunkArray::ChunkArray
+    (const bool padWithNull) :
+        _buffers(new BufferChunk *[1]), _numChunks(1), _cachedString(), _buffersArePadded(padWithNull)
 {
     ODL_ENTER(); //####
     ODL_B1("padWithNull = ", padWithNull); //####
@@ -94,7 +95,8 @@ nImO::ChunkArray::ChunkArray(const bool padWithNull) :
     ODL_EXIT_P(this); //####
 } // nImO::ChunkArray::ChunkArray
 
-nImO::ChunkArray::~ChunkArray(void)
+nImO::ChunkArray::~ChunkArray
+    (void)
 {
     ODL_OBJENTER(); //####
     if (_buffers)
@@ -114,8 +116,9 @@ nImO::ChunkArray::~ChunkArray(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::ChunkArray::appendBytes(const uint8_t *data,
-                              const size_t  numBytes)
+nImO::ChunkArray::appendBytes
+    (const uint8_t *data,
+     const size_t  numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -181,8 +184,9 @@ nImO::ChunkArray::appendBytes(const uint8_t *data,
 } // nImO::ChunkArray::appendBytes
 
 bool
-nImO::ChunkArray::atEnd(const size_t index)
-const
+nImO::ChunkArray::atEnd
+    (const size_t index)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_I1("index = ", index); //####
@@ -216,9 +220,10 @@ const
 } // nImO::ChunkArray::atEnd
 
 int
-nImO::ChunkArray::getByte(const size_t index,
-                          bool         &atEnd)
-const
+nImO::ChunkArray::getByte
+    (const size_t index,
+     bool         &atEnd)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_I1("index = ", index); //####
@@ -258,7 +263,8 @@ const
 } // nImO::ChunkArray::getByte
 
 std::string
-nImO::ChunkArray::getBytes(void)
+nImO::ChunkArray::getBytes
+    (void)
 {
     ODL_OBJENTER(); //####
     if (0 == _cachedString.size())
@@ -288,8 +294,9 @@ nImO::ChunkArray::getBytes(void)
 } // nImO::ChunkArray::getBytes
 
 size_t
-nImO::ChunkArray::getLength(void)
-const
+nImO::ChunkArray::getLength
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     size_t totalLength = 0;
@@ -311,7 +318,8 @@ const
 } // nImO::ChunkArray::getLength
 
 nImO::ChunkArray &
-nImO::ChunkArray::reset(void)
+nImO::ChunkArray::reset
+    (void)
 {
     ODL_OBJENTER(); //####
     // Invalidate the cache.

@@ -88,7 +88,8 @@ using std::endl;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -111,10 +112,11 @@ catchSignal(int signal)
  @param[in] expectedValue The expected Value from the Message.
  @returns Zero on success and non-zero on failure. */
 static int
-extractValueAndCheck(Message        &stuff,
-                     const DataKind *insertedContents,
-                     const size_t   insertedSize,
-                     const Value    &expectedValue)
+extractValueAndCheck
+    (Message        &stuff,
+     const DataKind *insertedContents,
+     const size_t   insertedSize,
+     const Value    &expectedValue)
 {
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
@@ -206,9 +208,10 @@ extractValueAndCheck(Message        &stuff,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMessage(UNUSED_ const char *launchPath,
-                   UNUSED_ const int  argc,
-                   UNUSED_ char       **argv) // empty message
+doTestEmptyMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -317,9 +320,10 @@ doTestEmptyMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMessage(UNUSED_ const char *launchPath,
-                     UNUSED_ const int  argc,
-                     UNUSED_ char       **argv) // logical message
+doTestLogicalMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -407,9 +411,10 @@ doTestLogicalMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // tiny integer message
+doTestTinyIntegerMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // tiny integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -519,9 +524,10 @@ doTestTinyIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // small integer message
+doTestSmallIntegerMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -611,9 +617,10 @@ doTestSmallIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumIntegerMessage(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // medium integer message
+doTestMediumIntegerMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // medium integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -706,9 +713,10 @@ doTestMediumIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigIntegerMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // big integer message
+doTestBigIntegerMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // big integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -804,9 +812,10 @@ doTestBigIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // empty string message
+doTestEmptyStringMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -873,9 +882,10 @@ doTestEmptyStringMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestShortStringMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // short string message
+doTestShortStringMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // short string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -945,9 +955,10 @@ doTestShortStringMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumStringMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // medium string message
+doTestMediumStringMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // medium string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1037,9 +1048,10 @@ doTestMediumStringMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBlobMessage(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // empty blob message
+doTestEmptyBlobMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1106,9 +1118,10 @@ doTestEmptyBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBlobMessage(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // small blob message
+doTestSmallBlobMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1183,9 +1196,10 @@ doTestSmallBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumBlobMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // medium blob message
+doTestMediumBlobMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // medium blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1285,9 +1299,10 @@ doTestMediumBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingleDoubleMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // single double message
+doTestSingleDoubleMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // single double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1387,9 +1402,10 @@ doTestSingleDoubleMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // empty array message
+doTestEmptyArrayMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1460,9 +1476,10 @@ doTestEmptyArrayMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapMessage(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // empty map message
+doTestEmptyMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1533,9 +1550,10 @@ doTestEmptyMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetMessage(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // empty set message
+doTestEmptySetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1606,9 +1624,10 @@ doTestEmptySetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneLogicalMessage(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // array with one logical message
+doTestArrayOneLogicalMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1689,9 +1708,10 @@ doTestArrayOneLogicalMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneIntegerMessage(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // array with one integer message
+doTestArrayOneIntegerMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1772,9 +1792,10 @@ doTestArrayOneIntegerMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneDoubleMessage(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // array with one double message
+doTestArrayOneDoubleMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1860,9 +1881,10 @@ doTestArrayOneDoubleMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneStringMessage(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // array with one string message
+doTestArrayOneStringMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1944,9 +1966,10 @@ doTestArrayOneStringMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneBlobMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // array with one blob message
+doTestArrayOneBlobMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2028,9 +2051,10 @@ doTestArrayOneBlobMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayMessage(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // array with one array message
+doTestArrayOneArrayMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2116,9 +2140,10 @@ doTestArrayOneArrayMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // array with one map message
+doTestArrayOneMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2203,9 +2228,10 @@ doTestArrayOneMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetMessage(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // array with one set message
+doTestArrayOneSetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with one set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2290,9 +2316,10 @@ doTestArrayOneSetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // array with two logicals message
+doTestArrayTwoLogicalsMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two logicals message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2377,9 +2404,10 @@ doTestArrayTwoLogicalsMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // array with two integers message
+doTestArrayTwoIntegersMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two integers message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2464,9 +2492,10 @@ doTestArrayTwoIntegersMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // array with two doubles message
+doTestArrayTwoDoublesMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two doubles message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2557,9 +2586,10 @@ doTestArrayTwoDoublesMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoStringsMessage(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // array with two strings message
+doTestArrayTwoStringsMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two strings message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2646,9 +2676,10 @@ doTestArrayTwoStringsMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // array with two blobs message
+doTestArrayTwoBlobsMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two blobs message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2735,9 +2766,10 @@ doTestArrayTwoBlobsMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoArraysMessage(UNUSED_ const char *launchPath,
-                            UNUSED_ const int  argc,
-                            UNUSED_ char       **argv) // array with two arrays message
+doTestArrayTwoArraysMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two arrays message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2832,9 +2864,10 @@ doTestArrayTwoArraysMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoMapsMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // array with two maps message
+doTestArrayTwoMapsMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two maps message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2929,9 +2962,10 @@ doTestArrayTwoMapsMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoSetsMessage(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // array with two sets message
+doTestArrayTwoSetsMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with two sets message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3026,9 +3060,10 @@ doTestArrayTwoSetsMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
-                                 UNUSED_ const int  argc,
-                                 UNUSED_ char       **argv) // array with array and map message
+doTestArrayOneArrayOneMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with array and map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3123,9 +3158,10 @@ doTestArrayOneArrayOneMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
-                               UNUSED_ const int  argc,
-                               UNUSED_ char       **argv) // array with map and set message
+doTestArrayOneMapOneSetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with map and set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3220,9 +3256,10 @@ doTestArrayOneMapOneSetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
-                                 UNUSED_ const int  argc,
-                                 UNUSED_ char       **argv) // array with set and array message
+doTestArrayOneSetOneArrayMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with set and array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3317,9 +3354,10 @@ doTestArrayOneSetOneArrayMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
-                                  UNUSED_ const int  argc,
-                                  UNUSED_ char       **argv) // array with many doubles message
+doTestArrayWithManyDoublesMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with many doubles message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3578,9 +3616,10 @@ doTestArrayWithManyDoublesMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // logical map message
+doTestLogicalMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3663,9 +3702,10 @@ doTestLogicalMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // integer map message
+doTestIntegerMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3748,9 +3788,10 @@ doTestIntegerMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapMessage(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // string map message
+doTestStringMapMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3834,9 +3875,10 @@ doTestStringMapMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // logical set message
+doTestLogicalSetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3916,9 +3958,10 @@ doTestLogicalSetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetMessage(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // integer set message
+doTestIntegerSetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3998,9 +4041,10 @@ doTestIntegerSetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetMessage(UNUSED_ const char *launchPath,
-                       UNUSED_ const int  argc,
-                       UNUSED_ char       **argv) // string set message
+doTestStringSetMessage
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4081,9 +4125,10 @@ doTestStringSetMessage(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageWithArrayWithRangeOfIntegers(UNUSED_ const char *launchPath,
-                                          UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // array with range of integers
+doTestMessageWithArrayWithRangeOfIntegers
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with range of integers
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4429,7 +4474,8 @@ doTestMessageWithArrayWithRangeOfIntegers(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

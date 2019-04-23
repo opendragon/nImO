@@ -33,7 +33,8 @@ using namespace Option_;
 
 #if defined(_MSC_VER)
 # pragma intrinsic(_BitScanReverse)
-int MSC_Builtin_CLZ::builtin_clz(const unsigned xx)
+int MSC_Builtin_CLZ::builtin_clz
+    (const unsigned xx)
 {
     unsigned long index;
 
@@ -42,19 +43,21 @@ int MSC_Builtin_CLZ::builtin_clz(const unsigned xx)
 } // MSC_Builtin_CLZ::builtin_clz
 #endif // defined(_MSC_VER)
 
-Descriptor::Descriptor(const unsigned index_,
-                       const int      type_,
-                       const char     *const shortopt_,
-                       const char     *const longopt_,
-                       const CheckArg check_arg_,
-                       const char     *help_) :
-    index(index_), type(type_), shortopt(shortopt_), longopt(longopt_), check_arg(check_arg_),
-    help(help_)
+Descriptor::Descriptor
+    (const unsigned         index_,
+     const int              type_,
+     const char     *const  shortopt_,
+     const char     *const  longopt_,
+     const CheckArg         check_arg_,
+     const char             *help_) :
+        index(index_), type(type_), shortopt(shortopt_), longopt(longopt_), check_arg(check_arg_),
+        help(help_)
 {
 } // Descriptor::Descriptor
 
 void
-Option::append(Option *new_last)
+Option::append
+    (Option *new_last)
 {
     Option *pp = last();
     Option *ff = first();
@@ -66,7 +69,8 @@ Option::append(Option *new_last)
 } // Option::append
 
 int
-Option::count(void)
+Option::count
+    (void)
 {
     int cc = (desc ? 1 : 0);
 
@@ -78,7 +82,8 @@ Option::count(void)
 } // Option::count
 
 Option *
-Option::first(void)
+Option::first
+    (void)
 {
     Option *pp = this;
 
@@ -89,9 +94,10 @@ Option::first(void)
 } // Option::first
 
 void
-Option::init(const Descriptor *desc_,
-             const char       *name_,
-             const char       *arg_)
+Option::init
+    (const Descriptor *desc_,
+     const char       *name_,
+     const char       *arg_)
 {
     desc = desc_;
     name = name_;
@@ -112,85 +118,95 @@ Option::init(const Descriptor *desc_,
     }
 } // Option::init
 
-Option::Option(void) :
-    desc(nullptr), name(nullptr), arg(nullptr), namelen(0)
+Option::Option
+    (void) :
+        desc(nullptr), name(nullptr), arg(nullptr), namelen(0)
 {
     prev_ = tag(this);
     next_ = tag(this);
 } // Option::Option
 
-Option::Option(const Descriptor *desc_,
-               const char       *name_,
-               const char       *arg_)
+Option::Option
+    (const Descriptor *desc_,
+     const char       *name_,
+     const char       *arg_)
 {
     init(desc_, name_, arg_);
 } // Option::Option
 
-Option::Option(const Option &orig)
+Option::Option
+    (const Option &orig)
 {
     init(orig.desc, orig.name, orig.arg);
 } // Option::Option
 
 void
-Option::operator =(const Option &orig)
+Option::operator =
+    (const Option &orig)
 {
     init(orig.desc, orig.name, orig.arg);
 } // Option::operator =
 
-Stats::Stats(void) :
-    buffer_max(1), options_max(1) // 1 more than necessary as sentinel
+Stats::Stats
+    (void) :
+        buffer_max(1), options_max(1) // 1 more than necessary as sentinel
 {
 } // Stats::Stats
 
-Stats::Stats(const bool       gnu,
-             const Descriptor *usage,
-             const int        argc,
-             const char       **argv,
-             const int        min_abbr_len,
-             const bool       single_minus_longopt) :
-    buffer_max(1), options_max(1) // 1 more than necessary as sentinel
+Stats::Stats
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt) :
+        buffer_max(1), options_max(1) // 1 more than necessary as sentinel
 {
     add(gnu, usage, argc, argv, min_abbr_len, single_minus_longopt);
 } // Stats::Stats
 
-Stats::Stats(const bool       gnu,
-             const Descriptor *usage,
-             const int        argc,
-             char             **argv,
-             const int        min_abbr_len,
-             const bool       single_minus_longopt) :
-    buffer_max(1), options_max(1) // 1 more than necessary as sentinel
+Stats::Stats
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt) :
+        buffer_max(1), options_max(1) // 1 more than necessary as sentinel
 {
     add(gnu, usage, argc, const_cast<const char **>(argv), min_abbr_len, single_minus_longopt);
 } // Stats::Stats
 
-Stats::Stats(const Descriptor *usage,
-             const int        argc,
-             const char       **argv,
-             const int        min_abbr_len,
-             const bool       single_minus_longopt) :
-    buffer_max(1), options_max(1) // 1 more than necessary as sentinel
+Stats::Stats
+    (const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt) :
+        buffer_max(1), options_max(1) // 1 more than necessary as sentinel
 {
     add(false, usage, argc, argv, min_abbr_len, single_minus_longopt);
 } // Stats::Stats
 
-Stats::Stats(const Descriptor *usage,
-             const int        argc,
-             char             **argv,
-             const int        min_abbr_len,
-             const bool       single_minus_longopt) :
-    buffer_max(1), options_max(1) // 1 more than necessary as sentinel
+Stats::Stats
+    (const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt) :
+        buffer_max(1), options_max(1) // 1 more than necessary as sentinel
 {
     add(false, usage, argc, const_cast<const char **>(argv), min_abbr_len, single_minus_longopt);
 } // Stats::Stats
 
 void
-Stats::add(const bool       gnu,
-           const Descriptor *usage,
-           const int        argc,
-           const char       **argv,
-           const int        min_abbr_len,
-           const bool       single_minus_longopt)
+Stats::add
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt)
 {
     // determine size of options array. This is the greatest index used in the usage + 1
     for (int ii = 0; usage[ii].shortopt; ++ii)
@@ -206,107 +222,116 @@ Stats::add(const bool       gnu,
 } // Stats::add
 
 void
-Stats::add(const bool       gnu,
-           const Descriptor *usage,
-           const int        argc,
-           char             **argv,
-           const int        min_abbr_len,
-           const bool       single_minus_longopt)
+Stats::add
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt)
 {
     add(gnu, usage, argc, const_cast<const char **>(argv), min_abbr_len, single_minus_longopt);
 } // Stats::add
 
 void
-Stats::add(const Descriptor *usage,
-           const int        argc,
-           const char       **argv,
-           const int        min_abbr_len,
-           const bool       single_minus_longopt)
+Stats::add
+    (const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt)
 {
     add(false, usage, argc, argv, min_abbr_len, single_minus_longopt);
 } // Stats::add
 
 void
-Stats::add(const Descriptor *usage,
-           const int        argc,
-           char             **argv,
-           const int        min_abbr_len,
-           const bool       single_minus_longopt)
+Stats::add
+    (const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt)
 {
     add(false, usage, argc, const_cast<const char **>(argv), min_abbr_len, single_minus_longopt);
 } // Stats::add
 
-Parser::Parser(void) :
-    op_count(0), nonop_count(0), nonop_args(0), err(false)
+Parser::Parser
+    (void) :
+        op_count(0), nonop_count(0), nonop_args(0), err(false)
 {
 } // Parser::Parser
 
-Parser::Parser(const bool       gnu,
-               const Descriptor *usage,
-               const int        argc,
-               const char       **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len,
-               const bool       single_minus_longopt,
-               const int        bufmax) :
-    op_count(0), nonop_count(0), nonop_args(0), err(false)
+Parser::Parser
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax) :
+        op_count(0), nonop_count(0), nonop_args(0), err(false)
 {
     parse(gnu, usage, argc, argv, options, buffer, min_abbr_len, single_minus_longopt, bufmax);
 } // Parser::Parser
 
-Parser::Parser(const bool       gnu,
-               const Descriptor *usage,
-               const int        argc,
-               char             **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len,
-               const bool       single_minus_longopt,
-               const int        bufmax) :
-    op_count(0), nonop_count(0), nonop_args(0), err(false)
+Parser::Parser
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax) :
+        op_count(0), nonop_count(0), nonop_args(0), err(false)
 {
     parse(gnu, usage, argc, const_cast<const char **>(argv), options, buffer, min_abbr_len,
           single_minus_longopt, bufmax);
 } // Parser::Parser
 
-Parser::Parser(const Descriptor *usage,
-               const int        argc,
-               const char       **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len,
-               const bool       single_minus_longopt,
-               const int        bufmax) :
-    op_count(0), nonop_count(0), nonop_args(0), err(false)
+Parser::Parser
+    (const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax) :
+        op_count(0), nonop_count(0), nonop_args(0), err(false)
 {
     parse(false, usage, argc, argv, options, buffer, min_abbr_len, single_minus_longopt, bufmax);
 } // Parser::Parser
 
-Parser::Parser(const Descriptor *usage,
-               const int        argc,
-               char             **argv,
-               Option           *options,
-               Option           *buffer,
-               const int        min_abbr_len,
-               const bool       single_minus_longopt,
-               const int        bufmax) :
-    op_count(0), nonop_count(0), nonop_args(0), err(false)
+Parser::Parser
+    (const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax) :
+        op_count(0), nonop_count(0), nonop_args(0), err(false)
 {
     parse(false, usage, argc, const_cast<const char **>(argv), options, buffer, min_abbr_len,
           single_minus_longopt, bufmax);
 } // Parser::Parser
 
 void
-Parser::parse(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len,
-              const bool       single_minus_longopt,
-              const int        bufmax)
+Parser::parse
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax)
 {
     StoreOptionAction action(*this, options, buffer, bufmax);
 
@@ -314,56 +339,60 @@ Parser::parse(const bool       gnu,
 } // Parser::parse
 
 void
-Parser::parse(const bool       gnu,
-              const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len,
-              const bool       single_minus_longopt,
-              const int        bufmax)
+Parser::parse
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax)
 {
     parse(gnu, usage, argc, const_cast<const char **>(argv), options, buffer, min_abbr_len,
           single_minus_longopt, bufmax);
 } // Parser::parse
 
 void
-Parser::parse(const Descriptor *usage,
-              const int        argc,
-              const char       **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len,
-              const bool       single_minus_longopt,
-              const int        bufmax)
+Parser::parse
+    (const Descriptor *usage,
+     const int        argc,
+     const char       **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax)
 {
     parse(false, usage, argc, argv, options, buffer, min_abbr_len, single_minus_longopt, bufmax);
 } // Parser::parse
 
 void
-Parser::parse(const Descriptor *usage,
-              const int        argc,
-              char             **argv,
-              Option           *options,
-              Option           *buffer,
-              const int        min_abbr_len,
-              const bool       single_minus_longopt,
-              const int        bufmax)
+Parser::parse
+    (const Descriptor *usage,
+     const int        argc,
+     char             **argv,
+     Option           *options,
+     Option           *buffer,
+     const int        min_abbr_len,
+     const bool       single_minus_longopt,
+     const int        bufmax)
 {
     parse(false, usage, argc, const_cast<const char **>(argv), options, buffer, min_abbr_len,
           single_minus_longopt, bufmax);
 } // Parser::parse
 
 bool
-Parser::workhorse(const bool       gnu,
-                  const Descriptor *usage,
-                  const int        numargsIn,
-                  const char       **args,
-                  Action           &action,
-                  const bool       single_minus_longopt,
-                  const bool       print_errors,
-                  const int        min_abbr_len)
+Parser::workhorse
+    (const bool       gnu,
+     const Descriptor *usage,
+     const int        numargsIn,
+     const char       **args,
+     Action           &action,
+     const bool       single_minus_longopt,
+     const bool       print_errors,
+     const int        min_abbr_len)
 {
     int numargs = numargsIn;
     int nonops = 0;
@@ -586,8 +615,9 @@ Parser::workhorse(const bool       gnu,
 } // Parser::workhorse
 
 bool
-Parser::streq(const char *st1,
-              const char *st2)
+Parser::streq
+    (const char *st1,
+     const char *st2)
 {
     for ( ; *st1; )
     {
@@ -600,9 +630,10 @@ Parser::streq(const char *st1,
 } // Parser::streq
 
 bool
-Parser::streqabbr(const char   *st1,
-                  const char   *st2,
-                  const size_t min)
+Parser::streqabbr
+    (const char   *st1,
+     const char   *st2,
+     const size_t min)
 {
     const char *st1start = st1;
 
@@ -616,8 +647,9 @@ Parser::streqabbr(const char   *st1,
 } // Parser::streqabbr
 
 bool
-Parser::instr(const char ch,
-              const char *st)
+Parser::instr
+    (const char ch,
+     const char *st)
 {
     for ( ; *st && (ch != *st); )
     {
@@ -627,8 +659,9 @@ Parser::instr(const char ch,
 } // Parser::instr
 
 void
-Parser::shift(const char **args,
-              const int  count)
+Parser::shift
+    (const char **args,
+     const int  count)
 {
     for (int ii = 0; ii > (- count); --ii)
     {
@@ -640,8 +673,9 @@ Parser::shift(const char **args,
 } // Parser::shift
 
 bool
-Parser::Action::finished(const int  numargs,
-                         const char **args)
+Parser::Action::finished
+    (const int  numargs,
+     const char **args)
 {
     (void) numargs;
     (void) args;
@@ -654,13 +688,15 @@ Parser::Action::perform(Option &)
     return true;
 } // Parser::Action::perform
 
-Stats::CountOptionsAction::CountOptionsAction(unsigned *buffer_max_) :
-    buffer_max(buffer_max_)
+Stats::CountOptionsAction::CountOptionsAction
+    (unsigned *buffer_max_) :
+        buffer_max(buffer_max_)
 {
 } // Stats::CountOptionsAction::CountOptionsAction
 
 bool
-Stats::CountOptionsAction::perform(Option &)
+Stats::CountOptionsAction::perform
+    (Option &)
 {
     if (0x7fffffff == *buffer_max)
     {
@@ -671,11 +707,12 @@ Stats::CountOptionsAction::perform(Option &)
     return true;
 } // Stats::CountOptionsAction::perform
 
-Parser::StoreOptionAction::StoreOptionAction(Parser    &parser_,
-                                             Option    *options_,
-                                             Option    *buffer_,
-                                             const int bufmax_) :
-    parser(parser_), options(options_), buffer(buffer_), bufmax(bufmax_)
+Parser::StoreOptionAction::StoreOptionAction
+    (Parser    &parser_,
+     Option    *options_,
+     Option    *buffer_,
+     const int bufmax_) :
+        parser(parser_), options(options_), buffer(buffer_), bufmax(bufmax_)
 {
     // find first empty slot in buffer (if any)
     int bufidx = 0;
@@ -689,8 +726,9 @@ Parser::StoreOptionAction::StoreOptionAction(Parser    &parser_,
 } // Parser::StoreOptionAction::StoreOptionAction
 
 bool
-Parser::StoreOptionAction::finished(const int  numargs,
-                                    const char **args)
+Parser::StoreOptionAction::finished
+    (const int  numargs,
+     const char **args)
 {
     // only overwrite non-option argument list if there's at least 1
     // new non-option argument. Otherwise we keep the old list. This
@@ -704,7 +742,8 @@ Parser::StoreOptionAction::finished(const int  numargs,
 } // Parser::StoreOptionAction::finished
 
 bool
-Parser::StoreOptionAction::perform(Option &option)
+Parser::StoreOptionAction::perform
+    (Option &option)
 {
     if ((bufmax < 0) || (parser.op_count < bufmax))
     {
@@ -731,15 +770,17 @@ Parser::StoreOptionAction::perform(Option &option)
 } // Parser::StoreOptionAction::perform
 
 void
-PrintUsageImplementation::IStringWriter::operator ()(const char *,
-                                                     const int)
+PrintUsageImplementation::IStringWriter::operator ()
+    (const char *,
+     const int)
 {
 } // PrintUsageImplementation::IStringWriter::operator ()
 
 void
-PrintUsageImplementation::indent(IStringWriter &write,
-                                 int           &xx,
-                                 const int     want_x)
+PrintUsageImplementation::indent
+    (IStringWriter &write,
+     int           &xx,
+     const int     want_x)
 {
     int indent = want_x - xx;
 
@@ -761,7 +802,8 @@ PrintUsageImplementation::indent(IStringWriter &write,
 } // PrintUsageImplementation::indent
 
 bool
-PrintUsageImplementation::isWideChar(const unsigned ch)
+PrintUsageImplementation::isWideChar
+    (const unsigned ch)
 {
     if (0x303F == ch)
     {
@@ -776,7 +818,8 @@ PrintUsageImplementation::isWideChar(const unsigned ch)
 } // PrintUsageImplementation::isWideChar
 
 void
-PrintUsageImplementation::LinePartIterator::update_length(void)
+PrintUsageImplementation::LinePartIterator::update_length
+    (void)
 {
     screenlen = 0;
     for (len = 0; ptr[len] && ('\v' != ptr[len]) && ('\t' != ptr[len]) && ('\n' != ptr[len]); ++len)
@@ -809,14 +852,16 @@ PrintUsageImplementation::LinePartIterator::update_length(void)
     }
 } // PrintUsageImplementation::LinePartIterator::update_length
 
-PrintUsageImplementation::LinePartIterator::LinePartIterator(const Descriptor *usage) :
-    tablestart(usage), rowdesc(0), rowstart(0), ptr(0), col(-1), len(0), max_line_in_block(0),
-    line_in_block(0), target_line_in_block(0), hit_target_line(true)
+PrintUsageImplementation::LinePartIterator::LinePartIterator
+    (const Descriptor *usage) :
+        tablestart(usage), rowdesc(0), rowstart(0), ptr(0), col(-1), len(0), max_line_in_block(0),
+        line_in_block(0), target_line_in_block(0), hit_target_line(true)
 {
 } // PrintUsageImplementation::LinePartIterator::LinePartIterator
 
 bool
-PrintUsageImplementation::LinePartIterator::nextTable(void)
+PrintUsageImplementation::LinePartIterator::nextTable
+    (void)
 {
     // If this is NOT the first time nextTable() is called after the constructor,
     // then skip to the next table break (i.e. a Descriptor with help == 0)
@@ -837,7 +882,8 @@ PrintUsageImplementation::LinePartIterator::nextTable(void)
 } // PrintUsageImplementation::LinePartIterator::nextTable
 
 void
-PrintUsageImplementation::LinePartIterator::restartTable(void)
+PrintUsageImplementation::LinePartIterator::restartTable
+    (void)
 {
     rowdesc = tablestart;
     rowstart = tablestart->help;
@@ -845,7 +891,8 @@ PrintUsageImplementation::LinePartIterator::restartTable(void)
 } // PrintUsageImplementation::LinePartIterator::restartTable
 
 bool
-PrintUsageImplementation::LinePartIterator::nextRow(void)
+PrintUsageImplementation::LinePartIterator::nextRow
+    (void)
 {
     if (! ptr)
     {
@@ -877,7 +924,8 @@ PrintUsageImplementation::LinePartIterator::nextRow(void)
 } // PrintUsageImplementation::LinePartIterator::nextRow
 
 void
-PrintUsageImplementation::LinePartIterator::restartRow(void)
+PrintUsageImplementation::LinePartIterator::restartRow
+    (void)
 {
     ptr = rowstart;
     col = -1;
@@ -890,7 +938,8 @@ PrintUsageImplementation::LinePartIterator::restartRow(void)
 } // PrintUsageImplementation::LinePartIterator::restartRow
 
 bool
-PrintUsageImplementation::LinePartIterator::next(void)
+PrintUsageImplementation::LinePartIterator::next
+    (void)
 {
     if (! ptr)
     {
@@ -969,8 +1018,9 @@ PrintUsageImplementation::LinePartIterator::next(void)
 } // PrintUsageImplementation::LinePartIterator::next
 
 void
-PrintUsageImplementation::LineWrapper::buf_store(const char *data,
-                                                 const int  len)
+PrintUsageImplementation::LineWrapper::buf_store
+    (const char *data,
+     const int  len)
 {
     lenbuf[head] = len;
     datbuf[head] = data;
@@ -978,9 +1028,10 @@ PrintUsageImplementation::LineWrapper::buf_store(const char *data,
 } // PrintUsageImplementation::LineWrapper::buf_store
 
 void
-PrintUsageImplementation::LineWrapper::output(IStringWriter &write,
-                                              const char    *data,
-                                              const int     len)
+PrintUsageImplementation::LineWrapper::output
+    (IStringWriter &write,
+     const char    *data,
+     const int     len)
 {
     if (buf_full())
     {
@@ -990,7 +1041,8 @@ PrintUsageImplementation::LineWrapper::output(IStringWriter &write,
 } // PrintUsageImplementation::LineWrapper::output
 
 void
-PrintUsageImplementation::LineWrapper::write_one_line(IStringWriter &write)
+PrintUsageImplementation::LineWrapper::write_one_line
+    (IStringWriter &write)
 {
     if (wrote_something) // if we already wrote something, we need to start a new line
     {
@@ -1008,7 +1060,8 @@ PrintUsageImplementation::LineWrapper::write_one_line(IStringWriter &write)
 } // PrintUsageImplementation::LineWrapper::write_one_line
 
 void
-PrintUsageImplementation::LineWrapper::flush(IStringWriter &write)
+PrintUsageImplementation::LineWrapper::flush
+    (IStringWriter &write)
 {
     if (! buf_empty())
     {
@@ -1025,9 +1078,10 @@ PrintUsageImplementation::LineWrapper::flush(IStringWriter &write)
 } // PrintUsageImplementation::LineWrapper::flush
 
 void
-PrintUsageImplementation::LineWrapper::process(IStringWriter &write,
-                                               const char    *data,
-                                               int           len)
+PrintUsageImplementation::LineWrapper::process
+    (IStringWriter &write,
+     const char    *data,
+     int           len)
 {
     wrote_something = false;
     for ( ; len > 0 ; )
@@ -1124,9 +1178,10 @@ PrintUsageImplementation::LineWrapper::process(IStringWriter &write,
     }
 } // PrintUsageImplementation::LineWrapper::process
 
-PrintUsageImplementation::LineWrapper::LineWrapper(const int x1,
-                                                   const int x2) :
-    x(x1), width(x2 - x1), head(0), tail(bufmask)
+PrintUsageImplementation::LineWrapper::LineWrapper
+    (const int x1,
+     const int x2) :
+        x(x1), width(x2 - x1), head(0), tail(bufmask)
 {
     if (width < 2)
     {
@@ -1136,11 +1191,12 @@ PrintUsageImplementation::LineWrapper::LineWrapper(const int x1,
 } // PrintUsageImplementation::LineWrapper::LineWrapper
 
 void
-PrintUsageImplementation::printUsage(IStringWriter    &write,
-                                     const Descriptor *usage,
-                                     const int        widthIn,
-                                     const int        last_column_min_percent,
-                                     const int        last_column_own_line_max_percent)
+PrintUsageImplementation::printUsage
+    (IStringWriter    &write,
+     const Descriptor *usage,
+     const int        widthIn,
+     const int        last_column_min_percent,
+     const int        last_column_own_line_max_percent)
 {
     int width = widthIn;
 

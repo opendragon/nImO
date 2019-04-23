@@ -82,30 +82,34 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Integer::Integer(void) :
-    inherited(), _intValue(0)
+nImO::Integer::Integer
+    (void) :
+        inherited(), _intValue(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
-nImO::Integer::Integer(const int64_t initialValue) :
-    inherited(), _intValue(initialValue)
+nImO::Integer::Integer
+    (const int64_t initialValue) :
+        inherited(), _intValue(initialValue)
 {
     ODL_ENTER(); //####
     ODL_I1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
-nImO::Integer::Integer(const nImO::Integer &other) :
-    inherited(), _intValue(other._intValue)
+nImO::Integer::Integer
+    (const nImO::Integer &other) :
+        inherited(), _intValue(other._intValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
-nImO::Integer::~Integer(void)
+nImO::Integer::~Integer
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -116,8 +120,9 @@ nImO::Integer::~Integer(void)
 #endif // defined(__APPLE__)
 
 const nImO::Integer *
-nImO::Integer::asInteger(void)
-const
+nImO::Integer::asInteger
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -125,8 +130,9 @@ const
 } // nImO::Integer::asInteger
 
 bool
-nImO::Integer::deeplyEqualTo(const nImO::Value &other)
-const
+nImO::Integer::deeplyEqualTo
+    (const nImO::Value &other)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -146,8 +152,9 @@ const
 } // nImO::Integer::deeplyEqualTo
 
 nImO::Enumerable
-nImO::Integer::enumerationType(void)
-const
+nImO::Integer::enumerationType
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::Integer;
@@ -157,9 +164,10 @@ const
 } // nImO::Integer::enumerationType
 
 bool
-nImO::Integer::equalTo(const nImO::Value &other,
-                       bool              &validComparison)
-const
+nImO::Integer::equalTo
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -210,10 +218,11 @@ const
 } // nImO::Integer::equalTo
 
 nImO::SpValue
-nImO::Integer::extractValue(const nImO::Message &theMessage,
-                            const int           leadByte,
-                            size_t              &position,
-                            nImO::SpArray       parentValue)
+nImO::Integer::extractValue
+    (const nImO::Message &theMessage,
+     const int           leadByte,
+     size_t              &position,
+     nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -242,9 +251,10 @@ nImO::Integer::extractValue(const nImO::Message &theMessage,
 } // nImO::Integer::extractValue
 
 void
-nImO::Integer::getExtractionInfo(DataKind               &aByte,
-                                 DataKind               &aMask,
-                                 nImO::Value::Extractor &theExtractor)
+nImO::Integer::getExtractionInfo
+    (DataKind               &aByte,
+     DataKind               &aMask,
+     nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -255,8 +265,9 @@ nImO::Integer::getExtractionInfo(DataKind               &aByte,
 } // nImO::Integer::getExtractionInfo
 
 nImO::DataKind
-nImO::Integer::getTypeTag(void)
-const
+nImO::Integer::getTypeTag
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedIntegerValue;
@@ -266,9 +277,10 @@ const
 } // nImO::Integer::getTypeTag
 
 bool
-nImO::Integer::greaterThan(const nImO::Value &other,
-                           bool              &validComparison)
-const
+nImO::Integer::greaterThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -320,9 +332,10 @@ const
 } // nImO::Integer::greaterThan
 
 bool
-nImO::Integer::greaterThanOrEqual(const nImO::Value &other,
-                                  bool              &validComparison)
-const
+nImO::Integer::greaterThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -373,9 +386,10 @@ const
 } // nImO::Integer::greaterThanOrEqual
 
 bool
-nImO::Integer::lessThan(const nImO::Value &other,
-                        bool              &validComparison)
-const
+nImO::Integer::lessThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -427,9 +441,10 @@ const
 } // nImO::Integer::lessThan
 
 bool
-nImO::Integer::lessThanOrEqual(const nImO::Value &other,
-                               bool              &validComparison)
-const
+nImO::Integer::lessThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -484,9 +499,10 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Integer::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                   UNUSED_ const bool squished)
-const
+nImO::Integer::printToStringBuffer
+    (nImO::StringBuffer &outBuffer,
+     UNUSED_ const bool squished)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -499,8 +515,9 @@ const
 #endif // ! MAC_OR_LINUX_
 
 void
-nImO::Integer::writeToMessage(nImO::Message &outMessage)
-const
+nImO::Integer::writeToMessage
+    (nImO::Message &outMessage)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####

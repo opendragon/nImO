@@ -80,8 +80,9 @@ using namespace nImO;
  @param[in,out] buffer The array to be swapped.
  @param[in] bufferSize The number of elements in the array. */
 static void
-swapBytes(uint8_t      *buffer,
-          const size_t bufferSize)
+swapBytes
+    (uint8_t      *buffer,
+     const size_t bufferSize)
 {
     for (size_t ii = 0; ii < (bufferSize / 2); ++ii)
     {
@@ -106,9 +107,10 @@ swapBytes(uint8_t      *buffer,
 #endif // defined(__APPLE__)
 
 size_t
-nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
-                                 const uint8_t *end,
-                                 const double  value)
+nImO::ConvertDoubleToPacketOrder
+    (uint8_t       *start,
+     const uint8_t *end,
+     const double  value)
 {
     size_t  result;
 
@@ -143,9 +145,10 @@ nImO::ConvertDoubleToPacketOrder(uint8_t       *start,
 } /* nImO:ConvertDoubleToPacketOrder */
 
 size_t
-nImO::ConvertInt64ToPacketOrder(uint8_t       *start,
-                                const uint8_t *end,
-                                const int64_t value)
+nImO::ConvertInt64ToPacketOrder
+    (uint8_t       *start,
+     const uint8_t *end,
+     const int64_t value)
 {
     size_t  result;
     uint8_t buffer[sizeof(int64_t)];
@@ -218,9 +221,10 @@ nImO::ConvertInt64ToPacketOrder(uint8_t       *start,
 } /* nImO:ConvertInt64ToPacketOrder */
    
 size_t
-nImO::ConvertPacketOrderToDouble(const uint8_t *start,
-                                 const uint8_t *end,
-                                 double        &value)
+nImO::ConvertPacketOrderToDouble
+    (const uint8_t *start,
+     const uint8_t *end,
+     double        &value)
 {
     size_t  result;
     
@@ -247,9 +251,10 @@ nImO::ConvertPacketOrderToDouble(const uint8_t *start,
 } /* nImO:ConvertPacketOrderToDouble */
 
 size_t
-nImO::ConvertPacketOrderToInt64(const uint8_t *start,
-                                const uint8_t *end,
-                                int64_t       &value)
+nImO::ConvertPacketOrderToInt64
+    (const uint8_t *start,
+     const uint8_t *end,
+     int64_t       &value)
 {
     size_t  result;
     

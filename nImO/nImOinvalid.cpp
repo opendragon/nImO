@@ -76,17 +76,19 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Invalid::Invalid(const std::string &description) :
-    inherited(), _description(description)
+nImO::Invalid::Invalid
+    (const std::string &description) :
+        inherited(), _description(description)
 {
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
-nImO::Invalid::Invalid(const std::string &description,
-                       const int64_t     associatedValue) :
-    inherited(), _description(description)
+nImO::Invalid::Invalid
+    (const std::string &description,
+     const int64_t     associatedValue) :
+        inherited(), _description(description)
 {
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
@@ -95,7 +97,8 @@ nImO::Invalid::Invalid(const std::string &description,
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
-nImO::Invalid::~Invalid(void)
+nImO::Invalid::~Invalid
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -106,8 +109,9 @@ nImO::Invalid::~Invalid(void)
 #endif // defined(__APPLE__)
 
 std::string
-nImO::Invalid::getDescription(void)
-const
+nImO::Invalid::getDescription
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(_description); //####

@@ -108,9 +108,10 @@ static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageV
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Message::Message(void) :
-    inherited(false), _lock(), _cachedTransmissionString(), _readPosition(0),
-    _state(MessageState::Unknown), _headerAdded(false)
+nImO::Message::Message
+    (void) :
+        inherited(false), _lock(), _cachedTransmissionString(), _readPosition(0),
+        _state(MessageState::Unknown), _headerAdded(false)
 {
     ODL_ENTER(); //####
     ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
@@ -118,7 +119,8 @@ nImO::Message::Message(void) :
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
-nImO::Message::~Message(void)
+nImO::Message::~Message
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -129,8 +131,9 @@ nImO::Message::~Message(void)
 #endif // defined(__APPLE__)
 
 void
-nImO::Message::appendBytes(const uint8_t *data,
-                           const size_t  numBytes)
+nImO::Message::appendBytes
+    (const uint8_t *data,
+     const size_t  numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -143,7 +146,8 @@ nImO::Message::appendBytes(const uint8_t *data,
 } // nImO::Message::appendBytes
 
 nImO::Message &
-nImO::Message::close(void)
+nImO::Message::close
+    (void)
 {
     ODL_OBJENTER(); //####
     switch (_state)
@@ -177,7 +181,8 @@ nImO::Message::close(void)
 } // nImO::Message::close
 
 std::string
-nImO::Message::getBytes(void)
+nImO::Message::getBytes
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result;
@@ -194,7 +199,8 @@ nImO::Message::getBytes(void)
 } // nImO::Message:getBytes
 
 std::string
-nImO::Message::getBytesForTransmission(void)
+nImO::Message::getBytesForTransmission
+    (void)
 {
     ODL_OBJENTER(); //####
     if (0 == _cachedTransmissionString.size())
@@ -284,8 +290,9 @@ nImO::Message::getBytesForTransmission(void)
 } // nImO::Message::getBytesForTransmission
 
 size_t
-nImO::Message::getLength(void)
-const
+nImO::Message::getLength
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     size_t totalLength;
@@ -305,7 +312,8 @@ const
 } // nImO::Message::getLength
 
 nImO::SpValue
-nImO::Message::getValue(const bool allowClosed)
+nImO::Message::getValue
+    (const bool allowClosed)
 {
     ODL_OBJENTER(); //####
     SpValue result;
@@ -449,7 +457,8 @@ nImO::Message::getValue(const bool allowClosed)
 } // nImO::Message::getValue
 
 nImO::Message &
-nImO::Message::open(const bool forWriting)
+nImO::Message::open
+    (const bool forWriting)
 {
     ODL_OBJENTER(); //####
     ODL_B1("forWriting = ", forWriting); //####
@@ -467,7 +476,8 @@ nImO::Message::open(const bool forWriting)
 } // nImO::Message::open
 
 nImO::ChunkArray &
-nImO::Message::reset(void)
+nImO::Message::reset
+    (void)
 {
     ODL_OBJENTER(); //####
     // Invalidate the cache.
@@ -484,7 +494,8 @@ nImO::Message::reset(void)
 } // nImO::Message::reset
 
 nImO::Message &
-nImO::Message::setValue(const nImO::Value &theValue)
+nImO::Message::setValue
+    (const nImO::Value &theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####

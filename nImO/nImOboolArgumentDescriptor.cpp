@@ -80,11 +80,12 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-BoolArgumentDescriptor::BoolArgumentDescriptor(const std::string  &argName,
-                                               const std::string  &argDescription,
-                                               const ArgumentMode argMode,
-                                               const bool         defaultValue) :
-    inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+BoolArgumentDescriptor::BoolArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const bool         defaultValue) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -92,15 +93,17 @@ BoolArgumentDescriptor::BoolArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // BoolArgumentDescriptor::BoolArgumentDescriptor
 
-BoolArgumentDescriptor::BoolArgumentDescriptor(const BoolArgumentDescriptor &other) :
-    inherited(other), _defaultValue(other._defaultValue)
+BoolArgumentDescriptor::BoolArgumentDescriptor
+    (const BoolArgumentDescriptor &other) :
+        inherited(other), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // BoolArgumentDescriptor::BoolArgumentDescriptor
 
-BoolArgumentDescriptor::~BoolArgumentDescriptor(void)
+BoolArgumentDescriptor::~BoolArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -112,7 +115,8 @@ BoolArgumentDescriptor::~BoolArgumentDescriptor(void)
 
 #if 0
 void
-BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
+BoolArgumentDescriptor::addValueToBottle
+    (yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -122,8 +126,9 @@ BoolArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 #endif//0
 
 SpBaseArgumentDescriptor
-BoolArgumentDescriptor::clone(void)
-const
+BoolArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<BoolArgumentDescriptor>(*this);
@@ -133,7 +138,8 @@ const
 } // BoolArgumentDescriptor::clone
 
 std::string
-BoolArgumentDescriptor::getDefaultValue(void)
+BoolArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(_defaultValue ? "1" : "0");
@@ -143,7 +149,8 @@ BoolArgumentDescriptor::getDefaultValue(void)
 } // BoolArgumentDescriptor::getDefaultValue
 
 std::string
-BoolArgumentDescriptor::getProcessedValue(void)
+BoolArgumentDescriptor::getProcessedValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(_currentValue ? "1" : "0");
@@ -153,8 +160,9 @@ BoolArgumentDescriptor::getProcessedValue(void)
 } // BoolArgumentDescriptor::getProcessedValue
 
 bool
-BoolArgumentDescriptor::isLogical(void)
-const
+BoolArgumentDescriptor::isLogical
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(true); //####
@@ -162,7 +170,8 @@ const
 } // BoolArgumentDescriptor::isLogical
 
 SpBaseArgumentDescriptor
-BoolArgumentDescriptor::parseArgString(const std::string &inString)
+BoolArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -225,7 +234,8 @@ BoolArgumentDescriptor::parseArgString(const std::string &inString)
 } // BoolArgumentDescriptor::parseArgString
 
 void
-BoolArgumentDescriptor::setToDefaultValue(void)
+BoolArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
@@ -234,7 +244,8 @@ BoolArgumentDescriptor::setToDefaultValue(void)
 } // BoolArgumentDescriptor::setToDefaultValue
 
 void
-BoolArgumentDescriptor::swap(BoolArgumentDescriptor &other)
+BoolArgumentDescriptor::swap
+    (BoolArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -246,7 +257,8 @@ BoolArgumentDescriptor::swap(BoolArgumentDescriptor &other)
 } // BoolArgumentDescriptor::swap
 
 std::string
-BoolArgumentDescriptor::toString(void)
+BoolArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("B"));
@@ -257,7 +269,8 @@ BoolArgumentDescriptor::toString(void)
 } // BoolArgumentDescriptor::toString
 
 bool
-BoolArgumentDescriptor::validate(const std::string &value)
+BoolArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     bool boolValue;

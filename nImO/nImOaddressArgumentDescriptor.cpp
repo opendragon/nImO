@@ -80,12 +80,13 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-AddressArgumentDescriptor::AddressArgumentDescriptor(const std::string  &argName,
-                                                     const std::string  &argDescription,
-                                                     const ArgumentMode argMode,
-                                                     const std::string  &defaultValue,
-                                                     struct in_addr     *addrBuff) :
-    inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
+AddressArgumentDescriptor::AddressArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const std::string  &defaultValue,
+     struct in_addr     *addrBuff) :
+        inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
@@ -98,15 +99,17 @@ AddressArgumentDescriptor::AddressArgumentDescriptor(const std::string  &argName
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
-AddressArgumentDescriptor::AddressArgumentDescriptor(const AddressArgumentDescriptor &other) :
-    inherited(other), _addrBuff(nullptr)
+AddressArgumentDescriptor::AddressArgumentDescriptor
+    (const AddressArgumentDescriptor &other) :
+        inherited(other), _addrBuff(nullptr)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
-AddressArgumentDescriptor::~AddressArgumentDescriptor(void)
+AddressArgumentDescriptor::~AddressArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -117,8 +120,9 @@ AddressArgumentDescriptor::~AddressArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-AddressArgumentDescriptor::clone(void)
-const
+AddressArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<AddressArgumentDescriptor>(*this);
@@ -128,7 +132,8 @@ const
 } // AddressArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
-AddressArgumentDescriptor::parseArgString(const std::string &inString)
+AddressArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -178,7 +183,8 @@ AddressArgumentDescriptor::parseArgString(const std::string &inString)
 } // AddressArgumentDescriptor::parseArgString
 
 void
-AddressArgumentDescriptor::swap(AddressArgumentDescriptor &other)
+AddressArgumentDescriptor::swap
+    (AddressArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -188,7 +194,8 @@ AddressArgumentDescriptor::swap(AddressArgumentDescriptor &other)
 } // AddressArgumentDescriptor::swap
 
 std::string
-AddressArgumentDescriptor::toString(void)
+AddressArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("A"));
@@ -199,7 +206,8 @@ AddressArgumentDescriptor::toString(void)
 } // AddressArgumentDescriptor::toString
 
 bool
-AddressArgumentDescriptor::validate(const std::string &value)
+AddressArgumentDescriptor::validate
+    (const std::string &value)
 {
     ODL_OBJENTER(); //####
     std::string testValue;

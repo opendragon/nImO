@@ -90,7 +90,8 @@ static const size_t kBigTestSize = 100000;
  @param[in] signal The signal being handled. */
 [[noreturn]]
 static void
-catchSignal(int signal)
+catchSignal
+    (int signal)
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -112,8 +113,9 @@ catchSignal(int signal)
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithSquishedString(const Value &aValue,
-                               const char  *aString)
+compareValueWithSquishedString
+    (const Value &aValue,
+     const char  *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -136,8 +138,9 @@ compareValueWithSquishedString(const Value &aValue,
  @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
-compareValueWithString(const Value &aValue,
-                       const char  *aString)
+compareValueWithString
+    (const Value &aValue,
+     const char  *aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -168,9 +171,10 @@ compareValueWithString(const Value &aValue,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayValue(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // empty array value
+doTestEmptyArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -242,9 +246,10 @@ doTestEmptyArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularArrayValue(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // singular array value
+doTestSingularArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -321,9 +326,10 @@ doTestSingularArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallArrayValue(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // small array value
+doTestSmallArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -409,9 +415,10 @@ doTestSmallArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestBigArrayValue(UNUSED_ const char *launchPath,
-                    UNUSED_ const int  argc,
-                    UNUSED_ char       **argv) // big array value
+doTestBigArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // big array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -504,9 +511,10 @@ doTestBigArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapValue(UNUSED_ const char *launchPath,
-                    UNUSED_ const int  argc,
-                    UNUSED_ char       **argv) // empty map
+doTestEmptyMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -578,9 +586,10 @@ doTestEmptyMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularLogicalMapValue(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular logical map
+doTestSingularLogicalMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -659,9 +668,10 @@ doTestSingularLogicalMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerMapValue(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular integer map
+doTestSingularIntegerMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular integer map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -738,9 +748,10 @@ doTestSingularIntegerMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringMapValue(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // singular string map
+doTestSingularStringMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular string map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -819,9 +830,10 @@ doTestSingularStringMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallLogicalMapValue(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small logical map
+doTestSmallLogicalMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -903,9 +915,10 @@ doTestSmallLogicalMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerMapValue(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small integer map
+doTestSmallIntegerMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small integer map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -988,9 +1001,10 @@ doTestSmallIntegerMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringMapValue(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // small string map
+doTestSmallStringMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small string map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1079,9 +1093,10 @@ doTestSmallStringMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetValue(UNUSED_ const char *launchPath,
-                    UNUSED_ const int  argc,
-                    UNUSED_ char       **argv) // empty set
+doTestEmptySetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // empty set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1153,9 +1168,10 @@ doTestEmptySetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularLogicalSetValue(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular logical set
+doTestSingularLogicalSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1232,9 +1248,10 @@ doTestSingularLogicalSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularIntegerSetValue(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // singular integer set
+doTestSingularIntegerSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1311,9 +1328,10 @@ doTestSingularIntegerSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringSetValue(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // singular string set
+doTestSingularStringSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // singular string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1390,9 +1408,10 @@ doTestSingularStringSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallLogicalSetValue(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small logical set
+doTestSmallLogicalSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1474,9 +1493,10 @@ doTestSmallLogicalSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerSetValue(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // small integer set
+doTestSmallIntegerSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1566,9 +1586,10 @@ doTestSmallIntegerSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringSetValue(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // small string set
+doTestSmallStringSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // small string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1658,9 +1679,10 @@ doTestSmallStringSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithArrayValue(UNUSED_ const char *launchPath,
-                          UNUSED_ const int  argc,
-                          UNUSED_ char       **argv) // array with array value
+doTestArrayWithArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1737,9 +1759,10 @@ doTestArrayWithArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithMapValue(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // array with map
+doTestArrayWithMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1816,9 +1839,10 @@ doTestArrayWithMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithSetValue(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // array with set
+doTestArrayWithSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array with set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1895,9 +1919,10 @@ doTestArrayWithSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithArrayValue(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // map with array
+doTestMapWithArrayValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // map with array
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1976,9 +2001,10 @@ doTestMapWithArrayValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithMapValue(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // map with map
+doTestMapWithMapValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // map with map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2057,9 +2083,10 @@ doTestMapWithMapValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestMapWithSetValue(UNUSED_ const char *launchPath,
-                      UNUSED_ const int  argc,
-                      UNUSED_ char       **argv) // map with set
+doTestMapWithSetValue
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // map with set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2138,9 +2165,10 @@ doTestMapWithSetValue(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                          UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // logical map with incompatible keys
+doTestLogicalMapValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2222,9 +2250,10 @@ doTestLogicalMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                          UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // integer map with incompatible keys
+doTestIntegerMapValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2304,9 +2333,10 @@ doTestIntegerMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                         UNUSED_ const int  argc,
-                                         UNUSED_ char       **argv) // string map with incompatible keys
+doTestStringMapValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2388,9 +2418,10 @@ doTestStringMapValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                          UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // logical set with incompatible keys
+doTestLogicalSetValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2470,9 +2501,10 @@ doTestLogicalSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                          UNUSED_ const int  argc,
-                                          UNUSED_ char       **argv) // integer set with incompatible keys
+doTestIntegerSetValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2552,9 +2584,10 @@ doTestIntegerSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
-                                         UNUSED_ const int  argc,
-                                         UNUSED_ char       **argv) // string set with incompatible keys
+doTestStringSetValueWithIncompatibleKeys
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2634,9 +2667,10 @@ doTestStringSetValueWithIncompatibleKeys(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidArrayCompares(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // valid array compares
+doTestValidArrayCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid array compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3425,9 +3459,10 @@ doTestValidArrayCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid logical map compares
+doTestValidLogicalMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3816,9 +3851,10 @@ doTestValidLogicalMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid integer map compares
+doTestValidIntegerMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid integer map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4056,9 +4092,10 @@ doTestValidIntegerMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringMapCompares(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // valid string map compares
+doTestValidStringMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid string map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4281,9 +4318,10 @@ doTestValidStringMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid logical set compares
+doTestValidLogicalSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4672,9 +4710,10 @@ doTestValidLogicalSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
-                              UNUSED_ const int  argc,
-                              UNUSED_ char       **argv) // valid integer set compares
+doTestValidIntegerSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid integer set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4912,9 +4951,10 @@ doTestValidIntegerSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringSetCompares(UNUSED_ const char *launchPath,
-                             UNUSED_ const int  argc,
-                             UNUSED_ char       **argv) // valid string set compares
+doTestValidStringSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // valid string set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5137,9 +5177,10 @@ doTestValidStringSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidArrayCompares(UNUSED_ const char *launchPath,
-                           UNUSED_ const int  argc,
-                           UNUSED_ char       **argv) // invalid array compares
+doTestInvalidArrayCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid array compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5256,9 +5297,10 @@ doTestInvalidArrayCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalMapCompares(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid logical map compares
+doTestInvalidLogicalMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5373,9 +5415,10 @@ doTestInvalidLogicalMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerMapCompares(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid integer map compares
+doTestInvalidIntegerMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid integer map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5489,9 +5532,10 @@ doTestInvalidIntegerMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringMapCompares(UNUSED_ const char *launchPath,
-                               UNUSED_ const int  argc,
-                               UNUSED_ char       **argv) // invalid string map compares
+doTestInvalidStringMapCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid string map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5607,9 +5651,10 @@ doTestInvalidStringMapCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidLogicalSetCompares(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid logical set compares
+doTestInvalidLogicalSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5724,9 +5769,10 @@ doTestInvalidLogicalSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidIntegerSetCompares(UNUSED_ const char *launchPath,
-                                UNUSED_ const int  argc,
-                                UNUSED_ char       **argv) // invalid integer set compares
+doTestInvalidIntegerSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid integer set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5840,9 +5886,10 @@ doTestInvalidIntegerSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringSetCompares(UNUSED_ const char *launchPath,
-                               UNUSED_ const int  argc,
-                               UNUSED_ char       **argv) // invalid string set compares
+doTestInvalidStringSetCompares
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // invalid string set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5958,9 +6005,10 @@ doTestInvalidStringSetCompares(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayIndices(UNUSED_ const char *launchPath,
-                   UNUSED_ const int  argc,
-                   UNUSED_ char       **argv) // array indices
+doTestArrayIndices
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // array indices
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6079,9 +6127,10 @@ doTestArrayIndices(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapSearches(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // logical map searches
+doTestLogicalMapSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6187,9 +6236,10 @@ doTestLogicalMapSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapSearches(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // integer map searches
+doTestIntegerMapSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6295,9 +6345,10 @@ doTestIntegerMapSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapSearches(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // string map searches
+doTestStringMapSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6403,9 +6454,10 @@ doTestStringMapSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetSearches(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // logical set searches
+doTestLogicalSetSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // logical set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6498,9 +6550,10 @@ doTestLogicalSetSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetSearches(UNUSED_ const char *launchPath,
-                         UNUSED_ const int  argc,
-                         UNUSED_ char       **argv) // integer set searches
+doTestIntegerSetSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // integer set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6593,9 +6646,10 @@ doTestIntegerSetSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used for the test.
  @returns @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetSearches(UNUSED_ const char *launchPath,
-                        UNUSED_ const int  argc,
-                        UNUSED_ char       **argv) // string set searches
+doTestStringSetSearches
+    (UNUSED_ const char *launchPath,
+     UNUSED_ const int  argc,
+     UNUSED_ char       **argv) // string set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6687,7 +6741,8 @@ doTestStringSetSearches(UNUSED_ const char *launchPath,
  @param[in] argv The arguments to be used with the unit tests.
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
-main(int  argc,
+main
+    (int  argc,
      char **argv)
 {
     std::string progName(*argv);

@@ -76,13 +76,15 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::CompareValues::CompareValues(void)
+nImO::CompareValues::CompareValues
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::CompareValues::CompareValues
 
-nImO::CompareValues::~CompareValues(void)
+nImO::CompareValues::~CompareValues
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -93,8 +95,9 @@ nImO::CompareValues::~CompareValues(void)
 #endif // defined(__APPLE__)
 
 bool
-nImO::CompareValues::operator() (nImO::SpValue lhs,
-                                 nImO::SpValue rhs)
+nImO::CompareValues::operator()
+    (nImO::SpValue lhs,
+     nImO::SpValue rhs)
 const
 {
     ODL_OBJENTER(); //####

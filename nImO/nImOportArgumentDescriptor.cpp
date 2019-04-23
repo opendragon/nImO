@@ -80,14 +80,15 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-PortArgumentDescriptor::PortArgumentDescriptor(const std::string  &argName,
-                                               const std::string  &argDescription,
-                                               const ArgumentMode argMode,
-                                               const int          defaultValue,
-                                               const bool         isSystemPort) :
-    inherited(argName, argDescription, argMode, defaultValue, true,
-              isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_),
-    _isSystemPort(isSystemPort)
+PortArgumentDescriptor::PortArgumentDescriptor
+    (const std::string  &argName,
+     const std::string  &argDescription,
+     const ArgumentMode argMode,
+     const int          defaultValue,
+     const bool         isSystemPort) :
+        inherited(argName, argDescription, argMode, defaultValue, true,
+                  isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_),
+        _isSystemPort(isSystemPort)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -97,15 +98,17 @@ PortArgumentDescriptor::PortArgumentDescriptor(const std::string  &argName,
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
-PortArgumentDescriptor::PortArgumentDescriptor(const PortArgumentDescriptor &other) :
-    inherited(other), _isSystemPort(other._isSystemPort)
+PortArgumentDescriptor::PortArgumentDescriptor
+    (const PortArgumentDescriptor &other) :
+        inherited(other), _isSystemPort(other._isSystemPort)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
-PortArgumentDescriptor::~PortArgumentDescriptor(void)
+PortArgumentDescriptor::~PortArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -116,8 +119,9 @@ PortArgumentDescriptor::~PortArgumentDescriptor(void)
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-PortArgumentDescriptor::clone(void)
-const
+PortArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<PortArgumentDescriptor>(*this);
@@ -127,7 +131,8 @@ const
 } // PortArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
-PortArgumentDescriptor::parseArgString(const std::string &inString)
+PortArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -196,7 +201,8 @@ PortArgumentDescriptor::parseArgString(const std::string &inString)
 } // PortArgumentDescriptor::parseArgString
 
 void
-PortArgumentDescriptor::swap(PortArgumentDescriptor &other)
+PortArgumentDescriptor::swap
+    (PortArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -206,7 +212,8 @@ PortArgumentDescriptor::swap(PortArgumentDescriptor &other)
 } // PortArgumentDescriptor::swap
 
 std::string
-PortArgumentDescriptor::toString(void)
+PortArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("P"));

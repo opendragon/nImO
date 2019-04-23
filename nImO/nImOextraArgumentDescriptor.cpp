@@ -80,24 +80,27 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ExtraArgumentDescriptor::ExtraArgumentDescriptor(const std::string &argName,
-                                                 const std::string &argDescription) :
-    inherited(argName, argDescription, ArgumentMode::Optional)
+ExtraArgumentDescriptor::ExtraArgumentDescriptor
+    (const std::string &argName,
+     const std::string &argDescription) :
+        inherited(argName, argDescription, ArgumentMode::Optional)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
-ExtraArgumentDescriptor::ExtraArgumentDescriptor(const ExtraArgumentDescriptor &other) :
-    inherited(other)
+ExtraArgumentDescriptor::ExtraArgumentDescriptor
+    (const ExtraArgumentDescriptor &other) :
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
-ExtraArgumentDescriptor::~ExtraArgumentDescriptor(void)
+ExtraArgumentDescriptor::~ExtraArgumentDescriptor
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -109,7 +112,8 @@ ExtraArgumentDescriptor::~ExtraArgumentDescriptor(void)
 
 #if 0
 void
-ExtraArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
+ExtraArgumentDescriptor::addValueToBottle
+    (yarp::os::Bottle &container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -119,8 +123,9 @@ ExtraArgumentDescriptor::addValueToBottle(yarp::os::Bottle &container)
 #endif//0
 
 SpBaseArgumentDescriptor
-ExtraArgumentDescriptor::clone(void)
-const
+ExtraArgumentDescriptor::clone
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto result = std::make_shared<ExtraArgumentDescriptor>(*this);
@@ -130,7 +135,8 @@ const
 } // ExtraArgumentDescriptor::clone
 
 std::string
-ExtraArgumentDescriptor::getDefaultValue(void)
+ExtraArgumentDescriptor::getDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result;
@@ -140,7 +146,8 @@ ExtraArgumentDescriptor::getDefaultValue(void)
 } // ExtraArgumentDescriptor::getDefaultValue
 
 std::string
-ExtraArgumentDescriptor::getProcessedValue(void)
+ExtraArgumentDescriptor::getProcessedValue
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result;
@@ -150,8 +157,9 @@ ExtraArgumentDescriptor::getProcessedValue(void)
 } // ExtraArgumentDescriptor::getProcessedValue
 
 bool
-ExtraArgumentDescriptor::isExtra(void)
-const
+ExtraArgumentDescriptor::isExtra
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(true); //####
@@ -159,7 +167,8 @@ const
 } // ExtraArgumentDescriptor::isExtra
 
 SpBaseArgumentDescriptor
-ExtraArgumentDescriptor::parseArgString(const std::string &inString)
+ExtraArgumentDescriptor::parseArgString
+    (const std::string &inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -199,14 +208,16 @@ ExtraArgumentDescriptor::parseArgString(const std::string &inString)
 } // ExtraArgumentDescriptor::parseArgString
 
 void
-ExtraArgumentDescriptor::setToDefaultValue(void)
+ExtraArgumentDescriptor::setToDefaultValue
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
 } // ExtraArgumentDescriptor::setToDefaultValue
 
 void
-ExtraArgumentDescriptor::swap(ExtraArgumentDescriptor &other)
+ExtraArgumentDescriptor::swap
+    (ExtraArgumentDescriptor &other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -215,7 +226,8 @@ ExtraArgumentDescriptor::swap(ExtraArgumentDescriptor &other)
 } // ExtraArgumentDescriptor::swap
 
 std::string
-ExtraArgumentDescriptor::toString(void)
+ExtraArgumentDescriptor::toString
+    (void)
 {
     ODL_OBJENTER(); //####
     std::string result(prefixFields("E"));
@@ -230,7 +242,8 @@ ExtraArgumentDescriptor::toString(void)
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 bool
-ExtraArgumentDescriptor::validate(UNUSED_ const std::string &value)
+ExtraArgumentDescriptor::validate
+    (UNUSED_ const std::string &value)
 {
     ODL_OBJENTER(); //####
     ODL_P1("value = ", &value); //####

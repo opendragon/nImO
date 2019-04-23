@@ -82,30 +82,34 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Double::Double(void) :
-    inherited(), _floatValue(0)
+nImO::Double::Double
+    (void) :
+        inherited(), _floatValue(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
-nImO::Double::Double(const double initialValue) :
-    inherited(), _floatValue(initialValue)
+nImO::Double::Double
+    (const double initialValue) :
+        inherited(), _floatValue(initialValue)
 {
     ODL_ENTER(); //####
     ODL_D1("initialValue = ", initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
-nImO::Double::Double(const nImO::Double &other) :
-    inherited(), _floatValue(other._floatValue)
+nImO::Double::Double
+    (const nImO::Double &other) :
+        inherited(), _floatValue(other._floatValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
-nImO::Double::~Double(void)
+nImO::Double::~Double
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
@@ -116,8 +120,9 @@ nImO::Double::~Double(void)
 #endif // defined(__APPLE__)
 
 const nImO::Double *
-nImO::Double::asDouble(void)
-const
+nImO::Double::asDouble
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
@@ -125,8 +130,9 @@ const
 } // nImO::Double::asDouble
 
 bool
-nImO::Double::deeplyEqualTo(const nImO::Value &other)
-const
+nImO::Double::deeplyEqualTo
+    (const nImO::Value &other)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -146,8 +152,9 @@ const
 } // nImO::Double::deeplyEqualTo
 
 nImO::Enumerable
-nImO::Double::enumerationType(void)
-const
+nImO::Double::enumerationType
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     Enumerable result = Enumerable::NotEnumerable;
@@ -157,9 +164,10 @@ const
 } // nImO::Double::enumerationType
 
 bool
-nImO::Double::equalTo(const nImO::Value &other,
-                      bool              &validComparison)
-const
+nImO::Double::equalTo
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -210,10 +218,11 @@ const
 } // nImO::Double::equalTo
 
 nImO::SpValue
-nImO::Double::extractValue(const nImO::Message &theMessage,
-                           const int           leadByte,
-                           size_t              &position,
-                           nImO::SpArray       parentValue)
+nImO::Double::extractValue
+    (const nImO::Message &theMessage,
+     const int           leadByte,
+     size_t              &position,
+     nImO::SpArray       parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -307,9 +316,10 @@ nImO::Double::extractValue(const nImO::Message &theMessage,
 } // nImO::Double::extractValue
 
 void
-nImO::Double::getExtractionInfo(DataKind               &aByte,
-                                DataKind               &aMask,
-                                nImO::Value::Extractor &theExtractor)
+nImO::Double::getExtractionInfo
+    (DataKind               &aByte,
+     DataKind               &aMask,
+     nImO::Value::Extractor &theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -320,8 +330,9 @@ nImO::Double::getExtractionInfo(DataKind               &aByte,
 } // nImO::Double::getExtractionInfo
 
 nImO::DataKind
-nImO::Double::getTypeTag(void)
-const
+nImO::Double::getTypeTag
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     DataKind result = DataKind::OtherMessageExpectedDoubleValue;
@@ -331,9 +342,10 @@ const
 } // nImO::Double::getTypeTag
 
 bool
-nImO::Double::greaterThan(const nImO::Value &other,
-                          bool              &validComparison)
-const
+nImO::Double::greaterThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -385,9 +397,10 @@ const
 } // nImO::Double::greaterThan
 
 bool
-nImO::Double::greaterThanOrEqual(const nImO::Value &other,
-                                 bool              &validComparison)
-const
+nImO::Double::greaterThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -438,9 +451,10 @@ const
 } // nImO::Double::greaterThanOrEqual
 
 bool
-nImO::Double::lessThan(const nImO::Value &other,
-                       bool              &validComparison)
-const
+nImO::Double::lessThan
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -492,9 +506,10 @@ const
 } // nImO::Double::lessThan
 
 bool
-nImO::Double::lessThanOrEqual(const nImO::Value &other,
-                              bool              &validComparison)
-const
+nImO::Double::lessThanOrEqual
+    (const nImO::Value &other,
+     bool              &validComparison)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
@@ -549,9 +564,10 @@ const
 # pragma warning(disable: 4100)
 #endif // ! MAC_OR_LINUX_
 void
-nImO::Double::printToStringBuffer(nImO::StringBuffer &outBuffer,
-                                  UNUSED_ const bool squished)
-const
+nImO::Double::printToStringBuffer
+    (nImO::StringBuffer &outBuffer,
+     UNUSED_ const bool squished)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -564,8 +580,9 @@ const
 #endif // ! MAC_OR_LINUX_
 
 void
-nImO::Double::writeToMessage(nImO::Message &outMessage)
-const
+nImO::Double::writeToMessage
+    (nImO::Message &outMessage)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
@@ -581,8 +598,9 @@ const
 } // nImO::Double::writeToMessage
 
 void
-nImO::Double::writeValuesToMessage(std::queue<double> &values,
-                                   nImO::Message      &outMessage)
+nImO::Double::writeValuesToMessage
+    (std::queue<double> &values,
+     nImO::Message      &outMessage)
 {
     ODL_ENTER(); //####
     ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####

@@ -134,7 +134,7 @@ const std::string nImO::kDirectorySeparator = "\\";
 [[noreturn]]
 static void
 localCatcher
-    (UNUSED_ int signal)
+    (int    NOT_USED_(signal))
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -594,13 +594,9 @@ nImO::IdleUntilNotRunning
 } // nImO::IdleUntilNotRunning
 #endif//0
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::Initialize
-    (UNUSED_ const std::string &progName)
+    (const std::string &    NOT_USED_(progName))
 {
     ODL_ENTER(); //####
     ODL_S1s("progName = ", progName); //####
@@ -647,9 +643,6 @@ nImO::Initialize
     }
     ODL_EXIT(); //####
 } // nImO::Initialize
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if 0
 bool
@@ -949,9 +942,6 @@ nImO::ProcessStandardUtilitiesOptions
     if (! ignoreFlavours)
     {
         memcpy(usageWalker++, &jsonDescriptor, sizeof(jsonDescriptor));
-    }
-    if (! ignoreFlavours)
-    {
         memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
@@ -1198,22 +1188,15 @@ nImO::ShutDownCatcher
 } // nImO::ShutDownCatcher
 
 #if 0
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::SignalRunningStop
-(UNUSED_ const int signal)
+(const int  NOT_USED_(signal))
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
     StopRunning();
     ODL_EXIT(); //####
 } // nImO::SignalRunningStop
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 #endif//0
 
 #if 0

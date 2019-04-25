@@ -77,7 +77,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         ChunkArray
-            (const ChunkArray &other) = delete;
+            (const ChunkArray&  other) = delete;
 
         /*! @brief The destructor. */
         virtual
@@ -89,16 +89,16 @@ namespace nImO
          @param[in] numBytes The number of bytes to add. */
         virtual void
         appendBytes
-            (const uint8_t *data,
-             const size_t  numBytes);
+            (const uint8_t* data,
+             const size_t   numBytes);
 
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         inline void
         appendBytes
-            (const DataKind *data,
-             const size_t   numBytes)
+            (const DataKind*    data,
+             const size_t       numBytes)
         {
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
         } // appendBytes
@@ -108,7 +108,7 @@ namespace nImO
          @returns @c true if the index is past the end of the buffer. */
         bool
         atEnd
-            (const size_t index)
+            (const size_t   index)
             const;
 
         /*! @brief Return the byte found at a particular index.
@@ -117,8 +117,8 @@ namespace nImO
          @returns The byte found at the provided index. */
         int
         getByte
-            (const size_t index,
-             bool         &atEnd)
+            (const size_t   index,
+             bool&          atEnd)
         const;
 
         /*! @brief Return a copy of the bytes in the buffer.
@@ -139,7 +139,7 @@ namespace nImO
          @returns The updated object. */
         ChunkArray &
         operator =
-            (const ChunkArray &other) = delete;
+            (const ChunkArray&  other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
          @returns The ChunkArray object so that cascading can be done. */
@@ -160,10 +160,10 @@ namespace nImO
         // Protected fields.
 
         /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk **_buffers;
+        BufferChunk**   _buffers;
 
         /*! @brief The number of buffer chunks being used. */
-        size_t _numChunks;
+        size_t  _numChunks;
 
     private :
         // Private fields.
@@ -173,7 +173,7 @@ namespace nImO
 
         /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
          @c false otherwise. */
-        bool _buffersArePadded;
+        bool    _buffersArePadded;
 
     }; // ChunkArray
 

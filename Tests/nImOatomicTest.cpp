@@ -115,8 +115,8 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value &aValue,
-     const char  *aString)
+    (const Value&   aValue,
+     const char*    aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -137,10 +137,6 @@ compareValueWithString
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -148,9 +144,9 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBufferChunk
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty buffer chunk
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty buffer chunk
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -160,7 +156,7 @@ doTestEmptyBufferChunk
 
     try
     {
-        auto stuff(make_unique<BufferChunk>(false));
+        auto    stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -186,18 +182,11 @@ doTestEmptyBufferChunk
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyBufferChunk
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -205,9 +194,9 @@ doTestEmptyBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkWithSingleByte
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // buffer chunk with 1 byte of data
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // buffer chunk with 1 byte of data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -217,7 +206,7 @@ doTestBufferChunkWithSingleByte
 
     try
     {
-        auto stuff(make_unique<BufferChunk>(false));
+        auto    stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -226,7 +215,7 @@ doTestBufferChunkWithSingleByte
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                const uint8_t *storedData = stuff->getData();
+                const uint8_t*  storedData = stuff->getData();
 
                 if (storedData && (data == *storedData))
                 {
@@ -255,18 +244,11 @@ doTestBufferChunkWithSingleByte
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBufferChunkWithSingleByte
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -274,9 +256,9 @@ doTestBufferChunkWithSingleByte
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestFilledBufferChunk
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // buffer chunk filled with data
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // buffer chunk filled with data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -286,11 +268,11 @@ doTestFilledBufferChunk
 
     try
     {
-        auto stuff(make_unique<BufferChunk>(false));
+        auto    stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
-            size_t howMuch = stuff->getAvailableBytes();
+            size_t  howMuch = stuff->getAvailableBytes();
 
             if (1 < howMuch)
             {
@@ -304,7 +286,7 @@ doTestFilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t *storedData = stuff->getData();
+                    const uint8_t*  storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -350,18 +332,11 @@ doTestFilledBufferChunk
     ODL_EXIT_I(result); //####
     return result;
 } // doTestFilledBufferChunk
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 04 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -369,9 +344,9 @@ doTestFilledBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestOverfilledBufferChunk
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // buffer chunk overfilled with data
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // buffer chunk overfilled with data
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -381,11 +356,11 @@ doTestOverfilledBufferChunk
 
     try
     {
-        auto stuff(make_unique<BufferChunk>(false));
+        auto    stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
-            size_t howMuch = stuff->getAvailableBytes();
+            size_t  howMuch = stuff->getAvailableBytes();
 
             if (1 < howMuch)
             {
@@ -399,7 +374,7 @@ doTestOverfilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t *storedData = stuff->getData();
+                    const uint8_t*  storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -445,18 +420,11 @@ doTestOverfilledBufferChunk
     ODL_EXIT_I(result); //####
     return result;
 } // doTestOverfilledBufferChunk
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 05 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -464,9 +432,9 @@ doTestOverfilledBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkReset
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // resetting buffer chunk
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // resetting buffer chunk
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -476,7 +444,7 @@ doTestBufferChunkReset
 
     try
     {
-        auto stuff(make_unique<BufferChunk>(false));
+        auto    stuff(make_unique<BufferChunk>(false));
 
         if (stuff)
         {
@@ -513,18 +481,11 @@ doTestBufferChunkReset
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBufferChunkReset
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 10 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -532,9 +493,9 @@ doTestBufferChunkReset
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringBuffer
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty string buffer
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -544,14 +505,14 @@ doTestEmptyStringBuffer
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
             if (0 == stuff->getLength())
             {
-                auto   outString(stuff->getString());
-                size_t length = outString.size();
+                auto    outString(stuff->getString());
+                size_t  length = outString.size();
 
                 if (0 == length)
                 {
@@ -580,18 +541,11 @@ doTestEmptyStringBuffer
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyStringBuffer
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 11 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -599,9 +553,9 @@ doTestEmptyStringBuffer
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithCharacters
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string buffer with character string
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string buffer with character string
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -613,15 +567,15 @@ doTestStringBufferWithCharacters
     {
         if (1 < argc)
         {
-            const char *inString = *argv;
-            const char *outString = argv[1];
-            size_t     outLength = strlen(outString);
-            auto       stuff(make_unique<StringBuffer>());
+            const char* inString = *argv;
+            const char* outString = argv[1];
+            size_t      outLength = strlen(outString);
+            auto        stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
                 stuff->addString(inString);
-                size_t resultLength = stuff->getLength();
+                size_t  resultLength = stuff->getLength();
 
                 if (resultLength == outLength)
                 {
@@ -661,18 +615,11 @@ doTestStringBufferWithCharacters
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithCharacters
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 12 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -680,9 +627,9 @@ doTestStringBufferWithCharacters
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithLogical
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // string buffer with logical
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string buffer with logical
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -694,12 +641,12 @@ doTestStringBufferWithLogical
     {
         if (1 < argc)
         {
-            const char *outString = argv[1];
-            int64_t    value;
+            const char* outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto stuff(make_unique<StringBuffer>());
+                auto    stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
@@ -740,18 +687,11 @@ doTestStringBufferWithLogical
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithLogical
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 13 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -759,9 +699,9 @@ doTestStringBufferWithLogical
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithInteger
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // string buffer with integer
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string buffer with integer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -773,12 +713,12 @@ doTestStringBufferWithInteger
     {
         if (1 < argc)
         {
-            const char *outString = argv[1];
-            int64_t    value;
+            const char* outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value))
             {
-                auto stuff(make_unique<StringBuffer>());
+                auto    stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
@@ -817,18 +757,11 @@ doTestStringBufferWithInteger
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithInteger
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 14 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -836,9 +769,9 @@ doTestStringBufferWithInteger
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithString
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // string buffer with string
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string buffer with string
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -850,15 +783,15 @@ doTestStringBufferWithString
     {
         if (1 < argc)
         {
-            const char *inString = *argv;
-            const char *outString = argv[1];
-            size_t     outLength = strlen(outString);
-            auto       stuff(make_unique<StringBuffer>());
+            const char* inString = *argv;
+            const char* outString = argv[1];
+            size_t      outLength = strlen(outString);
+            auto        stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
                 stuff->addString(inString, true);
-                size_t resultLength = stuff->getLength();
+                size_t  resultLength = stuff->getLength();
 
                 if (resultLength == outLength)
                 {
@@ -896,18 +829,11 @@ doTestStringBufferWithString
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithString
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 15 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -915,9 +841,9 @@ doTestStringBufferWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSpecialCharacters
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string buffer with special chars
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string buffer with special chars
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -927,15 +853,15 @@ doTestStringBufferWithSpecialCharacters
 
     try
     {
-        const char *inString = "abc\tdef\f\rghi\302";
-        const char *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t     outLength = strlen(outString);
-        auto       stuff(make_unique<StringBuffer>());
+        const char* inString = "abc\tdef\f\rghi\302";
+        const char* outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t      outLength = strlen(outString);
+        auto        stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
             stuff->addString(inString, true);
-            size_t resultLength = stuff->getLength();
+            size_t  resultLength = stuff->getLength();
 
             if (resultLength == outLength)
             {
@@ -968,18 +894,11 @@ doTestStringBufferWithSpecialCharacters
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithSpecialCharacters
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 16 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -987,9 +906,9 @@ doTestStringBufferWithSpecialCharacters
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithDouble
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // string buffer with floating point
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string buffer with floating point
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1001,18 +920,18 @@ doTestStringBufferWithDouble
     {
         if (1 < argc)
         {
-            const char *outString = argv[1];
-            double     value;
+            const char* outString = argv[1];
+            double      value;
 
             if (ConvertToDouble(*argv, value))
             {
-                auto stuff(make_unique<StringBuffer>());
+                auto    stuff(make_unique<StringBuffer>());
 
                 if (stuff)
                 {
                     stuff->addDouble(value);
-                    auto   resultString(stuff->getString());
-                    size_t ii = 0;
+                    auto    resultString(stuff->getString());
+                    size_t  ii = 0;
 
                     for (result = 0; *outString && resultString[ii]; ++outString, ++ii)
                     {
@@ -1054,18 +973,11 @@ doTestStringBufferWithDouble
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithDouble
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 17 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1073,9 +985,9 @@ doTestStringBufferWithDouble
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigStringBuffer
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // big string buffer
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // big string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1085,19 +997,19 @@ doTestBigStringBuffer
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
-            const char *bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
-            size_t     bigLength = strlen(bigString);
+            const char* bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
+            size_t      bigLength = strlen(bigString);
 
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
                 stuff->addString(bigString);
             }
-            auto resultString(stuff->getString());
-            size_t length = resultString.size();
+            auto    resultString(stuff->getString());
+            size_t  length = resultString.size();
 
             if ((bigLength * kBigTestSize) == length)
             {
@@ -1132,18 +1044,11 @@ doTestBigStringBuffer
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBigStringBuffer
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 18 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1151,9 +1056,9 @@ doTestBigStringBuffer
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithEmptyBlob
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string buffer with empty blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string buffer with empty blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1163,13 +1068,13 @@ doTestStringBufferWithEmptyBlob
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
             stuff->addBytes(nullptr, 0);
-            auto       resultString(stuff->getString());
-            const char *expectedString = "%0%%";
+            auto        resultString(stuff->getString());
+            const char* expectedString = "%0%%";
 
             if (0 == resultString.compare(expectedString))
             {
@@ -1193,18 +1098,11 @@ doTestStringBufferWithEmptyBlob
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithEmptyBlob
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 19 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1212,9 +1110,9 @@ doTestStringBufferWithEmptyBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSmallBlob
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string buffer with small blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string buffer with small blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1224,18 +1122,18 @@ doTestStringBufferWithSmallBlob
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
-            UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+            UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
             if (smallBlob)
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t *addr = smallBlob.get();
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t*    addr = smallBlob.get();
+                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     smallBlob[ii] = aByte;
                 }
@@ -1283,18 +1181,11 @@ doTestStringBufferWithSmallBlob
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithSmallBlob
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 20 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1302,9 +1193,9 @@ doTestStringBufferWithSmallBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithBigBlob
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string buffer with big blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string buffer with big blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1314,18 +1205,18 @@ doTestStringBufferWithBigBlob
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
-            UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t *addr = bigBlob.get();
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t*    addr = bigBlob.get();
+                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     bigBlob[ii] = aByte;
                 }
@@ -1373,18 +1264,11 @@ doTestStringBufferWithBigBlob
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferWithBigBlob
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 21 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1392,9 +1276,9 @@ doTestStringBufferWithBigBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferReset
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // resetting string buffer
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // resetting string buffer
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1404,13 +1288,13 @@ doTestStringBufferReset
 
     try
     {
-        auto stuff(make_unique<StringBuffer>());
+        auto    stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
             stuff->addString("abcdef");
             stuff->reset();
-            size_t resultLength = stuff->getLength();
+            size_t  resultLength = stuff->getLength();
 
             if (0 == resultLength)
             {
@@ -1443,18 +1327,11 @@ doTestStringBufferReset
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringBufferReset
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 50 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1462,9 +1339,9 @@ doTestStringBufferReset
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultLogicalValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // default logical value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // default logical value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1474,7 +1351,7 @@ doTestDefaultLogicalValue
 
     try
     {
-        auto stuff = make_unique<Logical>();
+        auto    stuff = make_unique<Logical>();
 
         if (stuff)
         {
@@ -1500,18 +1377,11 @@ doTestDefaultLogicalValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDefaultLogicalValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 51 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1519,9 +1389,9 @@ doTestDefaultLogicalValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalValue
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // logical values
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // logical values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1533,12 +1403,12 @@ doTestLogicalValue
     {
         if (1 < argc)
         {
-            const char *outString = argv[1];
-            int64_t    value;
+            const char* outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto stuff = make_unique<Logical>(0 != value);
+                auto    stuff = make_unique<Logical>(0 != value);
 
                 if (stuff)
                 {
@@ -1574,18 +1444,11 @@ doTestLogicalValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 52 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1593,9 +1456,9 @@ doTestLogicalValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultIntegerValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // default integer value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // default integer value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1605,7 +1468,7 @@ doTestDefaultIntegerValue
 
     try
     {
-        auto stuff = make_unique<Integer>();
+        auto    stuff = make_unique<Integer>();
 
         if (stuff)
         {
@@ -1632,18 +1495,11 @@ doTestDefaultIntegerValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDefaultIntegerValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 53 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1651,9 +1507,9 @@ doTestDefaultIntegerValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNumberValue
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // number values
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // number values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1665,12 +1521,12 @@ doTestNumberValue
     {
         if (1 < argc)
         {
-            const char *outString = argv[1];
-            int64_t    intValue;
+            const char* outString = argv[1];
+            int64_t     intValue;
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto stuff = make_unique<Integer>(intValue);
+                auto    stuff = make_unique<Integer>(intValue);
 
                 if (stuff)
                 {
@@ -1694,7 +1550,7 @@ doTestNumberValue
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto stuff = make_unique<Double>(floatValue);
+                    auto    stuff = make_unique<Double>(floatValue);
 
                     if (stuff)
                     {
@@ -1731,18 +1587,11 @@ doTestNumberValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNumberValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 54 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1750,9 +1599,9 @@ doTestNumberValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultStringValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // default string value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // default string value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1762,7 +1611,7 @@ doTestDefaultStringValue
 
     try
     {
-        auto stuff(make_unique<String>());
+        auto    stuff(make_unique<String>());
 
         if (stuff)
         {
@@ -1788,18 +1637,11 @@ doTestDefaultStringValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDefaultStringValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 55 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1807,9 +1649,9 @@ doTestDefaultStringValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValue
-    (UNUSED_ const char *launchPath,
-     const int          argc,
-     char               **argv) // string values
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // string values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1821,7 +1663,7 @@ doTestStringValue
     {
         if (1 < argc)
         {
-            auto stuff(make_unique<String>(*argv));
+            auto    stuff(make_unique<String>(*argv));
 
             if (stuff)
             {
@@ -1852,18 +1694,11 @@ doTestStringValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 56 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1871,9 +1706,9 @@ doTestStringValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValueWithEscapes
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string value with escapes
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string value with escapes
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1883,9 +1718,9 @@ doTestStringValueWithEscapes
 
     try
     {
-        const char *inString = "abc\tdef\f\rghi\302";
-        const char *outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        auto       stuff(make_unique<String>(inString));
+        const char* inString = "abc\tdef\f\rghi\302";
+        const char* outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        auto        stuff(make_unique<String>(inString));
 
         if (stuff)
         {
@@ -1911,18 +1746,11 @@ doTestStringValueWithEscapes
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringValueWithEscapes
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 57 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1930,9 +1758,9 @@ doTestStringValueWithEscapes
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultBlobValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // default blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // default blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1942,7 +1770,7 @@ doTestDefaultBlobValue
 
     try
     {
-        auto stuff = make_unique<Blob>();
+        auto    stuff = make_unique<Blob>();
 
         if (stuff)
         {
@@ -1968,18 +1796,11 @@ doTestDefaultBlobValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDefaultBlobValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 58 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1987,9 +1808,9 @@ doTestDefaultBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1999,7 +1820,7 @@ doTestSmallBlobValue
 
     try
     {
-        UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
         if (smallBlob)
         {
@@ -2010,7 +1831,7 @@ doTestSmallBlobValue
 
                 smallBlob[ii] = aByte;
             }
-            auto stuff = make_unique<Blob>(smallBlob.get(), kSmallTestSize);
+            auto    stuff = make_unique<Blob>(smallBlob.get(), kSmallTestSize);
 
             if (stuff)
             {
@@ -2057,18 +1878,11 @@ doTestSmallBlobValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallBlobValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 59 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2076,9 +1890,9 @@ doTestSmallBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigBlobValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // big blob
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // big blob
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2088,7 +1902,7 @@ doTestBigBlobValue
 
     try
     {
-        UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+        UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
         if (bigBlob)
         {
@@ -2099,7 +1913,7 @@ doTestBigBlobValue
 
                 bigBlob[ii] = aByte;
             }
-            auto stuff = make_unique<Blob>(bigBlob.get(), kBigTestSize);
+            auto    stuff = make_unique<Blob>(bigBlob.get(), kBigTestSize);
 
             if (stuff)
             {
@@ -2146,18 +1960,11 @@ doTestBigBlobValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBigBlobValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 60 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2165,9 +1972,9 @@ doTestBigBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalCopyAndAssign
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical copy and assign
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2223,18 +2030,11 @@ doTestLogicalCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalCopyAndAssign
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 61 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2242,9 +2042,9 @@ doTestLogicalCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerCopyAndAssign
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer copy and assign
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2320,18 +2120,11 @@ doTestIntegerCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerCopyAndAssign
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 62 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2339,9 +2132,9 @@ doTestIntegerCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleCopyAndAssign
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // floating point copy and assign
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // floating point copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2416,18 +2209,11 @@ doTestDoubleCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDoubleCopyAndAssign
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 63 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2435,9 +2221,9 @@ doTestDoubleCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringCopyAndAssign
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string copy and assign
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2495,18 +2281,11 @@ doTestStringCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringCopyAndAssign
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 64 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2514,9 +2293,9 @@ doTestStringCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBlobCopyAndAssign
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // blob copy and assign
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // blob copy and assign
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2526,8 +2305,8 @@ doTestBlobCopyAndAssign
 
     try
     {
-        UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
-        UpAuint8_t smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
+        UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
         if (bigBlob && smallBlob)
         {
@@ -2545,12 +2324,12 @@ doTestBlobCopyAndAssign
 
                 smallBlob[ii] = aByte;
             }
-            Blob          smallStuff(smallBlob.get(), kSmallTestSize);
-            Blob          bigStuff(bigBlob.get(), kBigTestSize);
-            size_t        smallLength = 0;
-            size_t        bigLength = 0;
-            const uint8_t *smallValue = smallStuff.getValue(smallLength);
-            const uint8_t *bigValue = bigStuff.getValue(bigLength);
+            Blob            smallStuff(smallBlob.get(), kSmallTestSize);
+            Blob            bigStuff(bigBlob.get(), kBigTestSize);
+            size_t          smallLength = 0;
+            size_t          bigLength = 0;
+            const uint8_t*  smallValue = smallStuff.getValue(smallLength);
+            const uint8_t*  bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
@@ -2623,18 +2402,11 @@ doTestBlobCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBlobCopyAndAssign
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 80 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2642,9 +2414,9 @@ doTestBlobCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid logical compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2678,11 +2450,11 @@ doTestValidLogicalCompares
             { true,  false, false, true, true,  true, false, true, true,  true, false, true },
             { true,  true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
+        const size_t    numTests = A_SIZE(testSet);
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Logical leftValue(testSet[ii]._leftValue);
             Logical rightValue(testSet[ii]._rightValue);
 
@@ -2769,18 +2541,11 @@ doTestValidLogicalCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidLogicalCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 81 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2788,9 +2553,9 @@ doTestValidLogicalCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidNumberCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid number compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid number compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2861,7 +2626,7 @@ doTestValidNumberCompares
             bool   _equalToValid;
         }; // testsR2R
 
-        const testsI2I testSet1[] =
+        const testsI2I  testSet1[] =
         {
             // l   r  <            >            <=           >=           ==
             { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
@@ -2872,8 +2637,8 @@ doTestValidNumberCompares
             { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
             { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t numTests1 = (sizeof(testSet1) / sizeof(testSet1[0]));
-        const testsI2R testSet2[] =
+        const size_t    numTests1 = A_SIZE(testSet1);
+        const testsI2R  testSet2[] =
         {
             // l   r  <            >            <=           >=           ==
             { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
@@ -2884,8 +2649,8 @@ doTestValidNumberCompares
             { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
             { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t numTests2 = (sizeof(testSet2) / sizeof(testSet2[0]));
-        const testsR2I testSet3[] =
+        const size_t    numTests2 = A_SIZE(testSet2);
+        const testsR2I  testSet3[] =
         {
             // l   r  <            >            <=           >=           ==
             { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
@@ -2896,8 +2661,8 @@ doTestValidNumberCompares
             { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
             { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t numTests3 = (sizeof(testSet3) / sizeof(testSet3[0]));
-        const testsR2R testSet4[] =
+        const size_t    numTests3 = A_SIZE(testSet3);
+        const testsR2R  testSet4[] =
         {
             // l   r  <            >            <=           >=           ==
             { 0,   0, false, true, false, true, true,  true, true,  true, true,  true },
@@ -2908,11 +2673,11 @@ doTestValidNumberCompares
             { 1,   1, false, true, false, true, true,  true, true,  true, true,  true },
             { -1, -1, false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t numTests4 = (sizeof(testSet4) / sizeof(testSet4[0]));
+        const size_t    numTests4 = A_SIZE(testSet4);
 
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer leftValue(testSet1[ii]._leftValue);
             Integer rightValue(testSet1[ii]._rightValue);
 
@@ -2992,7 +2757,7 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Integer leftValue(testSet2[ii]._leftValue);
             Double  rightValue(testSet2[ii]._rightValue);
 
@@ -3072,7 +2837,7 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests3 > ii); ++ii)
         {
-            bool          valid = false;
+            bool    valid = false;
             Double  leftValue(testSet3[ii]._leftValue);
             Integer rightValue(testSet3[ii]._rightValue);
 
@@ -3152,9 +2917,9 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests4 > ii); ++ii)
         {
-            bool         valid = false;
-            Double leftValue(testSet4[ii]._leftValue);
-            Double rightValue(testSet4[ii]._rightValue);
+            bool    valid = false;
+            Double  leftValue(testSet4[ii]._leftValue);
+            Double  rightValue(testSet4[ii]._rightValue);
 
             if (testSet4[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3239,18 +3004,11 @@ doTestValidNumberCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidNumberCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 82 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3258,9 +3016,9 @@ doTestValidNumberCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid string compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid string compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3272,18 +3030,18 @@ doTestValidStringCompares
     {
         struct tests
         {
-            const char *_leftValue;
-            const char *_rightValue;
-            bool       _lessThanResult;
-            bool       _lessThanValid;
-            bool       _greaterThanResult;
-            bool       _greaterThanValid;
-            bool       _lessThanOrEqualResult;
-            bool       _lessThanOrEqualValid;
-            bool       _greaterThanOrEqualResult;
-            bool       _greaterThanOrEqualValid;
-            bool       _equalToResult;
-            bool       _equalToValid;
+            const char* _leftValue;
+            const char* _rightValue;
+            bool        _lessThanResult;
+            bool        _lessThanValid;
+            bool        _greaterThanResult;
+            bool        _greaterThanValid;
+            bool        _lessThanOrEqualResult;
+            bool        _lessThanOrEqualValid;
+            bool        _greaterThanOrEqualResult;
+            bool        _greaterThanOrEqualValid;
+            bool        _equalToResult;
+            bool        _equalToValid;
         }; // tests
 
         const tests testSet[] =
@@ -3298,7 +3056,7 @@ doTestValidStringCompares
             { "abc",  "abcd", true,  true, false, true, true,  true, false, true, false, true },
             { "abcd", "abc",  false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
+        const size_t    numTests = A_SIZE(testSet);
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
@@ -3389,18 +3147,11 @@ doTestValidStringCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidStringCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 83 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3408,9 +3159,9 @@ doTestValidStringCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidBlobCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid blob compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid blob compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3422,26 +3173,26 @@ doTestValidBlobCompares
     {
         struct tests
         {
-            const Blob *_leftValue;
-            const Blob *_rightValue;
-            bool       _lessThanResult;
-            bool       _lessThanValid;
-            bool       _greaterThanResult;
-            bool       _greaterThanValid;
-            bool       _lessThanOrEqualResult;
-            bool       _lessThanOrEqualValid;
-            bool       _greaterThanOrEqualResult;
-            bool       _greaterThanOrEqualValid;
-            bool       _equalToResult;
-            bool       _equalToValid;
+            const Blob* _leftValue;
+            const Blob* _rightValue;
+            bool        _lessThanResult;
+            bool        _lessThanValid;
+            bool        _greaterThanResult;
+            bool        _greaterThanValid;
+            bool        _lessThanOrEqualResult;
+            bool        _lessThanOrEqualValid;
+            bool        _greaterThanOrEqualResult;
+            bool        _greaterThanOrEqualValid;
+            bool        _equalToResult;
+            bool        _equalToValid;
         }; // tests
 
         const uint8_t blobData1[] = { 1, 2, 3, 4, 5, 6 };
         const uint8_t blobData2[] = { 1, 2, 3, 4, 5, 6, 7 };
         const uint8_t blobData3[] = { 1, 2, 3, 4, 5, 7 };
-        const size_t  blobSize1 = (sizeof(blobData1) / sizeof(blobData1[0]));
-        const size_t  blobSize2 = (sizeof(blobData2) / sizeof(blobData2[0]));
-        const size_t  blobSize3 = (sizeof(blobData3) / sizeof(blobData3[0]));
+        const size_t  blobSize1 = A_SIZE(blobData1);
+        const size_t  blobSize2 = A_SIZE(blobData2);
+        const size_t  blobSize3 = A_SIZE(blobData3);
         Blob          blob0;
         Blob          blob1(blobData1, blobSize1);
         Blob          blob2(blobData2, blobSize2);
@@ -3458,7 +3209,7 @@ doTestValidBlobCompares
             { &blob1, &blob2, true,  true, false, true, true,  true, false, true, false, true },
             { &blob2, &blob1, false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t numTests = (sizeof(testSet) / sizeof(testSet[0]));
+        const size_t    numTests = A_SIZE(testSet);
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
@@ -3549,18 +3300,11 @@ doTestValidBlobCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidBlobCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 84 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3568,9 +3312,9 @@ doTestValidBlobCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid logical compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid logical compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3580,17 +3324,17 @@ doTestInvalidLogicalCompares
 
     try
     {
-        bool         valid = false;
-        Logical      leftValue;
-        Number       rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool            valid = false;
+        Logical         leftValue;
+        Number          rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3657,18 +3401,11 @@ doTestInvalidLogicalCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidLogicalCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 85 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3676,9 +3413,9 @@ doTestInvalidLogicalCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidNumberCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid number compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid number compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3688,17 +3425,17 @@ doTestInvalidNumberCompares
 
     try
     {
-        bool         valid = false;
-        Number       leftValue;
-        Logical      rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool            valid = false;
+        Number          leftValue;
+        Logical         rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3765,18 +3502,11 @@ doTestInvalidNumberCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidNumberCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 86 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3784,9 +3514,9 @@ doTestInvalidNumberCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid string compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid string compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3796,17 +3526,17 @@ doTestInvalidStringCompares
 
     try
     {
-        bool         valid = false;
-        String       leftValue;
-        Logical      rightValue1;
-        Number       rightValue2;
-        Blob         rightValue3;
-        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool            valid = false;
+        String          leftValue;
+        Logical         rightValue1;
+        Number          rightValue2;
+        Blob            rightValue3;
+        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3873,18 +3603,11 @@ doTestInvalidStringCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidStringCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 87 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3892,9 +3615,9 @@ doTestInvalidStringCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidBlobCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid blob compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid blob compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3904,17 +3627,17 @@ doTestInvalidBlobCompares
 
     try
     {
-        bool         valid = false;
-        Blob         leftValue;
-        Logical      rightValue1;
-        Number       rightValue2;
-        String       rightValue3;
-        Value        *rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        bool            valid = false;
+        Blob            leftValue;
+        Logical         rightValue1;
+        Number          rightValue2;
+        String          rightValue3;
+        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3981,9 +3704,6 @@ doTestInvalidBlobCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidBlobCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -3999,8 +3719,8 @@ doTestInvalidBlobCompares
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 

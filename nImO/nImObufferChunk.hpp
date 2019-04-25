@@ -79,7 +79,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         BufferChunk
-            (const BufferChunk &other) = delete;
+            (const BufferChunk& other) = delete;
 
         /*! @brief The destructor. */
         virtual
@@ -94,8 +94,8 @@ namespace nImO
          @returns The BufferChunk object so that cascading can be done. */
         BufferChunk &
         appendData
-            (const void   *data,
-             const size_t numBytes);
+            (const void*    data,
+             const size_t   numBytes);
 
         /*! @brief Return the number of available bytes in the chunk.
          @returns The number of available bytes in the chunk. */
@@ -132,7 +132,7 @@ namespace nImO
          @returns The updated object. */
         BufferChunk &
         operator =
-            (const BufferChunk &other) = delete;
+            (const BufferChunk& other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
          @returns The BufferChunk object so that cascading can be done. */
@@ -159,16 +159,16 @@ namespace nImO
         // Private fields.
 
         /*! @brief The internal buffer used to hold the assembled data. */
-        nImO::UpAuint8_t _buffer;
+        UpAuint8_t  _buffer;
 
         /*! @brief The byte just past the end of the internal buffer. */
-        uint8_t *_bufferEnd;
+        uint8_t*    _bufferEnd;
 
         /*! @brief The next byte to write in the internal buffer. */
-        uint8_t *_write;
+        uint8_t*    _write;
 
         /*! @brief @c true if the buffer has an extra byte. */
-        bool _padded;
+        bool    _padded;
 
     }; // BufferChunk
 

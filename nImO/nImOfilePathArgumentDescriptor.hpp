@@ -92,18 +92,18 @@ namespace nImO
          @param[in] useRandomPath @c true if the file path will be constructed with a random number
          and @c false if the file path is fixed. */
         FilePathArgumentDescriptor
-            (const std::string  &argName,
-             const std::string  &argDescription,
+            (const std::string& argName,
+             const std::string& argDescription,
              const ArgumentMode argMode,
-             const std::string  &pathPrefix,
-             const std::string  &pathSuffix,
+             const std::string& pathPrefix,
+             const std::string& pathSuffix,
              const bool         forOutput = false,
              const bool         useRandomPath = false);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         FilePathArgumentDescriptor
-            (const FilePathArgumentDescriptor &other);
+            (const FilePathArgumentDescriptor&  other);
 
         /*! @brief The destructor. */
         virtual
@@ -115,13 +115,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string& inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (FilePathArgumentDescriptor &other);
+            (FilePathArgumentDescriptor&    other);
         
     protected :
 
@@ -148,7 +148,7 @@ namespace nImO
          @returns @c true if the argument is for file paths and @c false otherwise. */
         virtual bool
         isForFiles
-            (bool &isForOutput)
+            (bool&  isForOutput)
             const
             override;
 
@@ -171,7 +171,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string &value)
+            (const std::string& value)
             override;
 
     public :
@@ -187,21 +187,21 @@ namespace nImO
         std::string _pathSuffix;
 
         /*! @brief @c true if the default value is available and @c false otherwise. */
-        bool _defaultSet;
+        bool    _defaultSet;
 
         /*! @brief @c true if the file path will be used for output and @c false otherwise. */
-        bool _forOutput;
+        bool    _forOutput;
 
         /*! @brief @c true if the file path will be constructed with a random number
          and @c false if the file path is fixed. */
-        bool _useRandomPath;
+        bool    _useRandomPath;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
         /*! @brief Filler to pad to alignment boundary */
-        char _filler[5];
+        char    _filler[5];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

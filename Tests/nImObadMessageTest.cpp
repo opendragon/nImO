@@ -113,10 +113,10 @@ catchSignal
  @returns Zero on success and non-zero on failure. */
 static int
 attemptExtractValueAndCheck
-    (Message           &stuff,
-     const DataKind    *insertedContents,
-     const size_t      insertedSize,
-     const std::string &expectedFlawString)
+    (Message&           stuff,
+     const DataKind*    insertedContents,
+     const size_t       insertedSize,
+     const std::string& expectedFlawString)
 {
     ODL_ENTER(); //####
     ODL_P2("stuff = ", &stuff, "insertedContents = ", insertedContents); //####
@@ -137,7 +137,7 @@ attemptExtractValueAndCheck
     }
     else
     {
-        const Flaw *asFlaw = extractedValue->asFlaw();
+        const Flaw* asFlaw = extractedValue->asFlaw();
                     
         if (asFlaw)
         {
@@ -159,10 +159,6 @@ attemptExtractValueAndCheck
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -170,9 +166,9 @@ attemptExtractValueAndCheck
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageInitialEndTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message wrong initial tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message wrong initial tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -182,18 +178,18 @@ doTestMessageInitialEndTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
             ODL_LOG("(stuff)"); //####
-            static const DataKind bytesToInsert[] =
+            static const DataKind     bytesToInsert[] =
             {
                 // Start of Message
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with incorrect start tag @0");
@@ -211,18 +207,11 @@ doTestMessageInitialEndTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMessageInitialEndTag 
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -230,9 +219,9 @@ doTestMessageInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageTerminalStartTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message wrong terminal tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message wrong terminal tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -242,18 +231,18 @@ doTestMessageTerminalStartTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind     bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                 // End of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1");
@@ -271,18 +260,11 @@ doTestMessageTerminalStartTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMessageTerminalStartTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 003 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -290,9 +272,9 @@ doTestMessageTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessageWithContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty message with content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty message with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -302,11 +284,11 @@ doTestEmptyMessageWithContent
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind     bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
@@ -316,7 +298,7 @@ doTestEmptyMessageWithContent
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1");
@@ -334,18 +316,11 @@ doTestEmptyMessageWithContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyMessageWithContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 004 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -353,9 +328,9 @@ doTestEmptyMessageWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithoutContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // non-empty message without content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // non-empty message without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -365,11 +340,11 @@ doTestNonEmptyMessageWithoutContent
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -380,7 +355,7 @@ doTestNonEmptyMessageWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1");
@@ -398,18 +373,11 @@ doTestNonEmptyMessageWithoutContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithoutContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 005 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -417,9 +385,9 @@ doTestNonEmptyMessageWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedInitialStartTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with mismatched tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -429,11 +397,11 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -447,7 +415,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1");
@@ -465,18 +433,11 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithMismatchedInitialStartTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 006 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -484,9 +445,9 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedTerminalEndTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with mismatched tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -496,11 +457,11 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -514,7 +475,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched end Value tag @2");
@@ -532,18 +493,11 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithMismatchedTerminalEndTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 007 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -551,9 +505,9 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithInvalidContentTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with invalid content tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with invalid content tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -563,11 +517,11 @@ doTestNonEmptyMessageWithInvalidContentTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -580,7 +534,7 @@ doTestNonEmptyMessageWithInvalidContentTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -598,18 +552,11 @@ doTestNonEmptyMessageWithInvalidContentTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyStringMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 008 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -617,9 +564,9 @@ doTestNonEmptyMessageWithInvalidContentTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithZeroDoubleCount
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with bad double count
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with bad double count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -629,11 +576,11 @@ doTestNonEmptyMessageWithZeroDoubleCount
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -648,7 +595,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Bad count for Double @2");
@@ -666,18 +613,11 @@ doTestNonEmptyMessageWithZeroDoubleCount
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithZeroDoubleCount
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 009 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -685,9 +625,9 @@ doTestNonEmptyMessageWithZeroDoubleCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithStringWithInvalidLength
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with string with invalid length
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with string with invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -697,11 +637,11 @@ doTestNonEmptyMessageWithStringWithInvalidLength
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -717,7 +657,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
@@ -735,18 +675,11 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithStringWithInvalidLength
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 010 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -754,9 +687,9 @@ doTestNonEmptyMessageWithStringWithInvalidLength
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithBlobWithInvalidLength
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with blob with invalid length
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with blob with invalid length
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -766,11 +699,11 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -786,7 +719,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
@@ -804,18 +737,11 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithBlobWithInvalidLength
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 020 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -823,9 +749,9 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with array with initial end tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with array with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -835,11 +761,11 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -858,7 +784,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -876,18 +802,11 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTTestNonEmptyMessageWithArrayWithInitialEndTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 021 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -895,9 +814,9 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithTerminalStartTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with array with terminal start tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with array with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -907,11 +826,11 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -930,7 +849,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
@@ -948,18 +867,11 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithArrayWithTerminalStartTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 022 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -967,9 +879,9 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyArrayWithContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with empty array with content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with empty array with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -979,11 +891,11 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1005,7 +917,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
@@ -1023,18 +935,11 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithEmptyArrayWithContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 023 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1042,9 +947,9 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty array without content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty array without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1054,11 +959,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1082,7 +987,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -1100,18 +1005,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 024 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1119,9 +1017,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty array with invalid count
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty array with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1131,11 +1029,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1158,7 +1056,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Array with zero or negative count @4");
@@ -1176,18 +1074,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 025 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1195,9 +1086,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with array with too few values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with array with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1207,11 +1098,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1241,7 +1132,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
@@ -1259,18 +1150,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 026 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1278,9 +1162,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with array with too many values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with array with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1290,11 +1174,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1327,7 +1211,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @5");
@@ -1345,18 +1229,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 027 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1364,9 +1241,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with array with too many doubles
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with array with too many doubles
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1376,11 +1253,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1423,7 +1300,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @29");
@@ -1441,18 +1318,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 040 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1460,9 +1330,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithInitialEndTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with map with initial end tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with map with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1472,11 +1342,11 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1495,7 +1365,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -1513,18 +1383,11 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithMapWithInitialEndTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 041 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1532,9 +1395,9 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with map with terminal start tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with map with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1544,11 +1407,11 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1567,7 +1430,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
@@ -1585,18 +1448,11 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithMapWithTerminalStartTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 042 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1604,9 +1460,9 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyMapWithContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with empty map with content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with empty map with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1616,11 +1472,11 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1642,7 +1498,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
@@ -1660,18 +1516,11 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithEmptyMapWithContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 043 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1679,9 +1528,9 @@ doTestNonEmptyMessageWithEmptyMapWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty map without content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty map without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1691,11 +1540,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1719,7 +1568,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -1737,18 +1586,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyMapWithoutContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 044 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1756,9 +1598,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty map with invalid count
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty map with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1768,11 +1610,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1795,7 +1637,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Map with zero or negative count @4");
@@ -1813,18 +1655,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 045 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1832,9 +1667,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with map with too few values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with map with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1844,11 +1679,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1884,7 +1719,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @7");
@@ -1902,18 +1737,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 046 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1921,9 +1749,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with map with too many values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with map with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1933,11 +1761,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1973,7 +1801,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Map with incorrect end tag @5");
@@ -1991,18 +1819,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 047 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2010,9 +1831,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with map with incomplete pair
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with map with incomplete pair
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2022,11 +1843,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2059,7 +1880,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
@@ -2077,18 +1898,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 060 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2096,9 +1910,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithInitialEndTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with set with initial end tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with set with initial end tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2108,11 +1922,11 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2131,7 +1945,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
@@ -2149,18 +1963,11 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTTestNonEmptyMessageWithSetWithInitialEndTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 061 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2168,9 +1975,9 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithTerminalStartTag
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with set with terminal start tag
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with set with terminal start tag
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2180,11 +1987,11 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2203,7 +2010,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
@@ -2221,18 +2028,11 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithSetWithTerminalStartTag
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 062 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2240,9 +2040,9 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptySetWithContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with empty set with content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with empty set with content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2252,11 +2052,11 @@ doTestNonEmptyMessageWithEmptySetWithContent
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2278,7 +2078,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
@@ -2296,18 +2096,11 @@ doTestNonEmptyMessageWithEmptySetWithContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithEmptySetWithContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 063 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2315,9 +2108,9 @@ doTestNonEmptyMessageWithEmptySetWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty set without content
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty set without content
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2327,11 +2120,11 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2355,7 +2148,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
@@ -2373,18 +2166,11 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptySetWithoutContent
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 064 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2392,9 +2178,9 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with nonempty set with invalid count
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with nonempty set with invalid count
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2404,11 +2190,11 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2431,7 +2217,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Set with zero or negative count @4");
@@ -2449,18 +2235,11 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 065 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2468,9 +2247,9 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with set with too few values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with set with too few values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2480,11 +2259,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2514,7 +2293,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
@@ -2532,18 +2311,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 066 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2551,9 +2323,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with set with too many values
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with set with too many values
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2563,11 +2335,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2600,7 +2372,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          insertionCount = (sizeof(bytesToInsert) / sizeof(*bytesToInsert));
+            const size_t    insertionCount = A_SIZE(bytesToInsert);
             
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
@@ -2618,9 +2390,6 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -2636,8 +2405,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 

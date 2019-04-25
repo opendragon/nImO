@@ -84,8 +84,8 @@ namespace nImO
          @returns @c true if the first Value is less than the second. */
         bool
         operator()
-            (SpValue lhs,
-             SpValue rhs)
+            (SpValue    lhs,
+             SpValue    rhs)
         const;
 
     protected :

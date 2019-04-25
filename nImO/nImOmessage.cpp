@@ -164,7 +164,7 @@ nImO::Message::close
                     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
                 };
-                const size_t emptyMessageLength = (sizeof(emptyMessage) / sizeof(*emptyMessage));
+                const size_t emptyMessageLength = A_SIZE(emptyMessage);
 
                 appendBytes(emptyMessage, emptyMessageLength);
             }

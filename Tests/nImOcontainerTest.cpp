@@ -114,17 +114,17 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithSquishedString
-    (const Value &aValue,
-     const char  *aString)
+    (const Value&   aValue,
+     const char*    aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    StringBuffer buff;
-    int          result;
+    StringBuffer    buff;
+    int             result;
 
     aValue.printToStringBuffer(buff, true);
-    auto resultString(buff.getString());
+    auto    resultString(buff.getString());
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -139,17 +139,17 @@ compareValueWithSquishedString
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value &aValue,
-     const char  *aString)
+    (const Value&   aValue,
+     const char*    aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    StringBuffer buff;
-    int          result;
+    StringBuffer    buff;
+    int             result;
 
     aValue.printToStringBuffer(buff);
-    auto resultString(buff.getString());
+    auto    resultString(buff.getString());
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -161,10 +161,6 @@ compareValueWithString
 # pragma mark *** Test Case 1 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -172,9 +168,9 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty array value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -184,15 +180,15 @@ doTestEmptyArrayValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar, kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ', kEndArrayChar, '\0'
             };
@@ -228,18 +224,11 @@ doTestEmptyArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 2 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -247,9 +236,9 @@ doTestEmptyArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular array value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -259,17 +248,17 @@ doTestSingularArrayValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar,
                     '1', '2', '3', '.', '4', '5',
                 kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -308,18 +297,11 @@ doTestSingularArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 3 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -327,9 +309,9 @@ doTestSingularArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small array value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -339,11 +321,11 @@ doTestSmallArrayValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar,
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -352,7 +334,7 @@ doTestSmallArrayValue
                     '4', '2',
                 kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -397,18 +379,11 @@ doTestSmallArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 4 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -416,9 +391,9 @@ doTestSmallArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // big array value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // big array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -428,11 +403,11 @@ doTestBigArrayValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            UpAuint8_t bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
             if (bigBlob)
             {
@@ -445,8 +420,8 @@ doTestBigArrayValue
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t *addr = bigBlob.get();
-                    uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t*    addr = bigBlob.get();
+                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     if (0 != ii)
                     {
@@ -493,18 +468,11 @@ doTestBigArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestBigArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 41 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -512,9 +480,9 @@ doTestBigArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -524,15 +492,15 @@ doTestEmptyMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar, kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ', kEndMapChar, '\0'
             };
@@ -568,18 +536,11 @@ doTestEmptyMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptyMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 21 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -587,9 +548,9 @@ doTestEmptyMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular logical map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -599,18 +560,18 @@ doTestSingularLogicalMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
@@ -650,18 +611,11 @@ doTestSingularLogicalMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularLogicalMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 22 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -669,9 +623,9 @@ doTestSingularLogicalMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular integer map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular integer map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -681,17 +635,17 @@ doTestSingularIntegerMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
@@ -730,18 +684,11 @@ doTestSingularIntegerMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularIntegerMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 23 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -749,9 +696,9 @@ doTestSingularIntegerMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular string map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular string map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -761,18 +708,18 @@ doTestSingularStringMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                         kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -812,18 +759,11 @@ doTestSingularStringMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularStringMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 24 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -831,9 +771,9 @@ doTestSingularStringMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small logical map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small logical map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -843,11 +783,11 @@ doTestSmallLogicalMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     'f', 'a', 'l', 's', 'e', kKeyValueSeparator, '4', '2', ' ',
@@ -855,7 +795,7 @@ doTestSmallLogicalMapValue
                     '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ' ',
@@ -897,18 +837,11 @@ doTestSmallLogicalMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallLogicalMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 25 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -916,9 +849,9 @@ doTestSmallLogicalMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small integer map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small integer map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -928,11 +861,11 @@ doTestSmallIntegerMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '1', '2', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
@@ -940,7 +873,7 @@ doTestSmallIntegerMapValue
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
@@ -983,18 +916,11 @@ doTestSmallIntegerMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallIntegerMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 26 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1002,9 +928,9 @@ doTestSmallIntegerMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small string map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small string map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1014,11 +940,11 @@ doTestSmallStringMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', kKeyValueSeparator,
@@ -1029,7 +955,7 @@ doTestSmallStringMapValue
                         '1', '2', '.', '3', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
@@ -1075,18 +1001,11 @@ doTestSmallStringMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallStringMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 40 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1094,9 +1013,9 @@ doTestSmallStringMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1106,15 +1025,15 @@ doTestEmptySetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar, kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ', kEndSetChar, '\0'
             };
@@ -1150,18 +1069,11 @@ doTestEmptySetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestEmptySetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 41 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1169,9 +1081,9 @@ doTestEmptySetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular logical set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1181,17 +1093,17 @@ doTestSingularLogicalSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
@@ -1230,18 +1142,11 @@ doTestSingularLogicalSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularLogicalSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 42 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1249,9 +1154,9 @@ doTestSingularLogicalSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular integer set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1261,17 +1166,17 @@ doTestSingularIntegerSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '4', '2',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
@@ -1310,18 +1215,11 @@ doTestSingularIntegerSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularIntegerSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 43 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1329,9 +1227,9 @@ doTestSingularIntegerSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // singular string set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // singular string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1341,17 +1239,17 @@ doTestSingularStringSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -1390,18 +1288,11 @@ doTestSingularStringSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSingularStringSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 44 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1409,9 +1300,9 @@ doTestSingularStringSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small logical set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small logical set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1421,18 +1312,18 @@ doTestSmallLogicalSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ',
@@ -1475,18 +1366,11 @@ doTestSmallLogicalSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallLogicalSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 45 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1494,9 +1378,9 @@ doTestSmallLogicalSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small integer set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small integer set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1506,11 +1390,11 @@ doTestSmallIntegerSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '1', '2', ' ',
@@ -1519,7 +1403,7 @@ doTestSmallIntegerSetValue
                     '1', '2', '3',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '1', '2', ' ',
@@ -1568,18 +1452,11 @@ doTestSmallIntegerSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallIntegerSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 46 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1587,9 +1464,9 @@ doTestSmallIntegerSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small string set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small string set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1599,11 +1476,11 @@ doTestSmallStringSetValue
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
@@ -1612,7 +1489,7 @@ doTestSmallStringSetValue
                     '"', 'g', 'a', 'm', 'm', 'a', '"',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
@@ -1661,18 +1538,11 @@ doTestSmallStringSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallStringSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 60 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1680,9 +1550,9 @@ doTestSmallStringSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with array value
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with array value
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1692,17 +1562,17 @@ doTestArrayWithArrayValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar,
                     kStartArrayChar, kEndArrayChar,
                 kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ',
                     kStartArrayChar, ' ', kEndArrayChar, ' ',
@@ -1741,18 +1611,11 @@ doTestArrayWithArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestArrayWithArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 61 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1760,9 +1623,9 @@ doTestArrayWithArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1772,17 +1635,17 @@ doTestArrayWithMapValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar,
                     kStartMapChar, kEndMapChar,
                 kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ',
                     kStartMapChar, ' ', kEndMapChar, ' ',
@@ -1821,18 +1684,11 @@ doTestArrayWithMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestArrayWithMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 62 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1840,9 +1696,9 @@ doTestArrayWithMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1852,17 +1708,17 @@ doTestArrayWithSetValue
 
     try
     {
-        auto stuff(make_unique<Array>());
+        auto    stuff(make_unique<Array>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartArrayChar,
                     kStartSetChar, kEndSetChar,
                 kEndArrayChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartArrayChar, ' ',
                     kStartSetChar, ' ', kEndSetChar, ' ',
@@ -1901,18 +1757,11 @@ doTestArrayWithSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestArrayWithSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 63 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1920,9 +1769,9 @@ doTestArrayWithSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithArrayValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // map with array
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // map with array
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1932,18 +1781,18 @@ doTestMapWithArrayValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartArrayChar, kEndArrayChar,
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -1983,18 +1832,11 @@ doTestMapWithArrayValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMapWithArrayValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 64 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2002,9 +1844,9 @@ doTestMapWithArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithMapValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // map with map
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // map with map
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2014,18 +1856,18 @@ doTestMapWithMapValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartMapChar, kEndMapChar,
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -2065,18 +1907,11 @@ doTestMapWithMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMapWithMapValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 65 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2084,9 +1919,9 @@ doTestMapWithMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithSetValue
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // map with set
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // map with set
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2096,18 +1931,18 @@ doTestMapWithSetValue
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartSetChar, kEndSetChar,
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -2147,18 +1982,11 @@ doTestMapWithSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMapWithSetValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 80 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2166,9 +1994,9 @@ doTestMapWithSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical map with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2178,18 +2006,18 @@ doTestLogicalMapValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
@@ -2232,18 +2060,11 @@ doTestLogicalMapValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalMapValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 81 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2251,9 +2072,9 @@ doTestLogicalMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer map with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2263,17 +2084,17 @@ doTestIntegerMapValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
@@ -2315,18 +2136,11 @@ doTestIntegerMapValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerMapValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 82 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2334,9 +2148,9 @@ doTestIntegerMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string map with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string map with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2346,18 +2160,18 @@ doTestStringMapValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Map>());
+        auto    stuff(make_unique<Map>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                     kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -2400,18 +2214,11 @@ doTestStringMapValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringMapValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 83 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2419,9 +2226,9 @@ doTestStringMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical set with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2431,17 +2238,17 @@ doTestLogicalSetValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
@@ -2483,18 +2290,11 @@ doTestLogicalSetValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalSetValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 84 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2502,9 +2302,9 @@ doTestLogicalSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer set with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2514,17 +2314,17 @@ doTestIntegerSetValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '4', '2',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
@@ -2566,18 +2366,11 @@ doTestIntegerSetValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerSetValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 85 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2585,9 +2378,9 @@ doTestIntegerSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetValueWithIncompatibleKeys
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string set with incompatible keys
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string set with incompatible keys
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2597,17 +2390,17 @@ doTestStringSetValueWithIncompatibleKeys
 
     try
     {
-        auto stuff(make_unique<Set>());
+        auto    stuff(make_unique<Set>());
 
         if (stuff)
         {
-            static const char expectedSquishedString[] =
+            static const char   expectedSquishedString[] =
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                 kEndSetChar, '\0'
             };
-            static const char expectedString[] =
+            static const char   expectedString[] =
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -2649,18 +2442,11 @@ doTestStringSetValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringSetValueWithIncompatibleKeys
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2668,9 +2454,9 @@ doTestStringSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidArrayCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid array compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid array compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2682,17 +2468,17 @@ doTestValidArrayCompares
     {
         struct testLogicals
         {
-            bool _testValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _testValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testLogicals
 
         Array               stuff;
@@ -2702,14 +2488,14 @@ doTestValidArrayCompares
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
-        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
 
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
@@ -2868,14 +2654,14 @@ doTestValidArrayCompares
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
-            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
                 { true,  true,  true, false, true, true, true, false, true, false, true }
             };
-            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
+            const size_t        numTestValues2r = A_SIZE(testSet2r);
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -3036,20 +2822,20 @@ doTestValidArrayCompares
         {
             struct testNumbers
             {
-                double _testValue;
-                bool   _lessThanResult;
-                bool   _lessThanValid;
-                bool   _greaterThanResult;
-                bool   _greaterThanValid;
-                bool   _lessThanOrEqualResult;
-                bool   _lessThanOrEqualValid;
-                bool   _greaterThanOrEqualResult;
-                bool   _greaterThanOrEqualValid;
-                bool   _equalToResult;
-                bool   _equalToValid;
+                double  _testValue;
+                bool    _lessThanResult;
+                bool    _lessThanValid;
+                bool    _greaterThanResult;
+                bool    _greaterThanValid;
+                bool    _lessThanOrEqualResult;
+                bool    _lessThanOrEqualValid;
+                bool    _greaterThanOrEqualResult;
+                bool    _greaterThanOrEqualValid;
+                bool    _equalToResult;
+                bool    _equalToValid;
             }; // testNumbers
 
-            static testNumbers testSet3l[] =
+            static testNumbers  testSet3l[] =
             {
                 // test <            >            <=           >=           ==
                 { -300, true,  true, false, true, true,  true, false, true, false, true },
@@ -3064,8 +2850,8 @@ doTestValidArrayCompares
                 { 200,  false, true, false, true, false, true, true,  true, false, true },
                 { 300,  false, true, true,  true, false, true, true,  true, false, true }
             };
-            const size_t       numTestValues3l = (sizeof(testSet3l) / sizeof(testSet3l[0]));
-            static testNumbers testSet3r[] =
+            const size_t        numTestValues3l = A_SIZE(testSet3l);
+            static testNumbers  testSet3r[] =
             {
                 // test <            >            <=           >=           ==
                 { -300, false, true, true,  true, false, true, true,  true, false, true },
@@ -3080,7 +2866,7 @@ doTestValidArrayCompares
                 { 200,  false, true, false, true, true,  true, false, true, false, true },
                 { 300,  true,  true, false, true, true,  true, false, true, false, true }
             };
-            const size_t       numTestValues3r = (sizeof(testSet3r) / sizeof(testSet3r[0]));
+            const size_t        numTestValues3r = A_SIZE(testSet3r);
 
             stuff.clear();
             stuff.addValue(std::make_shared<Double>(123.45));
@@ -3090,8 +2876,8 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Double>(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
-                bool   valid = false;
-                Double aValue(testSet3l[ii]._testValue);
+                bool    valid = false;
+                Double  aValue(testSet3l[ii]._testValue);
 
                 if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3165,8 +2951,8 @@ doTestValidArrayCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
-                bool   valid = false;
-                Double aValue(testSet3r[ii]._testValue);
+                bool    valid = false;
+                Double  aValue(testSet3r[ii]._testValue);
 
                 if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3243,20 +3029,20 @@ doTestValidArrayCompares
         {
             struct testStrings
             {
-                const char *_testValue;
-                bool       _lessThanResult;
-                bool       _lessThanValid;
-                bool       _greaterThanResult;
-                bool       _greaterThanValid;
-                bool       _lessThanOrEqualResult;
-                bool       _lessThanOrEqualValid;
-                bool       _greaterThanOrEqualResult;
-                bool       _greaterThanOrEqualValid;
-                bool       _equalToResult;
-                bool       _equalToValid;
+                const char* _testValue;
+                bool        _lessThanResult;
+                bool        _lessThanValid;
+                bool        _greaterThanResult;
+                bool        _greaterThanValid;
+                bool        _lessThanOrEqualResult;
+                bool        _lessThanOrEqualValid;
+                bool        _greaterThanOrEqualResult;
+                bool        _greaterThanOrEqualValid;
+                bool        _equalToResult;
+                bool        _equalToValid;
             }; // testStrings
 
-            static testStrings testSet4l[] =
+            static testStrings  testSet4l[] =
             {
                 // test  <            >            <=           >=           ==
                 { "aaa", true,  true, false, true, true,  true, false, true, false, true },
@@ -3265,8 +3051,8 @@ doTestValidArrayCompares
                 { "ghi", false, true, false, true, false, true, true,  true, false, true },
                 { "zzz", false, true, true,  true, false, true, true,  true, false, true }
             };
-            const size_t       numTestValues4l = (sizeof(testSet4l) / sizeof(testSet4l[0]));
-            static testStrings testSet4r[] =
+            const size_t        numTestValues4l = A_SIZE(testSet4l);
+            static testStrings  testSet4r[] =
             {
                 // test  <            >            <=           >=           ==
                 { "aaa", false, true, true,  true, false, true, true,  true, false, true },
@@ -3275,7 +3061,7 @@ doTestValidArrayCompares
                 { "ghi", false, true, false, true, true,  true, false, true, false, true },
                 { "zzz", true,  true, false, true, true,  true, false, true, false, true }
             };
-            const size_t       numTestValues4r = (sizeof(testSet4r) / sizeof(testSet4r[0]));
+            const size_t        numTestValues4r = A_SIZE(testSet4r);
 
             stuff.clear();
             stuff.addValue(std::make_shared<String>("abc"));
@@ -3283,8 +3069,8 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
-                bool   valid = false;
-                String aValue(testSet4l[ii]._testValue);
+                bool    valid = false;
+                String  aValue(testSet4l[ii]._testValue);
 
                 if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
                 {
@@ -3358,8 +3144,8 @@ doTestValidArrayCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
             {
-                bool   valid = false;
-                String aValue(testSet4r[ii]._testValue);
+                bool    valid = false;
+                String  aValue(testSet4r[ii]._testValue);
 
                 if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
                 {
@@ -3441,18 +3227,11 @@ doTestValidArrayCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidArrayCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3460,9 +3239,9 @@ doTestValidArrayCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid logical map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3474,17 +3253,17 @@ doTestValidLogicalMapCompares
     {
         struct testLogicals
         {
-            bool _testValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _testValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testLogicals
 
         static testLogicals testSet1l[] =
@@ -3493,14 +3272,14 @@ doTestValidLogicalMapCompares
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
-        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
@@ -3660,14 +3439,14 @@ doTestValidLogicalMapCompares
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
-            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
                 { true,  true,  true, false, true, true, true, false, true, false, true }
             };
-            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
+            const size_t        numTestValues2r = A_SIZE(testSet2r);
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("abc"));
@@ -3833,18 +3612,11 @@ doTestValidLogicalMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidLogicalMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3852,9 +3624,9 @@ doTestValidLogicalMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid integer map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid integer map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3879,7 +3651,7 @@ doTestValidIntegerMapCompares
             bool    _equalToValid;
         }; // testNumbers
 
-        static testNumbers testSet1l[] =
+        static testNumbers  testSet1l[] =
         {
             // test <            >            <=           >=           ==
             { -300, true,  true, false, true, true,  true, false, true, false, true },
@@ -3894,9 +3666,8 @@ doTestValidIntegerMapCompares
             { 200,  false, true, false, true, false, true, true,  true, false, true },
             { 300,  false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-
-        static testNumbers testSet1r[] =
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
+        static testNumbers  testSet1r[] =
         {
             // test <            >            <=           >=           ==
             { -300, false, true, true,  true, false, true, true,  true, false, true },
@@ -3911,8 +3682,8 @@ doTestValidIntegerMapCompares
             { 200,  false, true, false, true, true,  true, false, true, false, true },
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
-        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Map                stuff;
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        Map                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123), std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<Integer>(200), std::make_shared<String>("def"));
@@ -4074,18 +3845,11 @@ doTestValidIntegerMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidIntegerMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 103 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4093,9 +3857,9 @@ doTestValidIntegerMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid string map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid string map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4107,20 +3871,20 @@ doTestValidStringMapCompares
     {
         struct testStrings
         {
-            const char *_testValue;
-            bool       _lessThanResult;
-            bool       _lessThanValid;
-            bool       _greaterThanResult;
-            bool       _greaterThanValid;
-            bool       _lessThanOrEqualResult;
-            bool       _lessThanOrEqualValid;
-            bool       _greaterThanOrEqualResult;
-            bool       _greaterThanOrEqualValid;
-            bool       _equalToResult;
-            bool       _equalToValid;
+            const char* _testValue;
+            bool        _lessThanResult;
+            bool        _lessThanValid;
+            bool        _greaterThanResult;
+            bool        _greaterThanValid;
+            bool        _lessThanOrEqualResult;
+            bool        _lessThanOrEqualValid;
+            bool        _greaterThanOrEqualResult;
+            bool        _greaterThanOrEqualValid;
+            bool        _equalToResult;
+            bool        _equalToValid;
         }; // testStrings
 
-        static testStrings testSet1l[] =
+        static testStrings  testSet1l[] =
         {
             // test  <            >            <=           >=           ==
             { "aaa", true,  true, false, true, true,  true, false, true, false, true },
@@ -4129,8 +3893,8 @@ doTestValidStringMapCompares
             { "ghi", false, true, false, true, false, true, true,  true, false, true },
             { "zzz", false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-        static testStrings testSet1r[] =
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
+        static testStrings  testSet1r[] =
         {
             // test  <            >            <=           >=           ==
             { "aaa", false, true, true,  true, false, true, true,  true, false, true },
@@ -4139,16 +3903,16 @@ doTestValidStringMapCompares
             { "ghi", false, true, false, true, true,  true, false, true, false, true },
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
-        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Map                stuff;
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        Map                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         stuff.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
         stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool   valid = false;
-            String aValue(testSet1l[ii]._testValue);
+            bool    valid = false;
+            String  aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -4220,8 +3984,8 @@ doTestValidStringMapCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool   valid = false;
-            String aValue(testSet1r[ii]._testValue);
+            bool    valid = false;
+            String  aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -4300,18 +4064,11 @@ doTestValidStringMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidStringMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 104 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4319,9 +4076,9 @@ doTestValidStringMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid logical set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4333,17 +4090,17 @@ doTestValidLogicalSetCompares
     {
         struct testLogicals
         {
-            bool _testValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _testValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // testLogicals
 
         static testLogicals testSet1l[] =
@@ -4352,14 +4109,14 @@ doTestValidLogicalSetCompares
             { false, true,  true, false, true, true,  true, false, true, false, true },
             { true,  false, true, false, true, true,  true, true,  true, true,  true }
         };
-        const size_t        numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
             // test  <            >            <=           >=          ==
             { false, false, true, true,  true, false, true, true, true, false, true },
             { true,  false, true, false, true, true,  true, true, true, true,  true }
         };
-        const size_t        numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true));
@@ -4519,14 +4276,14 @@ doTestValidLogicalSetCompares
                 { false, false, true, false, true, true,  true, true, true, true,  true },
                 { true,  false, true, true,  true, false, true, true, true, false, true }
             };
-            const size_t        numTestValues2l = (sizeof(testSet2l) / sizeof(testSet2l[0]));
+            const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
                 // test  <            >            <=          >=           ==
                 { false, false, true, false, true, true, true, true,  true, true,  true },
                 { true,  true,  true, false, true, true, true, false, true, false, true }
             };
-            const size_t        numTestValues2r = (sizeof(testSet2r) / sizeof(testSet2r[0]));
+            const size_t        numTestValues2r = A_SIZE(testSet2r);
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -4692,18 +4449,11 @@ doTestValidLogicalSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidLogicalSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 105 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4711,9 +4461,9 @@ doTestValidLogicalSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid integer set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid integer set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4738,7 +4488,7 @@ doTestValidIntegerSetCompares
             bool    _equalToValid;
         }; // testNumbers
 
-        static testNumbers testSet1l[] =
+        static testNumbers  testSet1l[] =
         {
             // test <            >            <=           >=           ==
             { -300, true,  true, false, true, true,  true, false, true, false, true },
@@ -4753,9 +4503,8 @@ doTestValidIntegerSetCompares
             { 200,  false, true, false, true, false, true, true,  true, false, true },
             { 300,  false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-
-        static testNumbers testSet1r[] =
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
+        static testNumbers  testSet1r[] =
         {
             // test <            >            <=           >=           ==
             { -300, false, true, true,  true, false, true, true,  true, false, true },
@@ -4770,8 +4519,8 @@ doTestValidIntegerSetCompares
             { 200,  false, true, false, true, true,  true, false, true, false, true },
             { 300,  true,  true, false, true, true,  true, false, true, false, true }
         };
-        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Set                stuff;
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        Set                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123));
         stuff.addValue(std::make_shared<Integer>(200));
@@ -4933,18 +4682,11 @@ doTestValidIntegerSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidIntegerSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 106 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4952,9 +4694,9 @@ doTestValidIntegerSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // valid string set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // valid string set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4966,20 +4708,20 @@ doTestValidStringSetCompares
     {
         struct testStrings
         {
-            const char *_testValue;
-            bool       _lessThanResult;
-            bool       _lessThanValid;
-            bool       _greaterThanResult;
-            bool       _greaterThanValid;
-            bool       _lessThanOrEqualResult;
-            bool       _lessThanOrEqualValid;
-            bool       _greaterThanOrEqualResult;
-            bool       _greaterThanOrEqualValid;
-            bool       _equalToResult;
-            bool       _equalToValid;
+            const char* _testValue;
+            bool        _lessThanResult;
+            bool        _lessThanValid;
+            bool        _greaterThanResult;
+            bool        _greaterThanValid;
+            bool        _lessThanOrEqualResult;
+            bool        _lessThanOrEqualValid;
+            bool        _greaterThanOrEqualResult;
+            bool        _greaterThanOrEqualValid;
+            bool        _equalToResult;
+            bool        _equalToValid;
         }; // testStrings
 
-        static testStrings testSet1l[] =
+        static testStrings  testSet1l[] =
         {
             // test  <            >            <=           >=           ==
             { "aaa", true,  true, false, true, true,  true, false, true, false, true },
@@ -4988,8 +4730,8 @@ doTestValidStringSetCompares
             { "ghi", false, true, false, true, false, true, true,  true, false, true },
             { "zzz", false, true, true,  true, false, true, true,  true, false, true }
         };
-        const size_t       numTestValues1l = (sizeof(testSet1l) / sizeof(testSet1l[0]));
-        static testStrings testSet1r[] =
+        const size_t        numTestValues1l = A_SIZE(testSet1l);
+        static testStrings  testSet1r[] =
         {
             // test  <            >            <=           >=           ==
             { "aaa", false, true, true,  true, false, true, true,  true, false, true },
@@ -4998,16 +4740,16 @@ doTestValidStringSetCompares
             { "ghi", false, true, false, true, true,  true, false, true, false, true },
             { "zzz", true,  true, false, true, true,  true, false, true, false, true }
         };
-        const size_t       numTestValues1r = (sizeof(testSet1r) / sizeof(testSet1r[0]));
-        Set                stuff;
+        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        Set                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool   valid = false;
-            String aValue(testSet1l[ii]._testValue);
+            bool    valid = false;
+            String  aValue(testSet1l[ii]._testValue);
 
             if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
             {
@@ -5079,8 +4821,8 @@ doTestValidStringSetCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool   valid = false;
-            String aValue(testSet1r[ii]._testValue);
+            bool    valid = false;
+            String  aValue(testSet1r[ii]._testValue);
 
             if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
             {
@@ -5159,18 +4901,11 @@ doTestValidStringSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestValidStringSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 107 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5178,9 +4913,9 @@ doTestValidStringSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArrayCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid array compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid array compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5190,29 +4925,29 @@ doTestInvalidArrayCompares
 
     try
     {
-        bool         valid = false;
-        Array        leftValue;
-        Logical      rightValue1;
-        Double       rightValue2;
-        String       rightValue3;
-        Blob         rightValue4;
-        Array        rightValue5;
-        Map          rightValue6;
-        Set          rightValue7;
-        Integer      rightValue8;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Array           leftValue;
+        Logical         rightValue1;
+        Double          rightValue2;
+        String          rightValue3;
+        Blob            rightValue4;
+        Array           rightValue5;
+        Map             rightValue6;
+        Set             rightValue7;
+        Integer         rightValue8;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
         };
-        const size_t  numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<Logical>());
         leftValue.addValue(std::make_shared<Number>());
         leftValue.addValue(std::make_shared<String>());
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5279,18 +5014,11 @@ doTestInvalidArrayCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidArrayCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 108 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5298,9 +5026,9 @@ doTestInvalidArrayCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid logical map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid logical map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5310,27 +5038,27 @@ doTestInvalidLogicalMapCompares
 
     try
     {
-        bool         valid = false;
-        Map          leftValue;
-        Integer      rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Double       rightValue7;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Map             leftValue;
+        Integer         rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Double          rightValue7;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5397,18 +5125,11 @@ doTestInvalidLogicalMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidLogicalMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 109 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5416,9 +5137,9 @@ doTestInvalidLogicalMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid integer map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid integer map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5428,26 +5149,26 @@ doTestInvalidIntegerMapCompares
 
     try
     {
-        bool         valid = false;
-        Map          leftValue;
-        Logical      rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Map             leftValue;
+        Logical         rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
         leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5514,18 +5235,11 @@ doTestInvalidIntegerMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidIntegerMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5533,9 +5247,9 @@ doTestInvalidIntegerMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringMapCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid string map compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid string map compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5545,28 +5259,28 @@ doTestInvalidStringMapCompares
 
     try
     {
-        bool         valid = false;
-        Map          leftValue;
-        Double       rightValue1;
-        Logical      rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Integer      rightValue7;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Map             leftValue;
+        Double          rightValue1;
+        Logical         rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Integer         rightValue7;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
         leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5633,18 +5347,11 @@ doTestInvalidStringMapCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidStringMapCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5652,9 +5359,9 @@ doTestInvalidStringMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid logical set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid logical set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5664,27 +5371,27 @@ doTestInvalidLogicalSetCompares
 
     try
     {
-        bool         valid = false;
-        Set          leftValue;
-        Double       rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Integer      rightValue7;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Set             leftValue;
+        Double          rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Integer         rightValue7;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<Logical>(false));
         leftValue.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5751,18 +5458,11 @@ doTestInvalidLogicalSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidLogicalSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5770,9 +5470,9 @@ doTestInvalidLogicalSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid integer set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid integer set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5782,26 +5482,26 @@ doTestInvalidIntegerSetCompares
 
     try
     {
-        bool         valid = false;
-        Set          leftValue;
-        Logical      rightValue1;
-        String       rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Set             leftValue;
+        Logical         rightValue1;
+        String          rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<Integer>(42));
         leftValue.addValue(std::make_shared<Integer>(17));
         leftValue.addValue(std::make_shared<Integer>(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5868,18 +5568,11 @@ doTestInvalidIntegerSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidIntegerSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -5887,9 +5580,9 @@ doTestInvalidIntegerSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringSetCompares
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid string set compares
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // invalid string set compares
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -5899,28 +5592,28 @@ doTestInvalidStringSetCompares
 
     try
     {
-        bool         valid = false;
-        Set          leftValue;
-        Double       rightValue1;
-        Logical      rightValue2;
-        Blob         rightValue3;
-        Array        rightValue4;
-        Map          rightValue5;
-        Set          rightValue6;
-        Integer      rightValue7;
-        Value        *rightValues[] =
+        bool            valid = false;
+        Set             leftValue;
+        Double          rightValue1;
+        Logical         rightValue2;
+        Blob            rightValue3;
+        Array           rightValue4;
+        Map             rightValue5;
+        Set             rightValue6;
+        Integer         rightValue7;
+        Value*          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t numRightValues = (sizeof(rightValues) / sizeof(rightValues[0]));
+        const size_t    numRightValues = A_SIZE(rightValues);
 
         leftValue.addValue(std::make_shared<String>("abc"));
         leftValue.addValue(std::make_shared<String>("def"));
         leftValue.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value &aRightValue = *rightValues[ii];
+            Value&  aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5987,18 +5680,11 @@ doTestInvalidStringSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidStringSetCompares
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 120 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6006,9 +5692,9 @@ doTestInvalidStringSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayIndices
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array indices
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array indices
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6109,18 +5795,11 @@ doTestArrayIndices
     ODL_EXIT_I(result); //####
     return result;
 } // doTestArrayIndices
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 121 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6128,9 +5807,9 @@ doTestArrayIndices
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical map searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6140,10 +5819,10 @@ doTestLogicalMapSearches
 
     try
     {
-        Map           stuff;
-        Map::iterator iter;
-        auto          falseString = std::make_shared<String>("false");
-        SpString      trueString;
+        Map             stuff;
+        Map::iterator   iter;
+        auto            falseString = std::make_shared<String>("false");
+        SpString        trueString;
 
         stuff.addValue(std::make_shared<Logical>(false), falseString);
         iter = stuff.find(std::make_shared<Logical>(true));
@@ -6218,18 +5897,11 @@ doTestLogicalMapSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalMapSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 122 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6237,9 +5909,9 @@ doTestLogicalMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer map searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6249,10 +5921,10 @@ doTestIntegerMapSearches
 
     try
     {
-        Map           stuff;
-        Map::iterator iter;
-        auto          string17 = std::make_shared<String>("17");
-        SpString      string12;
+        Map             stuff;
+        Map::iterator   iter;
+        auto            string17 = std::make_shared<String>("17");
+        SpString        string12;
 
         stuff.addValue(std::make_shared<Integer>(17), string17);
         iter = stuff.find(std::make_shared<Integer>(12));
@@ -6327,18 +5999,11 @@ doTestIntegerMapSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerMapSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 123 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6346,9 +6011,9 @@ doTestIntegerMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string map searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string map searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6358,10 +6023,10 @@ doTestStringMapSearches
 
     try
     {
-        Map           stuff;
-        Map::iterator iter;
-        auto          stringOneSeven = std::make_shared<String>("17");
-        SpString      stringOneTwo;
+        Map             stuff;
+        Map::iterator   iter;
+        auto            stringOneSeven = std::make_shared<String>("17");
+        SpString        stringOneTwo;
 
         stuff.addValue(std::make_shared<String>("abc"), stringOneSeven);
         iter = stuff.find(std::make_shared<String>("def"));
@@ -6436,18 +6101,11 @@ doTestStringMapSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringMapSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 124 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6455,9 +6113,9 @@ doTestStringMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical set searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6467,8 +6125,8 @@ doTestLogicalSetSearches
 
     try
     {
-        Set           stuff;
-        Set::iterator iter;
+        Set             stuff;
+        Set::iterator   iter;
 
         stuff.addValue(std::make_shared<Logical>(false));
         iter = stuff.find(std::make_shared<Logical>(true));
@@ -6532,18 +6190,11 @@ doTestLogicalSetSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestLogicalSetSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 125 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6551,9 +6202,9 @@ doTestLogicalSetSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer set searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6563,8 +6214,8 @@ doTestIntegerSetSearches
 
     try
     {
-        Set           stuff;
-        Set::iterator iter;
+        Set             stuff;
+        Set::iterator   iter;
 
         stuff.addValue(std::make_shared<Integer>(17));
         iter = stuff.find(std::make_shared<Integer>(12));
@@ -6628,18 +6279,11 @@ doTestIntegerSetSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerSetSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 126 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -6647,9 +6291,9 @@ doTestIntegerSetSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetSearches
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // string set searches
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // string set searches
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -6659,8 +6303,8 @@ doTestStringSetSearches
 
     try
     {
-        Set           stuff;
-        Set::iterator iter;
+        Set             stuff;
+        Set::iterator   iter;
 
         stuff.addValue(std::make_shared<String>("abc"));
         iter = stuff.find(std::make_shared<String>("def"));
@@ -6724,9 +6368,6 @@ doTestStringSetSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestStringSetSearches
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -6742,8 +6383,8 @@ doTestStringSetSearches
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 

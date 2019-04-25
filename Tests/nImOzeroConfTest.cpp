@@ -111,17 +111,17 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value &aValue,
-     const char        *aString)
+    (const Value&   aValue,
+     const char*    aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    StringBuffer buff;
-    int          result;
+    StringBuffer    buff;
+    int             result;
 
     aValue.printToStringBuffer(buff);
-    auto resultString(buff.getString());
+    auto    resultString(buff.getString());
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -142,9 +142,9 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseLogicalValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // logical values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -153,7 +153,7 @@ doTestParseLogicalValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -207,461 +207,6 @@ doTestParseLogicalValue
     return result;
 } // doTestParseLogicalValue
 
-#if defined(__APPLE__)
-# pragma mark *** Test Case 02 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseNumberValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // number values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asNumber())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseNumberValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseStringValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // string values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asString())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseStringValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseArrayValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // array values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseArrayValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseSetValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // set values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asSet())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseSetValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseMapValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // map values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asMap())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseMapValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
-static int
-doTestParseImplicitArrayValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // implicit array values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseImplicitArrayValue
 #endif//0
 
 #if defined(__APPLE__)
@@ -678,8 +223,8 @@ doTestParseImplicitArrayValue
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    NOT_USED_(argc),
+     char** argv)
 {
     std::string progName(*argv);
 
@@ -705,8 +250,9 @@ main
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
-
+#endif //0
                 SetSignalHandlers(catchSignal);
+#if 0
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
@@ -754,7 +300,7 @@ main
         }
         else
         {
-            ODL_LOG("! (2 < --argc)"); //####
+            ODL_LOG("! (3 < --argc)"); //####
         }
 #endif//0
     }

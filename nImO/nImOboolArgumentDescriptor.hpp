@@ -80,15 +80,15 @@ namespace nImO
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument. */
         BoolArgumentDescriptor
-            (const std::string  &argName,
-             const std::string  &argDescription,
+            (const std::string& argName,
+             const std::string& argDescription,
              const ArgumentMode argMode,
              const bool         defaultValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         BoolArgumentDescriptor
-            (const BoolArgumentDescriptor &other);
+            (const BoolArgumentDescriptor&  other);
 
         /*! @brief The destructor. */
         virtual
@@ -118,13 +118,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string& inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (BoolArgumentDescriptor &other);
+            (BoolArgumentDescriptor&    other);
         
     protected :
 
@@ -142,7 +142,7 @@ namespace nImO
          @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle
-            (yarp::os::Bottle &container)
+            (yarp::os::Bottle&  container)
             override;
 #endif//0
 
@@ -180,7 +180,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string &value)
+            (const std::string& value)
             override;
 
     public :
@@ -188,15 +188,15 @@ namespace nImO
     protected :
 
         /*! @brief The address of the variable to be set with the argument value. */
-        bool *_argumentReference;
+        bool*   _argumentReference;
 
         /*! @brief The default value for the command-line argument. */
-        bool _defaultValue;
+        bool    _defaultValue;
 
     private :
 
         /*! @brief The current value of the command-line argument. */
-        bool _currentValue;
+        bool    _currentValue;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

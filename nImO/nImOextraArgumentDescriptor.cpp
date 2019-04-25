@@ -237,13 +237,9 @@ ExtraArgumentDescriptor::toString
     return result;
 } // ExtraArgumentDescriptor::toString
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 bool
 ExtraArgumentDescriptor::validate
-    (UNUSED_ const std::string &value)
+    (const std::string &    NOT_USED_(value))
 {
     ODL_OBJENTER(); //####
     ODL_P1("value = ", &value); //####
@@ -252,9 +248,6 @@ ExtraArgumentDescriptor::validate
     ODL_OBJEXIT_B(_valid); //####
     return _valid;
 } // ExtraArgumentDescriptor::validate
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions

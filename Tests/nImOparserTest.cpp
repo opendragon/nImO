@@ -107,17 +107,17 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value &aValue,
-     const char  *aString)
+    (const Value&   aValue,
+     const char*    aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    StringBuffer buff;
-    int          result;
+    StringBuffer    buff;
+    int             result;
 
     aValue.printToStringBuffer(buff);
-    auto resultString(buff.getString());
+    auto    resultString(buff.getString());
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -136,9 +136,9 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseLogicalValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // logical values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -147,7 +147,7 @@ doTestParseLogicalValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -212,9 +212,9 @@ doTestParseLogicalValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // number values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -223,7 +223,7 @@ doTestParseNumberValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -288,9 +288,9 @@ doTestParseNumberValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // string values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -299,7 +299,7 @@ doTestParseStringValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -364,9 +364,9 @@ doTestParseStringValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseArrayValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // array values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -375,7 +375,7 @@ doTestParseArrayValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -440,9 +440,9 @@ doTestParseArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseSetValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // set values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // set values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -451,7 +451,7 @@ doTestParseSetValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -516,9 +516,9 @@ doTestParseSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseMapValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // map values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // map values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -527,7 +527,7 @@ doTestParseMapValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -592,9 +592,9 @@ doTestParseMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestParseImplicitArrayValue
-    (const bool expected,
-     const char *inString,
-     const char *expectedString) // implicit array values
+    (const bool     expected,
+     const char*    inString,
+     const char*    expectedString) // implicit array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -603,7 +603,7 @@ doTestParseImplicitArrayValue
 
     try
     {
-        StringBuffer buff;
+        StringBuffer    buff;
 
         buff.addString(inString);
         SpValue readValue(buff.convertToValue());
@@ -671,8 +671,8 @@ doTestParseImplicitArrayValue
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 
@@ -696,7 +696,7 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                bool expected = (('t' == *argv[2]) || ('T' == *argv[2]));
+                bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
 
                 SetSignalHandlers(catchSignal);
                 ODL_B1("expected <- ", expected); //####

@@ -83,13 +83,13 @@ namespace nImO
          @param[in] argName The name of the command-line argument.
          @param[in] argDescription A description of the command-line argument. */
         ExtraArgumentDescriptor
-            (const std::string &argName,
-             const std::string &argDescription);
+            (const std::string& argName,
+             const std::string& argDescription);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         ExtraArgumentDescriptor
-            (const ExtraArgumentDescriptor &other);
+            (const ExtraArgumentDescriptor& other);
 
         /*! @brief The destructor. */
         virtual
@@ -101,13 +101,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string& inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (ExtraArgumentDescriptor &other);
+            (ExtraArgumentDescriptor&   other);
         
     protected :
 
@@ -118,7 +118,7 @@ namespace nImO
          @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle
-            (yarp::os::Bottle &container)
+            (yarp::os::Bottle&  container)
             override;
 #endif//0
 
@@ -173,7 +173,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string &value)
+            (const std::string& value)
             override;
 
     public :

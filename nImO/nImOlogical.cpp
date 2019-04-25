@@ -209,16 +209,12 @@ nImO::Logical::equalTo
     return result;
 } // nImO::Logical::equalTo
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 nImO::SpValue
 nImO::Logical::extractValue
-    (UNUSED_ const nImO::Message &theMessage,
-     const int                   leadByte,
-     size_t                      &position,
-     nImO::SpArray               parentValue)
+    (const nImO::Message &  NOT_USED_(theMessage),
+     const int              leadByte,
+     size_t &               position,
+     nImO::SpArray          parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -237,9 +233,6 @@ nImO::Logical::extractValue
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Logical::extractValue
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 const std::string &
 nImO::Logical::getCanonicalRepresentation
@@ -484,14 +477,10 @@ nImO::Logical::operator =
     return *this;
 } // nImO::Logical::operator=
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::Logical::printToStringBuffer
-    (nImO::StringBuffer &outBuffer,
-     UNUSED_ const bool squished)
+    (nImO::StringBuffer &   outBuffer,
+     const bool             NOT_USED_(squished))
     const
 {
     ODL_OBJENTER(); //####
@@ -500,9 +489,6 @@ nImO::Logical::printToStringBuffer
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
 nImO::Logical::readFromStringBuffer

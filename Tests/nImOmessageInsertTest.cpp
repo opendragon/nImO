@@ -115,12 +115,12 @@ catchSignal
  @returns Zero on success and non-zero on failure. */
 static int
 setValueAndCheck
-    (Message        &stuff,
-     const Value    &aValue,
-     const DataKind *expectedContents1,
-     const size_t   expectedSize1,
-     const uint8_t  *expectedContents2,
-     const size_t   expectedSize2)
+    (Message&           stuff,
+     const Value&       aValue,
+     const DataKind*    expectedContents1,
+     const size_t       expectedSize1,
+     const uint8_t*     expectedContents2,
+     const size_t       expectedSize2)
 {
     ODL_ENTER(); //####
     ODL_P4("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents1 = ", //####
@@ -129,9 +129,9 @@ setValueAndCheck
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    auto   contents1(stuff.getBytes());
-    size_t length1 = contents1.size();
-    int    result;
+    auto    contents1(stuff.getBytes());
+    size_t  length1 = contents1.size();
+    int     result;
 
     ODL_PACKET("expectedContents1", expectedContents1, expectedSize1); //####
     ODL_PACKET("contents1", contents1.data(), length1); //####
@@ -178,10 +178,6 @@ setValueAndCheck
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -189,9 +185,9 @@ setValueAndCheck
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -201,22 +197,21 @@ doTestInsertEmptyMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptyBytes[] =
+            static const DataKind   expectedEmptyBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t          expectedEmptyByteCount = (sizeof(expectedEmptyBytes) /
-                                                            sizeof(*expectedEmptyBytes));
+            const size_t            expectedEmptyByteCount = A_SIZE(expectedEmptyBytes);
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto                  contents1(stuff->getBytes());
-            size_t                length1 = contents1.size();
+            auto                    contents1(stuff->getBytes());
+            size_t                  length1 = contents1.size();
 
             stuff->open(true);
             if (0 != length1)
@@ -235,16 +230,15 @@ doTestInsertEmptyMessage
                                                            expectedEmptyByteCount));
                     if (0 == result)
                     {
-                        static const uint8_t transmitEmptyBytes[] =
+                        static const uint8_t    transmitEmptyBytes[] =
                         {
                             0xF0, // Start of message
                             0xF8, // End of message
                             0x17 // Checksum
                         };
-                        const size_t         transmitEmptyByteCount = (sizeof(transmitEmptyBytes) /
-                                                                       sizeof(*transmitEmptyBytes));
-                        std::string          contents2(stuff->getBytesForTransmission());
-                        size_t               length2 = contents2.size();
+                        const size_t            transmitEmptyByteCount = A_SIZE(transmitEmptyBytes);
+                        std::string             contents2(stuff->getBytesForTransmission());
+                        size_t                  length2 = contents2.size();
 
                         ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
                                    transmitEmptyByteCount); //####
@@ -281,18 +275,11 @@ doTestInsertEmptyMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptyMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -300,9 +287,9 @@ doTestInsertEmptyMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -312,11 +299,11 @@ doTestInsertLogicalMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedTrueBytes[] =
+            static const DataKind   expectedTrueBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -330,9 +317,8 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedTrueByteCount = (sizeof(expectedTrueBytes) /
-                                                           sizeof(*expectedTrueBytes));
-            static const DataKind expectedFalseBytes[] =
+            const size_t            expectedTrueByteCount = A_SIZE(expectedTrueBytes);
+            static const DataKind   expectedFalseBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -346,28 +332,25 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedFalseByteCount = (sizeof(expectedFalseBytes) /
-                                                            sizeof(*expectedFalseBytes));
-            static const uint8_t  transmitFalseBytes[] =
+            const size_t            expectedFalseByteCount = A_SIZE(expectedFalseBytes);
+            static const uint8_t    transmitFalseBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xC0, // Logical False
                 0xFF, // End of message, last is Other
                 0x49 // Checksum
             };
-            const size_t          transmitFalseByteCount = (sizeof(transmitFalseBytes) /
-                                                            sizeof(*transmitFalseBytes));
-            static const uint8_t  transmitTrueBytes[] =
+            const size_t            transmitFalseByteCount = A_SIZE(transmitFalseBytes);
+            static const uint8_t    transmitTrueBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xC1, // Logical true
                 0xFF, // End of message, last is Other
                 0x48 // Checksum
             };
-            const size_t          transmitTrueByteCount = (sizeof(transmitTrueBytes) /
-                                                           sizeof(*transmitTrueBytes));
-            Logical               falseValue(false);
-            Logical               trueValue(true);
+            const size_t            transmitTrueByteCount = A_SIZE(transmitTrueBytes);
+            Logical                 falseValue(false);
+            Logical                 trueValue(true);
 
             result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount,
                                       transmitTrueBytes, transmitTrueByteCount);
@@ -391,18 +374,11 @@ doTestInsertLogicalMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertLogicalMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 003 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -410,9 +386,9 @@ doTestInsertLogicalMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertTinyIntegerMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // tiny integer message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // tiny integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -422,11 +398,11 @@ doTestInsertTinyIntegerMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMinus12Bytes[] =
+            static const DataKind   expectedMinus12Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -440,9 +416,8 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedMinus12ByteCount = (sizeof(expectedMinus12Bytes) /
-                                                              sizeof(*expectedMinus12Bytes));
-            static const DataKind expectedZeroBytes[] =
+            const size_t            expectedMinus12ByteCount = A_SIZE(expectedMinus12Bytes);
+            static const DataKind   expectedZeroBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -456,9 +431,8 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedZeroByteCount = (sizeof(expectedZeroBytes) /
-                                                           sizeof(*expectedZeroBytes));
-            static const DataKind expectedPlus12Bytes[] =
+            const size_t            expectedZeroByteCount = A_SIZE(expectedZeroBytes);
+            static const DataKind   expectedPlus12Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -472,38 +446,34 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedPlus12ByteCount = (sizeof(expectedPlus12Bytes) /
-                                                             sizeof(*expectedPlus12Bytes));
-            static const uint8_t  transmitMinus12Bytes[] =
+            const size_t            expectedPlus12ByteCount = A_SIZE(expectedPlus12Bytes);
+            static const uint8_t    transmitMinus12Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x14, // Integer -12
                 0xFC, // End of message, last is Integer
                 0xFB // Checksum
             };
-            const size_t          transmitMinus12ByteCount = (sizeof(transmitMinus12Bytes) /
-                                                              sizeof(*transmitMinus12Bytes));
-            static const uint8_t  transmitZeroBytes[] =
+            const size_t            transmitMinus12ByteCount = A_SIZE(transmitMinus12Bytes);
+            static const uint8_t    transmitZeroBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x00, // Integer 0
                 0xFC, // End of message, last is Integer
                 0x0F // Checksum
             };
-            const size_t          transmitZeroByteCount = (sizeof(transmitZeroBytes) /
-                                                           sizeof(*transmitZeroBytes));
-            static const uint8_t  transmitPlus12Bytes[] =
+            const size_t            transmitZeroByteCount = A_SIZE(transmitZeroBytes);
+            static const uint8_t    transmitPlus12Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x0C, // Integer 12
                 0xFC, // End of message, last is Integer
                 0x03 // Checksum
             };
-            const size_t          transmitPlus12ByteCount = (sizeof(transmitPlus12Bytes) /
-                                                             sizeof(*transmitPlus12Bytes));
-            Integer               minus12Value(-12);
-            Integer               zeroValue(0);
-            Integer               plus12Value(12);
+            const size_t            transmitPlus12ByteCount = A_SIZE(transmitPlus12Bytes);
+            Integer                 minus12Value(-12);
+            Integer                 zeroValue(0);
+            Integer                 plus12Value(12);
 
             result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes,
                                       expectedMinus12ByteCount, transmitMinus12Bytes,
@@ -534,18 +504,11 @@ doTestInsertTinyIntegerMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertTinyIntegerMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 004 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -553,9 +516,9 @@ doTestInsertTinyIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallIntegerMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small integer message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -565,11 +528,11 @@ doTestInsertSmallIntegerMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMinus144Bytes[] =
+            static const DataKind   expectedMinus144Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -584,9 +547,8 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedMinus144ByteCount = (sizeof(expectedMinus144Bytes) /
-                                                               sizeof(*expectedMinus144Bytes));
-            static const DataKind expectedPlus144Bytes[] =
+            const size_t            expectedMinus144ByteCount = A_SIZE(expectedMinus144Bytes);
+            static const DataKind   expectedPlus144Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -601,28 +563,25 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedPlus144ByteCount = (sizeof(expectedPlus144Bytes) /
-                                                              sizeof(*expectedPlus144Bytes));
-            static const uint8_t  transmitMinus144Bytes[] =
+            const size_t            expectedPlus144ByteCount = A_SIZE(expectedPlus144Bytes);
+            static const uint8_t    transmitMinus144Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x21, 0xFF, 0x70, // Integer -144
                 0xFC, // End of message, last is Integer
                 0x7F // Checksum
             };
-            const size_t          transmitMinus144ByteCount = (sizeof(transmitMinus144Bytes) /
-                                                               sizeof(*transmitMinus144Bytes));
-            static const uint8_t  transmitPlus144Bytes[] =
+            const size_t            transmitMinus144ByteCount = A_SIZE(transmitMinus144Bytes);
+            static const uint8_t    transmitPlus144Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x21, 0x00, 0x90, // Integer 144
                 0xFC, // End of message, last is Integer
                 0x5E // Checksum
             };
-            const size_t          transmitPlus144ByteCount = (sizeof(transmitPlus144Bytes) /
-                                                              sizeof(*transmitPlus144Bytes));
-            Integer               minus144Value(-144);
-            Integer               plus144Value(144);
+            const size_t            transmitPlus144ByteCount = A_SIZE(transmitPlus144Bytes);
+            Integer                 minus144Value(-144);
+            Integer                 plus144Value(144);
 
             result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes,
                                       expectedMinus144ByteCount, transmitMinus144Bytes,
@@ -647,18 +606,11 @@ doTestInsertSmallIntegerMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertSmallIntegerMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 005 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -666,9 +618,9 @@ doTestInsertSmallIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumIntegerMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // medium integer message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // medium integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -678,11 +630,11 @@ doTestInsertMediumIntegerMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMinus1234567Bytes[] =
+            static const DataKind   expectedMinus1234567Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -698,10 +650,8 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedMinus1234567ByteCount =
-                                                            (sizeof(expectedMinus1234567Bytes) /
-                                                             sizeof(*expectedMinus1234567Bytes));
-            static const DataKind expectedPlus1234567Bytes[] =
+            const size_t            expectedMinus1234567ByteCount = A_SIZE(expectedMinus1234567Bytes);
+            static const DataKind   expectedPlus1234567Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -717,31 +667,25 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedPlus1234567ByteCount =
-                                                                (sizeof(expectedPlus1234567Bytes) /
-                                                                 sizeof(*expectedPlus1234567Bytes));
-            static const uint8_t  transmitMinus1234567Bytes[] =
+            const size_t            expectedPlus1234567ByteCount = A_SIZE(expectedPlus1234567Bytes);
+            static const uint8_t    transmitMinus1234567Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x22, 0xED, 0x29, 0x79, // Integer -1234567
                 0xFC, // End of message, last is Integer
                 0x5E // Checksum
             };
-            const size_t          transmitMinus1234567ByteCount =
-                                                            (sizeof(transmitMinus1234567Bytes) /
-                                                             sizeof(*transmitMinus1234567Bytes));
-            static const uint8_t  transmitPlus1234567Bytes[] =
+            const size_t            transmitMinus1234567ByteCount = A_SIZE(transmitMinus1234567Bytes);
+            static const uint8_t    transmitPlus1234567Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x22, 0x12, 0xD6, 0x87, // Integer 1234567
                 0xFC, // End of message, last is Integer
                 0x7E // Checksum
             };
-            const size_t          transmitPlus1234567ByteCount =
-                                                                (sizeof(transmitPlus1234567Bytes) /
-                                                                 sizeof(*transmitPlus1234567Bytes));
-            Integer               minus1234567Value(-1234567);
-            Integer               plus1234567Value(1234567);
+            const size_t            transmitPlus1234567ByteCount = A_SIZE(transmitPlus1234567Bytes);
+            Integer                 minus1234567Value(-1234567);
+            Integer                 plus1234567Value(1234567);
 
             result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes,
                                       expectedMinus1234567ByteCount, transmitMinus1234567Bytes,
@@ -766,18 +710,11 @@ doTestInsertMediumIntegerMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertMediumIntegerMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 006 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -785,9 +722,9 @@ doTestInsertMediumIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertBigIntegerMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // big integer message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // big integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -797,11 +734,11 @@ doTestInsertBigIntegerMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMinusBigNumberBytes[] =
+            static const DataKind   expectedMinusBigNumberBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -818,10 +755,8 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedMinusBigNumberByteCount =
-                                                            (sizeof(expectedMinusBigNumberBytes) /
-                                                             sizeof(*expectedMinusBigNumberBytes));
-            static const DataKind expectedPlusBigNumberBytes[] =
+            const size_t            expectedMinusBigNumberByteCount = A_SIZE(expectedMinusBigNumberBytes);
+            static const DataKind   expectedPlusBigNumberBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -838,31 +773,25 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t          expectedPlusBigNumberByteCount =
-                                                            (sizeof(expectedPlusBigNumberBytes) /
-                                                             sizeof(*expectedPlusBigNumberBytes));
-            static const uint8_t  transmitMinusBigNumberBytes[] =
+            const size_t            expectedPlusBigNumberByteCount = A_SIZE(expectedPlusBigNumberBytes);
+            static const uint8_t    transmitMinusBigNumberBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x25, 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44, // Integer -20015998343868
                 0xFC, // End of message, last is Integer
                 0x59 // Checksum
             };
-            const size_t          transmitMinusBigNumberByteCount =
-                                                            (sizeof(transmitMinusBigNumberBytes) /
-                                                             sizeof(*transmitMinusBigNumberBytes));
-            static const uint8_t  transmitPlusBigNumberBytes[] =
+            const size_t            transmitMinusBigNumberByteCount = A_SIZE(transmitMinusBigNumberBytes);
+            static const uint8_t    transmitPlusBigNumberBytes[] =
             {
                 0xF4, // Start of message, next is Integer
                 0x25, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, // Integer 20015998343868
                 0xFC, // End of message, last is Integer
                 0x80 // Checksum
             };
-            const size_t          transmitPlusBigNumberByteCount =
-                                                            (sizeof(transmitPlusBigNumberBytes) /
-                                                             sizeof(*transmitPlusBigNumberBytes));
-            Integer               minusBigNumberValue(-20015998343868);
-            Integer               plusBigNumberValue(20015998343868);
+            const size_t            transmitPlusBigNumberByteCount = A_SIZE(transmitPlusBigNumberBytes);
+            Integer                 minusBigNumberValue(-20015998343868);
+            Integer                 plusBigNumberValue(20015998343868);
 
             result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes,
                                       expectedMinusBigNumberByteCount, transmitMinusBigNumberBytes,
@@ -888,18 +817,11 @@ doTestInsertBigIntegerMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertBigIntegerMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 007 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -907,9 +829,9 @@ doTestInsertBigIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyStringMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty string message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -919,11 +841,11 @@ doTestInsertEmptyStringMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptyStringBytes[] =
+            static const DataKind   expectedEmptyStringBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -938,20 +860,16 @@ doTestInsertEmptyStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedEmptyStringByteCount =
-                                                                (sizeof(expectedEmptyStringBytes) /
-                                                                 sizeof(*expectedEmptyStringBytes));
-            static const uint8_t  transmitEmptyStringBytes[] =
+            const size_t            expectedEmptyStringByteCount = A_SIZE(expectedEmptyStringBytes);
+            static const uint8_t    transmitEmptyStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x80, // String - empty
                 0xFE, // End of message, last is String or Blob
                 0x8B // Checksum
             };
-            const size_t          transmitEmptyStringByteCount =
-                                                                (sizeof(transmitEmptyStringBytes) /
-                                                                 sizeof(*transmitEmptyStringBytes));
-            String                emptyStringValue("");
+            const size_t            transmitEmptyStringByteCount = A_SIZE(transmitEmptyStringBytes);
+            String                  emptyStringValue("");
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes,
                                       expectedEmptyStringByteCount, transmitEmptyStringBytes,
@@ -970,18 +888,11 @@ doTestInsertEmptyStringMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptyStringMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 008 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -989,9 +900,9 @@ doTestInsertEmptyStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertShortStringMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // short string message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // short string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1001,11 +912,11 @@ doTestInsertShortStringMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedShortStringBytes[] =
+            static const DataKind   expectedShortStringBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1023,20 +934,16 @@ doTestInsertShortStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedShortStringByteCount =
-                                                                (sizeof(expectedShortStringBytes) /
-                                                                 sizeof(*expectedShortStringBytes));
-            static const uint8_t  transmitShortStringBytes[] =
+            const size_t            expectedShortStringByteCount = A_SIZE(expectedShortStringBytes);
+            static const uint8_t    transmitShortStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x86, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'
                 0xFE, // End of message, last is String or Blob
                 0x30 // Checksum
             };
-            const size_t          transmitShortStringByteCount =
-                                                                (sizeof(transmitShortStringBytes) /
-                                                                 sizeof(*transmitShortStringBytes));
-            String                shortStringValue("abcdef");
+            const size_t            transmitShortStringByteCount = A_SIZE(transmitShortStringBytes);
+            String                  shortStringValue("abcdef");
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes,
                                       expectedShortStringByteCount, transmitShortStringBytes,
@@ -1055,18 +962,11 @@ doTestInsertShortStringMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertShortStringMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 009 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1074,9 +974,9 @@ doTestInsertShortStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumStringMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // medium string message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // medium string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1086,11 +986,11 @@ doTestInsertMediumStringMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMediumStringBytes[] =
+            static const DataKind   expectedMediumStringBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1127,10 +1027,8 @@ doTestInsertMediumStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedMediumStringByteCount =
-                                                            (sizeof(expectedMediumStringBytes) /
-                                                             sizeof(*expectedMediumStringBytes));
-            static const uint8_t  transmitMediumStringBytes[] =
+            const size_t            expectedMediumStringByteCount = A_SIZE(expectedMediumStringBytes);
+            static const uint8_t    transmitMediumStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0x90, 0x2A, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'*7, length = 42
@@ -1140,10 +1038,8 @@ doTestInsertMediumStringMessage
                 0xFE, // End of message, last is String or Blob
                 0xFE // Checksum
             };
-            const size_t          transmitMediumStringByteCount =
-                                                            (sizeof(transmitMediumStringBytes) /
-                                                             sizeof(*transmitMediumStringBytes));
-            String                mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            const size_t            transmitMediumStringByteCount = A_SIZE(transmitMediumStringBytes);
+            String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes,
                                       expectedMediumStringByteCount, transmitMediumStringBytes,
@@ -1162,18 +1058,11 @@ doTestInsertMediumStringMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertMediumStringMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 010 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1181,9 +1070,9 @@ doTestInsertMediumStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyBlobMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty blob message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1193,11 +1082,11 @@ doTestInsertEmptyBlobMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptyBlobBytes[] =
+            static const DataKind   expectedEmptyBlobBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1212,18 +1101,16 @@ doTestInsertEmptyBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedEmptyBlobByteCount = (sizeof(expectedEmptyBlobBytes) /
-                                                                sizeof(*expectedEmptyBlobBytes));
-            static const uint8_t  transmitEmptyBlobBytes[] =
+            const size_t            expectedEmptyBlobByteCount = A_SIZE(expectedEmptyBlobBytes);
+            static const uint8_t    transmitEmptyBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xA0, // Empty Blob
                 0xFE, // End of message, last is String or Blob
                 0x6B // Checksum
             };
-            const size_t          transmitEmptyBlobByteCount = (sizeof(transmitEmptyBlobBytes) /
-                                                                sizeof(*transmitEmptyBlobBytes));
-            Blob                  emptyBlobValue;
+            const size_t            transmitEmptyBlobByteCount = A_SIZE(transmitEmptyBlobBytes);
+            Blob                    emptyBlobValue;
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes,
                                       expectedEmptyBlobByteCount, transmitEmptyBlobBytes,
@@ -1242,18 +1129,11 @@ doTestInsertEmptyBlobMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptyBlobMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 011 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1261,9 +1141,9 @@ doTestInsertEmptyBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallBlobMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // small blob message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // small blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1273,11 +1153,11 @@ doTestInsertSmallBlobMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedSmallBlobBytes[] =
+            static const DataKind   expectedSmallBlobBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1295,23 +1175,21 @@ doTestInsertSmallBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedSmallBlobByteCount = (sizeof(expectedSmallBlobBytes) /
-                                                                sizeof(*expectedSmallBlobBytes));
-            static const uint8_t  actualData[] =
+            const size_t            expectedSmallBlobByteCount = A_SIZE(expectedSmallBlobBytes);
+            static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t  transmitSmallBlobBytes[] =
+            const size_t            actualDataCount = A_SIZE(actualData);
+            static const uint8_t    transmitSmallBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xA6, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Short Blob
                 0xFE, // End of message, last is String or Blob
                 0xFA // Checksum
             };
-            const size_t          transmitSmallBlobByteCount = (sizeof(transmitSmallBlobBytes) /
-                                                                sizeof(*transmitSmallBlobBytes));
-            Blob                  shortBlobValue(actualData, actualDataCount);
+            const size_t            transmitSmallBlobByteCount = A_SIZE(transmitSmallBlobBytes);
+            Blob                    shortBlobValue(actualData, actualDataCount);
 
             result = setValueAndCheck(*stuff, shortBlobValue, expectedSmallBlobBytes,
                                       expectedSmallBlobByteCount, transmitSmallBlobBytes,
@@ -1330,18 +1208,11 @@ doTestInsertSmallBlobMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertSmallBlobMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 012 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1349,9 +1220,9 @@ doTestInsertSmallBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumBlobMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // medium blob message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // medium blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1361,11 +1232,11 @@ doTestInsertMediumBlobMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedMediumBlobBytes[] =
+            static const DataKind   expectedMediumBlobBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1402,9 +1273,8 @@ doTestInsertMediumBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedMediumBlobByteCount = (sizeof(expectedMediumBlobBytes) /
-                                                                 sizeof(*expectedMediumBlobBytes));
-            static const uint8_t  actualData[] =
+            const size_t            expectedMediumBlobByteCount = A_SIZE(expectedMediumBlobBytes);
+            static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1414,8 +1284,8 @@ doTestInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t  transmitMediumBlobBytes[] =
+            const size_t            actualDataCount = A_SIZE(actualData);
+            static const uint8_t    transmitMediumBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xB0, 0x2A, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Medium Blob, length = 42
@@ -1428,9 +1298,8 @@ doTestInsertMediumBlobMessage
                 0xFE, // End of message, last is String or Blob
                 0x44 // Checksum
             };
-            const size_t          transmitMediumBlobByteCount = (sizeof(transmitMediumBlobBytes) /
-                                                                 sizeof(*transmitMediumBlobBytes));
-            Blob                  mediumBlobValue(actualData, actualDataCount);
+            const size_t            transmitMediumBlobByteCount = A_SIZE(transmitMediumBlobBytes);
+            Blob                    mediumBlobValue(actualData, actualDataCount);
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes,
                                       expectedMediumBlobByteCount, transmitMediumBlobBytes,
@@ -1449,18 +1318,11 @@ doTestInsertMediumBlobMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertMediumBlobMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 013 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1468,9 +1330,9 @@ doTestInsertMediumBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSingleDoubleMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // single double message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // single double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1480,11 +1342,11 @@ doTestInsertSingleDoubleMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedPlus42Point5Bytes[] =
+            static const DataKind   expectedPlus42Point5Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1503,10 +1365,8 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t          expectedPlus42Point5ByteCount =
-                                                            (sizeof(expectedPlus42Point5Bytes) /
-                                                             sizeof(*expectedPlus42Point5Bytes));
-            static const DataKind expectedMinus42Point5Bytes[] =
+            const size_t            expectedPlus42Point5ByteCount = A_SIZE(expectedPlus42Point5Bytes);
+            static const DataKind   expectedMinus42Point5Bytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1525,31 +1385,25 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t          expectedMinus42Point5ByteCount =
-                                                            (sizeof(expectedMinus42Point5Bytes) /
-                                                             sizeof(*expectedMinus42Point5Bytes));
-            static const uint8_t  transmitMinus42Point5Bytes[] =
+            const size_t            expectedMinus42Point5ByteCount = A_SIZE(expectedMinus42Point5Bytes);
+            static const uint8_t    transmitMinus42Point5Bytes[] =
             {
                 0xF5, // Start of message, next is Doubleing-point
                 0x40, 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, -42.5
                 0xFD, // End of message, last is Doubleing-point
                 0x88 // Checksum
             };
-            const size_t          transmitMinus42Point5ByteCount =
-                                                            (sizeof(transmitMinus42Point5Bytes) /
-                                                             sizeof(*transmitMinus42Point5Bytes));
-            static const uint8_t  transmitPlus42Point5Bytes[] =
+            const size_t            transmitMinus42Point5ByteCount = A_SIZE(transmitMinus42Point5Bytes);
+            static const uint8_t    transmitPlus42Point5Bytes[] =
             {
                 0xF5, // Start of message, next is Doubleing-point
                 0x40, 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, 42.5
                 0xFD, // End of message, last is Doubleing-point
                 0x08 // Checksum
             };
-            const size_t          transmitPlus42Point5ByteCount =
-                                                            (sizeof(transmitPlus42Point5Bytes) /
-                                                             sizeof(*transmitPlus42Point5Bytes));
-            Double                plus42Point5(42.5);
-            Double                minus42Point5(-42.5);
+            const size_t            transmitPlus42Point5ByteCount = A_SIZE(transmitPlus42Point5Bytes);
+            Double                  plus42Point5(42.5);
+            Double                  minus42Point5(-42.5);
 
             result = setValueAndCheck(*stuff, plus42Point5, expectedPlus42Point5Bytes,
                                       expectedPlus42Point5ByteCount, transmitPlus42Point5Bytes,
@@ -1575,18 +1429,11 @@ doTestInsertSingleDoubleMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertSingleDoubleMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 014 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1594,9 +1441,9 @@ doTestInsertSingleDoubleMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMultipleEscapesMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // message with multiple escapes
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // message with multiple escapes
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1606,11 +1453,11 @@ doTestInsertMultipleEscapesMessage
     
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
         
         if (stuff)
         {
-            static const DataKind expectedMultipleEscapesBytes[] =
+            static const DataKind   expectedMultipleEscapesBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1630,15 +1477,13 @@ doTestInsertMultipleEscapesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t          expectedMultipleEscapesByteCount =
-                                                            (sizeof(expectedMultipleEscapesBytes) /
-                                                             sizeof(*expectedMultipleEscapesBytes));
-            static const uint8_t  actualData[] =
+            const size_t            expectedMultipleEscapesByteCount = A_SIZE(expectedMultipleEscapesBytes);
+            static const uint8_t    actualData[] =
             {
                 0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
             };
-            const size_t          actualDataCount = (sizeof(actualData) / sizeof(*actualData));
-            static const uint8_t  transmitMultipleEscapesBytes[] =
+            const size_t            actualDataCount = A_SIZE(actualData);
+            static const uint8_t    transmitMultipleEscapesBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
                 0xAA, 0xDC, 0x5C, 0xDC, 0x70, 0xDC, 0x71, 0xDC, 0x72, 0x0D, 0xDC, 0x73, 0xDC, 0x74,
@@ -1646,10 +1491,8 @@ doTestInsertMultipleEscapesMessage
                 0xFE, // End of message, last is String or Blob
                 0xDC, 0x5C // Checksum
             };
-            const size_t          transmitMultipleEscapesByteCount =
-                                                            (sizeof(transmitMultipleEscapesBytes) /
-                                                             sizeof(*transmitMultipleEscapesBytes));
-            Blob                  multipleEscapesValue(actualData, actualDataCount);
+            const size_t            transmitMultipleEscapesByteCount = A_SIZE(transmitMultipleEscapesBytes);
+            Blob                    multipleEscapesValue(actualData, actualDataCount);
             
             result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes,
                                       expectedMultipleEscapesByteCount,
@@ -1669,18 +1512,11 @@ doTestInsertMultipleEscapesMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertMultipleEscapesMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1688,9 +1524,9 @@ doTestInsertMultipleEscapesMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyArrayMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty array message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1700,11 +1536,11 @@ doTestInsertEmptyArrayMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptyArrayBytes[] =
+            static const DataKind   expectedEmptyArrayBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1723,9 +1559,8 @@ doTestInsertEmptyArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedEmptyArrayByteCount = (sizeof(expectedEmptyArrayBytes) /
-                                                                 sizeof(*expectedEmptyArrayBytes));
-            static const uint8_t  transmitEmptyArrayBytes[] =
+            const size_t            expectedEmptyArrayByteCount = A_SIZE(expectedEmptyArrayBytes);
+            static const uint8_t    transmitEmptyArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD0, // Start of empty Array
@@ -1733,9 +1568,8 @@ doTestInsertEmptyArrayMessage
                 0xFF, // End of message, last is Other
                 0x59 // Checksum
             };
-            const size_t          transmitEmptyArrayByteCount = (sizeof(transmitEmptyArrayBytes) /
-                                                                 sizeof(*transmitEmptyArrayBytes));
-            Array                 emptyArray;
+            const size_t            transmitEmptyArrayByteCount = A_SIZE(transmitEmptyArrayBytes);
+            Array                   emptyArray;
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes,
                                       expectedEmptyArrayByteCount, transmitEmptyArrayBytes,
@@ -1754,18 +1588,11 @@ doTestInsertEmptyArrayMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptyArrayMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1773,9 +1600,9 @@ doTestInsertEmptyArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1785,11 +1612,11 @@ doTestInsertEmptyMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptyMapBytes[] =
+            static const DataKind   expectedEmptyMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1808,9 +1635,8 @@ doTestInsertEmptyMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedEmptyMapByteCount = (sizeof(expectedEmptyMapBytes) /
-                                                               sizeof(*expectedEmptyMapBytes));
-            static const uint8_t  transmitEmptyMapBytes[] =
+            const size_t            expectedEmptyMapByteCount = A_SIZE(expectedEmptyMapBytes);
+            static const uint8_t    transmitEmptyMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD4, // Start of empty Map
@@ -1818,9 +1644,8 @@ doTestInsertEmptyMapMessage
                 0xFF, // End of message, last is Other
                 0x51 // Checksum
             };
-            const size_t          transmitEmptyMapByteCount = (sizeof(transmitEmptyMapBytes) /
-                                                               sizeof(*transmitEmptyMapBytes));
-            Map                   emptyMap;
+            const size_t            transmitEmptyMapByteCount = A_SIZE(transmitEmptyMapBytes);
+            Map                     emptyMap;
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes,
                                       expectedEmptyMapByteCount, transmitEmptyMapBytes,
@@ -1839,18 +1664,11 @@ doTestInsertEmptyMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptyMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1858,9 +1676,9 @@ doTestInsertEmptyMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptySetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // empty set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // empty set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1870,11 +1688,11 @@ doTestInsertEmptySetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedEmptySetBytes[] =
+            static const DataKind   expectedEmptySetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1893,9 +1711,8 @@ doTestInsertEmptySetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedEmptySetByteCount = (sizeof(expectedEmptySetBytes) /
-                                                               sizeof(*expectedEmptySetBytes));
-            static const uint8_t  transmitEmptySetBytes[] =
+            const size_t            expectedEmptySetByteCount = A_SIZE(expectedEmptySetBytes);
+            static const uint8_t    transmitEmptySetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD8, // Start of empty Set
@@ -1903,9 +1720,8 @@ doTestInsertEmptySetMessage
                 0xFF, // End of message, last is Other
                 0x49 // Checksum
             };
-            const size_t          transmitEmptySetByteCount = (sizeof(transmitEmptySetBytes) /
-                                                               sizeof(*transmitEmptySetBytes));
-            Set                   emptySet;
+            const size_t            transmitEmptySetByteCount = A_SIZE(transmitEmptySetBytes);
+            Set                     emptySet;
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes,
                                       expectedEmptySetByteCount, transmitEmptySetBytes,
@@ -1924,18 +1740,11 @@ doTestInsertEmptySetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertEmptySetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -1943,9 +1752,9 @@ doTestInsertEmptySetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneLogicalMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one logical message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one logical message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -1955,11 +1764,11 @@ doTestInsertArrayOneLogicalMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneLogicalBytes[] =
+            static const DataKind   expectedArrayOneLogicalBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -1986,10 +1795,8 @@ doTestInsertArrayOneLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneLogicalByteCount =
-                                                            (sizeof(expectedArrayOneLogicalBytes) /
-                                                             sizeof(*expectedArrayOneLogicalBytes));
-            static const uint8_t  transmitArrayOneLogicalBytes[] =
+            const size_t            expectedArrayOneLogicalByteCount = A_SIZE(expectedArrayOneLogicalBytes);
+            static const uint8_t    transmitArrayOneLogicalBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -1998,10 +1805,8 @@ doTestInsertArrayOneLogicalMessage
                 0xFF, // End of message, last is Other
                 0x87 // Checksum
             };
-            const size_t          transmitArrayOneLogicalByteCount =
-                                                            (sizeof(transmitArrayOneLogicalBytes) /
-                                                             sizeof(*transmitArrayOneLogicalBytes));
-            Array                 arrayOneLogical;
+            const size_t            transmitArrayOneLogicalByteCount = A_SIZE(transmitArrayOneLogicalBytes);
+            Array                   arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes,
@@ -2022,18 +1827,11 @@ doTestInsertArrayOneLogicalMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneLogicalMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2041,9 +1839,9 @@ doTestInsertArrayOneLogicalMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneIntegerMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one integer message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one integer message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2053,11 +1851,11 @@ doTestInsertArrayOneIntegerMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneIntegerBytes[] =
+            static const DataKind   expectedArrayOneIntegerBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2084,10 +1882,8 @@ doTestInsertArrayOneIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneIntegerByteCount =
-                                                            (sizeof(expectedArrayOneIntegerBytes) /
-                                                             sizeof(*expectedArrayOneIntegerBytes));
-            static const uint8_t  transmitArrayOneIntegerBytes[] =
+            const size_t            expectedArrayOneIntegerByteCount = A_SIZE(expectedArrayOneIntegerBytes);
+            static const uint8_t    transmitArrayOneIntegerBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2096,10 +1892,8 @@ doTestInsertArrayOneIntegerMessage
                 0xFF, // End of message, last is Other
                 0x47 // Checksum
             };
-            const size_t          transmitArrayOneIntegerByteCount =
-                                                            (sizeof(transmitArrayOneIntegerBytes) /
-                                                             sizeof(*transmitArrayOneIntegerBytes));
-            Array                 arrayOneInteger;
+            const size_t            transmitArrayOneIntegerByteCount = A_SIZE(transmitArrayOneIntegerBytes);
+            Array                   arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes,
@@ -2120,18 +1914,11 @@ doTestInsertArrayOneIntegerMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneIntegerMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2139,9 +1926,9 @@ doTestInsertArrayOneIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneDoubleMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one double message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one double message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2151,11 +1938,11 @@ doTestInsertArrayOneDoubleMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneDoubleBytes[] =
+            static const DataKind   expectedArrayOneDoubleBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2187,10 +1974,8 @@ doTestInsertArrayOneDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneDoubleByteCount =
-                                                            (sizeof(expectedArrayOneDoubleBytes) /
-                                                             sizeof(*expectedArrayOneDoubleBytes));
-            static const uint8_t  transmitArrayOneDoubleBytes[] =
+            const size_t            expectedArrayOneDoubleByteCount = A_SIZE(expectedArrayOneDoubleBytes);
+            static const uint8_t    transmitArrayOneDoubleBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2199,10 +1984,8 @@ doTestInsertArrayOneDoubleMessage
                 0xFF, // End of message, last is Other
                 0x07 // Checksum
             };
-            const size_t          transmitArrayOneDoubleByteCount =
-                                                            (sizeof(transmitArrayOneDoubleBytes) /
-                                                             sizeof(*transmitArrayOneDoubleBytes));
-            Array                 arrayOneDouble;
+            const size_t            transmitArrayOneDoubleByteCount = A_SIZE(transmitArrayOneDoubleBytes);
+            Array                   arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes,
@@ -2222,18 +2005,11 @@ doTestInsertArrayOneDoubleMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneDoubleMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2241,9 +2017,9 @@ doTestInsertArrayOneDoubleMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneStringMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one string message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one string message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2253,11 +2029,11 @@ doTestInsertArrayOneStringMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneStringBytes[] =
+            static const DataKind   expectedArrayOneStringBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2285,10 +2061,8 @@ doTestInsertArrayOneStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneStringByteCount =
-                                                            (sizeof(expectedArrayOneStringBytes) /
-                                                             sizeof(*expectedArrayOneStringBytes));
-            static const uint8_t  transmitArrayOneStringBytes[] =
+            const size_t            expectedArrayOneStringByteCount = A_SIZE(expectedArrayOneStringBytes);
+            static const uint8_t    transmitArrayOneStringBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2297,10 +2071,8 @@ doTestInsertArrayOneStringMessage
                 0xFF, // End of message, last is Other
                 0xC7 // Checksum
             };
-            const size_t          transmitArrayOneStringByteCount =
-                                                            (sizeof(transmitArrayOneStringBytes) /
-                                                             sizeof(*transmitArrayOneStringBytes));
-            Array                 arrayOneString;
+            const size_t            transmitArrayOneStringByteCount = A_SIZE(transmitArrayOneStringBytes);
+            Array                   arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes,
@@ -2320,18 +2092,11 @@ doTestInsertArrayOneStringMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneStringMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 114 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2339,9 +2104,9 @@ doTestInsertArrayOneStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneBlobMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one blob message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one blob message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2351,11 +2116,11 @@ doTestInsertArrayOneBlobMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneBlobBytes[] =
+            static const DataKind   expectedArrayOneBlobBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2383,10 +2148,8 @@ doTestInsertArrayOneBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneBlobByteCount =
-                                                            (sizeof(expectedArrayOneBlobBytes) /
-                                                             sizeof(*expectedArrayOneBlobBytes));
-            static const uint8_t  transmitArrayOneBlobBytes[] =
+            const size_t            expectedArrayOneBlobByteCount = A_SIZE(expectedArrayOneBlobBytes);
+            static const uint8_t    transmitArrayOneBlobBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2395,10 +2158,8 @@ doTestInsertArrayOneBlobMessage
                 0xFF, // End of message, last is Other
                 0xA7 // Checksum
             };
-            const size_t          transmitArrayOneBlobByteCount =
-                                                            (sizeof(transmitArrayOneBlobBytes) /
-                                                             sizeof(*transmitArrayOneBlobBytes));
-            Array                 arrayOneBlob;
+            const size_t            transmitArrayOneBlobByteCount = A_SIZE(transmitArrayOneBlobBytes);
+            Array                   arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes,
@@ -2418,18 +2179,11 @@ doTestInsertArrayOneBlobMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneBlobMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 115 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2437,9 +2191,9 @@ doTestInsertArrayOneBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one array message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2449,11 +2203,11 @@ doTestInsertArrayOneArrayMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneArrayBytes[] =
+            static const DataKind   expectedArrayOneArrayBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2485,10 +2239,8 @@ doTestInsertArrayOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneArrayByteCount =
-                                                            (sizeof(expectedArrayOneArrayBytes) /
-                                                             sizeof(*expectedArrayOneArrayBytes));
-            static const uint8_t  transmitArrayOneArrayBytes[] =
+            const size_t            expectedArrayOneArrayByteCount = A_SIZE(expectedArrayOneArrayBytes);
+            static const uint8_t    transmitArrayOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2498,10 +2250,8 @@ doTestInsertArrayOneArrayMessage
                 0xFF, // End of message, last is Other
                 0x97 // Checksum
             };
-            const size_t          transmitArrayOneArrayByteCount =
-                                                            (sizeof(transmitArrayOneArrayBytes) /
-                                                             sizeof(*transmitArrayOneArrayBytes));
-            Array                 arrayOneArray;
+            const size_t            transmitArrayOneArrayByteCount = A_SIZE(transmitArrayOneArrayBytes);
+            Array                   arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes,
@@ -2521,18 +2271,11 @@ doTestInsertArrayOneArrayMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneArrayMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 116 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2540,9 +2283,9 @@ doTestInsertArrayOneArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2552,11 +2295,11 @@ doTestInsertArrayOneMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneMapBytes[] =
+            static const DataKind   expectedArrayOneMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2588,10 +2331,8 @@ doTestInsertArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneMapByteCount =
-                                                                (sizeof(expectedArrayOneMapBytes) /
-                                                                 sizeof(*expectedArrayOneMapBytes));
-            static const uint8_t  transmitArrayOneMapBytes[] =
+            const size_t            expectedArrayOneMapByteCount = A_SIZE(expectedArrayOneMapBytes);
+            static const uint8_t    transmitArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2601,10 +2342,8 @@ doTestInsertArrayOneMapMessage
                 0xFF, // End of message, last is Other
                 0x8F // Checksum
             };
-            const size_t          transmitArrayOneMapByteCount =
-                                                                (sizeof(transmitArrayOneMapBytes) /
-                                                                 sizeof(*transmitArrayOneMapBytes));
-            Array                 arrayOneMap;
+            const size_t            transmitArrayOneMapByteCount = A_SIZE(transmitArrayOneMapBytes);
+            Array                   arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes,
@@ -2624,18 +2363,11 @@ doTestInsertArrayOneMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 117 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2643,9 +2375,9 @@ doTestInsertArrayOneMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with one set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with one set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2655,11 +2387,11 @@ doTestInsertArrayOneSetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneSetBytes[] =
+            static const DataKind   expectedArrayOneSetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2691,10 +2423,8 @@ doTestInsertArrayOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneSetByteCount =
-                                                                (sizeof(expectedArrayOneSetBytes) /
-                                                                 sizeof(*expectedArrayOneSetBytes));
-            static const uint8_t  transmitArrayOneSetBytes[] =
+            const size_t            expectedArrayOneSetByteCount = A_SIZE(expectedArrayOneSetBytes);
+            static const uint8_t    transmitArrayOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x10, // Start of non-empty Array, one element
@@ -2704,10 +2434,8 @@ doTestInsertArrayOneSetMessage
                 0xFF, // End of message, last is Other
                 0x87 // Checksum
             };
-            const size_t          transmitArrayOneSetByteCount =
-                                                                (sizeof(transmitArrayOneSetBytes) /
-                                                                 sizeof(*transmitArrayOneSetBytes));
-            Array                 arrayOneSet;
+            const size_t            transmitArrayOneSetByteCount = A_SIZE(transmitArrayOneSetBytes);
+            Array                   arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes,
@@ -2727,18 +2455,11 @@ doTestInsertArrayOneSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneSetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 130 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2746,9 +2467,9 @@ doTestInsertArrayOneSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoLogicalsMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two logicals message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two logicals message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2758,11 +2479,11 @@ doTestInsertArrayTwoLogicalsMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoLogicalsBytes[] =
+            static const DataKind   expectedArrayTwoLogicalsBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2792,10 +2513,8 @@ doTestInsertArrayTwoLogicalsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoLogicalsByteCount =
-                                                         (sizeof(expectedArrayTwoLogicalsBytes) /
-                                                          sizeof(*expectedArrayTwoLogicalsBytes));
-            static const uint8_t  transmitArrayTwoLogicalsBytes[] =
+            const size_t            expectedArrayTwoLogicalsByteCount = A_SIZE(expectedArrayTwoLogicalsBytes);
+            static const uint8_t    transmitArrayTwoLogicalsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -2804,10 +2523,8 @@ doTestInsertArrayTwoLogicalsMessage
                 0xFF, // End of message, last is Other
                 0xC6 // Checksum
             };
-            const size_t          transmitArrayTwoLogicalsByteCount =
-                                                        (sizeof(transmitArrayTwoLogicalsBytes) /
-                                                         sizeof(*transmitArrayTwoLogicalsBytes));
-            Array                 arrayTwoLogicals;
+            const size_t            transmitArrayTwoLogicalsByteCount = A_SIZE(transmitArrayTwoLogicalsBytes);
+            Array                   arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
@@ -2829,18 +2546,11 @@ doTestInsertArrayTwoLogicalsMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoLogicalsMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 131 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2848,9 +2558,9 @@ doTestInsertArrayTwoLogicalsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoIntegersMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two integers message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two integers message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2860,11 +2570,11 @@ doTestInsertArrayTwoIntegersMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoIntegersBytes[] =
+            static const DataKind   expectedArrayTwoIntegersBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -2894,10 +2604,8 @@ doTestInsertArrayTwoIntegersMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoIntegersByteCount =
-                                                        (sizeof(expectedArrayTwoIntegersBytes) /
-                                                         sizeof(*expectedArrayTwoIntegersBytes));
-            static const uint8_t  transmitArrayTwoIntegersBytes[] =
+            const size_t            expectedArrayTwoIntegersByteCount = A_SIZE(expectedArrayTwoIntegersBytes);
+            static const uint8_t    transmitArrayTwoIntegersBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -2906,10 +2614,8 @@ doTestInsertArrayTwoIntegersMessage
                 0xFF, // End of message, last is Other
                 0x46 // Checksum
             };
-            const size_t          transmitArrayTwoIntegersByteCount =
-                                                        (sizeof(transmitArrayTwoIntegersBytes) /
-                                                         sizeof(*transmitArrayTwoIntegersBytes));
-            Array                 arrayTwoIntegers;
+            const size_t            transmitArrayTwoIntegersByteCount = A_SIZE(transmitArrayTwoIntegersBytes);
+            Array                   arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
@@ -2931,18 +2637,11 @@ doTestInsertArrayTwoIntegersMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoIntegersMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 132 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -2950,9 +2649,9 @@ doTestInsertArrayTwoIntegersMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoDoublesMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two doubles message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two doubles message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -2962,11 +2661,11 @@ doTestInsertArrayTwoDoublesMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoDoublesBytes[] =
+            static const DataKind   expectedArrayTwoDoublesBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3002,10 +2701,8 @@ doTestInsertArrayTwoDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoDoublesByteCount =
-                                                            (sizeof(expectedArrayTwoDoublesBytes) /
-                                                             sizeof(*expectedArrayTwoDoublesBytes));
-            static const uint8_t  transmitArrayTwoDoublesBytes[] =
+            const size_t            expectedArrayTwoDoublesByteCount = A_SIZE(expectedArrayTwoDoublesBytes);
+            static const uint8_t    transmitArrayTwoDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3015,10 +2712,8 @@ doTestInsertArrayTwoDoublesMessage
                 0xFF, // End of message, last is Other
                 0x05 // Checksum
             };
-            const size_t          transmitArrayTwoDoublesByteCount =
-                                                            (sizeof(transmitArrayTwoDoublesBytes) /
-                                                             sizeof(*transmitArrayTwoDoublesBytes));
-            Array                 arrayTwoDoubles;
+            const size_t            transmitArrayTwoDoublesByteCount = A_SIZE(transmitArrayTwoDoublesBytes);
+            Array                   arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
@@ -3040,18 +2735,11 @@ doTestInsertArrayTwoDoublesMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoDoublesMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 133 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3059,9 +2747,9 @@ doTestInsertArrayTwoDoublesMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoStringsMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two strings message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two strings message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3071,11 +2759,11 @@ doTestInsertArrayTwoStringsMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoStringsBytes[] =
+            static const DataKind   expectedArrayTwoStringsBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3107,10 +2795,8 @@ doTestInsertArrayTwoStringsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoStringsByteCount =
-                                                            (sizeof(expectedArrayTwoStringsBytes) /
-                                                             sizeof(*expectedArrayTwoStringsBytes));
-            static const uint8_t  transmitArrayTwoStringsBytes[] =
+            const size_t            expectedArrayTwoStringsByteCount = A_SIZE(expectedArrayTwoStringsBytes);
+            static const uint8_t    transmitArrayTwoStringsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3119,10 +2805,8 @@ doTestInsertArrayTwoStringsMessage
                 0xFF, // End of message, last is Other
                 0x46 // Checksum
             };
-            const size_t          transmitArrayTwoStringsByteCount =
-                                                            (sizeof(transmitArrayTwoStringsBytes) /
-                                                             sizeof(*transmitArrayTwoStringsBytes));
-            Array                 arrayTwoStrings;
+            const size_t            transmitArrayTwoStringsByteCount = A_SIZE(transmitArrayTwoStringsBytes);
+            Array                   arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
@@ -3144,18 +2828,11 @@ doTestInsertArrayTwoStringsMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoStringsMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 134 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3163,9 +2840,9 @@ doTestInsertArrayTwoStringsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoBlobsMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two blobs message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two blobs message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3175,11 +2852,11 @@ doTestInsertArrayTwoBlobsMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoBlobsBytes[] =
+            static const DataKind   expectedArrayTwoBlobsBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3211,10 +2888,8 @@ doTestInsertArrayTwoBlobsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoBlobsByteCount =
-                                                            (sizeof(expectedArrayTwoBlobsBytes) /
-                                                             sizeof(*expectedArrayTwoBlobsBytes));
-            static const uint8_t  transmitArrayTwoBlobsBytes[] =
+            const size_t            expectedArrayTwoBlobsByteCount = A_SIZE(expectedArrayTwoBlobsBytes);
+            static const uint8_t    transmitArrayTwoBlobsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3223,10 +2898,8 @@ doTestInsertArrayTwoBlobsMessage
                 0xFF, // End of message, last is Other
                 0x06 // Checksum
             };
-            const size_t          transmitArrayTwoBlobsByteCount =
-                                                            (sizeof(transmitArrayTwoBlobsBytes) /
-                                                             sizeof(*transmitArrayTwoBlobsBytes));
-            Array                 arrayTwoBlobs;
+            const size_t            transmitArrayTwoBlobsByteCount = A_SIZE(transmitArrayTwoBlobsBytes);
+            Array                   arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
@@ -3247,18 +2920,11 @@ doTestInsertArrayTwoBlobsMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoBlobsMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 135 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3266,9 +2932,9 @@ doTestInsertArrayTwoBlobsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoArraysMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two arrays message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two arrays message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3278,11 +2944,11 @@ doTestInsertArrayTwoArraysMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoArraysBytes[] =
+            static const DataKind   expectedArrayTwoArraysBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3322,10 +2988,8 @@ doTestInsertArrayTwoArraysMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoArraysByteCount =
-                                                            (sizeof(expectedArrayTwoArraysBytes) /
-                                                             sizeof(*expectedArrayTwoArraysBytes));
-            static const uint8_t  transmitArrayTwoArraysBytes[] =
+            const size_t            expectedArrayTwoArraysByteCount = A_SIZE(expectedArrayTwoArraysBytes);
+            static const uint8_t    transmitArrayTwoArraysBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3337,10 +3001,8 @@ doTestInsertArrayTwoArraysMessage
                 0xFF, // End of message, last is Other
                 0xE6 // Checksum
             };
-            const size_t          transmitArrayTwoArraysByteCount =
-                                                            (sizeof(transmitArrayTwoArraysBytes) /
-                                                             sizeof(*transmitArrayTwoArraysBytes));
-            Array                 arrayTwoArrays;
+            const size_t            transmitArrayTwoArraysByteCount = A_SIZE(transmitArrayTwoArraysBytes);
+            Array                   arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
@@ -3361,18 +3023,11 @@ doTestInsertArrayTwoArraysMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoArraysMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 136 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3380,9 +3035,9 @@ doTestInsertArrayTwoArraysMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoMapsMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two maps message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two maps message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3392,11 +3047,11 @@ doTestInsertArrayTwoMapsMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoMapsBytes[] =
+            static const DataKind   expectedArrayTwoMapsBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3436,10 +3091,8 @@ doTestInsertArrayTwoMapsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoMapsByteCount =
-                                                            (sizeof(expectedArrayTwoMapsBytes) /
-                                                             sizeof(*expectedArrayTwoMapsBytes));
-            static const uint8_t  transmitArrayTwoMapsBytes[] =
+            const size_t            expectedArrayTwoMapsByteCount = A_SIZE(expectedArrayTwoMapsBytes);
+            static const uint8_t    transmitArrayTwoMapsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3451,10 +3104,8 @@ doTestInsertArrayTwoMapsMessage
                 0xFF, // End of message, last is Other
                 0xD6 // Checksum
             };
-            const size_t          transmitArrayTwoMapsByteCount =
-                                                            (sizeof(transmitArrayTwoMapsBytes) /
-                                                             sizeof(*transmitArrayTwoMapsBytes));
-            Array                 arrayTwoMaps;
+            const size_t            transmitArrayTwoMapsByteCount = A_SIZE(transmitArrayTwoMapsBytes);
+            Array                   arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
@@ -3475,18 +3126,11 @@ doTestInsertArrayTwoMapsMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoMapsMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 137 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3494,9 +3138,9 @@ doTestInsertArrayTwoMapsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoSetsMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with two sets message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with two sets message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3506,11 +3150,11 @@ doTestInsertArrayTwoSetsMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayTwoSetsBytes[] =
+            static const DataKind   expectedArrayTwoSetsBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3550,10 +3194,8 @@ doTestInsertArrayTwoSetsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayTwoSetsByteCount =
-                                                            (sizeof(expectedArrayTwoSetsBytes) /
-                                                             sizeof(*expectedArrayTwoSetsBytes));
-            static const uint8_t  transmitArrayTwoSetsBytes[] =
+            const size_t            expectedArrayTwoSetsByteCount = A_SIZE(expectedArrayTwoSetsBytes);
+            static const uint8_t    transmitArrayTwoSetsBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3565,10 +3207,8 @@ doTestInsertArrayTwoSetsMessage
                 0xFF, // End of message, last is Other
                 0xC6 // Checksum
             };
-            const size_t          transmitArrayTwoSetsByteCount =
-                                                            (sizeof(transmitArrayTwoSetsBytes) /
-                                                             sizeof(*transmitArrayTwoSetsBytes));
-            Array                 arrayTwoSets;
+            const size_t            transmitArrayTwoSetsByteCount = A_SIZE(transmitArrayTwoSetsBytes);
+            Array                   arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
@@ -3589,18 +3229,11 @@ doTestInsertArrayTwoSetsMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayTwoSetsMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 138 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3608,9 +3241,9 @@ doTestInsertArrayTwoSetsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayOneMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with array and map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with array and map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3620,11 +3253,11 @@ doTestInsertArrayOneArrayOneMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneArrayOneMapBytes[] =
+            static const DataKind   expectedArrayOneArrayOneMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3664,10 +3297,8 @@ doTestInsertArrayOneArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneArrayOneMapByteCount =
-                                                    (sizeof(expectedArrayOneArrayOneMapBytes) /
-                                                     sizeof(*expectedArrayOneArrayOneMapBytes));
-            static const uint8_t  transmitArrayOneArrayOneMapBytes[] =
+            const size_t            expectedArrayOneArrayOneMapByteCount = A_SIZE(expectedArrayOneArrayOneMapBytes);
+            static const uint8_t    transmitArrayOneArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3679,10 +3310,8 @@ doTestInsertArrayOneArrayOneMapMessage
                 0xFF, // End of message, last is Other
                 0xDE // Checksum
             };
-            const size_t          transmitArrayOneArrayOneMapByteCount =
-                                                        (sizeof(transmitArrayOneArrayOneMapBytes) /
-                                                         sizeof(*transmitArrayOneArrayOneMapBytes));
-            Array                 arrayOneArrayOneMap;
+            const size_t            transmitArrayOneArrayOneMapByteCount = A_SIZE(transmitArrayOneArrayOneMapBytes);
+            Array                   arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
@@ -3705,18 +3334,11 @@ doTestInsertArrayOneArrayOneMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneArrayOneMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 139 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3724,9 +3346,9 @@ doTestInsertArrayOneArrayOneMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapOneSetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with map and set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with map and set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3736,11 +3358,11 @@ doTestInsertArrayOneMapOneSetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneMapOneSetBytes[] =
+            static const DataKind   expectedArrayOneMapOneSetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3780,10 +3402,8 @@ doTestInsertArrayOneMapOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneMapOneSetByteCount =
-                                                        (sizeof(expectedArrayOneMapOneSetBytes) /
-                                                         sizeof(*expectedArrayOneMapOneSetBytes));
-            static const uint8_t  transmitArrayOneMapOneSetBytes[] =
+            const size_t            expectedArrayOneMapOneSetByteCount = A_SIZE(expectedArrayOneMapOneSetBytes);
+            static const uint8_t    transmitArrayOneMapOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3795,10 +3415,8 @@ doTestInsertArrayOneMapOneSetMessage
                 0xFF, // End of message, last is Other
                 0xCE // Checksum
             };
-            const size_t          transmitArrayOneMapOneSetByteCount =
-                                                        (sizeof(transmitArrayOneMapOneSetBytes) /
-                                                         sizeof(*transmitArrayOneMapOneSetBytes));
-            Array                 arrayOneMapOneSet;
+            const size_t            transmitArrayOneMapOneSetByteCount = A_SIZE(transmitArrayOneMapOneSetBytes);
+            Array                   arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
@@ -3820,18 +3438,11 @@ doTestInsertArrayOneMapOneSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneMapOneSetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 140 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3839,9 +3450,9 @@ doTestInsertArrayOneMapOneSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetOneArrayMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with set and array message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with set and array message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3851,11 +3462,11 @@ doTestInsertArrayOneSetOneArrayMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedArrayOneSetOneArrayBytes[] =
+            static const DataKind   expectedArrayOneSetOneArrayBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -3895,10 +3506,8 @@ doTestInsertArrayOneSetOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayOneSetOneArrayByteCount =
-                                                        (sizeof(expectedArrayOneSetOneArrayBytes) /
-                                                         sizeof(*expectedArrayOneSetOneArrayBytes));
-            static const uint8_t  transmitArrayOneSetOneArrayBytes[] =
+            const size_t            expectedArrayOneSetOneArrayByteCount = A_SIZE(expectedArrayOneSetOneArrayBytes);
+            static const uint8_t    transmitArrayOneSetOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x11, // Start of non-empty Array, two elements
@@ -3910,10 +3519,8 @@ doTestInsertArrayOneSetOneArrayMessage
                 0xFF, // End of message, last is Other
                 0xD6 // Checksum
             };
-            const size_t          transmitArrayOneSetOneArrayByteCount =
-                                                        (sizeof(transmitArrayOneSetOneArrayBytes) /
-                                                         sizeof(*transmitArrayOneSetOneArrayBytes));
-            Array                 arrayOneSetOneArray;
+            const size_t            transmitArrayOneSetOneArrayByteCount = A_SIZE(transmitArrayOneSetOneArrayBytes);
+            Array                   arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
@@ -3936,18 +3543,11 @@ doTestInsertArrayOneSetOneArrayMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayOneSetOneArrayMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 141 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -3955,9 +3555,9 @@ doTestInsertArrayOneSetOneArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayWithManyDoublesMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // array with many doubles message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // array with many doubles message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -3967,12 +3567,12 @@ doTestInsertArrayWithManyDoublesMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            const size_t          numValues = 43;
-            static const DataKind expectedArrayManyDoublesBytes[] =
+            const size_t            numValues = 43;
+            static const DataKind   expectedArrayManyDoublesBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4172,10 +3772,8 @@ doTestInsertArrayWithManyDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedArrayManyDoublesByteCount =
-                                                        (sizeof(expectedArrayManyDoublesBytes) /
-                                                         sizeof(*expectedArrayManyDoublesBytes));
-            static const uint8_t  transmitArrayManyDoublesBytes[] =
+            const size_t            expectedArrayManyDoublesByteCount = A_SIZE(expectedArrayManyDoublesBytes);
+            static const uint8_t    transmitArrayManyDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD1, 0x20, 0x1A, // Start of non-empty Array, 42 elements
@@ -4227,10 +3825,8 @@ doTestInsertArrayWithManyDoublesMessage
                 0xFF, // End of message, last is Other
                 0xBA // Checksum
             };
-            const size_t          transmitArrayManyDoublesByteCount =
-                                                        (sizeof(transmitArrayManyDoublesBytes) /
-                                                         sizeof(*transmitArrayManyDoublesBytes));
-            Array                 arrayManyDoubles;
+            const size_t            transmitArrayManyDoublesByteCount = A_SIZE(transmitArrayManyDoublesBytes);
+            Array                   arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
@@ -4255,19 +3851,10 @@ doTestInsertArrayWithManyDoublesMessage
     return result;
 } // doTestInsertArrayWithManyDoublesMessage
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-
-
 #if defined(__APPLE__)
 # pragma mark *** Test Case 160 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4275,9 +3862,9 @@ doTestInsertArrayWithManyDoublesMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4287,11 +3874,11 @@ doTestInsertLogicalMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedLogicalMapBytes[] =
+            static const DataKind   expectedLogicalMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4321,9 +3908,8 @@ doTestInsertLogicalMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedLogicalMapByteCount = (sizeof(expectedLogicalMapBytes) /
-                                                                 sizeof(*expectedLogicalMapBytes));
-            static const uint8_t  transmitLogicalMapBytes[] =
+            const size_t            expectedLogicalMapByteCount = A_SIZE(expectedLogicalMapBytes);
+            static const uint8_t    transmitLogicalMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4333,9 +3919,8 @@ doTestInsertLogicalMapMessage
                 0xFF, // End of message, last is Other
                 0x72 // Checksum
             };
-            const size_t          transmitLogicalMapByteCount = (sizeof(transmitLogicalMapBytes) /
-                                                                 sizeof(*transmitLogicalMapBytes));
-            Map                   logicalMap;
+            const size_t            transmitLogicalMapByteCount = A_SIZE(transmitLogicalMapBytes);
+            Map                     logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes,
@@ -4355,18 +3940,11 @@ doTestInsertLogicalMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertLogicalMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 161 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4374,9 +3952,9 @@ doTestInsertLogicalMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4386,11 +3964,11 @@ doTestInsertIntegerMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedIntegerMapBytes[] =
+            static const DataKind   expectedIntegerMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4420,9 +3998,8 @@ doTestInsertIntegerMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedIntegerMapByteCount = (sizeof(expectedIntegerMapBytes) /
-                                                                 sizeof(*expectedIntegerMapBytes));
-            static const uint8_t  transmitIntegerMapBytes[] =
+            const size_t            expectedIntegerMapByteCount = A_SIZE(expectedIntegerMapBytes);
+            static const uint8_t    transmitIntegerMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4432,9 +4009,8 @@ doTestInsertIntegerMapMessage
                 0xFF, // End of message, last is Other
                 0x32 // Checksum
             };
-            const size_t          transmitIntegerMapByteCount = (sizeof(transmitIntegerMapBytes) /
-                                                                 sizeof(*transmitIntegerMapBytes));
-            Map                   integerMap;
+            const size_t            transmitIntegerMapByteCount = A_SIZE(transmitIntegerMapBytes);
+            Map                     integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes,
@@ -4454,18 +4030,11 @@ doTestInsertIntegerMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertIntegerMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 162 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4473,9 +4042,9 @@ doTestInsertIntegerMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringMapMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer map message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer map message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4485,11 +4054,11 @@ doTestInsertStringMapMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedStringMapBytes[] =
+            static const DataKind   expectedStringMapBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4520,9 +4089,8 @@ doTestInsertStringMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedStringMapByteCount = (sizeof(expectedStringMapBytes) /
-                                                                sizeof(*expectedStringMapBytes));
-            static const uint8_t  transmitStringMapBytes[] =
+            const size_t            expectedStringMapByteCount = A_SIZE(expectedStringMapBytes);
+            static const uint8_t    transmitStringMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD5, 0x10, // Start of non-empty Map, one element
@@ -4532,9 +4100,8 @@ doTestInsertStringMapMessage
                 0xFF, // End of message, last is Other
                 0xB2 // Checksum
             };
-            const size_t          transmitStringMapByteCount = (sizeof(transmitStringMapBytes) /
-                                                                sizeof(*transmitStringMapBytes));
-            Map                   stringMap;
+            const size_t            transmitStringMapByteCount = A_SIZE(transmitStringMapBytes);
+            Map                     stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes,
@@ -4554,18 +4121,11 @@ doTestInsertStringMapMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertStringMapMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 163 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4573,9 +4133,9 @@ doTestInsertStringMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalSetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // logical set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // logical set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4585,11 +4145,11 @@ doTestInsertLogicalSetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedLogicalSetBytes[] =
+            static const DataKind   expectedLogicalSetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4616,9 +4176,8 @@ doTestInsertLogicalSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedLogicalSetByteCount = (sizeof(expectedLogicalSetBytes) /
-                                                                 sizeof(*expectedLogicalSetBytes));
-            static const uint8_t  transmitLogicalSetBytes[] =
+            const size_t            expectedLogicalSetByteCount = A_SIZE(expectedLogicalSetBytes);
+            static const uint8_t    transmitLogicalSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4627,9 +4186,8 @@ doTestInsertLogicalSetMessage
                 0xFF, // End of message, last is Other
                 0x77 // Checksum
             };
-            const size_t          transmitLogicalSetByteCount = (sizeof(transmitLogicalSetBytes) /
-                                                                 sizeof(*transmitLogicalSetBytes));
-            Set                   logicalSet;
+            const size_t            transmitLogicalSetByteCount = A_SIZE(transmitLogicalSetBytes);
+            Set                     logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes,
@@ -4649,18 +4207,11 @@ doTestInsertLogicalSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertLogicalSetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 164 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4668,9 +4219,9 @@ doTestInsertLogicalSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerSetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4680,11 +4231,11 @@ doTestInsertIntegerSetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedIntegerSetBytes[] =
+            static const DataKind   expectedIntegerSetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4711,9 +4262,8 @@ doTestInsertIntegerSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedIntegerSetByteCount = (sizeof(expectedIntegerSetBytes) /
-                                                                 sizeof(*expectedIntegerSetBytes));
-            static const uint8_t  transmitIntegerSetBytes[] =
+            const size_t            expectedIntegerSetByteCount = A_SIZE(expectedIntegerSetBytes);
+            static const uint8_t    transmitIntegerSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4722,9 +4272,8 @@ doTestInsertIntegerSetMessage
                 0xFF, // End of message, last is Other
                 0x37 // Checksum
             };
-            const size_t          transmitIntegerSetByteCount = (sizeof(transmitIntegerSetBytes) /
-                                                                 sizeof(*transmitIntegerSetBytes));
-            Set                   integerSet;
+            const size_t            transmitIntegerSetByteCount = A_SIZE(transmitIntegerSetBytes);
+            Set                     integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes,
@@ -4744,18 +4293,11 @@ doTestInsertIntegerSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertIntegerSetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 165 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -4763,9 +4305,9 @@ doTestInsertIntegerSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringSetMessage
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer set message
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // integer set message
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -4775,11 +4317,11 @@ doTestInsertStringSetMessage
 
     try
     {
-        auto stuff(make_unique<Message>());
+        auto    stuff(make_unique<Message>());
 
         if (stuff)
         {
-            static const DataKind expectedStringSetBytes[] =
+            static const DataKind   expectedStringSetBytes[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4807,9 +4349,8 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t          expectedStringSetByteCount = (sizeof(expectedStringSetBytes) /
-                                                                sizeof(*expectedStringSetBytes));
-            static const uint8_t  transmitStringSetBytes[] =
+            const size_t            expectedStringSetByteCount = A_SIZE(expectedStringSetBytes);
+            static const uint8_t    transmitStringSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
                 0xD9, 0x10, // Start of non-empty Set, one element
@@ -4818,9 +4359,8 @@ doTestInsertStringSetMessage
                 0xFF, // End of message, last is Other
                 0xB7 // Checksum
             };
-            const size_t          transmitStringSetByteCount = (sizeof(transmitStringSetBytes) /
-                                                                sizeof(*transmitStringSetBytes));
-            Set                   stringSet;
+            const size_t            transmitStringSetByteCount = A_SIZE(transmitStringSetBytes);
+            Set                     stringSet;
 
             stringSet.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes,
@@ -4840,9 +4380,6 @@ doTestInsertStringSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertStringSetMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4858,8 +4395,8 @@ doTestInsertStringSetMessage
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 

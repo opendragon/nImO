@@ -80,13 +80,13 @@ namespace nImO
          @param[in] data The data to be placed in the object.
          @param[in] size The number of bytes in the data. */
         Blob
-            (const uint8_t *data,
-             const size_t  size);
+            (const uint8_t* data,
+             const size_t   size);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         Blob
-            (const Blob &other);
+            (const Blob&    other);
 
         /*! @brief The destructor. */
         virtual
@@ -106,7 +106,7 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
-            (const Value &other)
+            (const Value&   other)
             const
             override;
 
@@ -117,8 +117,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         equalTo
-            (const Value &other,
-             bool        &validComparison)
+            (const Value&   other,
+             bool&          validComparison)
         const
         override;
 
@@ -128,9 +128,9 @@ namespace nImO
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
         getExtractionInfo
-            (DataKind  &aByte,
-             DataKind  &aMask,
-             Extractor &theExtractor);
+            (DataKind&  aByte,
+             DataKind&  aMask,
+             Extractor& theExtractor);
 
         /*! @brief Return the type tag for the Value for use with Messages.
          @returns The type tag for the Value for use with Messages. */
@@ -144,7 +144,7 @@ namespace nImO
          @returns The value of the object. */
         inline const uint8_t *
         getValue
-            (size_t &length)
+            (size_t&    length)
             const
         {
             length = _size;
@@ -158,8 +158,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value&   other,
+             bool&          validComparison)
             const
             override;
 
@@ -170,8 +170,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value&   other,
+             bool&          validComparison)
             const
             override;
 
@@ -182,8 +182,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value&   other,
+             bool&          validComparison)
             const
             override;
 
@@ -194,8 +194,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value&   other,
+             bool&          validComparison)
             const
             override;
 
@@ -204,7 +204,7 @@ namespace nImO
          @returns The updated object. */
         Blob &
         operator =
-            (const Blob &other);
+            (const Blob&    other);
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[out] outBuffer The buffer to be appended to.
@@ -212,8 +212,8 @@ namespace nImO
          is as readable as possible. */
         virtual void
         printToStringBuffer
-            (StringBuffer &outBuffer,
-             const bool   squished = false)
+            (StringBuffer&  outBuffer,
+             const bool     squished = false)
             const
             override;
 
@@ -221,7 +221,7 @@ namespace nImO
          @param[in] outMessage The Message to be appended to. */
         virtual void
         writeToMessage
-            (Message &outMessage)
+            (Message&   outMessage)
             const
             override;
 
@@ -246,10 +246,10 @@ namespace nImO
          a non-Flaw Value if extraction was successful. */
         static SpValue
         extractValue
-            (const Message &theMessage,
-             const int     leadByte,
-             size_t        &position,
-             SpArray       parentValue);
+            (const Message& theMessage,
+             const int      leadByte,
+             size_t&        position,
+             SpArray        parentValue);
 
         /*! @brief Remove all entries. */
         inline void
@@ -270,10 +270,10 @@ namespace nImO
         // Private fields.
 
         /*! @brief The associated value. */
-        UpAuint8_t _value;
+        UpAuint8_t  _value;
 
         /*! @brief The size of the associated value. */
-        size_t _size;
+        size_t  _size;
 
     }; // Blob
 

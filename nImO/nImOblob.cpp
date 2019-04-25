@@ -599,14 +599,10 @@ nImO::Blob::operator =
     return *this;
 } // nImO::Blob::operator =
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::Blob::printToStringBuffer
-    (nImO::StringBuffer &outBuffer,
-     UNUSED_ const bool squished)
+    (nImO::StringBuffer &   outBuffer,
+     const bool             NOT_USED_(squished))
     const
 {
     ODL_OBJENTER(); //####
@@ -615,9 +611,6 @@ nImO::Blob::printToStringBuffer
     outBuffer.addBytes(_value.get(), _size);
     ODL_OBJEXIT(); //####
 } // nImO::Blob::printToStringBuffer
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 void
 nImO::Blob::writeToMessage

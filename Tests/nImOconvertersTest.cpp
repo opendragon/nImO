@@ -71,7 +71,7 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of random floating point numbers to convert. */
-static const int kNumDoubleTests = 100;
+static const int    kNumDoubleTests = 100;
 
 /*! @brief The expected maximum size of a buffer needed for conversion. */
 static const size_t kBufferSize = 20;
@@ -105,10 +105,6 @@ catchSignal
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -116,9 +112,9 @@ catchSignal
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArgs
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // invalid args
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // invalid args
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -186,18 +182,11 @@ doTestInvalidArgs
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidArgs
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -205,9 +194,9 @@ doTestInvalidArgs
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSize
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer size
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // integer size
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -253,18 +242,11 @@ doTestIntegerSize
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerSize
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -272,9 +254,9 @@ doTestIntegerSize
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleSize
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // double size
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // double size
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -305,18 +287,11 @@ doTestDoubleSize
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDoubleSize
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 04 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -324,9 +299,9 @@ doTestDoubleSize
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerConversion
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // integer conversion
+    (const char*    NOT_USED_(launchPath),
+     const int      argc,
+     char**         argv) // integer conversion
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -385,18 +360,11 @@ doTestIntegerConversion
     ODL_EXIT_I(result); //####
     return result;
 } // doTestIntegerConversion
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 05 ***
 #endif // defined(__APPLE__)
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -404,9 +372,9 @@ doTestIntegerConversion
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleConversion
-    (UNUSED_ const char *launchPath,
-     UNUSED_ const int  argc,
-     UNUSED_ char       **argv) // double conversion
+    (const char*    NOT_USED_(launchPath),
+     const int      NOT_USED_(argc),
+     char**         NOT_USED_(argv)) // double conversion
 {
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
@@ -458,9 +426,6 @@ doTestDoubleConversion
     ODL_EXIT_I(result); //####
     return result;
 } // doTestDoubleConversion
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -476,8 +441,8 @@ doTestDoubleConversion
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int  argc,
-     char **argv)
+    (int    argc,
+     char** argv)
 {
     std::string progName(*argv);
 

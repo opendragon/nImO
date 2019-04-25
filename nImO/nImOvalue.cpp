@@ -418,14 +418,10 @@ nImO::Value::getValueFromMessage
     return result;
 } // nImO::Value::getValueFromMessage
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 bool
 nImO::Value::greaterThan
-    (UNUSED_ const nImO::Value &other,
-     bool                      &validComparison)
+    (const nImO::Value &    NOT_USED_(other),
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
@@ -434,9 +430,6 @@ nImO::Value::greaterThan
     ODL_OBJEXIT_B(false); //####
     return false;
 } // nImO::Value::greaterThan
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 bool
 nImO::Value::greaterThanOrEqual
@@ -577,14 +570,10 @@ nImO::Value::isLegalTerminator
     return result;
 } // nImO::Value::isLegalTerminator
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 bool
 nImO::Value::lessThan
-    (UNUSED_ const nImO::Value &other,
-     bool                      &validComparison)
+    (const nImO::Value &    NOT_USED_(other),
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
@@ -593,9 +582,6 @@ nImO::Value::lessThan
     ODL_OBJEXIT_B(false);
     return false;
 } // nImO::Value::lessThan
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 bool
 nImO::Value::lessThanOrEqual
@@ -610,14 +596,10 @@ nImO::Value::lessThanOrEqual
     return (&other == this);
 } // nImO::Value::lessThanOrEqual
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::Value::printToStringBuffer
-    (UNUSED_ nImO::StringBuffer &outBuffer,
-     UNUSED_ const bool         squished)
+    (nImO::StringBuffer &   NOT_USED_(outBuffer),
+     const bool             NOT_USED_(squished))
     const
 {
     ODL_OBJENTER(); //####
@@ -625,9 +607,6 @@ nImO::Value::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBuffer
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 nImO::SpValue
 nImO::Value::readFromStringBuffer
@@ -724,22 +703,15 @@ nImO::Value::writeInt64ToMessage
     ODL_EXIT(); //####
 } // nImO::Value::writeInt64ToMessage
 
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4100)
-#endif // ! MAC_OR_LINUX_
 void
 nImO::Value::writeToMessage
-    (UNUSED_ nImO::Message &outMessage)
+    (nImO::Message &    NOT_USED_(outMessage))
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::writeToMessage
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -163,11 +163,11 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 #  define TRUE 1
 # endif // ! defined(TRUE)
 
-# if MAC_OR_LINUX_
-#  define UNUSED_ [[gnu::unused]]
-# else // ! MAC_OR_LINUX_
-#  define UNUSED_ /* */
-# endif // ! MAC_OR_LINUX_
+/*! @brief A simple macro to hide unused parameters for a function. */
+# define NOT_USED_(var) /* var */
+
+/*! @brief A simple macro to calculate the number of elements in an array. */
+# define A_SIZE(arr)    (sizeof(arr) / sizeof(*arr))
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
@@ -584,7 +584,7 @@ namespace nImO
      @returns The floating-point value stored in the bytes. */
     double
     B2D
-        (const NumberAsBytes &inString);
+        (const NumberAsBytes&   inString);
 
     /*! @brief Convert a set of bytes into an integer value.
      @param[in] inString The byte string to be processed.
@@ -592,8 +592,8 @@ namespace nImO
      @returns The integer value stored in the bytes. */
     int64_t
     B2I
-        (const NumberAsBytes &inString,
-         const size_t        numBytes);
+        (const NumberAsBytes&   inString,
+         const size_t           numBytes);
 
     /*! @brief Return @c true if standard input can be used and @c false otherwise.
      @returns @c true if standard input can be used and @c false otherwise. */
@@ -609,16 +609,16 @@ namespace nImO
      two byte strings differ. */
     size_t
     CompareBytes
-        (const void   *first,
-         const void   *second,
-         const size_t numBytes);
+        (const void*    first,
+         const void*    second,
+         const size_t   numBytes);
 
     /*! @brief Convert a double value to a string.
      @param[in] value The value to be represented in the string.
      @returns The string representation of the value. */
     std::string
     ConvertDoubleToString
-        (const double value);
+        (const double   value);
     
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.
@@ -627,8 +627,8 @@ namespace nImO
      otherwise. */
     bool
     ConvertToDouble
-        (const char *startPtr,
-         double      &result);
+        (const char*    startPtr,
+         double&        result);
 
     /*! @brief Convert a string to an integer value.
      @param[in] startPtr The string to be converted.
@@ -637,28 +637,28 @@ namespace nImO
      otherwise. */
     bool
     ConvertToInt64
-        (const char *startPtr,
-         int64_t    &result);
+        (const char*    startPtr,
+         int64_t&       result);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */
     void
     D2B
-        (const double  inValue,
-         NumberAsBytes &outString);
+        (const double   inValue,
+         NumberAsBytes& outString);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName
-        (const char *channelRoot = DEFAULT_CHANNEL_ROOT_);
+        (const char*    channelRoot = DEFAULT_CHANNEL_ROOT_);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName
-        (const std::string &channelRoot);
+        (const std::string& channelRoot);
 
     /*! @brief Return a random string of hexadecimal digits.
      @returns A random string of hexadecimal digits. */
@@ -673,8 +673,8 @@ namespace nImO
      @returns The minimum number of bytes needed to represent the value. */
     size_t
     I2B
-        (const int64_t inValue,
-         NumberAsBytes &outString);
+        (const int64_t  inValue,
+         NumberAsBytes& outString);
 
     /*! @brief Perform initialization of internal resources.
      @param[in] progName The name of the executing program.
@@ -682,14 +682,14 @@ namespace nImO
      Should be called in the main() function of each application or service. */
     void
     Initialize
-        (const std::string &progName);
+        (const std::string& progName);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
      @returns A string description of the signal. */
     const char *
     NameOfSignal
-        (const int theSignal);
+        (const int  theSignal);
 
     /*! @brief Merge two DataKind values together.
      @param[in] leftValue The first value to be merged.
@@ -770,9 +770,9 @@ namespace nImO
      @param[in] description The description, which may contain multiple newlines. */
     void
     OutputDescription
-        (std::ostream      &outStream,
-         const char        *heading,
-         const std::string &description);
+        (std::ostream&      outStream,
+         const char*        heading,
+         const std::string& description);
 
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
@@ -795,15 +795,15 @@ namespace nImO
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
     ProcessStandardUtilitiesOptions
-        (const int         argc,
-         char              **argv,
-         DescriptorVector  &argumentDescriptions,
-         const std::string &utilityDescription,
-         const int         year,
-         const char        *copyrightHolder,
-         OutputFlavour     &flavour,
-         const bool        ignoreFlavours = false,
-         StringVector      *arguments = nullptr);
+        (const int          argc,
+         char**             argv,
+         DescriptorVector&  argumentDescriptions,
+         const std::string& utilityDescription,
+         const int          year,
+         const char*        copyrightHolder,
+         OutputFlavour&     flavour,
+         const bool         ignoreFlavours = false,
+         StringVector*      arguments = nullptr);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
@@ -811,14 +811,14 @@ namespace nImO
      @returns A string with special characters escaped. */
     std::string
     SanitizeString
-        (const std::string &inString,
-         const bool        allowDoubleQuotes = false);
+        (const std::string& inString,
+         const bool         allowDoubleQuotes = false);
 
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */
     void
     SetSignalHandlers
-        (SignalHandler theHandler);
+        (SignalHandler  theHandler);
 
     /*! @brief Set up the signal-handling behaviour so that this thread will catch our signal. */
     void

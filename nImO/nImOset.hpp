@@ -108,7 +108,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         Set
-            (const Set &other);
+            (const Set &    other);
 
         /*! @brief The destructor. */
         virtual
@@ -121,7 +121,7 @@ namespace nImO
          operation. */
         InsertResult
         addValue
-            (SpValue val);
+            (SpValue    val);
 
         /*! @brief Return non-@c nullptr if the object is a Set.
          @returns Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
@@ -164,7 +164,7 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
-            (const Value &other)
+            (const Value &  other)
             const
             override;
 
@@ -194,8 +194,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         equalTo
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -205,9 +205,9 @@ namespace nImO
          @returns An iterator for the given key key value or Map::end if not found. */
         iterator
         find
-            (SpValue key)
+            (SpValue    key)
         {
-            iterator result;
+            iterator    result;
             
             if (key->enumerationType() == _keyKind)
             {
@@ -226,10 +226,10 @@ namespace nImO
          @returns An iterator for the given key key value or Map::end if not found. */
         const_iterator
         find
-            (SpValue key)
+            (SpValue    key)
             const
         {
-            const_iterator result;
+            const_iterator  result;
             
             if (key->enumerationType() == _keyKind)
             {
@@ -248,9 +248,9 @@ namespace nImO
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
         getExtractionInfo
-            (DataKind  &aByte,
-             DataKind  &aMask,
-             Extractor &theExtractor);
+            (DataKind &     aByte,
+             DataKind &     aMask,
+             Extractor &    theExtractor);
 
         /*! @brief Return the characters that can appear as the start of a Set.
          @returns The characters that can appear as the start of a Set. */
@@ -279,8 +279,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -291,8 +291,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -303,8 +303,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -315,8 +315,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -325,7 +325,7 @@ namespace nImO
          @returns The updated object. */
         Set &
         operator =
-            (const Set &other)
+            (const Set &    other)
         {
             if (this != &other)
             {
@@ -341,8 +341,8 @@ namespace nImO
          is as readable as possible. */
         virtual void
         printToStringBuffer
-            (StringBuffer &outBuffer,
-             const bool   squished = false)
+            (StringBuffer & outBuffer,
+             const bool     squished = false)
             const
             override;
 
@@ -352,8 +352,8 @@ namespace nImO
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
-            (const StringBuffer &inBuffer,
-             size_t             &position);
+            (const StringBuffer &   inBuffer,
+             size_t &               position);
 
         /*! @brief Returns the number of elements in the Set.
          @returns The number of elements in the Set. */
@@ -369,7 +369,7 @@ namespace nImO
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage
-            (Message &outMessage)
+            (Message &  outMessage)
             const
             override;
 
@@ -383,7 +383,7 @@ namespace nImO
           @param[in] other The object to be copied from. */
         void
         addEntries
-            (const Set &other);
+            (const Set &    other);
 
         /*! @brief Extracts Value objects from a Message.
          Note that the parentValue argument is normally @c nullptr, and is used for handling
@@ -400,10 +400,10 @@ namespace nImO
          a non-Flaw Value if extraction was successful. */
         static SpValue
         extractValue
-            (const Message &theMessage,
-             const int     leadByte,
-             size_t        &position,
-             SpArray       parentValue);
+            (const Message &    theMessage,
+             const int          leadByte,
+             size_t &           position,
+             SpArray            parentValue);
 
     public :
         // Public fields.
@@ -415,7 +415,7 @@ namespace nImO
         // Private fields.
 
         /*! @brief The kind of key being used. */
-        Enumerable _keyKind;
+        Enumerable  _keyKind;
 
     }; // Set
 

@@ -91,7 +91,7 @@ nImO::Set::Set
 } // nImO::Set::Set
 
 nImO::Set::Set
-    (const nImO::Set &other) :
+    (const nImO::Set &  other) :
         inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
@@ -114,13 +114,13 @@ nImO::Set::~Set
 
 void
 nImO::Set::addEntries
-    (const nImO::Set &other)
+    (const nImO::Set &  other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
-        for (auto& walker : other)
+        for (auto & walker : other)
         {
             addValue(walker);
         }
@@ -130,11 +130,11 @@ nImO::Set::addEntries
 
 nImO::Set::InsertResult
 nImO::Set::addValue
-    (nImO::SpValue val)
+    (nImO::SpValue  val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", &val); //####
-    InsertResult result;
+    InsertResult    result;
 
     if (nullptr == val)
     {
@@ -171,24 +171,23 @@ nImO::Set::asSet
 
 bool
 nImO::Set::deeplyEqualTo
-    (const nImO::Value &other)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result = (&other == this);
+    bool    result = (&other == this);
 
     if (! result)
     {
-        const Set *otherPtr = other.asSet();
+        const Set * otherPtr = other.asSet();
 
         if (otherPtr && (size() == otherPtr->size()))
         {
-            const_iterator thisWalker(inherited2::begin());
-            const_iterator otherWalker(otherPtr->inherited2::begin());
+            const_iterator  thisWalker(inherited2::begin());
+            const_iterator  otherWalker(otherPtr->inherited2::begin());
 
-            for (result = true; result && (thisWalker != inherited2::end());
-                 ++thisWalker, ++otherWalker)
+            for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
@@ -210,19 +209,17 @@ nImO::Set::deeplyEqualTo
 
 bool
 nImO::Set::equalTo
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) &&
-                   (inherited2::begin() != inherited2::end()));
+    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
     validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -237,10 +234,10 @@ nImO::Set::equalTo
 
 nImO::SpValue
 nImO::Set::extractValue
-    (const nImO::Message &theMessage,
-     const int           leadByte,
-     size_t              &position,
-     nImO::SpArray       parentValue)
+    (const nImO::Message &  theMessage,
+     const int              leadByte,
+     size_t &               position,
+     nImO::SpArray          parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -248,8 +245,7 @@ nImO::Set::extractValue
     ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
-    bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
-                       (DataKind::OtherContainerEmptyMask & leadByte));
+    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -267,9 +263,8 @@ nImO::Set::extractValue
         else
         {
             ODL_LOG("! (atEnd)"); //####
-            static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                               DataKind::OtherContainerTypeSet |
-                                               DataKind::OtherContainerEmptyValue);
+            static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                                 DataKind::OtherContainerTypeSet | DataKind::OtherContainerEmptyValue);
 
             if (toUType(endMarker) == aByte)
             {
@@ -298,9 +293,8 @@ nImO::Set::extractValue
         else
         {
             ODL_LOG("! (atEnd)"); //####
-            IntStatus numStatus;
-            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position,
-                                                             numStatus);
+            IntStatus   numStatus;
+            int64_t     elementCount = extractInt64FromMessage(theMessage, aByte, position, numStatus);
 
             if (IntStatus::Successful == numStatus)
             {
@@ -314,7 +308,7 @@ nImO::Set::extractValue
                 }
                 else
                 {
-                    auto aSet = std::make_shared<Set>();
+                    auto    aSet = std::make_shared<Set>();
 
                     result = aSet;
                     if (nullptr == result)
@@ -324,7 +318,7 @@ nImO::Set::extractValue
                     }
                     else
                     {
-                        bool okSoFar = true;
+                        bool    okSoFar = true;
 
                         for ( ; okSoFar && (elementCount > static_cast<int64_t>(aSet->size())); )
                         {
@@ -339,8 +333,7 @@ nImO::Set::extractValue
                             }
                             else
                             {
-                                SpValue aValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   nullptr));
+                                SpValue aValue(getValueFromMessage(theMessage, position, aByte, nullptr));
 
                                 if (nullptr == aValue)
                                 {
@@ -375,10 +368,9 @@ nImO::Set::extractValue
                             else
                             {
                                 ODL_LOG("! (atEnd)"); //####
-                                static const DataKind endMarker = (DataKind::Other |
-                                                                   DataKind::OtherContainerEnd |
-                                                                   DataKind::OtherContainerTypeSet |
-                                                           DataKind::OtherContainerNonEmptyValue);
+                                static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                                                     DataKind::OtherContainerTypeSet |
+                                                                     DataKind::OtherContainerNonEmptyValue);
 
                                 if (toUType(endMarker) == aByte)
                                 {
@@ -389,8 +381,7 @@ nImO::Set::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Set with incorrect end "
-                                                             "tag @", position));
+                                    result.reset(new Invalid("Non-empty Set with incorrect end tag @", position));
                                     okSoFar = false;
                                 }
                             }
@@ -415,9 +406,9 @@ nImO::Set::extractValue
 
 void
 nImO::Set::getExtractionInfo
-    (DataKind               &aByte,
-     DataKind               &aMask,
-     nImO::Value::Extractor &theExtractor)
+    (DataKind &                 aByte,
+     DataKind &                 aMask,
+     nImO::Value::Extractor &   theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -432,7 +423,7 @@ nImO::Set::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char initialChars[] = { kStartSetChar, '\0' };
+    static const char   initialChars[] = { kStartSetChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -443,7 +434,7 @@ nImO::Set::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char terminalChars[] = { kEndSetChar, '\0' };
+    static const char   terminalChars[] = { kEndSetChar, '\0' };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
@@ -455,7 +446,7 @@ nImO::Set::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+    DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -463,19 +454,17 @@ nImO::Set::getTypeTag
 
 bool
 nImO::Set::greaterThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) &&
-                   (inherited2::begin() != inherited2::end()));
+    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
     validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -490,19 +479,17 @@ nImO::Set::greaterThan
 
 bool
 nImO::Set::greaterThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) &&
-                   (inherited2::begin() != inherited2::end()));
+    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
     validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -517,19 +504,17 @@ nImO::Set::greaterThanOrEqual
 
 bool
 nImO::Set::lessThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) &&
-                   (inherited2::begin() != inherited2::end()));
+    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
     validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -544,19 +529,17 @@ nImO::Set::lessThan
 
 bool
 nImO::Set::lessThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = ((other.enumerationType() == _keyKind) &&
-                   (inherited2::begin() != inherited2::end()));
+    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
 
     validComparison = (Enumerable::Unknown != _keyKind);
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -571,8 +554,8 @@ nImO::Set::lessThanOrEqual
 
 void
 nImO::Set::printToStringBuffer
-    (nImO::StringBuffer &outBuffer,
-     const bool         squished)
+    (nImO::StringBuffer &   outBuffer,
+     const bool             squished)
     const
 {
     ODL_OBJENTER(); //####
@@ -605,17 +588,17 @@ nImO::Set::printToStringBuffer
 
 nImO::SpValue
 nImO::Set::readFromStringBuffer
-    (const nImO::StringBuffer &inBuffer,
-     size_t                   &position)
+    (const nImO::StringBuffer & inBuffer,
+     size_t &                   position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    bool   atEnd;
-    bool   done = false;
-    bool   valid = false;
-    auto   result = std::make_shared<Set>();
-    size_t localIndex = position;
-    int    aChar = inBuffer.getChar(localIndex++, atEnd);
+    bool    atEnd;
+    bool    done = false;
+    bool    valid = false;
+    auto    result = std::make_shared<Set>();
+    size_t  localIndex = position;
+    int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
     ODL_P1("result <- ", result.get()); //####
     ODL_C1("aChar <- ", aChar); //####
@@ -657,7 +640,7 @@ nImO::Set::readFromStringBuffer
                 }
                 else
                 {
-                    Enumerable elementType = element->enumerationType();
+                    Enumerable  elementType = element->enumerationType();
 
                     if ((Enumerable::Unknown == elementType) ||
                         (Enumerable::NotEnumerable == elementType))
@@ -707,7 +690,7 @@ nImO::Set::readFromStringBuffer
 
 void
 nImO::Set::writeToMessage
-    (nImO::Message &outMessage)
+    (nImO::Message &    outMessage)
     const
 {
     ODL_OBJENTER(); //####
@@ -715,12 +698,10 @@ nImO::Set::writeToMessage
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        DataKind startSet = (DataKind::Other | DataKind::OtherContainerStart |
-                             DataKind::OtherContainerTypeSet |
-                             DataKind::OtherContainerNonEmptyValue);
-        DataKind endSet = (DataKind::Other | DataKind::OtherContainerEnd |
-                           DataKind::OtherContainerTypeSet |
-                           DataKind::OtherContainerNonEmptyValue);
+        const DataKind  startSet = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeSet |
+                                    DataKind::OtherContainerNonEmptyValue);
+        const DataKind  endSet = (DataKind::Other | DataKind::OtherContainerEnd | DataKind::OtherContainerTypeSet |
+                                  DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, static_cast<int>(inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
@@ -738,7 +719,7 @@ nImO::Set::writeToMessage
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const DataKind stuff[] =
+        static const DataKind    stuff[] =
         {
             DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeSet |
               DataKind::OtherContainerEmptyValue,

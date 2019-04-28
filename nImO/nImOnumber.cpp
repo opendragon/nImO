@@ -114,7 +114,7 @@ nImO::Number::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char *initialChars = "+-.0123456789";
+    static const char * initialChars = "+-.0123456789";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -122,8 +122,8 @@ nImO::Number::getInitialCharacters
 
 nImO::SpValue
 nImO::Number::readFromStringBuffer
-    (const nImO::StringBuffer &inBuffer,
-     size_t                   &position)
+    (const nImO::StringBuffer & inBuffer,
+     size_t &                   position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -136,22 +136,22 @@ nImO::Number::readFromStringBuffer
         ExponentSeen
     }; // ScanState
 
-    bool      atEnd;
-    bool      done = false;
-    bool      isDouble = false;
-    bool      needsAdigit = false;
-    bool      sawInitialMinus = false;
-    bool      sawInitialPlus = false;
-    bool      sawExponentMinus = false;
-    bool      sawExponentPlus = false;
-    bool      valid = false;
-    int64_t   integerPart = 0;
-    int64_t   fractionPart = 0;
-    int       exponent = 0;
-    int       fractionPower = 0;
-    ScanState currentState = ScanState::Initial;
-    SpValue   result;
-    size_t    localIndex = position;
+    bool        atEnd;
+    bool        done = false;
+    bool        isDouble = false;
+    bool        needsAdigit = false;
+    bool        sawInitialMinus = false;
+    bool        sawInitialPlus = false;
+    bool        sawExponentMinus = false;
+    bool        sawExponentPlus = false;
+    bool        valid = false;
+    int64_t     integerPart = 0;
+    int64_t     fractionPart = 0;
+    int         exponent = 0;
+    int         fractionPower = 0;
+    ScanState   currentState = ScanState::Initial;
+    SpValue     result;
+    size_t      localIndex = position;
 
     for (int aChar; (! done); )
     {
@@ -334,7 +334,7 @@ nImO::Number::readFromStringBuffer
     {
         if (isDouble)
         {
-            double fullNumber;
+            double  fullNumber;
 
             if (0 == exponent)
             {
@@ -342,8 +342,7 @@ nImO::Number::readFromStringBuffer
             }
             else if (sawExponentMinus)
             {
-                fullNumber = ((integerPart + (fractionPart / std::pow(10.0, fractionPower))) /
-                              std::pow(10.0, exponent));
+                fullNumber = ((integerPart + (fractionPart / std::pow(10.0, fractionPower))) / std::pow(10.0, exponent));
             }
             else if (exponent > fractionPower)
             {

@@ -98,10 +98,10 @@ namespace nImO
          @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
         using Extractor = SpValue (*)
-               (const Message &theMessage,
-                const int     leadByte,
-                size_t        &position,
-                SpArray       parentValue);
+               (const Message & theMessage,
+                const int       leadByte,
+                size_t &        position,
+                SpArray         parentValue);
 
     private :
         // Private type definitions.
@@ -111,8 +111,8 @@ namespace nImO
          @param[in,out] position The position for the next read.
          @returns The next Value in the StringBuffer. */
         using BufferReader = SpValue (*)
-                (const StringBuffer &inBuffer,
-                 size_t             &position);
+                (const StringBuffer &   inBuffer,
+                 size_t &               position);
 
         /*! @brief The map from characters to BufferReaders. */
         using BufferReaderMap = std::map<char, BufferReader>;
@@ -222,7 +222,7 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
-            (const Value &other)
+            (const Value &  other)
             const;
 
         /*! @brief Return the enumeration type of an object.
@@ -239,8 +239,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         equalTo
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const;
 
         /*! @brief Return the type tag for the Value for use with Messages.
@@ -259,10 +259,10 @@ namespace nImO
          success. */
         static SpValue
         getValueFromMessage
-            (const Message &inMessage,
-             size_t        &position,
-             const int     leadByte,
-             SpArray       parent);
+            (const Message &    inMessage,
+             size_t &           position,
+             const int          leadByte,
+             SpArray            parent);
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -271,8 +271,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -282,8 +282,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const;
 
         /*! @brief Set up the global structures used. */
@@ -298,8 +298,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -309,8 +309,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const;
 
         /*! @brief Return the relative ordering of two Values.
@@ -318,10 +318,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator <
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = lessThan(other, valid);
+            bool    valid = false;
+            bool    result = lessThan(other, valid);
 
             return (valid && result);
         } // operator <
@@ -331,10 +331,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator >
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = greaterThan(other, valid);
+            bool    valid = false;
+            bool    result = greaterThan(other, valid);
 
             return (valid && result);
         } // operator >
@@ -344,10 +344,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator <=
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = lessThanOrEqual(other, valid);
+            bool    valid = false;
+            bool    result = lessThanOrEqual(other, valid);
 
             return (valid && result);
         } // operator <=
@@ -357,10 +357,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator >=
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = greaterThanOrEqual(other, valid);
+            bool    valid = false;
+            bool    result = greaterThanOrEqual(other, valid);
 
             return (valid && result);
         } // operator >=
@@ -370,10 +370,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator ==
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = equalTo(other, valid);
+            bool    valid = false;
+            bool    result = equalTo(other, valid);
 
             return (valid && result);
         } // operator ==
@@ -383,10 +383,10 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         inline bool
         operator !=
-            (const Value &other)
+            (const Value &  other)
         {
-            bool valid = false;
-            bool result = ! equalTo(other, valid);
+            bool    valid = false;
+            bool    result = ! equalTo(other, valid);
 
             return (valid && result);
         } // operator !=
@@ -397,8 +397,8 @@ namespace nImO
          is as readable as possible. */
         virtual void
         printToStringBuffer
-            (StringBuffer &outBuffer,
-             const bool   squished = false)
+            (StringBuffer & outBuffer,
+             const bool     squished = false)
             const;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
@@ -414,7 +414,7 @@ namespace nImO
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage
-            (Message &outMessage)
+            (Message &  outMessage)
             const;
 
     protected :
@@ -431,10 +431,10 @@ namespace nImO
          @returns Zero if there is a problem with the extraction. */
         static int64_t
         extractInt64FromMessage
-            (const Message &theMessage,
-             const int     leadByte,
-             size_t        &position,
-             IntStatus     &status);
+            (const Message &    theMessage,
+             const int          leadByte,
+             size_t &           position,
+             IntStatus &        status);
 
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
@@ -449,8 +449,8 @@ namespace nImO
          @param[in] outValue The integer to be appended. */
         static void
         writeInt64ToMessage
-            (Message       &outMessage,
-             const int64_t outValue);
+            (Message &      outMessage,
+             const int64_t  outValue);
 
     private :
         // Private methods.
@@ -478,10 +478,10 @@ namespace nImO
         static ExtractorMap gExtractors;
 
         /*! @brief The table of StringBuffer readers. */
-        static BufferReaderMap gReaders;
+        static BufferReaderMap  gReaders;
 
         /*! @brief The legal terminating characters for a Value. */
-        static std::string gTerminators;
+        static std::string  gTerminators;
 
     }; // Value
 

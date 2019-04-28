@@ -111,8 +111,8 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value&   aValue,
-     const char*    aString)
+    (const Value &  aValue,
+     const char *   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -143,8 +143,8 @@ compareValueWithString
 static int
 doTestParseLogicalValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // logical values
+     const char *   inString,
+     const char *   expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -223,8 +223,8 @@ doTestParseLogicalValue
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    NOT_USED_(argc),
-     char** argv)
+    (int        NOT_USED_(argc),
+     char **    argv)
 {
     std::string progName(*argv);
 

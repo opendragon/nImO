@@ -78,7 +78,7 @@ static bool lRandomSeeded = false;
 
 #if 0
 /*! @brief The maximum integer that we wish to use for generated random values. */
-static const int kMaxRandom = 123456789;
+static const int    kMaxRandom = 123456789;
 #endif//0
 
 #if 0
@@ -95,33 +95,33 @@ static yarp::os::impl::Logger * lLogger = nullptr;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const char nImO::kBlobSeparator = '%';
+const char  nImO::kBlobSeparator = '%';
 
-const char nImO::kEndArrayChar = ')';
+const char  nImO::kEndArrayChar = ')';
 
-const char nImO::kEndMapChar = '}';
+const char  nImO::kEndMapChar = '}';
 
-const char nImO::kEndSetChar = ']';
+const char  nImO::kEndSetChar = ']';
 
-const char nImO::kKeyValueSeparator = '>';
+const char  nImO::kKeyValueSeparator = '>';
 
-const char nImO::kSingleQuote = '\'';
+const char  nImO::kSingleQuote = '\'';
 
-const char nImO::kStartArrayChar = '(';
+const char  nImO::kStartArrayChar = '(';
 
-const char nImO::kStartMapChar = '{';
+const char  nImO::kStartMapChar = '{';
 
-const char nImO::kStartSetChar = '[';
+const char  nImO::kStartSetChar = '[';
 
-const uint8_t nImO::kDoubleQuote = '"';
+const uint8_t   nImO::kDoubleQuote = '"';
 
-const uint8_t nImO::kEscapeChar = '\\';
+const uint8_t   nImO::kEscapeChar = '\\';
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_
-const std::string nImO::kDirectorySeparator = "/";
+const std::string   nImO::kDirectorySeparator = "/";
 #else // ! MAC_OR_LINUX_
-const std::string nImO::kDirectorySeparator = "\\";
+const std::string   nImO::kDirectorySeparator = "\\";
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
@@ -137,7 +137,7 @@ localCatcher
     (int    NOT_USED_(signal))
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    //ODL_I1("signal = ", signal); //####
 #if 0
     if (lLogger)
     {
@@ -164,7 +164,7 @@ localCatcher
 
 double
 nImO::B2D
-    (const nImO::NumberAsBytes &inString)
+    (const nImO::NumberAsBytes &    inString)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -178,15 +178,15 @@ nImO::B2D
 
 int64_t
 nImO::B2I
-    (const nImO::NumberAsBytes &inString,
-     const size_t              numBytes)
+    (const nImO::NumberAsBytes &    inString,
+     const size_t                   numBytes)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
     ODL_I1("numBytes = ", numBytes); //####
-    bool          isNegative = (0 != (0x080 & inString[0]));
-    const uint8_t *walker = inString;
-    int64_t       result = (isNegative ? -1 : 0);
+    bool            isNegative = (0 != (0x080 & inString[0]));
+    const uint8_t * walker = inString;
+    int64_t         result = (isNegative ? -1 : 0);
 
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
@@ -200,15 +200,15 @@ nImO::B2I
 
 bool
 nImO::CanReadFromStandardInput
-(void)
+    (void)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    pid_t fg = tcgetpgrp(STDIN_FILENO);
+    pid_t   fg = tcgetpgrp(STDIN_FILENO);
 #else // ! MAC_OR_LINUX_
-    HWND  wind = GetConsoleWindow();
+    HWND    wind = GetConsoleWindow();
 #endif // ! MAC_OR_LINUX_
-    bool  result = false;
+    bool    result = false;
 
 #if MAC_OR_LINUX_
     if (-1 == fg)
@@ -235,19 +235,19 @@ nImO::CanReadFromStandardInput
 
 size_t
 nImO::CompareBytes
-    (const void   *first,
-     const void   *second,
-     const size_t numBytes)
+    (const void *   first,
+     const void *   second,
+     const size_t   numBytes)
 {
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
     ODL_I1("numBytes = ", numBytes); //####
-    size_t result = 0;
+    size_t  result = 0;
 
     if (memcmp(first, second, numBytes))
     {
-        const uint8_t *firstWalker = static_cast<const uint8_t *>(first);
-        const uint8_t *secondWalker = static_cast<const uint8_t *>(second);
+        const uint8_t * firstWalker = static_cast<const uint8_t *>(first);
+        const uint8_t * secondWalker = static_cast<const uint8_t *>(second);
 
         for (size_t ii = 0; numBytes > ii; ++ii)
         {
@@ -259,8 +259,8 @@ nImO::CompareBytes
                 ODL_I1("mismatch at index: ", ii); //####
                 result = ii + 1;
                 break;
-            }
 
+            }
         }
     }
     ODL_EXIT_I(result); //####
@@ -270,7 +270,7 @@ nImO::CompareBytes
 #if 0
 void
 nImO::ConsumeSomeTime
-(const double factor)
+    (const double   factor)
 {
     ODL_ENTER(); //####
     yarp::os::Time::delay(ONE_SECOND_DELAY_ / factor);
@@ -281,13 +281,13 @@ nImO::ConsumeSomeTime
 
 std::string
 nImO::ConvertDoubleToString
-    (const double value)
+    (const double   value)
 {
     ODL_ENTER(); //####
     ODL_D1("value = ", value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
-    std::ostringstream holder;
+    std::ostringstream  holder;
 
     holder << std::defaultfloat << value;
     std::string result(holder.str());
@@ -298,15 +298,15 @@ nImO::ConvertDoubleToString
 
 bool
 nImO::ConvertToDouble
-    (const char *startPtr,
-     double     &result)
+    (const char *   startPtr,
+     double &       result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
-    bool   okSoFar;
-    char   *endPtr;
-    double value = strtod(startPtr, &endPtr);
+    bool    okSoFar;
+    char *  endPtr;
+    double  value = strtod(startPtr, &endPtr);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {
@@ -324,14 +324,14 @@ nImO::ConvertToDouble
 
 bool
 nImO::ConvertToInt64
-    (const char *startPtr,
-     int64_t    &result)
+    (const char *   startPtr,
+     int64_t &      result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
     bool    okSoFar;
-    char    *endPtr;
+    char *  endPtr;
     int64_t value = strtoll(startPtr, &endPtr, 10);
 
     if ((startPtr != endPtr) && (! *endPtr))
@@ -350,8 +350,8 @@ nImO::ConvertToInt64
 
 void
 nImO::D2B
-    (const double        inValue,
-     nImO::NumberAsBytes &outString)
+    (const double           inValue,
+     nImO::NumberAsBytes &  outString)
 {
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
@@ -367,8 +367,8 @@ nImO::D2B
 #if 0
 void
 nImO::DumpContactToLog
-    (const char              *tag,
-     const yarp::os::Contact &aContact)
+    (const char *               tag,
+     const yarp::os::Contact &  aContact)
 {
 #if MAC_OR_LINUX_
     if (lLogger)
@@ -451,14 +451,14 @@ nImO::GetRandomChannelName
 
     try
     {
-        bool              hasLeadingSlash = false;
-        const char        *stringToUse;
+        bool                hasLeadingSlash = false;
+        const char *        stringToUse;
 #if 0
-        int               randNumb = static_cast<int>(yarp::os::Random::uniform() * kMaxRandom);
+        int                 randNumb = static_cast<int>(yarp::os::Random::uniform() * kMaxRandom);
 #else//0
-        int               randNumb = 17;
+        int                 randNumb = 17;
 #endif//0
-        std::stringstream buff;
+        std::stringstream   buff;
 
         if (channelRoot)
         {
@@ -490,19 +490,19 @@ nImO::GetRandomChannelName
 
 std::string
 nImO::GetRandomChannelName
-    (const std::string &channelRoot)
+    (const std::string &    channelRoot)
 {
     return GetRandomChannelName(channelRoot.c_str());
 } // nImO::GetRandomChannelName
 
 std::string
 nImO::GetRandomHexString
-(void)
+    (void)
 {
     ODL_ENTER(); //####
-    int               randNumb;
-    std::string       result;
-    std::stringstream buff;
+    int                 randNumb;
+    std::string         result;
+    std::stringstream   buff;
 
     if (! lRandomSeeded)
     {
@@ -522,8 +522,8 @@ nImO::GetRandomHexString
 
 size_t
 nImO::I2B
-    (const int64_t       inValue,
-     nImO::NumberAsBytes &outString)
+    (const int64_t          inValue,
+     nImO::NumberAsBytes &  outString)
 {
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
@@ -583,7 +583,7 @@ nImO::I2B
 #if 0
 void
 nImO::IdleUntilNotRunning
-(void)
+    (void)
 {
     ODL_ENTER(); //####
     for ( ; IsRunning(); )
@@ -599,7 +599,7 @@ nImO::Initialize
     (const std::string &    NOT_USED_(progName))
 {
     ODL_ENTER(); //####
-    ODL_S1s("progName = ", progName); //####
+    //ODL_S1s("progName = ", progName); //####
     try
     {
         Value::initialize();
@@ -609,10 +609,10 @@ nImO::Initialize
 #else // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
         yarp::os::Network::setVerbosity(-1);
 #endif // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        double intPart;
-        double now = yarp::os::Time::now();
-        double fraction = modf(now, &intPart);
-        int    seed = static_cast<int>(ceil(fraction * kMaxRandom));
+        double  intPart;
+        double  now = yarp::os::Time::now();
+        double  fraction = modf(now, &intPart);
+        int     seed = static_cast<int>(ceil(fraction * kMaxRandom));
 
 #if defined(MpM_ChattyStart)
 # if MAC_OR_LINUX_
@@ -647,7 +647,7 @@ nImO::Initialize
 #if 0
 bool
 nImO::IsRunning
-(void)
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_B(lKeepRunning); //####
@@ -657,9 +657,9 @@ nImO::IsRunning
 
 const char *
 nImO::NameOfSignal
-(const int theSignal)
+    (const int  theSignal)
 {
-    const char *result;
+    const char *    result;
 
 #if MAC_OR_LINUX_
     switch (theSignal)
@@ -755,7 +755,7 @@ nImO::NameOfSignal
             break;
 
         case SIGTTOU :
-            result = "SIGTTOU[like TTIN for output if (tp->t_local&LTOSTOP)]";
+            result = "SIGTTOU[like TTIN for output if (tp->t_local &LTOSTOP)]";
             break;
 
 # if ((! defined(_POSIX_C_SOURCE)) || defined(_DARWIN_C_SOURCE))
@@ -827,9 +827,9 @@ nImO::NameOfSignal
 
 void
 nImO::OutputDescription
-(std::ostream      &outStream,
- const char        *heading,
- const std::string &description)
+    (std::ostream &         outStream,
+     const char *           heading,
+     const std::string &    description)
 {
     size_t      descriptionLength = description.length();
     size_t      indentSize = strlen(heading);
@@ -855,15 +855,15 @@ nImO::OutputDescription
 
 bool
 nImO::ProcessStandardUtilitiesOptions
-(const int              argc,
- char                   **argv,
- nImO::DescriptorVector &argumentDescriptions,
- const std::string      &utilityDescription,
- const int              year,
- const char             *copyrightHolder,
- nImO::OutputFlavour    &flavour,
- const bool             ignoreFlavours,
- nImO::StringVector     *arguments)
+    (const int                  argc,
+     char **                    argv,
+     nImO::DescriptorVector &   argumentDescriptions,
+     const std::string &        utilityDescription,
+     const int                  year,
+     const char *               copyrightHolder,
+     nImO::OutputFlavour &      flavour,
+     const bool                 ignoreFlavours,
+     nImO::StringVector *       arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -882,40 +882,38 @@ nImO::ProcessStandardUtilitiesOptions
         VERSION
     }; // OptionIndex
 
-    bool                keepGoing = true;
-    Option_::Descriptor firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "",
-                                        Option_::Arg::None, nullptr);
-    Option_::Descriptor helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help",
-                                       Option_::Arg::None,
-                                       T_("  --help, -h    Print usage and exit"));
-    Option_::Descriptor infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info",
-                                       Option_::Arg::None,
-                                       T_("  --info, -i    Print type and description and exit"));
-    Option_::Descriptor jsonDescriptor(static_cast<unsigned>(OptionIndex::JSON), 0, "j", "json",
-                                       Option_::Arg::None,
-                                       T_("  --json, -j    Generate output in JSON format"));
-    Option_::Descriptor tabsDescriptor(static_cast<unsigned>(OptionIndex::TABS), 0, "t", "tabs",
-                                       Option_::Arg::None,
-                                       T_("  --tabs, -t    Generate output in tab-delimited "
-                                          "format"));
-    Option_::Descriptor versionDescriptor(static_cast<unsigned>(OptionIndex::VERSION), 0, "v",
-                                          "vers", Option_::Arg::None,
-                                          T_("  --vers, -v    Print version information and "
-                                             "exit"));
-    Option_::Descriptor lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
-    Option_::Descriptor usage[7];
-    Option_::Descriptor *usageWalker = usage;
-    int                 argcWork = argc;
-    char                **argvWork = argv;
-    std::string         usageString("USAGE: ");
-    std::string         argList(ArgumentsToArgString(argumentDescriptions));
+    bool                    keepGoing = true;
+    Option_::Descriptor     firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "",
+                                            Option_::Arg::None, nullptr);
+    Option_::Descriptor     helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help",
+                                           Option_::Arg::None,
+                                           T_("  --help, -h    Print usage and exit"));
+    Option_::Descriptor     infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info",
+                                           Option_::Arg::None,
+                                           T_("  --info, -i    Print type and description and exit"));
+    Option_::Descriptor     jsonDescriptor(static_cast<unsigned>(OptionIndex::JSON), 0, "j", "json",
+                                           Option_::Arg::None,
+                                           T_("  --json, -j    Generate output in JSON format"));
+    Option_::Descriptor     tabsDescriptor(static_cast<unsigned>(OptionIndex::TABS), 0, "t", "tabs",
+                                           Option_::Arg::None,
+                                           T_("  --tabs, -t    Generate output in tab-format"));
+    Option_::Descriptor     versionDescriptor(static_cast<unsigned>(OptionIndex::VERSION), 0, "v",
+                                              "vers", Option_::Arg::None,
+                                              T_("  --vers, -v    Print version information and exit"));
+    Option_::Descriptor     lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
+    Option_::Descriptor     usage[7];
+    Option_::Descriptor *   usageWalker = usage;
+    int                     argcWork = argc;
+    char **                 argvWork = argv;
+    std::string             usageString("USAGE: ");
+    std::string             argList(ArgumentsToArgString(argumentDescriptions));
 
     flavour = OutputFlavour::Normal;
     usageString += *argv;
     usageString += " [options]";
     if (0 < argList.length())
     {
-        StringVector descriptions;
+        StringVector    descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
         usageString += " ";
@@ -948,19 +946,17 @@ nImO::ProcessStandardUtilitiesOptions
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats                     stats(usage, argcWork, argvWork);
-    std::unique_ptr<Option_::Option[]> options(new Option_::Option[stats.options_max]);
-    std::unique_ptr<Option_::Option[]> buffer(new Option_::Option[stats.buffer_max]);
-    Option_::Parser                    parse(usage, argcWork, argvWork, options.get(),
-                                             buffer.get(), 1);
-    std::string                        badArgs;
+    Option_::Stats                      stats(usage, argcWork, argvWork);
+    std::unique_ptr<Option_::Option[]>  options(new Option_::Option[stats.options_max]);
+    std::unique_ptr<Option_::Option[]>  buffer(new Option_::Option[stats.buffer_max]);
+    Option_::Parser                     parse(usage, argcWork, argvWork, options.get(), buffer.get(), 1);
+    std::string                         badArgs;
 
     if (parse.error())
     {
         keepGoing = false;
     }
-    else if (options[static_cast<size_t>(OptionIndex::HELP)] ||
-             options[static_cast<size_t>(OptionIndex::UNKNOWN)])
+    else if (options[static_cast<size_t>(OptionIndex::HELP)] || options[static_cast<size_t>(OptionIndex::UNKNOWN)])
     {
         Option_::printUsage(cout, usage, HELP_LINE_LENGTH_);
         keepGoing = false;
@@ -1008,8 +1004,8 @@ nImO::ProcessStandardUtilitiesOptions
 
 std::string
 nImO::SanitizeString
-(const std::string &inString,
- const bool        allowDoubleQuotes)
+    (const std::string &    inString,
+     const bool             allowDoubleQuotes)
 {
     ODL_ENTER(); //####
     ODL_S1s("channelRoot = ", inString); //####
@@ -1020,7 +1016,7 @@ nImO::SanitizeString
     {
         for (size_t ii = 0, mm = inString.length(); mm > ii; )
         {
-            char cc = inString[ii++];
+            char    cc = inString[ii++];
 
             switch (cc)
             {
@@ -1063,12 +1059,12 @@ nImO::SanitizeString
 
 void
 nImO::SetSignalHandlers
-    (nImO::SignalHandler theHandler)
+    (nImO::SignalHandler    theHandler)
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    sigset_t         blocking;
-    struct sigaction act;
+    sigset_t            blocking;
+    struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
 #if MAC_OR_LINUX_
@@ -1130,8 +1126,8 @@ nImO::SetUpCatcher
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    sigset_t         unblocking;
-    struct sigaction act;
+    sigset_t            unblocking;
+    struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
 #if MAC_OR_LINUX_
@@ -1151,7 +1147,7 @@ nImO::SetUpCatcher
 #if MAC_OR_LINUX_
 void
 nImO::SetUpLogger
-    (const std::string &progName)
+    (const std::string &    progName)
 {
     ODL_ENTER(); //####
     lLogger = new yarp::os::impl::Logger(progName.c_str());
@@ -1170,8 +1166,8 @@ nImO::ShutDownCatcher
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    sigset_t         blocking;
-    struct sigaction act;
+    sigset_t            blocking;
+    struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
 #if MAC_OR_LINUX_
@@ -1190,10 +1186,10 @@ nImO::ShutDownCatcher
 #if 0
 void
 nImO::SignalRunningStop
-(const int  NOT_USED_(signal))
+    (const int  NOT_USED_(signal))
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    //ODL_I1("signal = ", signal); //####
     StopRunning();
     ODL_EXIT(); //####
 } // nImO::SignalRunningStop

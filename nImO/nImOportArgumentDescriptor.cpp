@@ -81,11 +81,11 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 PortArgumentDescriptor::PortArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const int          defaultValue,
-     const bool         isSystemPort) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const int              defaultValue,
+     const bool             isSystemPort) :
         inherited(argName, argDescription, argMode, defaultValue, true,
                   isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_),
         _isSystemPort(isSystemPort)
@@ -94,12 +94,11 @@ PortArgumentDescriptor::PortArgumentDescriptor
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
     ODL_I1("defaultValue = ", defaultValue); //####
     ODL_B1("isSystemPort = ", isSystemPort); //####
-    ODL_P1("argumentReference = ", argumentReference); //####
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
 PortArgumentDescriptor::PortArgumentDescriptor
-    (const PortArgumentDescriptor &other) :
+    (const PortArgumentDescriptor & other) :
         inherited(other), _isSystemPort(other._isSystemPort)
 {
     ODL_ENTER(); //####
@@ -124,7 +123,7 @@ PortArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<PortArgumentDescriptor>(*this);
+    auto    result = std::make_shared<PortArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -132,27 +131,27 @@ PortArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
 PortArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 4, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        bool         isSystemPort = false;
-        int          defaultValue = 0;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  portClass(inVector[3]);
-        std::string  defaultString(inVector[4]);
-        std::string  description(inVector[5]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        bool            isSystemPort = false;
+        int             defaultValue = 0;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     portClass(inVector[3]);
+        std::string     defaultString(inVector[4]);
+        std::string     description(inVector[5]);
 
-        if (typeTag != "P")
+        if ("P" != typeTag)
         {
             okSoFar = false;
         }
@@ -167,11 +166,11 @@ PortArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            if (portClass == "s")
+            if ("s" == portClass)
             {
                 isSystemPort = true;
             }
-            else if (portClass != "r")
+            else if ("r" != portClass)
             {
                 okSoFar = false;
             }
@@ -192,8 +191,7 @@ PortArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            result.reset(new PortArgumentDescriptor(name, description, argMode, defaultValue,
-                                                    isSystemPort));
+            result.reset(new PortArgumentDescriptor(name, description, argMode, defaultValue, isSystemPort));
         }
     }
     ODL_EXIT_P(result.get()); //####
@@ -202,7 +200,7 @@ PortArgumentDescriptor::parseArgString
 
 void
 PortArgumentDescriptor::swap
-    (PortArgumentDescriptor &other)
+    (PortArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####

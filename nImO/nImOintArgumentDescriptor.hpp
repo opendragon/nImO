@@ -94,19 +94,19 @@ namespace nImO
          maximum and @c false otherwise.
          @param[in] maximumValue The maximum value that is acceptable. */
         IntArgumentDescriptor
-            (const std::string  &argName,
-             const std::string  &argDescription,
-             const ArgumentMode argMode,
-             const int          defaultValue,
-             const bool         hasMinimumValue,
-             const int          minimumValue,
-             const bool         hasMaximumValue,
-             const int          maximumValue);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const int              defaultValue,
+             const bool             hasMinimumValue,
+             const int              minimumValue,
+             const bool             hasMaximumValue,
+             const int              maximumValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         IntArgumentDescriptor
-            (const IntArgumentDescriptor &other);
+            (const IntArgumentDescriptor &  other);
 
         /*! @brief The destructor. */
         virtual
@@ -128,13 +128,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (IntArgumentDescriptor &other);
+            (IntArgumentDescriptor &    other);
         
     protected :
 
@@ -152,7 +152,7 @@ namespace nImO
          @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle
-            (yarp::os::Bottle &container)
+            (yarp::os::Bottle & container)
             override;
 #endif//0
 
@@ -190,15 +190,12 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string &value)
+            (const std::string &    value)
             override;
 
     public :
 
     protected :
-
-        /*! @brief The address of the variable to be set with the argument value. */
-        int *_argumentReference;
 
         /*! @brief The default value for the command-line argument. */
         int _defaultValue;
@@ -209,24 +206,24 @@ namespace nImO
         int _currentValue;
 
         /*! @brief The maximum value that is acceptable. */
-        int _maximumValue;
+        int64_t _maximumValue;
 
         /*! @brief The minimum value that is acceptable. */
-        int _minimumValue;
+        int64_t _minimumValue;
 
         /*! @brief @c true if the value must be less than or equal to the specified maximum. */
-        bool _hasMaximumValue;
+        bool    _hasMaximumValue;
 
         /*! @brief @c true if the value must be greater than or equal to the specified minimum
          or @c false otherwise. */
-        bool _hasMinimumValue;
+        bool    _hasMinimumValue;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
         /*! @brief Filler to pad to alignment boundary */
-        char _filler[6];
+        char    _filler[6];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

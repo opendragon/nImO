@@ -77,7 +77,7 @@
 #endif // defined(__APPLE__)
 
 nImO::Invalid::Invalid
-    (const std::string &description) :
+    (const std::string &    description) :
         inherited(), _description(description)
 {
     ODL_ENTER(); //####
@@ -86,8 +86,8 @@ nImO::Invalid::Invalid
 } // nImO::Invalid::Invalid
 
 nImO::Invalid::Invalid
-    (const std::string &description,
-     const int64_t     associatedValue) :
+    (const std::string &    description,
+     const int64_t          associatedValue) :
         inherited(), _description(description)
 {
     ODL_ENTER(); //####

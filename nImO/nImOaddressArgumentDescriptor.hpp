@@ -82,16 +82,16 @@ namespace nImO
          @param[in,out] addrBuff If non-@c nullptr, the variable to be set with the actual
          address. */
         AddressArgumentDescriptor
-            (const std::string& argName,
-             const std::string& argDescription,
-             const ArgumentMode argMode,
-             const std::string& defaultValue,
-             struct in_addr*    addrBuff = nullptr);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const std::string &    defaultValue,
+             struct in_addr *       addrBuff = nullptr);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         AddressArgumentDescriptor
-            (const AddressArgumentDescriptor&   other);
+            (const AddressArgumentDescriptor &  other);
 
         /*! @brief The destructor. */
         virtual
@@ -103,13 +103,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string& inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (AddressArgumentDescriptor& other);
+            (AddressArgumentDescriptor &    other);
 
     protected :
 
@@ -136,7 +136,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string& value)
+            (const std::string &    value)
             override;
 
     public :
@@ -146,7 +146,7 @@ namespace nImO
     private :
 
         /*! @brief The variable to be filled in with the actual address. */
-        struct in_addr* _addrBuff;
+        struct in_addr *    _addrBuff;
 
     }; // AddressArgumentDescriptor
 

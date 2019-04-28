@@ -113,10 +113,10 @@ catchSignal
  @returns Zero on success and non-zero on failure. */
 static int
 attemptExtractValueAndCheck
-    (Message&           stuff,
-     const DataKind*    insertedContents,
-     const size_t       insertedSize,
-     const std::string& expectedFlawString)
+    (Message &              stuff,
+     const DataKind *       insertedContents,
+     const size_t           insertedSize,
+     const std::string &    expectedFlawString)
 {
     ODL_ENTER(); //####
     ODL_P2("stuff = ", &stuff, "insertedContents = ", insertedContents); //####
@@ -137,7 +137,7 @@ attemptExtractValueAndCheck
     }
     else
     {
-        const Flaw* asFlaw = extractedValue->asFlaw();
+        const Flaw *    asFlaw = extractedValue->asFlaw();
                     
         if (asFlaw)
         {
@@ -166,14 +166,14 @@ attemptExtractValueAndCheck
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageInitialEndTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message wrong initial tag
+     char **        NOT_USED_(argv)) // message wrong initial tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -183,7 +183,7 @@ doTestMessageInitialEndTag
         if (stuff)
         {
             ODL_LOG("(stuff)"); //####
-            static const DataKind     bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 // End of Message
@@ -219,14 +219,14 @@ doTestMessageInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageTerminalStartTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message wrong terminal tag
+     char **        NOT_USED_(argv)) // message wrong terminal tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -235,7 +235,7 @@ doTestMessageTerminalStartTag
 
         if (stuff)
         {
-            static const DataKind     bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
@@ -272,14 +272,14 @@ doTestMessageTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessageWithContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty message with content
+     char **        NOT_USED_(argv)) // empty message with content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -288,7 +288,7 @@ doTestEmptyMessageWithContent
 
         if (stuff)
         {
-            static const DataKind     bytesToInsert[] =
+            static const DataKind   bytesToInsert[] =
             {
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
@@ -328,14 +328,14 @@ doTestEmptyMessageWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithoutContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // non-empty message without content
+     char **        NOT_USED_(argv)) // non-empty message without content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -385,14 +385,14 @@ doTestNonEmptyMessageWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedInitialStartTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with mismatched tag
+     char **        NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -445,14 +445,14 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedTerminalEndTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with mismatched tag
+     char **        NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -505,14 +505,14 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithInvalidContentTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with invalid content tag
+     char **        NOT_USED_(argv)) // message with invalid content tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -564,14 +564,14 @@ doTestNonEmptyMessageWithInvalidContentTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithZeroDoubleCount
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with bad double count
+     char **        NOT_USED_(argv)) // message with bad double count
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -625,14 +625,14 @@ doTestNonEmptyMessageWithZeroDoubleCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithStringWithInvalidLength
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with string with invalid length
+     char **        NOT_USED_(argv)) // message with string with invalid length
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -687,14 +687,14 @@ doTestNonEmptyMessageWithStringWithInvalidLength
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithBlobWithInvalidLength
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with blob with invalid length
+     char **        NOT_USED_(argv)) // message with blob with invalid length
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -749,14 +749,14 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with array with initial end tag
+     char **        NOT_USED_(argv)) // message with array with initial end tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -814,14 +814,14 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithTerminalStartTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with array with terminal start tag
+     char **        NOT_USED_(argv)) // message with array with terminal start tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -879,14 +879,14 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyArrayWithContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with empty array with content
+     char **        NOT_USED_(argv)) // message with empty array with content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -947,14 +947,14 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty array without content
+     char **        NOT_USED_(argv)) // message with nonempty array without content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1017,14 +1017,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty array with invalid count
+     char **        NOT_USED_(argv)) // message with nonempty array with invalid count
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1086,14 +1086,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with array with too few values
+     char **        NOT_USED_(argv)) // message with array with too few values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1162,14 +1162,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with array with too many values
+     char **        NOT_USED_(argv)) // message with array with too many values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1241,14 +1241,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with array with too many doubles
+     char **        NOT_USED_(argv)) // message with array with too many doubles
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1330,14 +1330,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithInitialEndTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with map with initial end tag
+     char **        NOT_USED_(argv)) // message with map with initial end tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1395,14 +1395,14 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with map with terminal start tag
+     char **        NOT_USED_(argv)) // message with map with terminal start tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1460,14 +1460,14 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyMapWithContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with empty map with content
+     char **        NOT_USED_(argv)) // message with empty map with content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1528,14 +1528,14 @@ doTestNonEmptyMessageWithEmptyMapWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty map without content
+     char **        NOT_USED_(argv)) // message with nonempty map without content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1598,14 +1598,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty map with invalid count
+     char **        NOT_USED_(argv)) // message with nonempty map with invalid count
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1667,14 +1667,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with map with too few values
+     char **        NOT_USED_(argv)) // message with map with too few values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1749,14 +1749,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with map with too many values
+     char **        NOT_USED_(argv)) // message with map with too many values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1831,14 +1831,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with map with incomplete pair
+     char **        NOT_USED_(argv)) // message with map with incomplete pair
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1910,14 +1910,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithInitialEndTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with set with initial end tag
+     char **        NOT_USED_(argv)) // message with set with initial end tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -1975,14 +1975,14 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithTerminalStartTag
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with set with terminal start tag
+     char **        NOT_USED_(argv)) // message with set with terminal start tag
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2040,14 +2040,14 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptySetWithContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with empty set with content
+     char **        NOT_USED_(argv)) // message with empty set with content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2108,14 +2108,14 @@ doTestNonEmptyMessageWithEmptySetWithContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty set without content
+     char **        NOT_USED_(argv)) // message with nonempty set without content
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2178,14 +2178,14 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with nonempty set with invalid count
+     char **        NOT_USED_(argv)) // message with nonempty set with invalid count
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2247,14 +2247,14 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with set with too few values
+     char **        NOT_USED_(argv)) // message with set with too few values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2323,14 +2323,14 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // message with set with too many values
+     char **        NOT_USED_(argv)) // message with set with too many values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
     
     try
@@ -2405,8 +2405,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -2450,19 +2450,15 @@ main
                         break;
 
                     case 5 :
-                        result = doTestNonEmptyMessageWithMismatchedInitialStartTag(*argv,
-                                                                                    argc - 1,
-                                                                                    argv + 2);
+                        result = doTestNonEmptyMessageWithMismatchedInitialStartTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 6 :
-                        result = doTestNonEmptyMessageWithMismatchedTerminalEndTag(*argv, argc - 1,
-                                                                                   argv + 2);
+                        result = doTestNonEmptyMessageWithMismatchedTerminalEndTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 7 :
-                        result = doTestNonEmptyMessageWithInvalidContentTag(*argv, argc - 1,
-                                                                            argv + 2);
+                        result = doTestNonEmptyMessageWithInvalidContentTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 8 :
@@ -2470,141 +2466,103 @@ main
                         break;
 
                     case 9 :
-                        result = doTestNonEmptyMessageWithStringWithInvalidLength(*argv, argc - 1,
-                                                                                  argv + 2);
+                        result = doTestNonEmptyMessageWithStringWithInvalidLength(*argv, argc - 1, argv + 2);
                         break;
 
                     case 10 :
-                        result = doTestNonEmptyMessageWithBlobWithInvalidLength(*argv, argc - 1,
-                                                                                argv + 2);
+                        result = doTestNonEmptyMessageWithBlobWithInvalidLength(*argv, argc - 1, argv + 2);
                         break;
 
                     case 20 :
-                        result = doTestNonEmptyMessageWithArrayWithInitialEndTag(*argv, argc - 1,
-                                                                                 argv + 2);
+                        result = doTestNonEmptyMessageWithArrayWithInitialEndTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 21 :
-                        result = doTestNonEmptyMessageWithArrayWithTerminalStartTag(*argv, argc - 1,
-                                                                                    argv + 2);
+                        result = doTestNonEmptyMessageWithArrayWithTerminalStartTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 22 :
-                        result = doTestNonEmptyMessageWithEmptyArrayWithContent(*argv, argc - 1,
-                                                                                argv + 2);
+                        result = doTestNonEmptyMessageWithEmptyArrayWithContent(*argv, argc - 1, argv + 2);
                         break;
 
                     case 23 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(*argv,
-                                                                                      argc - 1,
-                                                                                      argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithoutContent(*argv, argc - 1, argv + 2);
                         break;
 
                     case 24 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(*argv,
-                                                                                        argc - 1,
-                                                                                        argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount(*argv, argc - 1, argv + 2);
                         break;
 
                     case 25 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(*argv,
-                                                                                        argc - 1,
-                                                                                        argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues(*argv, argc - 1, argv + 2);
                         break;
 
                     case 26 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(*argv,
-                                                                                         argc - 1,
-                                                                                         argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues(*argv, argc - 1, argv + 2);
                         break;
 
                     case 27 :
-                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(*argv,
-                                                                                          argc - 1,
-                                                                                          argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles(*argv, argc - 1, argv + 2);
                         break;
 
                     case 40 :
-                        result = doTestNonEmptyMessageWithMapWithInitialEndTag(*argv, argc - 1,
-                                                                               argv + 2);
+                        result = doTestNonEmptyMessageWithMapWithInitialEndTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 41 :
-                        result = doTestNonEmptyMessageWithMapWithTerminalStartTag(*argv, argc - 1,
-                                                                                  argv + 2);
+                        result = doTestNonEmptyMessageWithMapWithTerminalStartTag(*argv, argc - 1, argv + 2);
                         break;
 
                     case 42 :
-                        result = doTestNonEmptyMessageWithEmptyMapWithContent(*argv, argc - 1,
-                                                                              argv + 2);
+                        result = doTestNonEmptyMessageWithEmptyMapWithContent(*argv, argc - 1, argv + 2);
                         break;
 
                     case 43 :
-                        result = doTestNonEmptyMessageWithNonEmptyMapWithoutContent(*argv, argc - 1,
-                                                                                    argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyMapWithoutContent(*argv, argc - 1, argv + 2);
                         break;
 
                     case 44 :
-                        result = doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(*argv,
-                                                                                      argc - 1,
-                                                                                      argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount(*argv, argc - 1, argv + 2);
                         break;
 
                     case 45 :
-                        result = doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(*argv,
-                                                                                      argc - 1,
-                                                                                      argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues(*argv, argc - 1, argv + 2);
                         break;
 
                     case 46 :
-                        result = doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(*argv,
-                                                                                       argc - 1,
-                                                                                       argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues(*argv, argc - 1, argv + 2);
                         break;
 
                     case 47 :
-                        result = doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(*argv,
-                                                                                        argc - 1,
-                                                                                        argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair(*argv, argc - 1, argv + 2);
                         break;
 
                     case 60 :
-                        result = doTestNonEmptyMessageWithSetWithInitialEndTag(*argv, argc - 1,
-                                                                               argv + 2);
+                        result = doTestNonEmptyMessageWithSetWithInitialEndTag(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 61 :
-                        result = doTestNonEmptyMessageWithSetWithTerminalStartTag(*argv, argc - 1,
-                                                                                  argv + 2);
+                        result = doTestNonEmptyMessageWithSetWithTerminalStartTag(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 62 :
-                        result = doTestNonEmptyMessageWithEmptySetWithContent(*argv, argc - 1,
-                                                                              argv + 2);
+                        result = doTestNonEmptyMessageWithEmptySetWithContent(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 63 :
-                        result = doTestNonEmptyMessageWithNonEmptySetWithoutContent(*argv,
-                                                                                    argc - 1,
-                                                                                    argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptySetWithoutContent(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 64 :
-                        result = doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(*argv,
-                                                                                      argc - 1,
-                                                                                      argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 65 :
-                        result = doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(*argv,
-                                                                                      argc - 1,
-                                                                                      argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(*argv, argc - 1, argv + 2);
                         break;
                         
                     case 66 :
-                        result = doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(*argv,
-                                                                                       argc - 1,
-                                                                                       argv + 2);
+                        result = doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

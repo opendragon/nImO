@@ -112,8 +112,8 @@ using std::endl;
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -121,8 +121,8 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector argumentList;
-    nImO::OutputFlavour    flavour;
+    nImO::DescriptorVector  argumentList;
+    nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", 2017,
                                               NIMO_COPYRIGHT_NAME_, flavour))

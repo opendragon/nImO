@@ -113,10 +113,10 @@ catchSignal
  @returns Zero on success and non-zero on failure. */
 static int
 extractValueAndCheck
-    (Message&           stuff,
-     const DataKind*    insertedContents,
+    (Message &          stuff,
+     const DataKind *   insertedContents,
      const size_t       insertedSize,
-     const Value&       expectedValue)
+     const Value &      expectedValue)
 {
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
@@ -138,7 +138,7 @@ extractValueAndCheck
     }
     else
     {
-        const Flaw* asFlaw = extractedValue->asFlaw();
+        const Flaw *    asFlaw = extractedValue->asFlaw();
 
         if (asFlaw)
         {
@@ -164,8 +164,7 @@ extractValueAndCheck
     if (0 == result)
     {
         // And now, let's make sure that 'short' messages are handled correctly:
-        for (size_t ii = 1, shortenedSize = insertedSize - 1;
-             (0 == result) && (shortenedSize > ii); ++ii)
+        for (size_t ii = 1, shortenedSize = insertedSize - 1; (0 == result) && (shortenedSize > ii); ++ii)
         {
             stuff.open(false);
             stuff.appendBytes(insertedContents, ii);
@@ -174,7 +173,7 @@ extractValueAndCheck
             stuff.close();
             if (nullptr != extractedValue)
             {
-                const Flaw* asFlaw = extractedValue->asFlaw();
+                const Flaw *    asFlaw = extractedValue->asFlaw();
 
                 if (asFlaw)
                 {
@@ -205,14 +204,14 @@ extractValueAndCheck
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty message
+     char **        NOT_USED_(argv)) // empty message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -242,7 +241,7 @@ doTestEmptyMessage
                 }
                 else
                 {
-                    const Flaw* asFlaw = extractedValue->asFlaw();
+                    const Flaw *    asFlaw = extractedValue->asFlaw();
                     
                     if (asFlaw)
                     {
@@ -310,14 +309,14 @@ doTestEmptyMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical message
+     char **        NOT_USED_(argv)) // logical message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -359,12 +358,10 @@ doTestLogicalMessage
             Logical                 falseValue(false);
             Logical                 trueValue(true);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount,
-                                          trueValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount, trueValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount,
-                                              falseValue);
+                result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount, falseValue);
             }
         }
         else
@@ -392,14 +389,14 @@ doTestLogicalMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestTinyIntegerMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // tiny integer message
+     char **        NOT_USED_(argv)) // tiny integer message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -457,17 +454,14 @@ doTestTinyIntegerMessage
             Integer                 zeroValue(0);
             Integer                 plus12Value(12);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count,
-                                          minus12Value);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count, minus12Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForZero, insertedZeroCount,
-                                              zeroValue);
+                result = extractValueAndCheck(*stuff, insertedBytesForZero, insertedZeroCount, zeroValue);
             }
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count,
-                                              plus12Value);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count, plus12Value);
             }
         }
         else
@@ -495,14 +489,14 @@ doTestTinyIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small integer message
+     char **        NOT_USED_(argv)) // small integer message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -546,12 +540,10 @@ doTestSmallIntegerMessage
             Integer                 minus144Value(-144);
             Integer                 plus144Value(144);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count,
-                                          minus144Value);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count, minus144Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count,
-                                              plus144Value);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count, plus144Value);
             }
         }
         else
@@ -579,14 +571,14 @@ doTestSmallIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumIntegerMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // medium integer message
+     char **        NOT_USED_(argv)) // medium integer message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -632,12 +624,10 @@ doTestMediumIntegerMessage
             Integer                 minus1234567Value(-1234567);
             Integer                 plus1234567Value(1234567);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567,
-                                          insertedMinus1234567Count, minus1234567Value);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567, insertedMinus1234567Count, minus1234567Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567,
-                                              insertedPlus1234567Count, plus1234567Value);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count, plus1234567Value);
             }
         }
         else
@@ -665,14 +655,14 @@ doTestMediumIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigIntegerMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // big integer message
+     char **        NOT_USED_(argv)) // big integer message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -720,12 +710,10 @@ doTestBigIntegerMessage
             Integer                 minusBigNumberValue(-20015998343868);
             Integer                 plusBigNumberValue(20015998343868);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber,
-                                          insertedMinusBigNumberCount, minusBigNumberValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber, insertedMinusBigNumberCount, minusBigNumberValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber,
-                                              insertedPlusBigNumberCount, plusBigNumberValue);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount, plusBigNumberValue);
             }
         }
         else
@@ -753,14 +741,14 @@ doTestBigIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty string message
+     char **        NOT_USED_(argv)) // empty string message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -787,8 +775,7 @@ doTestEmptyStringMessage
             const size_t            insertedEmptyStringCount = A_SIZE(insertedBytesForEmptyString);
             String                  emptyStringValue;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString,
-                                          insertedEmptyStringCount, emptyStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
         }
         else
         {
@@ -815,14 +802,14 @@ doTestEmptyStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestShortStringMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // short string message
+     char **        NOT_USED_(argv)) // short string message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -852,8 +839,7 @@ doTestShortStringMessage
             const size_t            insertedShortStringCount = A_SIZE(insertedBytesForShortString);
             String                  shortStringValue("abcdef");
 
-            result = extractValueAndCheck(*stuff, insertedBytesForShortString,
-                                          insertedShortStringCount, shortStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
         }
         else
         {
@@ -880,14 +866,14 @@ doTestShortStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumStringMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // medium string message
+     char **        NOT_USED_(argv)) // medium string message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -936,8 +922,7 @@ doTestMediumStringMessage
             const size_t            insertedMediumStringCount = A_SIZE(insertedBytesForMediumString);
             String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMediumString,
-                                          insertedMediumStringCount, mediumStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
         }
         else
         {
@@ -964,14 +949,14 @@ doTestMediumStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBlobMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty blob message
+     char **        NOT_USED_(argv)) // empty blob message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -998,8 +983,7 @@ doTestEmptyBlobMessage
             const size_t            insertedEmptyBlobCount = A_SIZE(insertedBytesForEmptyBlob);
             Blob                    emptyBlobValue;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob,
-                                          insertedEmptyBlobCount, emptyBlobValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
         }
         else
         {
@@ -1026,14 +1010,14 @@ doTestEmptyBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small blob message
+     char **        NOT_USED_(argv)) // small blob message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1068,8 +1052,7 @@ doTestSmallBlobMessage
             const size_t            actualDataCount = A_SIZE(actualData);
             Blob                    shortBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob,
-                                          insertedSmallBlobCount, shortBlobValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, shortBlobValue);
         }
         else
         {
@@ -1096,14 +1079,14 @@ doTestSmallBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumBlobMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // medium blob message
+     char **        NOT_USED_(argv)) // medium blob message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1163,8 +1146,7 @@ doTestMediumBlobMessage
             const size_t            actualDataCount = A_SIZE(actualData);
             Blob                    mediumBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob,
-                                          insertedMediumBlobCount, mediumBlobValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
         }
         else
         {
@@ -1191,14 +1173,14 @@ doTestMediumBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingleDoubleMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // single double message
+     char **        NOT_USED_(argv)) // single double message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1250,12 +1232,10 @@ doTestSingleDoubleMessage
             Double                  plus42Point5(42.5);
             Double                  minus42Point5(-42.5);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5,
-                                          insertedMinus42Point5Count, minus42Point5);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count, minus42Point5);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5,
-                                              insertedPlus42Point5Count, plus42Point5);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5);
             }
         }
         else
@@ -1283,14 +1263,14 @@ doTestSingleDoubleMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty array message
+     char **        NOT_USED_(argv)) // empty array message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1321,8 +1301,7 @@ doTestEmptyArrayMessage
             const size_t            insertedEmptyArrayCount = A_SIZE(insertedBytesForEmptyArray);
             Array                   emptyArray;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray,
-                                          insertedEmptyArrayCount, emptyArray);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
         }
         else
         {
@@ -1349,14 +1328,14 @@ doTestEmptyArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty map message
+     char **        NOT_USED_(argv)) // empty map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1387,8 +1366,7 @@ doTestEmptyMapMessage
             const size_t            insertedEmptyMapCount = A_SIZE(insertedBytesForEmptyMap);
             Map                     emptyMap;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap,
-                                          insertedEmptyMapCount, emptyMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
         }
         else
         {
@@ -1415,14 +1393,14 @@ doTestEmptyMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty set message
+     char **        NOT_USED_(argv)) // empty set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1453,8 +1431,7 @@ doTestEmptySetMessage
             const size_t            insertedEmptySetCount = A_SIZE(insertedBytesForEmptySet);
             Set                     emptySet;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptySet,
-                                          insertedEmptySetCount, emptySet);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
         }
         else
         {
@@ -1481,14 +1458,14 @@ doTestEmptySetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneLogicalMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one logical message
+     char **        NOT_USED_(argv)) // array with one logical message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1528,8 +1505,7 @@ doTestArrayOneLogicalMessage
             Array                   arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical,
-                                          insertedArrayOneLogicalCount, arrayOneLogical);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount, arrayOneLogical);
         }
         else
         {
@@ -1556,14 +1532,14 @@ doTestArrayOneLogicalMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneIntegerMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one integer message
+     char **        NOT_USED_(argv)) // array with one integer message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1603,8 +1579,7 @@ doTestArrayOneIntegerMessage
             Array                   arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger,
-                                          insertedArrayOneIntegerCount, arrayOneInteger);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount, arrayOneInteger);
         }
         else
         {
@@ -1631,14 +1606,14 @@ doTestArrayOneIntegerMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneDoubleMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one double message
+     char **        NOT_USED_(argv)) // array with one double message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1683,8 +1658,7 @@ doTestArrayOneDoubleMessage
             Array                   arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble,
-                                          insertedArrayOneDoubleCount, arrayOneDouble);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount, arrayOneDouble);
         }
         else
         {
@@ -1711,14 +1685,14 @@ doTestArrayOneDoubleMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneStringMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one string message
+     char **        NOT_USED_(argv)) // array with one string message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1759,8 +1733,7 @@ doTestArrayOneStringMessage
             Array                   arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString,
-                                          insertedArrayOneStringCount, arrayOneString);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount, arrayOneString);
         }
         else
         {
@@ -1787,14 +1760,14 @@ doTestArrayOneStringMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneBlobMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one blob message
+     char **        NOT_USED_(argv)) // array with one blob message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1835,8 +1808,7 @@ doTestArrayOneBlobMessage
             Array                   arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob,
-                                          insertedArrayOneBlobCount, arrayOneBlob);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount, arrayOneBlob);
         }
         else
         {
@@ -1863,14 +1835,14 @@ doTestArrayOneBlobMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one array message
+     char **        NOT_USED_(argv)) // array with one array message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1915,8 +1887,7 @@ doTestArrayOneArrayMessage
             Array                   arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray,
-                                          insertedArrayOneArrayCount, arrayOneArray);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount, arrayOneArray);
         }
         else
         {
@@ -1943,14 +1914,14 @@ doTestArrayOneArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one map message
+     char **        NOT_USED_(argv)) // array with one map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1995,8 +1966,7 @@ doTestArrayOneMapMessage
             Array                   arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap,
-                                          insertedArrayOneMapCount, arrayOneMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap, insertedArrayOneMapCount, arrayOneMap);
         }
         else
         {
@@ -2023,14 +1993,14 @@ doTestArrayOneMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with one set message
+     char **        NOT_USED_(argv)) // array with one set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2075,8 +2045,7 @@ doTestArrayOneSetMessage
             Array                   arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet,
-                                          insertedArrayOneSetCount, arrayOneSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet, insertedArrayOneSetCount, arrayOneSet);
         }
         else
         {
@@ -2103,14 +2072,14 @@ doTestArrayOneSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoLogicalsMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two logicals message
+     char **        NOT_USED_(argv)) // array with two logicals message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2154,8 +2123,7 @@ doTestArrayTwoLogicalsMessage
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals,
-                                          insertedArrayTwoLogicalsCount, arrayTwoLogicals);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount, arrayTwoLogicals);
         }
         else
         {
@@ -2182,14 +2150,14 @@ doTestArrayTwoLogicalsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoIntegersMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two integers message
+     char **        NOT_USED_(argv)) // array with two integers message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2233,8 +2201,7 @@ doTestArrayTwoIntegersMessage
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers,
-                                          insertedArrayTwoIntegersCount, arrayTwoIntegers);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount, arrayTwoIntegers);
         }
         else
         {
@@ -2261,14 +2228,14 @@ doTestArrayTwoIntegersMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoDoublesMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two doubles message
+     char **        NOT_USED_(argv)) // array with two doubles message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2318,8 +2285,7 @@ doTestArrayTwoDoublesMessage
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles,
-                                          insertedArrayTwoDoublesCount, arrayTwoDoubles);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount, arrayTwoDoubles);
         }
         else
         {
@@ -2346,14 +2312,14 @@ doTestArrayTwoDoublesMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoStringsMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two strings message
+     char **        NOT_USED_(argv)) // array with two strings message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2399,8 +2365,7 @@ doTestArrayTwoStringsMessage
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings,
-                                          insertedArrayTwoStringsCount, arrayTwoStrings);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount, arrayTwoStrings);
         }
         else
         {
@@ -2427,14 +2392,14 @@ doTestArrayTwoStringsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoBlobsMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two blobs message
+     char **        NOT_USED_(argv)) // array with two blobs message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2480,8 +2445,7 @@ doTestArrayTwoBlobsMessage
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs,
-                                          insertedArrayTwoBlobsCount, arrayTwoBlobs);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount, arrayTwoBlobs);
         }
         else
         {
@@ -2508,14 +2472,14 @@ doTestArrayTwoBlobsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoArraysMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two arrays message
+     char **        NOT_USED_(argv)) // array with two arrays message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2569,8 +2533,7 @@ doTestArrayTwoArraysMessage
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays,
-                                          insertedArrayTwoArraysCount, arrayTwoArrays);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount, arrayTwoArrays);
         }
         else
         {
@@ -2597,14 +2560,14 @@ doTestArrayTwoArraysMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoMapsMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two maps message
+     char **        NOT_USED_(argv)) // array with two maps message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2658,8 +2621,7 @@ doTestArrayTwoMapsMessage
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps,
-                                          insertedArrayTwoMapsCount, arrayTwoMaps);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount, arrayTwoMaps);
         }
         else
         {
@@ -2686,14 +2648,14 @@ doTestArrayTwoMapsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoSetsMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with two sets message
+     char **        NOT_USED_(argv)) // array with two sets message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2747,8 +2709,7 @@ doTestArrayTwoSetsMessage
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets,
-                                          insertedArrayTwoSetsCount, arrayTwoSets);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount, arrayTwoSets);
         }
         else
         {
@@ -2775,14 +2736,14 @@ doTestArrayTwoSetsMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayOneMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with array and map message
+     char **        NOT_USED_(argv)) // array with array and map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2836,8 +2797,7 @@ doTestArrayOneArrayOneMapMessage
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap,
-                                          insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
         }
         else
         {
@@ -2864,14 +2824,14 @@ doTestArrayOneArrayOneMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapOneSetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with map and set message
+     char **        NOT_USED_(argv)) // array with map and set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2925,8 +2885,7 @@ doTestArrayOneMapOneSetMessage
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet,
-                                          insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
         }
         else
         {
@@ -2953,14 +2912,14 @@ doTestArrayOneMapOneSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetOneArrayMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with set and array message
+     char **        NOT_USED_(argv)) // array with set and array message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3014,8 +2973,7 @@ doTestArrayOneSetOneArrayMessage
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray,
-                                          insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
         }
         else
         {
@@ -3042,14 +3000,14 @@ doTestArrayOneSetOneArrayMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithManyDoublesMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with many doubles message
+     char **        NOT_USED_(argv)) // array with many doubles message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3266,8 +3224,7 @@ doTestArrayWithManyDoublesMessage
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(static_cast<double>(ii)));
             }
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles,
-                                          insertedArrayManyDoublesCount, arrayManyDoubles);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount, arrayManyDoubles);
         }
         else
         {
@@ -3294,14 +3251,14 @@ doTestArrayWithManyDoublesMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical map message
+     char **        NOT_USED_(argv)) // logical map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3344,8 +3301,7 @@ doTestLogicalMapMessage
             Map                     logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap,
-                                          insertedLogicalMapCount, logicalMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap, insertedLogicalMapCount, logicalMap);
         }
         else
         {
@@ -3372,14 +3328,14 @@ doTestLogicalMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer map message
+     char **        NOT_USED_(argv)) // integer map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3422,8 +3378,7 @@ doTestIntegerMapMessage
             Map                     integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap,
-                                          insertedIntegerMapCount, integerMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap, insertedIntegerMapCount, integerMap);
         }
         else
         {
@@ -3450,14 +3405,14 @@ doTestIntegerMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string map message
+     char **        NOT_USED_(argv)) // string map message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3501,8 +3456,7 @@ doTestStringMapMessage
             Map                     stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForStringMap,
-                                          insertedStringMapCount, stringMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForStringMap, insertedStringMapCount, stringMap);
         }
         else
         {
@@ -3529,14 +3483,14 @@ doTestStringMapMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical set message
+     char **        NOT_USED_(argv)) // logical set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3576,8 +3530,7 @@ doTestLogicalSetMessage
             Set                     logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet,
-                                          insertedLogicalSetCount, logicalSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet, insertedLogicalSetCount, logicalSet);
         }
         else
         {
@@ -3604,14 +3557,14 @@ doTestLogicalSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer set message
+     char **        NOT_USED_(argv)) // integer set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3651,8 +3604,7 @@ doTestIntegerSetMessage
             Set                     integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet,
-                                          insertedIntegerSetCount, integerSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet, insertedIntegerSetCount, integerSet);
         }
         else
         {
@@ -3679,14 +3631,14 @@ doTestIntegerSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetMessage
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string set message
+     char **        NOT_USED_(argv)) // string set message
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3727,8 +3679,7 @@ doTestStringSetMessage
             Set                     stringSet;
 
             stringSet.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForStringSet,
-                                          insertedStringSetCount, stringSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForStringSet, insertedStringSetCount, stringSet);
         }
         else
         {
@@ -3755,14 +3706,14 @@ doTestStringSetMessage
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageWithArrayWithRangeOfIntegers
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with range of integers
+     char **        NOT_USED_(argv)) // array with range of integers
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -3801,7 +3752,7 @@ doTestMessageWithArrayWithRangeOfIntegers
                 }
                 else
                 {
-                    const Flaw* asFlaw = extractedValue->asFlaw();
+                    const Flaw *    asFlaw = extractedValue->asFlaw();
                     
                     if (asFlaw)
                     {
@@ -4055,9 +4006,8 @@ doTestMessageWithArrayWithRangeOfIntegers
                                expectedBytesForArrayWithIntegersCount); //####
                     if (expectedBytesForArrayWithIntegersCount == length)
                     {
-                        result = static_cast<int>(CompareBytes(expectedBytesForArrayWithIntegers,
-                                                               contents.data(),
-                                                           expectedBytesForArrayWithIntegersCount));
+                        result = static_cast<int>(CompareBytes(expectedBytesForArrayWithIntegers, contents.data(),
+                                                               expectedBytesForArrayWithIntegersCount));
                     }
                     else
                     {
@@ -4100,7 +4050,7 @@ doTestMessageWithArrayWithRangeOfIntegers
 int
 main
     (int    argc,
-     char** argv)
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -4296,8 +4246,7 @@ main
                         break;
 
                     case 180 :
-                        result = doTestMessageWithArrayWithRangeOfIntegers(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

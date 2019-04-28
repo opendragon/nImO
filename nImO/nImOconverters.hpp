@@ -65,9 +65,9 @@ namespace nImO
      start is @c NULL. */
     size_t
     ConvertDoubleToPacketOrder
-        (uint8_t*       start,
-         const uint8_t* end,
-         const double   value);
+        (uint8_t *          start,
+         const uint8_t *    end,
+         const double       value);
 
     /*! @brief Convert an integer value to a sequence of bytes.
      @param[in,out] start The address of the first byte that is available;
@@ -79,9 +79,9 @@ namespace nImO
      start is @c NULL. */
     size_t
     ConvertInt64ToPacketOrder
-        (uint8_t*       start,
-         const uint8_t* end,
-         const int64_t  value);
+        (uint8_t *          start,
+         const uint8_t *    end,
+         const int64_t      value);
    
     /*! @brief Convert a sequence of bytes to a double value.
      @param[in] start The address of the first byte that contains the value.
@@ -91,9 +91,9 @@ namespace nImO
      or the number of bytes read. */
     size_t
     ConvertPacketOrderToDouble
-        (const uint8_t* start,
-         const uint8_t* end,
-         double&        value);
+        (const uint8_t *    start,
+         const uint8_t *    end,
+         double &           value);
     
     /*! @brief Convert a sequence of bytes to an integer value.
      @param[in] start The address of the first byte that contains the value.
@@ -103,9 +103,9 @@ namespace nImO
      or the number of bytes read. */
     size_t
     ConvertPacketOrderToInt64
-        (const uint8_t* start,
-         const uint8_t* end,
-         int64_t&       value);
+        (const uint8_t *    start,
+         const uint8_t *    end,
+         int64_t &          value);
     
 } // nImO
 

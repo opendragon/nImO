@@ -79,7 +79,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         Message
-            (const Message &other) = delete;
+            (const Message &    other) = delete;
 
         /*! @brief The destructor. */
         virtual
@@ -91,8 +91,8 @@ namespace nImO
          @param[in] numBytes The number of bytes to add. */
         virtual void
         appendBytes
-            (const uint8_t *data,
-             const size_t  numBytes)
+            (const uint8_t *    data,
+             const size_t       numBytes)
             override;
         
         /*! @brief Add some bytes to the buffer.
@@ -100,8 +100,8 @@ namespace nImO
          @param[in] numBytes The number of bytes to add. */
         inline void
         appendBytes
-            (const DataKind *data,
-             const size_t   numBytes)
+            (const DataKind *   data,
+             const size_t       numBytes)
         {
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
         } // appendBytes
@@ -163,7 +163,7 @@ namespace nImO
          @returns The updated object. */
         Message &
         operator =
-            (const Message &other) = delete;
+            (const Message &    other) = delete;
 
         /*! @brief Return @c true if the read position is past the last character.
          @returns @c true if the read position is past the last character. */
@@ -187,7 +187,7 @@ namespace nImO
          @returns The Message object so that cascading can be done. */
         Message &
         setValue
-            (const Value &theValue);
+            (const Value &  theValue);
 
     protected :
         // Protected methods.
@@ -205,19 +205,19 @@ namespace nImO
         // Private fields.
         
         /*! @brief Mutual-exclusion protection. */
-        mutable std::mutex _lock;
+        mutable std::mutex  _lock;
 
         /*! @brief The cached value of the buffer for transmission. */
         std::string _cachedTransmissionString;
 
         /*! @brief The position of the next byte being read. */
-        size_t _readPosition;
+        size_t  _readPosition;
 
         /*! @brief The state of the object. */
-        MessageState _state;
+        MessageState    _state;
 
         /*! @brief @c true if the initial header bytes are present in the buffer. */
-        bool _headerAdded;
+        bool    _headerAdded;
 
     }; // Message
 

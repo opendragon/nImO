@@ -81,14 +81,14 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const double       defaultValue,
-     const bool         hasMinimumValue,
-     const double       minimumValue,
-     const bool         hasMaximumValue,
-     const double       maximumValue) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const double           defaultValue,
+     const bool             hasMinimumValue,
+     const double           minimumValue,
+     const bool             hasMaximumValue,
+     const double           maximumValue) :
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
         _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
         _hasMinimumValue(hasMinimumValue)
@@ -102,7 +102,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
-    (const DoubleArgumentDescriptor &other) :
+    (const DoubleArgumentDescriptor &   other) :
         inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
         _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
         _hasMinimumValue(other._hasMinimumValue)
@@ -126,7 +126,7 @@ DoubleArgumentDescriptor::~DoubleArgumentDescriptor
 #if 0
 void
 DoubleArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle &container)
+    (yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -142,7 +142,7 @@ DoubleArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<DoubleArgumentDescriptor>(*this);
+    auto    result = std::make_shared<DoubleArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -172,29 +172,29 @@ DoubleArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 5, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        double       defaultValue = 0;
-        double       maxValue = 0;
-        double       minValue = 0;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  minValString(inVector[3]);
-        std::string  maxValString(inVector[4]);
-        std::string  defaultString(inVector[5]);
-        std::string  description(inVector[6]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        double          defaultValue = 0;
+        double          maxValue = 0;
+        double          minValue = 0;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     minValString(inVector[3]);
+        std::string     maxValString(inVector[4]);
+        std::string     defaultString(inVector[5]);
+        std::string     description(inVector[6]);
 
-        if (typeTag != "D")
+        if ("D" != typeTag)
         {
             okSoFar = false;
         }
@@ -209,7 +209,7 @@ DoubleArgumentDescriptor::parseArgString
         }
         if (okSoFar && (0 < defaultString.length()))
         {
-            double dblValue;
+            double  dblValue;
 
             if (nImO::ConvertToDouble(defaultString.c_str(), dblValue))
             {
@@ -222,7 +222,7 @@ DoubleArgumentDescriptor::parseArgString
         }
         if (okSoFar && (0 < minValString.length()))
         {
-            double dblValue;
+            double  dblValue;
 
             if (nImO::ConvertToDouble(minValString.c_str(), dblValue))
             {
@@ -235,7 +235,7 @@ DoubleArgumentDescriptor::parseArgString
         }
         if (okSoFar && (0 < maxValString.length()))
         {
-            double dblValue;
+            double  dblValue;
 
             if (nImO::ConvertToDouble(maxValString.c_str(), dblValue))
             {
@@ -248,14 +248,12 @@ DoubleArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            bool hasMaximumValue = (0 < maxValString.length());
-            bool hasMinimumValue = (0 < minValString.length());
+            bool    hasMaximumValue = (0 < maxValString.length());
+            bool    hasMinimumValue = (0 < minValString.length());
 
             result.reset(new DoubleArgumentDescriptor(name, description, argMode, defaultValue,
-                                                      hasMinimumValue,
-                                                      hasMinimumValue ? minValue : 0,
-                                                      hasMaximumValue,
-                                                      hasMaximumValue ? maxValue : 0));
+                                                      hasMinimumValue, hasMinimumValue ? minValue : 0,
+                                                      hasMaximumValue, hasMaximumValue ? maxValue : 0));
         }
     }
     ODL_EXIT_P(result.get()); //####
@@ -274,7 +272,7 @@ DoubleArgumentDescriptor::setToDefaultValue
 
 void
 DoubleArgumentDescriptor::swap
-    (DoubleArgumentDescriptor &other)
+    (DoubleArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -312,10 +310,10 @@ DoubleArgumentDescriptor::toString
 
 bool
 DoubleArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    double dblValue;
+    double  dblValue;
 
     if (nImO::ConvertToDouble(value.c_str(), dblValue))
     {

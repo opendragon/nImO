@@ -81,10 +81,10 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 StringArgumentDescriptor::StringArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const std::string  &defaultValue) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const std::string &    defaultValue) :
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
@@ -94,7 +94,7 @@ StringArgumentDescriptor::StringArgumentDescriptor
 } // StringArgumentDescriptor::StringArgumentDescriptor
 
 StringArgumentDescriptor::StringArgumentDescriptor
-    (const StringArgumentDescriptor &other) :
+    (const StringArgumentDescriptor &   other) :
         inherited(other), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
@@ -116,7 +116,7 @@ StringArgumentDescriptor::~StringArgumentDescriptor
 #if 0
 void
 StringArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle &container)
+    (yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -131,7 +131,7 @@ StringArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<StringArgumentDescriptor>(*this);
+    auto    result = std::make_shared<StringArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -159,24 +159,24 @@ StringArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
 StringArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  defaultString(inVector[3]);
-        std::string  description(inVector[4]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     defaultString(inVector[3]);
+        std::string     description(inVector[4]);
 
-        if (typeTag != "S")
+        if ("S" != typeTag)
         {
             okSoFar = false;
         }
@@ -210,7 +210,7 @@ StringArgumentDescriptor::setToDefaultValue
 
 void
 StringArgumentDescriptor::swap
-    (StringArgumentDescriptor &other)
+    (StringArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -234,7 +234,7 @@ StringArgumentDescriptor::toString
 
 bool
 StringArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
     _valid = true;

@@ -130,13 +130,13 @@
 # endif // ! defined(FALSE)
 
 /*! @brief The line length for command-line help output. */
-constexpr size_t HELP_LINE_LENGTH_ = 250;
+constexpr size_t    HELP_LINE_LENGTH_ = 250;
 
 /*! @brief The largest IP port that is acceptable. */
-constexpr int MAXIMUM_PORT_ALLOWED_ = 65535;
+constexpr int   MAXIMUM_PORT_ALLOWED_ = 65535;
 
 /*! @brief The smallest IP port that is acceptable. */
-constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
+constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief The standard copyright holder name to use for m+m-created executables. */
 # define NIMO_COPYRIGHT_NAME_       "OpenDragon"
@@ -176,7 +176,8 @@ constexpr int MINIMUM_PORT_ALLOWED_ = 1024;
 template <typename E>
 constexpr typename std::underlying_type<E>::type
 toUType
-    (E enumerator) noexcept
+    (E enumerator)
+    noexcept
 {
     return static_cast<typename std::underlying_type<E>::type>(enumerator);
 } // toUType
@@ -188,7 +189,7 @@ toUType
 template <typename T, typename... Ts>
 std::unique_ptr<T>
 make_unique
-    (Ts&&... params)
+    (Ts &&... params)
 {
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
 } // make_unique
@@ -404,22 +405,22 @@ namespace nImO
     }; // DataKind
 
     /*! @brief The minimum count representable in a short floating point. */
-    const int DataKindDoubleShortCountMinValue = 1;
+    const int   DataKindDoubleShortCountMinValue = 1;
 
     /*! @brief The maximum count representable in a short floating point. */
-    const int DataKindDoubleShortCountMaxValue = 32;
+    const int   DataKindDoubleShortCountMaxValue = 32;
 
     /*! @brief The minimum value representable in a short signed integer. */
-    const int DataKindIntegerShortValueMinValue = -16;
+    const int   DataKindIntegerShortValueMinValue = -16;
 
     /*! @brief The maximum value representable in a short signed integer. */
-    const int DataKindIntegerShortValueMaxValue = 15;
+    const int   DataKindIntegerShortValueMaxValue = 15;
 
     /*! @brief The minimum count representable in a short floating point. */
-    const int DataKindStringOrBlobShortLengthMinValue = 0;
+    const int   DataKindStringOrBlobShortLengthMinValue = 0;
 
     /*! @brief The maximum count representable in a short floating point. */
-    const int DataKindStringOrBlobShortLengthMaxValue = 15;
+    const int   DataKindStringOrBlobShortLengthMaxValue = 15;
 
     /*! @brief Whether a Value is enumerable. */
     enum class Enumerable
@@ -584,7 +585,7 @@ namespace nImO
      @returns The floating-point value stored in the bytes. */
     double
     B2D
-        (const NumberAsBytes&   inString);
+        (const NumberAsBytes &  inString);
 
     /*! @brief Convert a set of bytes into an integer value.
      @param[in] inString The byte string to be processed.
@@ -592,7 +593,7 @@ namespace nImO
      @returns The integer value stored in the bytes. */
     int64_t
     B2I
-        (const NumberAsBytes&   inString,
+        (const NumberAsBytes &  inString,
          const size_t           numBytes);
 
     /*! @brief Return @c true if standard input can be used and @c false otherwise.
@@ -609,8 +610,8 @@ namespace nImO
      two byte strings differ. */
     size_t
     CompareBytes
-        (const void*    first,
-         const void*    second,
+        (const void *   first,
+         const void *   second,
          const size_t   numBytes);
 
     /*! @brief Convert a double value to a string.
@@ -627,8 +628,8 @@ namespace nImO
      otherwise. */
     bool
     ConvertToDouble
-        (const char*    startPtr,
-         double&        result);
+        (const char *   startPtr,
+         double &       result);
 
     /*! @brief Convert a string to an integer value.
      @param[in] startPtr The string to be converted.
@@ -637,28 +638,28 @@ namespace nImO
      otherwise. */
     bool
     ConvertToInt64
-        (const char*    startPtr,
-         int64_t&       result);
+        (const char *   startPtr,
+         int64_t &      result);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */
     void
     D2B
-        (const double   inValue,
-         NumberAsBytes& outString);
+        (const double       inValue,
+         NumberAsBytes &    outString);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName
-        (const char*    channelRoot = DEFAULT_CHANNEL_ROOT_);
+        (const char *   channelRoot = DEFAULT_CHANNEL_ROOT_);
 
     /*! @brief Generate a random channel name.
      @returns A randomly-generated channel name. */
     std::string
     GetRandomChannelName
-        (const std::string& channelRoot);
+        (const std::string &    channelRoot);
 
     /*! @brief Return a random string of hexadecimal digits.
      @returns A random string of hexadecimal digits. */
@@ -673,8 +674,8 @@ namespace nImO
      @returns The minimum number of bytes needed to represent the value. */
     size_t
     I2B
-        (const int64_t  inValue,
-         NumberAsBytes& outString);
+        (const int64_t      inValue,
+         NumberAsBytes &    outString);
 
     /*! @brief Perform initialization of internal resources.
      @param[in] progName The name of the executing program.
@@ -682,7 +683,7 @@ namespace nImO
      Should be called in the main() function of each application or service. */
     void
     Initialize
-        (const std::string& progName);
+        (const std::string &    progName);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
@@ -770,9 +771,9 @@ namespace nImO
      @param[in] description The description, which may contain multiple newlines. */
     void
     OutputDescription
-        (std::ostream&      outStream,
-         const char*        heading,
-         const std::string& description);
+        (std::ostream &         outStream,
+         const char *           heading,
+         const std::string &    description);
 
     /*! @brief Process the standard options for utility executables.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
@@ -795,15 +796,15 @@ namespace nImO
      @returns @c true if the program should continue and @c false if it should leave. */
     bool
     ProcessStandardUtilitiesOptions
-        (const int          argc,
-         char**             argv,
-         DescriptorVector&  argumentDescriptions,
-         const std::string& utilityDescription,
-         const int          year,
-         const char*        copyrightHolder,
-         OutputFlavour&     flavour,
-         const bool         ignoreFlavours = false,
-         StringVector*      arguments = nullptr);
+        (const int              argc,
+         char **                argv,
+         DescriptorVector &     argumentDescriptions,
+         const std::string &    utilityDescription,
+         const int              year,
+         const char *           copyrightHolder,
+         OutputFlavour &        flavour,
+         const bool             ignoreFlavours = false,
+         StringVector *         arguments = nullptr);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
@@ -811,8 +812,8 @@ namespace nImO
      @returns A string with special characters escaped. */
     std::string
     SanitizeString
-        (const std::string& inString,
-         const bool         allowDoubleQuotes = false);
+        (const std::string &    inString,
+         const bool             allowDoubleQuotes = false);
 
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */
@@ -839,45 +840,44 @@ namespace nImO
         (const int  aPort,
          const bool systemAllowed = false)
     {
-        return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) &&
-                (MAXIMUM_PORT_ALLOWED_ >= aPort));
+        return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) && (MAXIMUM_PORT_ALLOWED_ >= aPort));
     } // ValidPortNumber
 
     /*! @brief The character that is used with 'blob' data formatting. */
-    extern const char kBlobSeparator;
+    extern const char   kBlobSeparator;
 
     /*! @brief The character that ends an Array value. */
-    extern const char kEndArrayChar;
+    extern const char   kEndArrayChar;
 
     /*! @brief The character that ends a Map value. */
-    extern const char kEndMapChar;
+    extern const char   kEndMapChar;
 
     /*! @brief The character that ends a Set value. */
-    extern const char kEndSetChar;
+    extern const char   kEndSetChar;
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
-    extern const char kKeyValueSeparator;
+    extern const char   kKeyValueSeparator;
 
     /*! @brief A character that brackets a string value. */
-    extern const char kSingleQuote;
+    extern const char   kSingleQuote;
 
     /*! @brief The character that starts an Array value. */
-    extern const char kStartArrayChar;
+    extern const char   kStartArrayChar;
 
     /*! @brief The character that starts a Map value. */
-    extern const char kStartMapChar;
+    extern const char   kStartMapChar;
 
     /*! @brief The character that starts a Set value. */
-    extern const char kStartSetChar;
+    extern const char   kStartSetChar;
 
     /*! @brief A character that brackets a string value. */
-    extern const uint8_t kDoubleQuote;
+    extern const uint8_t    kDoubleQuote;
 
     /*! @brief The escape character. */
-    extern const uint8_t kEscapeChar;
+    extern const uint8_t    kEscapeChar;
 
     /*! @brief The directory separator string; */
-    extern const std::string kDirectorySeparator;
+    extern const std::string    kDirectorySeparator;
 
 } // nImO
 

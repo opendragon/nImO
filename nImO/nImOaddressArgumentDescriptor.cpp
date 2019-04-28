@@ -81,11 +81,11 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 AddressArgumentDescriptor::AddressArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const std::string  &defaultValue,
-     struct in_addr     *addrBuff) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const std::string &    defaultValue,
+     struct in_addr *       addrBuff) :
         inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
 {
     ODL_ENTER(); //####
@@ -125,7 +125,7 @@ AddressArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<AddressArgumentDescriptor>(*this);
+    auto    result = std::make_shared<AddressArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -133,24 +133,24 @@ AddressArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
 AddressArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode = ArgumentMode::Required;
-        bool         okSoFar = true;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  defaultString(inVector[3]);
-        std::string  description(inVector[4]);
+        ArgumentMode    argMode = ArgumentMode::Required;
+        bool            okSoFar = true;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     defaultString(inVector[3]);
+        std::string     description(inVector[4]);
 
-        if (typeTag != "A")
+        if ("A" != typeTag)
         {
             okSoFar = false;
         }
@@ -184,7 +184,7 @@ AddressArgumentDescriptor::parseArgString
 
 void
 AddressArgumentDescriptor::swap
-    (AddressArgumentDescriptor &other)
+    (AddressArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -207,7 +207,7 @@ AddressArgumentDescriptor::toString
 
 bool
 AddressArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
     std::string testValue;
@@ -231,7 +231,7 @@ AddressArgumentDescriptor::validate
     }
     else
     {
-        struct in_addr addrBuff;
+        struct in_addr  addrBuff;
 
 #if MAC_OR_LINUX_
         _valid = (0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));

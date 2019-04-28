@@ -104,7 +104,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         Array
-            (const Array&   other);
+            (const Array &   other);
 
         /*! @brief The destructor. */
         virtual
@@ -186,7 +186,7 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
-            (const Value&   other)
+            (const Value &  other)
             const
             override;
 
@@ -226,8 +226,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         equalTo
-            (const Value&   other,
-             bool&          validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -237,9 +237,9 @@ namespace nImO
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
         getExtractionInfo
-            (DataKind&  aByte,
-             DataKind&  aMask,
-             Extractor& theExtractor);
+            (DataKind &     aByte,
+             DataKind &     aMask,
+             Extractor &    theExtractor);
 
         /*! @brief Return the characters that can appear as the start of an Array.
          @returns The characters that can appear as the start of an Array. */
@@ -268,8 +268,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan
-            (const Value&   other,
-             bool&          validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -280,8 +280,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThanOrEqual
-            (const Value&   other,
-             bool&          validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -292,8 +292,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThan
-            (const Value&   other,
-             bool&          validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -304,8 +304,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThanOrEqual
-            (const Value&   other,
-             bool&          validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -314,7 +314,7 @@ namespace nImO
          @returns The updated object. */
         inline Array &
         operator =
-            (const Array&   other)
+            (const Array &  other)
         {
             if (this != &other)
             {
@@ -330,7 +330,7 @@ namespace nImO
          is as readable as possible. */
         virtual void
         printToStringBuffer
-            (StringBuffer&  outBuffer,
+            (StringBuffer & outBuffer,
              const bool     squished = false)
             const
             override;
@@ -341,8 +341,8 @@ namespace nImO
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
-            (const StringBuffer&    inBuffer,
-             size_t&                position);
+            (const StringBuffer &   inBuffer,
+             size_t &               position);
 
         /*! @brief Return a reverse iterator pointing to the first element of the Array.
          @returns A reverse iterator pointing to the first element of the Array. */
@@ -386,7 +386,7 @@ namespace nImO
          @param[in] outMessage The Message to be appended to. */
         virtual void
         writeToMessage
-            (Message&   outMessage)
+            (Message &  outMessage)
             const
             override;
 
@@ -400,7 +400,7 @@ namespace nImO
           @param[in] other The object to be copied from. */
         Array &
         addEntries
-            (const Array&   other);
+            (const Array &  other);
 
         /*! @brief Extracts Value objects from a Message.
          Note that the parentValue argument is normally @c nullptr, and is used for handling
@@ -417,10 +417,10 @@ namespace nImO
          a non-Flaw Value if extraction was successful. */
         static SpValue
         extractValue
-            (const Message& theMessage,
-             const int      leadByte,
-             size_t&        position,
-             SpArray       parentValue);
+            (const Message &    theMessage,
+             const int          leadByte,
+             size_t &           position,
+             SpArray            parentValue);
 
     public :
         // Public fields.

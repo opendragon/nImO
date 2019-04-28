@@ -112,12 +112,12 @@ catchSignal
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArgs
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // invalid args
+     char **        argv) // invalid args
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
+    //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
@@ -194,12 +194,12 @@ doTestInvalidArgs
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSize
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // integer size
+     char **        argv) // integer size
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
+    //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
@@ -254,14 +254,14 @@ doTestIntegerSize
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleSize
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // double size
+     char **        NOT_USED_(argv)) // double size
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -299,12 +299,12 @@ doTestDoubleSize
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerConversion
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // integer conversion
+     char **        argv) // integer conversion
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
+    //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
@@ -319,14 +319,12 @@ doTestIntegerConversion
             {
                 size_t  expectedLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
                 uint8_t buffer[kBufferSize];
-                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
-                                                               value);
+                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1,
-                                                                  newValue);
+                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue);
                     
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -372,14 +370,14 @@ doTestIntegerConversion
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleConversion
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // double conversion
+     char **        NOT_USED_(argv)) // double conversion
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -389,14 +387,12 @@ doTestDoubleConversion
             double  value = ((rand() % 10000) * 0.1);
             size_t  expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
             uint8_t buffer[kBufferSize];
-            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1,
-                                                            value);
+            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
             
             if (expectedLength == convLength)
             {
                 double  newValue;
-                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1,
-                                                               newValue);
+                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue);
                 
                 if ((newValue == value) && (newLength == convLength))
                 {
@@ -407,14 +403,15 @@ doTestDoubleConversion
                     result = 1;
                     ODL_LOG("! ((newValue == value) && (newLength == convLength))"); //####
                     break;
-                }
 
+                }
             }
             else
             {
                 result = 1;
                 ODL_LOG("expectedLength != convLength"); //####
                 break;
+
             }
         }
     }
@@ -441,8 +438,8 @@ doTestDoubleConversion
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 

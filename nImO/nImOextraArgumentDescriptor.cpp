@@ -81,8 +81,8 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
-    (const std::string &argName,
-     const std::string &argDescription) :
+    (const std::string &    argName,
+     const std::string &    argDescription) :
         inherited(argName, argDescription, ArgumentMode::Optional)
 {
     ODL_ENTER(); //####
@@ -91,7 +91,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
-    (const ExtraArgumentDescriptor &other) :
+    (const ExtraArgumentDescriptor &    other) :
         inherited(other)
 {
     ODL_ENTER(); //####
@@ -113,7 +113,7 @@ ExtraArgumentDescriptor::~ExtraArgumentDescriptor
 #if 0
 void
 ExtraArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle &container)
+    (yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -128,7 +128,7 @@ ExtraArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<ExtraArgumentDescriptor>(*this);
+    auto    result = std::make_shared<ExtraArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -168,24 +168,24 @@ ExtraArgumentDescriptor::isExtra
 
 SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  defaultString(inVector[3]); // ignored
-        std::string  description(inVector[4]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     defaultString(inVector[3]); // ignored
+        std::string     description(inVector[4]);
 
-        if (typeTag != "E")
+        if ("E" != typeTag)
         {
             okSoFar = false;
         }
@@ -217,7 +217,7 @@ ExtraArgumentDescriptor::setToDefaultValue
 
 void
 ExtraArgumentDescriptor::swap
-    (ExtraArgumentDescriptor &other)
+    (ExtraArgumentDescriptor &  other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -242,7 +242,7 @@ ExtraArgumentDescriptor::validate
     (const std::string &    NOT_USED_(value))
 {
     ODL_OBJENTER(); //####
-    ODL_P1("value = ", &value); //####
+    //ODL_P1("value = ", &value); //####
     _valid = true;
     ODL_B1("_valid <- ", _valid); //####
     ODL_OBJEXIT_B(_valid); //####

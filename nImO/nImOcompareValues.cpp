@@ -96,17 +96,17 @@ nImO::CompareValues::~CompareValues
 
 bool
 nImO::CompareValues::operator()
-    (nImO::SpValue lhs,
-     nImO::SpValue rhs)
-const
+    (nImO::SpValue  lhs,
+     nImO::SpValue  rhs)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P2("lhs = ", lhs.get(), "rhs = ", rhs.get()); //####
-    bool result;
+    bool    result;
 
     if (lhs->enumerationType() == rhs->enumerationType())
     {
-        bool ok = true;
+        bool    ok = true;
 
         result = lhs->lessThan(*rhs, ok);
         result &= ok;

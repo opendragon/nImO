@@ -104,7 +104,7 @@ nImO::Logical::Logical
 } // nImO::Logical::Logical
 
 nImO::Logical::Logical
-    (const nImO::Logical &other) :
+    (const nImO::Logical &  other) :
         inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
@@ -135,16 +135,16 @@ nImO::Logical::asLogical
 
 bool
 nImO::Logical::deeplyEqualTo
-    (const nImO::Value &other)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result = (&other == this);
+    bool    result = (&other == this);
 
     if (! result)
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr != otherPtr)
         {
@@ -161,7 +161,7 @@ nImO::Logical::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable result = Enumerable::Logical;
+    Enumerable  result = Enumerable::Logical;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -169,13 +169,13 @@ nImO::Logical::enumerationType
 
 bool
 nImO::Logical::equalTo
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -184,7 +184,7 @@ nImO::Logical::equalTo
     }
     else
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -217,11 +217,10 @@ nImO::Logical::extractValue
      nImO::SpArray          parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    //ODL_P1("theMessage = ", &theMessage);
+    ODL_P2("position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    auto result = std::make_shared<Logical>(DataKind::OtherLogicalTrueValue ==
-                                            (DataKind::OtherLogicalValueMask & leadByte));
+    auto    result = std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte));
 
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
@@ -239,7 +238,7 @@ nImO::Logical::getCanonicalRepresentation
     (const bool aValue)
 {
     ODL_ENTER(); //####
-    const std::string &result = (aValue ? kCanonicalTrue : kCanonicalFalse);
+    const std::string & result = (aValue ? kCanonicalTrue : kCanonicalFalse);
 
     ODL_EXIT_P(&result); //####
     return result;
@@ -247,9 +246,9 @@ nImO::Logical::getCanonicalRepresentation
 
 void
 nImO::Logical::getExtractionInfo
-    (DataKind               &aByte,
-     DataKind               &aMask,
-     nImO::Value::Extractor &theExtractor)
+    (DataKind &                 aByte,
+     DataKind &                 aMask,
+     nImO::Value::Extractor &   theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -264,7 +263,7 @@ nImO::Logical::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char *initialChars = "ftFT";
+    static const char * initialChars = "ftFT";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -276,7 +275,7 @@ nImO::Logical::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+    DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -284,13 +283,13 @@ nImO::Logical::getTypeTag
 
 bool
 nImO::Logical::greaterThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -300,7 +299,7 @@ nImO::Logical::greaterThan
     }
     else
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -327,13 +326,13 @@ nImO::Logical::greaterThan
 
 bool
 nImO::Logical::greaterThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -342,7 +341,7 @@ nImO::Logical::greaterThanOrEqual
     }
     else
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -369,13 +368,13 @@ nImO::Logical::greaterThanOrEqual
 
 bool
 nImO::Logical::lessThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -385,7 +384,7 @@ nImO::Logical::lessThan
     }
     else
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -412,13 +411,13 @@ nImO::Logical::lessThan
 
 bool
 nImO::Logical::lessThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -427,7 +426,7 @@ nImO::Logical::lessThanOrEqual
     }
     else
     {
-        const Logical *otherPtr = other.asLogical();
+        const Logical * otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -454,7 +453,7 @@ nImO::Logical::lessThanOrEqual
 
 nImO::Logical &
 nImO::Logical::operator =
-    (const nImO::Logical &other)
+    (const nImO::Logical &  other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -485,24 +484,24 @@ nImO::Logical::printToStringBuffer
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    //ODL_B1("squished = ", squished); //####
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer
 
 nImO::SpValue
 nImO::Logical::readFromStringBuffer
-    (const nImO::StringBuffer &inBuffer,
-     size_t                   &position)
+    (const nImO::StringBuffer & inBuffer,
+     size_t &                   position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
-    bool              atEnd;
-    bool              candidateValue = false;
-    SpValue           result;
-    size_t            localIndex = position;
-    int               aChar = inBuffer.getChar(localIndex++, atEnd);
-    const std::string *candidate = nullptr;
+    bool                atEnd;
+    bool                candidateValue = false;
+    SpValue             result;
+    size_t              localIndex = position;
+    int                 aChar = inBuffer.getChar(localIndex++, atEnd);
+    const std::string * candidate = nullptr;
 
     // Select which form of the value that is in the buffer:
     if (! atEnd)
@@ -519,8 +518,8 @@ nImO::Logical::readFromStringBuffer
     }
     if (nullptr != candidate)
     {
-        bool done = false;
-        bool valid = false;
+        bool    done = false;
+        bool    valid = false;
 
         for (size_t ii = 1, len = candidate->length(); ! done; )
         {
@@ -564,14 +563,13 @@ nImO::Logical::readFromStringBuffer
 
 void
 nImO::Logical::writeToMessage
-    (nImO::Message &outMessage)
+    (nImO::Message &    outMessage)
     const
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    DataKind stuff = (DataKind::Other | DataKind::OtherLogical |
-                      (_value ? DataKind::OtherLogicalTrueValue :
-                       DataKind::OtherLogicalFalseValue));
+    DataKind    stuff = (DataKind::Other | DataKind::OtherLogical | (_value ? DataKind::OtherLogicalTrueValue :
+                                                                     DataKind::OtherLogicalFalseValue));
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     ODL_EXIT(); //####

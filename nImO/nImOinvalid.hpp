@@ -79,14 +79,14 @@ namespace nImO
         /*! @brief The constructor.
           @param[in] description A textual description of the problem encountered. */
         explicit Invalid
-            (const std::string &description);
+            (const std::string &    description);
 
         /*! @brief The constructor.
          @param[in] description A textual description of the problem encountered.
          @param[in] associatedValue A number that is concatenated to the description. */
         Invalid
-            (const std::string &description,
-             const int64_t     associatedValue);
+            (const std::string &    description,
+             const int64_t          associatedValue);
         
         /*! @brief The destructor. */
         virtual

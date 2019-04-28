@@ -83,10 +83,10 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const std::string  &defaultValue) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const std::string &    defaultValue) :
         inherited(argName, argDescription, argMode, defaultValue)
 {
     ODL_ENTER(); //####
@@ -96,7 +96,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
-    (const ChannelArgumentDescriptor &other) :
+    (const ChannelArgumentDescriptor &  other) :
         inherited(other)
 {
     ODL_ENTER(); //####
@@ -121,7 +121,7 @@ ChannelArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<ChannelArgumentDescriptor>(*this);
+    auto    result = std::make_shared<ChannelArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -129,24 +129,24 @@ ChannelArgumentDescriptor::clone
 
 SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  defaultString(inVector[3]);
-        std::string  description(inVector[4]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     defaultString(inVector[3]);
+        std::string     description(inVector[4]);
 
-        if (typeTag != "C")
+        if ("C" != typeTag)
         {
             okSoFar = false;
         }
@@ -176,7 +176,7 @@ ChannelArgumentDescriptor::parseArgString
 
 void
 ChannelArgumentDescriptor::swap
-    (ChannelArgumentDescriptor &other)
+    (ChannelArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -198,7 +198,7 @@ ChannelArgumentDescriptor::toString
 
 bool
 ChannelArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
 #if 0

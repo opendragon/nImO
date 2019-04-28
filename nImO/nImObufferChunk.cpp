@@ -117,13 +117,13 @@ nImO::BufferChunk::~BufferChunk
 
 nImO::BufferChunk &
 nImO::BufferChunk::appendData
-    (const void   *data,
-     const size_t numBytes)
+    (const void *   data,
+     const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
     ODL_I1("numBytes = ", numBytes); //####
-    size_t actualCount = ((getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes);
+    size_t  actualCount = ((getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes);
 
     if (0 < actualCount)
     {

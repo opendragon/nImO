@@ -68,7 +68,7 @@
  *<li> Cumulative option (-v verbose, -vv more verbose, -vvv even more verbose):
  *@code int verbosity = options[VERBOSE].count(); @endcode
  *<li> Iterate over all --file=&lt;fname> arguments:
- *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
+ *@code for (Option * opt = options[FILE]; opt; opt = opt->next())
  *fname = opt->arg; ... @endcode
  *<li> If you really want to, you can still process all arguments in order:
  *@code
@@ -133,7 +133,7 @@
  *{0,0,0,0,0,0}
  *};
  *
- *int main(int argc, char* argv[])
+ *int main(int argc, char * argv[])
  *{
  *argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
  *Option_::Stats  stats(usage, argc, argv);
@@ -151,7 +151,7 @@
  *std::cout << "--plus count: " <<
  *options[PLUS].count() << "\n";
  *
- *for (Option_::Option* opt = options[UNKNOWN]; opt; opt = opt->next())
+ *for (Option_::Option * opt = options[UNKNOWN]; opt; opt = opt->next())
  *std::cout << "Unknown option: " << opt->name << "\n";
  *
  *for (int i = 0; i < parse.nonOptionsCount(); ++i)
@@ -449,7 +449,7 @@ namespace Option_
      *@li Cumulative option (-v verbose, -vv more verbose, -vvv even more verbose):
      *@code int verbosity = options[VERBOSE].count(); @endcode
      *@li Iterate over all --file=&lt;fname> arguments:
-     *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
+     *@code for (Option * opt = options[FILE]; opt; opt = opt->next())
      *fname = opt->arg; ... @endcode
      */
     class Option
@@ -473,7 +473,7 @@ namespace Option_
          *...
          *}
          *@endcode
-         *This works because of <code> operator const Option*() </code>.
+         *This works because of <code> operator const Option *() </code>.
          */
         const Descriptor *desc;
 
@@ -726,7 +726,7 @@ namespace Option_
             (Option *new_last);
 
         /**
-         *@brief Casts from Option to const Option* but only if this Option is valid.
+         *@brief Casts from Option to const Option * but only if this Option is valid.
          *
          *If this Option is valid (i.e. @c desc!=nullptr), returns this.
          *Otherwise returns nullptr. This allows testing an Option directly
@@ -738,7 +738,7 @@ namespace Option_
          *}
          *@endcode
          *It also allows you to write loops like this:
-         *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
+         *@code for (Option * opt = options[FILE]; opt; opt = opt->next())
          *fname = opt->arg; ... @endcode
          */
         inline operator const Option *
@@ -749,7 +749,7 @@ namespace Option_
         } // operator const Option *
 
         /**
-         *@brief Casts from Option to Option* but only if this Option is valid.
+         *@brief Casts from Option to Option * but only if this Option is valid.
          *
          *If this Option is valid (i.e. @c desc!=nullptr), returns this.
          *Otherwise returns nullptr. This allows testing an Option directly
@@ -761,7 +761,7 @@ namespace Option_
          *}
          *@endcode
          *It also allows you to write loops like this:
-         *@code for (Option* opt = options[FILE]; opt; opt = opt->next())
+         *@code for (Option * opt = options[FILE]; opt; opt = opt->next())
          *fname = opt->arg; ... @endcode
          */
         inline operator Option *
@@ -857,7 +857,7 @@ namespace Option_
      *@code
      *struct Arg: public Option_::Arg
      *{
-     *static void printError(const char* msg1, const Option_::Option& opt, const char* msg2)
+     *static void printError(const char * msg1, const Option_::Option& opt, const char * msg2)
      *{
      *fprintf(stderr, "ERROR: %s", msg1);
      *fwrite(opt.name, opt.namelen, 1, stderr);
@@ -890,7 +890,7 @@ namespace Option_
      *
      *static Option_::ArgStatus Numeric(const Option_::Option& option, bool msg)
      *{
-     *char* endptr = 0;
+     *char * endptr = 0;
      *if (option.arg != 0 && strtol(option.arg, &endptr, 10)){};
      *if (endptr != option.arg && *endptr == 0)
      *return Option_::ARG_OK;
@@ -1093,7 +1093,7 @@ namespace Option_
      *
      *@par Example:
      *@code
-     *int main(int argc, char* argv[])
+     *int main(int argc, char * argv[])
      *{
      *argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
      *Option_::Stats  stats(usage, argc, argv);
@@ -1410,8 +1410,8 @@ namespace Option_
          */
         static bool
         streq
-            (const char* st1,
-             const char* st2);
+            (const char * st1,
+             const char * st2);
 
         /**
          *@internal
@@ -1583,7 +1583,7 @@ namespace Option_
         /**
          *@internal
          *@brief Encapsulates a function with signature <code>func(string, size)</code> where
-         *string can be initialized with a const char* and size with an int.
+         *string can be initialized with a const char * and size with an int.
          */
         template<typename Function> struct FunctionWriter : public IStringWriter
         {
@@ -1656,7 +1656,7 @@ namespace Option_
          *@internal
          *@brief Encapsulates a function with the signature <code>func(fd, string, size)</code>
          *(the signature of the @c write() system call)
-         *where fd can be initialized from an int, string from a const char* and size from an int.
+         *where fd can be initialized from an int, string from a const char * and size from an int.
          */
         template<typename Syscall> struct SyscallWriter : public IStringWriter
         {
@@ -2205,18 +2205,18 @@ namespace Option_
      *#include <cstdio>    // fwrite()
      *using namespace std;
      *
-     *void my_write(const char* str, int size) {
+     *void my_write(const char * str, int size) {
      *fwrite(str, size, 1, stdout);
      *}
      *
      *struct MyWriter {
-     *void write(const char* buf, size_t size) const {
+     *void write(const char * buf, size_t size) const {
      *fwrite(str, size, 1, stdout);
      *}
      *};
      *
      *struct MyWriteFunctor {
-     *void operator()(const char* buf, size_t size) {
+     *void operator()(const char * buf, size_t size) {
      *fwrite(str, size, 1, stdout);
      *}
      *};

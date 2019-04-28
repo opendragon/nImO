@@ -91,7 +91,7 @@ nImO::Integer::Integer
 } // nImO::Integer::Integer
 
 nImO::Integer::Integer
-    (const int64_t initialValue) :
+    (const int64_t  initialValue) :
         inherited(), _intValue(initialValue)
 {
     ODL_ENTER(); //####
@@ -100,7 +100,7 @@ nImO::Integer::Integer
 } // nImO::Integer::Integer
 
 nImO::Integer::Integer
-    (const nImO::Integer &other) :
+    (const nImO::Integer &  other) :
         inherited(), _intValue(other._intValue)
 {
     ODL_ENTER(); //####
@@ -131,16 +131,16 @@ nImO::Integer::asInteger
 
 bool
 nImO::Integer::deeplyEqualTo
-    (const nImO::Value &other)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result = (&other == this);
+    bool    result = (&other == this);
 
     if (! result)
     {
-        const Integer *otherPtr = other.asInteger();
+        const Integer * otherPtr = other.asInteger();
 
         if (nullptr != otherPtr)
         {
@@ -157,7 +157,7 @@ nImO::Integer::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable result = Enumerable::Integer;
+    Enumerable  result = Enumerable::Integer;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -165,13 +165,13 @@ nImO::Integer::enumerationType
 
 bool
 nImO::Integer::equalTo
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -181,11 +181,11 @@ nImO::Integer::equalTo
     }
     else
     {
-        const Double *doublePtr = other.asDouble();
+        const Double *  doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer *intPtr = other.asInteger();
+            const Integer * intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -219,18 +219,18 @@ nImO::Integer::equalTo
 
 nImO::SpValue
 nImO::Integer::extractValue
-    (const nImO::Message &theMessage,
-     const int           leadByte,
-     size_t              &position,
-     nImO::SpArray       parentValue)
+    (const nImO::Message &  theMessage,
+     const int              leadByte,
+     size_t &               position,
+     nImO::SpArray          parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
            parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    SpValue   result;
-    IntStatus numStatus;
-    int64_t   holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
+    SpValue     result;
+    IntStatus   numStatus;
+    int64_t     holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
 
     if (IntStatus::Successful == numStatus)
     {
@@ -252,9 +252,9 @@ nImO::Integer::extractValue
 
 void
 nImO::Integer::getExtractionInfo
-    (DataKind               &aByte,
-     DataKind               &aMask,
-     nImO::Value::Extractor &theExtractor)
+    (DataKind &                 aByte,
+     DataKind &                 aMask,
+     nImO::Value::Extractor &   theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -270,7 +270,7 @@ nImO::Integer::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind result = DataKind::OtherMessageExpectedIntegerValue;
+    DataKind    result = DataKind::OtherMessageExpectedIntegerValue;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -278,13 +278,13 @@ nImO::Integer::getTypeTag
 
 bool
 nImO::Integer::greaterThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -295,11 +295,11 @@ nImO::Integer::greaterThan
     }
     else
     {
-        const Double *doublePtr = other.asDouble();
+        const Double *  doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer *intPtr = other.asInteger();
+            const Integer * intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -333,13 +333,13 @@ nImO::Integer::greaterThan
 
 bool
 nImO::Integer::greaterThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -349,11 +349,11 @@ nImO::Integer::greaterThanOrEqual
     }
     else
     {
-        const Double *doublePtr = other.asDouble();
+        const Double *  doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer *intPtr = other.asInteger();
+            const Integer * intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -387,13 +387,13 @@ nImO::Integer::greaterThanOrEqual
 
 bool
 nImO::Integer::lessThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -404,11 +404,11 @@ nImO::Integer::lessThan
     }
     else
     {
-        const Double *doublePtr = other.asDouble();
+        const Double *  doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer *intPtr = other.asInteger();
+            const Integer * intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -442,13 +442,13 @@ nImO::Integer::lessThan
 
 bool
 nImO::Integer::lessThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result;
+    bool    result;
 
     if (&other == this)
     {
@@ -458,11 +458,11 @@ nImO::Integer::lessThanOrEqual
     }
     else
     {
-        const Double *doublePtr = other.asDouble();
+        const Double *  doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer *intPtr = other.asInteger();
+            const Integer * intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -502,14 +502,14 @@ nImO::Integer::printToStringBuffer
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    //ODL_B1("squished = ", squished); //####
     outBuffer.addLong(_intValue);
     ODL_OBJEXIT(); //####
 } // nImO::Integer::printToStringBuffer
 
 void
 nImO::Integer::writeToMessage
-    (nImO::Message &outMessage)
+    (nImO::Message &    outMessage)
     const
 {
     ODL_OBJENTER(); //####

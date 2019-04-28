@@ -114,8 +114,8 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithSquishedString
-    (const Value&   aValue,
-     const char*    aString)
+    (const Value &  aValue,
+     const char *   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -139,8 +139,8 @@ compareValueWithSquishedString
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value&   aValue,
-     const char*    aString)
+    (const Value &  aValue,
+     const char *   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -168,14 +168,14 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty array value
+     char **        NOT_USED_(argv)) // empty array value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -236,14 +236,14 @@ doTestEmptyArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular array value
+     char **        NOT_USED_(argv)) // singular array value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -309,14 +309,14 @@ doTestSingularArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small array value
+     char **        NOT_USED_(argv)) // small array value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -391,14 +391,14 @@ doTestSmallArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // big array value
+     char **        NOT_USED_(argv)) // big array value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -420,7 +420,7 @@ doTestBigArrayValue
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t*    addr = bigBlob.get();
+                    uint8_t *   addr = bigBlob.get();
                     uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     if (0 != ii)
@@ -480,14 +480,14 @@ doTestBigArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty map
+     char **        NOT_USED_(argv)) // empty map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -548,14 +548,14 @@ doTestEmptyMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular logical map
+     char **        NOT_USED_(argv)) // singular logical map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -623,14 +623,14 @@ doTestSingularLogicalMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular integer map
+     char **        NOT_USED_(argv)) // singular integer map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -696,14 +696,14 @@ doTestSingularIntegerMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular string map
+     char **        NOT_USED_(argv)) // singular string map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -771,14 +771,14 @@ doTestSingularStringMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small logical map
+     char **        NOT_USED_(argv)) // small logical map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -849,14 +849,14 @@ doTestSmallLogicalMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small integer map
+     char **        NOT_USED_(argv)) // small integer map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -928,14 +928,14 @@ doTestSmallIntegerMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small string map
+     char **        NOT_USED_(argv)) // small string map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1013,14 +1013,14 @@ doTestSmallStringMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty set
+     char **        NOT_USED_(argv)) // empty set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1081,14 +1081,14 @@ doTestEmptySetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular logical set
+     char **        NOT_USED_(argv)) // singular logical set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1154,14 +1154,14 @@ doTestSingularLogicalSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular integer set
+     char **        NOT_USED_(argv)) // singular integer set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1227,14 +1227,14 @@ doTestSingularIntegerSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // singular string set
+     char **        NOT_USED_(argv)) // singular string set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1300,14 +1300,14 @@ doTestSingularStringSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small logical set
+     char **        NOT_USED_(argv)) // small logical set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1378,14 +1378,14 @@ doTestSmallLogicalSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small integer set
+     char **        NOT_USED_(argv)) // small integer set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1464,14 +1464,14 @@ doTestSmallIntegerSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small string set
+     char **        NOT_USED_(argv)) // small string set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1550,14 +1550,14 @@ doTestSmallStringSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with array value
+     char **        NOT_USED_(argv)) // array with array value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1623,14 +1623,14 @@ doTestArrayWithArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with map
+     char **        NOT_USED_(argv)) // array with map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1696,14 +1696,14 @@ doTestArrayWithMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array with set
+     char **        NOT_USED_(argv)) // array with set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1769,14 +1769,14 @@ doTestArrayWithSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithArrayValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // map with array
+     char **        NOT_USED_(argv)) // map with array
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1844,14 +1844,14 @@ doTestMapWithArrayValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithMapValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // map with map
+     char **        NOT_USED_(argv)) // map with map
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1919,14 +1919,14 @@ doTestMapWithMapValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithSetValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // map with set
+     char **        NOT_USED_(argv)) // map with set
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1994,14 +1994,14 @@ doTestMapWithSetValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical map with incompatible keys
+     char **        NOT_USED_(argv)) // logical map with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2072,14 +2072,14 @@ doTestLogicalMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer map with incompatible keys
+     char **        NOT_USED_(argv)) // integer map with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2148,14 +2148,14 @@ doTestIntegerMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string map with incompatible keys
+     char **        NOT_USED_(argv)) // string map with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2226,14 +2226,14 @@ doTestStringMapValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical set with incompatible keys
+     char **        NOT_USED_(argv)) // logical set with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2302,14 +2302,14 @@ doTestLogicalSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer set with incompatible keys
+     char **        NOT_USED_(argv)) // integer set with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2378,14 +2378,14 @@ doTestIntegerSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetValueWithIncompatibleKeys
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string set with incompatible keys
+     char **        NOT_USED_(argv)) // string set with incompatible keys
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2454,14 +2454,14 @@ doTestStringSetValueWithIncompatibleKeys
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidArrayCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid array compares
+     char **        NOT_USED_(argv)) // valid array compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -2545,8 +2545,7 @@ doTestValidArrayCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -2618,8 +2617,7 @@ doTestValidArrayCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -2699,8 +2697,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
-                                                                                       valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
                                 "aValue.lessThanOrEqual(stuff, valid))"); //####
@@ -2714,8 +2711,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                             valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
                                 "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -2774,8 +2770,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
-                                                                                      valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
                                 "stuff.lessThanOrEqual(aValue, valid))"); //####
@@ -2789,8 +2784,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                            valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
                                 "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -2906,8 +2900,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
-                                                                                       valid))
+                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet3l[ii]._lessThanOrEqualResult != " //####
                                 "aValue.lessThanOrEqual(stuff, valid))"); //####
@@ -2921,8 +2914,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                             valid))
+                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet3l[ii]._greaterThanOrEqualResult != " //####
                                 "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -2981,8 +2973,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
-                                                                                      valid))
+                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet3r[ii]._lessThanOrEqualResult != " //####
                                 "stuff.lessThanOrEqual(aValue, valid))"); //####
@@ -2996,8 +2987,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                            valid))
+                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet3r[ii]._greaterThanOrEqualResult != " //####
                                 "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -3029,17 +3019,17 @@ doTestValidArrayCompares
         {
             struct testStrings
             {
-                const char* _testValue;
-                bool        _lessThanResult;
-                bool        _lessThanValid;
-                bool        _greaterThanResult;
-                bool        _greaterThanValid;
-                bool        _lessThanOrEqualResult;
-                bool        _lessThanOrEqualValid;
-                bool        _greaterThanOrEqualResult;
-                bool        _greaterThanOrEqualValid;
-                bool        _equalToResult;
-                bool        _equalToValid;
+                const char *    _testValue;
+                bool            _lessThanResult;
+                bool            _lessThanValid;
+                bool            _greaterThanResult;
+                bool            _greaterThanValid;
+                bool            _lessThanOrEqualResult;
+                bool            _lessThanOrEqualValid;
+                bool            _greaterThanOrEqualResult;
+                bool            _greaterThanOrEqualValid;
+                bool            _equalToResult;
+                bool            _equalToValid;
             }; // testStrings
 
             static testStrings  testSet4l[] =
@@ -3099,8 +3089,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
-                                                                                       valid))
+                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet4l[ii]._lessThanOrEqualResult != " //####
                                 "aValue.lessThanOrEqual(stuff, valid))"); //####
@@ -3114,8 +3103,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                             valid))
+                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet4l[ii]._greaterThanOrEqualResult != " //####
                                 "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -3174,8 +3162,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
-                                                                                      valid))
+                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet4r[ii]._lessThanOrEqualResult != " //####
                                 "stuff.lessThanOrEqual(aValue, valid))"); //####
@@ -3189,8 +3176,7 @@ doTestValidArrayCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                            valid))
+                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet4r[ii]._greaterThanOrEqualResult != " //####
                                 "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -3239,14 +3225,14 @@ doTestValidArrayCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid logical map compares
+     char **        NOT_USED_(argv)) // valid logical map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3330,8 +3316,7 @@ doTestValidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -3403,8 +3388,7 @@ doTestValidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -3484,8 +3468,7 @@ doTestValidLogicalMapCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
-                                                                                       valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
                                 "aValue.lessThanOrEqual(stuff, valid))"); //####
@@ -3499,8 +3482,7 @@ doTestValidLogicalMapCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                             valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
                                 "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -3559,8 +3541,7 @@ doTestValidLogicalMapCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
-                                                                                      valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
                                 "stuff.lessThanOrEqual(aValue, valid))"); //####
@@ -3574,8 +3555,7 @@ doTestValidLogicalMapCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                            valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
                                 "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -3624,14 +3604,14 @@ doTestValidLogicalMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid integer map compares
+     char **        NOT_USED_(argv)) // valid integer map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3735,8 +3715,7 @@ doTestValidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -3808,8 +3787,7 @@ doTestValidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -3857,31 +3835,31 @@ doTestValidIntegerMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid string map compares
+     char **        NOT_USED_(argv)) // valid string map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
     {
         struct testStrings
         {
-            const char* _testValue;
-            bool        _lessThanResult;
-            bool        _lessThanValid;
-            bool        _greaterThanResult;
-            bool        _greaterThanValid;
-            bool        _lessThanOrEqualResult;
-            bool        _lessThanOrEqualValid;
-            bool        _greaterThanOrEqualResult;
-            bool        _greaterThanOrEqualValid;
-            bool        _equalToResult;
-            bool        _equalToValid;
+            const char *    _testValue;
+            bool            _lessThanResult;
+            bool            _lessThanValid;
+            bool            _greaterThanResult;
+            bool            _greaterThanValid;
+            bool            _lessThanOrEqualResult;
+            bool            _lessThanOrEqualValid;
+            bool            _greaterThanOrEqualResult;
+            bool            _greaterThanOrEqualValid;
+            bool            _equalToResult;
+            bool            _equalToValid;
         }; // testStrings
 
         static testStrings  testSet1l[] =
@@ -3954,8 +3932,7 @@ doTestValidStringMapCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -4027,8 +4004,7 @@ doTestValidStringMapCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -4076,14 +4052,14 @@ doTestValidStringMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid logical set compares
+     char **        NOT_USED_(argv)) // valid logical set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4167,8 +4143,7 @@ doTestValidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -4240,8 +4215,7 @@ doTestValidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -4321,8 +4295,7 @@ doTestValidLogicalSetCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff,
-                                                                                       valid))
+                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
                                 "aValue.lessThanOrEqual(stuff, valid))"); //####
@@ -4336,8 +4309,7 @@ doTestValidLogicalSetCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                             valid))
+                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                     {
                         ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
                                 "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -4396,8 +4368,7 @@ doTestValidLogicalSetCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue,
-                                                                                      valid))
+                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
                                 "stuff.lessThanOrEqual(aValue, valid))"); //####
@@ -4411,8 +4382,7 @@ doTestValidLogicalSetCompares
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                            valid))
+                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                     {
                         ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
                                 "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -4461,14 +4431,14 @@ doTestValidLogicalSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid integer set compares
+     char **        NOT_USED_(argv)) // valid integer set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4572,8 +4542,7 @@ doTestValidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -4645,8 +4614,7 @@ doTestValidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -4694,31 +4662,31 @@ doTestValidIntegerSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid string set compares
+     char **        NOT_USED_(argv)) // valid string set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
     {
         struct testStrings
         {
-            const char* _testValue;
-            bool        _lessThanResult;
-            bool        _lessThanValid;
-            bool        _greaterThanResult;
-            bool        _greaterThanValid;
-            bool        _lessThanOrEqualResult;
-            bool        _lessThanOrEqualValid;
-            bool        _greaterThanOrEqualResult;
-            bool        _greaterThanOrEqualValid;
-            bool        _equalToResult;
-            bool        _equalToValid;
+            const char *    _testValue;
+            bool            _lessThanResult;
+            bool            _lessThanValid;
+            bool            _greaterThanResult;
+            bool            _greaterThanValid;
+            bool            _lessThanOrEqualResult;
+            bool            _lessThanOrEqualValid;
+            bool            _greaterThanOrEqualResult;
+            bool            _greaterThanOrEqualValid;
+            bool            _equalToResult;
+            bool            _equalToValid;
         }; // testStrings
 
         static testStrings  testSet1l[] =
@@ -4791,8 +4759,7 @@ doTestValidStringSetCompares
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff,
-                                                                                         valid))
+                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
                 {
                     ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
                             "aValue.greaterThanOrEqual(stuff, valid))"); //####
@@ -4864,8 +4831,7 @@ doTestValidStringSetCompares
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue,
-                                                                                        valid))
+                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
                 {
                     ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
                             "stuff.greaterThanOrEqual(aValue, valid))"); //####
@@ -4913,14 +4879,14 @@ doTestValidStringSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArrayCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid array compares
+     char **        NOT_USED_(argv)) // invalid array compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -4935,7 +4901,7 @@ doTestInvalidArrayCompares
         Map             rightValue6;
         Set             rightValue7;
         Integer         rightValue8;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
@@ -4947,7 +4913,7 @@ doTestInvalidArrayCompares
         leftValue.addValue(std::make_shared<String>());
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5026,14 +4992,14 @@ doTestInvalidArrayCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid logical map compares
+     char **        NOT_USED_(argv)) // invalid logical map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5047,7 +5013,7 @@ doTestInvalidLogicalMapCompares
         Map             rightValue5;
         Set             rightValue6;
         Double          rightValue7;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5058,7 +5024,7 @@ doTestInvalidLogicalMapCompares
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5137,14 +5103,14 @@ doTestInvalidLogicalMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid integer map compares
+     char **        NOT_USED_(argv)) // invalid integer map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5157,7 +5123,7 @@ doTestInvalidIntegerMapCompares
         Array           rightValue4;
         Map             rightValue5;
         Set             rightValue6;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -5168,7 +5134,7 @@ doTestInvalidIntegerMapCompares
         leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5247,14 +5213,14 @@ doTestInvalidIntegerMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringMapCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid string map compares
+     char **        NOT_USED_(argv)) // invalid string map compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5268,7 +5234,7 @@ doTestInvalidStringMapCompares
         Map             rightValue5;
         Set             rightValue6;
         Integer         rightValue7;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5280,7 +5246,7 @@ doTestInvalidStringMapCompares
         leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5359,14 +5325,14 @@ doTestInvalidStringMapCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid logical set compares
+     char **        NOT_USED_(argv)) // invalid logical set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5380,7 +5346,7 @@ doTestInvalidLogicalSetCompares
         Map             rightValue5;
         Set             rightValue6;
         Integer         rightValue7;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5391,7 +5357,7 @@ doTestInvalidLogicalSetCompares
         leftValue.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5470,14 +5436,14 @@ doTestInvalidLogicalSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid integer set compares
+     char **        NOT_USED_(argv)) // invalid integer set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5490,7 +5456,7 @@ doTestInvalidIntegerSetCompares
         Array           rightValue4;
         Map             rightValue5;
         Set             rightValue6;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -5501,7 +5467,7 @@ doTestInvalidIntegerSetCompares
         leftValue.addValue(std::make_shared<Integer>(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5580,14 +5546,14 @@ doTestInvalidIntegerSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringSetCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid string set compares
+     char **        NOT_USED_(argv)) // invalid string set compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5601,7 +5567,7 @@ doTestInvalidStringSetCompares
         Map             rightValue5;
         Set             rightValue6;
         Integer         rightValue7;
-        Value*          rightValues[] =
+        Value *         rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5613,7 +5579,7 @@ doTestInvalidStringSetCompares
         leftValue.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -5692,14 +5658,14 @@ doTestInvalidStringSetCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayIndices
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // array indices
+     char **        NOT_USED_(argv)) // array indices
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5778,8 +5744,7 @@ doTestArrayIndices
         }
         if (0 == result)
         {
-            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) ||
-                (stuff.at(2) != aStringValue))
+            if ((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || (stuff.at(2) != aStringValue))
             {
                 ODL_LOG("((stuff.at(0) != aBoolValue) || (stuff.at(1) != aNumberValue) || " //####
                         "(stuff.at(2) != aStringValue))"); //####
@@ -5807,14 +5772,14 @@ doTestArrayIndices
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical map searches
+     char **        NOT_USED_(argv)) // logical map searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -5909,14 +5874,14 @@ doTestLogicalMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer map searches
+     char **        NOT_USED_(argv)) // integer map searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -6011,14 +5976,14 @@ doTestIntegerMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string map searches
+     char **        NOT_USED_(argv)) // string map searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -6113,14 +6078,14 @@ doTestStringMapSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical set searches
+     char **        NOT_USED_(argv)) // logical set searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -6202,14 +6167,14 @@ doTestLogicalSetSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer set searches
+     char **        NOT_USED_(argv)) // integer set searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -6291,14 +6256,14 @@ doTestIntegerSetSearches
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetSearches
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string set searches
+     char **        NOT_USED_(argv)) // string set searches
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -6383,8 +6348,8 @@ doTestStringSetSearches
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -6513,33 +6478,27 @@ main
                         break;
 
                     case 80 :
-                        result = doTestLogicalMapValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestLogicalMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 81 :
-                        result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 82 :
-                        result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                          argv + 2);
+                        result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 83 :
-                        result = doTestLogicalSetValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestLogicalSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 84 :
-                        result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 85 :
-                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1,
-                                                                           argv + 2);
+                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :

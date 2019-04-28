@@ -1154,7 +1154,7 @@ PrintUsageImplementation::LineWrapper::process
                     }
 
                 }
-                if (ii >= 0)
+                if (0 <= ii)
                 {
                     output(write, data, ii);
                     data += ii + 1;
@@ -1328,9 +1328,9 @@ PrintUsageImplementation::printUsage
                     continue; // drop excess columns (can happen if lastcolumn == maxcolumns-1)
                 }
 
-                if (part.column() == 0)
+                if (0 == part.column())
                 {
-                    if (xx >= 0)
+                    if (0 <= xx)
                     {
                         write("\n", 1);
                     }

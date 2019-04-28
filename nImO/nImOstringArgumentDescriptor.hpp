@@ -80,15 +80,15 @@ namespace nImO
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument. */
         StringArgumentDescriptor
-            (const std::string  &argName,
-             const std::string  &argDescription,
-             const ArgumentMode argMode,
-             const std::string  &defaultValue);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const std::string &    defaultValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         StringArgumentDescriptor
-            (const StringArgumentDescriptor &other);
+            (const StringArgumentDescriptor &   other);
 
         /*! @brief The destructor. */
         virtual
@@ -110,13 +110,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (StringArgumentDescriptor &other);
+            (StringArgumentDescriptor & other);
         
     protected :
 
@@ -134,7 +134,7 @@ namespace nImO
          @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle
-            (yarp::os::Bottle &container)
+            (yarp::os::Bottle & container)
             override;
 #endif//0
 
@@ -172,7 +172,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string &value)
+            (const std::string &    value)
             override;
 
     public :

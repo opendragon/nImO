@@ -84,16 +84,16 @@ namespace nImO
          @param[in] isSystemPort @c true if the value can be a system port and @c false
          otherwise. */
         PortArgumentDescriptor
-            (const std::string  &argName,
-             const std::string  &argDescription,
-             const ArgumentMode argMode,
-             const int          defaultValue,
-             const bool         isSystemPort);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const int              defaultValue,
+             const bool             isSystemPort);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         PortArgumentDescriptor
-            (const PortArgumentDescriptor &other);
+            (const PortArgumentDescriptor & other);
 
         /*! @brief The destructor. */
         virtual
@@ -105,13 +105,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string &inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (PortArgumentDescriptor &other);
+            (PortArgumentDescriptor &   other);
         
     protected :
 
@@ -139,14 +139,14 @@ namespace nImO
     private :
 
         /*! @brief @c true if the value can be a system port and @c false otherwise. */
-        bool _isSystemPort;
+        bool    _isSystemPort;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
         /*! @brief Filler to pad to alignment boundary */
-        char _filler[7];
+        char    _filler[7];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

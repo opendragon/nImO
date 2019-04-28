@@ -81,14 +81,14 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 IntArgumentDescriptor::IntArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const int          defaultValue,
-     const bool         hasMinimumValue,
-     const int          minimumValue,
-     const bool         hasMaximumValue,
-     const int          maximumValue) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const int              defaultValue,
+     const bool             hasMinimumValue,
+     const int              minimumValue,
+     const bool             hasMaximumValue,
+     const int              maximumValue) :
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
         _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
         _hasMinimumValue(hasMinimumValue)
@@ -102,7 +102,7 @@ IntArgumentDescriptor::IntArgumentDescriptor
 } // IntArgumentDescriptor::IntArgumentDescriptor
 
 IntArgumentDescriptor::IntArgumentDescriptor
-    (const IntArgumentDescriptor &other) :
+    (const IntArgumentDescriptor &  other) :
         inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
         _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
         _hasMinimumValue(other._hasMinimumValue)
@@ -126,7 +126,7 @@ IntArgumentDescriptor::~IntArgumentDescriptor
 #if 0
 void
 IntArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle &container)
+    (yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -141,7 +141,7 @@ IntArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<IntArgumentDescriptor>(*this);
+    auto    result = std::make_shared<IntArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -171,29 +171,29 @@ IntArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
 IntArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 5, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        int          defaultValue = 0;
-        int          maxValue;
-        int          minValue = 0;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  minValString(inVector[3]);
-        std::string  maxValString(inVector[4]);
-        std::string  defaultString(inVector[5]);
-        std::string  description(inVector[6]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        int             defaultValue = 0;
+        int             maxValue;
+        int             minValue = 0;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     minValString(inVector[3]);
+        std::string     maxValString(inVector[4]);
+        std::string     defaultString(inVector[5]);
+        std::string     description(inVector[6]);
 
-        if (typeTag != "I")
+        if ("I" != typeTag)
         {
             okSoFar = false;
         }
@@ -247,14 +247,12 @@ IntArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            bool hasMaximumValue = (0 < maxValString.length());
-            bool hasMinimumValue = (0 < minValString.length());
+            bool    hasMaximumValue = (0 < maxValString.length());
+            bool    hasMinimumValue = (0 < minValString.length());
 
             result.reset(new IntArgumentDescriptor(name, description, argMode, defaultValue,
-                                                   hasMinimumValue,
-                                                   hasMinimumValue ? minValue : 0,
-                                                   hasMaximumValue,
-                                                   hasMaximumValue ? maxValue : 0));
+                                                   hasMinimumValue, hasMinimumValue ? minValue : 0,
+                                                   hasMaximumValue, hasMaximumValue ? maxValue : 0));
         }
     }
     ODL_EXIT_P(result.get()); //####
@@ -273,12 +271,11 @@ IntArgumentDescriptor::setToDefaultValue
 
 void
 IntArgumentDescriptor::swap
-    (IntArgumentDescriptor &other)
+    (IntArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     inherited::swap(other);
-    std::swap(_argumentReference, other._argumentReference);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
     std::swap(_maximumValue, other._maximumValue);
@@ -312,7 +309,7 @@ IntArgumentDescriptor::toString
 
 bool
 IntArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
     int64_t intValue;

@@ -79,12 +79,12 @@ namespace nImO
         /*! @brief The constructor.
           @param[in] initialValue The initial value for the object. */
         explicit Integer
-            (const int64_t initialValue);
+            (const int64_t  initialValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         Integer
-            (const Integer &other);
+            (const Integer &    other);
 
         /*! @brief The destructor. */
         virtual
@@ -104,7 +104,7 @@ namespace nImO
          @returns @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
-            (const Value &other)
+            (const Value &  other)
             const
             override;
 
@@ -123,8 +123,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         equalTo
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -134,9 +134,9 @@ namespace nImO
          @param[out] theExtractor The function to perform when the lead byte is seen. */
         static void
         getExtractionInfo
-            (DataKind  &aByte,
-             DataKind  &aMask,
-             Extractor &theExtractor);
+            (DataKind &     aByte,
+             DataKind &     aMask,
+             Extractor &    theExtractor);
 
         /*! @brief Return the value of the object.
          @returns The value of the object. */
@@ -163,8 +163,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -175,8 +175,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         greaterThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -187,8 +187,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThan
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -199,8 +199,8 @@ namespace nImO
          @returns The relative ordering of the two Values. */
         virtual bool
         lessThanOrEqual
-            (const Value &other,
-             bool        &validComparison)
+            (const Value &  other,
+             bool &         validComparison)
             const
             override;
 
@@ -209,7 +209,7 @@ namespace nImO
          @returns The updated object. */
         inline Integer &
         operator =
-            (const Integer &other)
+            (const Integer &    other)
         {
             if (this != &other)
             {
@@ -223,7 +223,7 @@ namespace nImO
          @returns The updated object. */
         inline Integer &
         operator =
-            (const int64_t value)
+            (const int64_t  value)
         {
             _intValue = value;
             return *this;
@@ -235,8 +235,8 @@ namespace nImO
          is as readable as possible. */
         virtual void
         printToStringBuffer
-            (StringBuffer &outBuffer,
-             const bool   squished = false)
+            (StringBuffer & outBuffer,
+             const bool     squished = false)
             const
             override;
 
@@ -244,7 +244,7 @@ namespace nImO
          @param[in,out] outMessage The Message to be appended to. */
         virtual void
         writeToMessage
-            (Message &outMessage)
+            (Message &  outMessage)
             const
             override;
 
@@ -269,10 +269,10 @@ namespace nImO
          a non-Flaw Value if extraction was successful. */
         static SpValue
         extractValue
-            (const Message &theMessage,
-             const int     leadByte,
-             size_t        &position,
-             SpArray       parentValue);
+            (const Message &    theMessage,
+             const int          leadByte,
+             size_t &           position,
+             SpArray            parentValue);
 
     public :
         // Public fields.

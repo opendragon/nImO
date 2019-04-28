@@ -81,10 +81,10 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 BoolArgumentDescriptor::BoolArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const bool         defaultValue) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const bool             defaultValue) :
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
@@ -94,7 +94,7 @@ BoolArgumentDescriptor::BoolArgumentDescriptor
 } // BoolArgumentDescriptor::BoolArgumentDescriptor
 
 BoolArgumentDescriptor::BoolArgumentDescriptor
-    (const BoolArgumentDescriptor &other) :
+    (const BoolArgumentDescriptor & other) :
         inherited(other), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
@@ -116,7 +116,7 @@ BoolArgumentDescriptor::~BoolArgumentDescriptor
 #if 0
 void
 BoolArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle &container)
+    (yarp::os::Bottle & container)
 {
     ODL_ENTER(); //####
     ODL_P1("container = ", &container); //####
@@ -131,7 +131,7 @@ BoolArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<BoolArgumentDescriptor>(*this);
+    auto    result = std::make_shared<BoolArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -171,25 +171,25 @@ BoolArgumentDescriptor::isLogical
 
 SpBaseArgumentDescriptor
 BoolArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode argMode;
-        bool         okSoFar = true;
-        bool         defaultValue;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  defaultString(inVector[3]);
-        std::string  description(inVector[4]);
+        ArgumentMode    argMode;
+        bool            okSoFar = true;
+        bool            defaultValue;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     defaultString(inVector[3]);
+        std::string     description(inVector[4]);
 
-        if (typeTag != "B")
+        if ("B" != typeTag)
         {
             okSoFar = false;
         }
@@ -245,12 +245,11 @@ BoolArgumentDescriptor::setToDefaultValue
 
 void
 BoolArgumentDescriptor::swap
-    (BoolArgumentDescriptor &other)
+    (BoolArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     inherited::swap(other);
-    std::swap(_argumentReference, other._argumentReference);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
     ODL_OBJEXIT(); //####
@@ -270,11 +269,11 @@ BoolArgumentDescriptor::toString
 
 bool
 BoolArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    bool boolValue;
-    char firstChar = tolower(value[0]);
+    bool    boolValue;
+    char    firstChar = tolower(value[0]);
 
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {

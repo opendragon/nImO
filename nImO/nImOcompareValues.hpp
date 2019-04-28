@@ -86,7 +86,7 @@ namespace nImO
         operator()
             (SpValue    lhs,
              SpValue    rhs)
-        const;
+            const;
 
     protected :
         // Protected methods.

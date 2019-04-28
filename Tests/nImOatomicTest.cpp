@@ -83,6 +83,8 @@ static const size_t kSmallTestSize = 100;
 /*! @brief The number of elements in a big test. */
 static const size_t kBigTestSize = 100000;
 
+static char kHexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -115,17 +117,17 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value&   aValue,
-     const char*    aString)
+    (const Value &  aValue,
+     const char *   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
-    StringBuffer buff;
-    int          result;
+    StringBuffer    buff;
+    int             result;
 
     aValue.printToStringBuffer(buff);
-    auto valString(buff.getString());
+    auto    valString(buff.getString());
 
     result = valString.compare(aString);
     ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
@@ -144,14 +146,14 @@ compareValueWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBufferChunk
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty buffer chunk
+     char **        NOT_USED_(argv)) // empty buffer chunk
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -194,14 +196,14 @@ doTestEmptyBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkWithSingleByte
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // buffer chunk with 1 byte of data
+     char **        NOT_USED_(argv)) // buffer chunk with 1 byte of data
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -215,7 +217,7 @@ doTestBufferChunkWithSingleByte
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                const uint8_t*  storedData = stuff->getData();
+                const uint8_t * storedData = stuff->getData();
 
                 if (storedData && (data == *storedData))
                 {
@@ -256,14 +258,14 @@ doTestBufferChunkWithSingleByte
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestFilledBufferChunk
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // buffer chunk filled with data
+     char **        NOT_USED_(argv)) // buffer chunk filled with data
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -286,7 +288,7 @@ doTestFilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t*  storedData = stuff->getData();
+                    const uint8_t * storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -344,14 +346,14 @@ doTestFilledBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestOverfilledBufferChunk
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // buffer chunk overfilled with data
+     char **        NOT_USED_(argv)) // buffer chunk overfilled with data
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -374,7 +376,7 @@ doTestOverfilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t*  storedData = stuff->getData();
+                    const uint8_t * storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -432,14 +434,14 @@ doTestOverfilledBufferChunk
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkReset
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // resetting buffer chunk
+     char **        NOT_USED_(argv)) // resetting buffer chunk
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -493,14 +495,14 @@ doTestBufferChunkReset
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringBuffer
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // empty string buffer
+     char **        NOT_USED_(argv)) // empty string buffer
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -553,24 +555,24 @@ doTestEmptyStringBuffer
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithCharacters
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string buffer with character string
+     char **        argv) // string buffer with character string
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* inString = *argv;
-            const char* outString = argv[1];
-            size_t      outLength = strlen(outString);
-            auto        stuff(make_unique<StringBuffer>());
+            const char *    inString = *argv;
+            const char *    outString = argv[1];
+            size_t          outLength = strlen(outString);
+            auto            stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
@@ -579,7 +581,7 @@ doTestStringBufferWithCharacters
 
                 if (resultLength == outLength)
                 {
-                    auto resultString(stuff->getString());
+                    auto    resultString(stuff->getString());
 
                     if (0 == resultString.compare(outString))
                     {
@@ -627,22 +629,22 @@ doTestStringBufferWithCharacters
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithLogical
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string buffer with logical
+     char **        argv) // string buffer with logical
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* outString = argv[1];
-            int64_t     value;
+            const char *    outString = argv[1];
+            int64_t         value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -653,7 +655,7 @@ doTestStringBufferWithLogical
                     bool asBool = (0 != value);
 
                     stuff->addBool(asBool);
-                    auto resultString(stuff->getString());
+                    auto    resultString(stuff->getString());
 
                     if (0 == resultString.compare(outString))
                     {
@@ -699,22 +701,22 @@ doTestStringBufferWithLogical
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithInteger
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string buffer with integer
+     char **        argv) // string buffer with integer
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* outString = argv[1];
-            int64_t     value;
+            const char *    outString = argv[1];
+            int64_t         value;
 
             if (ConvertToInt64(*argv, value))
             {
@@ -723,7 +725,7 @@ doTestStringBufferWithInteger
                 if (stuff)
                 {
                     stuff->addLong(value);
-                    auto resultString(stuff->getString());
+                    auto    resultString(stuff->getString());
 
                     if (0 == resultString.compare(outString))
                     {
@@ -769,24 +771,24 @@ doTestStringBufferWithInteger
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithString
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string buffer with string
+     char **        argv) // string buffer with string
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* inString = *argv;
-            const char* outString = argv[1];
-            size_t      outLength = strlen(outString);
-            auto        stuff(make_unique<StringBuffer>());
+            const char *    inString = *argv;
+            const char *    outString = argv[1];
+            size_t          outLength = strlen(outString);
+            auto            stuff(make_unique<StringBuffer>());
 
             if (stuff)
             {
@@ -795,7 +797,7 @@ doTestStringBufferWithString
 
                 if (resultLength == outLength)
                 {
-                    auto resultString(stuff->getString());
+                    auto    resultString(stuff->getString());
 
                     if (0 == resultString.compare(outString))
                     {
@@ -841,22 +843,22 @@ doTestStringBufferWithString
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSpecialCharacters
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string buffer with special chars
+     char **        NOT_USED_(argv)) // string buffer with special chars
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
-        const char* inString = "abc\tdef\f\rghi\302";
-        const char* outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t      outLength = strlen(outString);
-        auto        stuff(make_unique<StringBuffer>());
+        const char *    inString = "abc\tdef\f\rghi\302";
+        const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t          outLength = strlen(outString);
+        auto            stuff(make_unique<StringBuffer>());
 
         if (stuff)
         {
@@ -865,7 +867,7 @@ doTestStringBufferWithSpecialCharacters
 
             if (resultLength == outLength)
             {
-                auto resultString(stuff->getString());
+                auto    resultString(stuff->getString());
 
                 if (0 == resultString.compare(outString))
                 {
@@ -906,22 +908,22 @@ doTestStringBufferWithSpecialCharacters
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithDouble
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string buffer with floating point
+     char **        argv) // string buffer with floating point
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* outString = argv[1];
-            double      value;
+            const char *    outString = argv[1];
+            double          value;
 
             if (ConvertToDouble(*argv, value))
             {
@@ -935,14 +937,14 @@ doTestStringBufferWithDouble
 
                     for (result = 0; *outString && resultString[ii]; ++outString, ++ii)
                     {
-                        char outChar = tolower(*outString);
-                        char resultChar = tolower(resultString[ii]);
+                        char    outChar = tolower(*outString);
+                        char    resultChar = tolower(resultString[ii]);
 
                         if (outChar != resultChar)
                         {
                             break;
-                        }
 
+                        }
                     }
                     if (*outString || resultString[ii])
                     {
@@ -985,14 +987,14 @@ doTestStringBufferWithDouble
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigStringBuffer
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // big string buffer
+     char **        NOT_USED_(argv)) // big string buffer
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1001,8 +1003,8 @@ doTestBigStringBuffer
 
         if (stuff)
         {
-            const char* bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
-            size_t      bigLength = strlen(bigString);
+            const char *    bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
+            size_t          bigLength = strlen(bigString);
 
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -1016,8 +1018,7 @@ doTestBigStringBuffer
                 auto bytes = resultString.data();
 
                 result = 0;
-                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii);
-                     ++ii, bytes += bigLength)
+                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii, bytes += bigLength)
                 {
                     if (0 != CompareBytes(bigString, bytes, bigLength))
                     {
@@ -1056,14 +1057,14 @@ doTestBigStringBuffer
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithEmptyBlob
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string buffer with empty blob
+     char **        NOT_USED_(argv)) // string buffer with empty blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1073,8 +1074,8 @@ doTestStringBufferWithEmptyBlob
         if (stuff)
         {
             stuff->addBytes(nullptr, 0);
-            auto        resultString(stuff->getString());
-            const char* expectedString = "%0%%";
+            auto            resultString(stuff->getString());
+            const char *    expectedString = "%0%%";
 
             if (0 == resultString.compare(expectedString))
             {
@@ -1110,14 +1111,14 @@ doTestStringBufferWithEmptyBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSmallBlob
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string buffer with small blob
+     char **        NOT_USED_(argv)) // string buffer with small blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1132,7 +1133,7 @@ doTestStringBufferWithSmallBlob
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t*    addr = smallBlob.get();
+                    uint8_t *   addr = smallBlob.get();
                     uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     smallBlob[ii] = aByte;
@@ -1144,11 +1145,9 @@ doTestStringBufferWithSmallBlob
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    uint8_t aByte = smallBlob[ii];
+                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
+                    char    lowByte = kHexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1193,14 +1192,14 @@ doTestStringBufferWithSmallBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithBigBlob
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string buffer with big blob
+     char **        NOT_USED_(argv)) // string buffer with big blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1215,7 +1214,7 @@ doTestStringBufferWithBigBlob
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t*    addr = bigBlob.get();
+                    uint8_t *   addr = bigBlob.get();
                     uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
 
                     bigBlob[ii] = aByte;
@@ -1227,11 +1226,9 @@ doTestStringBufferWithBigBlob
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    uint8_t aByte = bigBlob[ii];
+                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
+                    char    lowByte = kHexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1276,14 +1273,14 @@ doTestStringBufferWithBigBlob
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferReset
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // resetting string buffer
+     char **        NOT_USED_(argv)) // resetting string buffer
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1298,7 +1295,7 @@ doTestStringBufferReset
 
             if (0 == resultLength)
             {
-                auto resultString(stuff->getString());
+                auto    resultString(stuff->getString());
 
                 if (0 == resultString.length())
                 {
@@ -1339,14 +1336,14 @@ doTestStringBufferReset
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultLogicalValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // default logical value
+     char **        NOT_USED_(argv)) // default logical value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1389,22 +1386,22 @@ doTestDefaultLogicalValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // logical values
+     char **        argv) // logical values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* outString = argv[1];
-            int64_t     value;
+            const char *    outString = argv[1];
+            int64_t         value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -1456,14 +1453,14 @@ doTestLogicalValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultIntegerValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // default integer value
+     char **        NOT_USED_(argv)) // default integer value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1507,22 +1504,22 @@ doTestDefaultIntegerValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestNumberValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // number values
+     char **        argv) // number values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
         if (1 < argc)
         {
-            const char* outString = argv[1];
-            int64_t     intValue;
+            const char *    outString = argv[1];
+            int64_t         intValue;
 
             if (ConvertToInt64(*argv, intValue))
             {
@@ -1599,14 +1596,14 @@ doTestNumberValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultStringValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // default string value
+     char **        NOT_USED_(argv)) // default string value
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1649,14 +1646,14 @@ doTestDefaultStringValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char**         argv) // string values
+     char **        argv) // string values
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1706,21 +1703,21 @@ doTestStringValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValueWithEscapes
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string value with escapes
+     char **        NOT_USED_(argv)) // string value with escapes
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
     {
-        const char* inString = "abc\tdef\f\rghi\302";
-        const char* outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        auto        stuff(make_unique<String>(inString));
+        const char *    inString = "abc\tdef\f\rghi\302";
+        const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        auto            stuff(make_unique<String>(inString));
 
         if (stuff)
         {
@@ -1758,14 +1755,14 @@ doTestStringValueWithEscapes
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultBlobValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // default blob
+     char **        NOT_USED_(argv)) // default blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1808,14 +1805,14 @@ doTestDefaultBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // small blob
+     char **        NOT_USED_(argv)) // small blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1826,8 +1823,7 @@ doTestSmallBlobValue
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
-                                                     ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
@@ -1840,11 +1836,9 @@ doTestSmallBlobValue
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = smallBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    uint8_t aByte = smallBlob[ii];
+                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
+                    char    lowByte = kHexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1890,14 +1884,14 @@ doTestSmallBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBigBlobValue
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // big blob
+     char **        NOT_USED_(argv)) // big blob
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -1908,8 +1902,7 @@ doTestBigBlobValue
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^
-                                                     ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
@@ -1922,11 +1915,9 @@ doTestBigBlobValue
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                                                '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-                    uint8_t     aByte = bigBlob[ii];
-                    char        highByte = hexDigits[(aByte >> 4) & 0x0F];
-                    char        lowByte = hexDigits[aByte & 0x0F];
+                    uint8_t aByte = bigBlob[ii];
+                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
+                    char    lowByte = kHexDigits[aByte & 0x0F];
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1972,14 +1963,14 @@ doTestBigBlobValue
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalCopyAndAssign
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // logical copy and assign
+     char **        NOT_USED_(argv)) // logical copy and assign
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result;
 
     try
@@ -1992,8 +1983,7 @@ doTestLogicalCopyAndAssign
             Logical falseCopy(falseStuff);
             Logical trueCopy(trueStuff);
 
-            if ((falseCopy.getValue() == falseStuff.getValue()) &&
-                (trueCopy.getValue() == trueStuff.getValue()))
+            if ((falseCopy.getValue() == falseStuff.getValue()) && (trueCopy.getValue() == trueStuff.getValue()))
             {
                 falseCopy = trueStuff;
                 trueCopy = falseStuff;
@@ -2042,14 +2032,14 @@ doTestLogicalCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerCopyAndAssign
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // integer copy and assign
+     char **        NOT_USED_(argv)) // integer copy and assign
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2132,14 +2122,14 @@ doTestIntegerCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleCopyAndAssign
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // floating point copy and assign
+     char **        NOT_USED_(argv)) // floating point copy and assign
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2221,14 +2211,14 @@ doTestDoubleCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestStringCopyAndAssign
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // string copy and assign
+     char **        NOT_USED_(argv)) // string copy and assign
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2236,19 +2226,16 @@ doTestStringCopyAndAssign
         String emptyString;
         String shortString("alphabetagamma");
 
-        if ((0 == emptyString.getValue().length()) &&
-            (shortString.getValue() == "alphabetagamma"))
+        if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"))
         {
-            String emptyCopy(emptyString);
-            String shortCopy(shortString);
+            String  emptyCopy(emptyString);
+            String  shortCopy(shortString);
 
-            if ((emptyCopy.getValue() == emptyString.getValue()) &&
-                (shortCopy.getValue() == shortString.getValue()))
+            if ((emptyCopy.getValue() == emptyString.getValue()) && (shortCopy.getValue() == shortString.getValue()))
             {
                 emptyCopy = shortString;
                 shortCopy = emptyString;
-                if ((emptyCopy.getValue() == shortString.getValue()) &&
-                    (shortCopy.getValue() == emptyString.getValue()))
+                if ((emptyCopy.getValue() == shortString.getValue()) && (shortCopy.getValue() == emptyString.getValue()))
                 {
                     result = 0;
                 }
@@ -2293,14 +2280,14 @@ doTestStringCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestBlobCopyAndAssign
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // blob copy and assign
+     char **        NOT_USED_(argv)) // blob copy and assign
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 1;
 
     try
@@ -2312,15 +2299,13 @@ doTestBlobCopyAndAssign
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^
-                                                     ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^
-                                                     ii);
+                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
@@ -2328,14 +2313,13 @@ doTestBlobCopyAndAssign
             Blob            bigStuff(bigBlob.get(), kBigTestSize);
             size_t          smallLength = 0;
             size_t          bigLength = 0;
-            const uint8_t*  smallValue = smallStuff.getValue(smallLength);
-            const uint8_t*  bigValue = bigStuff.getValue(bigLength);
+            const uint8_t * smallValue = smallStuff.getValue(smallLength);
+            const uint8_t * bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(),
-                                                       kSmallTestSize));
+                result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
             }
             if (0 == result)
             {
@@ -2347,8 +2331,8 @@ doTestBlobCopyAndAssign
             }
             if (0 == result)
             {
-                Blob smallCopy(smallStuff);
-                Blob bigCopy(bigStuff);
+                Blob    smallCopy(smallStuff);
+                Blob    bigCopy(bigStuff);
 
                 smallLength = bigLength = 0;
                 smallValue = smallCopy.getValue(smallLength);
@@ -2356,16 +2340,14 @@ doTestBlobCopyAndAssign
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(),
-                                                           kSmallTestSize));
+                    result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(),
-                                                               kBigTestSize));
+                        result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
                     }
                 }
                 if (0 == result)
@@ -2378,16 +2360,14 @@ doTestBlobCopyAndAssign
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = static_cast<int>(CompareBytes(smallValue, bigBlob.get(),
-                                                               kBigTestSize));
+                        result = static_cast<int>(CompareBytes(smallValue, bigBlob.get(), kBigTestSize));
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = static_cast<int>(CompareBytes(bigValue, smallBlob.get(),
-                                                                   kSmallTestSize));
+                            result = static_cast<int>(CompareBytes(bigValue, smallBlob.get(), kSmallTestSize));
                         }
                     }
                 }
@@ -2414,32 +2394,32 @@ doTestBlobCopyAndAssign
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid logical compares
+     char **        NOT_USED_(argv)) // valid logical compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
     {
         struct tests
         {
-            bool _leftValue;
-            bool _rightValue;
-            bool _lessThanResult;
-            bool _lessThanValid;
-            bool _greaterThanResult;
-            bool _greaterThanValid;
-            bool _lessThanOrEqualResult;
-            bool _lessThanOrEqualValid;
-            bool _greaterThanOrEqualResult;
-            bool _greaterThanOrEqualValid;
-            bool _equalToResult;
-            bool _equalToValid;
+            bool    _leftValue;
+            bool    _rightValue;
+            bool    _lessThanResult;
+            bool    _lessThanValid;
+            bool    _greaterThanResult;
+            bool    _greaterThanValid;
+            bool    _lessThanOrEqualResult;
+            bool    _lessThanOrEqualValid;
+            bool    _greaterThanOrEqualResult;
+            bool    _greaterThanOrEqualValid;
+            bool    _equalToResult;
+            bool    _equalToValid;
         }; // tests
 
         const tests testSet[] =
@@ -2487,8 +2467,7 @@ doTestValidLogicalCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                    valid))
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -2503,8 +2482,7 @@ doTestValidLogicalCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -2553,14 +2531,14 @@ doTestValidLogicalCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidNumberCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid number compares
+     char **        NOT_USED_(argv)) // valid number compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -2710,8 +2688,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet1[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                     valid))
+                if (testSet1[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet1[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -2726,8 +2703,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet1[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet1[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet1[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -2790,8 +2766,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet2[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                     valid))
+                if (testSet2[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet2[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -2806,8 +2781,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet2[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet2[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet2[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -2870,8 +2844,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet3[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                     valid))
+                if (testSet3[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet3[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -2886,8 +2859,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet3[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet3[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet3[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -2950,8 +2922,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet4[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                     valid))
+                if (testSet4[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet4[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -2966,8 +2937,7 @@ doTestValidNumberCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet4[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet4[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet4[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -3016,32 +2986,32 @@ doTestValidNumberCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid string compares
+     char **        NOT_USED_(argv)) // valid string compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
     {
         struct tests
         {
-            const char* _leftValue;
-            const char* _rightValue;
-            bool        _lessThanResult;
-            bool        _lessThanValid;
-            bool        _greaterThanResult;
-            bool        _greaterThanValid;
-            bool        _lessThanOrEqualResult;
-            bool        _lessThanOrEqualValid;
-            bool        _greaterThanOrEqualResult;
-            bool        _greaterThanOrEqualValid;
-            bool        _equalToResult;
-            bool        _equalToValid;
+            const char *    _leftValue;
+            const char *    _rightValue;
+            bool            _lessThanResult;
+            bool            _lessThanValid;
+            bool            _greaterThanResult;
+            bool            _greaterThanValid;
+            bool            _lessThanOrEqualResult;
+            bool            _lessThanOrEqualValid;
+            bool            _greaterThanOrEqualResult;
+            bool            _greaterThanOrEqualValid;
+            bool            _equalToResult;
+            bool            _equalToValid;
         }; // tests
 
         const tests testSet[] =
@@ -3093,8 +3063,7 @@ doTestValidStringCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                    valid))
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -3109,8 +3078,7 @@ doTestValidStringCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -3159,45 +3127,45 @@ doTestValidStringCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestValidBlobCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // valid blob compares
+     char **        NOT_USED_(argv)) // valid blob compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
     {
         struct tests
         {
-            const Blob* _leftValue;
-            const Blob* _rightValue;
-            bool        _lessThanResult;
-            bool        _lessThanValid;
-            bool        _greaterThanResult;
-            bool        _greaterThanValid;
-            bool        _lessThanOrEqualResult;
-            bool        _lessThanOrEqualValid;
-            bool        _greaterThanOrEqualResult;
-            bool        _greaterThanOrEqualValid;
-            bool        _equalToResult;
-            bool        _equalToValid;
+            const Blob *    _leftValue;
+            const Blob *    _rightValue;
+            bool            _lessThanResult;
+            bool            _lessThanValid;
+            bool            _greaterThanResult;
+            bool            _greaterThanValid;
+            bool            _lessThanOrEqualResult;
+            bool            _lessThanOrEqualValid;
+            bool            _greaterThanOrEqualResult;
+            bool            _greaterThanOrEqualValid;
+            bool            _equalToResult;
+            bool            _equalToValid;
         }; // tests
 
-        const uint8_t blobData1[] = { 1, 2, 3, 4, 5, 6 };
-        const uint8_t blobData2[] = { 1, 2, 3, 4, 5, 6, 7 };
-        const uint8_t blobData3[] = { 1, 2, 3, 4, 5, 7 };
-        const size_t  blobSize1 = A_SIZE(blobData1);
-        const size_t  blobSize2 = A_SIZE(blobData2);
-        const size_t  blobSize3 = A_SIZE(blobData3);
-        Blob          blob0;
-        Blob          blob1(blobData1, blobSize1);
-        Blob          blob2(blobData2, blobSize2);
-        Blob          blob3(blobData3, blobSize3);
-        const tests   testSet[] =
+        const uint8_t   blobData1[] = { 1, 2, 3, 4, 5, 6 };
+        const uint8_t   blobData2[] = { 1, 2, 3, 4, 5, 6, 7 };
+        const uint8_t   blobData3[] = { 1, 2, 3, 4, 5, 7 };
+        const size_t    blobSize1 = A_SIZE(blobData1);
+        const size_t    blobSize2 = A_SIZE(blobData2);
+        const size_t    blobSize3 = A_SIZE(blobData3);
+        Blob            blob0;
+        Blob            blob1(blobData1, blobSize1);
+        Blob            blob2(blobData2, blobSize2);
+        Blob            blob3(blobData3, blobSize3);
+        const tests     testSet[] =
         {
             // left   right   <            >            <=           >=           ==
             { &blob0, &blob0, false, true, false, true, true,  true, true,  true, true,  true },
@@ -3213,9 +3181,9 @@ doTestValidBlobCompares
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            bool       valid = false;
-            const Blob &leftValue = *testSet[ii]._leftValue;
-            const Blob &rightValue = *testSet[ii]._rightValue;
+            bool            valid = false;
+            const Blob &    leftValue = *testSet[ii]._leftValue;
+            const Blob &    rightValue = *testSet[ii]._rightValue;
 
             if (testSet[ii]._lessThanResult != leftValue.lessThan(rightValue, valid))
             {
@@ -3246,8 +3214,7 @@ doTestValidBlobCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue,
-                                                                                    valid))
+                if (testSet[ii]._lessThanOrEqualResult != leftValue.lessThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._lessThanOrEqualResult != " //####
                             "leftValue.lessThanOrEqual(rightValue, valid))"); //####
@@ -3262,8 +3229,7 @@ doTestValidBlobCompares
             if (0 == result)
             {
                 valid = false;
-                if (testSet[ii]._greaterThanOrEqualResult !=
-                    leftValue.greaterThanOrEqual(rightValue, valid))
+                if (testSet[ii]._greaterThanOrEqualResult != leftValue.greaterThanOrEqual(rightValue, valid))
                 {
                     ODL_LOG("(testSet[ii]._greaterThanOrEqualResult != " //####
                             "leftValue.greaterThanOrEqual(rightValue, valid))"); //####
@@ -3312,14 +3278,14 @@ doTestValidBlobCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid logical compares
+     char **        NOT_USED_(argv)) // invalid logical compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3329,12 +3295,12 @@ doTestInvalidLogicalCompares
         Number          rightValue1;
         String          rightValue2;
         Blob            rightValue3;
-        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Value *         rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3413,14 +3379,14 @@ doTestInvalidLogicalCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidNumberCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid number compares
+     char **        NOT_USED_(argv)) // invalid number compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3430,12 +3396,12 @@ doTestInvalidNumberCompares
         Logical         rightValue1;
         String          rightValue2;
         Blob            rightValue3;
-        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Value *         rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3514,14 +3480,14 @@ doTestInvalidNumberCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid string compares
+     char **        NOT_USED_(argv)) // invalid string compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3531,12 +3497,12 @@ doTestInvalidStringCompares
         Logical         rightValue1;
         Number          rightValue2;
         Blob            rightValue3;
-        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Value *         rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3615,14 +3581,14 @@ doTestInvalidStringCompares
  @returns @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidBlobCompares
-    (const char*    NOT_USED_(launchPath),
+    (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char**         NOT_USED_(argv)) // invalid blob compares
+     char **        NOT_USED_(argv)) // invalid blob compares
 {
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     int result = 0;
 
     try
@@ -3632,12 +3598,12 @@ doTestInvalidBlobCompares
         Logical         rightValue1;
         Number          rightValue2;
         String          rightValue3;
-        Value*          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Value *         rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t    numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value&  aRightValue = *rightValues[ii];
+            Value & aRightValue = *rightValues[ii];
 
             valid = false;
             leftValue.lessThan(aRightValue, valid);
@@ -3719,8 +3685,8 @@ doTestInvalidBlobCompares
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 

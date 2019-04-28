@@ -94,19 +94,19 @@ namespace nImO
          maximum and @c false otherwise.
          @param[in] maximumValue The maximum value that is acceptable. */
         DoubleArgumentDescriptor
-            (const std::string& argName,
-             const std::string& argDescription,
-             const ArgumentMode argMode,
-             const double       defaultValue,
-             const bool         hasMinimumValue,
-             const double       minimumValue,
-             const bool         hasMaximumValue,
-             const double       maximumValue);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const double           defaultValue,
+             const bool             hasMinimumValue,
+             const double           minimumValue,
+             const bool             hasMaximumValue,
+             const double           maximumValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         DoubleArgumentDescriptor
-            (const DoubleArgumentDescriptor&    other);
+            (const DoubleArgumentDescriptor &   other);
 
         /*! @brief The destructor. */
         virtual
@@ -128,13 +128,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string& inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (DoubleArgumentDescriptor&  other);
+            (DoubleArgumentDescriptor & other);
 
     protected :
 
@@ -145,7 +145,7 @@ namespace nImO
          @param[in,out] container The bottle to be modified. */
         virtual void
         addValueToBottle
-            (yarp::os::Bottle&  container)
+            (yarp::os::Bottle & container)
             override;
 #endif//0
 
@@ -190,7 +190,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string& value)
+            (const std::string &    value)
             override;
 
     public :

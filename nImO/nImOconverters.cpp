@@ -81,8 +81,8 @@ using namespace nImO;
  @param[in] bufferSize The number of elements in the array. */
 static void
 swapBytes
-    (uint8_t      *buffer,
-     const size_t bufferSize)
+    (uint8_t *      buffer,
+     const size_t   bufferSize)
 {
     for (size_t ii = 0; ii < (bufferSize / 2); ++ii)
     {
@@ -108,9 +108,9 @@ swapBytes
 
 size_t
 nImO::ConvertDoubleToPacketOrder
-    (uint8_t       *start,
-     const uint8_t *end,
-     const double  value)
+    (uint8_t *          start,
+     const uint8_t *    end,
+     const double       value)
 {
     size_t  result;
 
@@ -146,9 +146,9 @@ nImO::ConvertDoubleToPacketOrder
 
 size_t
 nImO::ConvertInt64ToPacketOrder
-    (uint8_t       *start,
-     const uint8_t *end,
-     const int64_t value)
+    (uint8_t *          start,
+     const uint8_t *    end,
+     const int64_t      value)
 {
     size_t  result;
     uint8_t buffer[sizeof(int64_t)];
@@ -168,38 +168,38 @@ nImO::ConvertInt64ToPacketOrder
             valueCopy >>= 8;
         }
         // Determine the number of significant bytes.
-        if (value >= 0)
+        if (0 <= value)
         {
             for (size_t ii = 0; ii < sizeof(buffer); ++ii)
             {
-                if (buffer[ii] != 0)
+                if (0 != buffer[ii])
                 {
                     numBytes = sizeof(buffer) - ii;
                     // Correct for the high bit being set.
-                    if ((buffer[ii] & 0x80) == 0x80)
+                    if (0x80 == (buffer[ii] & 0x80))
                     {
                         ++numBytes;
                     }
                     break;
-                }
 
+                }
             }
         }
         else
         {
             for (size_t ii = 0; ii < sizeof(buffer); ++ii)
             {
-                if (buffer[ii] != 0xFF)
+                if (0xFF != buffer[ii])
                 {
                     numBytes = sizeof(buffer) - ii;
                     // Correct for the high bit not being set.
-                    if ((buffer[ii] & 0x80) == 0x00)
+                    if (0x00 == (buffer[ii] & 0x80))
                     {
                         ++numBytes;
                     }
                     break;
+
                 }
-            
             }
         }
         if (nullptr == start)
@@ -222,9 +222,9 @@ nImO::ConvertInt64ToPacketOrder
    
 size_t
 nImO::ConvertPacketOrderToDouble
-    (const uint8_t *start,
-     const uint8_t *end,
-     double        &value)
+    (const uint8_t *    start,
+     const uint8_t *    end,
+     double &           value)
 {
     size_t  result;
     
@@ -252,9 +252,9 @@ nImO::ConvertPacketOrderToDouble
 
 size_t
 nImO::ConvertPacketOrderToInt64
-    (const uint8_t *start,
-     const uint8_t *end,
-     int64_t       &value)
+    (const uint8_t *    start,
+     const uint8_t *    end,
+     int64_t &          value)
 {
     size_t  result;
     

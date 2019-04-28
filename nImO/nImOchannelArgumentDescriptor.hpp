@@ -80,15 +80,15 @@ namespace nImO
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument. */
         ChannelArgumentDescriptor
-            (const std::string& argName,
-             const std::string& argDescription,
-             const ArgumentMode argMode,
-             const std::string& defaultValue);
+            (const std::string &    argName,
+             const std::string &    argDescription,
+             const ArgumentMode     argMode,
+             const std::string &    defaultValue);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         ChannelArgumentDescriptor
-            (const ChannelArgumentDescriptor&   other);
+            (const ChannelArgumentDescriptor &  other);
 
         /*! @brief The destructor. */
         virtual
@@ -100,13 +100,13 @@ namespace nImO
          @returns A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
-            (const std::string& inString);
+            (const std::string &    inString);
 
         /*! @brief Exchanges the contents of the object with those of other.
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (ChannelArgumentDescriptor& other);
+            (ChannelArgumentDescriptor &    other);
         
     protected :
 
@@ -133,7 +133,7 @@ namespace nImO
          otherwise. */
         virtual bool
         validate
-            (const std::string& value)
+            (const std::string &    value)
             override;
 
     public :

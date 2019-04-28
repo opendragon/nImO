@@ -71,26 +71,26 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const DataKind kInitEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
-                                                nImO::DataKind::OtherMessageEmptyValue);
+static const DataKind   kInitEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
+                                                  nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
-static const DataKind kInitTermMessageMask = (nImO::DataKind::Mask |
-                                              nImO::DataKind::OtherTypeMask |
-                                              nImO::DataKind::OtherMessageStartEndMask |
-                                              nImO::DataKind::OtherMessageEmptyMask);
+static const DataKind   kInitTermMessageMask = (nImO::DataKind::Mask |
+                                                nImO::DataKind::OtherTypeMask |
+                                                nImO::DataKind::OtherMessageStartEndMask |
+                                                nImO::DataKind::OtherMessageEmptyMask);
 
 /*! @brief The trailing byte for an empty Message. */
-static const DataKind kTermEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
-                                                nImO::DataKind::OtherMessageEmptyValue);
+static const DataKind   kTermEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
+                                                  nImO::DataKind::OtherMessageEmptyValue);
 
 /*! @brief The lead byte for a non-empty Message. */
-static const DataKind kInitNonEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
-                                                   nImO::DataKind::OtherMessageNonEmptyValue);
+static const DataKind   kInitNonEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
+                                                     nImO::DataKind::OtherMessageNonEmptyValue);
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const DataKind kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
-                                                   nImO::DataKind::OtherMessageNonEmptyValue);
+static const DataKind   kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
+                                                     nImO::DataKind::OtherMessageNonEmptyValue);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -132,8 +132,8 @@ nImO::Message::~Message
 
 void
 nImO::Message::appendBytes
-    (const uint8_t *data,
-     const size_t  numBytes)
+    (const uint8_t *    data,
+     const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -159,12 +159,12 @@ nImO::Message::close
         case MessageState::OpenForWriting :
             if (! _headerAdded)
             {
-                static const DataKind emptyMessage[] =
+                static const DataKind   emptyMessage[] =
                 {
                     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
                 };
-                const size_t emptyMessageLength = A_SIZE(emptyMessage);
+                const size_t    emptyMessageLength = A_SIZE(emptyMessage);
 
                 appendBytes(emptyMessage, emptyMessageLength);
             }
@@ -206,8 +206,8 @@ nImO::Message::getBytesForTransmission
     if (0 == _cachedTransmissionString.size())
     {
         ODL_LOG("(0 == _cachedTransmissionString.size())"); //####
-        auto   intermediate(getBytes());
-        size_t length = intermediate.size();
+        auto    intermediate(getBytes());
+        size_t  length = intermediate.size();
         
         if (1 < length)
         {
@@ -217,8 +217,8 @@ nImO::Message::getBytesForTransmission
             {
                 // Next, count the number of bytes that will need to be escaped, and generate the
                 // byte sum.
-                uint64_t sum = intermediate[0];
-                size_t   escapeCount = 0;
+                uint64_t    sum = intermediate[0];
+                size_t      escapeCount = 0;
                 
                 for (size_t ii = 1; ii < length; ++ii)
                 {
@@ -295,7 +295,7 @@ nImO::Message::getLength
     const
 {
     ODL_OBJENTER(); //####
-    size_t totalLength;
+    size_t  totalLength;
 
     if (MessageState::Closed == _state)
     {
@@ -318,14 +318,13 @@ nImO::Message::getValue
     ODL_OBJENTER(); //####
     SpValue result;
 
-    if ((MessageState::OpenForReading == _state) ||
-        (allowClosed && (MessageState::Closed == _state)))
+    if ((MessageState::OpenForReading == _state) || (allowClosed && (MessageState::Closed == _state)))
     {
         ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####
                 "(MessageState::Closed == _state)))"); //####
-        size_t savedPosition = _readPosition;
-        bool   atEnd;
-        int    aByte = getByte(_readPosition, atEnd);
+        size_t  savedPosition = _readPosition;
+        bool    atEnd;
+        int     aByte = getByte(_readPosition, atEnd);
 
         ODL_X1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
@@ -357,13 +356,12 @@ nImO::Message::getValue
                 else
                 {
                     ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                    result.reset(new Invalid("Empty Message with incorrect end tag @",
-                                             _readPosition));
+                    result.reset(new Invalid("Empty Message with incorrect end tag @", _readPosition));
                 }
             }
             else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
-                DataKind initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
+                DataKind    initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
 
                 ODL_X1("initTag <- ", toUType(initTag)); //####
                 aByte = getByte(++_readPosition, atEnd);
@@ -378,9 +376,8 @@ nImO::Message::getValue
                 else
                 {
                     ODL_LOG("! (atEnd)"); //####
-                    DataKind nextTag = ((aByte >>
-                                          toUType(DataKind::OtherMessageExpectedTypeShift)) &
-                                        DataKind::OtherMessageExpectedTypeMask);
+                    DataKind    nextTag = ((aByte >> toUType(DataKind::OtherMessageExpectedTypeShift)) &
+                                           DataKind::OtherMessageExpectedTypeMask);
 
                     ODL_X1("nextTag <- ", toUType(nextTag)); //####
                     if (nextTag == initTag)
@@ -426,16 +423,14 @@ nImO::Message::getValue
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
                                         "(aByte & kInitTermMessageMask))"); //####
-                                result.reset(new Invalid("Message with incorrect end tag @",
-                                                         _readPosition));
+                                result.reset(new Invalid("Message with incorrect end tag @", _readPosition));
                             }
                         }
                     }
                     else
                     {
                         ODL_LOG("! (nextTag == initTag)"); //####
-                        result.reset(new Invalid("Message with mismatched initial Value tag @",
-                                                 _readPosition));
+                        result.reset(new Invalid("Message with mismatched initial Value tag @", _readPosition));
                     }
                 }
             }
@@ -495,7 +490,7 @@ nImO::Message::reset
 
 nImO::Message &
 nImO::Message::setValue
-    (const nImO::Value &theValue)
+    (const nImO::Value &    theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", &theValue); //####
@@ -505,11 +500,9 @@ nImO::Message::setValue
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         std::lock_guard<std::mutex> guard(_lock);
 
-        DataKind typeTag = theValue.getTypeTag();
-        DataKind headerByte = (DataKind::StartOfMessageValue |
-                               DataKind::OtherMessageNonEmptyValue | typeTag);
-        DataKind trailerByte = (DataKind::EndOfMessageValue |
-                                DataKind::OtherMessageNonEmptyValue | typeTag);
+        DataKind    typeTag = theValue.getTypeTag();
+        DataKind    headerByte = (DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
+        DataKind    trailerByte = (DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;

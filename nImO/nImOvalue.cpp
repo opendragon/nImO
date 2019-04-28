@@ -131,7 +131,7 @@ nImO::Value::addToExtractionMap
         {
             if (lByte == (lMask & ii))
             {
-                ExtractorMap::value_type keyValue(ii, theExtractor);
+                ExtractorMap::value_type    keyValue(ii, theExtractor);
 
                 gExtractors.emplace(keyValue);
             }
@@ -252,7 +252,7 @@ nImO::Value::asString
 
 bool
 nImO::Value::deeplyEqualTo
-    (const nImO::Value &other)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
@@ -266,7 +266,7 @@ nImO::Value::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable result = Enumerable::NotEnumerable;
+    Enumerable  result = Enumerable::NotEnumerable;
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -274,8 +274,8 @@ nImO::Value::enumerationType
 
 bool
 nImO::Value::equalTo
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
@@ -287,10 +287,10 @@ nImO::Value::equalTo
 
 int64_t
 nImO::Value::extractInt64FromMessage
-    (const nImO::Message &theMessage,
-     const int           leadByte,
-     size_t              &position,
-     nImO::IntStatus     &status)
+    (const nImO::Message &  theMessage,
+     const int              leadByte,
+     size_t &               position,
+     nImO::IntStatus &      status)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
@@ -299,16 +299,15 @@ nImO::Value::extractInt64FromMessage
 
     if (DataKind::Integer == (leadByte & DataKind::Mask))
     {
-        bool isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
+        bool    isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
 
         ++position; // We can accept the lead byte
         ODL_I1("position <- ", position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
-            DataKind shortBits = (DataKind::IntegerShortValueValueMask & leadByte);
-            bool     isNegative = (DataKind::IntegerShortValueSignBit ==
-                                  (DataKind::IntegerShortValueSignBit & leadByte));
+            DataKind    shortBits = (DataKind::IntegerShortValueValueMask & leadByte);
+            bool        isNegative = (DataKind::IntegerShortValueSignBit == (DataKind::IntegerShortValueSignBit & leadByte));
 
             if (isNegative)
             {
@@ -328,10 +327,10 @@ nImO::Value::extractInt64FromMessage
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t        size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
-            NumberAsBytes holder;
-            bool          atEnd;
-            bool          okSoFar = true;
+            size_t          size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
+            NumberAsBytes   holder;
+            bool            atEnd;
+            bool            okSoFar = true;
 
             for (size_t ii = 0; okSoFar && (size > ii); ++ii)
             {
@@ -375,7 +374,7 @@ nImO::Value::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind result = static_cast<DataKind>(0);
+    DataKind    result = static_cast<DataKind>(0);
 
     ODL_OBJEXIT_I(static_cast<int>(result)); //####
     return result;
@@ -383,16 +382,16 @@ nImO::Value::getTypeTag
 
 nImO::SpValue
 nImO::Value::getValueFromMessage
-    (const nImO::Message &inMessage,
-     size_t              &position,
-     const int           leadByte,
-     nImO::SpArray       parent)
+    (const nImO::Message &  inMessage,
+     size_t &               position,
+     const int              leadByte,
+     nImO::SpArray          parent)
 {
     ODL_ENTER(); //####
     ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    SpValue              result;
-    ExtractorMapIterator match = gExtractors.find(static_cast<uint8_t>(leadByte));
+    SpValue                 result;
+    ExtractorMapIterator    match = gExtractors.find(static_cast<uint8_t>(leadByte));
 
     if (gExtractors.end() == match)
     {
@@ -401,7 +400,7 @@ nImO::Value::getValueFromMessage
     }
     else
     {
-        Extractor handler = match->second;
+        Extractor   handler = match->second;
 
         if (nullptr == handler)
         {
@@ -425,7 +424,8 @@ nImO::Value::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    //ODL_P1("other = ", &other); //####
+    ODL_P1("validComparison = ", &validComparison); //####
     validComparison = false;
     ODL_OBJEXIT_B(false); //####
     return false;
@@ -433,8 +433,8 @@ nImO::Value::greaterThan
 
 bool
 nImO::Value::greaterThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
@@ -449,13 +449,13 @@ nImO::Value::initialize
     (void)
 {
     ODL_ENTER(); //####
-    const char *prefixes = Logical::getInitialCharacters();
+    const char *    prefixes = Logical::getInitialCharacters();
 
     if (nullptr != prefixes)
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &Logical::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &Logical::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
@@ -465,7 +465,7 @@ nImO::Value::initialize
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &Number::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &Number::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
@@ -475,7 +475,7 @@ nImO::Value::initialize
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &String::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &String::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
@@ -485,7 +485,7 @@ nImO::Value::initialize
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &Array::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &Array::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
@@ -495,7 +495,7 @@ nImO::Value::initialize
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &Map::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &Map::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
@@ -505,12 +505,12 @@ nImO::Value::initialize
     {
         for ( ; '\0' != *prefixes; ++prefixes)
         {
-            BufferReaderValue aValue(*prefixes, &Set::readFromStringBuffer);
+            BufferReaderValue   aValue(*prefixes, &Set::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
     }
-    const char *suffixes = Array::getTerminalCharacters();
+    const char *    suffixes = Array::getTerminalCharacters();
 
     gTerminators = suffixes;
     suffixes = Map::getTerminalCharacters();
@@ -523,9 +523,9 @@ nImO::Value::initialize
     {
         gTerminators += suffixes;
     }
-    DataKind  aByte = static_cast<DataKind>(0);
-    DataKind  aMask = static_cast<DataKind>(0);
-    Extractor theExtractor = nullptr;
+    DataKind    aByte = static_cast<DataKind>(0);
+    DataKind    aMask = static_cast<DataKind>(0);
+    Extractor   theExtractor = nullptr;
 
     Array::getExtractionInfo(aByte, aMask, theExtractor);
     addToExtractionMap(aByte, aMask, theExtractor);
@@ -552,7 +552,7 @@ nImO::Value::isLegalTerminator
 {
     ODL_ENTER(); //####
     ODL_C1("aChar = ", aChar); //####
-    bool result;
+    bool    result;
 
     if (isspace(aChar))
     {
@@ -577,7 +577,8 @@ nImO::Value::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
+    //ODL_P1("other = ", &other); //####
+    ODL_P1("validComparison = ", &validComparison); //####
     validComparison = false;
     ODL_OBJEXIT_B(false);
     return false;
@@ -585,8 +586,8 @@ nImO::Value::lessThan
 
 bool
 nImO::Value::lessThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
@@ -603,15 +604,15 @@ nImO::Value::printToStringBuffer
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    //ODL_P1("outBuffer = ", &outBuffer); //####
+    //ODL_B1("squished = ", squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBuffer
 
 nImO::SpValue
 nImO::Value::readFromStringBuffer
-    (const nImO::StringBuffer &inBuffer,
-     size_t                   &position)
+    (const nImO::StringBuffer & inBuffer,
+     size_t &                   position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -631,7 +632,7 @@ nImO::Value::readFromStringBuffer
     }
     else
     {
-        BufferReaderIterator match = gReaders.find(aChar);
+        BufferReaderIterator    match = gReaders.find(aChar);
 
         if (gReaders.end() == match)
         {
@@ -639,7 +640,7 @@ nImO::Value::readFromStringBuffer
         }
         else
         {
-            BufferReader handler = match->second;
+            BufferReader    handler = match->second;
 
             if (nullptr == handler)
             {
@@ -665,8 +666,8 @@ nImO::Value::readFromStringBuffer
 
 void
 nImO::Value::writeInt64ToMessage
-    (nImO::Message &outMessage,
-     const int64_t outValue)
+    (nImO::Message &    outMessage,
+     const int64_t      outValue)
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
@@ -676,8 +677,8 @@ nImO::Value::writeInt64ToMessage
     {
         ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        DataKind stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerShortValue |
-                                               (static_cast<DataKind>(outValue) &
+        DataKind    stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerShortValue |
+                                                  (static_cast<DataKind>(outValue) &
                                                    DataKind::IntegerShortValueValueMask));
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
@@ -686,14 +687,14 @@ nImO::Value::writeInt64ToMessage
     {
         ODL_LOG("! ((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        NumberAsBytes numBuff;
-        size_t        numBytes = I2B(outValue, numBuff);
+        NumberAsBytes   numBuff;
+        size_t          numBytes = I2B(outValue, numBuff);
 
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            DataKind stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerLongValue |
-                                                   (static_cast<DataKind>(numBytes - 1) &
+            DataKind    stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerLongValue |
+                                                      (static_cast<DataKind>(numBytes - 1) &
                                                        DataKind::IntegerLongValueCountMask));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
@@ -709,7 +710,7 @@ nImO::Value::writeToMessage
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    //ODL_P1("outMessage = ", &outMessage); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::writeToMessage
 

@@ -101,8 +101,8 @@ namespace nImO
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
-            (const StringBuffer &inBuffer,
-             size_t             &position);
+            (const StringBuffer &   inBuffer,
+             size_t &               position);
 
     protected :
         // Protected methods.

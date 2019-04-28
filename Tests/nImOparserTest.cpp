@@ -107,8 +107,8 @@ catchSignal
  the object representation as a string. */
 static int
 compareValueWithString
-    (const Value&   aValue,
-     const char*    aString)
+    (const Value &  aValue,
+     const char *   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -137,8 +137,8 @@ compareValueWithString
 static int
 doTestParseLogicalValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // logical values
+     const char *   inString,
+     const char *   expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -213,8 +213,8 @@ doTestParseLogicalValue
 static int
 doTestParseNumberValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // number values
+     const char *   inString,
+     const char *   expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -289,8 +289,8 @@ doTestParseNumberValue
 static int
 doTestParseStringValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // string values
+     const char *   inString,
+     const char *   expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -365,8 +365,8 @@ doTestParseStringValue
 static int
 doTestParseArrayValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // array values
+     const char *   inString,
+     const char *   expectedString) // array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -441,8 +441,8 @@ doTestParseArrayValue
 static int
 doTestParseSetValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // set values
+     const char *   inString,
+     const char *   expectedString) // set values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -517,8 +517,8 @@ doTestParseSetValue
 static int
 doTestParseMapValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // map values
+     const char *   inString,
+     const char *   expectedString) // map values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -593,8 +593,8 @@ doTestParseMapValue
 static int
 doTestParseImplicitArrayValue
     (const bool     expected,
-     const char*    inString,
-     const char*    expectedString) // implicit array values
+     const char *   inString,
+     const char *   expectedString) // implicit array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -671,8 +671,8 @@ doTestParseImplicitArrayValue
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 

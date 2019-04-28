@@ -93,9 +93,9 @@ std::string BaseArgumentDescriptor::_parameterSeparator("\t");
 #endif // defined(__APPLE__)
 
 BaseArgumentDescriptor::BaseArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode) :
         _valid(true), _argDescription(argDescription), _argName(argName), _argMode(argMode)
 {
     ODL_ENTER(); //####
@@ -104,7 +104,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
 BaseArgumentDescriptor::BaseArgumentDescriptor
-    (const BaseArgumentDescriptor &other) :
+    (const BaseArgumentDescriptor & other) :
         _valid(other._valid), _argDescription(other._argDescription), _argName(other._argName),
         _argMode(other._argMode)
 {
@@ -136,7 +136,7 @@ BaseArgumentDescriptor::isExtra
 
 bool
 BaseArgumentDescriptor::isForFiles
-    (bool &isForOutput)
+    (bool & isForOutput)
     const
 {
     ODL_OBJENTER(); //####
@@ -157,9 +157,9 @@ BaseArgumentDescriptor::isLogical
 
 bool
 BaseArgumentDescriptor::partitionString
-    (const std::string &inString,
-     const size_t      indexOfDefaultValue,
-     StringVector      &result)
+    (const std::string &    inString,
+     const size_t           indexOfDefaultValue,
+     StringVector &         result)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
@@ -177,19 +177,19 @@ BaseArgumentDescriptor::partitionString
             // The default value field is special, as it has two delimiters - the inner one, which
             // is a character that is not present in the default value field, and the normal
             // separator character.
-            char innerChar = workingCopy[0];
+            char    innerChar = workingCopy[0];
 
             workingCopy = workingCopy.substr(1);
             if (0 < workingCopy.length())
             {
-                size_t innerIndx = workingCopy.find(innerChar, 0);
+                size_t  innerIndx = workingCopy.find(innerChar, 0);
 
                 if (std::string::npos == innerIndx)
                 {
                     // Badly formatted - the matching delimiter is missing!
                     break;
-                }
 
+                }
                 result.emplace_back(workingCopy.substr(0, innerIndx));
                 workingCopy = workingCopy.substr(innerIndx + 1);
                 if (0 < workingCopy.length())
@@ -203,19 +203,19 @@ BaseArgumentDescriptor::partitionString
                     {
                         // Badly formatted - the delimiter is not followed by the separator!
                         break;
-                    }
 
+                    }
                 }
             }
             else
             {
                 break;
-            }
 
+            }
         }
         else
         {
-            size_t indx = workingCopy.find(_parameterSeparator);
+            size_t  indx = workingCopy.find(_parameterSeparator);
 
             if (std::string::npos == indx)
             {
@@ -229,8 +229,8 @@ BaseArgumentDescriptor::partitionString
                     else
                     {
                         break;
-                    }
 
+                    }
                 }
                 result.emplace_back(workingCopy);
                 workingCopy = "";
@@ -249,22 +249,21 @@ BaseArgumentDescriptor::partitionString
 
 std::string
 BaseArgumentDescriptor::prefixFields
-    (const std::string &tagForField)
+    (const std::string &    tagForField)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("tagForField = ", tagForField); //####
     std::string result(_argName);
 
-    result += (_parameterSeparator + tagForField + _parameterSeparator +
-               std::to_string(toUType(_argMode)));
+    result += (_parameterSeparator + tagForField + _parameterSeparator + std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
 
 std::string
 BaseArgumentDescriptor::suffixFields
-    (const std::string &defaultToUse)
+    (const std::string &    defaultToUse)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
@@ -282,8 +281,8 @@ BaseArgumentDescriptor::suffixFields
             {
                 charToUse = possibles[ii];
                 break;
-            }
 
+            }
         }
     }
     result += charToUse;
@@ -294,7 +293,7 @@ BaseArgumentDescriptor::suffixFields
 
 void
 BaseArgumentDescriptor::swap
-    (BaseArgumentDescriptor &other)
+    (BaseArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -311,7 +310,7 @@ BaseArgumentDescriptor::swap
 
 std::string
 nImO::ArgumentsToArgString
-    (const DescriptorVector &arguments)
+    (const DescriptorVector &   arguments)
 {
     ODL_ENTER(); //####
     ODL_P1("arguments = ", &arguments); //####
@@ -320,7 +319,7 @@ nImO::ArgumentsToArgString
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg)
         {
@@ -346,9 +345,9 @@ nImO::ArgumentsToArgString
 
 void
 nImO::ArgumentsToDescriptionArray
-    (const DescriptorVector &arguments,
-     StringVector           &output,
-     const size_t           minSpace)
+    (const DescriptorVector &   arguments,
+     StringVector &             output,
+     const size_t               minSpace)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
@@ -356,7 +355,7 @@ nImO::ArgumentsToDescriptionArray
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg)
         {
@@ -373,7 +372,7 @@ nImO::ArgumentsToDescriptionArray
         nameSize += static_cast<int>(minSpace);
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
-            BaseArgumentDescriptor *anArg = arguments[ii];
+            BaseArgumentDescriptor *    anArg = arguments[ii];
 
             if (anArg)
             {
@@ -395,8 +394,8 @@ nImO::ArgumentsToDescriptionArray
 
 std::string
 nImO::CombineArguments
-    (const DescriptorVector &arguments,
-     const std::string      &sep)
+    (const DescriptorVector &   arguments,
+     const std::string &        sep)
 {
     ODL_ENTER(); //####
     ODL_S1s("sep = ", sep); //####
@@ -404,7 +403,7 @@ nImO::CombineArguments
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (0 < ii)
         {
@@ -421,7 +420,7 @@ nImO::CombineArguments
 
 SpBaseArgumentDescriptor
 nImO::ConvertStringToArgument
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     SpBaseArgumentDescriptor result;
@@ -466,15 +465,15 @@ nImO::ConvertStringToArgument
 #if 0
 void
 nImO::CopyArgumentsToBottle
-    (const DescriptorVector &arguments,
-     yarp::os::Bottle       &container)
+    (const DescriptorVector &   arguments,
+     yarp::os::Bottle &         container)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "container = ", &container); //####
     container.clear();
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
@@ -487,7 +486,7 @@ nImO::CopyArgumentsToBottle
 
 nImO::ArgumentMode
 nImO::ModeFromString
-    (const std::string &modeString)
+    (const std::string &    modeString)
 {
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
@@ -509,9 +508,9 @@ nImO::ModeFromString
 
 bool
 nImO::ProcessArguments
-    (const DescriptorVector &arguments,
-     Option_::Parser        &parseResult,
-     std::string            &badArgs)
+    (const DescriptorVector &   arguments,
+     Option_::Parser &          parseResult,
+     std::string &              badArgs)
 {
     ODL_ENTER(); //####
     ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", //####
@@ -528,7 +527,7 @@ nImO::ProcessArguments
     badArgs = "";
     for (size_t ii = 0; numArgs > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg)
         {
@@ -541,7 +540,7 @@ nImO::ProcessArguments
     // follow the optional arguments, which follow the mandatory ones.
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg)
         {
@@ -571,7 +570,7 @@ nImO::ProcessArguments
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
-            BaseArgumentDescriptor *anArg = arguments[ii];
+            BaseArgumentDescriptor *    anArg = arguments[ii];
 
             if (anArg && (! anArg->isExtra()))
             {
@@ -594,7 +593,7 @@ nImO::ProcessArguments
     // unsatisfied.
     for (size_t ii = numToCheck; numArgs > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg && (! anArg->isExtra()))
         {
@@ -619,12 +618,12 @@ nImO::ProcessArguments
 
 bool
 nImO::PromptForValues
-    (const DescriptorVector &arguments)
+    (const DescriptorVector &   arguments)
 {
     ODL_ENTER(); //####
     ODL_P1("arguments = ", &arguments); //####
-    bool result = true;
-    char inChar;
+    bool    result = true;
+    char    inChar;
 
     // Eat the trailing newline from the request.
     inChar = std::cin.peek();
@@ -638,7 +637,7 @@ nImO::PromptForValues
     }
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        BaseArgumentDescriptor *anArg = arguments[ii];
+        BaseArgumentDescriptor *    anArg = arguments[ii];
 
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
@@ -659,20 +658,20 @@ nImO::PromptForValues
                     if ('\n' == inChar)
                     {
                         break;
-                    }
 
+                    }
                     std::cin.get();
                 }
                 else
                 {
                     break;
-                }
 
+                }
                 if (! std::cin)
                 {
                     break;
-                }
 
+                }
             }
             if (getline(std::cin, inputLine))
             {

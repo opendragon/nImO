@@ -85,14 +85,14 @@ using namespace nImO;
  @returns @c true if the file path is acceptable and @c false otherwise. */
 static bool
 checkFilePath
-    (const char *thePath,
-     const bool forOutput,
-     const bool emptyIsOK)
+    (const char *   thePath,
+     const bool     forOutput,
+     const bool     emptyIsOK)
 {
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####
     ODL_B1("forOutput = ", forOutput); //####
-    bool okSoFar;
+    bool    okSoFar;
 
     if (forOutput)
     {
@@ -143,13 +143,13 @@ checkFilePath
 #endif // defined(__APPLE__)
 
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
-    (const std::string  &argName,
-     const std::string  &argDescription,
-     const ArgumentMode argMode,
-     const std::string  &pathPrefix,
-     const std::string  &pathSuffix,
-     const bool         forOutput,
-     const bool         useRandomPath) :
+    (const std::string &    argName,
+     const std::string &    argDescription,
+     const ArgumentMode     argMode,
+     const std::string &    pathPrefix,
+     const std::string &    pathSuffix,
+     const bool             forOutput,
+     const bool             useRandomPath) :
         inherited(argName, argDescription, argMode, pathPrefix),
         _pathPrefix(pathPrefix), _pathSuffix(pathSuffix), _defaultSet(false), _forOutput(forOutput),
         _useRandomPath(useRandomPath)
@@ -163,7 +163,7 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
-    (const FilePathArgumentDescriptor &other) :
+    (const FilePathArgumentDescriptor & other) :
         inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
         _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
 {
@@ -189,7 +189,7 @@ FilePathArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto result = std::make_shared<FilePathArgumentDescriptor>(*this);
+    auto    result = std::make_shared<FilePathArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
@@ -217,7 +217,7 @@ FilePathArgumentDescriptor::getDefaultValue
 
 bool
 FilePathArgumentDescriptor::isForFiles
-    (bool &isForOutput)
+    (bool & isForOutput)
     const
 {
     ODL_OBJENTER(); //####
@@ -228,29 +228,29 @@ FilePathArgumentDescriptor::isForFiles
 
 SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::parseArgString
-    (const std::string &inString)
+    (const std::string &    inString)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result;
-    StringVector             inVector;
+    SpBaseArgumentDescriptor    result;
+    StringVector                inVector;
 
     if (partitionString(inString, 6, inVector))
     {
-        ArgumentMode argMode;
-        bool         forOutput = false;
-        bool         okSoFar = true;
-        bool         usesRandom = false;
-        std::string  name(inVector[0]);
-        std::string  typeTag(inVector[1]);
-        std::string  modeString(inVector[2]);
-        std::string  direction(inVector[3]);
-        std::string  suffixValue(inVector[4]);
-        std::string  randomFlag(inVector[5]);
-        std::string  defaultString(inVector[6]);
-        std::string  description(inVector[7]);
+        ArgumentMode    argMode;
+        bool            forOutput = false;
+        bool            okSoFar = true;
+        bool            usesRandom = false;
+        std::string     name(inVector[0]);
+        std::string     typeTag(inVector[1]);
+        std::string     modeString(inVector[2]);
+        std::string     direction(inVector[3]);
+        std::string     suffixValue(inVector[4]);
+        std::string     randomFlag(inVector[5]);
+        std::string     defaultString(inVector[6]);
+        std::string     description(inVector[7]);
 
-        if (typeTag != "F")
+        if ("F" != typeTag)
         {
             okSoFar = false;
         }
@@ -265,22 +265,22 @@ FilePathArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            if (direction == "o")
+            if ("o" == direction)
             {
                 forOutput = true;
             }
-            else if (direction != "i")
+            else if ("i" != direction)
             {
                 okSoFar = false;
             }
         }
         if (okSoFar)
         {
-            if (randomFlag == "1")
+            if ("1" == randomFlag)
             {
                 usesRandom = true;
             }
-            else if (randomFlag != "0")
+            else if ("0" != randomFlag)
             {
                 okSoFar = false;
             }
@@ -323,7 +323,7 @@ FilePathArgumentDescriptor::setToDefaultValue
 
 void
 FilePathArgumentDescriptor::swap
-    (FilePathArgumentDescriptor &other)
+    (FilePathArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -354,7 +354,7 @@ FilePathArgumentDescriptor::toString
 
 bool
 FilePathArgumentDescriptor::validate
-    (const std::string &value)
+    (const std::string &    value)
 {
     ODL_OBJENTER(); //####
     _valid = checkFilePath(value.c_str(), _forOutput, false);

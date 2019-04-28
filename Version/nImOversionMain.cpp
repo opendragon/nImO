@@ -102,8 +102,8 @@ getBoostVersion
  @returns @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char** argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -111,8 +111,8 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector argumentList;
-    nImO::OutputFlavour    flavour;
+    nImO::DescriptorVector  argumentList;
+    nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
                                               "Reports the version numbers", 2016,

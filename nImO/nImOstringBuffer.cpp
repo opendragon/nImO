@@ -71,7 +71,7 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The canonical names for control characters. */
-static const char *kCanonicalControl[] =
+static const char * kCanonicalControl[] =
 {
     "C-@", // 00 NUL
     "C-A", // 01 SOH
@@ -155,8 +155,8 @@ nImO::StringBuffer::addBool
 
 nImO::StringBuffer &
 nImO::StringBuffer::addBytes
-    (const uint8_t *inBytes,
-     const size_t  numBytes)
+    (const uint8_t *    inBytes,
+     const size_t       numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
@@ -181,15 +181,15 @@ nImO::StringBuffer::addBytes
 
 nImO::StringBuffer &
 nImO::StringBuffer::addString
-    (const char *aString,
-     const bool addQuotes)
+    (const char *   aString,
+     const bool     addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1("aString = ", aString); //####
     ODL_B1("addQuotes = ", addQuotes); //####
     if (aString)
     {
-        size_t length = strlen(aString);
+        size_t  length = strlen(aString);
 
         if (addQuotes)
         {
@@ -197,8 +197,7 @@ nImO::StringBuffer::addString
         }
         else
         {
-            inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString),
-                                   length * sizeof(*aString));
+            inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString), length * sizeof(*aString));
         }
     }
     ODL_OBJEXIT_P(this); //####
@@ -207,13 +206,13 @@ nImO::StringBuffer::addString
 
 nImO::StringBuffer &
 nImO::StringBuffer::addString
-    (const std::string &aString,
-     const bool        addQuotes)
+    (const std::string &    aString,
+     const bool             addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_B1("addQuotes = ", addQuotes); //####
-    size_t length = aString.length();
+    size_t  length = aString.length();
 
     if (addQuotes)
     {
@@ -221,8 +220,7 @@ nImO::StringBuffer::addString
     }
     else
     {
-        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString.c_str()),
-                               length * sizeof(*aString.c_str()));
+        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString.c_str()), length * sizeof(*aString.c_str()));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -309,18 +307,18 @@ nImO::StringBuffer::convertToValue
 
 void
 nImO::StringBuffer::processCharacters
-    (const char   *aString,
-     const size_t length)
+    (const char *   aString,
+     const size_t   length)
 {
     ODL_ENTER(); //####
     ODL_S1("aString = ", aString); //####
     ODL_I1("length = ", length); //####
     // First, determine how many of each kind of quote character there are, and if there are
     // 'special' characters - control characters or characters with the high bit set
-    bool   hasSpecials = false;
-    size_t numSingleQuotes = 0;
-    size_t numDoubleQuotes = 0;
-    size_t numEscapes = 0;
+    bool    hasSpecials = false;
+    size_t  numSingleQuotes = 0;
+    size_t  numDoubleQuotes = 0;
+    size_t  numEscapes = 0;
 
     for (size_t ii = 0; length > ii; ++ii)
     {
@@ -357,7 +355,7 @@ nImO::StringBuffer::processCharacters
                 inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
-                    const char *controlString = kCanonicalControl[aByte];
+                    const char *    controlString = kCanonicalControl[aByte];
 
                     inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
                                            strlen(controlString) * sizeof(*controlString));
@@ -368,22 +366,22 @@ nImO::StringBuffer::processCharacters
                     if (' ' == aByte)
                     {
                         // Meta-blank is very special
-                        static const uint8_t metaBlank[] = { '2', '4', '0' };
+                        static const uint8_t    metaBlank[] = { '2', '4', '0' };
 
                         inherited::appendBytes(metaBlank, sizeof(metaBlank));
                     }
                     else if (0x7F == aByte)
                     {
                         // As is 0xFF
-                        static const uint8_t metaDel[] = { '3', '7', '7' };
+                        static const uint8_t    metaDel[] = { '3', '7', '7' };
 
                         inherited::appendBytes(metaDel, sizeof(metaDel));
                     }
                     else if (delimiter == aByte)
                     {
                         // Make sure that we don't break if there's a meta-quote of some form!
-                        static const uint8_t metaDoubleQuote[] = { '2', '4', '2' };
-                        static const uint8_t metaSingleQuote[] = { '2', '4', '7' };
+                        static const uint8_t    metaDoubleQuote[] = { '2', '4', '2' };
+                        static const uint8_t    metaSingleQuote[] = { '2', '4', '7' };
 
                         if (kSingleQuote == aByte)
                         {
@@ -397,12 +395,12 @@ nImO::StringBuffer::processCharacters
                     else
                     {
                         // 'Regular' meta characters
-                        static const uint8_t metaPrefix[] = { 'M', '-' };
+                        static const uint8_t    metaPrefix[] = { 'M', '-' };
 
                         inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)
                         {
-                            const char * controlString = kCanonicalControl[aByte];
+                            const char *    controlString = kCanonicalControl[aByte];
 
                             inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                             inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
@@ -422,8 +420,7 @@ nImO::StringBuffer::processCharacters
                 {
                     inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 }
-                inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString + ii),
-                                       sizeof(*aString));
+                inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString + ii), sizeof(*aString));
             }
         }
         inherited::appendBytes(&delimiter, sizeof(delimiter));
@@ -432,8 +429,7 @@ nImO::StringBuffer::processCharacters
     {
         // Nothing special
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
-        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString),
-                               length * sizeof(*aString));
+        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString), length * sizeof(*aString));
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
     }
     ODL_EXIT(); //####
@@ -445,18 +441,18 @@ nImO::StringBuffer::processCharacters
 
 std::ostream &
 nImO::operator <<
-    (std::ostream             &out,
-     const nImO::StringBuffer &aBuffer)
+    (std::ostream &             out,
+     const nImO::StringBuffer & aBuffer)
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
     for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
     {
-        BufferChunk *aChunk = aBuffer._buffers[ii];
+        BufferChunk *   aChunk = aBuffer._buffers[ii];
 
         if (nullptr != aChunk)
         {
-           size_t nn = aChunk->getDataSize();
+           size_t   nn = aChunk->getDataSize();
 
            if (0 < nn)
            {

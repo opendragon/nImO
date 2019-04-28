@@ -91,7 +91,7 @@ nImO::Array::Array
 } // nImO::Array::Array
 
 nImO::Array::Array
-    (const nImO::Array &other) :
+    (const nImO::Array &    other) :
         inherited1(), inherited2()
 {
     ODL_ENTER(); //####
@@ -114,11 +114,11 @@ nImO::Array::~Array
 
 nImO::Array &
 nImO::Array::addEntries
-    (const nImO::Array &other)
+    (const nImO::Array &    other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    for (auto& walker : other)
+    for (auto & walker : other)
     {
         addValue(walker);
     }
@@ -137,24 +137,23 @@ const
 
 bool
 nImO::Array::deeplyEqualTo
-    (const nImO::Value &other)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    bool result = (&other == this);
+    bool    result = (&other == this);
 
     if (! result)
     {
-        const Array *otherPtr = other.asArray();
+        const Array *   otherPtr = other.asArray();
 
         if (otherPtr && (size() == otherPtr->size()))
         {
-            const_iterator thisWalker(inherited2::begin());
-            const_iterator otherWalker(otherPtr->inherited2::begin());
+            const_iterator  thisWalker(inherited2::begin());
+            const_iterator  otherWalker(otherPtr->inherited2::begin());
 
-            for (result = true; result && (thisWalker != inherited2::end());
-                 ++thisWalker, ++otherWalker)
+            for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
                 SpValue thisValue(*thisWalker);
                 SpValue otherValue(*otherWalker);
@@ -176,19 +175,18 @@ nImO::Array::deeplyEqualTo
 
 bool
 nImO::Array::equalTo
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = (inherited2::begin() != inherited2::end());
+    bool    result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
     ODL_B1("validComparison <- ", validComparison); //####
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -203,10 +201,10 @@ nImO::Array::equalTo
 
 nImO::SpValue
 nImO::Array::extractValue
-    (const nImO::Message &theMessage,
-     const int           leadByte,
-     size_t              &position,
-     nImO::SpArray       parentValue)
+    (const nImO::Message &  theMessage,
+     const int              leadByte,
+     size_t &               position,
+     nImO::SpArray          parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -214,8 +212,7 @@ nImO::Array::extractValue
     ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
-    bool    isEmpty = (DataKind::OtherContainerEmptyValue ==
-                       (DataKind::OtherContainerEmptyMask & leadByte));
+    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
     ++position; // We will always accept the lead byte
@@ -229,9 +226,8 @@ nImO::Array::extractValue
         if (! atEnd)
         {
             ODL_LOG("(! atEnd)"); //####
-            static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                               DataKind::OtherContainerTypeArray |
-                                               DataKind::OtherContainerEmptyValue);
+            static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                                 DataKind::OtherContainerTypeArray | DataKind::OtherContainerEmptyValue);
 
             if (toUType(endMarker) == aByte)
             {
@@ -257,8 +253,7 @@ nImO::Array::extractValue
         {
             ODL_LOG("(! atEnd)"); //####
             IntStatus numStatus;
-            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position,
-                                                             numStatus);
+            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position, numStatus);
 
             if (IntStatus::Successful == numStatus)
             {
@@ -272,7 +267,7 @@ nImO::Array::extractValue
                 }
                 else
                 {
-                    auto anArray = std::make_shared<Array>();
+                    auto    anArray = std::make_shared<Array>();
 
                     result = anArray;
                     if (nullptr == result)
@@ -282,7 +277,7 @@ nImO::Array::extractValue
                     }
                     else
                     {
-                        bool okSoFar = true;
+                        bool    okSoFar = true;
 
                         for ( ; okSoFar && (elementCount > static_cast<int64_t>(anArray->size())); )
                         {
@@ -297,8 +292,7 @@ nImO::Array::extractValue
                             }
                             else
                             {
-                                SpValue aValue(getValueFromMessage(theMessage, position, aByte,
-                                                                   anArray));
+                                SpValue aValue(getValueFromMessage(theMessage, position, aByte, anArray));
 
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
@@ -331,10 +325,9 @@ nImO::Array::extractValue
                             else
                             {
                                 ODL_LOG("! (atEnd)"); //####
-                                static const DataKind endMarker = (DataKind::Other |
-                                                                   DataKind::OtherContainerEnd |
-                                                               DataKind::OtherContainerTypeArray |
-                                                           DataKind::OtherContainerNonEmptyValue);
+                                static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
+                                                                   DataKind::OtherContainerTypeArray |
+                                                                   DataKind::OtherContainerNonEmptyValue);
 
                                 if (toUType(endMarker) == aByte)
                                 {
@@ -370,9 +363,9 @@ nImO::Array::extractValue
 
 void
 nImO::Array::getExtractionInfo
-    (DataKind               &aByte,
-     DataKind               &aMask,
-     nImO::Value::Extractor &theExtractor)
+    (DataKind &                 aByte,
+     DataKind &                 aMask,
+     nImO::Value::Extractor &   theExtractor)
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
@@ -387,7 +380,7 @@ nImO::Array::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char initialChars[] = { kStartArrayChar, '\0' };
+    static const char   initialChars[] = { kStartArrayChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -398,7 +391,7 @@ nImO::Array::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char terminalChars[] = { kEndArrayChar, '\0' };
+    static const char   terminalChars[] = { kEndArrayChar, '\0' };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
@@ -410,7 +403,7 @@ nImO::Array::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind result = DataKind::OtherMessageExpectedOtherValue;
+    DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
     ODL_OBJEXIT_I(static_cast<int>(result));
     return result;
@@ -418,18 +411,17 @@ nImO::Array::getTypeTag
 
 bool
 nImO::Array::greaterThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = (inherited2::begin() != inherited2::end());
+    bool    result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -444,18 +436,17 @@ nImO::Array::greaterThan
 
 bool
 nImO::Array::greaterThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = (inherited2::begin() != inherited2::end());
+    bool    result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -470,18 +461,17 @@ nImO::Array::greaterThanOrEqual
 
 bool
 nImO::Array::lessThan
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = (inherited2::begin() != inherited2::end());
+    bool    result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -496,18 +486,17 @@ nImO::Array::lessThan
 
 bool
 nImO::Array::lessThanOrEqual
-    (const nImO::Value &other,
-     bool              &validComparison)
+    (const nImO::Value &    other,
+     bool &                 validComparison)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool result = (inherited2::begin() != inherited2::end());
+    bool    result = (inherited2::begin() != inherited2::end());
 
     validComparison = result;
     ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison &&
-         (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
     {
         SpValue aValue(*walker);
 
@@ -522,14 +511,14 @@ nImO::Array::lessThanOrEqual
 
 void
 nImO::Array::printToStringBuffer
-    (nImO::StringBuffer &outBuffer,
-     const bool         squished)
+    (nImO::StringBuffer &   outBuffer,
+     const bool             squished)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    bool first = true;
+    bool    first = true;
 
     outBuffer.addChar(kStartArrayChar);
     for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
@@ -556,8 +545,8 @@ nImO::Array::printToStringBuffer
 
 nImO::SpValue
 nImO::Array::readFromStringBuffer
-    (const nImO::StringBuffer &inBuffer,
-     size_t                   &position)
+    (const nImO::StringBuffer & inBuffer,
+     size_t &                   position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -577,8 +566,7 @@ nImO::Array::readFromStringBuffer
         for ( ; ! done; )
         {
             // Skip whitespace
-            for (aChar = inBuffer.getChar(localIndex, atEnd); (! atEnd) && isspace(aChar);
-                 aChar = inBuffer.getChar(++localIndex, atEnd))
+            for (aChar = inBuffer.getChar(localIndex, atEnd); (! atEnd) && isspace(aChar); aChar = inBuffer.getChar(++localIndex, atEnd))
             {
                 ODL_I1("localIndex <- ", localIndex); //####
                 ODL_C1("aChar <- ", aChar); //####
@@ -632,7 +620,7 @@ nImO::Array::readFromStringBuffer
 
 void
 nImO::Array::writeToMessage
-    (nImO::Message &outMessage)
+    (nImO::Message &    outMessage)
     const
 {
     ODL_ENTER(); //####
@@ -657,7 +645,7 @@ nImO::Array::writeToMessage
             if (aValue)
             {
                 // Check for sequences of Double values
-                const Double *doubleValue = aValue->asDouble();
+                const Double *  doubleValue = aValue->asDouble();
 
                 if (nullptr == doubleValue)
                 {
@@ -677,7 +665,7 @@ nImO::Array::writeToMessage
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const DataKind stuff[] =
+        static const DataKind   stuff[] =
         {
             (DataKind::Other | DataKind::OtherContainerStart |
              DataKind::OtherContainerTypeArray |

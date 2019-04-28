@@ -77,7 +77,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         ChunkArray
-            (const ChunkArray&  other) = delete;
+            (const ChunkArray & other) = delete;
 
         /*! @brief The destructor. */
         virtual
@@ -89,15 +89,15 @@ namespace nImO
          @param[in] numBytes The number of bytes to add. */
         virtual void
         appendBytes
-            (const uint8_t* data,
-             const size_t   numBytes);
+            (const uint8_t *    data,
+             const size_t       numBytes);
 
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
         inline void
         appendBytes
-            (const DataKind*    data,
+            (const DataKind *   data,
              const size_t       numBytes)
         {
             appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
@@ -118,7 +118,7 @@ namespace nImO
         int
         getByte
             (const size_t   index,
-             bool&          atEnd)
+             bool &         atEnd)
         const;
 
         /*! @brief Return a copy of the bytes in the buffer.
@@ -139,7 +139,7 @@ namespace nImO
          @returns The updated object. */
         ChunkArray &
         operator =
-            (const ChunkArray&  other) = delete;
+            (const ChunkArray & other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
          @returns The ChunkArray object so that cascading can be done. */
@@ -160,7 +160,7 @@ namespace nImO
         // Protected fields.
 
         /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk**   _buffers;
+        BufferChunk **  _buffers;
 
         /*! @brief The number of buffer chunks being used. */
         size_t  _numChunks;

@@ -79,7 +79,7 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         StringBuffer
-            (const StringBuffer &other) = delete;
+            (const StringBuffer &   other) = delete;
 
         /*! @brief The destructor. */
         virtual
@@ -99,8 +99,8 @@ namespace nImO
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addBytes
-            (const uint8_t *inBytes,
-             const size_t  numBytes);
+            (const uint8_t *    inBytes,
+             const size_t       numBytes);
 
         /*! @brief Add a character to the buffer.
          @param[in] aChar The character to add.
@@ -120,7 +120,7 @@ namespace nImO
          @returns The StringBuffer object so that cascading can be done. */
         inline StringBuffer &
         addDouble
-            (const double aDouble)
+            (const double   aDouble)
         {
             addString(ConvertDoubleToString(aDouble));
             return *this;
@@ -131,7 +131,7 @@ namespace nImO
          @returns The StringBuffer object so that cascading can be done. */
         inline StringBuffer &
         addLong
-            (const int64_t aLong)
+            (const int64_t  aLong)
         {
             addString(std::to_string(aLong));
             return *this;
@@ -143,8 +143,8 @@ namespace nImO
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addString
-            (const char *aString,
-             const bool addQuotes = false);
+            (const char *   aString,
+             const bool     addQuotes = false);
 
         /*! @brief Add a character string to the buffer.
          @param[in] aString The value to add.
@@ -152,8 +152,8 @@ namespace nImO
          @returns The StringBuffer object so that cascading can be done. */
         StringBuffer &
         addString
-            (const std::string &aString,
-             const bool        addQuotes = false);
+            (const std::string &    aString,
+             const bool             addQuotes = false);
 
         /*! @brief Add a horizontal tab character to the buffer.
          @returns The StringBuffer object so that cascading can be done. */
@@ -177,8 +177,8 @@ namespace nImO
          @returns The byte found at the provided index. */
         inline int
         getChar
-            (const size_t index,
-             bool         &atEnd)
+            (const size_t   index,
+             bool &         atEnd)
             const
         {
             return inherited::getByte(index, atEnd);
@@ -198,12 +198,12 @@ namespace nImO
          @returns The updated object. */
         StringBuffer &
         operator =
-            (const StringBuffer &other) = delete;
+            (const StringBuffer &   other) = delete;
 
         friend std::ostream &
         operator <<
-            (std::ostream       &out,
-             const StringBuffer &aBuffer);
+            (std::ostream &         out,
+             const StringBuffer &   aBuffer);
 
     protected :
         // Protected methods.
@@ -216,8 +216,8 @@ namespace nImO
          @param[in] length The length of the string. */
         void
         processCharacters
-            (const char   *aString,
-             const size_t length);
+            (const char *   aString,
+             const size_t   length);
 
     public :
         // Public fields.
@@ -237,8 +237,8 @@ namespace nImO
      @returns The modified stream. */
     std::ostream &
     operator <<
-        (std::ostream       &out,
-         const StringBuffer &aBuffer);
+        (std::ostream &         out,
+         const StringBuffer &   aBuffer);
 
 } // nImO
 

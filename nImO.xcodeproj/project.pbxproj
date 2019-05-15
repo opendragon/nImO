@@ -38,6 +38,10 @@
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
 		F67032551CB1CBB500E04BBC /* nImOcompareValues.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcompareValues.hpp; path = nImO/nImOcompareValues.hpp; sourceTree = "<group>"; };
+		F6755302228B8EED0037B342 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Bridge/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6755305228B8F580037B342 /* nImObridgeMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObridgeMain.cpp; path = Bridge/nImObridgeMain.cpp; sourceTree = "<group>"; };
+		F6755306228B8F580037B342 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Bridge/resource.h; sourceTree = "<group>"; };
+		F6755307228B8F580037B342 /* nImObridge.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObridge.rc.in; path = Bridge/nImObridge.rc.in; sourceTree = "<group>"; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObufferChunk.hpp; path = nImO/nImObufferChunk.hpp; sourceTree = SOURCE_ROOT; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
@@ -151,6 +155,24 @@
 			name = Monitor;
 			sourceTree = SOURCE_ROOT;
 		};
+		F6755304228B8F0A0037B342 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				F6755302228B8EED0037B342 /* CMakeLists.txt */,
+			);
+			name = Bridge;
+			sourceTree = "<group>";
+		};
+		F6755309228B8F740037B342 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				F6755307228B8F580037B342 /* nImObridge.rc.in */,
+				F6755305228B8F580037B342 /* nImObridgeMain.cpp */,
+				F6755306228B8F580037B342 /* resource.h */,
+			);
+			name = Bridge;
+			sourceTree = "<group>";
+		};
 		F6B388DF1C77F18B004B2D42 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +182,7 @@
 				F60B49732104F760009D2CDA /* LICENSE.txt */,
 				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
 				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
+				F6755309228B8F740037B342 /* Bridge */,
 				F6B388ED1C77F298004B2D42 /* Connect */,
 				F6B388EE1C77F2A3004B2D42 /* CPack */,
 				F6B388EF1C77F2AA004B2D42 /* Disconnect */,
@@ -359,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				F6D7AD04224A5D4B0095AA43 /* CMakeLists.txt */,
+				F6755304228B8F0A0037B342 /* Bridge */,
 				F6D7AD09224A5DB40095AA43 /* Connect */,
 				F6D7AD0A224A5DC60095AA43 /* Disconnect */,
 				F6D7AD0B224A5DCD0095AA43 /* Info */,

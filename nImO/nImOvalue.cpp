@@ -268,7 +268,7 @@ nImO::Value::enumerationType
     ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::NotEnumerable;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Value::enumerationType
 
@@ -345,7 +345,7 @@ nImO::Value::extractInt64FromMessage
                 }
                 else
                 {
-                    holder[ii] = static_cast<uint8_t>(aByte);
+                    holder[ii] = StaticCast(uint8_t, aByte);
                     ++position;
                     ODL_I1("position <- ", position); //####
                 }
@@ -374,9 +374,9 @@ nImO::Value::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind    result = static_cast<DataKind>(0);
+    DataKind    result = StaticCast(DataKind, 0);
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Value::getTypeTag
 
@@ -391,7 +391,7 @@ nImO::Value::getValueFromMessage
     ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     SpValue                 result;
-    ExtractorMapIterator    match = gExtractors.find(static_cast<uint8_t>(leadByte));
+    ExtractorMapIterator    match = gExtractors.find(StaticCast(uint8_t, leadByte));
 
     if (gExtractors.end() == match)
     {
@@ -523,8 +523,8 @@ nImO::Value::initialize
     {
         gTerminators += suffixes;
     }
-    DataKind    aByte = static_cast<DataKind>(0);
-    DataKind    aMask = static_cast<DataKind>(0);
+    DataKind    aByte = StaticCast(DataKind, 0);
+    DataKind    aMask = StaticCast(DataKind, 0);
     Extractor   theExtractor = nullptr;
 
     Array::getExtractionInfo(aByte, aMask, theExtractor);
@@ -677,9 +677,9 @@ nImO::Value::writeInt64ToMessage
     {
         ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        DataKind    stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerShortValue |
-                                                  (static_cast<DataKind>(outValue) &
-                                                   DataKind::IntegerShortValueValueMask));
+        DataKind    stuff = (DataKind::Integer | DataKind::IntegerShortValue |
+                              (StaticCast(DataKind, outValue) &
+                               DataKind::IntegerShortValueValueMask));
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
@@ -693,9 +693,9 @@ nImO::Value::writeInt64ToMessage
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            DataKind    stuff = static_cast<DataKind>(DataKind::Integer | DataKind::IntegerLongValue |
-                                                      (static_cast<DataKind>(numBytes - 1) &
-                                                       DataKind::IntegerLongValueCountMask));
+            DataKind    stuff = (DataKind::Integer | DataKind::IntegerLongValue |
+                                  (StaticCast(DataKind, numBytes - 1) &
+                                   DataKind::IntegerLongValueCountMask));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
             outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

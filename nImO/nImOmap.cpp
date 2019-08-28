@@ -340,7 +340,7 @@ nImO::Map::extractValue
                     {
                         bool    okSoFar = true;
 
-                        for ( ; okSoFar && (elementCount > static_cast<int64_t>(aMap->size())); )
+                        for ( ; okSoFar && (elementCount > StaticCast(int64_t, aMap->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
                             ODL_X1("aByte <- ", aByte); //####
@@ -498,7 +498,7 @@ nImO::Map::getTypeTag
     ODL_OBJENTER();
     DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Map::getTypeTag
 
@@ -791,7 +791,7 @@ nImO::Map::writeToMessage
                                   DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
-        writeInt64ToMessage(outMessage, static_cast<int>(inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
         for (auto & walker : *this)
         {
             walker.first->writeToMessage(outMessage);

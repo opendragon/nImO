@@ -159,7 +159,7 @@ nImO::Integer::enumerationType
     ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::Integer;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Integer::enumerationType
 
@@ -272,7 +272,7 @@ nImO::Integer::getTypeTag
     ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedIntegerValue;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Integer::getTypeTag
 

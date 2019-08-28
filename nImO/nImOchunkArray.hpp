@@ -100,7 +100,7 @@ namespace nImO
             (const DataKind *   data,
              const size_t       numBytes)
         {
-            appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
+            appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
         } // appendBytes
 
         /*! @brief Return @c true if a particular index is past the end of the buffer.

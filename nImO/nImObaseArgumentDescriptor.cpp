@@ -359,7 +359,7 @@ nImO::ArgumentsToDescriptionArray
 
         if (anArg)
         {
-            int len = static_cast<int>(anArg->argumentName().length());
+            int len = StaticCast(int, anArg->argumentName().length());
 
             if (nameSize < len)
             {
@@ -369,7 +369,7 @@ nImO::ArgumentsToDescriptionArray
     }
     if (0 < nameSize)
     {
-        nameSize += static_cast<int>(minSpace);
+        nameSize += StaticCast(int, minSpace);
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
             BaseArgumentDescriptor *    anArg = arguments[ii];
@@ -499,10 +499,10 @@ nImO::ModeFromString
         if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))
         {
             // Only known bits were set.
-            result = static_cast<ArgumentMode>(modeAsInt);
+            result = StaticCast(ArgumentMode, modeAsInt);
         }
     }
-    ODL_EXIT_I(static_cast<int>(result)); //####
+    ODL_EXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::ModeFromString
 
@@ -575,7 +575,7 @@ nImO::ProcessArguments
             if (anArg && (! anArg->isExtra()))
             {
                 ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
-                if (! anArg->validate(parseResult.nonOption(static_cast<int>(ii))))
+                if (! anArg->validate(parseResult.nonOption(StaticCast(int, ii))))
                 {
                     if (0 < badArgs.length())
                     {

@@ -421,7 +421,7 @@ doTestBigArrayValue
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t *   addr = bigBlob.get();
-                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     if (0 != ii)
                     {

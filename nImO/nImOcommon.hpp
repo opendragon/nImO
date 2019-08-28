@@ -120,10 +120,10 @@
 # endif // defined(__APPLE__)
 
 /*! @brief A DOUBLEQUOTE character. */
-# define CHAR_DOUBLEQUOTE_          "\""
+# define CHAR_DOUBLEQUOTE_              "\""
 
 /*! @brief The default name for the root part of a channel name. */
-# define DEFAULT_CHANNEL_ROOT_      "channel_"
+# define DEFAULT_CHANNEL_ROOT_          "channel_"
 
 # if (! defined(FALSE))
 #  define FALSE 0
@@ -139,25 +139,25 @@ constexpr int   MAXIMUM_PORT_ALLOWED_ = 65535;
 constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief The standard copyright holder name to use for m+m-created executables. */
-# define NIMO_COPYRIGHT_NAME_       "OpenDragon"
+# define NIMO_COPYRIGHT_NAME_           "OpenDragon"
 
 /*! @brief The IP address for the loopback address for the machine that is running the
  executable. */
-# define SELF_ADDRESS_IPADDR_       "127.0.0.1"
+# define SELF_ADDRESS_IPADDR_           "127.0.0.1"
 
 /*! @brief The IP name for the loopback address for the machine that is running the
  executable. */
-# define SELF_ADDRESS_NAME_         "localhost"
+# define SELF_ADDRESS_NAME_             "localhost"
 
 /*! @brief The signal to use for internally-detected timeouts. */
 # if MAC_OR_LINUX_
-#  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
+#  define STANDARD_SIGNAL_TO_USE_       SIGUSR2
 # else // ! MAC_OR_LINUX_
-#  define STANDARD_SIGNAL_TO_USE_   42
+#  define STANDARD_SIGNAL_TO_USE_       42
 # endif // ! MAC_OR_LINUX_
 
 /*! @brief A simple macro to hold the pieces of a string together. */
-# define T_(xx_)                    xx_
+# define T_(xx_)                        xx_
 
 # if (! defined(TRUE))
 #  define TRUE 1
@@ -167,7 +167,16 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 # define NOT_USED_(var) /* var */
 
 /*! @brief A simple macro to calculate the number of elements in an array. */
-# define A_SIZE(arr)    (sizeof(arr) / sizeof(*arr))
+# define A_SIZE(arr)                    (sizeof(arr) / sizeof(*arr))
+
+/*! @brief A macro to make 'casts' more legible. */
+# define StaticCast(type_,value_)       static_cast<type_>(value_)
+/*! @brief A macro to make 'casts' more legible. */
+# define ConstCast(type_,value_)        const_cast<type_>(value_)
+/*! @brief A macro to make 'casts' more legible. */
+# define DynamicCast(type_,value_)      dynamic_cast<type_>(value_)
+/*! @brief A macro to make 'casts' more legible. */
+# define ReinterpretCast(type_,value_)  reinterpret_cast<type_>(value_)
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
@@ -179,7 +188,7 @@ toUType
     (E enumerator)
     noexcept
 {
-    return static_cast<typename std::underlying_type<E>::type>(enumerator);
+    return StaticCast(typename std::underlying_type<E>::type, enumerator);
 } // toUType
 
 /*! @brief Return a unique_ptr for a freshly-allocated object.
@@ -692,6 +701,16 @@ namespace nImO
     NameOfSignal
         (const int  theSignal);
 
+    /*! @brief Complement a DataKind value.
+     @param[in] rightValue The value to be inverted.
+     @returns The result of the inversion of the value. */
+    inline constexpr DataKind
+    operator ~
+    (const DataKind rightValue)
+    {
+        return StaticCast(DataKind, ~ toUType(rightValue));
+    } // operator ~
+
     /*! @brief Merge two DataKind values together.
      @param[in] leftValue The first value to be merged.
      @param[in] rightValue The second value to be merged.
@@ -701,7 +720,7 @@ namespace nImO
         (const DataKind leftValue,
          const DataKind rightValue)
     {
-        return static_cast<DataKind>(toUType(leftValue) | toUType(rightValue));
+        return StaticCast(DataKind, toUType(leftValue) | toUType(rightValue));
     } // operator |
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
@@ -713,7 +732,7 @@ namespace nImO
         (const DataKind leftValue,
          const uint8_t  rightValue)
     {
-        return static_cast<DataKind>(toUType(leftValue) | rightValue);
+        return StaticCast(DataKind, toUType(leftValue) | rightValue);
     } // operator |
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
@@ -725,7 +744,7 @@ namespace nImO
         (const uint8_t  leftValue,
          const DataKind rightValue)
     {
-        return static_cast<DataKind>(leftValue | toUType(rightValue));
+        return StaticCast(DataKind, leftValue | toUType(rightValue));
     } // operator |
 
       /*! @brief Merge two DataKind values together.
@@ -737,7 +756,7 @@ namespace nImO
         (const DataKind leftValue,
          const DataKind rightValue)
     {
-        return static_cast<DataKind>(toUType(leftValue) & toUType(rightValue));
+        return StaticCast(DataKind, toUType(leftValue) & toUType(rightValue));
     } // operator &
 
       /*! @brief Mask an unsigned byte with a DataKind mask.
@@ -749,7 +768,7 @@ namespace nImO
         (const DataKind leftValue,
          const uint8_t  rightValue)
     {
-        return static_cast<DataKind>(toUType(leftValue) & rightValue);
+        return StaticCast(DataKind, toUType(leftValue) & rightValue);
     } // operator &
 
     /*! @brief Mask an unsigned byte with a DataKind mask.
@@ -761,7 +780,7 @@ namespace nImO
         (const uint8_t  leftValue,
          const DataKind rightValue)
     {
-        return static_cast<DataKind>(leftValue & toUType(rightValue));
+        return StaticCast(DataKind, leftValue & toUType(rightValue));
     } // operator &
 
     /*! @brief Write out a (possibly multi-line) description.

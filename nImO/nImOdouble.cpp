@@ -159,7 +159,7 @@ nImO::Double::enumerationType
     ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::NotEnumerable;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Double::enumerationType
 
@@ -257,7 +257,7 @@ nImO::Double::extractValue
             }
             else
             {
-                holder[ii] = static_cast<uint8_t>(aByte);
+                holder[ii] = StaticCast(uint8_t, aByte);
                 ++position;
                 ODL_I1("position <- ", position); //####
             }
@@ -295,7 +295,7 @@ nImO::Double::extractValue
                 }
                 else
                 {
-                    holder[jj] = static_cast<uint8_t>(aByte);
+                    holder[jj] = StaticCast(uint8_t, aByte);
                     ++position;
                     ODL_I1("position <- ", position); //####
                 }
@@ -337,7 +337,7 @@ nImO::Double::getTypeTag
     ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedDoubleValue;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Double::getTypeTag
 
@@ -604,17 +604,17 @@ nImO::Double::writeValuesToMessage
     if (0 < numValues)
     {
         ODL_LOG("(0 < numValues)"); //####
-        if (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)
+        if (StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)
         {
-            ODL_LOG("(static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
+            ODL_LOG("(StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)"); //####
             size_t  numBytes = I2B(numValues, numBuff);
 
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                DataKind    countTag = static_cast<DataKind>(DataKind::Double | DataKind::DoubleLongCount |
-                                                             (DataKind::DoubleLongCountMask &
-                                                              static_cast<DataKind>(numBytes - 1)));
+                DataKind    countTag = (DataKind::Double | DataKind::DoubleLongCount |
+                                         (DataKind::DoubleLongCountMask &
+                                          StaticCast(DataKind, numBytes - 1)));
 
                 outMessage.appendBytes(&countTag, sizeof(countTag));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -622,10 +622,10 @@ nImO::Double::writeValuesToMessage
         }
         else
         {
-            ODL_LOG("! (static_cast<size_t>(DataKindDoubleShortCountMaxValue) < numValues)"); //####
-            DataKind    countTag = static_cast<DataKind>(DataKind::Double | DataKind::DoubleShortCount |
-                                                         (static_cast<DataKind>(numValues - DataKindDoubleShortCountMinValue) &
-                                                          DataKind::DoubleShortCountMask));
+            ODL_LOG("! (StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)"); //####
+            DataKind    countTag = (DataKind::Double | DataKind::DoubleShortCount |
+                                     (StaticCast(DataKind, numValues - DataKindDoubleShortCountMinValue) &
+                                      DataKind::DoubleShortCountMask));
 
             outMessage.appendBytes(&countTag, sizeof(countTag));
         }

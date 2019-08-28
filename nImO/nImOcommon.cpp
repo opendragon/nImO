@@ -246,8 +246,8 @@ nImO::CompareBytes
 
     if (memcmp(first, second, numBytes))
     {
-        const uint8_t * firstWalker = static_cast<const uint8_t *>(first);
-        const uint8_t * secondWalker = static_cast<const uint8_t *>(second);
+        const uint8_t * firstWalker = StaticCast(const uint8_t *, first);
+        const uint8_t * secondWalker = StaticCast(const uint8_t *, second);
 
         for (size_t ii = 0; numBytes > ii; ++ii)
         {
@@ -454,7 +454,7 @@ nImO::GetRandomChannelName
         bool                hasLeadingSlash = false;
         const char *        stringToUse;
 #if 0
-        int                 randNumb = static_cast<int>(yarp::os::Random::uniform() * kMaxRandom);
+        int                 randNumb = StaticCast(int, yarp::os::Random::uniform() * kMaxRandom);
 #else//0
         int                 randNumb = 17;
 #endif//0
@@ -612,7 +612,7 @@ nImO::Initialize
         double  intPart;
         double  now = yarp::os::Time::now();
         double  fraction = modf(now, &intPart);
-        int     seed = static_cast<int>(ceil(fraction * kMaxRandom));
+        int     seed = StaticCast(int, ceil(fraction * kMaxRandom));
 
 #if defined(MpM_ChattyStart)
 # if MAC_OR_LINUX_
@@ -883,21 +883,21 @@ nImO::ProcessStandardUtilitiesOptions
     }; // OptionIndex
 
     bool                    keepGoing = true;
-    Option_::Descriptor     firstDescriptor(static_cast<unsigned>(OptionIndex::UNKNOWN), 0, "", "",
+    Option_::Descriptor     firstDescriptor(StaticCast(unsigned, OptionIndex::UNKNOWN), 0, "", "",
                                             Option_::Arg::None, nullptr);
-    Option_::Descriptor     helpDescriptor(static_cast<unsigned>(OptionIndex::HELP), 0, "h", "help",
+    Option_::Descriptor     helpDescriptor(StaticCast(unsigned, OptionIndex::HELP), 0, "h", "help",
                                            Option_::Arg::None,
                                            T_("  --help, -h    Print usage and exit"));
-    Option_::Descriptor     infoDescriptor(static_cast<unsigned>(OptionIndex::INFO), 0, "i", "info",
+    Option_::Descriptor     infoDescriptor(StaticCast(unsigned, OptionIndex::INFO), 0, "i", "info",
                                            Option_::Arg::None,
                                            T_("  --info, -i    Print type and description and exit"));
-    Option_::Descriptor     jsonDescriptor(static_cast<unsigned>(OptionIndex::JSON), 0, "j", "json",
+    Option_::Descriptor     jsonDescriptor(StaticCast(unsigned, OptionIndex::JSON), 0, "j", "json",
                                            Option_::Arg::None,
                                            T_("  --json, -j    Generate output in JSON format"));
-    Option_::Descriptor     tabsDescriptor(static_cast<unsigned>(OptionIndex::TABS), 0, "t", "tabs",
+    Option_::Descriptor     tabsDescriptor(StaticCast(unsigned, OptionIndex::TABS), 0, "t", "tabs",
                                            Option_::Arg::None,
                                            T_("  --tabs, -t    Generate output in tab-format"));
-    Option_::Descriptor     versionDescriptor(static_cast<unsigned>(OptionIndex::VERSION), 0, "v",
+    Option_::Descriptor     versionDescriptor(StaticCast(unsigned, OptionIndex::VERSION), 0, "v",
                                               "vers", Option_::Arg::None,
                                               T_("  --vers, -v    Print version information and exit"));
     Option_::Descriptor     lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
@@ -956,12 +956,12 @@ nImO::ProcessStandardUtilitiesOptions
     {
         keepGoing = false;
     }
-    else if (options[static_cast<size_t>(OptionIndex::HELP)] || options[static_cast<size_t>(OptionIndex::UNKNOWN)])
+    else if (options[StaticCast(size_t, OptionIndex::HELP)] || options[StaticCast(size_t, OptionIndex::UNKNOWN)])
     {
         Option_::printUsage(cout, usage, HELP_LINE_LENGTH_);
         keepGoing = false;
     }
-    else if (options[static_cast<size_t>(OptionIndex::VERSION)])
+    else if (options[StaticCast(size_t, OptionIndex::VERSION)])
     {
         std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
 
@@ -969,18 +969,18 @@ nImO::ProcessStandardUtilitiesOptions
         copyrightHolder << "." << endl;
         keepGoing = false;
     }
-    else if (options[static_cast<size_t>(OptionIndex::INFO)])
+    else if (options[StaticCast(size_t, OptionIndex::INFO)])
     {
         cout << "Utility\t" << utilityDescription.c_str() << endl;
         keepGoing = false;
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
-        if (options[static_cast<size_t>(OptionIndex::JSON)])
+        if (options[StaticCast(size_t, OptionIndex::JSON)])
         {
             flavour = OutputFlavour::JSON;
         }
-        else if (options[static_cast<size_t>(OptionIndex::TABS)])
+        else if (options[StaticCast(size_t, OptionIndex::TABS)])
         {
             flavour = OutputFlavour::Tabs;
         }

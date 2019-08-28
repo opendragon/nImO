@@ -215,7 +215,7 @@ doTestIntegerSize
             {
                 size_t  calcLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
                 
-                if (static_cast<int64_t>(calcLength) == length)
+                if (StaticCast(int64_t, calcLength) == length)
                 {
                     result = 0;
                 }
@@ -270,7 +270,7 @@ doTestDoubleSize
         size_t  expectedLength = sizeof(double);
         int64_t calcLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
         
-        if (calcLength == static_cast<int64_t>(expectedLength))
+        if (calcLength == StaticCast(int64_t, expectedLength))
         {
             result = 0;
         }

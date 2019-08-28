@@ -104,7 +104,7 @@ namespace nImO
             (void)
             const
         {
-            return static_cast<size_t>(_bufferEnd - _write);
+            return StaticCast(size_t, _bufferEnd - _write);
         } // getAvailableBytes
 
         /*! @brief Return the stored data.
@@ -124,7 +124,7 @@ namespace nImO
             (void)
             const
         {
-            return static_cast<size_t>(_write - _buffer.get());
+            return StaticCast(size_t, _write - _buffer.get());
         } // getDataSize
 
         /*! @brief The assignment operator.

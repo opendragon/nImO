@@ -324,7 +324,7 @@ nImO::Blob::extractValue
             }
             else
             {
-                holder[ii] = static_cast<uint8_t>(aByte);
+                holder[ii] = StaticCast(uint8_t, aByte);
                 ++position;
                 ODL_I1("position <- ", position); //####
             }
@@ -352,7 +352,7 @@ nImO::Blob::extractValue
             }
             else
             {
-                holder[ii] = static_cast<uint8_t>(aByte);
+                holder[ii] = StaticCast(uint8_t, aByte);
                 ++position;
                 ODL_I1("position <- ", position); //####
             }
@@ -398,7 +398,7 @@ nImO::Blob::getTypeTag
     ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Blob::getTypeTag
 
@@ -624,10 +624,10 @@ nImO::Blob::writeToMessage
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                DataKind    stuff = static_cast<DataKind>(DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                                                          DataKind::StringOrBlobLongLengthValue |
-                                                          (DataKind::StringOrBlobLongLengthMask &
-                                                           static_cast<DataKind>(numBytes - 1)));
+                DataKind    stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                                      DataKind::StringOrBlobLongLengthValue |
+                                      (DataKind::StringOrBlobLongLengthMask &
+                                       StaticCast(DataKind, numBytes - 1)));
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -636,10 +636,10 @@ nImO::Blob::writeToMessage
         else
         {
             ODL_LOG("! (15 < _size)"); //####
-            DataKind    stuff = static_cast<DataKind>(DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                                                      DataKind::StringOrBlobShortLengthValue |
-                                                      (DataKind::StringOrBlobShortLengthMask &
-                                                       static_cast<DataKind>(_size)));
+            DataKind    stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                                  DataKind::StringOrBlobShortLengthValue |
+                                  (DataKind::StringOrBlobShortLengthMask &
+                                   StaticCast(DataKind, _size)));
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }

@@ -212,7 +212,7 @@ doTestBufferChunkWithSingleByte
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
+            uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -278,11 +278,11 @@ doTestFilledBufferChunk
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
+                uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    uint8_t newData = StaticCast(uint8_t, (data + ii) & 0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -296,7 +296,7 @@ doTestFilledBufferChunk
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            uint8_t expectedValue = StaticCast(uint8_t, (data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -366,11 +366,11 @@ doTestOverfilledBufferChunk
 
             if (1 < howMuch)
             {
-                uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
+                uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
-                    uint8_t newData = static_cast<uint8_t>((data + ii) & 0x00FF);
+                    uint8_t newData = StaticCast(uint8_t, (data + ii) & 0x00FF);
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -384,7 +384,7 @@ doTestOverfilledBufferChunk
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
                             uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = static_cast<uint8_t>((data + ii) & 0x00FF);
+                            uint8_t expectedValue = StaticCast(uint8_t, (data + ii) & 0x00FF);
 
                             if (aValue != expectedValue)
                             {
@@ -450,7 +450,7 @@ doTestBufferChunkReset
 
         if (stuff)
         {
-            uint8_t data = (reinterpret_cast<intptr_t>(stuff.get()) & 0x00FF);
+            uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -1134,7 +1134,7 @@ doTestStringBufferWithSmallBlob
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     uint8_t *   addr = smallBlob.get();
-                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     smallBlob[ii] = aByte;
                 }
@@ -1215,7 +1215,7 @@ doTestStringBufferWithBigBlob
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t *   addr = bigBlob.get();
-                    uint8_t     aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(addr) ^ ii);
+                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     bigBlob[ii] = aByte;
                 }
@@ -1823,7 +1823,7 @@ doTestSmallBlobValue
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
+                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
@@ -1902,7 +1902,7 @@ doTestBigBlobValue
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
@@ -2299,13 +2299,13 @@ doTestBlobCopyAndAssign
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(bigBlob.get()) ^ ii);
+                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii);
 
                 bigBlob[ii] = aByte;
             }
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = static_cast<uint8_t>(reinterpret_cast<intptr_t>(smallBlob.get()) ^ ii);
+                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii);
 
                 smallBlob[ii] = aByte;
             }
@@ -2319,14 +2319,14 @@ doTestBlobCopyAndAssign
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
             {
-                result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
+                result = StaticCast(int, CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
             }
             if (0 == result)
             {
                 result = ((kBigTestSize == bigLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
+                    result = StaticCast(int, CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
                 }
             }
             if (0 == result)
@@ -2340,14 +2340,14 @@ doTestBlobCopyAndAssign
                 result = ((kSmallTestSize == smallLength) ? 0 : 1);
                 if (0 == result)
                 {
-                    result = static_cast<int>(CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
+                    result = StaticCast(int, CompareBytes(smallValue, smallBlob.get(), kSmallTestSize));
                 }
                 if (0 == result)
                 {
                     result = ((kBigTestSize == bigLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = static_cast<int>(CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
+                        result = StaticCast(int, CompareBytes(bigValue, bigBlob.get(), kBigTestSize));
                     }
                 }
                 if (0 == result)
@@ -2360,14 +2360,14 @@ doTestBlobCopyAndAssign
                     result = ((kBigTestSize == smallLength) ? 0 : 1);
                     if (0 == result)
                     {
-                        result = static_cast<int>(CompareBytes(smallValue, bigBlob.get(), kBigTestSize));
+                        result = StaticCast(int, CompareBytes(smallValue, bigBlob.get(), kBigTestSize));
                     }
                     if (0 == result)
                     {
                         result = ((kSmallTestSize == bigLength) ? 0 : 1);
                         if (0 == result)
                         {
-                            result = static_cast<int>(CompareBytes(bigValue, smallBlob.get(), kSmallTestSize));
+                            result = StaticCast(int, CompareBytes(bigValue, smallBlob.get(), kSmallTestSize));
                         }
                     }
                 }

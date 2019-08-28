@@ -226,18 +226,18 @@ nImO::Message::getBytesForTransmission
                     
                     sum += aByte;
                     if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
-                        (DataKind::EscapeValue == static_cast<DataKind>(aByte)))
+                        (DataKind::EscapeValue == StaticCast(DataKind, aByte)))
                     {
                         ++escapeCount;
                     }
                 }
                 // Calculate the checksum byte and correct the escape and start counts if it will
                 // need to be escaped.
-                uint8_t checkSum = static_cast<uint8_t>(0x00FF & ~sum);
+                uint8_t checkSum = StaticCast(uint8_t, 0x00FF & ~sum);
                 ODL_X2("sum = ", sum, "checkSum = ", checkSum); //####
 
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
-                    (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
+                    (DataKind::EscapeValue == StaticCast(DataKind, checkSum)))
                 {
                     ++escapeCount;
                 }
@@ -250,7 +250,7 @@ nImO::Message::getBytesForTransmission
                     uint8_t aByte = intermediate[ii];
                     
                     if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
-                        (DataKind::EscapeValue == static_cast<DataKind>(aByte)))
+                        (DataKind::EscapeValue == StaticCast(DataKind, aByte)))
                     {
                         _cachedTransmissionString += toUType(DataKind::EscapeValue);
                         _cachedTransmissionString += (aByte ^ 0x0080);
@@ -262,7 +262,7 @@ nImO::Message::getBytesForTransmission
                 }
                 // Copy the checksum to the end of the new set of bytes.
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
-                    (DataKind::EscapeValue == static_cast<DataKind>(checkSum)))
+                    (DataKind::EscapeValue == StaticCast(DataKind, checkSum)))
                 {
                     _cachedTransmissionString += toUType(DataKind::EscapeValue);
                     _cachedTransmissionString += (checkSum ^ 0x0080);

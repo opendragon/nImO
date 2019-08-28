@@ -320,7 +320,7 @@ nImO::Set::extractValue
                     {
                         bool    okSoFar = true;
 
-                        for ( ; okSoFar && (elementCount > static_cast<int64_t>(aSet->size())); )
+                        for ( ; okSoFar && (elementCount > StaticCast(int64_t, aSet->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
                             ODL_X1("aByte <- ", aByte); //####
@@ -448,7 +448,7 @@ nImO::Set::getTypeTag
     ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJEXIT_I(static_cast<int>(result)); //####
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Set::getTypeTag
 
@@ -704,7 +704,7 @@ nImO::Set::writeToMessage
                                   DataKind::OtherContainerNonEmptyValue);
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
-        writeInt64ToMessage(outMessage, static_cast<int>(inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
         for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             SpValue aValue(*walker);

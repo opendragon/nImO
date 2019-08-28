@@ -651,7 +651,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
                   DataKind::StringOrBlobLongLengthValue |
                   ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                static_cast<DataKind>(42),
+                StaticCast(DataKind, 42),
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -713,7 +713,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
                   DataKind::StringOrBlobLongLengthValue |
                   ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                static_cast<DataKind>(42),
+                StaticCast(DataKind, 42),
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -1046,7 +1046,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1275,19 +1275,19 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
-                static_cast<DataKind>(3),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 0
-                static_cast<DataKind>(0x3F), static_cast<DataKind>(0xF0),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 1
-                static_cast<DataKind>(0x40), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00),
-                static_cast<DataKind>(0x00), static_cast<DataKind>(0x00), // 2
+                StaticCast(DataKind, 3),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
+                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
                 // Logical
                 DataKind::Other | DataKind::OtherLogical |
                   DataKind::OtherLogicalFalseValue,
@@ -1627,7 +1627,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -2207,7 +2207,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                static_cast<DataKind>(0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |

@@ -182,7 +182,7 @@ PortArgumentDescriptor::parseArgString
 
             if (nImO::ConvertToInt64(defaultString.c_str(), intValue))
             {
-                defaultValue = static_cast<int>(intValue);
+                defaultValue = StaticCast(int, intValue);
             }
             else
             {

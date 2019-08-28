@@ -197,7 +197,7 @@ nImO::StringBuffer::addString
         }
         else
         {
-            inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString), length * sizeof(*aString));
+            inherited::appendBytes(ReinterpretCast(const uint8_t *, aString), length * sizeof(*aString));
         }
     }
     ODL_OBJEXIT_P(this); //####
@@ -220,7 +220,7 @@ nImO::StringBuffer::addString
     }
     else
     {
-        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString.c_str()), length * sizeof(*aString.c_str()));
+        inherited::appendBytes(ReinterpretCast(const uint8_t *, aString.c_str()), length * sizeof(*aString.c_str()));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -322,7 +322,7 @@ nImO::StringBuffer::processCharacters
 
     for (size_t ii = 0; length > ii; ++ii)
     {
-        uint8_t aByte = static_cast<uint8_t>(aString[ii]);
+        uint8_t aByte = StaticCast(uint8_t, aString[ii]);
 
         if ((0x20 > aByte) || (0 != (aByte &0x80)))
         {
@@ -348,7 +348,7 @@ nImO::StringBuffer::processCharacters
         inherited::appendBytes(&delimiter, sizeof(delimiter));
         for (size_t ii = 0; length > ii; ++ii)
         {
-            uint8_t aByte = static_cast<uint8_t>(aString[ii]);
+            uint8_t aByte = StaticCast(uint8_t, aString[ii]);
 
             if ((0x20 > aByte) || (0 != (aByte &0x80)))
             {
@@ -357,7 +357,7 @@ nImO::StringBuffer::processCharacters
                 {
                     const char *    controlString = kCanonicalControl[aByte];
 
-                    inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
+                    inherited::appendBytes(ReinterpretCast(const uint8_t *, controlString),
                                            strlen(controlString) * sizeof(*controlString));
                 }
                 else
@@ -403,7 +403,7 @@ nImO::StringBuffer::processCharacters
                             const char *    controlString = kCanonicalControl[aByte];
 
                             inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
-                            inherited::appendBytes(reinterpret_cast<const uint8_t *>(controlString),
+                            inherited::appendBytes(ReinterpretCast(const uint8_t *, controlString),
                                                    strlen(controlString) * sizeof(*controlString));
                         }
                         else
@@ -420,7 +420,7 @@ nImO::StringBuffer::processCharacters
                 {
                     inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 }
-                inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString + ii), sizeof(*aString));
+                inherited::appendBytes(ReinterpretCast(const uint8_t *, aString + ii), sizeof(*aString));
             }
         }
         inherited::appendBytes(&delimiter, sizeof(delimiter));
@@ -429,7 +429,7 @@ nImO::StringBuffer::processCharacters
     {
         // Nothing special
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
-        inherited::appendBytes(reinterpret_cast<const uint8_t *>(aString), length * sizeof(*aString));
+        inherited::appendBytes(ReinterpretCast(const uint8_t *, aString), length * sizeof(*aString));
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
     }
     ODL_EXIT(); //####
@@ -456,7 +456,7 @@ nImO::operator <<
 
            if (0 < nn)
            {
-               out.write(reinterpret_cast<const char *>(aChunk->getData()), nn);
+               out.write(ReinterpretCast(const char *, aChunk->getData()), nn);
            }
         }
     }

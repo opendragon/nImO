@@ -103,7 +103,7 @@ namespace nImO
             (const DataKind *   data,
              const size_t       numBytes)
         {
-            appendBytes(reinterpret_cast<const uint8_t *>(data), numBytes);
+            appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
         } // appendBytes
 
         /*! @brief Close the Message, completing its contents.

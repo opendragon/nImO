@@ -314,7 +314,8 @@ namespace nImO
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
          @returns The updated object. */
-        template <typename Type>
+        template
+            <typename Type>
         Type &
         operator =
             (const Type &   other)

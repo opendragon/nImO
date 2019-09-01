@@ -182,7 +182,8 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
  { From Effective Modern C++. }
  @param[in] enumerator The value to be converted.
  @returns The input value as its underlying type. */
-template <typename E>
+template
+    <typename E>
 constexpr typename std::underlying_type<E>::type
 toUType
     (E enumerator)
@@ -195,7 +196,9 @@ toUType
  { From Effective Modern C++. }
  @param[in] params The arguments for the constructor.
  @returns A unique_ptr to the newly-allocated object. */
-template <typename T, typename... Ts>
+template
+    <typename T,
+     typename... Ts>
 std::unique_ptr<T>
 make_unique
     (Ts &&... params)

@@ -164,10 +164,10 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 # endif // ! defined(TRUE)
 
 /*! @brief A simple macro to hide unused parameters for a function. */
-# define NOT_USED_(var) /* var */
+# define NOT_USED_(var_) /* var_ */
 
 /*! @brief A simple macro to calculate the number of elements in an array. */
-# define A_SIZE(arr)                    (sizeof(arr) / sizeof(*arr))
+# define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
 
 /*! @brief A macro to make 'casts' more legible. */
 # define StaticCast(type_,value_)       static_cast<type_>(value_)
@@ -709,7 +709,7 @@ namespace nImO
      @returns The result of the inversion of the value. */
     inline constexpr DataKind
     operator ~
-    (const DataKind rightValue)
+        (const DataKind rightValue)
     {
         return StaticCast(DataKind, ~ toUType(rightValue));
     } // operator ~

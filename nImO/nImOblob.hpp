@@ -119,8 +119,8 @@ namespace nImO
         equalTo
             (const Value &  other,
              bool &         validComparison)
-        const
-        override;
+            const
+            override;
 
         /*! @brief Get the extraction information for Blob objects.
          @param[out] aByte The byte value that indicates the start of a Blob value.

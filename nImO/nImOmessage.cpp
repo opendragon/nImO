@@ -133,7 +133,7 @@ nImO::Message::~Message
 void
 nImO::Message::appendBytes
     (const uint8_t *    data,
-     const size_t   numBytes)
+     const size_t       numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####

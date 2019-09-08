@@ -167,7 +167,8 @@ namespace nImO
 
         /*! @brief Convert the buffer to a Value.
          @returns The Value represented by the buffer contents. */
-        SpValue convertToValue
+        SpValue
+        convertToValue
             (void)
             const;
 

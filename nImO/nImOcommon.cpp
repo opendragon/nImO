@@ -443,7 +443,7 @@ nImO::GetLogger
 
 std::string
 nImO::GetRandomChannelName
-    (const char *channelRoot)
+    (const char *   channelRoot)
 {
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####

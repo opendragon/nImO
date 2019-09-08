@@ -119,7 +119,7 @@ namespace nImO
         getByte
             (const size_t   index,
              bool &         atEnd)
-        const;
+            const;
 
         /*! @brief Return a copy of the bytes in the buffer.
          @returns A copy of the bytes in the buffer. */

@@ -127,8 +127,9 @@ nImO::Array::addEntries
 } // nImO::Array::addEntries
 
 const nImO::Array *
-nImO::Array::asArray(void)
-const
+nImO::Array::asArray
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####

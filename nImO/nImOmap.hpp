@@ -233,7 +233,7 @@ namespace nImO
         inline const_iterator
         find
             (const SpValue  key)
-        const
+            const
         {
             const_iterator  result;
             

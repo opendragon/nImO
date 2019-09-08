@@ -407,8 +407,8 @@ namespace nImO
          @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
-            (const StringBuffer &inBuffer,
-             size_t             &position);
+            (const StringBuffer &   inBuffer,
+             size_t &               position);
 
         /*! @brief Add a binary representation of the object to the Message.
          @param[in,out] outMessage The Message to be appended to. */
@@ -421,7 +421,8 @@ namespace nImO
         // Protected methods.
 
         /*! @brief The constructor. */
-        Value(void);
+        Value
+            (void);
 
         /*! @brief Extracts an integer value from a Message.
          @param[in] theMessage The Message being processed.

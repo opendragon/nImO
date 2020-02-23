@@ -91,14 +91,14 @@ namespace nImO
          @param[in] numBytes The number of bytes to add.
 
          Note that if there is insufficient space, the added data will be truncated.
-         @returns The BufferChunk object so that cascading can be done. */
+         @return The BufferChunk object so that cascading can be done. */
         BufferChunk &
         appendData
             (const void *   data,
              const size_t   numBytes);
 
         /*! @brief Return the number of available bytes in the chunk.
-         @returns The number of available bytes in the chunk. */
+         @return The number of available bytes in the chunk. */
         inline size_t
         getAvailableBytes
             (void)
@@ -108,7 +108,7 @@ namespace nImO
         } // getAvailableBytes
 
         /*! @brief Return the stored data.
-         @returns A pointer to the stored data. */
+         @return A pointer to the stored data. */
         inline const uint8_t *
         getData
             (void)
@@ -118,7 +118,7 @@ namespace nImO
         } // getData
 
         /*! @brief Return the number of bytes used in the chunk.
-         @returns The number of bytes used in the chunk. */
+         @return The number of bytes used in the chunk. */
         inline size_t
         getDataSize
             (void)
@@ -129,13 +129,13 @@ namespace nImO
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
-         @returns The updated object. */
+         @return The updated object. */
         BufferChunk &
         operator =
             (const BufferChunk &    other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
-         @returns The BufferChunk object so that cascading can be done. */
+         @return The BufferChunk object so that cascading can be done. */
         BufferChunk &
         reset
             (void);

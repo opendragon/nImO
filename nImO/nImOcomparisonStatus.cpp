@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOflaw.cpp
+//  File:       nImO/nImOcomparisonStatus.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO error or flaw values.
+//  Contains:   The class definition for nImO comparison values.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2017 by OpenDragon.
+//  Copyright:  (c) 2020 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2017-02-28
+//  Created:    2020-02-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOflaw.hpp"
+#include "nImOcomparisonStatus.hpp"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO error or flaw values. */
+ @brief The class definition for %nImO comparison values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,47 +76,22 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Flaw::Flaw
-    (void) :
-        inherited()
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::Flaw::Flaw
-
-nImO::Flaw::~Flaw
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Flaw::~Flaw
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Flaw *
-nImO::Flaw::asFlaw
-    (void)
-    const
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT_P(this); //####
-    return this;
-} // nImO::Flaw::asFlaw
-
-std::ostream &
-nImO::Flaw::operator <<
-    (std::ostream & out)
-    const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
-    out << getDescription();
-    ODL_OBJEXIT_P(&out); //####
-    return out;
-} // nImO::Flaw::operator <<
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::ostream &
+nImO::operator <<
+    (std::ostream &                 out,
+     const nImO::ComparisonStatus & aValue)
+{
+    ODL_ENTER(); //###
+    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
+    out << "result:" << std::boolalpha << aValue._result << "/valid:" << std::boolalpha << aValue._valid;
+    ODL_EXIT_P(&out); //####
+    return out;
+} // nImO::operator <<

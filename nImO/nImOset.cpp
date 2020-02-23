@@ -207,28 +207,35 @@ nImO::Set::deeplyEqualTo
     return result;
 } // nImO::Set::deeplyEqualTo
 
-bool
+nImO::ComparisonStatus
 nImO::Set::equalTo
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    validComparison = (Enumerable::Unknown != _keyKind);
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    if (&other != this)
     {
-        SpValue aValue(*walker);
-
-        if (aValue)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            result &= aValue->equalTo(other, validComparison);
+            result.clear();
+        }
+        else
+        {
+            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            {
+                SpValue aValue(*walker);
+
+                if (aValue)
+                {
+                    result &= aValue->equalTo(other);
+                }
+            }
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Set::equalTo
 
@@ -452,105 +459,157 @@ nImO::Set::getTypeTag
     return result;
 } // nImO::Set::getTypeTag
 
-bool
+nImO::ComparisonStatus
 nImO::Set::greaterThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    validComparison = (Enumerable::Unknown != _keyKind);
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    if (&other == this)
     {
-        SpValue aValue(*walker);
-
-        if (aValue)
+        result = false;
+    }
+    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
+    {
+        result.clear();
+    }
+    else
+    {
+        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            result &= aValue->greaterThan(other, validComparison);
+            SpValue aValue(*walker);
+
+            if (aValue)
+            {
+                result &= aValue->greaterThan(other);
+            }
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Set::greaterThan
 
-bool
+nImO::ComparisonStatus
 nImO::Set::greaterThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    validComparison = (Enumerable::Unknown != _keyKind);
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    if (&other != this)
     {
-        SpValue aValue(*walker);
-
-        if (aValue)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            result &= aValue->greaterThanOrEqual(other, validComparison);
+            result.clear();
+        }
+        else
+        {
+            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            {
+                SpValue aValue(*walker);
+
+                if (aValue)
+                {
+                    result &= aValue->greaterThanOrEqual(other);
+                }
+            }
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Set::greaterThanOrEqual
 
-bool
+nImO::ComparisonStatus
 nImO::Set::lessThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    validComparison = (Enumerable::Unknown != _keyKind);
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    if (&other == this)
     {
-        SpValue aValue(*walker);
-
-        if (aValue)
+        result = false;
+    }
+    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
+    {
+        result.clear();
+    }
+    else
+    {
+        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            result &= aValue->lessThan(other, validComparison);
+            SpValue aValue(*walker);
+
+            if (aValue)
+            {
+                result &= aValue->lessThan(other);
+            }
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Set::lessThan
 
-bool
+nImO::ComparisonStatus
 nImO::Set::lessThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = ((other.enumerationType() == _keyKind) && (inherited2::begin() != inherited2::end()));
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    validComparison = (Enumerable::Unknown != _keyKind);
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    if (&other != this)
+    {
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
+        {
+            result.clear();
+        }
+        else
+        {
+            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            {
+                SpValue aValue(*walker);
+
+                if (aValue)
+                {
+                    result &= aValue->lessThanOrEqual(other);
+                }
+            }
+        }
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Set::lessThanOrEqual
+
+std::ostream &
+nImO::Set::operator <<
+    (std::ostream & out)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
+    out << kStartSetChar;
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
-        if (aValue)
+        if (nullptr != aValue)
         {
-            result &= aValue->lessThanOrEqual(other, validComparison);
+            out << " " << *aValue;
         }
     }
-    ODL_OBJEXIT_I(result); //####
-    return result;
-} // nImO::Set::lessThanOrEqual
+    out << " " << kEndSetChar;
+    ODL_OBJEXIT_P(&out); //####
+    return out;
+} // nImO::Set::operator <<
 
 void
 nImO::Set::printToStringBuffer

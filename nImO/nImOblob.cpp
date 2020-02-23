@@ -77,7 +77,7 @@
  @param[in] leftSize The number of bytes in the left sequence.
  @param[in] rightValue A pointer to the right sequence.
  @param[in] rightSize The number of bytes in the right sequence.
- @returns @c 1 if the left sequence is lexicographically greater than
+ @return @c 1 if the left sequence is lexicographically greater than
  the right sequence, @c 0 if they are the same sequence and @c -1 if
  the left sequence is lexicographically less than the right sequence. */
 static int
@@ -241,22 +241,16 @@ nImO::Blob::deeplyEqualTo
     return result;
 } // nImO::Blob::deeplyEqualTo
 
-bool
+nImO::ComparisonStatus
 nImO::Blob::equalTo
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
+    if (&other != this)
     {
         const Blob *    otherPtr = other.asBlob();
 
@@ -264,22 +258,19 @@ nImO::Blob::equalTo
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.equalTo(*this, validComparison);
+                result = other.equalTo(*this);
             }
         }
         else
         {
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Blob::equalTo
 
@@ -402,21 +393,18 @@ nImO::Blob::getTypeTag
     return result;
 } // nImO::Blob::getTypeTag
 
-bool
+nImO::ComparisonStatus
 nImO::Blob::greaterThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
     if (&other == this)
     {
         result = false;
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
     }
     else
     {
@@ -426,82 +414,67 @@ nImO::Blob::greaterThan
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.lessThan(*this, validComparison);
+                result = other.lessThanOrEqual(*this);
             }
         }
         else
         {
             result = (0 < compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Blob::greaterThan
 
-bool
+nImO::ComparisonStatus
 nImO::Blob::greaterThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
+    if (&other != this)
     {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
-    {
-        const Blob *otherPtr = other.asBlob();
+        const Blob *    otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.lessThanOrEqual(*this, validComparison);
+                result = other.lessThan(*this);
             }
         }
         else
         {
             result = (0 <= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Blob::greaterThanOrEqual
 
-bool
+nImO::ComparisonStatus
 nImO::Blob::lessThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
     if (&other == this)
     {
         result = false;
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
     }
     else
     {
@@ -511,41 +484,32 @@ nImO::Blob::lessThan
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.greaterThan(*this, validComparison);
+                result = other.greaterThanOrEqual(*this);
             }
         }
         else
         {
             result = (0 > compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Blob::lessThan
 
-bool
+nImO::ComparisonStatus
 nImO::Blob::lessThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
+    if (&other != this)
     {
         const Blob *    otherPtr = other.asBlob();
 
@@ -553,22 +517,19 @@ nImO::Blob::lessThanOrEqual
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.greaterThanOrEqual(*this, validComparison);
+                result = other.greaterThan(*this);
             }
         }
         else
         {
             result = (0 >= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Blob::lessThanOrEqual
 
@@ -591,6 +552,18 @@ nImO::Blob::operator =
     ODL_OBJEXIT_P(this);
     return *this;
 } // nImO::Blob::operator =
+
+std::ostream &
+nImO::Blob::operator <<
+    (std::ostream & out)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
+    out << "Blob(#bytes=" << _size << ")";
+    ODL_OBJEXIT_P(&out); //####
+    return out;
+} // nImO::Blob::operator <<
 
 void
 nImO::Blob::printToStringBuffer

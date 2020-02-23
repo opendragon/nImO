@@ -272,17 +272,21 @@ nImO::Value::enumerationType
     return result;
 } // nImO::Value::enumerationType
 
-bool
+nImO::ComparisonStatus
 nImO::Value::equalTo
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    validComparison = (&other == this);
-    ODL_OBJEXIT_B(&other == this);
-    return (&other == this);
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
+    if (&other != this)
+    {
+        result.clear();
+    }
+    ODL_OBJEXIT();
+    return result;
 } // nImO::Value::equalTo
 
 int64_t
@@ -417,31 +421,34 @@ nImO::Value::getValueFromMessage
     return result;
 } // nImO::Value::getValueFromMessage
 
-bool
+nImO::ComparisonStatus
 nImO::Value::greaterThan
-    (const nImO::Value &    NOT_USED_(other),
-     bool &                 validComparison)
+    (const nImO::Value &    NOT_USED_(other))
     const
 {
     ODL_OBJENTER(); //####
+    ComparisonStatus    result(false, false);
+
     //ODL_P1("other = ", &other); //####
-    ODL_P1("validComparison = ", &validComparison); //####
-    validComparison = false;
-    ODL_OBJEXIT_B(false); //####
-    return false;
+    ODL_OBJEXIT();
+    return result;
 } // nImO::Value::greaterThan
 
-bool
+nImO::ComparisonStatus
 nImO::Value::greaterThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    validComparison = (&other == this);
-    ODL_OBJEXIT_B(&other == this); //####
-    return (&other == this);
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
+    if (&other != this)
+    {
+        result.clear();
+    }
+    ODL_OBJEXIT(); //####
+    return result;
 } // nImO::Value::greaterThanOrEqual
 
 void
@@ -570,32 +577,47 @@ nImO::Value::isLegalTerminator
     return result;
 } // nImO::Value::isLegalTerminator
 
-bool
+nImO::ComparisonStatus
 nImO::Value::lessThan
-    (const nImO::Value &    NOT_USED_(other),
-     bool &                 validComparison)
+    (const nImO::Value &    NOT_USED_(other))
     const
 {
     ODL_OBJENTER(); //####
+    ComparisonStatus    result(false, false);
+
     //ODL_P1("other = ", &other); //####
-    ODL_P1("validComparison = ", &validComparison); //####
-    validComparison = false;
-    ODL_OBJEXIT_B(false);
-    return false;
+    ODL_OBJEXIT();
+    return result;
 } // nImO::Value::lessThan
 
-bool
+nImO::ComparisonStatus
 nImO::Value::lessThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    validComparison = (&other == this);
-    ODL_OBJEXIT_B(&other == this); //####
-    return (&other == this);
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
+    if (&other != this)
+    {
+        result.clear();
+    }
+    ODL_OBJEXIT(); //####
+    return result;
 } // nImO::Value::lessThanOrEqual
+
+std::ostream &
+nImO::Value::operator <<
+    (std::ostream & out)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
+    out << std::hex << "0x" << ReinterpretCast(int64_t, this);
+    ODL_OBJEXIT_P(&out); //####
+    return out;
+} // nImO::Value::operator <<
 
 void
 nImO::Value::printToStringBuffer
@@ -717,3 +739,15 @@ nImO::Value::writeToMessage
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::ostream &
+nImO::operator <<
+    (std::ostream &         out,
+     const nImO::Value &    aValue)
+{
+    ODL_ENTER(); //###
+    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
+    aValue.operator<<(out);
+    ODL_EXIT_P(&out); //####
+    return out;
+} // nImO::operator <<

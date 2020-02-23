@@ -97,7 +97,7 @@ namespace nImO
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
-         @returns A valid descriptor or @c nullptr if the input is not recognized. */
+         @return A valid descriptor or @c nullptr if the input is not recognized. */
         static SpBaseArgumentDescriptor
         parseArgString
             (const std::string &    inString);
@@ -113,7 +113,7 @@ namespace nImO
     private :
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @returns A copy of the descriptor, with only non-pointer types duplicated. */
+         @return A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor
         clone
             (void)
@@ -121,7 +121,7 @@ namespace nImO
             override;
 
         /*! @brief Convert to a printable representation.
-         @returns A printable representation of the descriptor. */
+         @return A printable representation of the descriptor. */
         virtual std::string
         toString
             (void)
@@ -129,7 +129,7 @@ namespace nImO
 
         /*! @brief Check an input value against the constraints of the descriptor.
          @param[in] value The value to be checked.
-         @returns @c true if the value is within the domain of the descriptor and @c false
+         @return @c true if the value is within the domain of the descriptor and @c false
          otherwise. */
         virtual bool
         validate

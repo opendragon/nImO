@@ -167,22 +167,16 @@ nImO::Logical::enumerationType
     return result;
 } // nImO::Logical::enumerationType
 
-bool
+nImO::ComparisonStatus
 nImO::Logical::equalTo
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
+    if (&other != this)
     {
         const Logical * otherPtr = other.asLogical();
 
@@ -190,22 +184,19 @@ nImO::Logical::equalTo
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.equalTo(*this, validComparison);
+                result = other.equalTo(*this);
             }
         }
         else
         {
             result = (_value == otherPtr->_value);
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Logical::equalTo
 
@@ -281,21 +272,18 @@ nImO::Logical::getTypeTag
     return result;
 } // nImO::Logical::getTypeTag
 
-bool
+nImO::ComparisonStatus
 nImO::Logical::greaterThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
     if (&other == this)
     {
         result = false;
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
     }
     else
     {
@@ -305,41 +293,32 @@ nImO::Logical::greaterThan
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.lessThan(*this, validComparison);
+                result = other.lessThan(*this);
             }
         }
         else
         {
             result = (_value > otherPtr->_value);
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Logical::greaterThan
 
-bool
+nImO::ComparisonStatus
 nImO::Logical::greaterThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
+    if (&other != this)
     {
         const Logical * otherPtr = other.asLogical();
 
@@ -347,40 +326,34 @@ nImO::Logical::greaterThanOrEqual
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.lessThanOrEqual(*this, validComparison);
+                result = other.lessThanOrEqual(*this);
             }
         }
         else
         {
             result = (_value >= otherPtr->_value);
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Logical::greaterThanOrEqual
 
-bool
+nImO::ComparisonStatus
 nImO::Logical::lessThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
     if (&other == this)
     {
         result = false;
-        validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
     }
     else
     {
@@ -390,41 +363,32 @@ nImO::Logical::lessThan
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.greaterThan(*this, validComparison);
+                result = other.greaterThan(*this);
             }
         }
         else
         {
             result = (_value < otherPtr->_value);
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Logical::lessThan
 
-bool
+nImO::ComparisonStatus
 nImO::Logical::lessThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result;
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
 
-    if (&other == this)
-    {
-        result = validComparison = true;
-        ODL_B1("validComparison <- ", validComparison); //####
-    }
-    else
+    if (&other != this)
     {
         const Logical * otherPtr = other.asLogical();
 
@@ -432,22 +396,19 @@ nImO::Logical::lessThanOrEqual
         {
             if (nullptr == other.asContainer())
             {
-                result = validComparison = false;
-                ODL_B1("validComparison <- ", validComparison); //####
+                result.clear();
             }
             else
             {
-                result = other.greaterThanOrEqual(*this, validComparison);
+                result = other.greaterThanOrEqual(*this);
             }
         }
         else
         {
             result = (_value <= otherPtr->_value);
-            validComparison = true;
-            ODL_B1("validComparison <- ", validComparison); //####
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Logical::lessThanOrEqual
 
@@ -475,6 +436,18 @@ nImO::Logical::operator =
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Logical::operator=
+
+std::ostream &
+nImO::Logical::operator <<
+    (std::ostream & out)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
+    out << std::boolalpha << _value;
+    ODL_OBJEXIT_P(&out); //####
+    return out;
+} // nImO::Logical::operator <<
 
 void
 nImO::Logical::printToStringBuffer

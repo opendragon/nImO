@@ -105,7 +105,7 @@ namespace nImO
 
         /*! @brief Return @c true if a particular index is past the end of the buffer.
          @param[in] index The zero-based location in the buffer.
-         @returns @c true if the index is past the end of the buffer. */
+         @return @c true if the index is past the end of the buffer. */
         bool
         atEnd
             (const size_t   index)
@@ -114,7 +114,7 @@ namespace nImO
         /*! @brief Return the byte found at a particular index.
          @param[in] index The zero-based location in the buffer.
          @param[out] atEnd @c true if the index is past the end of the buffer.
-         @returns The byte found at the provided index. */
+         @return The byte found at the provided index. */
         int
         getByte
             (const size_t   index,
@@ -122,13 +122,13 @@ namespace nImO
             const;
 
         /*! @brief Return a copy of the bytes in the buffer.
-         @returns A copy of the bytes in the buffer. */
+         @return A copy of the bytes in the buffer. */
         virtual std::string
         getBytes
             (void);
 
         /*! @brief Return the number of valid bytes in the buffer.
-         @returns The number of valid bytes in the buffer. */
+         @return The number of valid bytes in the buffer. */
         virtual size_t
         getLength
             (void)
@@ -136,13 +136,13 @@ namespace nImO
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
-         @returns The updated object. */
+         @return The updated object. */
         ChunkArray &
         operator =
             (const ChunkArray & other) = delete;
 
         /*! @brief Prepare the buffer for reuse.
-         @returns The ChunkArray object so that cascading can be done. */
+         @return The ChunkArray object so that cascading can be done. */
         virtual ChunkArray &
         reset
             (void);

@@ -92,7 +92,7 @@ namespace nImO
             (void);
 
         /*! @brief Return non-@c nullptr if the object is a Logical.
-         @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
         virtual const Logical *
         asLogical
             (void)
@@ -101,7 +101,7 @@ namespace nImO
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
-         @returns @c true if the two Values are structurally identical. */
+         @return @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
             (const Value &  other)
@@ -109,7 +109,7 @@ namespace nImO
             override;
 
         /*! @brief Return the enumeration type of an object.
-         @returns The enumeration type of an object. */
+         @return The enumeration type of an object. */
         virtual Enumerable
         enumerationType
             (void)
@@ -118,19 +118,16 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         equalTo
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the standard textual representation of a boolean value.
          @param[in] aValue The value to be represented.
-         @returns The standard textual representation of a boolean value. */
+         @return The standard textual representation of a boolean value. */
         static const std::string &
         getCanonicalRepresentation
             (const bool aValue);
@@ -146,13 +143,13 @@ namespace nImO
              Extractor &    theExtractor);
 
         /*! @brief Return the characters that can appear as the start of a Logical.
-         @returns The characters that can appear as the start of a Logical. */
+         @return The characters that can appear as the start of a Logical. */
         static const char *
         getInitialCharacters
             (void);
 
         /*! @brief Return the type tag for the Value for use with Messages.
-         @returns The type tag for the Value for use with Messages. */
+         @return The type tag for the Value for use with Messages. */
         virtual DataKind
         getTypeTag
             (void)
@@ -160,7 +157,7 @@ namespace nImO
             override;
 
         /*! @brief Return the value of the object.
-         @returns The value of the object. */
+         @return The value of the object. */
         inline bool
         getValue
             (void)
@@ -171,62 +168,50 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
-         @returns The updated object. */
+         @return The updated object. */
         Logical &
         operator =
             (const Logical &    other);
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.
-         @returns The updated object. */
+         @return The updated object. */
         Logical &
         operator =
             (const bool value);
@@ -245,7 +230,7 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
+         @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
@@ -262,6 +247,16 @@ namespace nImO
     protected :
         // Protected methods.
 
+        /*! @brief Insert a readable version of the object into an output stream.
+         @param[in,out] out The stream to be added to.
+         @param[in] aValue The object to be printed.
+         @return The modified stream. */
+        virtual std::ostream &
+        operator <<
+            (std::ostream & out)
+            const
+            override;
+
     private :
         // Private methods.
 
@@ -275,7 +270,7 @@ namespace nImO
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c nullptr if the Value could not be extracted because the Message ended before
+         @return @c nullptr if the Value could not be extracted because the Message ended before
          the Value did, a Flaw if the Value could not be extracted because it was not correct and
          a non-Flaw Value if extraction was successful. */
         static SpValue

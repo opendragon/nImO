@@ -109,7 +109,7 @@ catchSignal
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArgs
     (const char *   NOT_USED_(launchPath),
@@ -191,7 +191,7 @@ doTestInvalidArgs
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSize
     (const char *   NOT_USED_(launchPath),
@@ -251,7 +251,7 @@ doTestIntegerSize
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleSize
     (const char *   NOT_USED_(launchPath),
@@ -296,7 +296,7 @@ doTestDoubleSize
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerConversion
     (const char *   NOT_USED_(launchPath),
@@ -367,7 +367,7 @@ doTestIntegerConversion
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleConversion
     (const char *   NOT_USED_(launchPath),
@@ -435,7 +435,7 @@ doTestDoubleConversion
  argument is the port number to be used. Output depends on the test being run.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the unit tests.
- @returns @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
     (int        argc,

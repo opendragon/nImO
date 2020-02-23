@@ -110,7 +110,7 @@ catchSignal
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithSquishedString
@@ -135,7 +135,7 @@ compareValueWithSquishedString
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithString
@@ -165,7 +165,7 @@ compareValueWithString
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -233,7 +233,7 @@ doTestEmptyArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -306,7 +306,7 @@ doTestSingularArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -388,7 +388,7 @@ doTestSmallArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -477,7 +477,7 @@ doTestBigArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapValue
     (const char *   NOT_USED_(launchPath),
@@ -545,7 +545,7 @@ doTestEmptyMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalMapValue
     (const char *   NOT_USED_(launchPath),
@@ -620,7 +620,7 @@ doTestSingularLogicalMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerMapValue
     (const char *   NOT_USED_(launchPath),
@@ -693,7 +693,7 @@ doTestSingularIntegerMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringMapValue
     (const char *   NOT_USED_(launchPath),
@@ -768,7 +768,7 @@ doTestSingularStringMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalMapValue
     (const char *   NOT_USED_(launchPath),
@@ -846,7 +846,7 @@ doTestSmallLogicalMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMapValue
     (const char *   NOT_USED_(launchPath),
@@ -925,7 +925,7 @@ doTestSmallIntegerMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringMapValue
     (const char *   NOT_USED_(launchPath),
@@ -1010,7 +1010,7 @@ doTestSmallStringMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetValue
     (const char *   NOT_USED_(launchPath),
@@ -1078,7 +1078,7 @@ doTestEmptySetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1151,7 +1151,7 @@ doTestSingularLogicalSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1224,7 +1224,7 @@ doTestSingularIntegerSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1297,7 +1297,7 @@ doTestSingularStringSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1375,7 +1375,7 @@ doTestSmallLogicalSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1461,7 +1461,7 @@ doTestSmallIntegerSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1547,7 +1547,7 @@ doTestSmallStringSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -1620,7 +1620,7 @@ doTestArrayWithArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithMapValue
     (const char *   NOT_USED_(launchPath),
@@ -1693,7 +1693,7 @@ doTestArrayWithMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1766,7 +1766,7 @@ doTestArrayWithSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithArrayValue
     (const char *   NOT_USED_(launchPath),
@@ -1841,7 +1841,7 @@ doTestMapWithArrayValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithMapValue
     (const char *   NOT_USED_(launchPath),
@@ -1916,7 +1916,7 @@ doTestMapWithMapValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithSetValue
     (const char *   NOT_USED_(launchPath),
@@ -1991,7 +1991,7 @@ doTestMapWithSetValue
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2069,7 +2069,7 @@ doTestLogicalMapValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2145,7 +2145,7 @@ doTestIntegerMapValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2223,7 +2223,7 @@ doTestStringMapValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2299,7 +2299,7 @@ doTestLogicalSetValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2375,7 +2375,7 @@ doTestIntegerSetValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetValueWithIncompatibleKeys
     (const char *   NOT_USED_(launchPath),
@@ -2451,7 +2451,7 @@ doTestStringSetValueWithIncompatibleKeys
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidArrayCompares
     (const char *   NOT_USED_(launchPath),
@@ -2468,178 +2468,131 @@ doTestValidArrayCompares
     {
         struct testLogicals
         {
-            bool    _testValue;
-            bool    _lessThanResult;
-            bool    _lessThanValid;
-            bool    _greaterThanResult;
-            bool    _greaterThanValid;
-            bool    _lessThanOrEqualResult;
-            bool    _lessThanOrEqualValid;
-            bool    _greaterThanOrEqualResult;
-            bool    _greaterThanOrEqualValid;
-            bool    _equalToResult;
-            bool    _equalToValid;
+            bool                _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testLogicals
 
         Array               stuff;
         static testLogicals testSet1l[] =
         {
-            // test  <            >            <=           >=           ==
-            { false, true,  true, false, true, true,  true, false, true, false, true },
-            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+            { false,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
-            // test  <            >            <=           >=          ==
-            { false, false, true, true,  true, false, true, true, true, false, true },
-            { true,  false, true, false, true, true,  true, true, true, true,  true }
+            { false,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
 
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii = 0; /*(0 == result) &&*/ (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
-            else if (testSet1l[ii]._lessThanValid != valid)
+            //if (0 == result)
             {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
-                result = 1;
-            }
-            if (0 == result)
-            {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
-            if (0 == result)
+            //if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
-            if (0 == result)
+            //if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
-            if (0 == result)
+            //if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -2648,16 +2601,34 @@ doTestValidArrayCompares
         {
             static testLogicals testSet2l[] =
             {
-                // test  <            >            <=           >=          ==
-                { false, false, true, false, true, true,  true, true, true, true,  true },
-                { true,  false, true, true,  true, false, true, true, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
-                // test  <            >            <=          >=           ==
-                { false, false, true, false, true, true, true, true,  true, true,  true },
-                { true,  true,  true, false, true, true, true, false, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2r = A_SIZE(testSet2r);
 
@@ -2667,146 +2638,84 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2l[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
-                                "aValue.greaterThan(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
-                                "aValue.lessThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
-                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
-                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2r[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    if (testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
-                                "stuff.greaterThan(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
-                                "stuff.lessThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
-                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    if (testSet2r[ii]._equalTo != stuff.equalTo(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -2816,49 +2725,152 @@ doTestValidArrayCompares
         {
             struct testNumbers
             {
-                double  _testValue;
-                bool    _lessThanResult;
-                bool    _lessThanValid;
-                bool    _greaterThanResult;
-                bool    _greaterThanValid;
-                bool    _lessThanOrEqualResult;
-                bool    _lessThanOrEqualValid;
-                bool    _greaterThanOrEqualResult;
-                bool    _greaterThanOrEqualValid;
-                bool    _equalToResult;
-                bool    _equalToValid;
+                double              _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
             }; // testNumbers
 
             static testNumbers  testSet3l[] =
             {
-                // test <            >            <=           >=           ==
-                { -300, true,  true, false, true, true,  true, false, true, false, true },
-                { -200, true,  true, false, true, true,  true, false, true, false, true },
-                { -100, true,  true, false, true, true,  true, false, true, false, true },
-                { -50,  false, true, false, true, false, true, false, true, false, true },
-                { -25,  false, true, false, true, false, true, false, true, false, true },
-                { 0,    false, true, false, true, false, true, false, true, false, true },
-                { 25,   false, true, false, true, false, true, false, true, false, true },
-                { 50,   false, true, false, true, false, true, false, true, false, true },
-                { 100,  false, true, false, true, false, true, false, true, false, true },
-                { 200,  false, true, false, true, false, true, true,  true, false, true },
-                { 300,  false, true, true,  true, false, true, true,  true, false, true }
+                { -300,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { -200,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { -100,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { -50,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { -25,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 0,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 25,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 50,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 100,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 200,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { 300,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues3l = A_SIZE(testSet3l);
             static testNumbers  testSet3r[] =
             {
-                // test <            >            <=           >=           ==
-                { -300, false, true, true,  true, false, true, true,  true, false, true },
-                { -200, false, true, true,  true, false, true, true,  true, false, true },
-                { -100, false, true, true,  true, false, true, true,  true, false, true },
-                { -50,  false, true, false, true, false, true, false, true, false, true },
-                { -25,  false, true, false, true, false, true, false, true, false, true },
-                { 0,    false, true, false, true, false, true, false, true, false, true },
-                { 25,   false, true, false, true, false, true, false, true, false, true },
-                { 50,   false, true, false, true, false, true, false, true, false, true },
-                { 100,  false, true, false, true, false, true, false, true, false, true },
-                { 200,  false, true, false, true, true,  true, false, true, false, true },
-                { 300,  true,  true, false, true, true,  true, false, true, false, true }
+                { -300,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { -200,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { -100,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { -50,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { -25,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 0,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 25,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 50,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 100,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 200,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { 300,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues3r = A_SIZE(testSet3r);
 
@@ -2870,146 +2882,84 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Double>(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
-                bool    valid = false;
                 Double  aValue(testSet3l[ii]._testValue);
 
-                if (testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                if (testSet3l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet3l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet3l[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet3l[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet3l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    if (testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThanResult != " //####
-                                "aValue.greaterThan(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3l[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet3l[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualResult != " //####
-                                "aValue.lessThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3l[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet3l[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualResult != " //####
-                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3l[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    if (testSet3l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3l[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet3l[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet3l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
             }
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
-                bool    valid = false;
                 Double  aValue(testSet3r[ii]._testValue);
 
-                if (testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                if (testSet3r[ii]._lessThan != stuff.lessThan(aValue))
                 {
-                    ODL_LOG("(testSet3r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet3r[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet3r[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet3r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    if (testSet3r[ii]._greaterThan != stuff.greaterThan(aValue))
                     {
-                        ODL_LOG("(testSet3r[ii]._greaterThanResult != " //####
-                                "stuff.greaterThan(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3r[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet3r[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet3r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet3r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualResult != " //####
-                                "stuff.lessThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3r[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet3r[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet3r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet3r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualResult != " //####
-                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3r[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    if (testSet3r[ii]._equalTo != stuff.equalTo(aValue))
                     {
-                        ODL_LOG("(testSet3r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet3r[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet3r[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet3r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -3019,37 +2969,80 @@ doTestValidArrayCompares
         {
             struct testStrings
             {
-                const char *    _testValue;
-                bool            _lessThanResult;
-                bool            _lessThanValid;
-                bool            _greaterThanResult;
-                bool            _greaterThanValid;
-                bool            _lessThanOrEqualResult;
-                bool            _lessThanOrEqualValid;
-                bool            _greaterThanOrEqualResult;
-                bool            _greaterThanOrEqualValid;
-                bool            _equalToResult;
-                bool            _equalToValid;
+                const char *        _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
             }; // testStrings
 
             static testStrings  testSet4l[] =
             {
-                // test  <            >            <=           >=           ==
-                { "aaa", true,  true, false, true, true,  true, false, true, false, true },
-                { "abc", false, true, false, true, true,  true, false, true, false, true },
-                { "def", false, true, false, true, false, true, false, true, false, true },
-                { "ghi", false, true, false, true, false, true, true,  true, false, true },
-                { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+                { "aaa",
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { "abc",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { "def",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { "ghi",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { "zzz",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues4l = A_SIZE(testSet4l);
             static testStrings  testSet4r[] =
             {
-                // test  <            >            <=           >=           ==
-                { "aaa", false, true, true,  true, false, true, true,  true, false, true },
-                { "abc", false, true, false, true, false, true, true,  true, false, true },
-                { "def", false, true, false, true, false, true, false, true, false, true },
-                { "ghi", false, true, false, true, true,  true, false, true, false, true },
-                { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+                { "aaa",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { "abc",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) }, // ==
+                { "def",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { "ghi",
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) }, // ==
+                { "zzz",
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues4r = A_SIZE(testSet4r);
 
@@ -3059,146 +3052,84 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
-                bool    valid = false;
                 String  aValue(testSet4l[ii]._testValue);
 
-                if (testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                if (testSet4l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet4l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet4l[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet4l[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet4l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    if (testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThanResult != " //####
-                                "aValue.greaterThan(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4l[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet4l[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualResult != " //####
-                                "aValue.lessThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4l[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet4l[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualResult != " //####
-                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4l[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    if (testSet4l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4l[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet4l[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet4l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
             }
             for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
             {
-                bool    valid = false;
                 String  aValue(testSet4r[ii]._testValue);
 
-                if (testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                if (testSet4r[ii]._lessThan != stuff.lessThan(aValue))
                 {
-                    ODL_LOG("(testSet4r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet4r[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet4r[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet4r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    if (testSet4r[ii]._greaterThan != stuff.greaterThan(aValue))
                     {
-                        ODL_LOG("(testSet4r[ii]._greaterThanResult != " //####
-                                "stuff.greaterThan(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4r[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet4r[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet4r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet4r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualResult != " //####
-                                "stuff.lessThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4r[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet4r[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet4r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet4r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualResult != " //####
-                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4r[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    if (testSet4r[ii]._equalTo != stuff.equalTo(aValue))
                     {
-                        ODL_LOG("(testSet4r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet4r[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet4r[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet4r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -3222,7 +3153,7 @@ doTestValidArrayCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -3239,31 +3170,44 @@ doTestValidLogicalMapCompares
     {
         struct testLogicals
         {
-            bool    _testValue;
-            bool    _lessThanResult;
-            bool    _lessThanValid;
-            bool    _greaterThanResult;
-            bool    _greaterThanValid;
-            bool    _lessThanOrEqualResult;
-            bool    _lessThanOrEqualValid;
-            bool    _greaterThanOrEqualResult;
-            bool    _greaterThanOrEqualValid;
-            bool    _equalToResult;
-            bool    _equalToValid;
+            bool                _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testLogicals
 
         static testLogicals testSet1l[] =
         {
-            // test  <            >            <=           >=           ==
-            { false, true,  true, false, true, true,  true, false, true, false, true },
-            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+            { false,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
-            // test  <            >            <=           >=          ==
-            { false, false, true, true,  true, false, true, true, true, false, true },
-            { true,  false, true, false, true, true,  true, true, true, true,  true }
+            { false,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Map                 stuff;
@@ -3273,144 +3217,84 @@ doTestValidLogicalMapCompares
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -3419,16 +3303,34 @@ doTestValidLogicalMapCompares
         {
             static testLogicals testSet2l[] =
             {
-                // test  <            >            <=           >=          ==
-                { false, false, true, false, true, true,  true, true, true, true,  true },
-                { true,  false, true, true,  true, false, true, true, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
-                // test  <            >            <=          >=           ==
-                { false, false, true, false, true, true, true, true,  true, true,  true },
-                { true,  true,  true, false, true, true, true, false, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2r = A_SIZE(testSet2r);
 
@@ -3438,146 +3340,84 @@ doTestValidLogicalMapCompares
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2l[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
-                                "aValue.greaterThan(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
-                                "aValue.lessThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
-                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
-                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2r[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    if (testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
-                                "stuff.greaterThan(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
-                                "stuff.lessThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
-                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    if (testSet2r[ii]._equalTo != stuff.equalTo(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -3601,7 +3441,7 @@ doTestValidLogicalMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -3618,49 +3458,152 @@ doTestValidIntegerMapCompares
     {
         struct testNumbers
         {
-            int64_t _testValue;
-            bool    _lessThanResult;
-            bool    _lessThanValid;
-            bool    _greaterThanResult;
-            bool    _greaterThanValid;
-            bool    _lessThanOrEqualResult;
-            bool    _lessThanOrEqualValid;
-            bool    _greaterThanOrEqualResult;
-            bool    _greaterThanOrEqualValid;
-            bool    _equalToResult;
-            bool    _equalToValid;
+            int64_t             _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testNumbers
 
         static testNumbers  testSet1l[] =
         {
-            // test <            >            <=           >=           ==
-            { -300, true,  true, false, true, true,  true, false, true, false, true },
-            { -200, true,  true, false, true, true,  true, false, true, false, true },
-            { -100, true,  true, false, true, true,  true, false, true, false, true },
-            { -50,  false, true, false, true, false, true, false, true, false, true },
-            { -25,  false, true, false, true, false, true, false, true, false, true },
-            { 0,    false, true, false, true, false, true, false, true, false, true },
-            { 25,   false, true, false, true, false, true, false, true, false, true },
-            { 50,   false, true, false, true, false, true, false, true, false, true },
-            { 100,  false, true, false, true, false, true, false, true, false, true },
-            { 200,  false, true, false, true, false, true, true,  true, false, true },
-            { 300,  false, true, true,  true, false, true, true,  true, false, true }
+            { -300,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -200,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -100,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 0,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { 300,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testNumbers  testSet1r[] =
         {
-            // test <            >            <=           >=           ==
-            { -300, false, true, true,  true, false, true, true,  true, false, true },
-            { -200, false, true, true,  true, false, true, true,  true, false, true },
-            { -100, false, true, true,  true, false, true, true,  true, false, true },
-            { -50,  false, true, false, true, false, true, false, true, false, true },
-            { -25,  false, true, false, true, false, true, false, true, false, true },
-            { 0,    false, true, false, true, false, true, false, true, false, true },
-            { 25,   false, true, false, true, false, true, false, true, false, true },
-            { 50,   false, true, false, true, false, true, false, true, false, true },
-            { 100,  false, true, false, true, false, true, false, true, false, true },
-            { 200,  false, true, false, true, true,  true, false, true, false, true },
-            { 300,  true,  true, false, true, true,  true, false, true, false, true }
+            { -300,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 0,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 300,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Map                 stuff;
@@ -3672,144 +3615,84 @@ doTestValidIntegerMapCompares
         stuff.addValue(std::make_shared<Integer>(0), std::make_shared<String>("mno"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             Integer aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             Integer aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -3832,7 +3715,7 @@ doTestValidIntegerMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -3849,37 +3732,80 @@ doTestValidStringMapCompares
     {
         struct testStrings
         {
-            const char *    _testValue;
-            bool            _lessThanResult;
-            bool            _lessThanValid;
-            bool            _greaterThanResult;
-            bool            _greaterThanValid;
-            bool            _lessThanOrEqualResult;
-            bool            _lessThanOrEqualValid;
-            bool            _greaterThanOrEqualResult;
-            bool            _greaterThanOrEqualValid;
-            bool            _equalToResult;
-            bool            _equalToValid;
+            const char *        _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testStrings
 
         static testStrings  testSet1l[] =
         {
-            // test  <            >            <=           >=           ==
-            { "aaa", true,  true, false, true, true,  true, false, true, false, true },
-            { "abc", false, true, false, true, true,  true, false, true, false, true },
-            { "def", false, true, false, true, false, true, false, true, false, true },
-            { "ghi", false, true, false, true, false, true, true,  true, false, true },
-            { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+            { "aaa",
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "abc",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "def",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "ghi",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "zzz",
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testStrings  testSet1r[] =
         {
-            // test  <            >            <=           >=           ==
-            { "aaa", false, true, true,  true, false, true, true,  true, false, true },
-            { "abc", false, true, false, true, false, true, true,  true, false, true },
-            { "def", false, true, false, true, false, true, false, true, false, true },
-            { "ghi", false, true, false, true, true,  true, false, true, false, true },
-            { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+            { "aaa",
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "abc",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "def",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "ghi",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "zzz",
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Map                 stuff;
@@ -3889,144 +3815,84 @@ doTestValidStringMapCompares
         stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             String  aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             String  aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -4049,7 +3915,7 @@ doTestValidStringMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -4066,31 +3932,44 @@ doTestValidLogicalSetCompares
     {
         struct testLogicals
         {
-            bool    _testValue;
-            bool    _lessThanResult;
-            bool    _lessThanValid;
-            bool    _greaterThanResult;
-            bool    _greaterThanValid;
-            bool    _lessThanOrEqualResult;
-            bool    _lessThanOrEqualValid;
-            bool    _greaterThanOrEqualResult;
-            bool    _greaterThanOrEqualValid;
-            bool    _equalToResult;
-            bool    _equalToValid;
+            bool                _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testLogicals
 
         static testLogicals testSet1l[] =
         {
-            // test  <            >            <=           >=           ==
-            { false, true,  true, false, true, true,  true, false, true, false, true },
-            { true,  false, true, false, true, true,  true, true,  true, true,  true }
+            { false,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testLogicals testSet1r[] =
         {
-            // test  <            >            <=           >=          ==
-            { false, false, true, true,  true, false, true, true, true, false, true },
-            { true,  false, true, false, true, true,  true, true, true, true,  true }
+            { false,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { true,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(true) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Set                 stuff;
@@ -4100,144 +3979,84 @@ doTestValidLogicalSetCompares
         stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             Logical aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -4246,16 +4065,34 @@ doTestValidLogicalSetCompares
         {
             static testLogicals testSet2l[] =
             {
-                // test  <            >            <=           >=          ==
-                { false, false, true, false, true, true,  true, true, true, true,  true },
-                { true,  false, true, true,  true, false, true, true, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(true), // >
+                    ComparisonStatus(false), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2l = A_SIZE(testSet2l);
             static testLogicals testSet2r[] =
             {
-                // test  <            >            <=          >=           ==
-                { false, false, true, false, true, true, true, true,  true, true,  true },
-                { true,  true,  true, false, true, true, true, false, true, false, true }
+                { false,
+                    ComparisonStatus(false), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(true), // >=
+                    ComparisonStatus(true) }, // ==
+                { true,
+                    ComparisonStatus(true), // <
+                    ComparisonStatus(false), // >
+                    ComparisonStatus(true), // <=
+                    ComparisonStatus(false), // >=
+                    ComparisonStatus(false) } // ==
             };
             const size_t        numTestValues2r = A_SIZE(testSet2r);
 
@@ -4265,146 +4102,84 @@ doTestValidLogicalSetCompares
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThanResult != aValue.lessThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2l[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2l[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanResult != " //####
-                                "aValue.greaterThan(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualResult != " //####
-                                "aValue.lessThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualResult != " //####
-                                "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2l[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2l[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                bool    valid = false;
                 Logical aValue(testSet2r[ii]._testValue);
 
-                if (testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+                if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
-                    ODL_LOG("(testSet2r[ii]._lessThanResult != stuff.lessThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet2r[ii]._lessThanValid != valid)
-                {
-                    ODL_LOG("(testSet2r[ii]._lessThanValid != valid)"); //####
+                    ODL_LOG("(testSet2r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                    if (testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanResult != " //####
-                                "stuff.greaterThan(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualResult != " //####
-                                "stuff.lessThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._lessThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._lessThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                    if (testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualResult != " //####
-                                "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._greaterThanOrEqualValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqualValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                    if (testSet2r[ii]._equalTo != stuff.equalTo(aValue))
                     {
-                        ODL_LOG("(testSet2r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                                "valid))"); //####
-                        result = 1;
-                    }
-                    else if (testSet2r[ii]._equalToValid != valid)
-                    {
-                        ODL_LOG("(testSet2r[ii]._equalToValid != valid)"); //####
+                        ODL_LOG("(testSet2r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -4428,7 +4203,7 @@ doTestValidLogicalSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -4445,49 +4220,152 @@ doTestValidIntegerSetCompares
     {
         struct testNumbers
         {
-            int64_t _testValue;
-            bool    _lessThanResult;
-            bool    _lessThanValid;
-            bool    _greaterThanResult;
-            bool    _greaterThanValid;
-            bool    _lessThanOrEqualResult;
-            bool    _lessThanOrEqualValid;
-            bool    _greaterThanOrEqualResult;
-            bool    _greaterThanOrEqualValid;
-            bool    _equalToResult;
-            bool    _equalToValid;
+            int64_t             _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testNumbers
 
         static testNumbers  testSet1l[] =
         {
-            // test <            >            <=           >=           ==
-            { -300, true,  true, false, true, true,  true, false, true, false, true },
-            { -200, true,  true, false, true, true,  true, false, true, false, true },
-            { -100, true,  true, false, true, true,  true, false, true, false, true },
-            { -50,  false, true, false, true, false, true, false, true, false, true },
-            { -25,  false, true, false, true, false, true, false, true, false, true },
-            { 0,    false, true, false, true, false, true, false, true, false, true },
-            { 25,   false, true, false, true, false, true, false, true, false, true },
-            { 50,   false, true, false, true, false, true, false, true, false, true },
-            { 100,  false, true, false, true, false, true, false, true, false, true },
-            { 200,  false, true, false, true, false, true, true,  true, false, true },
-            { 300,  false, true, true,  true, false, true, true,  true, false, true }
+            { -300,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -200,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -100,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 0,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { 300,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testNumbers  testSet1r[] =
         {
-            // test <            >            <=           >=           ==
-            { -300, false, true, true,  true, false, true, true,  true, false, true },
-            { -200, false, true, true,  true, false, true, true,  true, false, true },
-            { -100, false, true, true,  true, false, true, true,  true, false, true },
-            { -50,  false, true, false, true, false, true, false, true, false, true },
-            { -25,  false, true, false, true, false, true, false, true, false, true },
-            { 0,    false, true, false, true, false, true, false, true, false, true },
-            { 25,   false, true, false, true, false, true, false, true, false, true },
-            { 50,   false, true, false, true, false, true, false, true, false, true },
-            { 100,  false, true, false, true, false, true, false, true, false, true },
-            { 200,  false, true, false, true, true,  true, false, true, false, true },
-            { 300,  true,  true, false, true, true,  true, false, true, false, true }
+            { -300,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { -50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { -25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 0,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 25,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 50,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 100,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 200,
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { 300,
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Set                 stuff;
@@ -4499,144 +4377,84 @@ doTestValidIntegerSetCompares
         stuff.addValue(std::make_shared<Integer>(0));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             Integer aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             Integer aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != " //####
-                            "stuff.greaterThan(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -4659,7 +4477,7 @@ doTestValidIntegerSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -4676,37 +4494,80 @@ doTestValidStringSetCompares
     {
         struct testStrings
         {
-            const char *    _testValue;
-            bool            _lessThanResult;
-            bool            _lessThanValid;
-            bool            _greaterThanResult;
-            bool            _greaterThanValid;
-            bool            _lessThanOrEqualResult;
-            bool            _lessThanOrEqualValid;
-            bool            _greaterThanOrEqualResult;
-            bool            _greaterThanOrEqualValid;
-            bool            _equalToResult;
-            bool            _equalToValid;
+            const char *        _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
         }; // testStrings
 
         static testStrings  testSet1l[] =
         {
-            // test  <            >            <=           >=           ==
-            { "aaa", true,  true, false, true, true,  true, false, true, false, true },
-            { "abc", false, true, false, true, true,  true, false, true, false, true },
-            { "def", false, true, false, true, false, true, false, true, false, true },
-            { "ghi", false, true, false, true, false, true, true,  true, false, true },
-            { "zzz", false, true, true,  true, false, true, true,  true, false, true }
+            { "aaa",
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "abc",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "def",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "ghi",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "zzz",
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1l = A_SIZE(testSet1l);
         static testStrings  testSet1r[] =
         {
-            // test  <            >            <=           >=           ==
-            { "aaa", false, true, true,  true, false, true, true,  true, false, true },
-            { "abc", false, true, false, true, false, true, true,  true, false, true },
-            { "def", false, true, false, true, false, true, false, true, false, true },
-            { "ghi", false, true, false, true, true,  true, false, true, false, true },
-            { "zzz", true,  true, false, true, true,  true, false, true, false, true }
+            { "aaa",
+                ComparisonStatus(false), // <
+                ComparisonStatus(true), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "abc",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(true), // >=
+                ComparisonStatus(false) }, // ==
+            { "def",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(false), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "ghi",
+                ComparisonStatus(false), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) }, // ==
+            { "zzz",
+                ComparisonStatus(true), // <
+                ComparisonStatus(false), // >
+                ComparisonStatus(true), // <=
+                ComparisonStatus(false), // >=
+                ComparisonStatus(false) } // ==
         };
         const size_t        numTestValues1r = A_SIZE(testSet1r);
         Set                 stuff;
@@ -4716,144 +4577,84 @@ doTestValidStringSetCompares
         stuff.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            bool    valid = false;
             String  aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThanResult != aValue.lessThan(stuff, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1l[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1l[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, valid))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanResult != aValue.greaterThan(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqualResult != aValue.lessThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualResult != " //####
-                            "aValue.lessThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqualResult != aValue.greaterThanOrEqual(stuff, valid))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualResult != " //####
-                            "aValue.greaterThanOrEqual(stuff, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalToResult != aValue.equalTo(stuff, valid))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalToResult != aValue.equalTo(stuff, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1l[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1l[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            bool    valid = false;
             String  aValue(testSet1r[ii]._testValue);
 
-            if (testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
-                ODL_LOG("(testSet1r[ii]._lessThanResult != stuff.lessThan(aValue, valid))"); //####
-                result = 1;
-            }
-            else if (testSet1r[ii]._lessThanValid != valid)
-            {
-                ODL_LOG("(testSet1r[ii]._lessThanValid != valid)"); //####
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, valid))
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanResult != stuff.greaterThan(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._lessThanOrEqualResult != stuff.lessThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualResult != " //####
-                            "stuff.lessThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._lessThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._lessThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._greaterThanOrEqualResult != stuff.greaterThanOrEqual(aValue, valid))
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualResult != " //####
-                            "stuff.greaterThanOrEqual(aValue, valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._greaterThanOrEqualValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqualValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1r[ii]._equalToResult != stuff.equalTo(aValue, valid))
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
                 {
-                    ODL_LOG("(testSet1r[ii]._equalToResult != stuff.equalTo(aValue, " //####
-                            "valid))"); //####
-                    result = 1;
-                }
-                else if (testSet1r[ii]._equalToValid != valid)
-                {
-                    ODL_LOG("(testSet1r[ii]._equalToValid != valid)"); //####
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                     result = 1;
                 }
             }
@@ -4876,7 +4677,7 @@ doTestValidStringSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArrayCompares
     (const char *   NOT_USED_(launchPath),
@@ -4891,17 +4692,17 @@ doTestInvalidArrayCompares
 
     try
     {
-        bool            valid = false;
-        Array           leftValue;
-        Logical         rightValue1;
-        Double          rightValue2;
-        String          rightValue3;
-        Blob            rightValue4;
-        Array           rightValue5;
-        Map             rightValue6;
-        Set             rightValue7;
-        Integer         rightValue8;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Array               leftValue;
+        Logical             rightValue1;
+        Double              rightValue2;
+        String              rightValue3;
+        Blob                rightValue4;
+        Array               rightValue5;
+        Map                 rightValue6;
+        Set                 rightValue7;
+        Integer             rightValue8;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
@@ -4915,58 +4716,57 @@ doTestInvalidArrayCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -4989,7 +4789,7 @@ doTestInvalidArrayCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -5004,16 +4804,16 @@ doTestInvalidLogicalMapCompares
 
     try
     {
-        bool            valid = false;
-        Map             leftValue;
-        Integer         rightValue1;
-        String          rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Double          rightValue7;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Map                 leftValue;
+        Integer             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Double              rightValue7;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5026,58 +4826,57 @@ doTestInvalidLogicalMapCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5100,7 +4899,7 @@ doTestInvalidLogicalMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -5115,15 +4914,15 @@ doTestInvalidIntegerMapCompares
 
     try
     {
-        bool            valid = false;
-        Map             leftValue;
-        Logical         rightValue1;
-        String          rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Map                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -5136,58 +4935,57 @@ doTestInvalidIntegerMapCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5210,7 +5008,7 @@ doTestInvalidIntegerMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringMapCompares
     (const char *   NOT_USED_(launchPath),
@@ -5225,16 +5023,16 @@ doTestInvalidStringMapCompares
 
     try
     {
-        bool            valid = false;
-        Map             leftValue;
-        Double          rightValue1;
-        Logical         rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Integer         rightValue7;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Map                 leftValue;
+        Double              rightValue1;
+        Logical             rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5248,58 +5046,57 @@ doTestInvalidStringMapCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5322,7 +5119,7 @@ doTestInvalidStringMapCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -5337,16 +5134,16 @@ doTestInvalidLogicalSetCompares
 
     try
     {
-        bool            valid = false;
-        Set             leftValue;
-        Double          rightValue1;
-        String          rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Integer         rightValue7;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Set                 leftValue;
+        Double              rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5359,58 +5156,57 @@ doTestInvalidLogicalSetCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5433,7 +5229,7 @@ doTestInvalidLogicalSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -5448,15 +5244,15 @@ doTestInvalidIntegerSetCompares
 
     try
     {
-        bool            valid = false;
-        Set             leftValue;
-        Logical         rightValue1;
-        String          rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Set                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -5469,58 +5265,57 @@ doTestInvalidIntegerSetCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5543,7 +5338,7 @@ doTestInvalidIntegerSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringSetCompares
     (const char *   NOT_USED_(launchPath),
@@ -5558,16 +5353,16 @@ doTestInvalidStringSetCompares
 
     try
     {
-        bool            valid = false;
-        Set             leftValue;
-        Double          rightValue1;
-        Logical         rightValue2;
-        Blob            rightValue3;
-        Array           rightValue4;
-        Map             rightValue5;
-        Set             rightValue6;
-        Integer         rightValue7;
-        Value *         rightValues[] =
+        ComparisonStatus    status;
+        Set                 leftValue;
+        Double              rightValue1;
+        Logical             rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Value *             rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -5581,58 +5376,57 @@ doTestInvalidStringSetCompares
         {
             Value & aRightValue = *rightValues[ii];
 
-            valid = false;
-            leftValue.lessThan(aRightValue, valid);
-            if (valid)
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
             {
-                ODL_LOG("(valid)"); //####
+                ODL_LOG("(status.IsValid())"); //####
                 result = 1;
             }
             else
             {
-                leftValue.greaterThan(aRightValue, valid);
+                status = leftValue.greaterThan(aRightValue);
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.lessThanOrEqual(aRightValue, valid);
+                    status = leftValue.lessThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.greaterThanOrEqual(aRightValue, valid);
+                    status = leftValue.greaterThanOrEqual(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
                 else
                 {
-                    leftValue.equalTo(aRightValue, valid);
+                    status = leftValue.equalTo(aRightValue);
                 }
             }
             if (0 == result)
             {
-                if (valid)
+                if (status.IsValid())
                 {
-                    ODL_LOG("(valid)"); //####
+                    ODL_LOG("(status.IsValid())"); //####
                     result = 1;
                 }
             }
@@ -5655,7 +5449,7 @@ doTestInvalidStringSetCompares
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayIndices
     (const char *   NOT_USED_(launchPath),
@@ -5769,7 +5563,7 @@ doTestArrayIndices
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapSearches
     (const char *   NOT_USED_(launchPath),
@@ -5871,7 +5665,7 @@ doTestLogicalMapSearches
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapSearches
     (const char *   NOT_USED_(launchPath),
@@ -5973,7 +5767,7 @@ doTestIntegerMapSearches
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapSearches
     (const char *   NOT_USED_(launchPath),
@@ -6075,7 +5869,7 @@ doTestStringMapSearches
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetSearches
     (const char *   NOT_USED_(launchPath),
@@ -6164,7 +5958,7 @@ doTestLogicalSetSearches
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetSearches
     (const char *   NOT_USED_(launchPath),
@@ -6253,7 +6047,7 @@ doTestIntegerSetSearches
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetSearches
     (const char *   NOT_USED_(launchPath),
@@ -6345,7 +6139,7 @@ doTestStringSetSearches
  argument is the port number to be used. Output depends on the test being run.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the unit tests.
- @returns @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
     (int        argc,

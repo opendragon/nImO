@@ -78,7 +78,7 @@ using std::endl;
 
 /*! @brief Return the version coming from the Boost macros as a
  more 'normal' representation.
- @returns The Boost version string with underscores replaced with
+ @return The Boost version string with underscores replaced with
  periods. */
 static std::string
 getBoostVersion
@@ -99,7 +99,7 @@ getBoostVersion
  Standard output will receive a list of the version numbers.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
- @returns @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
     (int        argc,

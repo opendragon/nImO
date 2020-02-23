@@ -78,7 +78,7 @@ namespace nImO
             (void);
 
         /*! @brief Return non-@c nullptr if the object is a Flaw.
-         @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual const Flaw *
         asFlaw
             (void)
@@ -86,7 +86,7 @@ namespace nImO
             override;
 
         /*! @brief Return a textual description of the Flaw.
-         @returns A textual description of the Flaw. */
+         @return A textual description of the Flaw. */
         virtual std::string
         getDescription
             (void)
@@ -99,6 +99,16 @@ namespace nImO
         Flaw
             (void);
         
+        /*! @brief Insert a readable version of the object into an output stream.
+         @param[in,out] out The stream to be added to.
+         @param[in] aValue The object to be printed.
+         @return The modified stream. */
+        virtual std::ostream &
+        operator <<
+            (std::ostream & out)
+            const
+            override;
+
     private :
         // Private methods.
 

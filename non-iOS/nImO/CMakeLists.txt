@@ -65,6 +65,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOchunkArray.cpp"
             "${THIS_SOURCE_DIR}/nImOcommon.cpp"
             "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
+            "${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp"
             "${THIS_SOURCE_DIR}/nImOconnector.cpp"
             "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
@@ -124,6 +125,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOchunkArray.hpp"
         "${THIS_SOURCE_DIR}/nImOcommon.hpp"
         "${THIS_SOURCE_DIR}/nImOcompareValues.hpp"
+        "${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp"
         "${THIS_SOURCE_DIR}/nImOconnector.hpp"
         "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
         "${THIS_SOURCE_DIR}/nImOconverters.hpp"
@@ -164,6 +166,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/nImOchunkArray.hpp
         ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.hpp
         ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.hpp
+        ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp
         ${THIS_SOURCE_DIR}/nImOconnector.cpp ${THIS_SOURCE_DIR}/nImOconnector.hpp
         ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.hpp
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.hpp

@@ -77,8 +77,8 @@
 #endif // defined(__APPLE__)
 
 nImO::ZeroConfClient::ZeroConfClient
-    (void) :
-        inherited()
+    (void)/* :
+        inherited()*/
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

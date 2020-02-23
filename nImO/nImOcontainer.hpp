@@ -81,7 +81,7 @@ namespace nImO
             (void);
 
         /*! @brief Return non-@c nullptr if the object is a Container.
-         @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual const Container *
         asContainer
             (void)

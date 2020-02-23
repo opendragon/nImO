@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide simple values. */
-    class ZeroConfService : public Value
+    class ZeroConfService// : public Value
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = Value;
+        //using inherited = Value;
 
     public :
         // Public methods.

@@ -112,7 +112,7 @@ catchSignal
  @param[in] expectedContents2 The expected contents of the Message when prepared for transmission.
  @param[in] expectedSize2 The expected size of the contents of the Message when prepared for
  transmission.
- @returns Zero on success and non-zero on failure. */
+ @return Zero on success and non-zero on failure. */
 static int
 setValueAndCheck
     (Message &          stuff,
@@ -180,7 +180,7 @@ setValueAndCheck
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMessage
     (const char *   NOT_USED_(launchPath),
@@ -279,7 +279,7 @@ doTestInsertEmptyMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMessage
     (const char *   NOT_USED_(launchPath),
@@ -376,7 +376,7 @@ doTestInsertLogicalMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertTinyIntegerMessage
     (const char *   NOT_USED_(launchPath),
@@ -503,7 +503,7 @@ doTestInsertTinyIntegerMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallIntegerMessage
     (const char *   NOT_USED_(launchPath),
@@ -603,7 +603,7 @@ doTestInsertSmallIntegerMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumIntegerMessage
     (const char *   NOT_USED_(launchPath),
@@ -705,7 +705,7 @@ doTestInsertMediumIntegerMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertBigIntegerMessage
     (const char *   NOT_USED_(launchPath),
@@ -809,7 +809,7 @@ doTestInsertBigIntegerMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyStringMessage
     (const char *   NOT_USED_(launchPath),
@@ -879,7 +879,7 @@ doTestInsertEmptyStringMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertShortStringMessage
     (const char *   NOT_USED_(launchPath),
@@ -952,7 +952,7 @@ doTestInsertShortStringMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumStringMessage
     (const char *   NOT_USED_(launchPath),
@@ -1047,7 +1047,7 @@ doTestInsertMediumStringMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyBlobMessage
     (const char *   NOT_USED_(launchPath),
@@ -1117,7 +1117,7 @@ doTestInsertEmptyBlobMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallBlobMessage
     (const char *   NOT_USED_(launchPath),
@@ -1195,7 +1195,7 @@ doTestInsertSmallBlobMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumBlobMessage
     (const char *   NOT_USED_(launchPath),
@@ -1304,7 +1304,7 @@ doTestInsertMediumBlobMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSingleDoubleMessage
     (const char *   NOT_USED_(launchPath),
@@ -1413,7 +1413,7 @@ doTestInsertSingleDoubleMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMultipleEscapesMessage
     (const char *   NOT_USED_(launchPath),
@@ -1494,7 +1494,7 @@ doTestInsertMultipleEscapesMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyArrayMessage
     (const char *   NOT_USED_(launchPath),
@@ -1569,7 +1569,7 @@ doTestInsertEmptyArrayMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -1644,7 +1644,7 @@ doTestInsertEmptyMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptySetMessage
     (const char *   NOT_USED_(launchPath),
@@ -1719,7 +1719,7 @@ doTestInsertEmptySetMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneLogicalMessage
     (const char *   NOT_USED_(launchPath),
@@ -1804,7 +1804,7 @@ doTestInsertArrayOneLogicalMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneIntegerMessage
     (const char *   NOT_USED_(launchPath),
@@ -1889,7 +1889,7 @@ doTestInsertArrayOneIntegerMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneDoubleMessage
     (const char *   NOT_USED_(launchPath),
@@ -1979,7 +1979,7 @@ doTestInsertArrayOneDoubleMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneStringMessage
     (const char *   NOT_USED_(launchPath),
@@ -2065,7 +2065,7 @@ doTestInsertArrayOneStringMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneBlobMessage
     (const char *   NOT_USED_(launchPath),
@@ -2151,7 +2151,7 @@ doTestInsertArrayOneBlobMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayMessage
     (const char *   NOT_USED_(launchPath),
@@ -2242,7 +2242,7 @@ doTestInsertArrayOneArrayMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -2333,7 +2333,7 @@ doTestInsertArrayOneMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetMessage
     (const char *   NOT_USED_(launchPath),
@@ -2424,7 +2424,7 @@ doTestInsertArrayOneSetMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoLogicalsMessage
     (const char *   NOT_USED_(launchPath),
@@ -2513,7 +2513,7 @@ doTestInsertArrayTwoLogicalsMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoIntegersMessage
     (const char *   NOT_USED_(launchPath),
@@ -2602,7 +2602,7 @@ doTestInsertArrayTwoIntegersMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoDoublesMessage
     (const char *   NOT_USED_(launchPath),
@@ -2698,7 +2698,7 @@ doTestInsertArrayTwoDoublesMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoStringsMessage
     (const char *   NOT_USED_(launchPath),
@@ -2789,7 +2789,7 @@ doTestInsertArrayTwoStringsMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoBlobsMessage
     (const char *   NOT_USED_(launchPath),
@@ -2880,7 +2880,7 @@ doTestInsertArrayTwoBlobsMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoArraysMessage
     (const char *   NOT_USED_(launchPath),
@@ -2982,7 +2982,7 @@ doTestInsertArrayTwoArraysMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoMapsMessage
     (const char *   NOT_USED_(launchPath),
@@ -3084,7 +3084,7 @@ doTestInsertArrayTwoMapsMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoSetsMessage
     (const char *   NOT_USED_(launchPath),
@@ -3186,7 +3186,7 @@ doTestInsertArrayTwoSetsMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayOneMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -3288,7 +3288,7 @@ doTestInsertArrayOneArrayOneMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapOneSetMessage
     (const char *   NOT_USED_(launchPath),
@@ -3390,7 +3390,7 @@ doTestInsertArrayOneMapOneSetMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetOneArrayMessage
     (const char *   NOT_USED_(launchPath),
@@ -3492,7 +3492,7 @@ doTestInsertArrayOneSetOneArrayMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayWithManyDoublesMessage
     (const char *   NOT_USED_(launchPath),
@@ -3797,7 +3797,7 @@ doTestInsertArrayWithManyDoublesMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -3886,7 +3886,7 @@ doTestInsertLogicalMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -3975,7 +3975,7 @@ doTestInsertIntegerMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringMapMessage
     (const char *   NOT_USED_(launchPath),
@@ -4065,7 +4065,7 @@ doTestInsertStringMapMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalSetMessage
     (const char *   NOT_USED_(launchPath),
@@ -4150,7 +4150,7 @@ doTestInsertLogicalSetMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerSetMessage
     (const char *   NOT_USED_(launchPath),
@@ -4235,7 +4235,7 @@ doTestInsertIntegerSetMessage
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringSetMessage
     (const char *   NOT_USED_(launchPath),
@@ -4324,7 +4324,7 @@ doTestInsertStringSetMessage
  argument is the port number to be used. Output depends on the test being run.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the unit tests.
- @returns @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
     (int        argc,

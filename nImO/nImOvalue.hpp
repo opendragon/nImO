@@ -40,6 +40,7 @@
 # define nImOvalue_HPP_ /* Header guard */
 
 # include <nImOcommon.hpp>
+# include <nImOcomparisonStatus.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -95,7 +96,7 @@ namespace nImO
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c nullptr if there is a problem with the extraction and non-@c nullptr if
+         @return @c nullptr if there is a problem with the extraction and non-@c nullptr if
          a Value was found and processed. */
         using Extractor = SpValue (*)
                (const Message & theMessage,
@@ -109,7 +110,7 @@ namespace nImO
         /*! @brief The function pointer for StringBuffer readers.
          @param[in] inBuffer The buffer to be read from.
          @param[in,out] position The position for the next read.
-         @returns The next Value in the StringBuffer. */
+         @return The next Value in the StringBuffer. */
         using BufferReader = SpValue (*)
                 (const StringBuffer &   inBuffer,
                  size_t &               position);
@@ -141,77 +142,77 @@ namespace nImO
             (void);
 
         /*! @brief Return non-@c nullptr if the object is an Array.
-         @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
         virtual const Array *
         asArray
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Blob.
-         @returns Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
         virtual const Blob *
         asBlob
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Container.
-         @returns Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual const Container *
         asContainer
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Double.
-         @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual const Double *
         asDouble
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Flaw.
-         @returns Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual const Flaw *
         asFlaw
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is an Integer.
-         @returns Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
         virtual const Integer *
         asInteger
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Logical.
-         @returns Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
         virtual const Logical *
         asLogical
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Map.
-         @returns Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
         virtual const Map *
         asMap
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Number.
-         @returns Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
         virtual const Number *
         asNumber
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a Set.
-         @returns Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
         virtual const Set *
         asSet
             (void)
             const;
 
         /*! @brief Return non-@c nullptr if the object is a String.
-         @returns Non-@c nullptr if the object is a String and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is a String and @c nullptr otherwise. */
         virtual const String *
         asString
             (void)
@@ -219,14 +220,14 @@ namespace nImO
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
-         @returns @c true if the two Values are structurally identical. */
+         @return @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
             (const Value &  other)
             const;
 
         /*! @brief Return the enumeration type of an object.
-         @returns The enumeration type of an object. */
+         @return The enumeration type of an object. */
         virtual Enumerable
         enumerationType
             (void)
@@ -234,17 +235,14 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         equalTo
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const;
 
         /*! @brief Return the type tag for the Value for use with Messages.
-         @returns The type tag for the Value for use with Messages. */
+         @return The type tag for the Value for use with Messages. */
         virtual DataKind
         getTypeTag
             (void)
@@ -255,7 +253,7 @@ namespace nImO
          @param[in,out] position The position in the Message where the Value starts.
          @param[in] leadByte The initial byte of the Value representation.
          @param[in] parent A pointer to the Value that will contain the new object.
-         @returns @c nullptr if the Value was not successfully extracted and non-@c nullptr on
+         @return @c nullptr if the Value was not successfully extracted and non-@c nullptr on
          success. */
         static SpValue
         getValueFromMessage
@@ -266,24 +264,18 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const;
 
         /*! @brief Set up the global structures used. */
@@ -293,102 +285,90 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator <
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = lessThan(other, valid);
+            ComparisonStatus    result(lessThan(other));
 
-            return (valid && result);
+            return (result.Result() && result.IsValid());
         } // operator <
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator >
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = greaterThan(other, valid);
+            ComparisonStatus    result(greaterThan(other));
 
-            return (valid && result);
+            return (result.Result() && result.IsValid());
         } // operator >
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator <=
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = lessThanOrEqual(other, valid);
+            ComparisonStatus    result(lessThanOrEqual(other));
 
-            return (valid && result);
+            return (result.Result() && result.IsValid());
         } // operator <=
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator >=
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = greaterThanOrEqual(other, valid);
+            ComparisonStatus    result(greaterThanOrEqual(other));
 
-            return (valid && result);
+            return (result.Result() && result.IsValid());
         } // operator >=
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator ==
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = equalTo(other, valid);
+            ComparisonStatus    result(equalTo(other));
 
-            return (valid && result);
+            return (result.Result() && result.IsValid());
         } // operator ==
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @returns The relative ordering of the two Values. */
+         @return The relative ordering of the two Values. */
         inline bool
         operator !=
             (const Value &  other)
         {
-            bool    valid = false;
-            bool    result = ! equalTo(other, valid);
+            ComparisonStatus    result(equalTo(other));
 
-            return (valid && result);
+            return ((! result.Result()) && result.IsValid());
         } // operator !=
 
         /*! @brief Add a readable representation of the object to the buffer.
@@ -404,7 +384,7 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
+         @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
@@ -417,6 +397,11 @@ namespace nImO
             (Message &  outMessage)
             const;
 
+        friend std::ostream &
+        operator <<
+            (std::ostream & out,
+             const Value &  aValue);
+
     protected :
         // Protected methods.
 
@@ -424,12 +409,21 @@ namespace nImO
         Value
             (void);
 
+        /*! @brief Insert a readable version of the object into an output stream.
+         @param[in,out] out The stream to be added to.
+         @param[in] aValue The object to be printed.
+         @return The modified stream. */
+        virtual std::ostream &
+        operator <<
+            (std::ostream & out)
+            const;
+
         /*! @brief Extracts an integer value from a Message.
          @param[in] theMessage The Message being processed.
          @param[in] leadByte The initial byte from the Message.
          @param[in,out] position The location of the next byte to be processed.
          @param[out] status Whether the extraction was successful.
-         @returns Zero if there is a problem with the extraction. */
+         @return Zero if there is a problem with the extraction. */
         static int64_t
         extractInt64FromMessage
             (const Message &    theMessage,
@@ -440,7 +434,7 @@ namespace nImO
         /*! @brief Returns @c true if the character can appear immediately after a Value in a
          string.
          @param[in] aChar The character of interest.
-         @returns @c true if the character can appear immediately after a Value in a string. */
+         @return @c true if the character can appear immediately after a Value in a string. */
         static bool
         isLegalTerminator
             (const char aChar);
@@ -485,6 +479,15 @@ namespace nImO
         static std::string  gTerminators;
 
     }; // Value
+
+    /*! @brief Insert a readable version of the object into an output stream.
+     @param[in,out] out The stream to be added to.
+     @param[in] aValue The Value to be printed.
+     @return The modified stream. */
+    std::ostream &
+    operator <<
+        (std::ostream & out,
+         const Value &  aValue);
 
 } // nImO
 

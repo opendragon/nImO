@@ -60,7 +60,7 @@ namespace nImO
      if @c NULL, do not store any bytes.
      @param[in] end The address of the last byte that is available.
      @param[in] value The value to be stored.
-     @returns @c 0 if there is insufficient room to store the value, or the number of bytes
+     @return @c 0 if there is insufficient room to store the value, or the number of bytes
      stored (if start is non-@c NULL) or the number of bytes that would have been stored, if
      start is @c NULL. */
     size_t
@@ -74,7 +74,7 @@ namespace nImO
      if @c NULL, do not store any bytes.
      @param[in] end The address of the last byte that is available.
      @param[in] value The value to be stored.
-     @returns @c 0 if there is insufficient room to store the value, or the number of bytes
+     @return @c 0 if there is insufficient room to store the value, or the number of bytes
      stored (if start is non-@c NULL) or the number of bytes that would have been stored, if
      start is @c NULL. */
     size_t
@@ -87,7 +87,7 @@ namespace nImO
      @param[in] start The address of the first byte that contains the value.
      @param[in] end The address of the last byte that contains data.
      @param[out] value The location to store the value.
-     @returns @c 0 if the sequence was too short to hold the value or a parameter was invalid,
+     @return @c 0 if the sequence was too short to hold the value or a parameter was invalid,
      or the number of bytes read. */
     size_t
     ConvertPacketOrderToDouble
@@ -99,7 +99,7 @@ namespace nImO
      @param[in] start The address of the first byte that contains the value.
      @param[in] end The address of the last byte that contains data.
      @param[out] value The location to store the value.
-     @returns @c -1 if the sequence was too short to hold the value or a parameter was invalid,
+     @return @c -1 if the sequence was too short to hold the value or a parameter was invalid,
      or the number of bytes read. */
     size_t
     ConvertPacketOrderToInt64

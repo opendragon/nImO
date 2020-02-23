@@ -106,10 +106,9 @@ nImO::CompareValues::operator()
 
     if (lhs->enumerationType() == rhs->enumerationType())
     {
-        bool    ok = true;
+        ComparisonStatus    status = lhs->lessThan(*rhs);
 
-        result = lhs->lessThan(*rhs, ok);
-        result &= ok;
+        result = (status.Result() && status.IsValid());
     }
     else
     {

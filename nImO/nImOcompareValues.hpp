@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide values that are used to compare pointers to values. */
-    class CompareValues : public Value
+    class CompareValues
     {
     public :
         // Public type definitions.
@@ -81,7 +81,7 @@ namespace nImO
         /*! @brief Compare two Values, returning @c true if the first is less than the second.
          @param[in] lhs The first Value to be compared.
          @param[in] rhs The second Value to be compared.
-         @returns @c true if the first Value is less than the second. */
+         @return @c true if the first Value is less than the second. */
         bool
         operator()
             (SpValue    lhs,

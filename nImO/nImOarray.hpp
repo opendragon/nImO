@@ -113,7 +113,7 @@ namespace nImO
 
         /*! @brief Add a Value to the end of the Array.
          @param[in] newElement The Value to be added.
-         @returns The updated Array. */
+         @return The updated Array. */
         inline Array &
         addValue
             (SpValue    newElement)
@@ -126,7 +126,7 @@ namespace nImO
         } // addValue
 
         /*! @brief Return non-@c nullptr if the object is an Array.
-         @returns Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
+         @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
         virtual const Array *
         asArray
             (void)
@@ -135,7 +135,7 @@ namespace nImO
 
         /*! @brief Returns the element at position index in the Array.
          @param[in] index The position of the element in the Array.
-         @returns The element at the given position, or @c nullptr if the index is out of range. */
+         @return The element at the given position, or @c nullptr if the index is out of range. */
         inline SpValue
         at
             (const size_type    index)
@@ -155,7 +155,7 @@ namespace nImO
         } // at
 
         /*! @brief Return an iterator pointing to the first element of the Array.
-         @returns An iterator pointing to the first element of the Array. */
+         @return An iterator pointing to the first element of the Array. */
         inline iterator
         begin
             (void)
@@ -164,7 +164,7 @@ namespace nImO
         } // begin
 
         /*! @brief Return an iterator pointing to the first element of the Array.
-         @returns An iterator pointing to the first element of the Array. */
+         @return An iterator pointing to the first element of the Array. */
         inline const_iterator
         begin
             (void)
@@ -183,7 +183,7 @@ namespace nImO
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
-         @returns @c true if the two Values are structurally identical. */
+         @return @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
             (const Value &  other)
@@ -191,7 +191,7 @@ namespace nImO
             override;
 
         /*! @brief Return an iterator pointing past the last element of the Array.
-         @returns An iterator pointing past the last element of the Array. */
+         @return An iterator pointing past the last element of the Array. */
         inline iterator
         end
             (void)
@@ -200,7 +200,7 @@ namespace nImO
         } // end
 
         /*! @brief Return an iterator pointing past the last element of the Array.
-         @returns An iterator pointing past the last element of the Array. */
+         @return An iterator pointing past the last element of the Array. */
         inline const_iterator
         end
             (void)
@@ -210,7 +210,7 @@ namespace nImO
         } // end
 
         /*! @brief Return a reverse iterator pointing to the first element of the Array.
-         @returns A reverse iterator pointing to the first element of the Array. */
+         @return A reverse iterator pointing to the first element of the Array. */
         inline const_reverse_iterator
         rbegin
             (void)
@@ -221,13 +221,10 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         equalTo
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
@@ -242,19 +239,19 @@ namespace nImO
              Extractor &    theExtractor);
 
         /*! @brief Return the characters that can appear as the start of an Array.
-         @returns The characters that can appear as the start of an Array. */
+         @return The characters that can appear as the start of an Array. */
         static const char *
         getInitialCharacters
             (void);
 
         /*! @brief Return the characters that can appear as the end of an Array.
-         @returns The characters that can appear as the end of an Array. */
+         @return The characters that can appear as the end of an Array. */
         static const char *
         getTerminalCharacters
             (void);
 
         /*! @brief Return the type tag for the Value for use with Messages.
-         @returns The type tag for the Value for use with Messages. */
+         @return The type tag for the Value for use with Messages. */
         virtual DataKind
         getTypeTag
             (void)
@@ -263,55 +260,43 @@ namespace nImO
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         greaterThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThan
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
-         @param[out] validComparison @c true if the Values were comparable and @c false otherwise;
-         if @c false, the returned value should be ignored.
-         @returns The relative ordering of the two Values. */
-        virtual bool
+         @return The relative ordering of the two Values. */
+        virtual ComparisonStatus
         lessThanOrEqual
-            (const Value &  other,
-             bool &         validComparison)
+            (const Value &  other)
             const
             override;
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
-         @returns The updated object. */
+         @return The updated object. */
         inline Array &
         operator =
             (const Array &  other)
@@ -338,14 +323,14 @@ namespace nImO
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.
-         @returns A new object if there is a valid object in the buffer and @c nullptr otherwise. */
+         @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
         static SpValue
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
              size_t &               position);
 
         /*! @brief Return a reverse iterator pointing to the first element of the Array.
-         @returns A reverse iterator pointing to the first element of the Array. */
+         @return A reverse iterator pointing to the first element of the Array. */
         inline reverse_iterator
         rbegin
             (void)
@@ -354,7 +339,7 @@ namespace nImO
         } // rbegin
 
         /*! @brief Return a reverse iterator pointing past the first element of the Array.
-         @returns A reverse iterator pointing past the first element of the Array. */
+         @return A reverse iterator pointing past the first element of the Array. */
         inline reverse_iterator
         rend
             (void)
@@ -363,7 +348,7 @@ namespace nImO
         } // rend
 
         /*! @brief Return a reverse iterator pointing past the first element of the Array.
-         @returns A reverse iterator pointing past the first element of the Array. */
+         @return A reverse iterator pointing past the first element of the Array. */
         inline const_reverse_iterator
         rend
             (void)
@@ -373,7 +358,7 @@ namespace nImO
         } // rend
 
         /*! @brief Returns the number of elements in the Array.
-         @returns The number of elements in the Array. */
+         @return The number of elements in the Array. */
         inline size_type
         size
             (void)
@@ -392,6 +377,16 @@ namespace nImO
 
     protected :
         // Protected methods.
+
+        /*! @brief Insert a readable version of the object into an output stream.
+         @param[in,out] out The stream to be added to.
+         @param[in] aValue The object to be printed.
+         @return The modified stream. */
+        virtual std::ostream &
+        operator <<
+            (std::ostream & out)
+            const
+            override;
 
     private :
         // Private methods.
@@ -412,7 +407,7 @@ namespace nImO
          @param[in] leadByte The initial byte of the Value.
          @param[in,out] position The location of the next byte to be processed.
          @param[in] parentValue A pointer to the Value that will contain the new object.
-         @returns @c nullptr if the Value could not be extracted because the Message ended before
+         @return @c nullptr if the Value could not be extracted because the Message ended before
          the Value did, a Flaw if the Value could not be extracted because it was not correct and
          a non-Flaw Value if extraction was successful. */
         static SpValue

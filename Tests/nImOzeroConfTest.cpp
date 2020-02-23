@@ -107,7 +107,7 @@ catchSignal
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @returns @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithString
@@ -139,7 +139,7 @@ compareValueWithString
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
  @param[in] expectedString The expected output from the test.
- @returns @c 0 on success and @c 1 on failure. */
+ @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseLogicalValue
     (const bool     expected,
@@ -220,7 +220,7 @@ doTestParseLogicalValue
  argument is the port number to be used. Output depends on the test being run.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the unit tests.
- @returns @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
     (int        NOT_USED_(argc),

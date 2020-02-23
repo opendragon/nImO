@@ -107,13 +107,13 @@ namespace nImO
         } // appendBytes
 
         /*! @brief Close the Message, completing its contents.
-         @returns The Message object so that cascading can be done. */
+         @return The Message object so that cascading can be done. */
         Message &
         close
             (void);
 
         /*! @brief Return a copy of the bytes in the buffer.
-         @returns A copy of the bytes in the buffer. */
+         @return A copy of the bytes in the buffer. */
         virtual std::string
         getBytes
             (void)
@@ -128,13 +128,13 @@ namespace nImO
          The Message bytes are followed by a checksum byte, which is escaped if it matches a
          start-of-message byte or an escape byte.
          @param[out] length Set to the number of bytes returned.
-         @returns A pointer to a copy of the bytes in the Message, ready to be transmitted. */
+         @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
         std::string
         getBytesForTransmission
             (void);
 
         /*! @brief Return the number of valid bytes in the buffer.
-         @returns The number of valid bytes in the buffer. */
+         @return The number of valid bytes in the buffer. */
         virtual size_t
         getLength
             (void)
@@ -144,7 +144,7 @@ namespace nImO
         /*! @brief Return the next Value in the Message.
          @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
          opened for reading
-         @returns The next Value in the Message or @c nullptr if the Value cannot be retrieved or
+         @return The next Value in the Message or @c nullptr if the Value cannot be retrieved or
          a Flaw if the Value is invalid. */
         SpValue
         getValue
@@ -153,20 +153,20 @@ namespace nImO
         /*! @brief Open the Message, so that data can be read or written.
          @param[in] forWriting @c true if the Message is being written to and @c false if it's being
          read.
-         @returns The Message object so that cascading can be done. */
+         @return The Message object so that cascading can be done. */
         Message &
         open
             (const bool forWriting);
 
         /*! @brief The assignment operator.
          @param[in] other The object to be copied.
-         @returns The updated object. */
+         @return The updated object. */
         Message &
         operator =
             (const Message &    other) = delete;
 
         /*! @brief Return @c true if the read position is past the last character.
-         @returns @c true if the read position is past the last character. */
+         @return @c true if the read position is past the last character. */
         inline bool
         readAtEnd
             (void)
@@ -176,7 +176,7 @@ namespace nImO
         } // readAtEnd
         
         /*! @brief Prepare the Message for reuse.
-         @returns The Message object so that cascading can be done. */
+         @return The Message object so that cascading can be done. */
         ChunkArray &
         reset
             (void)
@@ -184,7 +184,7 @@ namespace nImO
 
         /*! @brief Set the contents of the Message.
          @param[in] theValue The value to be put in the Message.
-         @returns The Message object so that cascading can be done. */
+         @return The Message object so that cascading can be done. */
         Message &
         setValue
             (const Value &  theValue);

@@ -174,29 +174,26 @@ nImO::Array::deeplyEqualTo
     return result;
 } // nImO::Array::deeplyEqualTo
 
-bool
+nImO::ComparisonStatus
 nImO::Array::equalTo
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = (inherited2::begin() != inherited2::end());
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
-    validComparison = result;
-    ODL_B1("validComparison <- ", validComparison); //####
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
         if (aValue)
         {
-            result &= aValue->equalTo(other, validComparison);
+            result &= aValue->equalTo(other);
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Array::equalTo
 
@@ -410,105 +407,119 @@ nImO::Array::getTypeTag
     return result;
 } // nImO::Array::getTypeTag
 
-bool
+nImO::ComparisonStatus
 nImO::Array::greaterThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = (inherited2::begin() != inherited2::end());
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
-    validComparison = result;
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    // Note that all the values must be validated.
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
         if (aValue)
         {
-            result &= aValue->greaterThan(other, validComparison);
+            result &= aValue->greaterThan(other);
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Array::greaterThan
 
-bool
+nImO::ComparisonStatus
 nImO::Array::greaterThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = (inherited2::begin() != inherited2::end());
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
-    validComparison = result;
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    // Note that all the values must be validated.
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
         if (aValue)
         {
-            result &= aValue->greaterThanOrEqual(other, validComparison);
+            result &= aValue->greaterThanOrEqual(other);
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Array::greaterThanOrEqual
 
-bool
+nImO::ComparisonStatus
 nImO::Array::lessThan
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = (inherited2::begin() != inherited2::end());
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
-    validComparison = result;
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    // Note that all the values must be validated.
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
         if (aValue)
         {
-            result &= aValue->lessThan(other, validComparison);
+            result &= aValue->lessThan(other);
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Array::lessThan
 
-bool
+nImO::ComparisonStatus
 nImO::Array::lessThanOrEqual
-    (const nImO::Value &    other,
-     bool &                 validComparison)
+    (const nImO::Value &    other)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("other = ", &other, "validComparison = ", &validComparison); //####
-    bool    result = (inherited2::begin() != inherited2::end());
+    ODL_P1("other = ", &other); //####
+    ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
-    validComparison = result;
-    ODL_B1("validComparison <- ", validComparison); //####
-    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+    // Note that all the values must be validated.
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue(*walker);
 
         if (aValue)
         {
-            result &= aValue->lessThanOrEqual(other, validComparison);
+            result &= aValue->lessThanOrEqual(other);
         }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
 } // nImO::Array::lessThanOrEqual
+
+std::ostream &
+nImO::Array::operator <<
+    (std::ostream & out)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
+    out << kStartArrayChar;
+    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    {
+        SpValue aValue(*walker);
+
+        if (nullptr != aValue)
+        {
+            out << " " << *aValue;
+        }
+    }
+    out << " " << kEndArrayChar;
+    ODL_OBJEXIT_P(&out); //####
+    return out;
+} // nImO::Array::operator <<
 
 void
 nImO::Array::printToStringBuffer

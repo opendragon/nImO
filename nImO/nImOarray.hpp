@@ -62,7 +62,7 @@ namespace nImO
      Note that Arrays 'own' their data and will perform a delete of the
      contained elements on deletion. */
     class Array : public Container,
-                  private ArrayBase
+                  public ArrayBase
     {
     public :
         // Public type definitions.
@@ -154,33 +154,6 @@ namespace nImO
             return result;
         } // at
 
-        /*! @brief Return an iterator pointing to the first element of the Array.
-         @return An iterator pointing to the first element of the Array. */
-        inline iterator
-        begin
-            (void)
-        {
-            return inherited2::begin();
-        } // begin
-
-        /*! @brief Return an iterator pointing to the first element of the Array.
-         @return An iterator pointing to the first element of the Array. */
-        inline const_iterator
-        begin
-            (void)
-            const
-        {
-            return inherited2::begin();
-        } // begin
-
-        /*! @brief Remove all entries from the Array. */
-        inline void
-        clear
-            (void)
-        {
-            inherited2::clear();
-        } // clear
-
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @return @c true if the two Values are structurally identical. */
@@ -189,35 +162,6 @@ namespace nImO
             (const Value &  other)
             const
             override;
-
-        /*! @brief Return an iterator pointing past the last element of the Array.
-         @return An iterator pointing past the last element of the Array. */
-        inline iterator
-        end
-            (void)
-        {
-            return inherited2::end();
-        } // end
-
-        /*! @brief Return an iterator pointing past the last element of the Array.
-         @return An iterator pointing past the last element of the Array. */
-        inline const_iterator
-        end
-            (void)
-            const
-        {
-            return inherited2::end();
-        } // end
-
-        /*! @brief Return a reverse iterator pointing to the first element of the Array.
-         @return A reverse iterator pointing to the first element of the Array. */
-        inline const_reverse_iterator
-        rbegin
-            (void)
-            const
-        {
-            return inherited2::rbegin();
-        } // rbegin
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -328,44 +272,6 @@ namespace nImO
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
              size_t &               position);
-
-        /*! @brief Return a reverse iterator pointing to the first element of the Array.
-         @return A reverse iterator pointing to the first element of the Array. */
-        inline reverse_iterator
-        rbegin
-            (void)
-        {
-            return inherited2::rbegin();
-        } // rbegin
-
-        /*! @brief Return a reverse iterator pointing past the first element of the Array.
-         @return A reverse iterator pointing past the first element of the Array. */
-        inline reverse_iterator
-        rend
-            (void)
-        {
-            return inherited2::rend();
-        } // rend
-
-        /*! @brief Return a reverse iterator pointing past the first element of the Array.
-         @return A reverse iterator pointing past the first element of the Array. */
-        inline const_reverse_iterator
-        rend
-            (void)
-            const
-        {
-            return inherited2::rend();
-        } // rend
-
-        /*! @brief Returns the number of elements in the Array.
-         @return The number of elements in the Array. */
-        inline size_type
-        size
-            (void)
-            const
-        {
-            return inherited2::size();
-        } // size
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in] outMessage The Message to be appended to. */

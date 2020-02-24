@@ -63,7 +63,7 @@ namespace nImO
      Note that Maps 'own' their data and will perform a delete of the
      contained elements and their keys on deletion. */
     class Map : public Container,
-                private MapBase
+                public MapBase
     {
     public :
         // Public type definitions.
@@ -136,25 +136,6 @@ namespace nImO
             const
             override;
 
-        /*! @brief Return an iterator pointing to the first element of the Array.
-         @return An iterator pointing to the first element of the Array. */
-        inline iterator
-        begin
-            (void)
-        {
-            return inherited2::begin();
-        } // begin
-
-        /*! @brief Return an iterator pointing to the first element of the Array.
-         @return An iterator pointing to the first element of the Array. */
-        inline const_iterator
-        begin
-            (void)
-            const
-        {
-            return inherited2::begin();
-        } // begin
-
         /*! @brief Remove all entries from the Map. */
         inline void
         clear
@@ -172,25 +153,6 @@ namespace nImO
             (const Value &  other)
             const
             override;
-
-        /*! @brief Return an iterator pointing past the last element of the Array.
-         @return An iterator pointing past the last element of the Array. */
-        inline iterator
-        end
-            (void)
-        {
-            return inherited2::end();
-        } // end
-
-        /*! @brief Return an iterator pointing past the last element of the Array.
-         @return An iterator pointing past the last element of the Array. */
-        inline const_iterator
-        end
-            (void)
-            const
-        {
-            return inherited2::end();
-        } // end
 
         /*! @brief Return the relative ordering of two Values.
          @param[in] other The Value to be compared with.
@@ -345,16 +307,6 @@ namespace nImO
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
              size_t &               position);
-
-        /*! @brief Returns the number of elements in the Map.
-         @return The number of elements in the Map. */
-        inline size_type
-        size
-            (void)
-            const
-        {
-            return inherited2::size();
-        } // size
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in,out] outMessage The Message to be appended to. */

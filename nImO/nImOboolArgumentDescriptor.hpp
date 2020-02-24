@@ -83,7 +83,7 @@ namespace nImO
             (const std::string &    argName,
              const std::string &    argDescription,
              const ArgumentMode     argMode,
-             const bool             defaultValue);
+             const bool             defaultValue = false);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
@@ -132,6 +132,13 @@ namespace nImO
          @return The default value. */
         virtual std::string
         getDefaultValue
+            (void)
+            override;
+
+        /*! @brief Return the default value as a human-readable string.
+         @return The default value as a human-readable string. */
+        virtual std::string
+        getPrintableDefaultValue
             (void)
             override;
 

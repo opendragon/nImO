@@ -46,6 +46,12 @@
 		F6755307228B8F580037B342 /* nImObridge.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObridge.rc.in; path = Bridge/nImObridge.rc.in; sourceTree = "<group>"; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObufferChunk.hpp; path = nImO/nImObufferChunk.hpp; sourceTree = SOURCE_ROOT; };
+		F68373EC2404097F0030F969 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Ricochet/resource.h; sourceTree = "<group>"; };
+		F68373ED2404097F0030F969 /* nImOricochetMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetMain.cpp; path = examples/Ricochet/nImOricochetMain.cpp; sourceTree = "<group>"; };
+		F68373EE2404097F0030F969 /* nImOricochet.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOricochet.rc.in; path = examples/Ricochet/nImOricochet.rc.in; sourceTree = "<group>"; };
+		F68373F0240409B60030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Launch/CMakeLists.txt"; sourceTree = "<group>"; };
+		F68373F3240409EB0030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/Ricochet/CMakeLists.txt"; sourceTree = "<group>"; };
+		F68373F4240409F80030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
@@ -53,7 +59,6 @@
 		F695626A23E65933009831B7 /* nImOlaunch.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOlaunch.rc.in; path = Launch/nImOlaunch.rc.in; sourceTree = "<group>"; };
 		F695626B23E65933009831B7 /* nImOlaunchMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlaunchMain.cpp; path = Launch/nImOlaunchMain.cpp; sourceTree = "<group>"; };
 		F695626C23E65933009831B7 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Launch/resource.h; sourceTree = "<group>"; };
-		F695626F23E65998009831B7 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Launch/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
 		F6991C7F1E5C747A00678450 /* nImOlogical.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogical.cpp; path = nImO/nImOlogical.cpp; sourceTree = "<group>"; };
 		F6991C801E5C747A00678450 /* nImOlogical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOlogical.hpp; path = nImO/nImOlogical.hpp; sourceTree = "<group>"; };
 		F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessage.cpp; path = nImO/nImOmessage.cpp; sourceTree = "<group>"; };
@@ -179,6 +184,49 @@
 			name = Bridge;
 			sourceTree = "<group>";
 		};
+		F68373EA240409500030F969 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+				F68373EB240409690030F969 /* Ricochet */,
+			);
+			name = examples;
+			sourceTree = "<group>";
+		};
+		F68373EB240409690030F969 /* Ricochet */ = {
+			isa = PBXGroup;
+			children = (
+				F68373EE2404097F0030F969 /* nImOricochet.rc.in */,
+				F68373ED2404097F0030F969 /* nImOricochetMain.cpp */,
+				F68373EC2404097F0030F969 /* resource.h */,
+			);
+			name = Ricochet;
+			sourceTree = "<group>";
+		};
+		F68373EF2404099B0030F969 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				F68373F0240409B60030F969 /* CMakeLists.txt */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
+		F68373F1240409BE0030F969 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+				F68373F4240409F80030F969 /* CMakeLists.txt */,
+				F68373F2240409D70030F969 /* Ricochet */,
+			);
+			name = examples;
+			sourceTree = "<group>";
+		};
+		F68373F2240409D70030F969 /* Ricochet */ = {
+			isa = PBXGroup;
+			children = (
+				F68373F3240409EB0030F969 /* CMakeLists.txt */,
+			);
+			name = Ricochet;
+			sourceTree = "<group>";
+		};
 		F695626D23E6593C009831B7 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,15 +235,6 @@
 				F695626C23E65933009831B7 /* resource.h */,
 			);
 			name = Launch;
-			sourceTree = "<group>";
-		};
-		F695626E23E6596D009831B7 /* Launch */ = {
-			isa = PBXGroup;
-			children = (
-				F695626F23E65998009831B7 /* CMakeLists.txt */,
-			);
-			name = Launch;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		F6B388DF1C77F18B004B2D42 = {
@@ -220,6 +259,7 @@
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F6B388F41C77F2F9004B2D42 /* Version */,
 				F6B388F51C77F300004B2D42 /* Write */,
+				F68373EA240409500030F969 /* examples */,
 			);
 			sourceTree = "<group>";
 		};
@@ -414,7 +454,7 @@
 				F6D7AD09224A5DB40095AA43 /* Connect */,
 				F6D7AD0A224A5DC60095AA43 /* Disconnect */,
 				F6D7AD0B224A5DCD0095AA43 /* Info */,
-				F695626E23E6596D009831B7 /* Launch */,
+				F68373EF2404099B0030F969 /* Launch */,
 				F6D7AD0C224A5DD40095AA43 /* List */,
 				F6D7AD0D224A5DDB0095AA43 /* Monitor */,
 				F6D7AD1B224A5F0F0095AA43 /* nImO */,
@@ -422,6 +462,7 @@
 				F6D7AD0F224A5DEA0095AA43 /* Tests */,
 				F6D7AD10224A5DF20095AA43 /* Version */,
 				F6D7AD11224A5DF80095AA43 /* Write */,
+				F68373F1240409BE0030F969 /* examples */,
 			);
 			name = "non-iOS";
 			sourceTree = "<group>";

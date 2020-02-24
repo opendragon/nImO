@@ -200,20 +200,34 @@ FilePathArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    _defaultValue = _pathPrefix;
-    ODL_S1s("_defaultValue <- ", _defaultValue); //####
-    if (_useRandomPath)
+    if (! _defaultSet)
     {
-        _defaultValue += GetRandomHexString();
+        _defaultValue = _pathPrefix;
         ODL_S1s("_defaultValue <- ", _defaultValue); //####
+        if (_useRandomPath)
+        {
+            _defaultValue += GetRandomHexString();
+            ODL_S1s("_defaultValue <- ", _defaultValue); //####
+        }
+        _defaultValue += _pathSuffix;
+        ODL_S1s("_defaultValue <- ", _defaultValue); //####
+        _defaultSet = true;
+        ODL_B1("_defaultSet <- ", _defaultSet); //####
     }
-    _defaultValue += _pathSuffix;
-    ODL_S1s("_defaultValue <- ", _defaultValue); //####
-    _defaultSet = true;
-    ODL_B1("_defaultSet <- ", _defaultSet); //####
     ODL_OBJEXIT_s(_defaultValue); //####
     return _defaultValue;
 } // FilePathArgumentDescriptor::getDefaultValue
+
+std::string
+FilePathArgumentDescriptor::getPrintableDefaultValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result(getDefaultValue());
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // FilePathArgumentDescriptor::getPrintableDefaultValue
 
 bool
 FilePathArgumentDescriptor::isForFiles
@@ -312,10 +326,7 @@ FilePathArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    if (! _defaultSet)
-    {
-        getDefaultValue();
-    }
+    getDefaultValue();
     _currentValue = _defaultValue;
     ODL_S1s("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####

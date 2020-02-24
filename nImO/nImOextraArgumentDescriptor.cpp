@@ -146,6 +146,17 @@ ExtraArgumentDescriptor::getDefaultValue
 } // ExtraArgumentDescriptor::getDefaultValue
 
 std::string
+ExtraArgumentDescriptor::getPrintableDefaultValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result(getDefaultValue());
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // ExtraArgumentDescriptor::getPrintableDefaultValue
+
+std::string
 ExtraArgumentDescriptor::getProcessedValue
     (void)
 {

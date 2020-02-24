@@ -351,8 +351,11 @@ nImO::ArgumentsToDescriptionArray
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
-    int nameSize = -1;
+    int       nameSize = -1;
+    int       optionSize = -1;
+    const int kOptionStringLen = 20; // '(Optional, default=)'
 
+    // Determine the width of the 'name' column.
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         BaseArgumentDescriptor *    anArg = arguments[ii];
@@ -365,11 +368,23 @@ nImO::ArgumentsToDescriptionArray
             {
                 nameSize = len;
             }
+            if (anArg->isOptional())
+            {
+                len = StaticCast(int, anArg->getPrintableDefaultValue().length());
+                if (optionSize < len)
+                {
+                    optionSize = len;
+                }
+            }
         }
     }
     if (0 < nameSize)
     {
         nameSize += StaticCast(int, minSpace);
+        if (0 < optionSize)
+        {
+            optionSize += StaticCast(int, minSpace);
+        }
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
             BaseArgumentDescriptor *    anArg = arguments[ii];
@@ -377,12 +392,23 @@ nImO::ArgumentsToDescriptionArray
             if (anArg)
             {
                 std::string aLine(anArg->argumentName());
-                size_t      len = aLine.length();
 
-                aLine += std::string(nameSize - len, ' ');
-                if (anArg->isOptional())
+                aLine += std::string(nameSize - aLine.length(), ' ');
+                if (0 < optionSize)
                 {
-                    aLine += "(Optional) ";
+                    if (anArg->isOptional())
+                    {
+                        std::string anOption(anArg->getPrintableDefaultValue());
+
+                        aLine += "(Optional, default=";
+                        aLine += anOption;
+                        aLine += ")";
+                        aLine += std::string(optionSize - anOption.length(), ' ');
+                    }
+                    else
+                    {
+                        aLine += std::string(optionSize + kOptionStringLen, ' ');
+                    }
                 }
                 aLine += anArg->argumentDescription();
                 output.emplace_back(aLine);

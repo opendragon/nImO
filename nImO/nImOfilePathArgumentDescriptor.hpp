@@ -142,6 +142,13 @@ namespace nImO
             (void)
             override;
 
+        /*! @brief Return the default value as a human-readable string.
+         @return The default value as a human-readable string. */
+        virtual std::string
+        getPrintableDefaultValue
+            (void)
+            override;
+
         /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
          @param[out] isForOutput Set to @c true if the argument is for output files and @c false
          otherwise.

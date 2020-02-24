@@ -41,6 +41,7 @@
 # define nImObaseArgumentDescriptor_HPP_ /* Header guard */
 
 # include <nImOcommon.hpp>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wnon-virtual-dtor"
@@ -228,6 +229,12 @@ namespace nImO
          @return The default value. */
         virtual std::string
         getDefaultValue
+            (void) = 0;
+
+        /*! @brief Return the default value as a human-readable string.
+         @return The default value as a human-readable string. */
+        virtual std::string
+        getPrintableDefaultValue
             (void) = 0;
 
         /*! @brief Return the processed value.
@@ -442,7 +449,7 @@ namespace nImO
     ArgumentsToDescriptionArray
         (const DescriptorVector &   arguments,
          StringVector &             output,
-         const size_t               minSpace);
+         const size_t               minSpace = 1);
 
     /*! @brief Return the resulting argument values.
      @param[in] arguments The argument sequence.

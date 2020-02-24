@@ -149,6 +149,19 @@ StringArgumentDescriptor::getDefaultValue
 } // StringArgumentDescriptor::getDefaultValue
 
 std::string
+StringArgumentDescriptor::getPrintableDefaultValue
+(void)
+{
+    ODL_OBJENTER(); //####
+    std::string result("\"");
+
+    result += getDefaultValue();
+    result += "\"";
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // StringArgumentDescriptor::getPrintableDefaultValue
+
+std::string
 StringArgumentDescriptor::getProcessedValue
     (void)
 {

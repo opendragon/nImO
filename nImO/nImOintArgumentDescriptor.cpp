@@ -159,6 +159,17 @@ IntArgumentDescriptor::getDefaultValue
 } // IntArgumentDescriptor::getDefaultValue
 
 std::string
+IntArgumentDescriptor::getPrintableDefaultValue
+(void)
+{
+    ODL_OBJENTER(); //####
+    std::string result(getDefaultValue());
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // IntArgumentDescriptor::getPrintableDefaultValue
+
+std::string
 IntArgumentDescriptor::getProcessedValue
     (void)
 {

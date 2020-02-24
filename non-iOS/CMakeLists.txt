@@ -261,6 +261,7 @@ add_subdirectory(Read)
 add_subdirectory(Tests)
 add_subdirectory(Version)
 add_subdirectory(Write)
+add_subdirectory(examples)
 
 add_subdirectory(CPack)
 

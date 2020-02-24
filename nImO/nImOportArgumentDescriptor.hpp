@@ -88,7 +88,7 @@ namespace nImO
              const std::string &    argDescription,
              const ArgumentMode     argMode,
              const int              defaultValue,
-             const bool             isSystemPort);
+             const bool             isSystemPort = false);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */

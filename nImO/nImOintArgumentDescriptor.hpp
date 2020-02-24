@@ -145,6 +145,13 @@ namespace nImO
             (void)
             override;
 
+        /*! @brief Return the default value as a human-readable string.
+         @return The default value as a human-readable string. */
+        virtual std::string
+        getPrintableDefaultValue
+            (void)
+            override;
+
     private :
 
 #if 0

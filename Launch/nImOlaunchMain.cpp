@@ -108,7 +108,7 @@ using std::endl;
 
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
- @return @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0. */
 int
 main
     (int        argc,
@@ -123,8 +123,8 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour))
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Launch an application",
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, true))
     {
         nImO::Initialize(progName);
     }

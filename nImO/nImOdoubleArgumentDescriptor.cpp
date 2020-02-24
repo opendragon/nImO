@@ -160,6 +160,17 @@ DoubleArgumentDescriptor::getDefaultValue
 } // DoubleArgumentDescriptor::getDefaultValue
 
 std::string
+DoubleArgumentDescriptor::getPrintableDefaultValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result(getDefaultValue());
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // DoubleArgumentDescriptor::getPrintableDefaultValue
+
+std::string
 DoubleArgumentDescriptor::getProcessedValue
     (void)
 {

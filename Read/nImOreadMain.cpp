@@ -109,7 +109,7 @@ using std::endl;
  Standard output will receive messages received on the #nImO channel.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
- @return @c 0 on a successful test and @c 1 on failure. */
+ @return @c 0. */
 int
 main
     (int        argc,
@@ -125,7 +125,7 @@ main
     nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour))
+                                              NIMO_COPYRIGHT_NAME_, flavour, true))
     {
         nImO::Initialize(progName);
     }

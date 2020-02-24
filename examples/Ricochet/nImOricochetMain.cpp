@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOlistMain.cpp
+//  File:       nImOricochetMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to report the visible nImO channels.
+//  Contains:   An example application to demonstrate using the nImO library in a program.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2020 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-02-19
+//  Created:    2020-02-24
 //
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
+#include <nImOboolArgumentDescriptor.hpp>
+#include <nImOportArgumentDescriptor.hpp>
+#include <nImOstringArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -44,39 +47,13 @@
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
-# pragma clang diagnostic ignored "-Wc++11-extensions"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# pragma clang diagnostic ignored "-Wdocumentation"
-# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# pragma clang diagnostic ignored "-Wextern-c-compat"
-# pragma clang diagnostic ignored "-Wpadded"
-# pragma clang diagnostic ignored "-Wshadow"
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wweak-vtables"
-#endif // defined(__APPLE__)
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4996)
-#endif // ! MAC_OR_LINUX_
-//#include <ace/Version.h>
-//#include <yarp/conf/version.h>
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to report the visible #nImO channels. */
+ @brief An example application to demonstrate using the nImO library in a program. */
 
-/*! @dir List
- @brief The set of files that implement the List application. */
+/*! @dir Version
+ @brief The set of files that implement the Ricochet application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -104,9 +81,9 @@ using std::endl;
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for reporting the visible #nImO channels.
+/*! @brief The entry point for the example application.
 
- Standard output will receive a list of the visible #nImO channels.
+ Standard output will do something entertaining.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -121,13 +98,18 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::BoolArgumentDescriptor firstArg("random", T_("True if random path"),
+                                          nImO::ArgumentMode::Optional, false);
+    nImO::PortArgumentDescriptor secondArg("port", T_("Port for communication"),
+                                           nImO::ArgumentMode::Optional, 2020);
+    nImO::DescriptorVector       argumentList;
+    nImO::OutputFlavour          flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List the visible channels",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour))
+    argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", 2020,
+                                              NIMO_COPYRIGHT_NAME_, flavour, true))
     {
-        nImO::Initialize(progName);
     }
     ODL_EXIT_I(0); //####
     return 0;

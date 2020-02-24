@@ -901,7 +901,7 @@ nImO::ProcessStandardUtilitiesOptions
                                               "vers", Option_::Arg::None,
                                               T_("  --vers, -v    Print version information and exit"));
     Option_::Descriptor     lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
-    Option_::Descriptor     usage[7];
+    Option_::Descriptor     usage[7]; // first, help, info, json, tabs, version
     Option_::Descriptor *   usageWalker = usage;
     int                     argcWork = argc;
     char **                 argvWork = argv;
@@ -915,7 +915,7 @@ nImO::ProcessStandardUtilitiesOptions
     {
         StringVector    descriptions;
 
-        ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
+        ArgumentsToDescriptionArray(argumentDescriptions, descriptions);
         usageString += " ";
         usageString += argList + "\n\n";
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)

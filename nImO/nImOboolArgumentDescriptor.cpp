@@ -149,6 +149,17 @@ BoolArgumentDescriptor::getDefaultValue
 } // BoolArgumentDescriptor::getDefaultValue
 
 std::string
+BoolArgumentDescriptor::getPrintableDefaultValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result(_defaultValue ? "true" : "false");
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // BoolArgumentDescriptor::getPrintableDefaultValue
+
+std::string
 BoolArgumentDescriptor::getProcessedValue
     (void)
 {

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOricochetMain.cpp
+//  File:       nImOricochetControlMain.cpp
 //
 //  Project:    nImO
 //
@@ -89,8 +89,8 @@ using std::endl;
  @return @c 0. */
 int
 main
-    (int        argc,
-     char **    argv)
+(int        argc,
+ char **    argv)
 {
     std::string progName(*argv);
 
@@ -98,13 +98,16 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::BoolArgumentDescriptor firstArg("port", T_("Port for communication"),
-                                          nImO::ArgumentMode::Optional, 2020);
+    nImO::BoolArgumentDescriptor firstArg("random", T_("True if random path"),
+                                          nImO::ArgumentMode::Optional, false);
+    nImO::PortArgumentDescriptor secondArg("port", T_("Port for communication"),
+                                           nImO::ArgumentMode::Optional, 2020);
     nImO::DescriptorVector       argumentList;
     nImO::OutputFlavour          flavour;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", 2020,
+    argumentList.push_back(&secondArg);
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
     }

@@ -33,6 +33,12 @@ nImO/swig_nImO_out_csharp
 nImO/swig_nImO_out_python
 nImOConfigVersion.cmake
 nImOconfig.hpp
+non-iOS/examples/Ricochet/nImOricochet
+non-iOS/examples/Ricochet/nImOricochet.dir/
+non-iOS/examples/Ricochet/nImOricochet.rc
+non-iOS/examples/Ricochet/nImOricochetControl
+non-iOS/examples/Ricochet/nImOricochetControl.dir/
+non-iOS/examples/Ricochet/nImOricochetControl.rc
 non-iOS/Bridge/nImObridge
 non-iOS/Bridge/nImObridge.dir/
 non-iOS/Bridge/nImObridge.rc

@@ -28,4 +28,12 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
 * nImOversion \'97 reports the versions of the libraries\
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
+examples:\
+* nImOricochet p - forwards a message to the next machine in a list\
+* nImOricochetControl r p - creates a machine list and sends it to one of the machines\
+application support:\
+* nImOaddApp a - adds an application to the list of available applications on the machine\
+* nImOremoveApp a - removes an application from the list of available applications on the machine\
+* nImOlistApps - reports on the applications available on the machine\
+\
 }

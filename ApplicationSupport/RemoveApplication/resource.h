@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by nImOricochet.rc and nImOricochetControl.rc
+// Used by nImOremoveApp.rc
 
 // Next default values for new objects
 //

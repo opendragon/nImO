@@ -82,8 +82,6 @@ using std::endl;
 #endif // defined(__APPLE__)
 
 /*! @brief The entry point for the example application.
-
- Standard output will do something entertaining.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -107,6 +105,32 @@ main
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
+#if 0
+        running = true
+        while running
+        {
+            read a message from the specified port number
+            if it's a 'fire' message
+            {
+                [turn on the blue LED]
+                if the vector is non-empty
+                {
+                    [delay a short interval]
+                    fetch the first machine from the vector
+                    send a 'fire' message to the selected machine - the new message has the first vector element
+                        dropped
+                    [delay another short interval]
+                }
+                [turn off the blue LED]
+            }
+            else if it's a 'quit' message
+            {
+                running = false
+                [set the blue LED to 'heartbeat' mode]
+            }
+        }
+        exit
+#endif//0
     }
     ODL_EXIT_I(0); //####
     return 0;

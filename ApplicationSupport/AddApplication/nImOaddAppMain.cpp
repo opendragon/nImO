@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOricochetControlMain.cpp
+//  File:       nImOaddAppMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   An example application to demonstrate using the nImO library in a program.
+//  Contains:   A tool to add an application to the list of known applications.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-24
+//  Created:    2020-02-27
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -50,10 +50,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief An example application to demonstrate using the nImO library in a program. */
+ @brief A tool to add an application to the list of known applications. */
 
 /*! @dir Version
- @brief The set of files that implement the Ricochet application. */
+ @brief The set of files that implement the AddApplication tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,14 +81,14 @@ using std::endl;
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the example application.
+/*! @brief The entry point for the tool.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
 int
 main
-(int        argc,
- char **    argv)
+    (int        argc,
+     char **    argv)
 {
     std::string progName(*argv);
 
@@ -96,48 +96,12 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::BoolArgumentDescriptor firstArg("random", T_("True if random path"),
-                                          nImO::ArgumentMode::Optional, false);
-    nImO::PortArgumentDescriptor secondArg("port", T_("Port for communication"),
-                                           nImO::ArgumentMode::Optional, 2020);
-    nImO::DescriptorVector       argumentList;
-    nImO::OutputFlavour          flavour;
+    nImO::DescriptorVector  argumentList;
+    nImO::OutputFlavour     flavour;
 
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Add application", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
-#if 0
-        start the ricochet program on each cluster machine, with a specified port number
-        get the list of cluster machines from 'hosts.list'
-        running = true
-        while running
-        {
-            read a character from the terminal
-            if it's an 's':
-            {
-                if random mode
-                {
-                    create a random vector of 'next' machines, with a random length from #machines/4 to #machines*4;
-                        duplicates allowed
-                }
-                else
-                {
-                    create a vector of 'next' machines with a random hop count of #machines/4 to #machines*4,
-                        reusing the 'hosts.list' entries to fill the vector
-                    select a cluster machine at random
-                    send a 'fire' message with the vector of 'next' machines on the specified port number
-                }
-            }
-            else if it's a 'q':
-            {
-                send a 'quit' message to all the cluster machines on the specified port number
-                running = false
-            }
-        }
-        exit
-#endif//0
     }
     ODL_EXIT_I(0); //####
     return 0;

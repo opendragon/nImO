@@ -249,6 +249,7 @@ install(FILES
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
+add_subdirectory(ApplicationSupport)
 add_subdirectory(Bridge)
 add_subdirectory(Connect)
 add_subdirectory(Disconnect)

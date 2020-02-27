@@ -39,6 +39,15 @@ non-iOS/examples/Ricochet/nImOricochet.rc
 non-iOS/examples/Ricochet/nImOricochetControl
 non-iOS/examples/Ricochet/nImOricochetControl.dir/
 non-iOS/examples/Ricochet/nImOricochetControl.rc
+non-iOS/ApplicationSupport/AddApplication/nImOaddApp
+non-iOS/ApplicationSupport/AddApplication/nImOaddApp.dir/
+non-iOS/ApplicationSupport/AddApplication/nImOaddApp.rc
+non-iOS/ApplicationSupport/ListApplications/nImOlistApps
+non-iOS/ApplicationSupport/ListApplications/nImOlistApps.dir/
+non-iOS/ApplicationSupport/ListApplications/nImOlistApps.rc
+non-iOS/ApplicationSupport/RemoveApplication/nImOremoveApp
+non-iOS/ApplicationSupport/RemoveApplication/nImOremoveApp.dir/
+non-iOS/ApplicationSupport/RemoveApplication/nImOremoveApp.rc
 non-iOS/Bridge/nImObridge
 non-iOS/Bridge/nImObridge.dir/
 non-iOS/Bridge/nImObridge.rc

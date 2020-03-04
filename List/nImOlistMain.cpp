@@ -124,7 +124,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List the visible channels",
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List the visible channels", "",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour))
     {
         nImO::Initialize(progName);

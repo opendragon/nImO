@@ -99,7 +99,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Remove application", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Remove application", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
     }

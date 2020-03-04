@@ -246,6 +246,12 @@ install(FILES
         DESTINATION ${LIB_DEST}
         COMPONENT scripts)
 
+install(PROGRAMS
+        ${CMAKE_CURRENT_BINARY_DIR}/nimo.sh
+        DESTINATION bin
+        COMPONENT applications
+        RENAME nimo)
+
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 

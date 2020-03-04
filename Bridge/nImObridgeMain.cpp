@@ -123,7 +123,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets",
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour, true))
     {
         nImO::Initialize(progName);

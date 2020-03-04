@@ -114,9 +114,8 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
-                                              "Reports the version numbers", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour))
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version number of the library",
+                                              progName, 2016, NIMO_COPYRIGHT_NAME_, flavour))
     {
         std::string nImOversionString;
         std::string odlVersionString;

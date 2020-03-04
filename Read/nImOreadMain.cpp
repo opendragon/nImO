@@ -124,7 +124,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", 2016,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
         nImO::Initialize(progName);

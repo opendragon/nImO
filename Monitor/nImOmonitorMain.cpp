@@ -124,7 +124,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", 2017,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
                                               NIMO_COPYRIGHT_NAME_, flavour))
     {
         nImO::Initialize(progName);

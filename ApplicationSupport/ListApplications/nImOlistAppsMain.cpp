@@ -101,7 +101,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List applications", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List applications", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour))
     {
     }

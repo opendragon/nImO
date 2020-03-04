@@ -105,7 +105,7 @@ main
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
 #if 0

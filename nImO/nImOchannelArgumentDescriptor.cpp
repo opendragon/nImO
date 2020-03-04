@@ -39,7 +39,7 @@
 
 #include "nImOchannelArgumentDescriptor.hpp"
 
-#include <nImOconnector.hpp>
+#include <nImOchannel.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

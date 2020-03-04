@@ -1,8 +1,8 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf610
-{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww18080\viewh14440\viewkind0
+\margl1440\margr1440\vieww21760\viewh14440\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;\
@@ -26,14 +26,35 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOlist ?? \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
 * nImOmonitor - information on nImO status\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
-* nImOversion \'97 reports the versions of the libraries\
+* nImOversion \'97 reports the versions of the libraries; 
+\f1\b DONE
+\f0\b0 \
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
+\
 examples:\
 * nImOricochet p - forwards a message to the next machine in a list\
 * nImOricochetControl r p - creates a machine list and sends it to one of the machines\
+\
 application support:\
 * nImOaddApp a - adds an application to the list of available applications on the machine\
 * nImOremoveApp a - removes an application from the list of available applications on the machine\
 * nImOlistApps - reports on the applications available on the machine\
+\
+shell script:\
+* nimo\
+	provides a 'simplified' common-line interface to some of the executables, using the default options \
+		nimo version - invokes nImOversion\
+		nimo connect <c> <d> - invokes nImOconnect <c> <d>\
+		nimo disconnect <c> <d> - invokes nImOdisconnect <c> <d>\
+		nimo help - lists choices\
+		nimo info <c> - invokes nImOinfo <c>\
+		nimo list <type> - invokes nImOlist or nImOlistApps, depending on <type>; with no <type>, lists choices\
+		nimo add app <a> - invokes nImOaddApp <a>\
+		nimo remove app <a> - invokes nImOremoveApp <a>\
+		nimo launch app <a> - invokes nImOlaunch <a>\
+		nimo read <c> - invokes nImOread <c>\
+		nimo write <c> - invokes nImOwrite <c>\
+\
+The 'help' (-h) text should output a description of the purpose of a command-line application\
 \
 }

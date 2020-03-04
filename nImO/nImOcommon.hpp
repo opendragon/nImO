@@ -812,6 +812,7 @@ namespace nImO
      @param[in] argv The arguments to be used with the utility.
      @param[in,out] argumentDescriptions Descriptions of the arguments to the adapter.
      @param[in] utilityDescription A description of the utility.
+     @param[in] utilityExample An example of invoking the utility.
      @param[in] year The copyright year for the calling application.
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[in,out] flavour Set if the -j or -t options are seen.
@@ -824,6 +825,7 @@ namespace nImO
          char **                argv,
          DescriptorVector &     argumentDescriptions,
          const std::string &    utilityDescription,
+         const std::string &    utilityExample,
          const int              year,
          const char *           copyrightHolder,
          OutputFlavour &        flavour,

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOconnector.cpp
+//  File:       nImO/nImOchannel.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO connectors.
+//  Contains:   The class definition for nImO channels.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOconnector.hpp"
+#include "nImOchannel.hpp"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO connectors. */
+ @brief The class definition for %nImO channels. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,19 +76,19 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Connector::Connector
+nImO::Channel::Channel
     (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::Connector::Connector
+} // nImO::Channel::Channel
 
-nImO::Connector::~Connector
+nImO::Channel::~Channel
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::Connector::~Connector
+} // nImO::Channel::~Channel
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

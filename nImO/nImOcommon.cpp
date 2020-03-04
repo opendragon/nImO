@@ -859,6 +859,7 @@ nImO::ProcessStandardUtilitiesOptions
      char **                    argv,
      nImO::DescriptorVector &   argumentDescriptions,
      const std::string &        utilityDescription,
+     const std::string &        utilityExample,
      const int                  year,
      const char *               copyrightHolder,
      nImO::OutputFlavour &      flavour,
@@ -913,11 +914,23 @@ nImO::ProcessStandardUtilitiesOptions
     usageString += " [options]";
     if (0 < argList.length())
     {
+        usageString += " ";
+        usageString += argList;
+    }
+    if (0 < utilityDescription.length())
+    {
+        usageString += "\n" + utilityDescription;
+    }
+    if (0 < utilityExample.length())
+    {
+        usageString += "\nExample: " + utilityExample;
+    }
+    if (0 < argList.length())
+    {
         StringVector    descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions);
-        usageString += " ";
-        usageString += argList + "\n\n";
+        usageString += "\n\n";
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
         {
             if (0 < ii)

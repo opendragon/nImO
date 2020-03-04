@@ -78,6 +78,9 @@ non-iOS/Tests/nImOatomicTest.rc
 non-iOS/Tests/nImObadMessageTest
 non-iOS/Tests/nImObadMessageTest.dir/
 non-iOS/Tests/nImObadMessageTest.rc
+non-iOS/Tests/nImOchannelTest
+non-iOS/Tests/nImOchannelTest.dir/
+non-iOS/Tests/nImOchannelTest.rc
 non-iOS/Tests/nImOcommonTest
 non-iOS/Tests/nImOcommonTest.rc
 non-iOS/Tests/nImOcontainerTest

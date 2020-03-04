@@ -124,7 +124,7 @@ main
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on a channel", 2016,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour))
     {
         nImO::Initialize(progName);

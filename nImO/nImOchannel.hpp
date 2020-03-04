@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOconnector.hpp
+//  File:       nImO/nImOchannel.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO connectors.
+//  Contains:   The class declaration for nImO channels.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOconnector_HPP_))
-# define nImOconnector_HPP_ /* Header guard */
+#if (! defined(nImOchannel_HPP_))
+# define nImOchannel_HPP_ /* Header guard */
 
 # include <nImOcommon.hpp>
 
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO connectors. */
+ @brief The class declaration for %nImO channels. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide network connection points. */
-    class Connector
+    class Channel
     {
     public :
         // Public type definitions.
@@ -70,12 +70,12 @@ namespace nImO
         // Public methods.
 
         /*! @brief The constructor. */
-        Connector
+        Channel
             (void);
 
         /*! @brief The destructor. */
         virtual
-        ~Connector
+        ~Channel
             (void);
 
     protected :
@@ -93,8 +93,8 @@ namespace nImO
     private :
         // Private fields.
 
-    }; // Connector
+    }; // Channel
 
 } // nImO
 
-#endif // ! defined(nImOconnector_HPP_)
+#endif // ! defined(nImOchannel_HPP_)

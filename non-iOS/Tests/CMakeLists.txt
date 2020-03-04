@@ -1380,3 +1380,33 @@ fix_dynamic_libs(${THIS_TARGET})
 #add_test(NAME TestInvalidImplicitArrayValue03 COMMAND ${THIS_TARGET} 7 f "'abc' 2f" "")
 ## Test parse of implicit array
 #add_test(NAME TestInvalidImplicitArrayValue04 COMMAND ${THIS_TARGET} 7 f "(1 2) {" "")
+
+set(THIS_TARGET nImOchannelTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOchannelTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+## Test parse of logical false value
+#add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
+## Test parse of logical true value
+#add_test(NAME TestLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")

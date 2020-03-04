@@ -102,7 +102,7 @@ main
     nImO::OutputFlavour          flavour;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {
 #if 0

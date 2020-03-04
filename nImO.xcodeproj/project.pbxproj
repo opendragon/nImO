@@ -48,6 +48,8 @@
 		F6755307228B8F580037B342 /* nImObridge.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObridge.rc.in; path = Bridge/nImObridge.rc.in; sourceTree = "<group>"; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObufferChunk.hpp; path = nImO/nImObufferChunk.hpp; sourceTree = SOURCE_ROOT; };
+		F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelName.cpp; path = nImO/nImOchannelName.cpp; sourceTree = "<group>"; };
+		F6811BD3240FFD9700B09333 /* nImOchannelName.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOchannelName.hpp; path = nImO/nImOchannelName.hpp; sourceTree = "<group>"; };
 		F68373EC2404097F0030F969 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Ricochet/resource.h; sourceTree = "<group>"; };
 		F68373ED2404097F0030F969 /* nImOricochetMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetMain.cpp; path = examples/Ricochet/nImOricochetMain.cpp; sourceTree = "<group>"; };
 		F68373EE2404097F0030F969 /* nImOricochet.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOricochet.rc.in; path = examples/Ricochet/nImOricochet.rc.in; sourceTree = "<group>"; };
@@ -453,6 +455,8 @@
 				F6EE0ACE1CA2C7F4004748ED /* nImOchannel.hpp */,
 				F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */,
 				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.hpp */,
+				F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */,
+				F6811BD3240FFD9700B09333 /* nImOchannelName.hpp */,
 				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
 				F6F238541CD96F290005554A /* nImOchunkArray.hpp */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,

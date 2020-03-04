@@ -5,31 +5,31 @@
 \margl1440\margr1440\vieww17280\viewh15700\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?, multicast? ports; nImO processes report their endpoints via an mDNS port\
+\f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?, multicast? channels; nImO processes report their endpoints via an mDNS channel\
 \
 use monads for return values in nImO?\
 \
-nImO nodes have a minimum of one port - a command/response port, advertised via mDNS.\
-This port is used to report the other ports available, their status and their 'mode'; it also responds to connect / disconnect requests and is used to determine if there are other nodes reporting the same names as the node wants to support.\
-When a node is initialized, it advertises its command/response port, as well as the (initial) ports that it has - after checking if it is already running.\
-The other port 'modes':\
-	'IN' = a 'server' port that can make multiple connections to 'OUT' ports, but only is unidirectional 'in'\
-	'OUT' = a 'client' port that can make a single connection to an 'IN' port and is unidirectional 'out'; multiple logical 'out' connections are made via multiple physical connections\
-	'SERVER' = a 'server' port that can make multiple bidirectional connections to 'CLIENT' ports\
-	'CLIENT' = a 'client' port that can make a single connection to a 'SERVER' port\
-Note that the command/response port is not displayed in the GUI, as it is an implementation issue.\
-Command-line tools (and the GUI) can interact with the command/response ports, via code that uses the mDNS mechanisms to interrogate the advertised ports.\
-Node names are hierarchical, as are the port names. The format is TBD [but the 'mode' of a port must be part of the name?].\
+nImO nodes have a minimum of one channel - a command/response channel, advertised via mDNS.\
+This channel is used to report the other channels available, their status and their 'mode'; it also responds to connect / disconnect requests and is used to determine if there are other nodes reporting the same names as the node wants to support.\
+When a node is initialized, it advertises its command/response channel, as well as the (initial) channels that it has - after checking if it is already running.\
+The other channel 'modes':\
+	'IN' = a 'server' channel that can make multiple connections to 'OUT' channels, but only is unidirectional 'in'\
+	'OUT' = a 'client' channel that can make a single connection to an 'IN' channel and is unidirectional 'out'; multiple logical 'out' connections are made via multiple physical connections\
+	'SERVER' = a 'server' channel that can make multiple bidirectional connections to 'CLIENT' channels\
+	'CLIENT' = a 'client' channel that can make a single connection to a 'SERVER' channel\
+Note that the command/response channel is not displayed in the GUI, as it is an implementation issue.\
+Command-line tools (and the GUI) can interact with the command/response channels, via code that uses the mDNS mechanisms to interrogate the advertised channels.\
+Node names are hierarchical, as are the channel names. The format is TBD [but the 'mode' of a channel must be part of the name?].\
 \
-nImO contexts manage the ports (and threads to support I/O with them) as well as the identity of the nImO node - a context is created before doing any nImO operations, such as searching for a port, registering or deregistering a port, et cetera, is passed to all nImO I/O operations and is destroyed when completing all nImO operations.\
+nImO contexts manage the channels (and threads to support I/O with them) as well as the identity of the nImO node - a context is created before doing any nImO operations, such as searching for a channel, registering or deregistering a channel, et cetera, is passed to all nImO I/O operations and is destroyed when completing all nImO operations.\
 1) Create context\
 2) Assign name for node in context => if already present [checked via mDNS], auto-rename or fail?\
-3) Register ports for node in context [this involves mDNS operations]\
+3) Register channels for node in context [this involves mDNS operations]\
 4) Signal 'operational' status\
 5) \'85.\
 n-3) Signal 'shutdown' status\
-n-2) Close active connections to node ports\
-n-1) Deregister node ports in context [mDNS operations]\
+n-2) Close active connections to node channels\
+n-1) Deregister node channels in context [mDNS operations]\
 n) Destroy context\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -41,12 +41,12 @@ n) Destroy context\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\b \cf0 Port names:
+\b \cf0 Channel names:
 \b0 \
-[NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; no NodeName implies the same machine; (physical) ports are assigned by the system; no Protocol implies TCP\
+[NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; no NodeName implies the same machine; (physical) channels are assigned by the system; no Protocol implies TCP\
 \
-Minimal port = /arbitrary-path\
-Maximal port = network:node/arbitrary-path#protocol\
+Minimal channel name = /arbitrary-path\
+Maximal channel name = network:node/arbitrary-path#protocol\
 \
-IP addresses and physical ports are not part of either Port or Node names; neither is the 'direction' of the port\
+IP addresses and physical channels are not part of either Channel or Node names; neither is the 'direction' of the channel\
 }

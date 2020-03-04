@@ -26,6 +26,7 @@ function usage_list() {
     echo "USAGE: $THIS_FILE_NAME list <type>"
     echo "  where <type> is"
     echo "    apps"
+    echo "    chan"
 }
 
 function usage_help() {
@@ -36,22 +37,22 @@ function usage_help() {
         COMMAND=$1
         case $COMMAND in
             "add")
-               $NIMO_BIN_PATH/nImOaddApp -h
+               nImOaddApp -h
                 ;;
             "connect")
-                $NIMO_BIN_PATH/nImOconnect -h
+                nImOconnect -h
                 ;;
             "disconnect")
-                $NIMO_BIN_PATH/nImOdisconnect -h
+                nImOdisconnect -h
                 ;;
             "help")
                 usage_help
                 ;;
             "info")
-                $NIMO_BIN_PATH/nImOinfo -h
+                nImOinfo -h
                 ;;
             "launch")
-                $NIMO_BIN_PATH/nImOlaunch -h
+                nImOlaunch -h
                 ;;
             "list")
                 if [[ $# -eq 1 ]]; then
@@ -60,25 +61,25 @@ function usage_help() {
                     TYPE=$2
                     case $TYPE in
                         "apps")
-                            $NIMO_BIN_PATH/nImOlistApps -h
+                            nImOlistApps -h
                             ;;
                         *)
-                            $NIMO_BIN_PATH/nImOlist -h
+                            nImOlist -h
                             ;;
                     esac
                 fi
                 ;;
             "read")
-                $NIMO_BIN_PATH/nImOlaunch -h
+                nImOlaunch -h
                 ;;
             "remove")
-                $NIMO_BIN_PATH/nImOremoveApp -h
+                nImOremoveApp -h
                 ;;
             "version")
-                $NIMO_BIN_PATH/nImOversion -h
+                nImOversion -h
                 ;;
             "write")
-                $NIMO_BIN_PATH/nImOwrite -h
+                nImOwrite -h
                 ;;
             *)
                 usage_help
@@ -87,7 +88,6 @@ function usage_help() {
     fi
 }
 
-NIMO_BIN_PATH="$(dirname $(realpath $0))"
 if [[ $# -eq 0 ]]; then
     usage
 else
@@ -98,21 +98,21 @@ else
             if [[ $# -eq 0 ]]; then
                 usage_help add
             else
-                $NIMO_BIN_PATH/nImOaddApp $*
+                nImOaddApp $*
             fi
             ;;
         "connect")
             if [[ $# -eq 0 ]]; then
                 usage_help connect
             else
-                $NIMO_BIN_PATH/nImOconnect $*
+                nImOconnect $*
             fi
             ;;
         "disconnect")
             if [[ $# -eq 0 ]]; then
                 usage_help disconnect
             else
-                $NIMO_BIN_PATH/nImOdisconnect $*
+                nImOdisconnect $*
             fi
             ;;
         "help")
@@ -122,14 +122,14 @@ else
             if [[ $# -eq 0 ]]; then
                 usage_help info
             else
-                $NIMO_BIN_PATH/nImOinfo $*
+                nImOinfo $*
             fi
             ;;
         "launch")
             if [[ $# -eq 0 ]]; then
                 usage_help launch
             else
-                $NIMO_BIN_PATH/nImOlaunch $*
+                nImOlaunch $*
             fi
             ;;
         "list")
@@ -139,10 +139,10 @@ else
                 TYPE=$1
                 case $TYPE in
                     "apps")
-                        $NIMO_BIN_PATH/nImOlistApps
+                        nImOlistApps
                         ;;
                     *)
-                        $NIMO_BIN_PATH/nImOlist $*
+                        nImOlist $*
                         ;;
                 esac
             fi
@@ -151,24 +151,24 @@ else
             if [[ $# -eq 0 ]]; then
                 usage_help read
             else
-                $NIMO_BIN_PATH/nImOread $*
+                nImOread $*
             fi
             ;;
         "remove")
             if [[ $# -eq 0 ]]; then
                 usage_help remove
             else
-                $NIMO_BIN_PATH/nImOremoveApp $*
+                nImOremoveApp $*
             fi
             ;;
         "version")
-            $NIMO_BIN_PATH/nImOversion
+            nImOversion $*
             ;;
         "write")
             if [[ $# -eq 0 ]]; then
                 usage_help write
             else
-                $NIMO_BIN_PATH/nImOwrite $*
+                nImOwrite $*
             fi
             ;;
         *)

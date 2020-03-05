@@ -72,15 +72,19 @@ namespace nImO
     class DoubleArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
+        // Public type definitions.
 
     protected :
+        // Protected type definitions.
 
     private :
+        // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
         using inherited = BaseArgumentDescriptor;
 
     public :
+        // Public methods.
 
         /*! @brief The constructor.
          @param[in] argName The name of the command-line argument.
@@ -137,8 +141,10 @@ namespace nImO
             (DoubleArgumentDescriptor & other);
 
     protected :
+        // Protected methods.
 
     private :
+        // Private methods.
 
 #if 0
         /*! @brief Add the processed value to a bottle.
@@ -201,10 +207,13 @@ namespace nImO
             override;
 
     public :
+        // Public fields.
 
     protected :
+        // Protected fields.
 
     private :
+        // Private fields.
 
         /*! @brief The current value of the command-line argument. */
         double  _currentValue;

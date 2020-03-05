@@ -154,12 +154,16 @@ namespace nImO
     class BaseArgumentDescriptor
     {
     public :
+        // Public type definitions.
 
     protected :
+        // Protected type definitions.
 
     private :
+        // Private type definitions.
 
     public :
+        // Public methods.
 
         /*! @brief The constructor.
          @param[in] argName The name of the command-line argument.
@@ -354,6 +358,7 @@ namespace nImO
             (const std::string &    value) = 0;
 
     protected :
+        // Protected methods.
 
         /*! @brief Partition a string that is in 'arguments' format into a sequence of strings.
          @param[in] inString The string to be partitioned.
@@ -395,10 +400,13 @@ namespace nImO
             (BaseArgumentDescriptor &   other);
         
     private :
+        // Private methods.
 
     public :
+        // Public fields.
 
     protected :
+        // Protected fields.
 
         /*! @brief The separator string to use when converting to a string. */
         static std::string _parameterSeparator;
@@ -407,6 +415,7 @@ namespace nImO
         bool _valid;
 
     private :
+        // Private fields.
 
         /*! @brief The description of the command-line argument for the adapter. */
         std::string _argDescription;

@@ -1406,7 +1406,99 @@ target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 fix_dynamic_libs(${THIS_TARGET})
 
-## Test parse of logical false value
-#add_test(NAME TestLogicalFalseValue COMMAND ${THIS_TARGET} 1 t "false" "false")
-## Test parse of logical true value
-#add_test(NAME TestLogicalTrueValue COMMAND ${THIS_TARGET} 1 t "true" "true")
+## Test full channel name
+add_test(NAME TestFullChannelName COMMAND ${THIS_TARGET} 1 t "this-net:this-node/arbitrary-path#udp")
+## Test full channel name with empty network
+add_test(NAME TestFullChannelNameEmptyNetwork COMMAND ${THIS_TARGET} 1 t ":this-node/arbitrary-path#tcp")
+## Test full channel name with missing network
+add_test(NAME TestFullChannelNameMissingNetwork COMMAND ${THIS_TARGET} 1 t "this-node/arbitrary-path#udp")
+## Test full channel name with missing node
+add_test(NAME TestFullChannelNameMissingNode COMMAND ${THIS_TARGET} 1 t "this-net:/arbitrary-path#udp")
+## Test full channel name with missing protocol
+add_test(NAME TestFullChannelNameMissingProtocol COMMAND ${THIS_TARGET} 1 t "this-net:this-node/arbitrary-path")
+## Test full channel name with missing node and network
+add_test(NAME TestFullChannelNameMissingNodeAndNetwork COMMAND ${THIS_TARGET} 1 t "/arbitrary-path#udp")
+## Test minimal channel name
+add_test(NAME TestMinimalChannelName COMMAND ${THIS_TARGET} 1 t "/arbitrary-path")
+## Test channel name with longer path
+add_test(NAME TestChannelNameWithLongerPath COMMAND ${THIS_TARGET} 1 t "/top/level/path/$has_special-chars")
+## Test channel name with out-of-order delimiters
+add_test(NAME TestChannelNameWithOutOfOrderDelimiters COMMAND ${THIS_TARGET} 1 f "this-net#udp:/arbitrary-path")
+## Test channel name with missing path root
+add_test(NAME TestChannelNameWithMissingPathRoot COMMAND ${THIS_TARGET} 1 f "arbitrary-path#udp")
+## Test channel name with bad network name
+add_test(NAME TestChannelNameWithBadNetworkName COMMAND ${THIS_TARGET} 1 f "this^net:this-mode/arbitrary-path#udp")
+## Test channel name with bad node name
+add_test(NAME TestChannelNameWithBadNodeName COMMAND ${THIS_TARGET} 1 f "this-net:this@mode/arbitrary-path#udp")
+## Test channel name with bad path
+add_test(NAME TestChannelNameWithBadPath COMMAND ${THIS_TARGET} 1 f "this-net:this-mode/arbitrary%path#udp")
+## Test channel name with bad protocol
+add_test(NAME TestChannelNameWithBadProtocol COMMAND ${THIS_TARGET} 1 f "this-net:this-mode/arbitrary_path#http")
+## Test channel name with empty path
+add_test(NAME TestChannelNameWithEmptyPath COMMAND ${THIS_TARGET} 1 f "this-net:this-mode/#tcp")
+## Test channel name with empty protocol
+add_test(NAME TestChannelNameWithEmptyProtocol COMMAND ${THIS_TARGET} 1 f "this-net:this-mode/arbitrary-path#")
+## Test full channel name, fetch network
+add_test(NAME TestFullChannelNameGetNetwork COMMAND ${THIS_TARGET} 2 t "this-net:this-node/arbitrary-path#udp" "this-net")
+## Test full channel name with empty network, fetch network
+add_test(NAME TestFullChannelNameEmptyNetworkGetNetwork COMMAND ${THIS_TARGET} 2 t ":this-node/arbitrary-path#tcp" "")
+## Test full channel name with missing network, fetch network
+add_test(NAME TestFullChannelNameMissingNetworkGetNetwork COMMAND ${THIS_TARGET} 2 t "this-node/arbitrary-path#udp" "")
+## Test full channel name with missing node, fetch network
+add_test(NAME TestFullChannelNameMissingNodeGetNetwork COMMAND ${THIS_TARGET} 2 t "this-net:/arbitrary-path#udp" "this-net")
+## Test full channel name with missing protocol, fetch network
+add_test(NAME TestFullChannelNameMissingProtocolGetNetwork COMMAND ${THIS_TARGET} 2 t "this-net:this-node/arbitrary-path" "this-net")
+## Test full channel name with missing node and network, fetch network
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetNetwork COMMAND ${THIS_TARGET} 2 t "/arbitrary-path#udp" "")
+## Test minimal channel name, fetch network
+add_test(NAME TestMinimalChannelNameGetNetwork COMMAND ${THIS_TARGET} 2 t "/arbitrary-path" "")
+## Test channel name with longer path, fetch network
+add_test(NAME TestChannelNameWithLongerPathGetNetwork COMMAND ${THIS_TARGET} 2 t "/top/level/path/$has_special-chars" "")
+## Test full channel name, fetch node
+add_test(NAME TestFullChannelNameGetNode COMMAND ${THIS_TARGET} 3 t "this-net:this-node/arbitrary-path#udp" "this-node")
+## Test full channel name with empty network, fetch node
+add_test(NAME TestFullChannelNameEmptyNetworkGetNode COMMAND ${THIS_TARGET} 3 t ":this-node/arbitrary-path#tcp" "this-node")
+## Test full channel name with missing network, fetch node
+add_test(NAME TestFullChannelNameMissingNetworkGetNode COMMAND ${THIS_TARGET} 3 t "this-node/arbitrary-path#udp" "this-node")
+## Test full channel name with missing node, fetch node
+add_test(NAME TestFullChannelNameMissingNodeGetNode COMMAND ${THIS_TARGET} 3 t "this-net:/arbitrary-path#udp" "")
+## Test full channel name with missing protocol, fetch node
+add_test(NAME TestFullChannelNameMissingProtocolGetNode COMMAND ${THIS_TARGET} 3 t "this-net:this-node/arbitrary-path" "this-node")
+## Test full channel name with missing node and network, fetch node
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetNode COMMAND ${THIS_TARGET} 3 t "/arbitrary-path#udp" "")
+## Test minimal channel name, fetch node
+add_test(NAME TestMinimalChannelNameGetNode COMMAND ${THIS_TARGET} 3 t "/arbitrary-path" "")
+## Test channel name with longer path, fetch node
+add_test(NAME TestChannelNameWithLongerPathGetNode COMMAND ${THIS_TARGET} 3 t "/top/level/path/$has_special-chars" "")
+## Test full channel name, fetch path
+add_test(NAME TestFullChannelNameGetPath COMMAND ${THIS_TARGET} 4 t "this-net:this-node/arbitrary-path#udp" "arbitrary-path")
+## Test full channel name with empty network, fetch path
+add_test(NAME TestFullChannelNameEmptyNetworkGetPath COMMAND ${THIS_TARGET} 4 t ":this-node/arbitrary-path#tcp" "arbitrary-path")
+## Test full channel name with missing network, fetch path
+add_test(NAME TestFullChannelNameMissingNetworkGetPath COMMAND ${THIS_TARGET} 4 t "this-node/arbitrary-path#udp" "arbitrary-path")
+## Test full channel name with missing node, fetch path
+add_test(NAME TestFullChannelNameMissingNodeGetPath COMMAND ${THIS_TARGET} 4 t "this-net:/arbitrary-path#udp" "arbitrary-path")
+## Test full channel name with missing protocol, fetch path
+add_test(NAME TestFullChannelNameMissingProtocolGetPath COMMAND ${THIS_TARGET} 4 t "this-net:this-node/arbitrary-path" "arbitrary-path")
+## Test full channel name with missing node and network, fetch path
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetPath COMMAND ${THIS_TARGET} 4 t "/arbitrary-path#udp" "arbitrary-path")
+## Test minimal channel name, fetch path
+add_test(NAME TestMinimalChannelNameGetPath COMMAND ${THIS_TARGET} 4 t "/arbitrary-path" "arbitrary-path")
+## Test channel name with longer path, fetch path
+add_test(NAME TestChannelNameWithLongerPathGetPath COMMAND ${THIS_TARGET} 4 t "/top/level/path/$has_special-chars" "top/level/path/$has_special-chars")
+## Test full channel name, fetch protocol
+add_test(NAME TestFullChannelNameGetProtocol COMMAND ${THIS_TARGET} 5 t "this-net:this-node/arbitrary-path#udp" "udp")
+## Test full channel name with empty network, fetch protocol
+add_test(NAME TestFullChannelNameEmptyNetworkGetProtocol COMMAND ${THIS_TARGET} 5 t ":this-node/arbitrary-path#tcp" "tcp")
+## Test full channel name with missing network, fetch protocol
+add_test(NAME TestFullChannelNameMissingNetworkGetProtocol COMMAND ${THIS_TARGET} 5 t "this-node/arbitrary-path#udp" "udp")
+## Test full channel name with missing node, fetch protocol
+add_test(NAME TestFullChannelNameMissingNodeGetProtocol COMMAND ${THIS_TARGET} 5 t "this-net:/arbitrary-path#udp" "udp")
+## Test full channel name with missing protocol, fetch protocol
+add_test(NAME TestFullChannelNameMissingProtocolGetProtocol COMMAND ${THIS_TARGET} 5 t "this-net:this-node/arbitrary-path" "")
+## Test full channel name with missing node and network, fetch protocol
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetProtocol COMMAND ${THIS_TARGET} 5 t "/arbitrary-path#udp" "udp")
+## Test minimal channel name, fetch protocol
+add_test(NAME TestMinimalChannelNameGetProtocol COMMAND ${THIS_TARGET} 5 t "/arbitrary-path" "")
+## Test channel name with longer path, fetch protocol
+add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 5 t "/top/level/path/$has_special-chars" "")

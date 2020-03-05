@@ -58,6 +58,7 @@ namespace nImO
     class ChannelName : public String
     {
     public :
+        // Public type definitions.
 
     protected :
         // Protected type definitions.

@@ -66,15 +66,19 @@ namespace nImO
     class PortArgumentDescriptor : public IntArgumentDescriptor
     {
     public :
+        // Public type definitions.
 
     protected :
+        // Protected type definitions.
 
     private :
+        // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
         using inherited = IntArgumentDescriptor;
 
     public :
+        // Public methods.
 
         /*! @brief The constructor.
          @param[in] argName The name of the command-line argument.
@@ -114,8 +118,10 @@ namespace nImO
             (PortArgumentDescriptor &   other);
         
     protected :
+        // Protected methods.
 
     private :
+        // Private methods.
 
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @return A copy of the descriptor, with only non-pointer types duplicated. */
@@ -133,10 +139,13 @@ namespace nImO
             override;
 
     public :
+        // Public fields.
 
     protected :
+        // Protected fields.
 
     private :
+        // Private fields.
 
         /*! @brief @c true if the value can be a system port and @c false otherwise. */
         bool    _isSystemPort;

@@ -125,6 +125,7 @@ compareValueWithString
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -136,7 +137,7 @@ compareValueWithString
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseLogicalValue
+doTestParseChannelName
 (const bool     expected,
  const char *   inString,
  const char *   expectedString) // logical values
@@ -148,6 +149,7 @@ doTestParseLogicalValue
 
     try
     {
+#if 0
         StringBuffer    buff;
 
         buff.addString(inString);
@@ -192,6 +194,7 @@ doTestParseLogicalValue
         {
             ODL_LOG("! (readValue)"); //####
         }
+#endif//0
     }
     catch (...)
     {
@@ -200,7 +203,7 @@ doTestParseLogicalValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseLogicalValue
+} // doTestParseChannelName
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
@@ -212,7 +215,7 @@ doTestParseLogicalValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseNumberValue
+doTestParseExtractNetwork
 (const bool     expected,
  const char *   inString,
  const char *   expectedString) // number values
@@ -224,6 +227,7 @@ doTestParseNumberValue
 
     try
     {
+#if 0
         StringBuffer    buff;
 
         buff.addString(inString);
@@ -268,6 +272,7 @@ doTestParseNumberValue
         {
             ODL_LOG("! (readValue)"); //####
         }
+#endif//0
     }
     catch (...)
     {
@@ -276,7 +281,7 @@ doTestParseNumberValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseNumberValue
+} // doTestParseExtractNetwork
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
@@ -288,7 +293,7 @@ doTestParseNumberValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseStringValue
+doTestParseExtractNode
 (const bool     expected,
  const char *   inString,
  const char *   expectedString) // string values
@@ -300,6 +305,7 @@ doTestParseStringValue
 
     try
     {
+#if 0
         StringBuffer    buff;
 
         buff.addString(inString);
@@ -344,6 +350,7 @@ doTestParseStringValue
         {
             ODL_LOG("! (readValue)"); //####
         }
+#endif//0
     }
     catch (...)
     {
@@ -352,7 +359,7 @@ doTestParseStringValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseStringValue
+} // doTestParseExtractNode
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 04 ***
@@ -364,7 +371,7 @@ doTestParseStringValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseArrayValue
+doTestParseExtractPath
 (const bool     expected,
  const char *   inString,
  const char *   expectedString) // array values
@@ -376,6 +383,7 @@ doTestParseArrayValue
 
     try
     {
+#if 0
         StringBuffer    buff;
 
         buff.addString(inString);
@@ -420,6 +428,7 @@ doTestParseArrayValue
         {
             ODL_LOG("! (readValue)"); //####
         }
+#endif//0
     }
     catch (...)
     {
@@ -428,7 +437,7 @@ doTestParseArrayValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseArrayValue
+} // doTestParseExtractPath
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 05 ***
@@ -440,7 +449,7 @@ doTestParseArrayValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseSetValue
+doTestParseExtractProtocol
 (const bool     expected,
  const char *   inString,
  const char *   expectedString) // set values
@@ -452,6 +461,7 @@ doTestParseSetValue
 
     try
     {
+#if 0
         StringBuffer    buff;
 
         buff.addString(inString);
@@ -496,6 +506,7 @@ doTestParseSetValue
         {
             ODL_LOG("! (readValue)"); //####
         }
+#endif//0
     }
     catch (...)
     {
@@ -504,160 +515,7 @@ doTestParseSetValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseSetValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestParseMapValue
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // map values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer    buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asMap())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseMapValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestParseImplicitArrayValue
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // implicit array values
-{
-    ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
-    try
-    {
-        StringBuffer    buff;
-
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseImplicitArrayValue
-#endif //0
+} // doTestParseExtractProtocol
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -692,7 +550,6 @@ main
     try
     {
         Initialize(progName);
-#if 0
         if (3 < --argc)
         {
             int64_t selector;
@@ -706,31 +563,23 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestParseLogicalValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseChannelName(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 2 :
-                        result = doTestParseNumberValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 3 :
-                        result = doTestParseStringValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 4 :
-                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 5 :
-                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
-                        break;
-
-                    case 6 :
-                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
-                        break;
-
-                    case 7 :
-                        result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     default :
@@ -751,7 +600,6 @@ main
         {
             ODL_LOG("! (2 < --argc)"); //####
         }
-#endif//0
     }
     catch (...)
     {

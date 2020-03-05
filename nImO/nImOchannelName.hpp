@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide network connection points. */
-    class ChannelName : public String
+    class ChannelName
     {
     public :
         // Public type definitions.
@@ -66,26 +66,84 @@ namespace nImO
     private :
         // Private type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = String;
-
     public :
         // Public methods.
-
-        /*! @brief The constructor. */
-        ChannelName
-            (void);
 
         /*! @brief The destructor. */
         virtual
         ~ChannelName
             (void);
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        ChannelName
+            (const ChannelName &  other);
+
+        /*! @brief Return the name in standard form.
+         @return The name in standard form. */
+        std::string
+        getName
+            (void)
+            const;
+
+        /*! @brief Return the name of the network for the channel.
+         @return The network name for the channel. */
+        inline const std::string &
+        getNetwork
+            (void)
+            const
+        {
+            return _network;
+        } // getNetwork
+
+        /*! @brief Return the name of the node for the channel.
+         @return The node name for the channel. */
+        inline const std::string &
+        getNode
+            (void)
+            const
+        {
+            return _node;
+        } // getNode
+
+        /*! @brief Return the path for the channel.
+         @return The path for the channel. */
+        inline const std::string &
+        getPath
+            (void)
+            const
+        {
+            return _path;
+        } // getNodeName
+
+        /*! @brief Return the transport mechanism for the channel.
+         @return The transport mechanism for the channel. */
+        inline Transport
+        getTransport
+            (void)
+            const
+        {
+            return _transport;
+        } // getTransport
+
+        /*! @brief Extracts a ChannelName from a string.
+         @param[in] input The string being processed.
+         @param[out] problemDescription A description of the first problem with the input that was detected.
+         @return @c nullptr if the ChannelName could not be extracted or a non-nullptr if extraction was successful. */
+        static SpChannelName
+        parse
+            (const std::string &    input,
+             std::string &          problemDescription);
+
     protected :
         // Protected methods.
 
     private :
         // Private methods.
+
+        /*! @brief The constructor. */
+        ChannelName
+            (void);
 
     public :
         // Public fields.
@@ -95,6 +153,18 @@ namespace nImO
 
     private :
         // Private fields.
+
+        /*! @brief The associated network name. */
+        std::string _network;
+
+        /*! @brief The associated node name. */
+        std::string _node;
+
+        /*! @brief The associated path. */
+        std::string _path;
+
+        /*! @brief The associated transport mechanism. */
+        Transport   _transport;
 
     }; // ChannelName
 

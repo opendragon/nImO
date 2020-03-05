@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannel.hpp>
+#include <nImOchannelName.hpp>
 //#include <nImObufferChunk.hpp>
 //#include <nImOlogical.hpp>
 //#include <nImOnumber.hpp>
@@ -100,33 +100,6 @@ catchSignal
     exit(1);
 } // catchSignal
 
-#if 0
-/*! @brief Compare a Value object with a string.
- @param[in] aValue The object to be compared.
- @param[in] aString The string to be compared to.
- @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
- the object representation as a string. */
-static int
-compareValueWithString
-(const Value &  aValue,
- const char *   aString)
-{
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
-    StringBuffer    buff;
-    int             result;
-
-    aValue.printToStringBuffer(buff);
-    auto    resultString(buff.getString());
-
-    result = resultString.compare(aString);
-    ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
-    ODL_EXIT_I(result); //####
-    return result;
-} // compareValueWithString
-#endif//0
-
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
@@ -138,9 +111,8 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseChannelName
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // logical values
+    (const bool     expected,
+     const char *   inString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -149,52 +121,13 @@ doTestParseChannelName
 
     try
     {
-#if 0
-        StringBuffer    buff;
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
 
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
+        if ((nullptr != parsed) == expected)
         {
             result = 0;
         }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asLogical())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -216,9 +149,9 @@ doTestParseChannelName
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseExtractNetwork
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // number values
+    (const bool     expected,
+     const char *   inString,
+     const char *   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -227,52 +160,19 @@ doTestParseExtractNetwork
 
     try
     {
-#if 0
-        StringBuffer    buff;
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
 
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
+        if ((nullptr != parsed) == expected)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asNumber())
+            if (expected)
             {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
+                if (parsed->getNetwork() == expectedString)
                 {
                     result = 0;
                 }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
             }
         }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -294,9 +194,9 @@ doTestParseExtractNetwork
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseExtractNode
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // string values
+    (const bool     expected,
+     const char *   inString,
+     const char *   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -305,52 +205,19 @@ doTestParseExtractNode
 
     try
     {
-#if 0
-        StringBuffer    buff;
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
 
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
+        if ((nullptr != parsed) == expected)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asString())
+            if (expected)
             {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
+                if (parsed->getNode() == expectedString)
                 {
                     result = 0;
                 }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
             }
         }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -372,9 +239,9 @@ doTestParseExtractNode
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseExtractPath
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // array values
+    (const bool     expected,
+     const char *   inString,
+     const char *   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -383,52 +250,19 @@ doTestParseExtractPath
 
     try
     {
-#if 0
-        StringBuffer    buff;
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
 
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
-
-        if ((nullptr != readValue) == expected)
+        if ((nullptr != parsed) == expected)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
+            if (expected)
             {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
+                if (parsed->getPath() == expectedString)
                 {
                     result = 0;
                 }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
             }
         }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -450,9 +284,9 @@ doTestParseExtractPath
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseExtractProtocol
-(const bool     expected,
- const char *   inString,
- const char *   expectedString) // set values
+    (const bool     expected,
+     const char *   inString,
+     const char *   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -461,52 +295,39 @@ doTestParseExtractProtocol
 
     try
     {
-#if 0
-        StringBuffer    buff;
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
 
-        buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
+        if ((nullptr != parsed) == expected)
+        {
+            if (expected)
+            {
+                switch (parsed->getTransport())
+                {
+                    case Transport::TCP :
+                        if (! strcmp(expectedString, "TCP"))
+                        {
+                            result = 0;
+                        }
+                        break;
 
-        if ((nullptr != readValue) == expected)
-        {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asSet())
-            {
-                if (expected)
-                {
-                    ODL_LOG("(expected)"); //####
-                    result = 1;
-                }
-                else
-                {
-                    result = 0; // wrong type returned, but it was not expected to succeed
-                }
-            }
-            else
-            {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
+                    case Transport::UDP :
+                        if (! strcmp(expectedString, "UDP"))
+                        {
+                            result = 0;
+                        }
+                        break;
+
+                    case Transport::Unknown :
+                        if (! strcmp(expectedString, "Unknown"))
+                        {
+                            result = 0;
+                        }
+                        break;
+
                 }
             }
         }
-        else
-        {
-            ODL_LOG("! (readValue)"); //####
-        }
-#endif//0
     }
     catch (...)
     {
@@ -550,7 +371,7 @@ main
     try
     {
         Initialize(progName);
-        if (3 < --argc)
+        if (2 < --argc)
         {
             int64_t selector;
 
@@ -563,23 +384,35 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestParseChannelName(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseChannelName(expected, *(argv + 3));
                         break;
 
                     case 2 :
-                        result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
+                        if (3 < argc)
+                        {
+                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
+                        }
                         break;
 
                     case 3 :
-                        result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
+                        if (3 < argc)
+                        {
+                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
+                        }
                         break;
 
                     case 4 :
-                        result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
+                        if (3 < argc)
+                        {
+                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
+                        }
                         break;
 
                     case 5 :
-                        result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
+                        if (3 < argc)
+                        {
+                            result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
+                        }
                         break;
 
                     default :

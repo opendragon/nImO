@@ -215,6 +215,7 @@ namespace nImO
     class Array;
     class BaseArgumentDescriptor;
     class BufferChunk;
+    class ChannelName;
     class Flaw;
     class Map;
     class Message;
@@ -491,6 +492,20 @@ namespace nImO
 
     }; // OutputFlavour
 
+    /*! @brief The transport mechanism to use. */
+    enum class Transport
+    {
+        /*! @brief Use TCP for the transport mechanism. */
+        TCP,
+
+        /*! @brief Use UDP for the transport mechanism. */
+        UDP,
+
+        /*! @brief The transport mechanism is unknown. */
+        Unknown
+
+    }; // Transport
+
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
 
@@ -505,6 +520,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a BufferChunk. */
     using SpBufferChunk = std::shared_ptr<BufferChunk>;
+
+    /*! @brief A holder for a shared pointer to a ChannelName. */
+    using SpChannelName = std::shared_ptr<ChannelName>;
 
     /*! @brief A holder for a shared pointer to a Flaw. */
     using SpFlaw = std::shared_ptr<Flaw>;

@@ -60,6 +60,15 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The character that ends the network part of a ChannelName. */
+static const char   kEndNetwork = ':';
+
+/*! @brief The character that starts the path part of a ChannelName. */
+static const char   kStartPath = '/';
+
+/*! @brief The character that starts the protocol part of a ChannelName. */
+static const char   kStartProtocol = '#';
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -67,6 +76,40 @@
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Check a character for legitimacy.
+ @param[in] aChar The character to check.
+ @param[in] slashAllowed @c true if a forward slash can appear.
+ @return @c true if the character is legal. */
+static bool
+checkChar
+    (const char aChar,
+     const bool slashAllowed = false)
+{
+    ODL_ENTER(); //####
+    ODL_C1("aChar = ", aChar); //####
+    ODL_B1("slashAllowed = ", slashAllowed); //####
+    bool    result;
+
+    if (isalnum(aChar))
+    {
+        result = true;
+    }
+    else if (('$' == aChar) || ('_' == aChar) || ('-' == aChar) || ('.' == aChar))
+    {
+        result = true;
+    }
+    else if ('/' == aChar)
+    {
+        result = slashAllowed;
+    }
+    else
+    {
+        result = false;
+    }
+    ODL_EXIT_B(result); //####
+    return result;
+} // checkChar
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -78,9 +121,18 @@
 
 nImO::ChannelName::ChannelName
     (void) :
-        inherited()
+        _transport(Transport::Unknown)
 {
     ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::ChannelName::ChannelName
+
+nImO::ChannelName::ChannelName
+    (const nImO::ChannelName &  other) :
+        _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
@@ -94,6 +146,205 @@ nImO::ChannelName::~ChannelName
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+std::string
+nImO::ChannelName::getName
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    std::string result;
+
+    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // nImO::ChannelName::getName
+
+nImO::SpChannelName
+nImO::ChannelName::parse
+    (const std::string &    input,
+     std::string &          problemDescription)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("input = ", input); //####
+    ODL_P1("problemDescription = ", &problemDescription); //####
+    bool            okSoFar;
+    enum
+    {
+        kNetwork,
+        kNode,
+        kPath,
+        kProtocol
+    }               scanState = kNetwork;
+    SpChannelName   result;
+    std::string     networkName;
+    std::string     nodeName;
+    std::string     path;
+    std::string     protocolName;
+    Transport       protocol;
+
+    if (0 == input.length())
+    {
+        problemDescription = "Empty name";
+        okSoFar = false;
+    }
+    else
+    {
+        problemDescription = "";
+        okSoFar = true;
+    }
+    for (size_t ii = 0, mm = input.length(); okSoFar && (ii < mm); ++ii)
+    {
+        char    cc = input[ii];
+
+        switch (scanState)
+        {
+            case kNetwork :
+                switch (cc)
+                {
+                    case kEndNetwork :
+                        scanState = kNode;
+                        break;
+
+                    case kStartPath :
+                        nodeName = networkName;
+                        networkName = "";
+                        scanState = kPath;
+                        break;
+
+                    case kStartProtocol :
+                        problemDescription = "Missing parts in name";
+                        okSoFar = false;
+                        break;
+
+                    default :
+                        if (checkChar(cc))
+                        {
+                            networkName += cc;
+                        }
+                        else
+                        {
+                            problemDescription = "Illegal character in string";
+                            okSoFar = false;
+                        }
+                        break;
+
+                }
+                break;
+
+            case kNode :
+                switch (cc)
+                {
+                    case kEndNetwork :
+                        problemDescription = "Illegal character in string";
+                        okSoFar = false;
+                        break;
+
+                    case kStartPath :
+                        scanState = kPath;
+                        break;
+
+                    case kStartProtocol :
+                        problemDescription = "Missing parts in name";
+                        okSoFar = false;
+                        break;
+
+                    default :
+                        if (checkChar(cc))
+                        {
+                            nodeName += cc;
+                        }
+                        else
+                        {
+                            problemDescription = "Illegal character in string";
+                            okSoFar = false;
+                        }
+                        break;
+
+                }
+                break;
+
+            case kPath :
+                switch (cc)
+                {
+                    case kEndNetwork :
+                        problemDescription = "Illegal character in string";
+                        okSoFar = false;
+                        break;
+
+                    case kStartProtocol :
+                        scanState = kProtocol;
+                        break;
+
+                    default :
+                        if (checkChar(cc, true))
+                        {
+                            path += cc;
+                        }
+                        else
+                        {
+                            problemDescription = "Illegal character in string";
+                            okSoFar = false;
+                        }
+                        break;
+
+                }
+                break;
+
+            case kProtocol :
+                if (checkChar(cc))
+                {
+                    protocolName += cc;
+                }
+                else
+                {
+                    problemDescription = "Illegal character in string";
+                    okSoFar = false;
+                }
+                break;
+
+        }
+    }
+    okSoFar &= (0 < path.length());
+    if (okSoFar)
+    {
+        if (protocolName == "udp")
+        {
+            protocol = Transport::UDP;
+        }
+        else if (protocolName == "tcp")
+        {
+            protocol = Transport::TCP;
+        }
+        else if (protocolName == "")
+        {
+            if (scanState == kProtocol)
+            {
+                problemDescription = "Invalid protocol";
+                okSoFar = false;
+            }
+            else
+            {
+                protocol = Transport::Unknown;
+            }
+        }
+        else
+        {
+            problemDescription = "Invalid protocol";
+            okSoFar = false;
+        }
+    }
+    if (okSoFar)
+    {
+        result = SpChannelName(new ChannelName());
+        result->_network = networkName;
+        result->_node = nodeName;
+        result->_path = path;
+        result->_transport = protocol;
+    }
+    ODL_EXIT_P(result.get()); //####
+    return result;
+} // nImO::ChannelName::parse
 
 #if defined(__APPLE__)
 # pragma mark Global functions

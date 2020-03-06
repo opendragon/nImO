@@ -1,0 +1,153 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_messageInsert.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-03-06
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOmessageInsertTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOmessageInsertTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test empty message
+add_test(NAME TestInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
+# Test message with logical
+add_test(NAME TestInsertLogicalMessage COMMAND ${THIS_TARGET} 2)
+# Test message with tiny integer
+add_test(NAME TestInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
+# Test message with short integer
+add_test(NAME TestInsertSmallIntegerMessage COMMAND ${THIS_TARGET} 4)
+# Test message with medium integer
+add_test(NAME TestInsertMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
+# Test message with big integer
+add_test(NAME TestInsertBigIntegerMessage COMMAND ${THIS_TARGET} 6)
+# Test message with empty string
+add_test(NAME TestInsertEmptyStringMessage COMMAND ${THIS_TARGET} 7)
+# Test message with short string
+add_test(NAME TestInsertShortStringMessage COMMAND ${THIS_TARGET} 8)
+# Test message with medium string
+add_test(NAME TestInsertMediumStringMessage COMMAND ${THIS_TARGET} 9)
+# Test message with empty blob
+add_test(NAME TestInsertEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
+# Test message with short blob
+add_test(NAME TestInsertSmallBlobMessage COMMAND ${THIS_TARGET} 11)
+# Test message with medium blob
+add_test(NAME TestInsertMediumBlobMessage COMMAND ${THIS_TARGET} 12)
+# Test message with single double
+add_test(NAME TestInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
+# Test message with multiple escapes
+add_test(NAME TestInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 14)
+
+# Test message with empty array
+add_test(NAME TestInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+# Test message with empty map
+add_test(NAME TestInsertEmptyMapMessage COMMAND ${THIS_TARGET} 101)
+# Test message with empty set
+add_test(NAME TestInsertEmptySetMessage COMMAND ${THIS_TARGET} 102)
+
+# Test message with array with one logical
+add_test(NAME TestInsertArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 110)
+# Test message with array with one integer
+add_test(NAME TestInsertArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
+# Test message with array with one double
+add_test(NAME TestInsertArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 112)
+# Test message with array with one string
+add_test(NAME TestInsertArrayWithOneStringMessage COMMAND ${THIS_TARGET} 113)
+# Test message with array with one blob
+add_test(NAME TestInsertArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 114)
+# Test message with array with one empty array
+add_test(NAME TestInsertArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 115)
+# Test message with array with one empty map
+add_test(NAME TestInsertArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
+# Test message with array with one empty set
+add_test(NAME TestInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
+
+# Test message with array with two logicals
+add_test(NAME TestInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
+# Test message with array with two integers
+add_test(NAME TestInsertArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
+# Test message with array with two doubles
+add_test(NAME TestInsertArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
+# Test message with array with two strings
+add_test(NAME TestInsertArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
+# Test message with array with two blobs
+add_test(NAME TestInsertArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
+# Test message with array with two empty arrays
+add_test(NAME TestInsertArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
+# Test message with array with two empty maps
+add_test(NAME TestInsertArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
+# Test message with array with two empty sets
+add_test(NAME TestInsertArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
+# Test message with array with empty array and empty map
+add_test(NAME TestInsertArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
+# Test message with array with empty map and empty set
+add_test(NAME TestInsertArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
+# Test message with array with empty set and empty array
+add_test(NAME TestInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+# Test message with array with many doubles
+add_test(NAME TestInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
+
+# Test message with logical map
+add_test(NAME TestInsertLogicalMapMessage COMMAND ${THIS_TARGET} 160)
+# Test message with integer map
+add_test(NAME TestInsertIntegerMapMessage COMMAND ${THIS_TARGET} 161)
+# Test message with string map
+add_test(NAME TestInsertStringMapMessage COMMAND ${THIS_TARGET} 162)
+# Test message with logical set
+add_test(NAME TestInsertLogicalSetMessage COMMAND ${THIS_TARGET} 163)
+# Test message with integer set
+add_test(NAME TestInsertIntegerSetMessage COMMAND ${THIS_TARGET} 164)
+# Test message with string set
+add_test(NAME TestInsertStringSetMessage COMMAND ${THIS_TARGET} 165)

@@ -1,0 +1,174 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_atomic.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-03-06
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOatomicTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOatomicTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test empty buffer chunk
+add_test(NAME TestEmptyBufferChunk COMMAND ${THIS_TARGET} 1)
+# Test buffer chunk with 1 byte
+add_test(NAME TestBufferChunkWithSingleByte COMMAND ${THIS_TARGET} 2)
+# Test buffer chunk filled with data
+add_test(NAME TestFilledBufferChunk COMMAND ${THIS_TARGET} 3)
+# Test buffer chunk overfilled with data
+add_test(NAME TestOverfilledBufferChunk COMMAND ${THIS_TARGET} 4)
+# Test buffer chunk reset
+add_test(NAME TestBufferChunkReset COMMAND ${THIS_TARGET} 5)
+
+# Test empty string buffer
+add_test(NAME TestEmptyStringBuffer COMMAND ${THIS_TARGET} 10)
+# Test string buffer with no characters
+add_test(NAME TestStringBufferWithNoCharacters COMMAND ${THIS_TARGET} 11 "" "")
+# Test string buffer with single character
+add_test(NAME TestStringBufferWithSingleCharacter COMMAND ${THIS_TARGET} 11 "a" "a")
+# Test string buffer with multiple characters
+add_test(NAME TestStringBufferWithMultipleCharacters COMMAND ${THIS_TARGET} 11 "abcde" "abcde")
+# Test string buffer with false
+add_test(NAME TestStringBufferWithFalse COMMAND ${THIS_TARGET} 12 0 false)
+# Test string buffer with true
+add_test(NAME TestStringBufferWithTrue COMMAND ${THIS_TARGET} 12 1 true)
+# Test string buffer with integer zero
+add_test(NAME TestStringBufferWithIntegerZero COMMAND ${THIS_TARGET} 13 0 0)
+# Test string buffer with positive integer
+add_test(NAME TestStringBufferWithPositiveInteger COMMAND ${THIS_TARGET} 13 12345 12345)
+# Test string buffer with negative integer
+add_test(NAME TestStringBufferWithNegativeInteger COMMAND ${THIS_TARGET} 13 "-12345" "-12345")
+# Test string buffer with empty string
+add_test(NAME TestStringBufferWithEmptyString COMMAND ${THIS_TARGET} 14 "" "\"\"")
+# Test string buffer with simple string
+add_test(NAME TestStringBufferWithSimpleString COMMAND ${THIS_TARGET} 14 abcde "\"abcde\"")
+# Test string buffer with string with double quotes
+add_test(NAME TestStringBufferWithStringWithDblQuotes COMMAND ${THIS_TARGET} 14 "ab\"cde" "'ab\"cde'")
+# Test string buffer with string with single quotes
+add_test(NAME TestStringBufferWithStringWithSnglQuotes COMMAND ${THIS_TARGET} 14 "ab'cde" "\"ab'cde\"")
+# Test string buffer with string with escaped characters
+add_test(NAME TestStringBufferWithStringWithEscapedChars COMMAND ${THIS_TARGET} 15)
+# Test string buffer with double zero
+add_test(NAME TestStringBufferWithDoubleZero COMMAND ${THIS_TARGET} 16 "0.0" "0")
+# Test string buffer with simple positive double
+add_test(NAME TestStringBufferWithPositiveDouble COMMAND ${THIS_TARGET} 16 "1234.5" "1234.5")
+# Test string buffer with simple negative double
+add_test(NAME TestStringBufferWithNegativeDouble COMMAND ${THIS_TARGET} 16 "-1234.5" "-1234.5")
+# Test string buffer with very small double
+add_test(NAME TestStringBufferWithVerySmallDouble COMMAND ${THIS_TARGET} 16 "1e-20" "1E-20")
+# Test string buffer with very big double
+add_test(NAME TestStringBufferWithVeryBigDouble COMMAND ${THIS_TARGET} 16 "1e22" "1E+22")
+# Test big string buffer
+add_test(NAME TestBigStringBuffer COMMAND ${THIS_TARGET} 17)
+# Test string buffer with empty blob
+add_test(NAME TestStringBufferWithEmptyBlob COMMAND ${THIS_TARGET} 18)
+# Test string buffer with simple blob
+add_test(NAME TestStringBufferWithSmallBlob COMMAND ${THIS_TARGET} 19)
+# Test string buffer with big blob
+add_test(NAME TestStringBufferWithBigBlob COMMAND ${THIS_TARGET} 20)
+# Test string buffer reset
+add_test(NAME TestStringBufferReset COMMAND ${THIS_TARGET} 21)
+
+# Test default logical value
+add_test(NAME TestDefaultLogicalValue COMMAND ${THIS_TARGET} 50)
+# Test false logical value
+add_test(NAME TestFalseLogicalValue COMMAND ${THIS_TARGET} 51 0 "false")
+# Test true logical value
+add_test(NAME TestTrueLogicalValue COMMAND ${THIS_TARGET} 51 1 "true")
+# Test default number value
+add_test(NAME TestDefaultIntegerValue COMMAND ${THIS_TARGET} 52)
+# Test integer number value
+add_test(NAME TestIntegerNumberValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
+# Test double number value
+add_test(NAME TestDoubleNumberValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
+# Test default string value
+add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 54)
+# Test short string value
+add_test(NAME TestShortStringValue COMMAND ${THIS_TARGET} 55 "abcdef" "\"abcdef\"")
+# Test string value with escaped characters
+add_test(NAME TestStringValueWithEscapedChars COMMAND ${THIS_TARGET} 56)
+# Test default blob value
+add_test(NAME TestDefaultBlobValue COMMAND ${THIS_TARGET} 57)
+# Test small blob value
+add_test(NAME TestSmallBlobValue COMMAND ${THIS_TARGET} 58)
+# Test big blob value
+add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
+# Test logical copy constructor and assignment operators
+add_test(NAME TestLogicalCopyAndAssign COMMAND ${THIS_TARGET} 60)
+# Test integer number copy constructor and assignment operators
+add_test(NAME TestIntegerCopyAndAssign COMMAND ${THIS_TARGET} 61)
+# Test double copy constructor and assignment operators
+add_test(NAME TestDoubleCopyAndAssign COMMAND ${THIS_TARGET} 62)
+# Test string copy constructor and assignment operators
+add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
+# Test blob copy constructor and assignment operator
+add_test(NAME TestBlobCopyAndAssign COMMAND ${THIS_TARGET} 64)
+
+# Test valid logical compares
+add_test(NAME TestValidLogicalCompares COMMAND ${THIS_TARGET} 80)
+# Test valid number compares
+add_test(NAME TestValidNumberCompares COMMAND ${THIS_TARGET} 81)
+# Test valid string compares
+add_test(NAME TestValidStringCompares COMMAND ${THIS_TARGET} 82)
+# Test valid blob compares
+add_test(NAME TestValidBlobCompares COMMAND ${THIS_TARGET} 83)
+# Test invalid logical compares
+add_test(NAME TestInvalidLogicalCompares COMMAND ${THIS_TARGET} 84)
+# Test invalid number compares
+add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 85)
+# Test invalid string compares
+add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 86)
+# Test invalid blob compares
+add_test(NAME TestInvalidBlobCompares COMMAND ${THIS_TARGET} 87)

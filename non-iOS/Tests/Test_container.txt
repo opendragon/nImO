@@ -1,0 +1,171 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_container.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-03-06
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOcontainerTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOcontainerTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test empty array
+add_test(NAME TestEmptyArrayValue COMMAND ${THIS_TARGET} 1)
+# Test singular array
+add_test(NAME TestSingularArrayValue COMMAND ${THIS_TARGET} 2)
+# Test small array
+add_test(NAME TestSmallArrayValue COMMAND ${THIS_TARGET} 3)
+# Test big array
+add_test(NAME TestBigArrayValue COMMAND ${THIS_TARGET} 4)
+
+# Test empty map
+add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
+# Test singular map with logical keys
+add_test(NAME TestSingularLogicalMapValue COMMAND ${THIS_TARGET} 21)
+# Test singular map with integer keys
+add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 22)
+# Test singular map with string keys
+add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 23)
+# Test small map with logical keys
+add_test(NAME TestSmallLogicalMapValue COMMAND ${THIS_TARGET} 24)
+# Test small map with integer keys
+add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 25)
+# Test small map with string keys
+add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 26)
+
+# Test empty set
+add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
+# Test singular set with logical keys
+add_test(NAME TestSingularLogicalSetValue COMMAND ${THIS_TARGET} 41)
+# Test singular set with integer keys
+add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 42)
+# Test singular set with string keys
+add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 43)
+# Test small set with logical keys
+add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 44)
+# Test small set with integer keys
+add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 45)
+# Test small set with string keys
+add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 46)
+
+# Test array with array
+add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 60)
+# Test array with map
+add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 61)
+# Test array with set
+add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 62)
+# Test map with array
+add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 63)
+# Test map with map
+add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 64)
+# Test map with set
+add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 65)
+
+# Test logical map with incompatible keys
+add_test(NAME TestLogicalMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 80)
+# Test integer map with incompatible keys
+add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 81)
+# Test string map with incompatible keys
+add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 82)
+# Test logical set with incompatible keys
+add_test(NAME TestLogicalSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 83)
+# Test integer set with incompatible keys
+add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 84)
+# Test string set with incompatible keys
+add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 85)
+
+# Test valid array compares
+add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 100)
+# Test valid logical map compares
+add_test(NAME TestValidLogicalMapCompares COMMAND ${THIS_TARGET} 101)
+# Test valid integer map compares
+add_test(NAME TestValidIntegerMapCompares COMMAND ${THIS_TARGET} 102)
+# Test valid string map compares
+add_test(NAME TestValidStringMapCompares COMMAND ${THIS_TARGET} 103)
+# Test valid logical set compares
+add_test(NAME TestValidLogicalSetCompares COMMAND ${THIS_TARGET} 104)
+# Test valid integer set compares
+add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 105)
+# Test valid string set compares
+add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 106)
+# Test invalid array compares
+add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 107)
+# Test invalid logical map compares
+add_test(NAME TestInvalidLogicalMapCompares COMMAND ${THIS_TARGET} 108)
+# Test invalid integer map compares
+add_test(NAME TestInvalidIntegerMapCompares COMMAND ${THIS_TARGET} 109)
+# Test invalid string map compares
+add_test(NAME TestInvalidStringMapCompares COMMAND ${THIS_TARGET} 110)
+# Test invalid logical set compares
+add_test(NAME TestInvalidLogicalSetCompares COMMAND ${THIS_TARGET} 111)
+# Test invalid integer set compares
+add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 112)
+# Test invalid string set compares
+add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 113)
+
+# Test array indices
+add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 120)
+# Test logical map searches
+add_test(NAME TestLogicalMapSearches COMMAND ${THIS_TARGET} 121)
+# Test integer map searches
+add_test(NAME TestIntegerMapSearches COMMAND ${THIS_TARGET} 122)
+# Test string map searches
+add_test(NAME TestStringMapSearches COMMAND ${THIS_TARGET} 123)
+# Test logical set searches
+add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 124)
+# Test integer set searches
+add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 125)
+# Test string set searches
+add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 126)

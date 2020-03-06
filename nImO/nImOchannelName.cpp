@@ -156,6 +156,22 @@ nImO::ChannelName::getName
     std::string result;
 
     ODL_OBJEXIT(); //####
+    if (0 < _network.length())
+    {
+        result += _network;
+        result += kEndNetwork;
+    }
+    if (0 < _node.length())
+    {
+        result += _node;
+    }
+    result += kStartPath;
+    result += _path;
+    if (Transport::Unknown != _transport)
+    {
+        result += kStartProtocol;
+        result += TransportToName(_transport);
+    }
     ODL_OBJEXIT_s(result); //####
     return result;
 } // nImO::ChannelName::getName
@@ -308,11 +324,11 @@ nImO::ChannelName::parse
     okSoFar &= (0 < path.length());
     if (okSoFar)
     {
-        if (protocolName == "udp")
+        if (protocolName == TransportToName(Transport::UDP))
         {
             protocol = Transport::UDP;
         }
-        else if (protocolName == "tcp")
+        else if (protocolName == TransportToName(Transport::TCP))
         {
             protocol = Transport::TCP;
         }

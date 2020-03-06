@@ -91,6 +91,15 @@ static yarp::os::impl::Logger * lLogger = nullptr;
 #endif // MAC_OR_LINUX_
 #endif//0
 
+/*! @brief The standard name for the TCP protocol. */
+static const std::string    kProtocolTcpName = "tcp";
+
+/*! @brief The standard name for the UDP protocol. */
+static const std::string    kProtocolUdpName = "udp";
+
+/*! @brief The standard name for an unknown protocol. */
+static const std::string    kProtocolUnknownName = "unknown";
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -1241,3 +1250,29 @@ nImO::StopRunning
     ODL_EXIT(); //####
 } // nImO::StopRunning
 #endif//0
+
+std::string
+nImO::TransportToName
+    (const nImO::Transport    aValue)
+{
+    ODL_ENTER(); //####
+    std::string result;
+
+    switch (aValue)
+    {
+        case Transport::TCP :
+            result = kProtocolTcpName;
+            break;
+
+        case Transport::UDP :
+            result = kProtocolUdpName;
+            break;
+
+        case Transport::Unknown :
+            result = kProtocolUnknownName;
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::TransportToName

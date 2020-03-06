@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a channel-type argument description is:
 
      channelTagAndInfo ::= 'C'; */
-    class ChannelArgumentDescriptor : public StringArgumentDescriptor
+    class ChannelArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -73,7 +73,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = StringArgumentDescriptor;
+        using inherited = BaseArgumentDescriptor;
 
     public :
         // Public methods.
@@ -98,6 +98,20 @@ namespace nImO
         virtual
         ~ChannelArgumentDescriptor
             (void);
+
+        /*! @brief Return the default value.
+         @return The default value. */
+        virtual std::string
+        getDefaultValue
+            (void)
+            override;
+
+        /*! @brief Return the default value as a human-readable string.
+         @return The default value as a human-readable string. */
+        virtual std::string
+        getPrintableDefaultValue
+            (void)
+            override;
 
         /*! @brief Construct a descriptor, if at all possible, from the input string.
          @param[in] inString The input string in 'arguments' format.
@@ -124,6 +138,19 @@ namespace nImO
         clone
             (void)
             const
+            override;
+
+        /*! @brief Return the processed value.
+         @return The processed value. */
+        virtual std::string
+        getProcessedValue
+            (void)
+            override;
+
+        /*! @brief Set the associated variable to the default value. */
+        virtual void
+        setToDefaultValue
+            (void)
             override;
 
         /*! @brief Convert to a printable representation.

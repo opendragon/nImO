@@ -875,6 +875,13 @@ namespace nImO
     ShutDownCatcher
         (void);
 
+    /*! @brief Returns the name corresponding to a Transport value.
+     @param[in] aValue The Transport value to be converted.
+     @return The standard name for the Transport value. */
+    std::string
+    TransportToName
+        (const Transport    aValue);
+
     /*! @brief Checks a network port number for validity.
      @param[in] aPort The port number to be checked.
      @param[in] systemAllowed @c true if system port numbers are valid and @c false otherwise.

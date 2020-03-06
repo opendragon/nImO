@@ -87,7 +87,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue) :
-        inherited(argName, argDescription, argMode, defaultValue)
+        inherited(argName, argDescription, argMode)
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
@@ -126,6 +126,39 @@ ChannelArgumentDescriptor::clone
     ODL_EXIT_P(result.get());
     return result;
 } // ChannelArgumentDescriptor::clone
+
+std::string
+ChannelArgumentDescriptor::getDefaultValue
+    (void)
+{
+    ODL_ENTER(); //####
+    std::string result;
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // ChannelArgumentDescriptor::getDefaultValue
+
+std::string
+ChannelArgumentDescriptor::getPrintableDefaultValue
+    (void)
+{
+    ODL_ENTER(); //####
+    std::string result;
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // ChannelArgumentDescriptor::getPrintableDefaultValue
+
+std::string
+ChannelArgumentDescriptor::getProcessedValue
+(void)
+{
+    ODL_OBJENTER(); //####
+    std::string result;
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // ChannelArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::parseArgString
@@ -175,6 +208,16 @@ ChannelArgumentDescriptor::parseArgString
 } // ChannelArgumentDescriptor::parseArgString
 
 void
+ChannelArgumentDescriptor::setToDefaultValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+//    _currentValue = _defaultValue;
+//    ODL_S1s("_currentValue <- ", _currentValue); //####
+    ODL_OBJEXIT(); //####
+} // ChannelArgumentDescriptor::setToDefaultValue
+
+void
 ChannelArgumentDescriptor::swap
     (ChannelArgumentDescriptor &    other)
 {
@@ -207,8 +250,8 @@ ChannelArgumentDescriptor::validate
     ODL_B1("_valid <- ", _valid); //####
     if (_valid)
     {
-        _currentValue = value;
-        ODL_S1s("_currentValue <- ", _currentValue); //####
+//        _currentValue = value;
+//        ODL_S1s("_currentValue <- ", _currentValue); //####
     }
     ODL_OBJEXIT_B(_valid); //####
     return _valid;

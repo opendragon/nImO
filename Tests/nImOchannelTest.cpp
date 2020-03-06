@@ -148,6 +148,51 @@ doTestParseChannelName
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestParseExpectedName
+    (const bool     expected,
+     const char *   inString,
+     const char *   expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result = 1;
+
+    try
+    {
+        std::string     failed;
+        SpChannelName   parsed = ChannelName::parse(inString, failed);
+
+        if ((nullptr != parsed) == expected)
+        {
+            if (expected)
+            {
+                if (parsed->getName() == expectedString)
+                {
+                    result = 0;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestParseExpectedName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 03 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestParseExtractNetwork
     (const bool     expected,
      const char *   inString,
@@ -184,7 +229,7 @@ doTestParseExtractNetwork
 } // doTestParseExtractNetwork
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
+# pragma mark *** Test Case 04 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -229,7 +274,7 @@ doTestParseExtractNode
 } // doTestParseExtractNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
+# pragma mark *** Test Case 05 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -274,7 +319,7 @@ doTestParseExtractPath
 } // doTestParseExtractPath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 06 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -302,29 +347,9 @@ doTestParseExtractProtocol
         {
             if (expected)
             {
-                switch (parsed->getTransport())
+                if (nImO::TransportToName(parsed->getTransport()) == expectedString)
                 {
-                    case Transport::TCP :
-                        if (! strcmp(expectedString, "TCP"))
-                        {
-                            result = 0;
-                        }
-                        break;
-
-                    case Transport::UDP :
-                        if (! strcmp(expectedString, "UDP"))
-                        {
-                            result = 0;
-                        }
-                        break;
-
-                    case Transport::Unknown :
-                        if (! strcmp(expectedString, "Unknown"))
-                        {
-                            result = 0;
-                        }
-                        break;
-
+                    result = 0;
                 }
             }
         }
@@ -390,25 +415,32 @@ main
                     case 2 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
+                            result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
                     case 3 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
+                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
                     case 4 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
+                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
                     case 5 :
+                        if (3 < argc)
+                        {
+                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
+                        }
+                        break;
+
+                    case 6 :
                         if (3 < argc)
                         {
                             result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));

@@ -37,7 +37,6 @@
 #--------------------------------------------------------------------------------------------------
 
 add_subdirectory(AddApplication)
-add_subdirectory(ListApplications)
 add_subdirectory(RemoveApplication)
 
 enable_testing()

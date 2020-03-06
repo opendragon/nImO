@@ -4,29 +4,22 @@ THIS_FILE_NAME=$(basename $0)
 
 function list_commands() {
     echo "  where <command> is"
-    echo "    add"
-    echo "    connect"
-    echo "    disconnect"
-    echo "    help"
-    echo "    info"
-    echo "    launch"
-    echo "    list"
-    echo "    read"
-    echo "    remove"
-    echo "    version"
-    echo "    write"
+    echo "    add        add an application"
+    echo "    connect    connect two channels together"
+    echo "    disconnect break the connection between two channels"
+    echo "    help       list the available commands"
+    echo "    info       report on a channel"
+    echo "    launch     launch an application"
+    echo "    list       list channels, applications, services, et cetera"
+    echo "    read       read from a channel"
+    echo "    remove     remove an application"
+    echo "    version    report the version numbers of the libraries"
+    echo "    write      write to a channel"
 }
 
 function usage() {
     echo "USAGE: $THIS_FILE_NAME <command> [<options>]"
     list_commands
-}
-
-function usage_list() {
-    echo "USAGE: $THIS_FILE_NAME list <type>"
-    echo "  where <type> is"
-    echo "    apps"
-    echo "    chan"
 }
 
 function usage_help() {
@@ -55,22 +48,10 @@ function usage_help() {
                 nImOlaunch -h
                 ;;
             "list")
-                if [[ $# -eq 1 ]]; then
-                    usage_list
-                else
-                    TYPE=$2
-                    case $TYPE in
-                        "apps")
-                            nImOlistApps -h
-                            ;;
-                        *)
-                            nImOlist -h
-                            ;;
-                    esac
-                fi
+                nImOlist -h
                 ;;
             "read")
-                nImOlaunch -h
+                nImOread -h
                 ;;
             "remove")
                 nImOremoveApp -h
@@ -136,15 +117,7 @@ else
             if [[ $# -eq 0 ]]; then
                 usage_help list
             else
-                TYPE=$1
-                case $TYPE in
-                    "apps")
-                        nImOlistApps
-                        ;;
-                    *)
-                        nImOlist $*
-                        ;;
-                esac
+                nImOlist $*
             fi
             ;;
         "read")

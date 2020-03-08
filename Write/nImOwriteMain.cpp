@@ -38,6 +38,8 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOchannelArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -120,9 +122,12 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::ChannelArgumentDescriptor firstArg("output", T_("Channel to write to"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out");
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
 
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {

@@ -113,18 +113,6 @@ StringArgumentDescriptor::~StringArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-#if 0
-void
-StringArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle & container)
-{
-    ODL_ENTER(); //####
-    ODL_P1("container = ", &container); //####
-    container.addString(getProcessedValue());
-    ODL_EXIT(); //####
-} // StringArgumentDescriptor::addValueToBottle
-#endif//0
-
 SpBaseArgumentDescriptor
 StringArgumentDescriptor::clone
     (void)

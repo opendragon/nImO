@@ -87,6 +87,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOstringBuffer.cpp"
+            "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
@@ -148,6 +149,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOstring.hpp"
         "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOstringBuffer.hpp"
+        "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOvalue.hpp"
         "${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp"
         "${THIS_SOURCE_DIR}/nImOzeroConfService.hpp"
@@ -190,6 +192,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOstring.cpp ${THIS_SOURCE_DIR}/nImOstring.hpp
         ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/nImOstringBuffer.hpp
+        ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.hpp
         ${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp ${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp
         ${THIS_SOURCE_DIR}/nImOzeroConfService.cpp ${THIS_SOURCE_DIR}/nImOzeroConfService.hpp)

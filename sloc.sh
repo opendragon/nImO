@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sloccount Connect Disconnect Info List Monitor Read Tests Version Write nImO
+sloccount ApplicationSupport Bridge Connect Disconnect examples Info Launch List Monitor Read Tests Version Write nImO
 echo ---------------
 echo subtract the following -
 echo ---------------

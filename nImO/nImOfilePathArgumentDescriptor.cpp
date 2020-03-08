@@ -99,13 +99,20 @@ checkFilePath
         std::string dirPath(thePath);
         size_t      lastDelim = dirPath.rfind(kDirectorySeparator[0]);
 
-        if (std::string::npos == lastDelim)
+        if (dirPath.npos == lastDelim)
         {
+            if (0 < strlen(thePath))
+            {
 #if MAC_OR_LINUX_
-            okSoFar = (0 == access("..", W_OK));
+                okSoFar = (0 == access("..", W_OK));
 #else // ! MAC_OR_LINUX_
-            okSoFar = (0 == _access("..", 2));
+                okSoFar = (0 == _access("..", 2));
 #endif // ! MAC_OR_LINUX_
+            }
+            else
+            {
+                okSoFar = emptyIsOK;
+            }
         }
         else
         {

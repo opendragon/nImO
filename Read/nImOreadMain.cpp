@@ -38,6 +38,8 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOchannelArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -121,9 +123,12 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::ChannelArgumentDescriptor firstArg("input", T_("Channel to read from"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/in");
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
 
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, true))
     {

@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOchannelArgumentDescriptor.hpp
+//  File:       nImO/nImOstringsArgumentDescriptor.hpp
 //
 //  Project:    nImO
 //
 //  Contains:   The class declaration for the minimal functionality required to represent a
-//              channel-type command-line argument.
+//              string-type command-line argument.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2020 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -33,12 +33,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2015-05-15
+//  Created:    2020-03-07
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOchannelArgumentDescriptor_HPP_))
-# define nImOchannelArgumentDescriptor_HPP_ /* Header guard */
+#if (! defined(nImOstringsArgumentDescriptor_HPP_))
+# define nImOstringsArgumentDescriptor_HPP_ /* Header guard */
 
 # include <nImObaseArgumentDescriptor.hpp>
 
@@ -48,7 +48,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the minimal functionality required to represent a channel-type
+ @brief The class declaration for the minimal functionality required to represent a string-type
  command-line argument. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
@@ -56,12 +56,12 @@
 
 namespace nImO
 {
-    /*! @brief A channel-type argument description.
+    /*! @brief A string-type argument description.
 
-     The external representation of a channel-type argument description is:
+     The external representation of a string-type argument description is:
 
-     channelTagAndInfo ::= 'C'; */
-    class ChannelArgumentDescriptor : public BaseArgumentDescriptor
+     stringTagAndInfo ::= 'S'; */
+    class StringsArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -82,32 +82,60 @@ namespace nImO
          @param[in] argName The name of the command-line argument.
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument.
-         @param[in] defaultValue The default value for the command-line argument. */
-        ChannelArgumentDescriptor
+         @param[in] defaultValue The default value for the command-line argument.
+         @param[in] allowedValues The set of values that can be entered. */
+        StringsArgumentDescriptor
             (const std::string &    argName,
              const std::string &    argDescription,
              const ArgumentMode     argMode,
-             const std::string &    defaultValue);
+             const std::string &    defaultValue,
+             const StringSet        allowedValues);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        ChannelArgumentDescriptor
-            (const ChannelArgumentDescriptor &  other);
+        StringsArgumentDescriptor
+            (const StringsArgumentDescriptor &   other);
 
         /*! @brief The destructor. */
         virtual
-        ~ChannelArgumentDescriptor
+        ~StringsArgumentDescriptor
             (void);
+
+        /*! @brief Return the allowed values.
+         @return The allowed values. */
+        inline const StringSet &
+        getAllowedValues
+            (void)
+            const
+        {
+            return _allowedValues;
+        } // getAllowedValues
 
         /*! @brief Return the current value.
          @return The current value. */
-        inline SpChannelName
+        inline const std::string &
         getCurrentValue
             (void)
             const
         {
             return _currentValue;
         } // getCurrentValue
+
+        /*! @brief Construct a descriptor, if at all possible, from the input string.
+         @param[in] inString The input string in 'arguments' format.
+         @return A valid descriptor or @c nullptr if the input is not recognized. */
+        static SpBaseArgumentDescriptor
+        parseArgString
+            (const std::string &    inString);
+
+        /*! @brief Exchanges the contents of the object with those of other.
+         @param[in,out] other The object to be swapped with. */
+        void
+        swap
+            (StringsArgumentDescriptor & other);
+        
+    protected :
+        // Protected methods.
 
         /*! @brief Return the default value.
          @return The default value. */
@@ -122,22 +150,6 @@ namespace nImO
         getPrintableDefaultValue
             (void)
             override;
-
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
-
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (ChannelArgumentDescriptor &    other);
-        
-    protected :
-        // Protected methods.
 
     private :
         // Private methods.
@@ -189,14 +201,16 @@ namespace nImO
         // Private fields.
 
         /*! @brief The current value of the command-line argument. */
-        SpChannelName   _currentValue;
+        std::string _currentValue;
 
         /*! @brief The default value for the command-line argument. */
         std::string _defaultValue;
 
-        
-    }; // ChannelArgumentDescriptor
+        /*! @brief The values that are allowed for the command-line argument. */
+        StringSet   _allowedValues;
+
+    }; // StringsArgumentDescriptor
 
 } // nImO
 
-#endif // ! defined(nImOchannelArgumentDescriptor_HPP_)
+#endif // ! defined(nImOstringsArgumentDescriptor_HPP_)

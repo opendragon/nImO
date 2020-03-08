@@ -2,7 +2,7 @@
 {\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww21760\viewh14440\viewkind0
+\margl1440\margr1440\vieww21760\viewh17400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 need to use some form of out-of-band connection to a port to support connect and disconnect, or else have only the source drop its connections;\
@@ -17,12 +17,12 @@ need minimal mDNS code, to implement nImOlist\
 threads, logging, mutex, random numbers, write+read, read callback >>>> Boost!!!!\
 length field to remove the need for SOM/EOM? checksum?\
 \
-* nImObridge ?? ?? ?? \'97 routing between networks\
-* nImOconnect 'c' 'd' 'm' \'97 connects channel 'c' to channel 'd' with mode 'm' (TCP or UDP [or UDT])\
+* [nImObridge ?? ?? ?? \'97 routing between networks]\
+* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT])\
                           [only one connection allowed between 'c' and 'd']\
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
 * nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
-* nImOlaunch ?? \'97 program launcher \
+* nImOlaunch 'a' \'97 program launcher \
 * nImOlist ?? \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
 * nImOmonitor - information on nImO status\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
@@ -32,29 +32,36 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
 \
 examples:\
-* nImOricochet p - forwards a message to the next machine in a list\
-* nImOricochetControl r p - creates a machine list and sends it to one of the machines\
+* nImOricochet 'p' - forwards a message to the next machine in a list\
+* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines\
 \
 application support:\
-* nImOaddApp a - adds an application to the list of available applications on the machine\
-* nImOremoveApp a - removes an application from the list of available applications on the machine\
+* nImOaddApp 'a' - adds an application to the list of available applications on the machine\
+* nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
 \
 shell script:\
 * nimo\
 	provides a 'simplified' common-line interface to some of the executables, using the default options \
 		nimo version - invokes nImOversion\
-		nimo connect <c> <d> - invokes nImOconnect <c> <d>\
+		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d>\
 		nimo disconnect <c> <d> - invokes nImOdisconnect <c> <d>\
 		nimo help - lists choices\
 		nimo info <c> - invokes nImOinfo <c>\
-		nimo list <type> - invokes nImOlist or nImOlistApps, depending on <type>; with no <type>, lists choices\
+		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
 		nimo add app <a> - invokes nImOaddApp <a>\
 		nimo remove app <a> - invokes nImOremoveApp <a>\
 		nimo launch app <a> - invokes nImOlaunch <a>\
 		nimo read <c> - invokes nImOread <c>\
 		nimo write <c> - invokes nImOwrite <c>\
 \
->> the channel argument class should validate the default value as well as the 'submitted' value.\
->> add a new argument class, 'strings' that accepts a set of strings to match; applications using it can then use a map from strings to enumerations, while the GUI can use a popup/pulldown list.\
+>> add a new argument class, 'strings' that accepts a set of strings to match; applications using it can then use a map from strings to enumerations, while the GUI can use a popup/pulldown list; this will, initially, be used with nImOlist and the 'transport' argument for nImOconnect.\
 >> add the command-line arguments to the applications, where well defined.\
+>> improve the 'one-line' descriptions for the applications.\
+\
+unit subtests for argument descriptors -\
+1) test that 'reasonable' parameters successfully build a descriptor\
+2) if there are 'unreasonable' parameters possible, test that building a descriptor fails\
+3) for a range of 'reasonable' parameters, compare the descriptor description with the expected description\
+4) for a range of 'reasonable' parameters, test for 'valid' and 'invalid' input\
+So, the format of the unit test lines will be 'test# fail/no-fail subtest# arguments'; the test# refers to the class of argument descriptor, while the subtest# refers to the list above.\
 }

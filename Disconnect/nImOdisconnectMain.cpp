@@ -38,6 +38,8 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOchannelArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -120,9 +122,15 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::ChannelArgumentDescriptor firstArg("from", T_("'Sending' channel"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out");
+    nImO::ChannelArgumentDescriptor secondArg("to", T_("'Receiving' channel"),
+                                              nImO::ArgumentMode::RequiredModifiable, "/in");
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
 
+    argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour, true))
     {

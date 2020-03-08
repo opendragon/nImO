@@ -565,7 +565,7 @@ nImO::Value::isLegalTerminator
     {
         result = true;
     }
-    else if (std::string::npos == gTerminators.find(aChar))
+    else if (gTerminators.npos == gTerminators.find(aChar))
     {
         result = false;
     }

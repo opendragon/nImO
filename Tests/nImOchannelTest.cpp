@@ -37,11 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOchannelName.hpp>
-//#include <nImObufferChunk.hpp>
-//#include <nImOlogical.hpp>
-//#include <nImOnumber.hpp>
-//#include <nImOstring.hpp>
-//#include <nImOstringBuffer.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -33,6 +33,9 @@
 		F61B8C011E6CB58E00606F25 /* nImOinvalid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOinvalid.hpp; path = nImO/nImOinvalid.hpp; sourceTree = SOURCE_ROOT; };
 		F61D262D2404BB7200C73ACC /* nImOricochetControl.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOricochetControl.rc.in; path = examples/Ricochet/nImOricochetControl.rc.in; sourceTree = "<group>"; };
 		F61D262E2404BBBB00C73ACC /* nImOricochetControlMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetControlMain.cpp; path = examples/Ricochet/nImOricochetControlMain.cpp; sourceTree = "<group>"; };
+		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
+		F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringsArgumentDescriptor.cpp; path = nImO/nImOstringsArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringsArgumentDescriptor.hpp; path = nImO/nImOstringsArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcomparisonStatus.hpp; path = nImO/nImOcomparisonStatus.hpp; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
 		F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmonitor.rc.in; path = Monitor/nImOmonitor.rc.in; sourceTree = SOURCE_ROOT; };
@@ -130,6 +133,9 @@
 		F6C1462C1CD18D830045C291 /* nImOdouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdouble.cpp; path = nImO/nImOdouble.cpp; sourceTree = "<group>"; };
 		F6D00FB420D4915000C29946 /* nImOconverters.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOconverters.hpp; path = nImO/nImOconverters.hpp; sourceTree = "<group>"; };
 		F6D00FB520D4915000C29946 /* nImOconverters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconverters.cpp; path = nImO/nImOconverters.cpp; sourceTree = "<group>"; };
+		F6D1740924128D1000133E72 /* Test_argumentDescriptors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_argumentDescriptors.txt; path = "non-iOS/Tests/Test_argumentDescriptors.txt"; sourceTree = "<group>"; };
+		F6D1740A24128E2D00133E72 /* nImOargumentDescriptorsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOargumentDescriptorsTest.cpp; path = Tests/nImOargumentDescriptorsTest.cpp; sourceTree = "<group>"; };
+		F6D1740B24128E2D00133E72 /* nImOargumentDescriptorsTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOargumentDescriptorsTest.rc.in; path = Tests/nImOargumentDescriptorsTest.rc.in; sourceTree = "<group>"; };
 		F6D7AD04224A5D4B0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD06224A5D760095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = iOS/CMakeLists.txt; sourceTree = "<group>"; };
 		F6D7AD08224A5DAF0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Connect/CMakeLists.txt"; sourceTree = "<group>"; };
@@ -290,13 +296,13 @@
 			name = "Remove Application";
 			sourceTree = "<group>";
 		};
-		F6B0B17A2408171000CB5ED5 /* Application Support */ = {
+		F6B0B17A2408171000CB5ED5 /* ApplicationSupport */ = {
 			isa = PBXGroup;
 			children = (
 				F6B0B17D2408173E00CB5ED5 /* Add Application */,
 				F6B0B17B2408172800CB5ED5 /* Remove Application */,
 			);
-			name = "Application Support";
+			name = ApplicationSupport;
 			sourceTree = "<group>";
 		};
 		F6B0B17B2408172800CB5ED5 /* Remove Application */ = {
@@ -328,7 +334,7 @@
 				F60B49732104F760009D2CDA /* LICENSE.txt */,
 				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
 				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
-				F6B0B17A2408171000CB5ED5 /* Application Support */,
+				F6B0B17A2408171000CB5ED5 /* ApplicationSupport */,
 				F6755309228B8F740037B342 /* Bridge */,
 				F6B388ED1C77F298004B2D42 /* Connect */,
 				F6B388EE1C77F2A3004B2D42 /* CPack */,
@@ -340,6 +346,7 @@
 				F666302D1E3AD65000CAD88F /* Monitor */,
 				F6B388F21C77F2E0004B2D42 /* nImO */,
 				F6B388F31C77F2EF004B2D42 /* Read */,
+				F627506924141ACB00FCF36C /* sloc.sh */,
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F6B388F41C77F2F9004B2D42 /* Version */,
 				F6B388F51C77F300004B2D42 /* Write */,
@@ -349,6 +356,8 @@
 		F6B388EC1C77F1EC004B2D42 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F6D1740A24128E2D00133E72 /* nImOargumentDescriptorsTest.cpp */,
+				F6D1740B24128E2D00133E72 /* nImOargumentDescriptorsTest.rc.in */,
 				F6B9F1B71CB4931A00ECC740 /* nImOatomicTest.cpp */,
 				F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */,
 				F6B8B9FA1E6D976B0094EF96 /* nImObadMessageTest.cpp */,
@@ -490,6 +499,8 @@
 				F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.hpp */,
 				F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */,
 				F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */,
+				F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */,
+				F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.hpp */,
 				F6EE0ADB1CA2C7F4004748ED /* nImOvalue.cpp */,
 				F6EE0ADC1CA2C7F4004748ED /* nImOvalue.hpp */,
 				F6EDEF231E4E9D8A00E0CF1B /* nImOzeroConfClient.cpp */,
@@ -617,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				F6D7AD16224A5EA00095AA43 /* CMakeLists.txt */,
+				F6D1740924128D1000133E72 /* Test_argumentDescriptors.txt */,
 				F679D6CD2412751F001648DB /* Test_atomic.txt */,
 				F679D6C4241270CE001648DB /* Test_badMessage.txt */,
 				F679D6C224126ED8001648DB /* Test_channel.txt */,

@@ -123,19 +123,6 @@ DoubleArgumentDescriptor::~DoubleArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-#if 0
-void
-DoubleArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle & container)
-{
-    ODL_ENTER(); //####
-    ODL_P1("container = ", &container); //####
-
-    container.addDouble(_currentValue);
-    ODL_EXIT(); //####
-} // DoubleArgumentDescriptor::addValueToBottle
-#endif//0
-
 SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone
     (void)

@@ -38,6 +38,9 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOchannelArgumentDescriptor.hpp>
+#include <nImOstringsArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -120,9 +123,23 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::StringSet transportModes;
 
+    transportModes.insert("udp");
+    transportModes.insert("tcp");
+    nImO::ChannelArgumentDescriptor firstArg("from", T_("'Sending' channel"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out");
+    nImO::ChannelArgumentDescriptor secondArg("to", T_("'Receiving' channel"),
+                                              nImO::ArgumentMode::RequiredModifiable, "/in");
+    nImO::StringsArgumentDescriptor thirdArg("mode", T_("Transport mode"),
+                                             nImO::ArgumentMode::OptionalModifiable, "tcp", transportModes);
+    // third argument will be a StringsArgumentDescriptor for Mode
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+
+    argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
+    argumentList.push_back(&thirdArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels", "",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour, true))
     {

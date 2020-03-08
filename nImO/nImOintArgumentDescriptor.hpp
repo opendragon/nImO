@@ -160,15 +160,6 @@ namespace nImO
     private :
         // Private methods.
 
-#if 0
-        /*! @brief Add the processed value to a bottle.
-         @param[in,out] container The bottle to be modified. */
-        virtual void
-        addValueToBottle
-            (yarp::os::Bottle & container)
-            override;
-#endif//0
-
         /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
          @return A copy of the descriptor, with only non-pointer types duplicated. */
         virtual SpBaseArgumentDescriptor

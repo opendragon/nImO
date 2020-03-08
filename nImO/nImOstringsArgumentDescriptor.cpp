@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOchannelArgumentDescriptor.cpp
+//  File:       nImO/nImOstringsArgumentDescriptor.cpp
 //
 //  Project:    nImO
 //
 //  Contains:   The class definition for the minimal functionality required to represent a
-//              channel-type command-line argument.
+//              string-type command-line argument.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2020 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -33,13 +33,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2015-05-15
+//  Created:    2020-03-07
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOchannelArgumentDescriptor.hpp"
-
-#include <nImOchannelName.hpp>
+#include "nImOstringsArgumentDescriptor.hpp"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -50,7 +48,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The definition for the minimal functionality required to represent a channel-type
+ @brief The definition for the minimal functionality required to represent a string-type
  command-line argument. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -82,53 +80,54 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ChannelArgumentDescriptor::ChannelArgumentDescriptor
+StringsArgumentDescriptor::StringsArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription,
      const ArgumentMode     argMode,
-     const std::string &    defaultValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+     const std::string &    defaultValue,
+     const StringSet        allowedValues) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue), _allowedValues(allowedValues)
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
             defaultValue); //####
     ODL_EXIT_P(this); //####
-} // ChannelArgumentDescriptor::ChannelArgumentDescriptor
+} // StringsArgumentDescriptor::StringsArgumentDescriptor
 
-ChannelArgumentDescriptor::ChannelArgumentDescriptor
-    (const ChannelArgumentDescriptor &  other) :
-        inherited(other), _defaultValue(other._defaultValue)
+StringsArgumentDescriptor::StringsArgumentDescriptor
+    (const StringsArgumentDescriptor &   other) :
+        inherited(other), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
-} // ChannelArgumentDescriptor::ChannelArgumentDescriptor
+} // StringsArgumentDescriptor::StringsArgumentDescriptor
 
-ChannelArgumentDescriptor::~ChannelArgumentDescriptor
+StringsArgumentDescriptor::~StringsArgumentDescriptor
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // ChannelArgumentDescriptor::~ChannelArgumentDescriptor
+} // StringsArgumentDescriptor::~StringsArgumentDescriptor
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-ChannelArgumentDescriptor::clone
+StringsArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<ChannelArgumentDescriptor>(*this);
+    auto    result = std::make_shared<StringsArgumentDescriptor>(*this);
 
     ODL_EXIT_P(result.get());
     return result;
-} // ChannelArgumentDescriptor::clone
+} // StringsArgumentDescriptor::clone
 
 std::string
-ChannelArgumentDescriptor::getDefaultValue
+StringsArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
@@ -136,36 +135,32 @@ ChannelArgumentDescriptor::getDefaultValue
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // ChannelArgumentDescriptor::getDefaultValue
+} // StringsArgumentDescriptor::getDefaultValue
 
 std::string
-ChannelArgumentDescriptor::getPrintableDefaultValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    std::string result(_defaultValue);
-
-    ODL_OBJEXIT_s(result); //####
-    return result;
-} // ChannelArgumentDescriptor::getPrintableDefaultValue
-
-std::string
-ChannelArgumentDescriptor::getProcessedValue
+StringsArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
     ODL_OBJENTER(); //####
-    std::string result;
+    std::string result("\"");
 
-    if (_currentValue)
-    {
-        result = _currentValue->getName();
-    }
+    result += getDefaultValue();
+    result += "\"";
     ODL_OBJEXIT_s(result); //####
     return result;
-} // ChannelArgumentDescriptor::getProcessedValue
+} // StringsArgumentDescriptor::getPrintableDefaultValue
+
+std::string
+StringsArgumentDescriptor::getProcessedValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_s(_currentValue); //####
+    return _currentValue;
+} // StringsArgumentDescriptor::getProcessedValue
 
 SpBaseArgumentDescriptor
-ChannelArgumentDescriptor::parseArgString
+StringsArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -173,7 +168,7 @@ ChannelArgumentDescriptor::parseArgString
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
 
-    if (partitionString(inString, 3, inVector))
+    if (partitionString(inString, 3, inVector, 4))
     {
         ArgumentMode    argMode;
         bool            okSoFar = true;
@@ -181,9 +176,10 @@ ChannelArgumentDescriptor::parseArgString
         std::string     typeTag(inVector[1]);
         std::string     modeString(inVector[2]);
         std::string     defaultString(inVector[3]);
-        std::string     description(inVector[4]);
+        std::string     stringList(inVector[4]);
+        std::string     description(inVector[5]);
 
-        if ("C" != typeTag)
+        if ("L" != typeTag)
         {
             okSoFar = false;
         }
@@ -198,76 +194,114 @@ ChannelArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            std::string     failReason;
+            StringSet   allowedValues;
 
-            if (! ChannelName::parse(defaultString, failReason))
+            // We need to split the input into keys.
+            for ( ; 0 < stringList.length(); )
             {
-                okSoFar = false;
+                size_t  indx = stringList.find(_parameterSeparator);
+
+                if (stringList.npos == indx)
+                {
+                    // Make sure to strip off any trailing newlines!
+                    for (size_t ii = stringList.length(); 0 < ii; --ii)
+                    {
+                        if ('\n' == stringList[ii - 1])
+                        {
+                            stringList = stringList.substr(0, ii - 1);
+                        }
+                        else
+                        {
+                            break;
+
+                        }
+                    }
+                    allowedValues.insert(stringList);
+                    stringList = "";
+                }
+                else
+                {
+                    allowedValues.insert(stringList.substr(0, indx));
+                    stringList = stringList.substr(indx + 1);
+                }
             }
-        }
-        if (okSoFar)
-        {
-            result.reset(new ChannelArgumentDescriptor(name, description, argMode, defaultString));
+            // Copy the values in stringList into allowedValues
+            result.reset(new StringsArgumentDescriptor(name, description, argMode, defaultString, allowedValues));
         }
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // ChannelArgumentDescriptor::parseArgString
+} // StringsArgumentDescriptor::parseArgString
 
 void
-ChannelArgumentDescriptor::setToDefaultValue
+StringsArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string failReason;
-
-    _currentValue = ChannelName::parse(_defaultValue, failReason);
-    ODL_P1("_currentValue <- ", _currentValue); //####
+    _currentValue = _defaultValue;
+    ODL_S1s("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
-} // ChannelArgumentDescriptor::setToDefaultValue
+} // StringsArgumentDescriptor::setToDefaultValue
 
 void
-ChannelArgumentDescriptor::swap
-    (ChannelArgumentDescriptor &    other)
+StringsArgumentDescriptor::swap
+    (StringsArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     inherited::swap(other);
     std::swap(_currentValue, other._currentValue);
     std::swap(_defaultValue, other._defaultValue);
+    std::swap(_allowedValues, other._allowedValues);
     ODL_OBJEXIT(); //####
-} // ChannelArgumentDescriptor::swap
+} // StringsArgumentDescriptor::swap
 
 std::string
-ChannelArgumentDescriptor::toString
+StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("C"));
+    std::string result(prefixFields("L"));
 
-    result += suffixFields(getDefaultValue());
+    result += _parameterSeparator;
+    std::string scratch;
+
+    for (StringSet::const_iterator walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
+    {
+        scratch += *walker;
+    }
+    char    delim = identifyDelimiter(scratch);
+
+    result += delim;
+    for (StringSet::const_iterator walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
+    {
+        if (walker != _allowedValues.begin())
+        {
+            result += _parameterSeparator;
+        }
+        result += *walker;
+    }
+    result += delim;
+    result += suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####
     return result;
-} // ChannelArgumentDescriptor::toString
+} // StringsArgumentDescriptor::toString
 
 bool
-ChannelArgumentDescriptor::validate
+StringsArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    std::string failReason;
-    SpChannelName   trialValue = ChannelName::parse(value, failReason);
-
-    _valid = (nullptr != trialValue);
+    _valid = (_allowedValues.find(value) != _allowedValues.end());
     ODL_B1("_valid <- ", _valid); //####
     if (_valid)
     {
-        _currentValue = trialValue;
-        ODL_P1("_currentValue <- ", _currentValue); //####
+        _currentValue = value;
+        ODL_S1s("_currentValue <- ", _currentValue); //####
     }
     ODL_OBJEXIT_B(_valid); //####
     return _valid;
-} // ChannelArgumentDescriptor::validate
+} // StringsArgumentDescriptor::validate
 
 #if defined(__APPLE__)
 # pragma mark Global functions

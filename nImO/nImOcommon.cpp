@@ -1024,6 +1024,82 @@ nImO::ProcessStandardUtilitiesOptions
     return keepGoing;
 } // nImO::ProcessStandardUtilitiesOptions
 
+nImO::Transport
+ResolveTransport
+    (const nImO::Transport  firstTransport,
+     const nImO::Transport  secondTransport,
+     const nImO::Transport  defaultTransport)
+{
+    Transport   result;
+
+    switch (firstTransport)
+    {
+        case Transport::TCP :
+            result = firstTransport;
+            break;
+
+        case Transport::UDP :
+            if (Transport::TCP == secondTransport)
+            {
+                result = secondTransport;
+            }
+            else
+            {
+                result = firstTransport;
+            }
+            break;
+
+        default:
+            if (Transport::Unknown == secondTransport)
+            {
+                if (Transport::Unknown == defaultTransport)
+                {
+                    result = Transport::TCP;
+                }
+                else
+                {
+                    result = defaultTransport;
+                }
+            }
+            else
+            {
+                result = secondTransport;
+            }
+            break;
+
+    }
+    return result;
+} /* ResolveTransport */
+
+nImO::Transport
+ResolveTransport
+    (const nImO::Transport  firstTransport,
+     const nImO::Transport  defaultTransport)
+{
+    Transport   result;
+
+    switch (firstTransport)
+    {
+        case Transport::TCP :
+        case Transport::UDP :
+            result = firstTransport;
+            break;
+
+        default:
+            if (Transport::Unknown == defaultTransport)
+            {
+                result = Transport::TCP;
+            }
+            else
+            {
+                result = defaultTransport;
+            }
+            break;
+
+    }
+    return result;
+} /* ResolveTransport */
+
 std::string
 nImO::SanitizeString
     (const std::string &    inString,
@@ -1250,6 +1326,19 @@ nImO::StopRunning
     ODL_EXIT(); //####
 } // nImO::StopRunning
 #endif//0
+
+nImO::StringSet
+nImO::TransportNames
+    (void)
+{
+    ODL_ENTER(); //####
+    StringSet   result;
+
+    result.insert("udp");
+    result.insert("tcp");
+    ODL_EXIT(); //####
+    return result;
+} // nImO::TransportNames
 
 std::string
 nImO::TransportToName

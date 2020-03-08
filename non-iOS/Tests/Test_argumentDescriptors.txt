@@ -1,0 +1,219 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_argumentDescriptors.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-03-06
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOargumentDescriptorsTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(nImOcommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOargumentDescriptorsTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} nImOcommonTestSupport ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidAddressArgumentParameters COMMAND ${THIS_TARGET} 1 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidAddressArgumentParameters COMMAND ${THIS_TARGET} 1 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestAddressArgumentDescriptor COMMAND ${THIS_TARGET} 1 t 3 "1.2.3.4" "descriptor\tA\t0\t~1.2.3.4~\tsomething")
+# Test valid input
+add_test(NAME TestAddressArgumentValidInput1 COMMAND ${THIS_TARGET} 1 t 4 "1.2.3.4")
+# Test valid input
+add_test(NAME TestAddressArgumentValidInput2 COMMAND ${THIS_TARGET} 1 t 4 "192.168.3.4")
+# Test invalid input
+add_test(NAME TestAddressArgumentInvalidInput1 COMMAND ${THIS_TARGET} 1 f 4 "chuckles")
+# Test invalid input
+add_test(NAME TestAddressArgumentInvalidInput2 COMMAND ${THIS_TARGET} 1 f 4 "1000.2000.300.500")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidBoolArgumentParameters COMMAND ${THIS_TARGET} 2 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidBoolArgumentParameters COMMAND ${THIS_TARGET} 2 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestBoolArgumentDescriptor COMMAND ${THIS_TARGET} 2 t 3 "false" "descriptor\tB\t0\t~0~\tsomething")
+# Test valid input
+add_test(NAME TestBoolArgumentValidInput1 COMMAND ${THIS_TARGET} 2 t 4 "true")
+# Test valid input
+add_test(NAME TestBoolArgumentValidInput2 COMMAND ${THIS_TARGET} 2 t 4 "false")
+# Test invalid input
+add_test(NAME TestBoolArgumentInvalidInput1 COMMAND ${THIS_TARGET} 2 f 4 "")
+# Test invalid input
+add_test(NAME TestBoolArgumentInvalidInput2 COMMAND ${THIS_TARGET} 2 f 4 "maybe")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidChannelArgumentParameters COMMAND ${THIS_TARGET} 3 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidChannelArgumentParameters COMMAND ${THIS_TARGET} 3 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestChannelArgumentDescriptor COMMAND ${THIS_TARGET} 3 t 3 "/out" "descriptor\tC\t0\t~/out~\tsomething")
+# Test valid input
+add_test(NAME TestChannelArgumentValidInput1 COMMAND ${THIS_TARGET} 3 t 4 "/in")
+# Test valid input
+add_test(NAME TestChannelArgumentValidInput2 COMMAND ${THIS_TARGET} 3 t 4 "net:node/out#tcp")
+# Test valid input
+add_test(NAME TestChannelArgumentValidInput3 COMMAND ${THIS_TARGET} 3 t 4 ":name/transfer")
+# Test invalid input
+add_test(NAME TestChannelArgumentInvalidInput1 COMMAND ${THIS_TARGET} 3 f 4 "")
+# Test invalid input
+add_test(NAME TestChannelArgumentInvalidInput2 COMMAND ${THIS_TARGET} 3 f 4 "#udp")
+# Test invalid input
+add_test(NAME TestChannelArgumentInvalidInput3 COMMAND ${THIS_TARGET} 3 f 4 "net:#bpd")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidDoubleArgumentParameters COMMAND ${THIS_TARGET} 4 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidDoubleArgumentParameters COMMAND ${THIS_TARGET} 4 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestDoubleArgumentDescriptor COMMAND ${THIS_TARGET} 4 t 3 "17" "descriptor\tD\t0\t\t1000\t~17~\tsomething")
+# Test valid input
+add_test(NAME TestDoubleArgumentValidInput1 COMMAND ${THIS_TARGET} 4 t 4 "-1.234")
+# Test valid input
+add_test(NAME TestDoubleArgumentValidInput2 COMMAND ${THIS_TARGET} 4 t 4 "0")
+# Test valid input
+add_test(NAME TestDoubleArgumentValidInput3 COMMAND ${THIS_TARGET} 4 t 4 "1.234")
+# Test invalid input
+add_test(NAME TestDoubleArgumentInvalidInput1 COMMAND ${THIS_TARGET} 4 f 4 "")
+# Test invalid input
+add_test(NAME TestDoubleArgumentInvalidInput2 COMMAND ${THIS_TARGET} 4 f 4 "-100")
+# Test invalid input
+add_test(NAME TestDoubleArgumentInvalidInput3 COMMAND ${THIS_TARGET} 4 f 4 "1234")
+# Test invalid input
+add_test(NAME TestDoubleArgumentInvalidInput4 COMMAND ${THIS_TARGET} 4 f 4 "cat")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidFilePathArgumentParameters COMMAND ${THIS_TARGET} 5 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidFilePathArgumentParameters COMMAND ${THIS_TARGET} 5 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestFilePathArgumentDescriptor COMMAND ${THIS_TARGET} 5 t 3 "17" "descriptor\tF\t0\ti\tstuff.txt\t0\t~/tmp/~\tsomething")
+# Test valid input
+add_test(NAME TestFilePathArgumentValidInput1 COMMAND ${THIS_TARGET} 5 t 4 "blort")
+# Test valid input
+add_test(NAME TestFilePathArgumentValidInput2 COMMAND ${THIS_TARGET} 5 t 4 "blurg")
+# Test valid input
+add_test(NAME TestFilePathArgumentValidInput3 COMMAND ${THIS_TARGET} 5 t 4 "blat")
+# Test invalid input
+add_test(NAME TestFilePathArgumentInvalidInput1 COMMAND ${THIS_TARGET} 5 f 4 "")
+# Test invalid input
+add_test(NAME TestFilePathArgumentInvalidInput2 COMMAND ${THIS_TARGET} 5 f 4 "/bin/not-good")
+# Test invalid input
+add_test(NAME TestFilePathArgumentInvalidInput3 COMMAND ${THIS_TARGET} 5 f 4 "/no-such-directory")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidIntArgumentParameters COMMAND ${THIS_TARGET} 6 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidIntArgumentParameters COMMAND ${THIS_TARGET} 6 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestIntArgumentDescriptor COMMAND ${THIS_TARGET} 6 t 3 "17" "descriptor\tI\t0\t\t1000\t~17~\tsomething")
+# Test valid input
+add_test(NAME TestIntArgumentValidInput1 COMMAND ${THIS_TARGET} 6 t 4 "-12")
+# Test valid input
+add_test(NAME TestIntArgumentValidInput2 COMMAND ${THIS_TARGET} 6 t 4 "0")
+# Test valid input
+add_test(NAME TestIntArgumentValidInput3 COMMAND ${THIS_TARGET} 6 t 4 "12")
+# Test invalid input
+add_test(NAME TestIntArgumentInvalidInput1 COMMAND ${THIS_TARGET} 6 f 4 "")
+# Test invalid input
+add_test(NAME TestIntArgumentInvalidInput2 COMMAND ${THIS_TARGET} 6 f 4 "-1000")
+# Test invalid input
+add_test(NAME TestIntArgumentInvalidInput3 COMMAND ${THIS_TARGET} 6 f 4 "12340")
+# Test invalid input
+add_test(NAME TestIntArgumentInvalidInput4 COMMAND ${THIS_TARGET} 6 f 4 "cat")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidPortArgumentParameters COMMAND ${THIS_TARGET} 7 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidPortArgumentParameters COMMAND ${THIS_TARGET} 7 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestPortArgumentDescriptor COMMAND ${THIS_TARGET} 7 t 3 "1712" "descriptor\tP\t0\tr\t~1712~\tsomething")
+# Test valid input
+add_test(NAME TestPortArgumentValidInput1 COMMAND ${THIS_TARGET} 7 t 4 "1024")
+# Test valid input
+add_test(NAME TestPortArgumentValidInput2 COMMAND ${THIS_TARGET} 7 t 4 "12222")
+# Test valid input
+add_test(NAME TestPortArgumentValidInput3 COMMAND ${THIS_TARGET} 7 t 4 "33333")
+# Test invalid input
+add_test(NAME TestPortArgumentInvalidInput1 COMMAND ${THIS_TARGET} 7 f 4 "")
+# Test invalid input
+add_test(NAME TestPortArgumentInvalidInput2 COMMAND ${THIS_TARGET} 7 f 4 "-1000")
+# Test invalid input
+add_test(NAME TestPortArgumentInvalidInput3 COMMAND ${THIS_TARGET} 7 f 4 "512")
+# Test invalid input
+add_test(NAME TestPortArgumentInvalidInput4 COMMAND ${THIS_TARGET} 7 f 4 "cat")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidStringArgumentParameters COMMAND ${THIS_TARGET} 8 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidStringArgumentParameters COMMAND ${THIS_TARGET} 8 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestStringArgumentDescriptor COMMAND ${THIS_TARGET} 8 t 3 "tluafed" "descriptor\tS\t0\t~tluafed~\tsomething")
+# Test valid input
+add_test(NAME TestStringArgumentValidInput1 COMMAND ${THIS_TARGET} 8 t 4 "doesn't matter")
+# Test invalid input
+add_test(NAME TestStringArgumentInvalidInput1 COMMAND ${THIS_TARGET} 8 f 4 "doesn't matter")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidStringsArgumentParameters COMMAND ${THIS_TARGET} 9 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidStringsArgumentParameters COMMAND ${THIS_TARGET} 9 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestStringsArgumentDescriptor COMMAND ${THIS_TARGET} 9 t 3 "abc" "descriptor\tL\t0\t~$%@\tabc\tdef~\t~abc~\tsomething")
+# Test valid input
+add_test(NAME TestStringsArgumentValidInput1 COMMAND ${THIS_TARGET} 9 t 4 "abc")
+# Test valid input
+add_test(NAME TestStringsArgumentValidInput2 COMMAND ${THIS_TARGET} 9 t 4 "$%@")
+# Test invalid input
+add_test(NAME TestStringsArgumentInvalidInput1 COMMAND ${THIS_TARGET} 9 f 4 "cba")
+# Test invalid input
+add_test(NAME TestStringsArgumentInvalidInput2 COMMAND ${THIS_TARGET} 9 f 4 "12345")

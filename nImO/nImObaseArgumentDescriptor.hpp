@@ -108,13 +108,13 @@ namespace nImO
 
     }; // ArgumentMode
 
-    /*! @brief A holder for a shared pointer to an BaseArgumentDescriptor. */
+    /*! @brief A holder for a shared pointer to a BaseArgumentDescriptor. */
     using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
 
-    /*! @brief A holder for a non-shared pointer to an Array. */
+    /*! @brief A holder for a non-shared pointer to a BaseArgumentDescriptor. */
     using UpBaseArgumentDescriptor = std::unique_ptr<BaseArgumentDescriptor>;
 
-    /*! @brief A holder for a weak pointer to an Array. */
+    /*! @brief A holder for a weak pointer to a BaseArgumentDescriptor. */
     using WpBaseArgumentDescriptor = std::weak_ptr<BaseArgumentDescriptor>;
 
     /*! @brief An argument description.
@@ -148,6 +148,8 @@ namespace nImO
 
      'I' => integer
 
+     'L' => strings (a list of strings)
+     
      'P' => port number
 
      'S' => string */
@@ -183,14 +185,6 @@ namespace nImO
         virtual
         ~BaseArgumentDescriptor
             (void);
-
-#if 0
-        /*! @brief Add the processed value to a bottle.
-         @param[in] container The bottle to be modified. */
-        virtual void
-        addValueToBottle
-            (yarp::os::Bottle & container) = 0;
-#endif//0
 
         /*! @brief Return the description of the command-line argument.
          @return The description of the command-line argument. */
@@ -360,18 +354,29 @@ namespace nImO
     protected :
         // Protected methods.
 
+        /*! @brief Find a character that is not present in the input, to use as a delimiter.
+         @param[in] inString The string to be analyzed.
+         @return @c A character not present in the string that can be used as a delimiter for
+         the string. */
+        static char
+        identifyDelimiter
+            (const std::string &    valueToCheck);
+
         /*! @brief Partition a string that is in 'arguments' format into a sequence of strings.
          @param[in] inString The string to be partitioned.
          @param[in] indexOfDefaultValue The position in the input string where the default value
-         will appear.
+         will appear. The default value uses a secondary delimiter.
          @param[out] result The partitioned string.
+         @param[in] indexOfListValue The position in the input string where a list value will
+         appear. A list value uses the field separator internally and a secondary delimiter.
          @return @c true if the correct number of fields appear within the input string and
          @c false otherwise. */
         static bool
         partitionString
             (const std::string &    inString,
              const size_t           indexOfDefaultValue,
-             StringVector &         result);
+             StringVector &         result,
+             const size_t           indexOfListValue = 0);
 
         /*! @brief Returns a string that contains a printable representation of the standard
          prefix fields for a command-line argument.
@@ -475,16 +480,6 @@ namespace nImO
     SpBaseArgumentDescriptor
     ConvertStringToArgument
         (const std::string &    inString);
-
-#if 0
-    /*! @brief Copy the argument values to a bottle.
-     @param[in] arguments The argument sequence.
-     @param[out] container The bottle to be modified. */
-    void
-    CopyArgumentsToBottle
-        (const DescriptorVector &   arguments,
-         yarp::os::Bottle &         container);
-#endif//0
 
     /*! @brief Return the mode corresponding to a string.
      @param[in] modeString The mode value as a string.

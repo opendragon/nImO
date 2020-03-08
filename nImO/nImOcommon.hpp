@@ -515,8 +515,14 @@ namespace nImO
     /*! @brief A sequence of argument descriptors. */
     using DescriptorVector = std::vector<BaseArgumentDescriptor *>;
 
+    /*! @brief The table type used for lookups. */
+    using StringSet = std::set<std::string>;
+
     /*! @brief A holder for a shared pointer to an Array. */
     using SpArray = std::shared_ptr<Array>;
+
+    /*! @brief A holder for a shared pointer to a BaseArgumentDescriptor. */
+    using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
 
     /*! @brief A holder for a shared pointer to a BufferChunk. */
     using SpBufferChunk = std::shared_ptr<BufferChunk>;
@@ -850,6 +856,26 @@ namespace nImO
          const bool             ignoreFlavours = false,
          StringVector *         arguments = nullptr);
 
+    /*! @brief Standardize the handling of multiple Transport value specifications.
+     @param[in] firstTransport A Transport value.
+     @param[in] secondTransport Another Transport value.
+     @param[in] defaultTransport The Transport value to use if nothing else is resolveable.
+     @return The Transport value to be used. */
+    Transport
+    ResolveTransport
+        (const Transport    firstTransport,
+         const Transport    secondTransport,
+         const Transport    defaultTransport = Transport::Unknown);
+
+    /*! @brief Standardize the handling of Transport value specifications.
+     @param[in] firstTransport A Transport value.
+     @param[in] defaultTransport The Transport value to use if nothing else is resolveable.
+     @return The Transport value to be used. */
+    Transport
+    ResolveTransport
+        (const Transport    firstTransport,
+         const Transport    defaultTransport = Transport::Unknown);
+
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
      @param[in] allowDoubleQuotes @c true if double quotes aren't escaped and @c false otherwise.
@@ -873,6 +899,12 @@ namespace nImO
     /*! @brief Restore the normal signal-handling behaviour. */
     void
     ShutDownCatcher
+        (void);
+
+    /*! @brief Returns the set of names for Transort values.
+     @return The standard names for the Transport values. */
+    StringSet
+    TransportNames
         (void);
 
     /*! @brief Returns the name corresponding to a Transport value.

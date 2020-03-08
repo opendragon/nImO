@@ -123,18 +123,6 @@ IntArgumentDescriptor::~IntArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-#if 0
-void
-IntArgumentDescriptor::addValueToBottle
-    (yarp::os::Bottle & container)
-{
-    ODL_ENTER(); //####
-    ODL_P1("container = ", &container); //####
-    container.addInt(_currentValue);
-    ODL_EXIT(); //####
-} // IntArgumentDescriptor::addValueToBottle
-#endif//0
-
 SpBaseArgumentDescriptor
 IntArgumentDescriptor::clone
     (void)

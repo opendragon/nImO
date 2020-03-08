@@ -48,6 +48,7 @@
 #include <nImOintArgumentDescriptor.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
+#include <nImOstringsArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -124,6 +125,30 @@ BaseArgumentDescriptor::~BaseArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+char
+BaseArgumentDescriptor::identifyDelimiter
+    (const std::string &    valueToCheck)
+{
+    static const char possibles[] = "~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrtuvwxyz0123456789";
+    char              charToUse = possibles[0];
+
+    if (0 < valueToCheck.length())
+    {
+        // Determine an appropriate delimiter
+        for (size_t ii = 0, mm = sizeof(possibles); mm > ii; ++ii)
+        {
+            if (valueToCheck.npos == valueToCheck.find(possibles[ii], 0))
+            {
+                charToUse = possibles[ii];
+                break;
+
+            }
+        }
+    }
+    return charToUse;
+} // BaseArgumentDescriptor::identifyDelimiter
+
 bool
 BaseArgumentDescriptor::isExtra
     (void)
@@ -159,24 +184,25 @@ bool
 BaseArgumentDescriptor::partitionString
     (const std::string &    inString,
      const size_t           indexOfDefaultValue,
-     StringVector &         result)
+     StringVector &         result,
+     const size_t           indexOfListValue)
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    ODL_I1("indexOfDefaultValue = ", indexOfDefaultValue); //####
+    ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue,//####
+           "indexOfListValue = ", indexOfListValue); //####
     ODL_P1("result = ", &result); //####
     bool        okSoFar = false;
     std::string workingCopy(inString);
 
-    // We need to split the input into 'type and tag'
+    // We need to split the input into fields.
     result.clear();
     for (size_t fieldNumber = 0; 0 < workingCopy.length(); ++fieldNumber)
     {
-        if (indexOfDefaultValue == fieldNumber)
+        if ((indexOfDefaultValue == fieldNumber) || ((0 < indexOfListValue) && (indexOfListValue == fieldNumber)))
         {
-            // The default value field is special, as it has two delimiters - the inner one, which
-            // is a character that is not present in the default value field, and the normal
-            // separator character.
+            // The default value and list fields are special, as they have two delimiters - the inner one,
+            // which is a character that is not present in the default value field, and the normal separator character.
             char    innerChar = workingCopy[0];
 
             workingCopy = workingCopy.substr(1);
@@ -184,7 +210,7 @@ BaseArgumentDescriptor::partitionString
             {
                 size_t  innerIndx = workingCopy.find(innerChar, 0);
 
-                if (std::string::npos == innerIndx)
+                if (workingCopy.npos == innerIndx)
                 {
                     // Badly formatted - the matching delimiter is missing!
                     break;
@@ -217,7 +243,7 @@ BaseArgumentDescriptor::partitionString
         {
             size_t  indx = workingCopy.find(_parameterSeparator);
 
-            if (std::string::npos == indx)
+            if (workingCopy.npos == indx)
             {
                 // Make sure to strip off any trailing newlines!
                 for (size_t ii = workingCopy.length(); 0 < ii; --ii)
@@ -267,24 +293,9 @@ BaseArgumentDescriptor::suffixFields
 {
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
-    static const char possibles[] = "~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                    "abcdefghijklmnopqrtuvwxyz0123456789";
-    char              charToUse = possibles[0];
-    std::string       result(_parameterSeparator);
+    char        charToUse = identifyDelimiter(defaultToUse);
+    std::string result(_parameterSeparator);
 
-    if (0 < defaultToUse.length())
-    {
-        // Determine an appropriate delimiter
-        for (size_t ii = 0, mm = sizeof(possibles); mm > ii; ++ii)
-        {
-            if (defaultToUse.npos == defaultToUse.find(possibles[ii], 0))
-            {
-                charToUse = possibles[ii];
-                break;
-
-            }
-        }
-    }
     result += charToUse;
     result += defaultToUse + charToUse + _parameterSeparator + _argDescription;
     ODL_OBJEXIT_s(result); //####
@@ -484,31 +495,13 @@ nImO::ConvertStringToArgument
     {
         result = StringArgumentDescriptor::parseArgString(inString);
     }
+    if (! result)
+    {
+        result = StringsArgumentDescriptor::parseArgString(inString);
+    }
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::ConvertStringToArguments
-
-#if 0
-void
-nImO::CopyArgumentsToBottle
-    (const DescriptorVector &   arguments,
-     yarp::os::Bottle &         container)
-{
-    ODL_ENTER(); //####
-    ODL_P2("arguments = ", &arguments, "container = ", &container); //####
-    container.clear();
-    for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
-    {
-        BaseArgumentDescriptor *    anArg = arguments[ii];
-
-        if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
-        {
-            anArg->addValueToBottle(container);
-        }
-    }
-    ODL_EXIT(); //####
-} // nImO::CopyArgumentsToBottle
-#endif//0
 
 nImO::ArgumentMode
 nImO::ModeFromString
@@ -590,8 +583,7 @@ nImO::ProcessArguments
             }
         }
     }
-    // Check the arguments with matching descriptions, unless it is a placeholder for extra
-    // arguments.
+    // Check the arguments with matching descriptions, unless it is a placeholder for extra arguments.
     if (result)
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)

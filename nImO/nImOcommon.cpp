@@ -91,15 +91,6 @@ static yarp::os::impl::Logger * lLogger = nullptr;
 #endif // MAC_OR_LINUX_
 #endif//0
 
-/*! @brief The standard name for the TCP protocol. */
-static const std::string    kProtocolTcpName = "tcp";
-
-/*! @brief The standard name for the UDP protocol. */
-static const std::string    kProtocolUdpName = "udp";
-
-/*! @brief The standard name for an unknown protocol. */
-static const std::string    kProtocolUnknownName = "unknown";
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -872,13 +863,15 @@ nImO::ProcessStandardUtilitiesOptions
      const int                  year,
      const char *               copyrightHolder,
      nImO::OutputFlavour &      flavour,
+     HelpFunction               helper,
      const bool                 ignoreFlavours,
      nImO::StringVector *       arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-           "flavour = ", &flavour, "arguments = ", arguments); //####
+           "flavour = ", &flavour, "helper = ", helper); //####
+    ODL_P1("arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
     ODL_B1("ignoreFlavours = ", ignoreFlavours); //####
@@ -981,6 +974,10 @@ nImO::ProcessStandardUtilitiesOptions
     else if (options[StaticCast(size_t, OptionIndex::HELP)] || options[StaticCast(size_t, OptionIndex::UNKNOWN)])
     {
         Option_::printUsage(cout, usage, HELP_LINE_LENGTH_);
+        if (helper)
+        {
+            helper(cout);
+        }
         keepGoing = false;
     }
     else if (options[StaticCast(size_t, OptionIndex::VERSION)])
@@ -1326,42 +1323,3 @@ nImO::StopRunning
     ODL_EXIT(); //####
 } // nImO::StopRunning
 #endif//0
-
-nImO::StringSet
-nImO::TransportNames
-    (void)
-{
-    ODL_ENTER(); //####
-    StringSet   result;
-
-    result.insert("udp");
-    result.insert("tcp");
-    ODL_EXIT(); //####
-    return result;
-} // nImO::TransportNames
-
-std::string
-nImO::TransportToName
-    (const nImO::Transport    aValue)
-{
-    ODL_ENTER(); //####
-    std::string result;
-
-    switch (aValue)
-    {
-        case Transport::TCP :
-            result = kProtocolTcpName;
-            break;
-
-        case Transport::UDP :
-            result = kProtocolUdpName;
-            break;
-
-        case Transport::Unknown :
-            result = kProtocolUnknownName;
-            break;
-
-    }
-    ODL_EXIT_s(result); //####
-    return result;
-} // nImO::TransportToName

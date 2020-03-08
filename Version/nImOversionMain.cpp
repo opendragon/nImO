@@ -121,38 +121,46 @@ main
         std::string odlVersionString;
 
         nImO::Initialize(progName);
-        switch (flavour)
+        try
         {
-            case nImO::OutputFlavour::Tabs :
-                nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                cout << nImOversionString.c_str() << "\t" << odlVersionString << "\t" <<
-                        getBoostVersion() << endl;
-                break;
+            nImO::Initialize(progName);
+            switch (flavour)
+            {
+                case nImO::OutputFlavour::Tabs :
+                    nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
+                    odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    cout << nImOversionString.c_str() << "\t" << odlVersionString << "\t" <<
+                            getBoostVersion() << endl;
+                    break;
 
-            case nImO::OutputFlavour::JSON :
-                nImOversionString = nImO::SanitizeString(nImO_VERSION_);
-                odlVersionString = nImO::SanitizeString(ODL_VERSION_);
-                cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
-                           CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
-                        T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
-                           "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        odlVersionString.c_str() <<
-                        T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
-                           CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                        getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
-                break;
+                case nImO::OutputFlavour::JSON :
+                    nImOversionString = nImO::SanitizeString(nImO_VERSION_);
+                    odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
+                               CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
+                            T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
+                               "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                            odlVersionString.c_str() <<
+                            T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
+                               CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                            getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
+                    break;
 
-            case nImO::OutputFlavour::Normal :
-                nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                cout << "nImO Version: " << nImOversionString.c_str() << ", ODL Version: " <<
-                        odlVersionString << ", Boost Version: " << getBoostVersion() << endl;
-                break;
+                case nImO::OutputFlavour::Normal :
+                    nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
+                    odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    cout << "nImO Version: " << nImOversionString.c_str() << ", ODL Version: " <<
+                            odlVersionString << ", Boost Version: " << getBoostVersion() << endl;
+                    break;
 
-            default :
-                break;
-
+                default :
+                    break;
+                    
+            }
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
         }
     }
     ODL_EXIT_I(0); //####

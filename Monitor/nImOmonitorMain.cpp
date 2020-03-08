@@ -127,7 +127,15 @@ main
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
                                               NIMO_COPYRIGHT_NAME_, flavour))
     {
-        nImO::Initialize(progName);
+        try
+        {
+            nImO::Initialize(progName);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

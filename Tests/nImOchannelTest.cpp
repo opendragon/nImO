@@ -342,7 +342,7 @@ doTestParseExtractProtocol
         {
             if (expected)
             {
-                if (nImO::TransportToName(parsed->getTransport()) == expectedString)
+                if (nImO::ChannelName::transportToName(parsed->getTransport()) == expectedString)
                 {
                     result = 0;
                 }

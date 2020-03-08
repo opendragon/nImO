@@ -39,6 +39,7 @@
 #include <nImOcommon.hpp>
 
 #include <nImOchannelArgumentDescriptor.hpp>
+#include <nImOchannelName.hpp>
 #include <nImOstringsArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -103,6 +104,21 @@ using std::endl;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Writes out a description of the 'mode' argument.
+ @param[in,out] outStream The stream to write to. */
+static void
+helpForConnect
+    (std::ostream & outStream)
+{
+    nImO::StringSet modes(nImO::ChannelName::transportNames());
+
+    outStream << "Available modes:" << std::endl;
+    for (nImO::StringSet::const_iterator walker(modes.begin()); walker != modes.end(); ++walker)
+    {
+        outStream << "  " << *walker << std::endl;
+    }
+} // helpForConnect
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -123,16 +139,13 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::StringSet transportModes;
-
-    transportModes.insert("udp");
-    transportModes.insert("tcp");
     nImO::ChannelArgumentDescriptor firstArg("from", T_("'Sending' channel"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out");
     nImO::ChannelArgumentDescriptor secondArg("to", T_("'Receiving' channel"),
                                               nImO::ArgumentMode::RequiredModifiable, "/in");
     nImO::StringsArgumentDescriptor thirdArg("mode", T_("Transport mode"),
-                                             nImO::ArgumentMode::OptionalModifiable, "tcp", transportModes);
+                                             nImO::ArgumentMode::OptionalModifiable, "tcp",
+                                             nImO::ChannelName::transportNames());
     // third argument will be a StringsArgumentDescriptor for Mode
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
@@ -141,9 +154,17 @@ main
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, helpForConnect, true))
     {
-        nImO::Initialize(progName);
+        try
+        {
+            nImO::Initialize(progName);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

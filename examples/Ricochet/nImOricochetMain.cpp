@@ -103,34 +103,42 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
     {
-#if 0
-        running = true
-        while running
+        try
         {
-            read a message from the specified port number
-            if it's a 'fire' message
+            nImO::Initialize(progName);
+#if 0
+            running = true
+            while running
             {
-                [turn on the blue LED]
-                if the vector is non-empty
+                read a message from the specified port number
+                if it's a 'fire' message
                 {
-                    [delay a short interval]
-                    fetch the first machine from the vector
-                    send a 'fire' message to the selected machine - the new message has the first vector element
+                    [turn on the blue LED]
+                    if the vector is non-empty
+                    {
+                        [delay a short interval]
+                        fetch the first machine from the vector
+                        send a 'fire' message to the selected machine - the new message has the first vector element
                         dropped
-                    [delay another short interval]
+                        [delay another short interval]
+                    }
+                    [turn off the blue LED]
                 }
-                [turn off the blue LED]
+                else if it's a 'quit' message
+                {
+                    running = false
+                    [set the blue LED to 'heartbeat' mode]
+                }
             }
-            else if it's a 'quit' message
-            {
-                running = false
-                [set the blue LED to 'heartbeat' mode]
-            }
-        }
-        exit
+            exit
 #endif//0
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

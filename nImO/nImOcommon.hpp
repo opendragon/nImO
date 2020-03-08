@@ -419,23 +419,12 @@ namespace nImO
 
     }; // DataKind
 
-    /*! @brief The minimum count representable in a short floating point. */
-    const int   DataKindDoubleShortCountMinValue = 1;
-
-    /*! @brief The maximum count representable in a short floating point. */
-    const int   DataKindDoubleShortCountMaxValue = 32;
-
-    /*! @brief The minimum value representable in a short signed integer. */
-    const int   DataKindIntegerShortValueMinValue = -16;
-
-    /*! @brief The maximum value representable in a short signed integer. */
-    const int   DataKindIntegerShortValueMaxValue = 15;
-
-    /*! @brief The minimum count representable in a short floating point. */
-    const int   DataKindStringOrBlobShortLengthMinValue = 0;
-
-    /*! @brief The maximum count representable in a short floating point. */
-    const int   DataKindStringOrBlobShortLengthMaxValue = 15;
+    /*! @brief A pointer to a function that can be invoked when help is requested, to
+     provide more detailed information on the arguments to an application.
+     @param[in,out] outStream The stream to write to. */
+    typedef void
+        (* HelpFunction)
+            (std::ostream & outStream);
 
     /*! @brief Whether a Value is enumerable. */
     enum class Enumerable
@@ -505,6 +494,24 @@ namespace nImO
         Unknown
 
     }; // Transport
+
+    /*! @brief The minimum count representable in a short floating point. */
+    const int   DataKindDoubleShortCountMinValue = 1;
+
+    /*! @brief The maximum count representable in a short floating point. */
+    const int   DataKindDoubleShortCountMaxValue = 32;
+
+    /*! @brief The minimum value representable in a short signed integer. */
+    const int   DataKindIntegerShortValueMinValue = -16;
+
+    /*! @brief The maximum value representable in a short signed integer. */
+    const int   DataKindIntegerShortValueMaxValue = 15;
+
+    /*! @brief The minimum count representable in a short floating point. */
+    const int   DataKindStringOrBlobShortLengthMinValue = 0;
+
+    /*! @brief The maximum count representable in a short floating point. */
+    const int   DataKindStringOrBlobShortLengthMaxValue = 15;
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
@@ -813,7 +820,7 @@ namespace nImO
     } // operator &
 
     /*! @brief Write out a (possibly multi-line) description.
-     @param[in] outStream The stream to write to.
+     @param[in,out] outStream The stream to write to.
      @param[in] heading The text to appear on the first line before the beginning of the
      description.
      @param[in] description The description, which may contain multiple newlines. */
@@ -840,6 +847,7 @@ namespace nImO
      @param[in] year The copyright year for the calling application.
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[in,out] flavour Set if the -j or -t options are seen.
+     @param[in] helper A function to call when -h is requested, to provide more details.
      @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
      @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
      @return @c true if the program should continue and @c false if it should leave. */
@@ -853,6 +861,7 @@ namespace nImO
          const int              year,
          const char *           copyrightHolder,
          OutputFlavour &        flavour,
+         HelpFunction           helper = NULL,
          const bool             ignoreFlavours = false,
          StringVector *         arguments = nullptr);
 
@@ -900,19 +909,6 @@ namespace nImO
     void
     ShutDownCatcher
         (void);
-
-    /*! @brief Returns the set of names for Transort values.
-     @return The standard names for the Transport values. */
-    StringSet
-    TransportNames
-        (void);
-
-    /*! @brief Returns the name corresponding to a Transport value.
-     @param[in] aValue The Transport value to be converted.
-     @return The standard name for the Transport value. */
-    std::string
-    TransportToName
-        (const Transport    aValue);
 
     /*! @brief Checks a network port number for validity.
      @param[in] aPort The port number to be checked.

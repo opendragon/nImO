@@ -69,6 +69,15 @@ static const char   kStartPath = '/';
 /*! @brief The character that starts the protocol part of a ChannelName. */
 static const char   kStartProtocol = '#';
 
+/*! @brief The standard name for the TCP protocol. */
+static const std::string    kProtocolTcpName = "tcp";
+
+/*! @brief The standard name for the UDP protocol. */
+static const std::string    kProtocolUdpName = "udp";
+
+/*! @brief The standard name for an unknown protocol. */
+static const std::string    kProtocolUnknownName = "unknown";
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -170,7 +179,7 @@ nImO::ChannelName::getName
     if (Transport::Unknown != _transport)
     {
         result += kStartProtocol;
-        result += TransportToName(_transport);
+        result += transportToName(_transport);
     }
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -324,11 +333,11 @@ nImO::ChannelName::parse
     okSoFar &= (0 < path.length());
     if (okSoFar)
     {
-        if (protocolName == TransportToName(Transport::UDP))
+        if (protocolName == transportToName(Transport::UDP))
         {
             protocol = Transport::UDP;
         }
-        else if (protocolName == TransportToName(Transport::TCP))
+        else if (protocolName == transportToName(Transport::TCP))
         {
             protocol = Transport::TCP;
         }
@@ -362,6 +371,46 @@ nImO::ChannelName::parse
     return result;
 } // nImO::ChannelName::parse
 
+nImO::StringSet
+nImO::ChannelName::transportNames
+    (void)
+{
+    ODL_ENTER(); //####
+    StringSet   result;
+
+    result.insert(kProtocolUdpName);
+    result.insert(kProtocolTcpName);
+    ODL_EXIT(); //####
+    return result;
+} // nImO::ChannelName::transportNames
+
+std::string
+nImO::ChannelName::transportToName
+    (const nImO::Transport    aValue)
+{
+    ODL_ENTER(); //####
+    std::string result;
+
+    switch (aValue)
+    {
+        case Transport::TCP :
+            result = kProtocolTcpName;
+            break;
+
+        case Transport::UDP :
+            result = kProtocolUdpName;
+            break;
+
+        case Transport::Unknown :
+            result = kProtocolUnknownName;
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ChannelName::transportToName
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+

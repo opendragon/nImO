@@ -135,6 +135,19 @@ namespace nImO
             (const std::string &    input,
              std::string &          problemDescription);
 
+        /*! @brief Returns the set of names for Transport values.
+         @return The standard names for the Transport values. */
+        static StringSet
+        transportNames
+            (void);
+
+        /*! @brief Returns the name corresponding to a Transport value.
+         @param[in] aValue The Transport value to be converted.
+         @return The standard name for the Transport value. */
+        static std::string
+        transportToName
+            (const Transport    aValue);
+
     protected :
         // Protected methods.
 

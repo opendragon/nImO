@@ -106,38 +106,46 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
     {
-#if 0
-        start the ricochet program on each cluster machine, with a specified port number
-        get the list of cluster machines from 'hosts.list'
-        running = true
-        while running
+        try
         {
-            read a character from the terminal
-            if it's an 's':
+            nImO::Initialize(progName);
+#if 0
+            start the ricochet program on each cluster machine, with a specified port number
+            get the list of cluster machines from 'hosts.list'
+            running = true
+            while running
             {
-                if random mode
+                read a character from the terminal
+                if it's an 's':
                 {
-                    create a random vector of 'next' machines, with a random length from #machines/4 to #machines*4;
+                    if random mode
+                    {
+                        create a random vector of 'next' machines, with a random length from #machines/4 to #machines*4;
                         duplicates allowed
-                }
-                else
-                {
-                    create a vector of 'next' machines with a random hop count of #machines/4 to #machines*4,
+                    }
+                    else
+                    {
+                        create a vector of 'next' machines with a random hop count of #machines/4 to #machines*4,
                         reusing the 'hosts.list' entries to fill the vector
-                    select a cluster machine at random
-                    send a 'fire' message with the vector of 'next' machines on the specified port number
+                        select a cluster machine at random
+                        send a 'fire' message with the vector of 'next' machines on the specified port number
+                    }
+                }
+                else if it's a 'q':
+                {
+                    send a 'quit' message to all the cluster machines on the specified port number
+                    running = false
                 }
             }
-            else if it's a 'q':
-            {
-                send a 'quit' message to all the cluster machines on the specified port number
-                running = false
-            }
-        }
-        exit
+            exit
 #endif//0
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

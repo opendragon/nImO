@@ -124,9 +124,17 @@ main
     nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Launch an application", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
     {
-        nImO::Initialize(progName);
+        try
+        {
+            nImO::Initialize(progName);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

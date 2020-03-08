@@ -130,9 +130,17 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
     {
-        nImO::Initialize(progName);
+        try
+        {
+            nImO::Initialize(progName);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

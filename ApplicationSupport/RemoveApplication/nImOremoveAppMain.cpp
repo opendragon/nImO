@@ -100,8 +100,17 @@ main
     nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Remove application", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
     {
+        try
+        {
+            nImO::Initialize(progName);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
     }
     ODL_EXIT_I(0); //####
     return 0;

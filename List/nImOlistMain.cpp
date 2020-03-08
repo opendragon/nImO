@@ -38,6 +38,8 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOstringsArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -92,6 +94,32 @@ using std::endl;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+enum E_choice
+{
+    kApps,
+    kChan,
+    kConn,
+    kServ
+}; // E_choice
+
+struct T_choiceInfo
+{
+    E_choice    _choice;
+    std::string _description;
+
+    T_choiceInfo
+        (const E_choice         choice,
+         const std::string &    description) :
+            _choice(choice), _description(description)
+    {
+    } // constructor
+
+}; // T_choiceInfo
+
+typedef std::map<std::string, T_choiceInfo> T_choiceMap;
+
+static T_choiceMap  lChoiceMap;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -99,6 +127,34 @@ using std::endl;
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Writes out a description of the 'choice' argument.
+ @param[in,out] outStream The stream to write to. */
+static void
+helpForList
+    (std::ostream & outStream)
+{
+    outStream << "Available choices:" << std::endl;
+    size_t  choiceWidth = 0;
+
+    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    {
+        size_t  thisWidth = walker->first.length();
+
+        if (thisWidth > choiceWidth)
+        {
+            choiceWidth = thisWidth;
+        }
+    }
+    choiceWidth += 2;
+    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    {
+        std::string padding;
+
+        padding.append(choiceWidth - walker->first.length(), ' ');
+        outStream << "  " << walker->first << padding << walker->second._description << std::endl;
+    }
+} // helpForList
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -121,13 +177,55 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    lChoiceMap.insert(T_choiceMap::value_type("apps", T_choiceInfo(kApps, "available applications")));
+    lChoiceMap.insert(T_choiceMap::value_type("chan", T_choiceInfo(kChan, "available channels")));
+    lChoiceMap.insert(T_choiceMap::value_type("conn", T_choiceInfo(kConn, "active connections")));
+    lChoiceMap.insert(T_choiceMap::value_type("serv", T_choiceInfo(kServ, "active services")));
+    nImO::StringSet choiceSet;
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List the visible channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour))
+    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
-        nImO::Initialize(progName);
+        choiceSet.insert(walker->first);
+    }
+    nImO::StringsArgumentDescriptor firstArg("choice", T_("Objects to report"),
+                                             nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet);
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+
+    argumentList.push_back(&firstArg);
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List information about objects in the nImO space", "",
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, helpForList))
+    {
+        try
+        {
+            nImO::Initialize(progName);
+            std::string                   choice(firstArg.getCurrentValue());
+            T_choiceMap::const_iterator   match(lChoiceMap.find(choice));
+
+            if (match != lChoiceMap.end())
+            {
+                switch (match->second._choice)
+                {
+                    case kApps :
+                        break;
+
+                    case kChan :
+                        break;
+
+                    case kConn :
+                        break;
+
+                    case kServ :
+                        break;
+
+                }
+            }
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
+
     }
     ODL_EXIT_I(0); //####
     return 0;

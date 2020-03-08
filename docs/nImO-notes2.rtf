@@ -23,7 +23,7 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
 * nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
 * nImOlaunch 'a' \'97 program launcher \
-* nImOlist ?? \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
+* nImOlist xyz \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
 * nImOmonitor - information on nImO status\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
 * nImOversion \'97 reports the versions of the libraries; 
@@ -43,7 +43,7 @@ shell script:\
 * nimo\
 	provides a 'simplified' common-line interface to some of the executables, using the default options \
 		nimo version - invokes nImOversion\
-		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d>\
+		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> <d> - invokes nImOdisconnect <c> <d>\
 		nimo help - lists choices\
 		nimo info <c> - invokes nImOinfo <c>\
@@ -54,14 +54,5 @@ shell script:\
 		nimo read <c> - invokes nImOread <c>\
 		nimo write <c> - invokes nImOwrite <c>\
 \
->> add a new argument class, 'strings' that accepts a set of strings to match; applications using it can then use a map from strings to enumerations, while the GUI can use a popup/pulldown list; this will, initially, be used with nImOlist and the 'transport' argument for nImOconnect.\
->> add the command-line arguments to the applications, where well defined.\
 >> improve the 'one-line' descriptions for the applications.\
-\
-unit subtests for argument descriptors -\
-1) test that 'reasonable' parameters successfully build a descriptor\
-2) if there are 'unreasonable' parameters possible, test that building a descriptor fails\
-3) for a range of 'reasonable' parameters, compare the descriptor description with the expected description\
-4) for a range of 'reasonable' parameters, test for 'valid' and 'invalid' input\
-So, the format of the unit test lines will be 'test# fail/no-fail subtest# arguments'; the test# refers to the class of argument descriptor, while the subtest# refers to the list above.\
 }

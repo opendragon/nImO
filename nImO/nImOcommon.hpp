@@ -180,32 +180,32 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
- @tparam E The type of value being converted.
+ @tparam Type The type of value being converted.
  @param[in] enumerator The value to be converted.
  @return The input value as its underlying type. */
 template
-    <typename E>
-constexpr typename std::underlying_type<E>::type
+    <typename   Type>
+constexpr typename std::underlying_type<Type>::type
 toUType
-    (E enumerator)
+    (Type   enumerator)
     noexcept
 {
-    return StaticCast(typename std::underlying_type<E>::type, enumerator);
+    return StaticCast(typename std::underlying_type<Type>::type, enumerator);
 } // toUType
 
 /*! @brief Return a unique_ptr for a freshly-allocated object.
  { From Effective Modern C++. }
- @tparam T The type of value being allocated.
+ @tparam Type The type of value being allocated.
  @param[in] params The arguments for the constructor.
  @return A unique_ptr to the newly-allocated object. */
 template
-    <typename T,
-     typename... Ts>
-std::unique_ptr<T>
+    <typename       Type,
+     typename...    Types>
+std::unique_ptr<Type>
 make_unique
-    (Ts &&... params)
+    (Types &&...    params)
 {
-    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+    return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
 } // make_unique
 
 namespace nImO

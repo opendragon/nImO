@@ -111,16 +111,12 @@ option(nImO_DoExplicitCheckForOK "Check OK responses for validity")
 # Add the nImO target path so that nImO can be found
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
-#if(WIN32)
-#    set(BOOST_ROOT "C:/local/Boost_1_63_0")
-#else()
-    set(BOOST_ROOT "/opt/boost")
-#endif()
-#find_package(Boost REQUIRED)
-#if(Boost_FOUND)
-#    include_directories(${Boost_INCLUDE_DIRS})
-#    set(Boost_USE_MULTITHREADED)
-#endif()
+set(BOOST_ROOT "/opt/boost")
+find_package(Boost REQUIRED)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    set(Boost_USE_MULTITHREADED)
+endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in

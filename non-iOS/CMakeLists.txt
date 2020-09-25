@@ -208,6 +208,17 @@ if(ODL_FOUND)
     include_directories(${ODL_INCLUDE_DIRS})
 endif()
 
+# The following is to help CMake find IF...
+if(WIN32)
+    set(IF_DIR "C:/Program Files/IF/lib")
+else()
+    set(IF_DIR "/opt/if/lib")
+endif()
+find_package(IF 1.0.0 REQUIRED)
+if(IF_FOUND)
+    include_directories(${IF_INCLUDE_DIRS})
+endif()
+
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)

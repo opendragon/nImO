@@ -269,6 +269,7 @@ install(EXPORT ${PROJECT_NAME}
 add_subdirectory(ApplicationSupport)
 add_subdirectory(Bridge)
 add_subdirectory(Connect)
+add_subdirectory(CPack)
 add_subdirectory(Disconnect)
 add_subdirectory(Info)
 add_subdirectory(Launch)
@@ -280,7 +281,5 @@ add_subdirectory(Tests)
 add_subdirectory(Version)
 add_subdirectory(Write)
 add_subdirectory(examples)
-
-add_subdirectory(CPack)
 
 enable_testing()

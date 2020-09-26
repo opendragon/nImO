@@ -1156,12 +1156,12 @@ void
 nImO::SetSignalHandlers
     (nImO::SignalHandler    theHandler)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigset_t            blocking;
     struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     act.sa_handler = theHandler;
     sigemptyset(&act.sa_mask);
@@ -1213,18 +1213,18 @@ nImO::SetSignalHandlers
 #endif//0
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
-} // Common::SetSignalHandlers
+} // nImO::SetSignalHandlers
 
 void
 nImO::SetUpCatcher
     (void)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigset_t            unblocking;
     struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigemptyset(&unblocking);
     sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
@@ -1259,12 +1259,12 @@ void
 nImO::ShutDownCatcher
     (void)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigset_t            blocking;
     struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigemptyset(&blocking);
     sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);

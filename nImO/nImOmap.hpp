@@ -172,7 +172,7 @@ namespace nImO
             (SpValue    key)
         {
             iterator    result;
-            
+
             if (key->enumerationType() == _keyKind)
             {
                 result = inherited2::find(key);
@@ -195,7 +195,7 @@ namespace nImO
             const
         {
             const_iterator  result;
-            
+
             if (key->enumerationType() == _keyKind)
             {
                 result = inherited2::find(key);

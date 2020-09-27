@@ -110,7 +110,7 @@ namespace nImO
             (const char aChar)
         {
             uint8_t temp = aChar;
-            
+
             inherited::appendBytes(&temp, sizeof(temp));
             return *this;
         } // addChar

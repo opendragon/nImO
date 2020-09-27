@@ -126,7 +126,7 @@ namespace nImO
         void
         swap
             (FilePathArgumentDescriptor &   other);
-        
+
     protected :
         // Protected methods.
 

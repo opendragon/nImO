@@ -94,7 +94,7 @@ namespace nImO
             (const uint8_t *    data,
              const size_t       numBytes)
             override;
-        
+
         /*! @brief Add some bytes to the buffer.
          @param[in] data The bytes to be added.
          @param[in] numBytes The number of bytes to add. */
@@ -174,7 +174,7 @@ namespace nImO
         {
             return atEnd(_readPosition);
         } // readAtEnd
-        
+
         /*! @brief Prepare the Message for reuse.
          @return The Message object so that cascading can be done. */
         ChunkArray &
@@ -203,7 +203,7 @@ namespace nImO
 
     private :
         // Private fields.
-        
+
         /*! @brief Mutual-exclusion protection. */
         mutable std::mutex  _lock;
 

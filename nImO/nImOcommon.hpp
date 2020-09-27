@@ -665,7 +665,7 @@ namespace nImO
     std::string
     ConvertDoubleToString
         (const double   value);
-    
+
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.
      @param[out] result The value represented by the string.

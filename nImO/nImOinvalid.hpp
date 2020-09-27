@@ -87,7 +87,7 @@ namespace nImO
         Invalid
             (const std::string &    description,
              const int64_t          associatedValue);
-        
+
         /*! @brief The destructor. */
         virtual
         ~Invalid
@@ -100,7 +100,7 @@ namespace nImO
             (void)
             const
             override;
-        
+
     protected :
         // Protected methods.
 

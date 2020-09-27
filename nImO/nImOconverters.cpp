@@ -131,7 +131,7 @@ nImO::ConvertDoubleToPacketOrder
 #if (BYTE_ORDER != NIMO_PACKET_ORDER)
         uint8_t buffer[sizeof(double)];
 #endif // BYTE_ORDER != NIMO_PACKET_ORDER
-        
+
 #if (BYTE_ORDER == NIMO_PACKET_ORDER)
         memcpy(start, &value, sizeof(double));
 #else // BYTE_ORDER != NIMO_PACKET_ORDER
@@ -154,13 +154,13 @@ nImO::ConvertInt64ToPacketOrder
     uint8_t buffer[sizeof(int64_t)];
     size_t  numBytes = 1;
     int64_t valueCopy = value;
- 
+
     if ((nullptr != start) && ((nullptr == end) || (start > end)))
     {
         result = 0;
     }
     else
-    {   
+    {
         // Store the bytes of the value, MSB first.
         for (size_t ii = sizeof(buffer); ii > 0; --ii)
         {
@@ -219,7 +219,7 @@ nImO::ConvertInt64ToPacketOrder
     }
     return result;
 } /* nImO:ConvertInt64ToPacketOrder */
-   
+
 size_t
 nImO::ConvertPacketOrderToDouble
     (const uint8_t *    start,
@@ -227,7 +227,7 @@ nImO::ConvertPacketOrderToDouble
      double &           value)
 {
     size_t  result;
-    
+
     if ((nullptr == start) || (nullptr == end) || (end < start) || (start < (end + 1 - sizeof(double))))
     {
         result = 0;
@@ -257,7 +257,7 @@ nImO::ConvertPacketOrderToInt64
      int64_t &          value)
 {
     size_t  result;
-    
+
     if ((nullptr == start) || (nullptr == end) || (end < start) || (start < (end + 1 - sizeof(int64_t))))
     {
         result = 0;
@@ -278,7 +278,7 @@ nImO::ConvertPacketOrderToInt64
         if (numBytes < sizeof(value))
         {
             uint8_t aByte = buffer[sizeof(buffer) - numBytes];
-            
+
             if (0x80 == (aByte & 0x80))
             {
                 for (size_t ii = 0; ii < (sizeof(buffer) - numBytes); ++ii)

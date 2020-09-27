@@ -94,7 +94,7 @@ catchSignal
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
-    
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -242,7 +242,7 @@ doTestEmptyMessage
                 else
                 {
                     const Flaw *    asFlaw = extractedValue->asFlaw();
-                    
+
                     if (asFlaw)
                     {
                         ODL_LOG("(asFlaw)"); //####
@@ -3744,7 +3744,7 @@ doTestMessageWithArrayWithRangeOfIntegers
                 stuff->close();
                 // Extract objects from the message and compare with the expected contents.
                 SpValue extractedValue(stuff->getValue(true));
-                
+
                 ODL_P1("extractedValue <- ", extractedValue.get()); //####
                 if (nullptr == extractedValue)
                 {
@@ -3753,7 +3753,7 @@ doTestMessageWithArrayWithRangeOfIntegers
                 else
                 {
                     const Flaw *    asFlaw = extractedValue->asFlaw();
-                    
+
                     if (asFlaw)
                     {
                         ODL_LOG("(asFlaw)"); //####

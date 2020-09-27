@@ -121,7 +121,7 @@ doTestInvalidArgs
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         if (0 < argc)
@@ -210,11 +210,11 @@ doTestIntegerSize
         {
             int64_t value;
             int64_t length;
-        
+
             if (ConvertToInt64(*argv, value) && ConvertToInt64(argv[1], length))
             {
                 size_t  calcLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
-                
+
                 if (StaticCast(int64_t, calcLength) == length)
                 {
                     result = 0;
@@ -269,7 +269,7 @@ doTestDoubleSize
         double  value = ((rand() % 10000) * 0.1);
         size_t  expectedLength = sizeof(double);
         int64_t calcLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
-        
+
         if (calcLength == StaticCast(int64_t, expectedLength))
         {
             result = 0;
@@ -314,7 +314,7 @@ doTestIntegerConversion
         if (0 < argc)
         {
             int64_t value;
-            
+
             if (ConvertToInt64(*argv, value))
             {
                 size_t  expectedLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
@@ -325,7 +325,7 @@ doTestIntegerConversion
                 {
                     int64_t newValue;
                     size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue);
-                    
+
                     if ((newValue == value) && (newLength == convLength))
                     {
                         result = 0;
@@ -388,12 +388,12 @@ doTestDoubleConversion
             size_t  expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
             uint8_t buffer[kBufferSize];
             size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
-            
+
             if (expectedLength == convLength)
             {
                 double  newValue;
                 size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue);
-                
+
                 if ((newValue == value) && (newLength == convLength))
                 {
                     result = 0;
@@ -474,7 +474,7 @@ main
                     case 1 :
                         result = doTestInvalidArgs(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 2 :
                         result = doTestIntegerSize(*argv, argc - 1, argv + 2);
                         break;

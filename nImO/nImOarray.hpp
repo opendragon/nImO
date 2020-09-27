@@ -142,7 +142,7 @@ namespace nImO
             const
         {
             SpValue result;
-            
+
             if (index < inherited2::size())
             {
                 result = inherited2::at(index);

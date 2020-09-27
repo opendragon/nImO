@@ -129,7 +129,7 @@ namespace nImO
         void
         swap
             (BoolArgumentDescriptor &   other);
-        
+
     protected :
         // Protected methods.
 

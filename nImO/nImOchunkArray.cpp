@@ -191,19 +191,19 @@ nImO::ChunkArray::atEnd
     ODL_OBJENTER(); //####
     ODL_I1("index = ", index); //####
     bool    result = true;
-    
+
     if (_buffers)
     {
         ODL_LOG("(_buffers)"); //####
         size_t  chunkNumber = (index / BufferChunk::kBufferSize);
         size_t  offset = (index % BufferChunk::kBufferSize);
-        
+
         ODL_I2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
             BufferChunk *   aChunk = _buffers[chunkNumber];
-            
+
             if (nullptr != aChunk)
             {
                 ODL_LOG("(nullptr != aChunk)"); //####
@@ -277,7 +277,7 @@ nImO::ChunkArray::getBytes
         for (size_t ii = 0; _numChunks > ii; ++ii)
         {
             BufferChunk *   aChunk = _buffers[ii];
-            
+
             if (nullptr != aChunk)
             {
                 auto    data = aChunk->getData();

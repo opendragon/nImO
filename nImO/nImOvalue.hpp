@@ -68,13 +68,13 @@ namespace nImO
     {
         /*! @brief Conversion was successful. */
         Successful,
-        
+
         /*! @brief The numeric string was incomplete and more data is needed. */
         Incomplete,
-        
+
         /*! @brief Invalid characters were found in the numeric string. */
         Invalid
-        
+
     }; // IntStatus
 
     /*! @brief A class to provide general value behaviours. */
@@ -347,9 +347,9 @@ namespace nImO
             return (result.Result() && result.IsValid());
         } // operator >=
 
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
+        /*! @brief Return @c true if the two Values are equal.
+            @param[in] other The Value to be compared with.
+            @return @c true if the two Values are comparable and equal. */
         inline bool
         operator ==
             (const Value &  other)
@@ -359,9 +359,9 @@ namespace nImO
             return (result.Result() && result.IsValid());
         } // operator ==
 
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
+        /*! @brief Return @c false if the two Values are equal.
+            @param[in] other The Value to be compared with.
+            @return @c false if the two Values are comparable and equal and @c true otherwise. */
         inline bool
         operator !=
             (const Value &  other)
@@ -459,7 +459,7 @@ namespace nImO
             (const DataKind aByte,
              const DataKind aMask,
              Extractor      theExtractor);
-        
+
     public :
         // Public fields.
 

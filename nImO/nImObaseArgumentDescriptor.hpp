@@ -149,7 +149,7 @@ namespace nImO
      'I' => integer
 
      'L' => strings (a list of strings)
-     
+
      'P' => port number
 
      'S' => string */
@@ -331,7 +331,7 @@ namespace nImO
             swap(temp);
             return *this;
         } // operator =
-        
+
         /*! @brief Set the associated variable to the default value. */
         virtual void
         setToDefaultValue
@@ -403,7 +403,7 @@ namespace nImO
         void
         swap
             (BaseArgumentDescriptor &   other);
-        
+
     private :
         // Private methods.
 

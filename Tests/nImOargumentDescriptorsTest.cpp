@@ -147,7 +147,7 @@ doTestAddressArgumentDescriptors
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;

@@ -208,7 +208,7 @@ nImO::Message::getBytesForTransmission
         ODL_LOG("(0 == _cachedTransmissionString.size())"); //####
         auto    intermediate(getBytes());
         size_t  length = intermediate.size();
-        
+
         if (1 < length)
         {
             ODL_LOG("(intermediate && (1 < length))"); //####
@@ -219,11 +219,11 @@ nImO::Message::getBytesForTransmission
                 // byte sum.
                 uint64_t    sum = intermediate[0];
                 size_t      escapeCount = 0;
-                
+
                 for (size_t ii = 1; ii < length; ++ii)
                 {
                     uint8_t aByte = intermediate[ii];
-                    
+
                     sum += aByte;
                     if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
                         (DataKind::EscapeValue == StaticCast(DataKind, aByte)))
@@ -248,7 +248,7 @@ nImO::Message::getBytesForTransmission
                 for (size_t ii = 1; ii < length; ++ii)
                 {
                     uint8_t aByte = intermediate[ii];
-                    
+
                     if ((DataKind::StartOfMessageValue == (aByte & DataKind::StartOfMessageMask)) ||
                         (DataKind::EscapeValue == StaticCast(DataKind, aByte)))
                     {

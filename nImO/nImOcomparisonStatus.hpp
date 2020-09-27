@@ -101,9 +101,9 @@ namespace nImO
             return *this;
         } // operator =
 
-        /*! @brief Return the relative ordering of two statuses.
-         @param[in] other The status to be compared with.
-         @return The relative ordering of the two statuses. */
+        /*! @brief Return @c true if the two statuses are equal.
+            @param[in] other The status to be compared with.
+            @return @c true if the two statuses are comparable and equal. */
         inline bool
         operator ==
             (const ComparisonStatus &   other)
@@ -112,9 +112,9 @@ namespace nImO
             return ((_result == other._result) && (_valid == other._valid));
         } // operator ==
 
-        /*! @brief Return the relative ordering of two statuses.
-         @param[in] other The status to be compared with.
-         @return The relative ordering of the two statuses. */
+        /*! @brief Return @c false if the two statuses are equal.
+            @param[in] other The status to be compared with.
+            @return @c false if the two statuses are comparable and equal and @c true otherwise. */
         inline bool
         operator !=
             (const ComparisonStatus &   other)

@@ -6,25 +6,25 @@ IMAGE_DIR = mpm_images
 
 # Intermediate Postscript files
 
-ESpsfiles = 
+ESpsfiles =
 
 IMpsfiles =
 
 IOpsfiles =
 
-MMMpsfiles = MMMmmmDiagram.ps 
+MMMpsfiles = MMMmmmDiagram.ps
 
 MpMpsfiles = MpMdbDiagram.ps MpMmatchSyntaxrails.ps MpMmpmDiagram.ps
 
 # Intermediate Encapsulated Postscript files
 
-ESepsfiles = 
+ESepsfiles =
 
 IMepsfiles =
 
 IOepsfiles =
 
-MMMepsfiles = $(IMAGE_DIR)/MMMmmmDiagram.eps 
+MMMepsfiles = $(IMAGE_DIR)/MMMmmmDiagram.eps
 
 MpMepsfiles = $(IMAGE_DIR)/MpMdbDiagram.eps $(IMAGE_DIR)/MpMmatchSyntaxrails.eps \
 		$(IMAGE_DIR)/MpMmpmDiagram.eps
@@ -33,16 +33,16 @@ MpMepsfiles = $(IMAGE_DIR)/MpMdbDiagram.eps $(IMAGE_DIR)/MpMmatchSyntaxrails.eps
 
 Commonpngfiles = $(IMAGE_DIR)/m+m_tight_logo.png
 
-ESpngfiles = 
+ESpngfiles =
 
-IMpngfiles = 
+IMpngfiles =
 
 IOpngfiles =
 
 MMMpngfiles = $(IMAGE_DIR)/MMMmmmDiagram.png
 
 MpMpngfiles = $(IMAGE_DIR)/MpMdbDiagram.png $(IMAGE_DIR)/MpMmatchSyntaxrails.png \
-		$(IMAGE_DIR)/MpMmpmDiagram.png 
+		$(IMAGE_DIR)/MpMmpmDiagram.png
 
 # Input bitmap EPS files
 

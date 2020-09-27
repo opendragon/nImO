@@ -82,7 +82,7 @@ namespace nImO
         (uint8_t *          start,
          const uint8_t *    end,
          const int64_t      value);
-   
+
     /*! @brief Convert a sequence of bytes to a double value.
      @param[in] start The address of the first byte that contains the value.
      @param[in] end The address of the last byte that contains data.
@@ -94,7 +94,7 @@ namespace nImO
         (const uint8_t *    start,
          const uint8_t *    end,
          double &           value);
-    
+
     /*! @brief Convert a sequence of bytes to an integer value.
      @param[in] start The address of the first byte that contains the value.
      @param[in] end The address of the last byte that contains data.
@@ -106,7 +106,7 @@ namespace nImO
         (const uint8_t *    start,
          const uint8_t *    end,
          int64_t &          value);
-    
+
 } // nImO
 
 #endif // ! defined(nImOconverters_HPP_)

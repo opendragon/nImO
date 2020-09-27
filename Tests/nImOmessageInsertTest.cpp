@@ -93,7 +93,7 @@ catchSignal
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
-    
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -1425,11 +1425,11 @@ doTestInsertMultipleEscapesMessage
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   expectedMultipleEscapesBytes[] =
@@ -1468,7 +1468,7 @@ doTestInsertMultipleEscapesMessage
             };
             const size_t            transmitMultipleEscapesByteCount = A_SIZE(transmitMultipleEscapesBytes);
             Blob                    multipleEscapesValue(actualData, actualDataCount);
-            
+
             result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes, expectedMultipleEscapesByteCount,
                                       transmitMultipleEscapesBytes, transmitMultipleEscapesByteCount);
         }

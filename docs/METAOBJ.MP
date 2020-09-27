@@ -30,7 +30,7 @@
 %                           with a 120 pages documentation
 %                           and 225 KB of core code.
 %         May 31,     2001: new option pathfilled for paths
-% 0.51  
+% 0.51
 %         June 5,     2001: coil and zigzag connections, option shortcuts
 %                             (arm for armA and armB, etc.), arrows shortcuts
 %                             (-, ->, etc.)
@@ -56,7 +56,7 @@
 %                           November 5, 2001.)
 % 0.82    Dec.  5,    2001: for compatibility with ConTeXt, the |.exp|
 %                           extensions were renamed into |.expl|
-%                           (Bug reported by Eckhart Guthöhrlein,
+%                           (Bug reported by Eckhart Guthï¿½hrlein,
 %                            eckhart_guthoehrlein@public.uni-hamburg.de,
 %                            July 3, 2001)
 % 0.83    Dec. 23,    2002: in addPath, an incorrect use of infinity was
@@ -118,7 +118,7 @@ enddef;
 
 def drawboxes(text t) =         % Draw boundary path for each box
   forsuffixes s=t:
-    if unknown s.c: s.c=origin;fi;    
+    if unknown s.c: s.c=origin;fi;
     draw BpathObj(s);
   endfor
 enddef;
@@ -191,7 +191,7 @@ let sc_=scantokens;
 def sco_(expr s)=sc_(currentObjname&s) enddef;
 
 def setcurrentobjname_(expr n)=
-  save currentObjname;  
+  save currentObjname;
   string currentObjname;
   currentObjname=n;
 enddef;
@@ -340,7 +340,7 @@ vardef correctOption_(expr s)=
   for i:=0 upto length(s)-1:
     c:=substring(i,i+1) of s;
     if (c="(") and (l=0): a:=i;
-    elseif (c=")") and (l=1): b:=i;  
+    elseif (c=")") and (l=1): b:=i;
     fi;
     if c="(": l:=l+1;fi;
     if c=")": l:=l-1;fi;
@@ -436,7 +436,7 @@ vardef reflect_Obj(expr n)(expr $,$$)=
   hide(reflectObj(obj(iname_[n]))($,$$)) n
 enddef;
 
-% slant object |n| 
+% slant object |n|
 def slantObj(suffix n)(expr $)=
   transformObj(n)(identity slanted $);
 enddef;
@@ -494,7 +494,7 @@ def assignObj(suffix n)(expr s)=
     fi;
   fi;
   % reset |streamlined_|
-  streamlined_:=false; 
+  streamlined_:=false;
   save gen_n_;string gen_n_;gen_n_=generisize_(str n);
   if not string n.pointlist_:
     declarestring_(gen_n_)(
@@ -503,7 +503,7 @@ def assignObj(suffix n)(expr s)=
               "pointarraylist_", % list of arrays
               "subarraylist_",   % list of arrays of subobjects
               "stringarraylist_",% list of arrays of strings
-              "colorarraylist_", % list of arrays of colors 
+              "colorarraylist_", % list of arrays of colors
               "picturearraylist_",% list of arrays of pictures
               "transformarraylist_",% list of arrays of transforms
               "booleanarraylist_",% list of arrays of booleans
@@ -746,7 +746,7 @@ def drawFramedOrFilledObject_(suffix n)=
       fill (BpathObj(n) shifted (1mm,-1mm))
            withcolor OptionValue.n("shadowcolor");
     fi;
-    % this removes most of the shadow 
+    % this removes most of the shadow
     unfill BpathObj(n);
   fi;
   if OptionValue.n("filled"):
@@ -793,7 +793,7 @@ vardef memorizePoints_(suffix n)(expr $$)=
         sc_ (str n & "." & str $ & "-" & tmp)=
              (p_[i]-p_1) transformed $$;
       else: tmp=str n & "." & str $;
-      fi;  
+      fi;
     endfor;
   fi;
 enddef;
@@ -1013,7 +1013,7 @@ vardef addPointToPointArray@#(suffix a)=
   else:
     sco_(".points_in_arrayslist_"):=
             sco_(".points_in_arrayslist_") & "," & str a & decimal @#a.n_;
-  fi;  
+  fi;
 enddef;
 
 % These are points that will move with the object.
@@ -1115,7 +1115,7 @@ enddef;
 
 % This function adds equations to an already existing object.
 % These equations should only define new points, not alter
-% previously defined points. 
+% previously defined points.
 vardef addObjCode@# text l=
   save mac;string mac;mac="";
   for s:=l:mac:=mac&s & ";"; endfor;
@@ -1178,7 +1178,7 @@ enddef;
 % |_______a|, |_______b|, |_______c|, ..., |_______z|,
 % |_______aa|, |_______ab|, |_______ac|, ..., |_______az|,
 % |_______ba|, ..., |_______bz|, |_______ca|, ...,
-% |_______zz|, |_______aaa|, |_______aab|, etc.  
+% |_______zz|, |_______aaa|, |_______aab|, etc.
 % All we need to is remember the last created suffix.
 % We store it in a string:
 string last_obj_;last_obj_="_______";
@@ -1263,43 +1263,43 @@ vardef duplicateObj(suffix n,m)=
   % create the types:
   if m.pointlist_<>"":
     % this also fills |n.pointlist_|
-    sc_ ("ObjPoint " & m.pointlist_); 
+    sc_ ("ObjPoint " & m.pointlist_);
   fi;
   if m.picturelist_<>"":
     % this also fills |n.picturelist_| and creates all appropriate variables
-    sc_ ("ObjPicture " & m.picturelist_); 
+    sc_ ("ObjPicture " & m.picturelist_);
   fi;
 
   % Duplication of numerical values:
   if m.numericlist_<>"":
     sc_ ("ObjNumeric " & m.numericlist_); % this also fills |n.numericlist_|
   fi;
-  
+
   % Duplication of boolean values:
   if m.booleanlist_<>"":
     sc_ ("ObjBoolean " & m.booleanlist_); % this also fills |n.booleanlist_|
   fi;
-  
+
   % Duplication of color values:
   if m.colorlist_<>"":
     sc_ ("ObjColor " & m.colorlist_); % this also fills |n.colorlist_|
   fi;
-  
+
   % Duplication of string values:
   if m.stringlist_<>"":
     sc_ ("ObjString " & m.stringlist_); % this also fills |n.stringlist_|
   fi;
-  
+
   % Duplication of transform values:
   if m.transformlist_<>"":
     sc_ ("ObjTransform " & m.transformlist_); % fills also |n.transformlist_|
   fi;
-  
+
   % Duplication of pairs:
   if m.pairlist_<>"":
     sc_ ("ObjPair " & m.pairlist_); % this also fills |n.pairlist_|
   fi;
-  
+
   % copy the current transformation of the object:
   n.ctransform_:=m.ctransform_;
 
@@ -1341,14 +1341,14 @@ vardef duplicateObj(suffix n,m)=
       % defined the current object
     endfor;
   fi;
-  
+
   % We duplicate the numeric arrays:
   duplicateArray_(n,m)("ObjNumericArray")(numericarraylist_);
-  
+
   % We duplicate the pair arrays (non movable points);
   % this includes the structures memorizing paths:
   duplicateArray_(n,m)("ObjPairArray")(pairarraylist_);
-  
+
   % We duplicate the string arrays:
   % it also fills |n.stringarraylist_|
   duplicateArray_(n,m)("ObjStringArray")(stringarraylist_);
@@ -1358,7 +1358,7 @@ vardef duplicateObj(suffix n,m)=
   duplicateArray_(n,m)("ObjPictureArray")(picturearraylist_);
   duplicateArray_(n,m)("ObjTransformArray")(transformarraylist_);
   duplicateArray_(n,m)("ObjBooleanArray")(booleanarraylist_);
-  
+
   % this is similar, but for Object arrays
   % it also fills |n.subarraylist_|
   if m.subarraylist_<>"":
@@ -1369,7 +1369,7 @@ vardef duplicateObj(suffix n,m)=
       % Here, we do not copy the strings, because we are doing a deep copy
     endfor;
   fi;
-  
+
   % Copy the information on subobjects (variables) and
   % call |duplicateObj| appropriately
 
@@ -1416,7 +1416,7 @@ vardef duplicateObj(suffix n,m)=
   % restrict us anyway to linear transformations)
   save mainfirst;string mainfirst;
   mainfirst=firstPointOf_(str n);
-  
+
   % go through all points except the first, and relink
   forsuffixes $$=pointlist_,points_in_arrayslist_:
     if n$$<>"":
@@ -1495,7 +1495,7 @@ vardef untieObj(suffix n)=
 
   % we also store the positions of the first points of all subobjects
   i:=0;
-  
+
   if n.sublist_<>"":
     forsuffixes $:=sc_(n.sublist_):i:=i+1;
       q_[i]=obj(n$).obj(firstPointOf_(n$))-n.sc_(fp);
@@ -1511,7 +1511,7 @@ vardef untieObj(suffix n)=
       endfor;
     endfor;
   fi;
-  
+
   % we refresh all points:
 
   save varlist_;string varlist_;
@@ -1540,7 +1540,7 @@ vardef untieObj(suffix n)=
       endfor;
     endfor;
   fi;
-  
+
   % and we recreate the differences from the ones stored:
   % (exactly the same code as above!)
   i:=0;
@@ -1569,7 +1569,7 @@ vardef untieObj(suffix n)=
         fi;
       endfor;
     endfor;
-  fi;  
+  fi;
 enddef;
 
 % Draw an array of objects. |n| is the object, |a| is the array,
@@ -1610,7 +1610,7 @@ vardef resetObj.expl@#=
     fi;
   fi;
   refreshObjVars_(@#)(sc_(varlist_));
-  
+
   % reset the current transformation:
   @#ctransform_:=identity;
 
@@ -1623,7 +1623,7 @@ vardef resetObj.expl@#=
       @#ipic_.transf_[i]:=identity;
     endfor;
   fi;
-  
+
   % reset all subobjects
 
   if @#sublist_<>"":
@@ -1652,7 +1652,7 @@ vardef resetObj.expl@#=
     % call it
     code_function_@#;
   endgroup;
-  
+
 enddef;
 
 % In order to find which point of an object is the most
@@ -1816,7 +1816,7 @@ boolean memorizeShortcuts;memorizeShortcuts=true;
 % |suffixlist| transforms a list of strings into a list of suffixes.
 
 
-% These ``streamlined'' variants do not take 
+% These ``streamlined'' variants do not take
 % an object name; instead, they provide one by themselves; then they
 % call the regular constructor, and the name of the object
 % is returned as a string
@@ -1830,7 +1830,7 @@ vardef streamline(expr class,formalparameters,actualparameters)=
       class & ".sc_(newname_)" &
         actualparameters & ";)sc_(newname_) enddef;";
   sc_ mac;
-  % variant with options:  
+  % variant with options:
   mac:="vardef new_" & class & "_" & formalparameters &
     "(text options)=save newname_;string newname_;" &
     "hide(streamlined_:=true;newname_:=newobjstring_;new" &
@@ -1898,13 +1898,13 @@ enddef;
 % This function is in a certain way similar to |newBB| in that
 % it provides a regular bounding box to an object. That means that
 % the four corners will be where they should be: |.nw| at the top left,
-% |.sw| at the bottom left, etc. 
+% |.sw| at the bottom left, etc.
 % The difference with |newBB| is that it does not create
 % a new object, it only modifies the one given in parameter.
 % No object layer is added.
 % It should be emphasized however that there is no guarantee
 % that the new bounds will contain the whole object, because
-% neither the drawing instructions 
+% neither the drawing instructions
 % nor the subobjects are taken into account. We do not take
 % the subobjects into account, because if we did, it would make it
 % difficult to cheat on the bounding box.
@@ -1935,11 +1935,11 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
   % we only look at the current object and not its subobjects
   % (if one wants the real bounding box, taking into account all
   % visible parts, use |rebindvisibleObj|)
-  xleft= xpart(n.sc_(find_lft_most.n)); 
+  xleft= xpart(n.sc_(find_lft_most.n));
   xright=xpart(n.sc_(find_rt_most.n));
   ytop=  ypart(n.sc_(find_top_most.n));
   ybot=  ypart(n.sc_(find_bot_most.n));
-  
+
   % We distinguish two cases: either there is an inner point
   % (i.e., different from the standard points of the bounding box + .c
   % which we also consider part of the bounding box),
@@ -1977,7 +1977,7 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
     q_3=(xright,ytop)-n.ne+(dxe,dyn);
     q_4=(xright,ybot)-n.se+(dxe,dys);
     % these four differences will be used later
-             
+
     % We now memorize the differences between all points and the
     % inner point; only those differences which are fully known
     % will be considered (IS THIS TRUE?);
@@ -2032,7 +2032,7 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
         forsuffixes $:=sc_(n$$):refreshObjVars_(n)($);endfor;
       fi;
     endfor;
-    
+
     % we also untie the subobjects:
 
     i:=0;
@@ -2064,7 +2064,7 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
         endfor;
       fi;
     endfor;
-    
+
     % and finally, we attach the subobjects (same code as above):
 
     i:=0;
@@ -2094,7 +2094,7 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
     % corresponds to the new |n.nw|; however, if the object is floating,
     % we cannot write |n.nw=(xpart(n.sc_(lftmost)),...)|
     % because the latter refers to variables that do no longer exist.
-    % What we can do is to say 
+    % What we can do is to say
     %   |new(n.nw)-new(n.innerpoint)=(old(n.nw)-old(n.innerpoint))|
     %                    |+ (old(computed nw)-old(n.nw))|
     % The value of |(old(n.nw)-old(n.innerpoint))| is in the |p_| array
@@ -2104,22 +2104,22 @@ vardef rebindrelativeObj(suffix n)(expr dyn,dys,dxe,dxw)=
     % Of the four following equations, we define only two,
     % corresponding to opposite corners. Otherwise, there are redundant
     % equations.
-    n.nw-n.sc_(innerpoint)=p_[nwi]+q_1; 
+    n.nw-n.sc_(innerpoint)=p_[nwi]+q_1;
     %|n.sw-n.sc_(innerpoint)=p_[swi]+q_2;|
     %|n.ne-n.sc_(innerpoint)=p_[nei]+q_3;|
     n.se-n.sc_(innerpoint)=p_[sei]+q_4;
-    
+
     % And finally, we define the innerpoint |p_0| if necessary
     if known p_0:n.sc_(innerpoint)=p_0;fi;
   fi;
 
   mac:="vardef code_function_@#= " & PureStandardEquations & "enddef;";
   % we want the |vardef| macro only defined locally;we don't need it later
-  begingroup; 
+  begingroup;
     save code_function_;
     sc_(mac);
     % determine |.n|, |.s|, etc.:
-    sc_ ("code_function_." & str n); 
+    sc_ ("code_function_." & str n);
   endgroup;
 enddef;
 
@@ -2233,7 +2233,7 @@ vardef define_local_type_option(expr type,s)=
   if s="arrows":
     tmp:=tmp & "set_local_type(" & quote(type) & "," & quote(s) &
                ",arrows_function_(s));enddef;";
-  else:   
+  else:
     tmp:=tmp &
       "set_local_type(" & quote(type) & "," & quote(s) & ",s);enddef;";
   fi;
@@ -2270,7 +2270,7 @@ def settodefaultifnotknown_(expr opname)(text type)(expr default)=
     sc_("o_" & opname & "_val")=default;
   fi;
 enddef;
-  
+
 % Alignment option; the string version of the parameter is put
 % into the current object |option_align_| field.
 % This definition must not be a |vardef| because
@@ -2382,7 +2382,7 @@ def pathoptions_=
   visible,boxsize,boxheight,boxdepth,pathfilled,pathfillcolor,
   coilarmA,coilarmB,coilheight,coilwidth,coilaspect,coilinc
 enddef;
-      
+
 % default values for curves:
 numeric curve_linewidth_default,
         curve_arcangleA_default,curve_arcangleB_default,
@@ -2434,7 +2434,7 @@ curve_pathfillcolor_default=black;
 
 string curve_linestyle_default,curve_arrows_default,
        curve_posA_default,curve_posB_default;
-pair curve_offsetA_default,curve_offsetB_default;       
+pair curve_offsetA_default,curve_offsetB_default;
 curve_linestyle_default="";
 curve_arrows_default="drawarrow";
 curve_posA_default="ic";
@@ -2632,7 +2632,7 @@ define_local_numeric_option("linetensionB");
 % thickness for connections
 define_local_numeric_option("linewidth");
 
-% style for connections 
+% style for connections
 define_local_string_option("linestyle");
 
 % double lines:
@@ -2912,13 +2912,13 @@ vardef addPath@#(suffix n)(expr i)(text p)=
                       else: curve_nodesepA_default fi);
   setcurrentobjname_(str @#);
   % if the |ip_| array does not yet exist, create it:
-  if not pair @#n.ip_1:       
+  if not pair @#n.ip_1:
     ObjPointArray(n.ip_)(0);
   else:
     % if it does already exist, we only initialize it once:
     if unknown @#n.ip_.n_:
       ObjPointArray(n.ip_)(0);
-    fi;    
+    fi;
   fi;
   xpart(@#n[i])=@#n.ip_.n_+1;
   % we add each point of the path |p_| to the |ip_| array:
@@ -3008,7 +3008,7 @@ def increment_pathparameters_(suffix p)(suffix $)=
     $p$$n_:=$p.n_;
   endfor;
 enddef;
-  
+
 % This is a function simplifying the use of |addPath|
 vardef addUserPath@#(text p) text options=
   ExecuteOptions()(options);
@@ -3031,7 +3031,7 @@ enddef;
 def ObjPath(text p) text options=
   addStandardPath.sc_(currentObjname)(p) options;
 enddef;
-  
+
 % The |Path| function reconstructs a path from a path |p[j]|
 % and an object reference |@#|.
 vardef Path@#(suffix p)(expr j)=
@@ -3096,7 +3096,7 @@ def StandardObjectOrPictureContainerSetup(expr v)=
   (obj(currentObjname)a,obj(currentObjname)b) =
     if numeric v: % object
         .5*(obj(obj(currentObjname)sub)ne-obj(obj(currentObjname)sub)sw)
-    elseif (picture v) or (string v): 
+    elseif (picture v) or (string v):
        .5*(urcorner obj(currentObjname)p - llcorner obj(currentObjname)p)
     fi;
 enddef;
@@ -3334,7 +3334,7 @@ vardef ntreepos_(suffix O)(text l)=
       else:
         list:=list & "," & str $;
       fi;
-    fi;    
+    fi;
   endfor;
   if list="":
     result="treepos(" & str O & ")(" & decimal(first) & ")";
@@ -3507,7 +3507,7 @@ vardef ncangle_(suffix $)(suffix n,m)(suffix p)=
   setupobjectfunction(n);
   f(m)("B")-ap1=CLOV_("armB")*dir(CLOV_("angleB"));
   ap2=f(n)("A")+whatever*dir(CLOV_("angleA"));
-  ap1=ap2+whatever*dir(CLOV_("angleA")+90);    
+  ap1=ap2+whatever*dir(CLOV_("angleA")+90);
   nc_core_$(n)(p)
     (smoothen(object_(n)("A")--ap2--ap1--object_(m)("B")
            cutbefore BpathObj(n) cutafter BpathObj(m))(CLOV_("linearc")))
@@ -3554,7 +3554,7 @@ vardef ncangles_(suffix $)(suffix n,m)(suffix p)=
   ap1-f(n)("A")=CLOV_("armA")*dir(CLOV_("angleA"));
   f(m)("B")-ap2=CLOV_("armB")*dir(CLOV_("angleB"));
   ap3=ap1+whatever*dir(CLOV_("angleA")+90);
-  ap2=ap3+whatever*dir(CLOV_("angleA"));    
+  ap2=ap3+whatever*dir(CLOV_("angleA"));
   nc_core_$(n)(p)
     (smoothen(object_(n)("A")--ap1--ap3--ap2--object_(m)("B")
            cutbefore BpathObj(n) cutafter BpathObj(m))(CLOV_("linearc")))
@@ -3689,14 +3689,14 @@ vardef ncbar_(suffix $)(suffix n,m)(suffix p)=
   setupobjectfunction(n);
   % we use different arms, but the same angles (see PSTricks documentation):
   ap1-f(n)("A")=CLOV_("armA")*dir(CLOV_("angleA"));
-  ap2-f(m)("B")=CLOV_("armB")*dir(CLOV_("angleA")); 
+  ap2-f(m)("B")=CLOV_("armB")*dir(CLOV_("angleA"));
   ap3=posap[f(n)("A"),ap1]=whatever[ap2,ap2+(ap2-f(m)("B")) rotated 90];
   ap4=whatever[f(m)("B"),ap2]=whatever[ap1,ap1+(ap1-f(n)("A")) rotated 90];
   if posap<1:
     ap5=ap1;ap6=ap4;
   else:
     ap5=ap3;ap6=ap2;
-  fi;  
+  fi;
   nc_core_$(n)(p)
     (smoothen(object_(n)("A")--ap5--ap6--object_(m)("B")
        cutbefore BpathObj(n) cutafter BpathObj(m))(CLOV_("linearc")))
@@ -3741,7 +3741,7 @@ vardef ncloop_(suffix $)(suffix n,m)(suffix p)=
   save ap,posap;pair ap[];numeric posap;
   setupobjectfunction(n);
   ap1-f(n)("A")=CLOV_("armA")*dir(CLOV_("angleA"));
-  f(m)("B")-ap2=CLOV_("armB")*dir(CLOV_("angleB")); 
+  f(m)("B")-ap2=CLOV_("armB")*dir(CLOV_("angleB"));
   ap3-ap1=CLOV_("loopsize")*unitvector((ap1-f(n)("A")) rotated 90);
   ap4=whatever[ap3,ap3+(ap2-f(m)("B"))]
      =whatever[ap2,ap2+(ap2-f(m)("B")) rotated 90];
@@ -3799,7 +3799,7 @@ vardef zigzagit__(expr p)=
   save n,q,r,zz;path q,r;pair zz[];
   hide(
     n=floor(arclength(p)/(CLOV_("coilwidth")*CLOV_("coilheight"))+0.5);
-    % we now divide |p| in |n| pieces  
+    % we now divide |p| in |n| pieces
     q=divide_equally_(p,arclength(p)/n);
     % here, we must now introduce additional points
     for i:=0 upto length(q)-1:
@@ -3838,7 +3838,7 @@ def coilf_(expr q,i)=
             *(0,sind(CLOV_("coilaspect"))))
         -(0,.5CLOV_("coilwidth")*sind(CLOV_("coilaspect"))))
         rotated (angle(arcdirection (0,q))-90)
-        )  
+        )
   fi
   )
 enddef;
@@ -3900,7 +3900,7 @@ enddef;
 % function giving the time with respect to arclength:
 % arctime 0 of p=beginning
 % arctime 1 of p=end
-% 
+%
 vardef arctime(expr i,p)=
   save t;
   hide(
@@ -4038,7 +4038,7 @@ def compute_boxh(expr boxs,boxh,boxd)=
   elseif boxd>=0: (2*boxs-boxd) % boxsize is half the width,
                                 % according to PSTricks' documentation
   else: boxs
-  fi  
+  fi
 enddef;
 
 % Compute the |boxdepth| parameter
@@ -4047,7 +4047,7 @@ def compute_boxd(expr boxs,boxh,boxd)=
   elseif boxh>=0: (2*boxs-boxh) % boxsize is half the width,
                                 % according to PSTricks' documentation
   else: boxs
-  fi  
+  fi
 enddef;
 
 vardef ncbox_(suffix $)(suffix n,m)(suffix p)=
@@ -4182,7 +4182,7 @@ enddef;
 vardef nccircle_(suffix $)(suffix n)(suffix p)=
   if str $<>"":
     if unknown $p.n_:
-      addPathVariables$(p); 
+      addPathVariables$(p);
     fi;
   fi;
   settodefaultifnotknown_("angleA")(numeric)(0);
@@ -4205,7 +4205,7 @@ vardef nccircle_(suffix $)(suffix n)(suffix p)=
     $p.nodesepB[$p.n_]:=o_nodesepB_val;
     nc_inc_$(p);
   fi;
-  
+
   % we have to find one additional point; we must be careful
   % not to use assignments, because |n.c| may be floating:
   save ap;pair ap;
@@ -4370,7 +4370,7 @@ vardef objpathlabel_(suffix $)=
         endfor;
       fi;
     endfor;
-  fi;  
+  fi;
   save untied;boolean untied;untied=true;
   if known $c:untied:=false;fi;
   % we temporarily tie the object if necessary
@@ -4378,19 +4378,19 @@ vardef objpathlabel_(suffix $)=
   if pathn>0:
     tmpoff=point (o_labpos_val*length(Path$(_spath_,pathn)))
                  of Path$(_spath_,pathn);
-    if known o_labangle_val: 
+    if known o_labangle_val:
       o_labangle_val:=o_labangle_val
           +angle(direction (o_labpos_val*length(Path$(_spath_,pathn)))
                            of Path$(_spath_,pathn));
-    fi;      
+    fi;
   else:
     tmpoff=point (o_labpos_val*length(Path$(_upath_,-pathn)))
                  of Path$(_upath_,-pathn);
-    if known o_labangle_val: 
+    if known o_labangle_val:
       o_labangle_val:=o_labangle_val
           +angle(direction (o_labpos_val*length(Path$(_upath_,-pathn)))
                            of Path$(_upath_,-pathn));
-    fi;     
+    fi;
   fi;
   % if the object was initially untied, we untie it
   if untied:untieObj($);fi;
@@ -4404,7 +4404,7 @@ vardef drawLabels@#=
       if @#ipic_.erase_[i]:
         unfill bbox(@#ipic_[i] transformed @#ipic_.transf_[i]
                                shifted @#ipic_.off_[i]);
-      fi;      
+      fi;
       draw @#ipic_[i] transformed @#ipic_.transf_[i] shifted @#ipic_.off_[i]
            withcolor @#ipic_.col_[i];
     endfor;
@@ -4432,7 +4432,7 @@ def drawarrow_double(expr p)(expr sep)(expr lwidth) text s =
   save oldpen;
   pen oldpen;
   oldpen := currentpen;
-  pickup pencircle scaled (2lwidth+sep); 
+  pickup pencircle scaled (2lwidth+sep);
   drawarrow(p) s;
   pickup pencircle scaled sep;
   undraw p;
@@ -4495,7 +4495,7 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
     endgroup;
   elseif Option@#("treemode","R"):
     % We put the subtrees in an |VBox| object:
-    begingroup; 
+    begingroup;
       o_flip(OptionValue@#("treeflip"));
       o_align(OptionValue@#("Ralign"));
       o_vbsep(OptionValue@#("vbsep"));
@@ -4504,7 +4504,7 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
     endgroup;
   elseif Option@#("treemode","U"):
     % We put the subtrees in an |HBox| object:
-    begingroup; 
+    begingroup;
       o_flip(OptionValue@#("treeflip"));
       o_align(OptionValue@#("Ualign"));
       o_hbsep(OptionValue@#("hbsep"));
@@ -4513,7 +4513,7 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
     endgroup;
   else: % default case
     % We put the subtrees in an |HBox| object:
-    begingroup; 
+    begingroup;
       o_flip(OptionValue@#("treeflip"));
       o_align(OptionValue@#("Dalign"));
       o_hbsep(OptionValue@#("hbsep"));
@@ -4558,7 +4558,7 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
       fi;
       % 4: |xpart(@#e-root.e)=0mm;|
       eq:=eq & "xpart(@#e-obj(@#root).e)=" &
-                               decimal (OptionValue@#("dx")) & ";"; 
+                               decimal (OptionValue@#("dx")) & ";";
       % 5: |xpart(subt.w-@#w)=0mm;|
       eq:=eq & "xpart(obj(@#subt).w-@#w)=" &
                                decimal (OptionValue@#("dx")) & ";";
@@ -4574,10 +4574,10 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
       fi;
       % 4: |xpart(root.w-@#w)=0mm;|
       eq:=eq & "xpart(obj(@#root).w-@#w)=" &
-                               decimal (OptionValue@#("dx")) & ";"; 
+                               decimal (OptionValue@#("dx")) & ";";
       % 5: |xpart(@#e-subt.e)=0mm;|
       eq:=eq & "xpart(@#e-obj(@#subt).e)=" &
-                               decimal (OptionValue@#("dx")) & ";"; 
+                               decimal (OptionValue@#("dx")) & ";";
     fi;
   else: % includes default case
     % 1: |xpart(root.c)=xpart(subt.c)|
@@ -4597,10 +4597,10 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
       fi;
       % 4: |ypart(root.s-@#s)=0mm;|
       eq:=eq & "ypart(obj(@#root).s-@#s)=" &
-                               decimal (OptionValue@#("dy")) & ";"; 
+                               decimal (OptionValue@#("dy")) & ";";
       % 5: |ypart(@#n-subt.n)=0mm;|
       eq:=eq & "ypart(@#n-obj(@#subt).n)=" &
-                               decimal (OptionValue@#("dy")) & ";"; 
+                               decimal (OptionValue@#("dy")) & ";";
     else: % default case
       % 3: |ypart(root.s-subt.n)=1cm;|
       if OptionValue@#("treenodevsize")>0:
@@ -4613,18 +4613,18 @@ vardef newTree@#(suffix theroot)(text subtrees) text options=
       fi;
       % 4: |ypart(@#n-root.n)=0mm;|
       eq:=eq & "ypart(@#n-obj(@#root).n)=" &
-                               decimal (OptionValue@#("dy")) & ";"; 
+                               decimal (OptionValue@#("dy")) & ";";
       % 5: |ypart(subt.s-@#s)=0mm;|
       eq:=eq & "ypart(obj(@#subt).s-@#s)=" &
-                               decimal (OptionValue@#("dy")) & ";"; 
+                               decimal (OptionValue@#("dy")) & ";";
 
     fi;
-  fi;  
+  fi;
 
   ObjCode StandardEquations,eq;
 %    |"xpart(@#n)=xpart(@#s);ypart(@#ne)=ypart(@#nw);";|
   StandardTies;
- 
+
   if OptionValue@#("hideleaves"):
     hideTreeLeaves(@#);
   fi;
@@ -4648,7 +4648,7 @@ vardef memorizeConnections_@#(expr fromoptions)=
   % we memorize the connection paths:
   for i:=1 upto @#nst:
     % only connections to non empty boxes
-    if not isEmptyBox(obj(obj(@#subt).sb[i])): 
+    if not isEmptyBox(obj(obj(@#subt).sb[i])):
       if not(isHFan(Obj(TreeRootObj_(obj(obj(@#subt).sb[i]))))) and
         not(isVFan(Obj(TreeRootObj_(obj(obj(@#subt).sb[i]))))):
         % the next call will inherit the options of |Tree| that are
@@ -4691,7 +4691,7 @@ vardef fanconnection_@#(suffix root,n,a,b)(expr i)=
   @#_spath_.n_:=@#_spath_.n_+1;
   % the value |"fandraw"| allows us to detect that the memorized path
   % corresponds to a fan
-  @#_spath_.arrows[@#_spath_.n_]:="fandraw"; 
+  @#_spath_.arrows[@#_spath_.n_]:="fandraw";
 enddef;
 
 
@@ -4700,9 +4700,9 @@ vardef ncfan@#(suffix n)(suffix m)(expr i)=
     fanconnection_@#(n,m,ie,iw)(i);
   elseif isVFan(m):
     fanconnection_@#(n,m,in,is)(i);
-  fi;    
+  fi;
 enddef;
-  
+
 % temporary
 def fandraw = draw enddef;
 
@@ -4793,7 +4793,7 @@ streamline("Tree")("(expr theroot)(text subtrees)",
 def  T =newTree enddef;
 def _T =new_Tree enddef;
 def  T_=new_Tree_ enddef;
-                 
+
 def BpathTree(suffix n)= StandardBpath(n) enddef;
 
 % This returns the internal number of the root object
@@ -4828,7 +4828,7 @@ vardef drawTree(suffix n)=
   % and draw connections (this should be parameterized too)
   for i:=1 upto n.nst:
     % only connections to non empty boxes:
-    if not isEmptyBox(obj(obj(n.subt).sb[i])): 
+    if not isEmptyBox(obj(obj(n.subt).sb[i])):
       if isHFan(Obj(TreeRootObj_(obj(obj(n.subt).sb[i])))) or
          isVFan(Obj(TreeRootObj_(obj(obj(n.subt).sb[i])))):
         drawfan_(n,Obj(TreeRootObj_(obj(obj(n.subt).sb[i]))))(i,false);
@@ -4935,19 +4935,19 @@ vardef replaceTreeElement.expl@#(expr i)(suffix rep)=
         pp$[j]=@#_spath_$[j];
       endfor;
     endfor;
-  
+
     % reset the standard arrays:
     resetPathArray@#(_spath_);
-  fi;    
+  fi;
 
   % reset the user arrays:
   resetPathArray@#(_upath_);
-  
+
   resetObj.expl@#;
 
   % recreate the standard paths from the memorized information
   memorizeConnections_@#(false);
-  
+
 enddef;
 
 % This function deletes a subtree.
@@ -4971,18 +4971,18 @@ vardef deleteTreeElement.expl@#(expr i)=
         pp$[j]=@#_spath_$[j];
       endfor;
     endfor;
-    
+
     % second part (after the removed element)
     for j:=i upto pp.n_:
       forsuffixes $:=pathoptions_:
         pp$[j]=@#_spath_$[j+1];
       endfor;
     endfor;
-  
+
     % reset the standard arrays:
     resetPathArray@#(_spath_);
   fi;
-  
+
   % reset the user arrays:
   resetPathArray@#(_upath_);
 
@@ -4990,7 +4990,7 @@ vardef deleteTreeElement.expl@#(expr i)=
 
   % recreate the standard paths from the memorized information
   memorizeConnections_@#(false);
- 
+
 enddef;
 
 % This function sets the bounding box of a tree to its root.
@@ -5025,8 +5025,8 @@ vardef newHFan@#(expr dx,dy) text options=
   assignObj(@#,"HFan");
   StandardInterface;
   ObjCode StandardEquations,
-          "@#ise-@#isw=(" & decimal dx & ",0)", 
-          "@#ine-@#ise=(0," & decimal dy & ")"; 
+          "@#ise-@#isw=(" & decimal dx & ",0)",
+          "@#ine-@#ise=(0," & decimal dy & ")";
 enddef;
 
 streamline("HFan")("(expr dx,dy)","(dx,dy)");
@@ -5077,7 +5077,7 @@ vardef newVFan@#(expr dx,dy) text options=
   StandardInterface;
   ObjCode StandardEquations,
           "@#ise-@#isw=(" & decimal dx & ",0)",
-          "@#ine-@#ise=(0," & decimal dy & ")"; 
+          "@#ine-@#ise=(0," & decimal dy & ")";
 enddef;
 
 streamline("VFan")("(expr dx,dy)","(dx,dy)");
@@ -5119,11 +5119,11 @@ vardef newPTree@#(expr conclusion)(text subtrees)(expr left,right)
   % parameters that should be options:
   save vdist,rdistl,rdistr,dist_n,dist_s,dist_e,dist_w;
   % vertical distance between premisses and conclusion:
-  vdist=OptionValue@#("vsep");  
+  vdist=OptionValue@#("vsep");
   % rule distance left
   rdistl=OptionValue@#("lrsep");
   % rule distance right
-  rdistr=OptionValue@#("rrsep"); 
+  rdistr=OptionValue@#("rrsep");
   % distances around the proof:
   dist_n=dist_s=OptionValue@#("dy");
   dist_e=dist_w=OptionValue@#("dx");
@@ -5137,7 +5137,7 @@ vardef newPTree@#(expr conclusion)(text subtrees)(expr left,right)
                         % where it ends. These variables are not really
                         % necessary, but having them is convenient.
   save n,i,eq,spl,spr;numeric n,i,spl,spr;string eq;
-  % we count the number of subtrees:   
+  % we count the number of subtrees:
   n=0;
   forsuffixes $:=subtrees:
     % we have to be careful because there is always at least one loop,
@@ -5262,7 +5262,7 @@ vardef newPTree@#(expr conclusion)(text subtrees)(expr left,right)
       eq:=eq & "ypart(obj(@#conc).s-obj(@#subt).n)=" & decimal vdist & ";";
     else:
       eq:=eq & "ypart(obj(@#subt).s-obj(@#conc).n)=" & decimal vdist & ";";
-    fi;    
+    fi;
   fi;
   % 3 |ypart(@#n-subt.n)=dist_n;|  % depends on option
   if Option@#("treemode","U"):
@@ -5539,25 +5539,25 @@ vardef newHBox@#(text sublist) text options =
   if OptionValue@#("elementsize")<0:
     eq:="if @#sb.n_>1:" &
           "xpart(obj(@#sb[2]).w-obj(@#sb[1]).e) " &
-          "if @#sb.n_>2:" & 
+          "if @#sb.n_>2:" &
             "for i:=3 upto @#sb.n_: " &
                "=xpart(obj(@#sb[i]).w-obj(@#sb[i-1]).e)" &
             "endfor " &
           "fi" &
-          "=" & decimal(OptionValue@#("hbsep")) & ";" & 
+          "=" & decimal(OptionValue@#("hbsep")) & ";" &
           "fi;";
   else:
     eq:="if @#sb.n_>1:" &
           "xpart(obj(@#sb[2]).c-obj(@#sb[1]).c) " &
-          "if @#sb.n_>2:" & 
+          "if @#sb.n_>2:" &
             "for i:=3 upto @#sb.n_: " &
                "=xpart(obj(@#sb[i]).c-obj(@#sb[i-1]).c)" &
             "endfor " &
           "fi" &
           "=" &
-          decimal(OptionValue@#("hbsep")+OptionValue@#("elementsize")) & ";" & 
+          decimal(OptionValue@#("hbsep")+OptionValue@#("elementsize")) & ";" &
           "fi;";
-  fi;    
+  fi;
   % 2: |xpart(sb[1].w-@#w)=xpart(@#e-sb[n].e)=5mm;|
   if OptionValue@#("elementsize")<0:
     eq:=eq & "xpart(obj(@#sb[1]).w-@#w)" &
@@ -5573,7 +5573,7 @@ vardef newHBox@#(text sublist) text options =
   if Option@#("align","top"):alignsuffix:="n";
   elseif Option@#("align","center"):alignsuffix:="c";
   fi;
-          
+
   % 3: |ypart(sb[1].alignsuffix)=ypart(sb[2].alignsuffix)=...|
                              % |=ypart(sb[n].alignsuffix)|
   eq:=eq & "if @#sb.n_>1:" &
@@ -5590,7 +5590,7 @@ vardef newHBox@#(text sublist) text options =
   % 5: |ypart(sb[tallest].s-@#s)=0mm;|
   eq:=eq & "ypart(obj(@#sb[@#tallest]).s-@#s)=" &
                               decimal(OptionValue@#("dy")) & ";";
-  
+
   ObjCode StandardEquations,eq;
 %    |"xpart(@#n)=xpart(@#s);ypart(@#ne)=ypart(@#nw);";|
   StandardTies;
@@ -5601,7 +5601,7 @@ vardef setTallest@#=
   save tallest_height;
   @#tallest:=1;tallest_height=0;
   for i:=1 upto @#nst:
-    if ypart(obj(@#sb[i]).n-obj(@#sb[i]).s)>tallest_height: 
+    if ypart(obj(@#sb[i]).n-obj(@#sb[i]).s)>tallest_height:
       @#tallest:=i;
       tallest_height:=ypart(obj(@#sb[i]).n-obj(@#sb[i]).s);
     fi;
@@ -5774,7 +5774,7 @@ vardef newVBox@#(text sublist) text options =
   if Option@#("align","right"):alignsuffix:="e";
   elseif Option@#("align","center"):alignsuffix:="c";
   fi;
-          
+
   % 3: |xpart(sb[1].alignsuffix)=xpart(sb[2].alignsuffix)=...|
                              % |=xpart(sb[n].alignsuffix)|
   eq:=eq & "if @#sb.n_>1:" &
@@ -5800,7 +5800,7 @@ enddef;
 vardef setWidest@#=
   save widest_width;@#widest:=1;widest_width=0;
   for i:=1 upto @#nst:
-    if xpart(obj(@#sb[i]).e-obj(@#sb[i]).w)>widest_width: 
+    if xpart(obj(@#sb[i]).e-obj(@#sb[i]).w)>widest_width:
       @#widest:=i;
       widest_width:=xpart(obj(@#sb[i]).e-obj(@#sb[i]).w);
     fi;
@@ -5902,7 +5902,7 @@ vardef newMatrix@#(expr Nx,Ny)(text elements) text options =
   setNumeric(ny)(Ny);
   ObjNumericArray(wd)(Ny);
   ObjNumericArray(ht)(Nx);
-  
+
   i=0;
   forsuffixes $:=elements:i:=i+1;
     if $<>0: % null box
@@ -5940,7 +5940,7 @@ vardef newMatrix@#(expr Nx,Ny)(text elements) text options =
       @#ht[i]=1;
     endfor;
   fi;
-  
+
   % Then, the widest elements in each column:
   if OptionValue@#("matrixnodehsize")<0:
     for i:=1 upto Ny:
@@ -5994,7 +5994,7 @@ vardef newMatrix@#(expr Nx,Ny)(text elements) text options =
   % and still have the size adjusted (after resetting the object).
   % The only assumption is that there is always at least one non null
   % object in each column and each line.
-  
+
   eq:="save fal_;" &
       "vardef fal_(expr i,s)=" &
         "save l;" &
@@ -6014,7 +6014,7 @@ vardef newMatrix@#(expr Nx,Ny)(text elements) text options =
         "xpart(obj(@#sb[@#wd[i+1]]).w-obj(@#sb[@#wd[i]]).e)=" &
                                       decimal (OptionValue@#("hsep")) &";";
   fi;
-  eq:=eq &                     
+  eq:=eq &
       "endfor;" &
       "for i:=1 upto @#ny:" &
         "for j:=1 upto @#nx:" &
@@ -6048,7 +6048,7 @@ vardef newMatrix@#(expr Nx,Ny)(text elements) text options =
                       quote(OptionValue@#("valign")) & ")))" &
              "=ypart(obj(@#sb[@#ht[j]]).sc_(fal_(i," &
                       quote(OptionValue@#("valign")) & ")));" &
-          "fi;" &  
+          "fi;" &
         "endfor;" &
       "endfor;";
     ObjCode StandardEquations,eq;
@@ -6108,7 +6108,7 @@ vardef replaceMatrixElement.expl@#(expr i,j)(suffix rep)=
 
       % increase size of |@#ht[]| array
       @#ht.n_:=@#nx;
-      
+
       @#ht[i]=(i-1)*@#ny+j;
       if xpart(rep.e-rep.w)>xpart(obj(@#sb[@#wd[j]]).e-obj(@#sb[@#wd[j]]).w):
         @#wd[j]:=(i-1)*@#ny+j;
@@ -6118,12 +6118,12 @@ vardef replaceMatrixElement.expl@#(expr i,j)(suffix rep)=
       % we reset the object again, this time in order to take the changes
       % to |ht[i]| and |wd[j]| into account
       resetObj.expl@#;
-      
+
     elseif j=@#ny+1:
       % in this case, we create a new line and a new column
       % first, a new column:
       addmatrixcolumn_@#;
-      
+
       % create new line
       @#nx:=@#nx+1;
       @#sb.n_:=@#nx*@#ny;
@@ -6161,21 +6161,21 @@ vardef replaceMatrixElement.expl@#(expr i,j)(suffix rep)=
       % we reset the object again, this time in order to take the changes
       % to |ht[i]| and |wd[j]| into account
       resetObj.expl@#;
-      
+
     elseif j=@#ny+1:
       addmatrixcolumn_@#;
       @#sb.n_:=@#nx*@#ny;
 
       % we now update |@#ht| and |@#wd| because of the new object;
       % the width is easy, because the object is alone on its column.
-      
+
       @#wd[@#ny]:=i*@#ny;
 
       % for the height, we update |@#ht[i]|:
       if ypart(rep.n-rep.s) > ypart(obj(@#sb[@#ht[i]]).n-obj(@#sb[@#ht[i]]).s):
         @#ht[i]:=i*@#ny;
       fi;
-      
+
       % we add the subobject:
       @#sb[i*@#ny]:= str rep;
       % and we reset the object
@@ -6211,7 +6211,7 @@ vardef addmatrixcolumn_@#=
   endfor;
   for k:=1 upto @#ny:
     @#wd[k]:=@#wd[k]+((@#wd[k]-1) div @#ny);
-  endfor;    
+  endfor;
   @#ny:=@#ny+1;
   % increase sizes of |@#wd[]| array
   @#wd.n_:=@#ny;
@@ -6228,12 +6228,12 @@ vardef updateHeight_@#(expr i)=
           @#ht[i]:=(i-1)*@#ny+k;
         fi;
       else:
-         @#ht[i]:=(i-1)*@#ny+k;     
+         @#ht[i]:=(i-1)*@#ny+k;
       fi;
     fi;
   endfor;
 enddef;
-    
+
 % This function is only used by |replaceMatrixElement.expl|
 vardef updateWidth_@#(expr j)=
   for k:=1 upto @#nx:
@@ -6266,12 +6266,12 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
           @#sb[k]:=whateverstring;
         fi;
       endfor;
-      
+
       % the last column and line must be refreshed
       for k:=(@#nx-1)*(@#ny-1)+1 upto @#nx*@#ny:
         @#sb[k]:=whateverstring;
       endfor;
-      
+
       % |@#wd[]| and |@#ht[]| must be updated,
       % as well as their number of elements.
       for k:=1 upto i-1:
@@ -6290,7 +6290,7 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
       % |@#nx| and |@#ny| must be updated
       @#nx:=@#nx-1;@#ny:=@#ny-1;
       @#sb.n_:=@#nx*@#ny;
-  
+
       @#ht.n_:=@#ht.n_-1;@#wd.n_:=@#wd.n_-1;
 
     else: % case 2: we remove column |j|
@@ -6313,7 +6313,7 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
       endfor;
       % SPECIAL TREATMENT FOR |@#ht[i]|:
       @#ht[i]:=0;updateHeight_@#(i);
-      
+
       for k:=1 upto j-1:
         @#wd[k]:=transferi_@#(@#wd[k],@#nx,@#ny-1,@#nx+1,j);
       endfor;
@@ -6324,9 +6324,9 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
       % |@#ny| must be updated
       @#ny:=@#ny-1;
       @#sb.n_:=@#nx*@#ny;
-  
+
       @#wd.n_:=@#wd.n_-1;
-      
+
     fi;
   else:
     if isaloneonline_@#(i,j): % case 3: we remove line |i|
@@ -6337,12 +6337,12 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
           @#sb[k]:=whateverstring;
         fi;
       endfor;
-      
+
       % the last line must be refreshed
       for k:=(@#nx-1)*@#ny+1 upto @#nx*@#ny:
         @#sb[k]:=whateverstring;
       endfor;
-      
+
       % |@#wd[]| and |@#ht[]| must be updated,
       % as well as their number of elements.
       for k:=1 upto i-1:
@@ -6359,9 +6359,9 @@ vardef deleteMatrixElement.expl@#(expr i,j)=
       % |@#nx| and |@#ny| must be updated
       @#nx:=@#nx-1;
       @#sb.n_:=@#nx*@#ny;
-  
+
       @#ht.n_:=@#ht.n_-1;
- 
+
     else: % case 4 (easiest case)
       % we cancel the subobject
       @#sb[(i-1)*@#ny+j]:=whateverstring;
@@ -6473,13 +6473,13 @@ enddef;
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
-vardef newEmptyBox@#(expr dx,dy) text options= 
+vardef newEmptyBox@#(expr dx,dy) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"EmptyBox");
   StandardInterface;
   ObjCode StandardEquations,
-          "@#ise-@#isw=(" & decimal dx & ",0)", 
-          "@#ine-@#ise=(0," & decimal dy & ")"; 
+          "@#ise-@#isw=(" & decimal dx & ",0)",
+          "@#ine-@#ise=(0," & decimal dy & ")";
 enddef;
 
 % shortcut (PSTricks compatibility)
@@ -6520,7 +6520,7 @@ def VR(expr dy)=new_VRazor(dy) enddef;
 
 %=====================================================================
 % Definitions specific to the |RandomBox| class
-% A class ``|RandomBox|'' with four random points. 
+% A class ``|RandomBox|'' with four random points.
 
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
@@ -6528,7 +6528,7 @@ def VR(expr dy)=new_VRazor(dy) enddef;
 % |wd| is the width, |ht| the height, and |dx| and |dy| are
 % maximum allowed variations. Then to each point are
 % added |(uniformdeviate(dx),uniformdeviate(dy))|
-vardef newRandomBox@#(expr wd,ht,dx,dy) text options= 
+vardef newRandomBox@#(expr wd,ht,dx,dy) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"RandomBox");
   StandardInterface;
@@ -6564,13 +6564,13 @@ setObjectDefaultOption("RandomBox")("shadowcolor")(black);
 
 %=====================================================================
 % Definitions specific to the |RecursiveBox| class
-% A class ``|RecursiveBox|'' with four points. 
+% A class ``|RecursiveBox|'' with four points.
 
 % A constructor initializing a box containing |n| levels of itself.
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
-vardef newRecursiveBox@#(expr n) text options= 
+vardef newRecursiveBox@#(expr n) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"RecursiveBox");
   StandardInterface;
@@ -6595,7 +6595,7 @@ vardef newRecursiveBox@#(expr n) text options=
      "ypart(@#isw)=ypart(obj(@#sub).obj(botmost));";
   else:
     ObjCode StandardEquations,
-      "@#ise-@#isw=(" & decimal (OptionValue@#("dx")) & ",0)", 
+      "@#ise-@#isw=(" & decimal (OptionValue@#("dx")) & ",0)",
       "@#ine-@#ise=(0," & decimal (OptionValue@#("dy")) & ")";
   fi;
   StandardTies;
@@ -6607,7 +6607,7 @@ def BpathRecursiveBox(suffix n)=StandardBpath(n) enddef;
 
 def drawRecursiveBox(suffix n)=
   drawFramedOrFilledObject_(n);
-  if known n.sub:  
+  if known n.sub:
     drawObj(obj(n.sub));
   fi;
   drawMemorizedPaths_(n);
@@ -6632,7 +6632,7 @@ setObjectDefaultOption("RecursiveBox")("shadowcolor")(black);
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
-vardef newVonKochFlake@#(expr n) text options= 
+vardef newVonKochFlake@#(expr n) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"VonKochFlake");
   StandardInterface;
@@ -6660,7 +6660,7 @@ vardef newVonKochFlake@#(expr n) text options=
       "@#A=obj(@#suba).A=obj(@#subc).E",
       "@#B=obj(@#suba).E=obj(@#subb).A",
       "@#C=obj(@#subb).E=obj(@#subc).A";
-  else:    
+  else:
     ObjCode StandardEquations,
       "@#B-@#A=(" & decimal xpart(p2-p1) & "," & decimal ypart(p2-p1) & ")",
       "@#C-@#A=(" & decimal xpart(p3-p1) & "," & decimal ypart(p3-p1) & ")",
@@ -6687,7 +6687,7 @@ enddef;
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
-vardef newVonKochSide@#(expr pa,pb,n) text options= 
+vardef newVonKochSide@#(expr pa,pb,n) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"VonKochSide");
   StandardInterface;
@@ -6746,14 +6746,14 @@ enddef;
 
 %=====================================================================
 % Definitions specific to the |Box| class
-% A class ``Box'' with four points. 
+% A class ``Box'' with four points.
 
 % A constructor initializing the variable |p| (picture)
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
 % |v| is either a picture, a string or an object given by its number
-vardef newBox@#(expr v) text options= 
+vardef newBox@#(expr v) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"Box");
   StandardInterface;
@@ -6811,7 +6811,7 @@ def defineBox_pathparameters(suffix $)=
     $_spath_$$n_:=1;
   endfor;
 enddef;
-  
+
 def Tr_(expr p)=
   new_Box_(p)("framed(false)")
 enddef;
@@ -6838,7 +6838,7 @@ def BpathBox(suffix n)=
      % |cycle| was added because in certain cases, |unfill| is called
      % on the path returned by |BpathBox|.
      (Path.n(_spath_,1)--cycle)
-     % bad curve:     
+     % bad curve:
 %     (n.nnw{n.nnw-n.nne}..{n.wsw-n.wnw}n.wnw--n.wsw{n.wsw-n.wnw}
 %       ..{n.sse-n.ssw}n.ssw--n.sse{n.sse-n.ssw}
 %       ..{n.ene-n.ese}n.ese--n.ene{n.ene-n.ese}
@@ -6846,7 +6846,7 @@ def BpathBox(suffix n)=
    fi
   )
 enddef;
-    
+
 def drawBox(suffix n)=
   if OptionValue.n("rbox_radius")=0:
     drawFramedOrFilledObject_(n);
@@ -6889,7 +6889,7 @@ setObjectDefaultOption("Box")("picturecolor")(black);
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
 % |nsides| is the number of sides
-vardef newPolygon@#(expr v,nsides) text options= 
+vardef newPolygon@#(expr v,nsides) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"Polygon");
   StandardInterface;
@@ -6905,7 +6905,7 @@ vardef newPolygon@#(expr v,nsides) text options=
   ObjCode StandardEquations,
     if numeric v:
       ".5[@#isw,@#ine]=.5[obj(@#sub)ne,obj(@#sub)sw]", % object
-    elseif (picture v) or (string v):    
+    elseif (picture v) or (string v):
       ".5[@#isw,@#ine]=@#p.off", % picture offset
     fi
     % the size of the box is related to the size of its contents
@@ -6934,7 +6934,7 @@ enddef;
 
 streamline("Polygon")("(expr v,nsides)","(v,nsides)");
 
-def BpathPolygon(suffix n)= 
+def BpathPolygon(suffix n)=
   (for i:=1 upto n.po.n_: n.po[i]--endfor cycle)
 enddef;
 
@@ -6945,8 +6945,8 @@ def drawPolygon(suffix n)=
 enddef;
 
 % These are all the options that can be used with a |Polygon|.
-setObjectDefaultOption("Polygon")("polymargin")(2mm); 
-setObjectDefaultOption("Polygon")("angle")(0); 
+setObjectDefaultOption("Polygon")("polymargin")(2mm);
+setObjectDefaultOption("Polygon")("angle")(0);
 setObjectDefaultOption("Polygon")("filled")(false);
 setObjectDefaultOption("Polygon")("fillcolor")(black);
 setObjectDefaultOption("Polygon")("framed")(true);
@@ -7003,7 +7003,7 @@ enddef;
 % |@#| is a name for a box (must be a suffix)
 % |@#| will be the number of the box, but will also be used
 % as a prefix for other variables.
-vardef newEllipse@#(expr v) text options= 
+vardef newEllipse@#(expr v) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"Ellipse");
   StandardInterface;
@@ -7029,7 +7029,7 @@ vardef newEllipse@#(expr v) text options=
     elseif (picture v) or (string v):
       ".5[@#isw,@#ine]=@#p.off", % picture offset
     fi
-    "@#ise-@#isw=(" & decimal (2@#a+2*@#cdx) & ",0)", 
+    "@#ise-@#isw=(" & decimal (2@#a+2*@#cdx) & ",0)",
     "@#ine-@#ise=(0," & decimal (2@#b+2*@#cdy) & ")";
   StandardTies;
 enddef;
@@ -7048,12 +7048,12 @@ enddef;
 % the current transform (using |inverse|) or use some information
 % stored on the initial status.
 vardef ellipse@#(expr a_,b_,c_,d_)=
-  (fullcircle 
+  (fullcircle
     xscaled (2@#a+2*@#cdx)
     yscaled (2@#b+2*@#cdy)
     transformed @#ctransform_
     shifted ((a_+c_)/2)
-    )  
+    )
 enddef;
 
 def BpathEllipse(suffix n)=
@@ -7082,7 +7082,7 @@ setObjectDefaultOption("Ellipse")("shadowcolor")(black);
 %=====================================================================
 % Definitions specific to the |Circle| class
 
-vardef newCircle@#(expr v) text options= 
+vardef newCircle@#(expr v) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"Circle");
   StandardInterface;
@@ -7095,17 +7095,17 @@ vardef newCircle@#(expr v) text options=
     %  (@#a+d_,0){up}...(0,@#b+d_){left});
   else:
     @#cdx=@#cdy=OptionValue@#("circmargin");
-  fi;    
+  fi;
   ObjCode StandardEquations,
     if numeric v:
       ".5[@#isw,@#ine]=.5[obj(@#sub)ne,obj(@#sub)sw]", % object
     elseif (picture v) or (string v):
       ".5[@#isw,@#ine]=@#p.off", % picture offset
     fi
-    "@#ise-@#isw=(" & decimal(2*max(@#a,@#b)+2*@#cdx) 
+    "@#ise-@#isw=(" & decimal(2*max(@#a,@#b)+2*@#cdx)
       %decimal(@#a++@#b+OptionValue@#("circmargin"))
       & ",0)",
-    "@#ine-@#ise=(0," & decimal(2*max(@#a,@#b)+2*@#cdy) 
+    "@#ine-@#ise=(0," & decimal(2*max(@#a,@#b)+2*@#cdy)
       %decimal(@#a++@#b+OptionValue@#("circmargin"))
       & ")";
   StandardTies;
@@ -7142,11 +7142,11 @@ def TC_(expr s)=
 enddef;
 
 vardef circle@#(expr a_,b_,c_,d_)=
-  (fullcircle 
+  (fullcircle
     scaled 2(@#a+@#cdx)
     transformed @#ctransform_
     shifted ((a_+c_)/2)
-    )  
+    )
 enddef;
 
 def BpathCircle(suffix n)=
@@ -7172,7 +7172,7 @@ setObjectDefaultOption("Circle")("shadowcolor")(black);
 
 %=====================================================================
 % Double Box
-vardef newDBox@#(expr v) text options= 
+vardef newDBox@#(expr v) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"DBox");
   StandardInterface;
@@ -7189,9 +7189,9 @@ vardef newDBox@#(expr v) text options=
     fi
     % inner/outer:
     "@#isw-@#swi=@#nei-@#ine=(-" & decimal(OptionValue@#("hsep")) & ",-" &
-           decimal(OptionValue@#("vsep"))  & ");", 
+           decimal(OptionValue@#("vsep"))  & ");",
     "@#ise-@#sei=@#nwi-@#inw=(" & decimal(OptionValue@#("hsep")) & ",-" &
-           decimal(OptionValue@#("vsep"))  & ");", 
+           decimal(OptionValue@#("vsep"))  & ");",
      % the size of the inner box is related to the size of its contents
     "@#sei-@#swi=(" & decimal(2@#a+2*OptionValue@#("dx")) & ",0)",
     "@#nei-@#sei=(0," & decimal(2@#b+2*OptionValue@#("dy")) & ")";
@@ -7229,7 +7229,7 @@ setObjectDefaultOption("DBox")("shadowcolor")(black);
 
 %=====================================================================
 % Double Ellipse
-vardef newDEllipse@#(expr v) text options= 
+vardef newDEllipse@#(expr v) text options=
   ExecuteOptions(@#)(options);
   assignObj(@#,"DEllipse");
   StandardInterface;
@@ -7259,23 +7259,23 @@ vardef newDEllipse@#(expr v) text options=
      fi
      % inner/outer:
      "@#isw-@#swi=@#nei-@#ine=(-" & decimal(OptionValue@#("hsep")) & ",-" &
-           decimal(OptionValue@#("vsep"))  & ");", 
+           decimal(OptionValue@#("vsep"))  & ");",
      "@#ise-@#sei=@#nwi-@#inw=(" & decimal(OptionValue@#("hsep")) & ",-" &
-           decimal(OptionValue@#("vsep"))  & ");",  
+           decimal(OptionValue@#("vsep"))  & ");",
      "@#ise-@#isw=(" & decimal(2@#a+2*@#cdx) & ",0)",
-     "@#ine-@#ise=(0," & decimal(2@#b+2*@#cdx) & ")";  
+     "@#ine-@#ise=(0," & decimal(2@#b+2*@#cdx) & ")";
   StandardTies;
 enddef;
 
 streamline("DEllipse")("(expr v)","(v)");
 
 vardef innerellipse@#(expr a_,b_,c_,d_)=
-  (fullcircle 
+  (fullcircle
     xscaled (2@#a+2*@#cdx-2*OptionValue@#("hsep"))
     yscaled (2@#b+2*@#cdx-2*OptionValue@#("vsep"))
     transformed @#ctransform_
     shifted ((a_+c_)/2)
-    )  
+    )
 enddef;
 
 def BpathDEllipse(suffix n)=BpathEllipse(n) enddef;

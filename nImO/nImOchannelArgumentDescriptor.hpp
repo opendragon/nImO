@@ -135,7 +135,7 @@ namespace nImO
         void
         swap
             (ChannelArgumentDescriptor &    other);
-        
+
     protected :
         // Protected methods.
 
@@ -194,7 +194,7 @@ namespace nImO
         /*! @brief The default value for the command-line argument. */
         std::string _defaultValue;
 
-        
+
     }; // ChannelArgumentDescriptor
 
 } // nImO

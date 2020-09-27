@@ -85,12 +85,12 @@ namespace nImO
          @param[in] initialValue The initial value for the object. */
         explicit String
             (const std::string &    initialValue);
-        
+
         /*! @brief The constructor.
          @param[in] initialValue The initial value for the object. */
         explicit String
             (const char *   initialValue);
-        
+
         /*! @brief The destructor. */
         virtual
         ~String

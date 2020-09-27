@@ -133,7 +133,7 @@ namespace nImO
         void
         swap
             (StringsArgumentDescriptor & other);
-        
+
     protected :
         // Protected methods.
 

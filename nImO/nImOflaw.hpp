@@ -98,7 +98,7 @@ namespace nImO
         /*! @brief The constructor. */
         Flaw
             (void);
-        
+
         /*! @brief Insert a readable version of the object into an output stream.
          @param[in,out] out The stream to be added to.
          @param[in] aValue The object to be printed.

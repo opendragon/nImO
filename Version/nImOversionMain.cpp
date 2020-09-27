@@ -86,7 +86,7 @@ getBoostVersion
 {
     std::string source(BOOST_LIB_VERSION);
     std::regex  exp("_");
-    
+
     return std::regex_replace(source, exp, ".");
 } // getBoostVersion
 
@@ -155,7 +155,7 @@ main
 
                 default :
                     break;
-                    
+
             }
         }
         catch (...)

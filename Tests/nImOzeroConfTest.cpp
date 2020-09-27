@@ -92,7 +92,7 @@ catchSignal
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
     std::string message("Exiting due to signal ");
-    
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);

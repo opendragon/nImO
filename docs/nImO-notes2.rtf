@@ -27,7 +27,7 @@ length field to remove the need for SOM/EOM? checksum?\
 * nImOlist xyz \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
 * nImOmonitor - information on nImO status\
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
-* nImOversion \'97 reports the versions of the libraries; 
+* nImOversion \'97 reports the versions of the libraries;
 \f1\b DONE
 \f0\b0 \
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
@@ -62,4 +62,6 @@ shell script:\
 \f2\b \cf2 \cb3 \expnd0\expndtw0\kerning0
 fix CMakeLists.txt to use current SWIG commands; check what languages can be generated - currently Python and C#
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
-}
+\
+public operator==()\
+add operator==() tests}

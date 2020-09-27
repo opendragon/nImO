@@ -138,7 +138,7 @@ attemptExtractValueAndCheck
     else
     {
         const Flaw *    asFlaw = extractedValue->asFlaw();
-                    
+
         if (asFlaw)
         {
             ODL_LOG("(asFlaw)"); //####
@@ -206,7 +206,7 @@ doTestMessageInitialEndTag
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMessageInitialEndTag 
+} // doTestMessageInitialEndTag
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
@@ -518,7 +518,7 @@ doTestNonEmptyMessageWithInvalidContentTag
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -535,7 +535,7 @@ doTestNonEmptyMessageWithInvalidContentTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
         }
@@ -577,7 +577,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -596,7 +596,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Bad count for Double @2");
         }
@@ -638,7 +638,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -658,7 +658,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
         }
@@ -700,7 +700,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -720,7 +720,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4");
         }
@@ -762,7 +762,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -785,7 +785,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
         }
@@ -827,7 +827,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -850,7 +850,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
         }
@@ -892,7 +892,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -918,7 +918,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2");
         }
@@ -960,7 +960,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -988,7 +988,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
         }
@@ -1030,7 +1030,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1057,7 +1057,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Array with zero or negative count @4");
         }
@@ -1099,7 +1099,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1133,7 +1133,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
         }
@@ -1175,7 +1175,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1212,7 +1212,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @5");
         }
@@ -1254,7 +1254,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1301,7 +1301,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @29");
         }
@@ -1339,11 +1339,11 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1366,7 +1366,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
         }
@@ -1404,11 +1404,11 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1431,7 +1431,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
         }
@@ -1469,11 +1469,11 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1499,7 +1499,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2");
         }
@@ -1537,11 +1537,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1569,7 +1569,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
         }
@@ -1607,11 +1607,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1638,7 +1638,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Map with zero or negative count @4");
         }
@@ -1676,11 +1676,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1720,7 +1720,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @7");
         }
@@ -1758,11 +1758,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1802,7 +1802,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Map with incorrect end tag @5");
         }
@@ -1840,11 +1840,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1881,7 +1881,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
         }
@@ -1919,11 +1919,11 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -1946,7 +1946,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1");
         }
@@ -1984,11 +1984,11 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2011,7 +2011,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
         }
@@ -2049,11 +2049,11 @@ doTestNonEmptyMessageWithEmptySetWithContent
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2079,7 +2079,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2");
         }
@@ -2117,11 +2117,11 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2149,7 +2149,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3");
         }
@@ -2187,11 +2187,11 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2218,7 +2218,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Set with zero or negative count @4");
         }
@@ -2256,11 +2256,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2294,7 +2294,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5");
         }
@@ -2332,11 +2332,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         auto    stuff(make_unique<Message>());
-        
+
         if (stuff)
         {
             static const DataKind   bytesToInsert[] =
@@ -2373,7 +2373,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t    insertionCount = A_SIZE(bytesToInsert);
-            
+
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6");
         }
@@ -2540,27 +2540,27 @@ main
                     case 60 :
                         result = doTestNonEmptyMessageWithSetWithInitialEndTag(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 61 :
                         result = doTestNonEmptyMessageWithSetWithTerminalStartTag(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 62 :
                         result = doTestNonEmptyMessageWithEmptySetWithContent(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 63 :
                         result = doTestNonEmptyMessageWithNonEmptySetWithoutContent(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 64 :
                         result = doTestNonEmptyMessageWithNonEmptySetWithInvalidCount(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 65 :
                         result = doTestNonEmptyMessageWithNonEmptySetWithTooFewValues(*argv, argc - 1, argv + 2);
                         break;
-                        
+
                     case 66 :
                         result = doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(*argv, argc - 1, argv + 2);
                         break;

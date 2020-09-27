@@ -116,7 +116,7 @@ namespace nImO
         void
         swap
             (PortArgumentDescriptor &   other);
-        
+
     protected :
         // Protected methods.
 

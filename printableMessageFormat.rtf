@@ -1,54 +1,58 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 CourierNewPSMT;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww22400\viewh17500\viewkind0
+\margl1440\margr1440\vieww25160\viewh18640\viewkind0
 \deftab720
-\pard\pardeftab720\sl360\partightenfactor0
+\pard\pardeftab720\ri-12236\partightenfactor0
 
-\f0\fs28 \cf0 \expnd0\expndtw0\kerning0
-<out-message> ::= <sp>* <value>? <sp>*;\
-<in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
-<value> ::= <atom> | <container> | <blob>;\
+\f0\fs24 \cf0 \
+\pard\pardeftab720\ri-12236\sl360\partightenfactor0
+
+\f1\fs28 \cf0 <array> ::= '(' <sp>* <value-list>? <sp>* ')'; ## empty arrays allowed\
+<atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
 <atom> ::= <sign>? <unsigned-number> | <string> | <boolean>;\
-<container> ::= <map> | <array> | <set>;\
-<unsigned-number> ::= <unscaled-number> <exponent>?;\
-<unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
-<string> ::= <single-quoted-string> | <double-quoted-string>;\
-<single-quoted-string> ::= <single-quote> <character>* <single-quote>; ## empty strings allowed\
-<double-quoted-string> ::= <double-quote> <character>* <double-quote>; ## empty strings allowed\
-<single-quote> ::= "'";\
-<double-quote> ::= '"';\
-<sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v'; ## whitespace characters\
-<character> ::= <non-escaped-character> | <escape-character> <special-character>;\
-<escape-character> ::= '\\';\
-<non-escaped-character> ::= <printable-character>; ## quotes need to be escaped\
-<special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
-<escape-sequence> ::= 'a' | 'b' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
-<octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
-<octal-digit> ::= '0' .. '7';\
-<control-sequence> ::= <control-sequence1> | <control-sequence2>;\
-<control-sequence1> ::= 'c' <low-char>;\
-<control-sequence2> ::= 'C-' <low-char>;\
-<low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
-<meta-sequence> ::= 'M-' <meta-char>;\
-<meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
+<blob> ::= '%' <unsigned-integer> '%' <byte>* '%'; ## number of values == leading integer, >= 0\
 <boolean> ::= 'true' | 'false'; ## Note: case-insensitive, initial substrings accepted\
-<sign> ::= '+' | '-';\
-<unsigned-integer> ::= \\d+;\
-<fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
-<exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
+<byte> ::= <hex-digit> <hex-digit>;\
+<character> ::= <non-escaped-character> | <escape-character> <special-character>;\
+<container> ::= <map> | <array> | <set>;\
+<control-sequence> ::= <control-sequence-1> | <control-sequence-2>;\
+<control-sequence-1> ::= 'c' <low-char>;\
+<control-sequence-2> ::= 'C-' <low-char>;\
+<double-quote> ::= '"';\
+<double-quoted-string> ::= <double-quote> <character>* <double-quote>; ## empty strings allowed\
+<escape-character> ::= '\\';\
+<escape-sequence> ::= 'a' | 'b' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
 <exponent-tag> ::= 'e' | 'E';\
-<value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
+<exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
+<fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
+<hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
+<in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
+<low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
 <map> ::= '\{' <sp>* <mapped-value-list>? <sp>* '\}'; ## the first key seen establishes the type of remaining keys\
 <mapped-value-list> ::= <mapped-value> (<sp>+ <mapped-value>)*; ## space-separated key/value pairs\
 <mapped-value> ::= <atom> <sp>* '>' <sp>* <value>; ## floating-point numbers can't be keys\
-<array> ::= '(' <sp>* <value-list>? <sp>* ')'; ## empty arrays allowed\
-<set> ::= '[' <sp>* <atom-list>? <sp>* ']'; ## empty sets allowed and floating-point numbers can't be keys\
-<atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
-<blob> ::= '%' <unsigned-integer> '%' <byte>* '%'; ## number of values == leading integer, >= 0\
-<byte> ::= <hex-digit> <hex-digit>;\
-<hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
+<meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
+<meta-sequence> ::= 'M-' <meta-char>;\
+<non-escaped-character> ::= <printable-character>; ## quotes need to be escaped\
+<octal-digit> ::= '0' .. '7';\
+<octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
+<out-message> ::= <sp>* <value>? <sp>*;\
+<set> ::= '[' <sp>* <atom-list>? <sp>* ']'; ## empty sets allowed and floating-point numbers can't be elements\
+<sign> ::= '+' | '-';\
+<single-quote> ::= "'";\
+<single-quoted-string> ::= <single-quote> <character>* <single-quote>; ## empty strings allowed\
+<sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v'; ## whitespace characters\
+<special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
+<string> ::= <single-quoted-string> | <double-quoted-string>;\
+<unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
+<unsigned-integer> ::= \\d+;\
+<unsigned-number> ::= <unscaled-number> <exponent>?;\
+<value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
+<value> ::= <atom> | <container> | <blob>;\
+\pard\pardeftab720\ri-12236\sl360\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
 \
 ## when generating output, insert single spaces wherever <sp>+ or <sp>* appear in these patterns,\
 ## unless 'squashed' output is requested, in which case single spaces only appear wherever <sp>+ appears\

@@ -130,7 +130,7 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {

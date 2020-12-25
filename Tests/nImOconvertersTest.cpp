@@ -138,12 +138,12 @@ doTestInvalidArgs
                 {
                     case 1:
                         // Test conversion bad NULL arguments
-                        if ((0 == ConvertInt64ToPacketOrder(buffer, NULL, 42)) &&
-                            (0 == ConvertDoubleToPacketOrder(buffer, NULL, 42.0)) &&
-                            (0 == ConvertPacketOrderToInt64(buffer, NULL, newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(buffer, NULL, newDouble)) &&
-                            (0 == ConvertPacketOrderToInt64(NULL, buffer, newInteger)) &&
-                            (0 == ConvertPacketOrderToDouble(NULL, buffer, newDouble)))
+                        if ((0 == ConvertInt64ToPacketOrder(buffer, nullptr, 42)) &&
+                            (0 == ConvertDoubleToPacketOrder(buffer, nullptr, 42.0)) &&
+                            (0 == ConvertPacketOrderToInt64(buffer, nullptr, newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(buffer, nullptr, newDouble)) &&
+                            (0 == ConvertPacketOrderToInt64(nullptr, buffer, newInteger)) &&
+                            (0 == ConvertPacketOrderToDouble(nullptr, buffer, newDouble)))
                         {
                             result = 0;
                         }
@@ -213,7 +213,7 @@ doTestIntegerSize
 
             if (ConvertToInt64(*argv, value) && ConvertToInt64(argv[1], length))
             {
-                size_t  calcLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
+                size_t  calcLength = ConvertInt64ToPacketOrder(nullptr, nullptr, value);
 
                 if (StaticCast(int64_t, calcLength) == length)
                 {
@@ -268,7 +268,7 @@ doTestDoubleSize
     {
         double  value = ((rand() % 10000) * 0.1);
         size_t  expectedLength = sizeof(double);
-        int64_t calcLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
+        int64_t calcLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
 
         if (calcLength == StaticCast(int64_t, expectedLength))
         {
@@ -317,7 +317,7 @@ doTestIntegerConversion
 
             if (ConvertToInt64(*argv, value))
             {
-                size_t  expectedLength = ConvertInt64ToPacketOrder(NULL, NULL, value);
+                size_t  expectedLength = ConvertInt64ToPacketOrder(nullptr, nullptr, value);
                 uint8_t buffer[kBufferSize];
                 size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
 
@@ -385,7 +385,7 @@ doTestDoubleConversion
         for (int ii = 0; ii < kNumDoubleTests; ++ii)
         {
             double  value = ((rand() % 10000) * 0.1);
-            size_t  expectedLength = ConvertDoubleToPacketOrder(NULL, NULL, value);
+            size_t  expectedLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
             uint8_t buffer[kBufferSize];
             size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
 

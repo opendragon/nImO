@@ -464,7 +464,7 @@ doTestDoubleArgumentDescriptors
                 if (2 == argc)
                 {
                     testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       strtod(*argv, NULL), false, 0, true, 1000));
+                                                                       strtod(*argv, nullptr), false, 0, true, 1000));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -654,7 +654,7 @@ doTestIntArgumentDescriptors
                 if (2 == argc)
                 {
                     testDescriptor.reset(new IntArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   strtol(*argv, NULL, 10), false, 0, true, 1000));
+                                                                   strtol(*argv, nullptr, 10), false, 0, true, 1000));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -752,7 +752,7 @@ doTestPortArgumentDescriptors
                 if (2 == argc)
                 {
                     testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                    strtol(*argv, NULL, 10), false));
+                                                                    strtol(*argv, nullptr, 10), false));
                     std::cerr << testDescriptor->toString() << std::endl;
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {

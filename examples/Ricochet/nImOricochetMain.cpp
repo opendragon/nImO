@@ -103,7 +103,7 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {

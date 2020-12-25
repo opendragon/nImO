@@ -132,7 +132,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {

@@ -861,7 +861,7 @@ namespace nImO
          const int              year,
          const char *           copyrightHolder,
          OutputFlavour &        flavour,
-         HelpFunction           helper = NULL,
+         HelpFunction           helper = nullptr,
          const bool             ignoreFlavours = false,
          StringVector *         arguments = nullptr);
 

@@ -100,7 +100,7 @@ main
     nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Remove application", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {

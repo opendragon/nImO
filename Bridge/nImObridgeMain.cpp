@@ -124,7 +124,7 @@ main
     nImO::OutputFlavour     flavour;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, NULL, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {

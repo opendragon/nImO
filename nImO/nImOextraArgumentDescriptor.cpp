@@ -116,7 +116,7 @@ ExtraArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<ExtraArgumentDescriptor>(*this);
+    auto    result{std::make_shared<ExtraArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -138,7 +138,7 @@ ExtraArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(getDefaultValue());
+    std::string result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -178,11 +178,11 @@ ExtraArgumentDescriptor::parseArgString
     {
         ArgumentMode    argMode;
         bool            okSoFar = true;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]); // ignored
-        std::string     description(inVector[4]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]}; // ignored
+        std::string     description{inVector[4]};
 
         if ("E" != typeTag)
         {
@@ -229,7 +229,7 @@ ExtraArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("E"));
+    std::string result{prefixFields("E")};
 
     result += suffixFields("");
     ODL_OBJEXIT_s(result); //####
@@ -242,10 +242,10 @@ ExtraArgumentDescriptor::validate
 {
     ODL_OBJENTER(); //####
     //ODL_P1("value = ", &value); //####
-    _valid = true;
-    ODL_B1("_valid <- ", _valid); //####
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    setValidity(true);
+    ODL_B1("_valid <- ", isValid()); //####
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // ExtraArgumentDescriptor::validate
 
 #if defined(__APPLE__)

@@ -151,13 +151,13 @@ nImO::Array::deeplyEqualTo
 
         if (otherPtr && (size() == otherPtr->size()))
         {
-            const_iterator  thisWalker(inherited2::begin());
-            const_iterator  otherWalker(otherPtr->inherited2::begin());
+            auto    thisWalker{inherited2::begin()};
+            auto    otherWalker{otherPtr->inherited2::begin()};
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisValue(*thisWalker);
-                SpValue otherValue(*otherWalker);
+                SpValue thisValue{*thisWalker};
+                SpValue otherValue{*otherWalker};
 
                 if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
@@ -181,12 +181,12 @@ nImO::Array::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result(inherited2::begin() != inherited2::end());
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (aValue)
         {
@@ -265,7 +265,7 @@ nImO::Array::extractValue
                 }
                 else
                 {
-                    auto    anArray = std::make_shared<Array>();
+                    auto    anArray{std::make_shared<Array>()};
 
                     result = anArray;
                     if (nullptr == result)
@@ -290,7 +290,7 @@ nImO::Array::extractValue
                             }
                             else
                             {
-                                SpValue aValue(getValueFromMessage(theMessage, position, aByte, anArray));
+                                SpValue aValue{getValueFromMessage(theMessage, position, aByte, anArray)};
 
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
@@ -417,9 +417,9 @@ nImO::Array::greaterThan
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (aValue)
         {
@@ -440,9 +440,9 @@ nImO::Array::greaterThanOrEqual
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (aValue)
         {
@@ -463,9 +463,9 @@ nImO::Array::lessThan
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (aValue)
         {
@@ -486,9 +486,9 @@ nImO::Array::lessThanOrEqual
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
     // Note that all the values must be validated.
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (aValue)
         {
@@ -507,9 +507,9 @@ nImO::Array::operator <<
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
     out << kStartArrayChar;
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (nullptr != aValue)
         {
@@ -533,9 +533,9 @@ nImO::Array::printToStringBuffer
     bool    first = true;
 
     outBuffer.addChar(kStartArrayChar);
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (nullptr != aValue)
         {
@@ -565,7 +565,7 @@ nImO::Array::readFromStringBuffer
     bool    atEnd;
     bool    done = false;
     bool    valid = false;
-    auto    result = std::make_shared<Array>();
+    auto    result{std::make_shared<Array>()};
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
@@ -598,7 +598,7 @@ nImO::Array::readFromStringBuffer
             }
             else
             {
-                SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
+                SpValue element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == element)
@@ -650,9 +650,9 @@ nImO::Array::writeToMessage
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(*walker);
+            SpValue aValue{*walker};
 
             if (aValue)
             {

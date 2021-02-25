@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide network connection points. */
-    class ChannelName
+    class ChannelName final
     {
     public :
         // Public type definitions.
@@ -78,6 +78,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         ChannelName
             (const ChannelName &  other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ChannelName
+            (ChannelName &&	other)
+            noexcept;
 
         /*! @brief Return the name in standard form.
          @return The name in standard form. */

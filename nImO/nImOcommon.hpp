@@ -68,8 +68,6 @@
 #  endif // ! defined(__linux__)
 # endif // ! defined(MAC_OR_LINUX_)
 
-//# include <algorithm>
-//# include <cctype>
 # include <cmath>
 # include <csignal>
 # include <cstdlib>
@@ -81,9 +79,7 @@
 # include <mutex>
 # include <queue>
 # include <set>
-//# include <stdint.h>
 # include <sstream>
-//# include <time.h>
 # include <vector>
 
 # if MAC_OR_LINUX_
@@ -676,6 +672,16 @@ namespace nImO
         (const char *   startPtr,
          double &       result);
 
+    /*! @brief Convert a string to a double value.
+     @param[in] aString The string to be converted.
+     @param[out] result The value represented by the string.
+     @return @c true if the string contained a representation of a double and @c false
+     otherwise. */
+    bool
+    ConvertToDouble
+        (const std::string &    aString,
+         double &               result);
+
     /*! @brief Convert a string to an integer value.
      @param[in] startPtr The string to be converted.
      @param[out] result The value represented by the string.
@@ -685,6 +691,16 @@ namespace nImO
     ConvertToInt64
         (const char *   startPtr,
          int64_t &      result);
+
+    /*! @brief Convert a string to an integer value.
+     @param[in] aString The string to be converted.
+     @param[out] result The value represented by the string.
+     @return @c true if the string contained a representation of an integer and @c false
+     otherwise. */
+    bool
+    ConvertToInt64
+        (const std::string &    aString,
+         int64_t &              result);
 
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.

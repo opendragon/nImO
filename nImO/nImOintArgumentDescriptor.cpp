@@ -129,7 +129,7 @@ IntArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<IntArgumentDescriptor>(*this);
+    auto    result{std::make_shared<IntArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -140,7 +140,7 @@ IntArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result = std::to_string(_defaultValue);
+    std::string result{std::to_string(_defaultValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -151,7 +151,7 @@ IntArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(getDefaultValue());
+    std::string result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -162,7 +162,7 @@ IntArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result = std::to_string(_currentValue);
+    std::string result{std::to_string(_currentValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -184,13 +184,13 @@ IntArgumentDescriptor::parseArgString
         int             defaultValue = 0;
         int             maxValue;
         int             minValue = 0;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     minValString(inVector[3]);
-        std::string     maxValString(inVector[4]);
-        std::string     defaultString(inVector[5]);
-        std::string     description(inVector[6]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     minValString{inVector[3]};
+        std::string     maxValString{inVector[4]};
+        std::string     defaultString{inVector[5]};
+        std::string     description{inVector[6]};
 
         if ("I" != typeTag)
         {
@@ -209,7 +209,7 @@ IntArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(defaultString.c_str(), intValue))
+            if (nImO::ConvertToInt64(defaultString, intValue))
             {
                 defaultValue = StaticCast(int, intValue);
             }
@@ -222,7 +222,7 @@ IntArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(minValString.c_str(), intValue))
+            if (nImO::ConvertToInt64(minValString, intValue))
             {
                 minValue = StaticCast(int, intValue);
             }
@@ -235,7 +235,7 @@ IntArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(maxValString.c_str(), intValue))
+            if (nImO::ConvertToInt64(maxValString, intValue))
             {
                 maxValue = StaticCast(int, intValue);
             }
@@ -289,14 +289,14 @@ IntArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("I"));
+    std::string result{prefixFields("I")};
 
-    result += _parameterSeparator;
+    result += getParameterSeparator();
     if (_hasMinimumValue)
     {
         result += std::to_string(_minimumValue);
     }
-    result += _parameterSeparator;
+    result += getParameterSeparator();
     if (_hasMaximumValue)
     {
         result += std::to_string(_maximumValue);
@@ -313,33 +313,33 @@ IntArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     int64_t intValue;
 
-    if (nImO::ConvertToInt64(value.c_str(), intValue))
+    if (nImO::ConvertToInt64(value, intValue))
     {
-        _valid = true;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(true);
+        ODL_B1("_valid <- ", isValid()); //####
         if (_hasMinimumValue && (intValue < _minimumValue))
         {
-            _valid = false;
-            ODL_B1("_valid <- ", _valid); //####
+            setValidity(false);
+            ODL_B1("_valid <- ", isValid()); //####
         }
         if (_hasMaximumValue && (intValue > _maximumValue))
         {
-            _valid = false;
-            ODL_B1("_valid <- ", _valid); //####
+            setValidity(false);
+            ODL_B1("_valid <- ", isValid()); //####
         }
     }
     else
     {
-        _valid = false;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(false);
+        ODL_B1("_valid <- ", isValid()); //####
     }
-    if (_valid)
+    if (isValid())
     {
         _currentValue = StaticCast(int, intValue);
         ODL_I1("_currentValue <- ", _currentValue); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // IntArgumentDescriptor::validate
 
 #if defined(__APPLE__)

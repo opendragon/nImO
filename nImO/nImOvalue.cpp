@@ -394,8 +394,8 @@ nImO::Value::getValueFromMessage
     ODL_ENTER(); //####
     ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    SpValue                 result;
-    ExtractorMapIterator    match = gExtractors.find(StaticCast(uint8_t, leadByte));
+    SpValue result;
+    auto    match{gExtractors.find(StaticCast(uint8_t, leadByte))};
 
     if (gExtractors.end() == match)
     {
@@ -614,7 +614,10 @@ nImO::Value::operator <<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
+    std::ios_base::fmtflags  originalFormat = out.flags();
+
     out << std::hex << "0x" << ReinterpretCast(int64_t, this);
+    out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Value::operator <<
@@ -654,7 +657,7 @@ nImO::Value::readFromStringBuffer
     }
     else
     {
-        BufferReaderIterator    match = gReaders.find(aChar);
+        auto    match{gReaders.find(aChar)};
 
         if (gReaders.end() == match)
         {
@@ -662,7 +665,7 @@ nImO::Value::readFromStringBuffer
         }
         else
         {
-            BufferReader    handler = match->second;
+            BufferReader    handler{match->second};
 
             if (nullptr == handler)
             {

@@ -65,10 +65,10 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The standard textual representation of a @c false value. */
-static const std::string kCanonicalFalse("false");
+static const std::string kCanonicalFalse{"false"};
 
 /*! @brief The standard textual representation of a @c true value. */
-static const std::string kCanonicalTrue("true");
+static const std::string kCanonicalTrue{"true"};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -211,7 +211,7 @@ nImO::Logical::extractValue
     //ODL_P1("theMessage = ", &theMessage);
     ODL_P2("position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    auto    result = std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte));
+    auto    result{std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte))};
 
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
@@ -444,7 +444,10 @@ nImO::Logical::operator <<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
+    std::ios_base::fmtflags  originalFormat = out.flags();
+
     out << std::boolalpha << _value;
+    out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Logical::operator <<

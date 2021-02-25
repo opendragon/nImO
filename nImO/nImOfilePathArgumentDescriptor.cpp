@@ -96,7 +96,7 @@ checkFilePath
 
     if (forOutput)
     {
-        std::string dirPath(thePath);
+        std::string dirPath{thePath};
         size_t      lastDelim = dirPath.rfind(kDirectorySeparator[0]);
 
         if (dirPath.npos == lastDelim)
@@ -196,7 +196,7 @@ FilePathArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<FilePathArgumentDescriptor>(*this);
+    auto    result{std::make_shared<FilePathArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -209,20 +209,20 @@ FilePathArgumentDescriptor::getDefaultValue
     ODL_OBJENTER(); //####
     if (! _defaultSet)
     {
-        _defaultValue = _pathPrefix;
-        ODL_S1s("_defaultValue <- ", _defaultValue); //####
+        setDefaultValue(_pathPrefix);
+        ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
         if (_useRandomPath)
         {
-            _defaultValue += GetRandomHexString();
-            ODL_S1s("_defaultValue <- ", _defaultValue); //####
+            setDefaultValue(inherited::getDefaultValue() + GetRandomHexString());
+            ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
         }
-        _defaultValue += _pathSuffix;
-        ODL_S1s("_defaultValue <- ", _defaultValue); //####
+        setDefaultValue(inherited::getDefaultValue() + _pathSuffix);
+        ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
         _defaultSet = true;
         ODL_B1("_defaultSet <- ", _defaultSet); //####
     }
-    ODL_OBJEXIT_s(_defaultValue); //####
-    return _defaultValue;
+    ODL_OBJEXIT_s(inherited::getDefaultValue()); //####
+    return inherited::getDefaultValue();
 } // FilePathArgumentDescriptor::getDefaultValue
 
 std::string
@@ -230,7 +230,7 @@ FilePathArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(getDefaultValue());
+    std::string result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -262,14 +262,14 @@ FilePathArgumentDescriptor::parseArgString
         bool            forOutput = false;
         bool            okSoFar = true;
         bool            usesRandom = false;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     direction(inVector[3]);
-        std::string     suffixValue(inVector[4]);
-        std::string     randomFlag(inVector[5]);
-        std::string     defaultString(inVector[6]);
-        std::string     description(inVector[7]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     direction{inVector[3]};
+        std::string     suffixValue{inVector[4]};
+        std::string     randomFlag{inVector[5]};
+        std::string     defaultString{inVector[6]};
+        std::string     description{inVector[7]};
 
         if ("F" != typeTag)
         {
@@ -308,7 +308,7 @@ FilePathArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            std::string tempString(defaultString);
+            std::string tempString{defaultString};
 
             if (usesRandom)
             {
@@ -333,9 +333,8 @@ FilePathArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    getDefaultValue();
-    _currentValue = _defaultValue;
-    ODL_S1s("_currentValue <- ", _currentValue); //####
+    setCurrentValue(getDefaultValue());
+    ODL_S1s("_currentValue <- ", getCurrentValue()); //####
     ODL_OBJEXIT(); //####
 } // FilePathArgumentDescriptor::setToDefaultValue
 
@@ -359,13 +358,13 @@ FilePathArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string oldDefault(_defaultValue);
-    std::string result(prefixFields("F"));
+    std::string oldDefault{inherited::getDefaultValue()};
+    std::string result{prefixFields("F")};
 
     // Temporarily change the default value to the prefix value, as that's how we pass the path
     // prefix to the outside world.
-    result += _parameterSeparator + (_forOutput ? "o" : "i") + _parameterSeparator + _pathSuffix +
-                _parameterSeparator + (_useRandomPath ? "1" : "0") + suffixFields(_pathPrefix);
+    result += getParameterSeparator() + (_forOutput ? "o" : "i") + getParameterSeparator() + _pathSuffix +
+                getParameterSeparator() + (_useRandomPath ? "1" : "0") + suffixFields(_pathPrefix);
     ODL_OBJEXIT_s(result); //####
     return result;
 } // FilePathArgumentDescriptor::toString
@@ -375,15 +374,15 @@ FilePathArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    _valid = checkFilePath(value.c_str(), _forOutput, false);
-    ODL_B1("_valid <- ", _valid); //####
-    if (_valid)
+    setValidity(checkFilePath(value.c_str(), _forOutput, false));
+    ODL_B1("_valid <- ", isValid()); //####
+    if (isValid())
     {
-        _currentValue = value;
-        ODL_S1s("_currentValue <- ", _currentValue); //####
+        setCurrentValue(value);
+        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // FilePathArgumentDescriptor::validate
 
 #if defined(__APPLE__)

@@ -112,6 +112,12 @@ namespace nImO
         IntArgumentDescriptor
             (const IntArgumentDescriptor &  other);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        IntArgumentDescriptor
+            (IntArgumentDescriptor &&	other)
+            noexcept;
+
         /*! @brief The destructor. */
         virtual
         ~IntArgumentDescriptor
@@ -203,14 +209,14 @@ namespace nImO
     protected :
         // Protected fields.
 
-        /*! @brief The default value for the command-line argument. */
-        int _defaultValue;
-
     private :
         // Private fields.
 
         /*! @brief The current value of the command-line argument. */
         int _currentValue;
+
+        /*! @brief The default value for the command-line argument. */
+        int _defaultValue;
 
         /*! @brief The maximum value that is acceptable. */
         int64_t _maximumValue;

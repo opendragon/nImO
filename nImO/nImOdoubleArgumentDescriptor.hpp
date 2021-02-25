@@ -69,7 +69,7 @@ namespace nImO
 
      maxDoubleValue ::= doubleValue | ;
      # empty value indicates no maximum constraint. */
-    class DoubleArgumentDescriptor : public BaseArgumentDescriptor
+    class DoubleArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -111,6 +111,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         DoubleArgumentDescriptor
             (const DoubleArgumentDescriptor &   other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        DoubleArgumentDescriptor
+            (DoubleArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

@@ -61,7 +61,7 @@ namespace nImO
     The external representation of an address argument description is:
 
      addressTagAndInfo ::= 'A'; */
-    class AddressArgumentDescriptor : public StringArgumentDescriptor
+    class AddressArgumentDescriptor final : public StringArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -96,6 +96,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         AddressArgumentDescriptor
             (const AddressArgumentDescriptor &  other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        AddressArgumentDescriptor
+            (AddressArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

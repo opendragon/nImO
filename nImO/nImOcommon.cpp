@@ -76,10 +76,8 @@ using std::endl;
 /*! @brief @c true once the random number generator is seeded. */
 static bool lRandomSeeded = false;
 
-#if 0
 /*! @brief The maximum integer that we wish to use for generated random values. */
 static const int    kMaxRandom = 123456789;
-#endif//0
 
 #if 0
 /*! @brief @c true if the executable is running or ready-to-run and @c false otherwise. */
@@ -119,9 +117,9 @@ const uint8_t   nImO::kEscapeChar = '\\';
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_
-const std::string   nImO::kDirectorySeparator = "/";
+const std::string   nImO::kDirectorySeparator{"/"};
 #else // ! MAC_OR_LINUX_
-const std::string   nImO::kDirectorySeparator = "\\";
+const std::string   nImO::kDirectorySeparator{"\\"};
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
@@ -141,7 +139,7 @@ localCatcher
 #if 0
     if (lLogger)
     {
-        std::string message("Exiting due to signal ");
+        std::string message{"Exiting due to signal "};
 
         message += std::to_string(signal);
         message += " = ";
@@ -290,7 +288,7 @@ nImO::ConvertDoubleToString
     std::ostringstream  holder;
 
     holder << std::defaultfloat << value;
-    std::string result(holder.str());
+    std::string result{holder.str()};
 
     ODL_EXIT_s(result); //####
     return result;
@@ -323,6 +321,20 @@ nImO::ConvertToDouble
 } // nImO::ConvertToDouble
 
 bool
+nImO::ConvertToDouble
+    (const std::string &    aString,
+     double &               result)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("aString = ", aString); //####
+    ODL_P1("result = ", &result); //####
+    bool    okSoFar = ConvertToDouble(aString.c_str(), result);
+
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ConvertToDouble
+
+bool
 nImO::ConvertToInt64
     (const char *   startPtr,
      int64_t &      result)
@@ -344,6 +356,20 @@ nImO::ConvertToInt64
     {
         okSoFar = false;
     }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ConvertToInt64
+
+bool
+nImO::ConvertToInt64
+    (const std::string &    aString,
+     int64_t &              result)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("aString = ", aString); //####
+    ODL_P1("result = ", &result); //####
+    bool    okSoFar = ConvertToInt64(aString.c_str(), result);
+
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToInt64
@@ -373,7 +399,7 @@ nImO::DumpContactToLog
 #if MAC_OR_LINUX_
     if (lLogger)
     {
-        std::string message("tag = ");
+        std::string message{"tag = "};
 
         message += tag;
 # if USE_YARP_FATAL_NOT_FAIL_
@@ -456,7 +482,7 @@ nImO::GetRandomChannelName
 #if 0
         int                 randNumb = StaticCast(int, yarp::os::Random::uniform() * kMaxRandom);
 #else//0
-        int                 randNumb = 17;
+        int                 randNumb = (rand() % kMaxRandom);
 #endif//0
         std::stringstream   buff;
 
@@ -509,7 +535,7 @@ nImO::GetRandomHexString
 #if defined(__APPLE__)
         sranddev();
 #else // ! defined(__APPLE__)
-        srand(clock());
+        srand(StaticCast(unsigned int, time(nullptr)));
 #endif // ! defined(__APPLE__)
         lRandomSeeded = true;
     }
@@ -618,7 +644,7 @@ nImO::Initialize
 # if MAC_OR_LINUX_
         if (lLogger)
         {
-            std::string message("Program ");
+            std::string message{"Program "};
 
             message += progName;
 #  if USE_YARP_FATAL_NOT_FAIL_
@@ -835,20 +861,20 @@ nImO::OutputDescription
     size_t      indentSize = strlen(heading);
     size_t      pieceStart = 0;
     std::string blanks(indentSize, ' ');
-    std::string indent(heading);
+    std::string indent{heading};
 
     for (size_t ii = 0; ii < descriptionLength; ++ii)
     {
         if ('\n' == description[ii])
         {
-            std::string piece(description.substr(pieceStart, ii - pieceStart));
+            std::string piece{description.substr(pieceStart, ii - pieceStart)};
 
             outStream << indent << piece.c_str() << endl;
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
-    std::string piece(description.substr(pieceStart, descriptionLength - pieceStart));
+    std::string piece{description.substr(pieceStart, descriptionLength - pieceStart)};
 
     outStream << indent << piece.c_str() << endl;
 } // nImO::OutputDescription
@@ -870,7 +896,7 @@ nImO::ProcessStandardUtilitiesOptions
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-           "flavour = ", &flavour, "helper = ", helper); //####
+           "flavour = ", &flavour, "helper = ", &helper); //####
     ODL_P1("arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
@@ -886,30 +912,30 @@ nImO::ProcessStandardUtilitiesOptions
     }; // OptionIndex
 
     bool                    keepGoing = true;
-    Option_::Descriptor     firstDescriptor(StaticCast(unsigned, OptionIndex::UNKNOWN), 0, "", "",
-                                            Option_::Arg::None, nullptr);
-    Option_::Descriptor     helpDescriptor(StaticCast(unsigned, OptionIndex::HELP), 0, "h", "help",
+    Option_::Descriptor     firstDescriptor{StaticCast(unsigned int, OptionIndex::UNKNOWN), 0, "", "",
+                                            Option_::Arg::None, nullptr};
+    Option_::Descriptor     helpDescriptor{StaticCast(unsigned int, OptionIndex::HELP), 0, "h", "help",
                                            Option_::Arg::None,
-                                           T_("  --help, -h    Print usage and exit"));
-    Option_::Descriptor     infoDescriptor(StaticCast(unsigned, OptionIndex::INFO), 0, "i", "info",
+                                           T_("  --help, -h    Print usage and exit")};
+    Option_::Descriptor     infoDescriptor{StaticCast(unsigned int, OptionIndex::INFO), 0, "i", "info",
                                            Option_::Arg::None,
-                                           T_("  --info, -i    Print type and description and exit"));
-    Option_::Descriptor     jsonDescriptor(StaticCast(unsigned, OptionIndex::JSON), 0, "j", "json",
+                                           T_("  --info, -i    Print type and description and exit")};
+    Option_::Descriptor     jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
                                            Option_::Arg::None,
-                                           T_("  --json, -j    Generate output in JSON format"));
-    Option_::Descriptor     tabsDescriptor(StaticCast(unsigned, OptionIndex::TABS), 0, "t", "tabs",
+                                           T_("  --json, -j    Generate output in JSON format")};
+    Option_::Descriptor     tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
                                            Option_::Arg::None,
-                                           T_("  --tabs, -t    Generate output in tab-format"));
-    Option_::Descriptor     versionDescriptor(StaticCast(unsigned, OptionIndex::VERSION), 0, "v",
+                                           T_("  --tabs, -t    Generate output in tab-format")};
+    Option_::Descriptor     versionDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "v",
                                               "vers", Option_::Arg::None,
-                                              T_("  --vers, -v    Print version information and exit"));
-    Option_::Descriptor     lastDescriptor(0, 0, nullptr, nullptr, nullptr, nullptr);
+                                              T_("  --vers, -v    Print version information and exit")};
+    Option_::Descriptor     lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     Option_::Descriptor     usage[7]; // first, help, info, json, tabs, version
     Option_::Descriptor *   usageWalker = usage;
     int                     argcWork = argc;
     char **                 argvWork = argv;
-    std::string             usageString("USAGE: ");
-    std::string             argList(ArgumentsToArgString(argumentDescriptions));
+    std::string             usageString{"USAGE: "};
+    std::string             argList{ArgumentsToArgString(argumentDescriptions)};
 
     flavour = OutputFlavour::Normal;
     usageString += *argv;
@@ -982,15 +1008,15 @@ nImO::ProcessStandardUtilitiesOptions
     }
     else if (options[StaticCast(size_t, OptionIndex::VERSION)])
     {
-        std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
+        std::string nImOversionString{SanitizeString(nImO_VERSION_, true)};
 
-        cout << "Version " << nImOversionString.c_str() << ": Copyright (c) " << year << " by " <<
-        copyrightHolder << "." << endl;
+        cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
+                copyrightHolder << "." << endl;
         keepGoing = false;
     }
     else if (options[StaticCast(size_t, OptionIndex::INFO)])
     {
-        cout << "Utility\t" << utilityDescription.c_str() << endl;
+        cout << "Utility\t" << utilityDescription << endl;
         keepGoing = false;
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
@@ -1014,7 +1040,7 @@ nImO::ProcessStandardUtilitiesOptions
     }
     else
     {
-        cout << "One or more invalid or missing arguments (" << badArgs.c_str() << ")." << endl;
+        cout << "One or more invalid or missing arguments (" << badArgs << ")." << endl;
         keepGoing = false;
     }
     ODL_EXIT_B(keepGoing); //####

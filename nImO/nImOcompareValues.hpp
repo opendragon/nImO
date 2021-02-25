@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide values that are used to compare pointers to values. */
-    class CompareValues
+    class CompareValues final
     {
     public :
         // Public type definitions.
@@ -72,6 +72,19 @@ namespace nImO
         /*! @brief The constructor. */
         CompareValues
             (void);
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        inline CompareValues
+            (const CompareValues &	NOT_USED_(other))
+        {
+        } // copy constructor
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        CompareValues
+            (CompareValues &&	other)
+            noexcept = default;
 
         /*! @brief The destructor. */
         virtual

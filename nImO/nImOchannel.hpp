@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide network connection points. */
-    class Channel
+    class Channel final
     {
     public :
         // Public type definitions.
@@ -72,6 +72,12 @@ namespace nImO
         /*! @brief The constructor. */
         Channel
             (void);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Channel
+            (Channel &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

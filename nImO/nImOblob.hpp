@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide binary data with unknown structure. */
-    class Blob : public Value
+    class Blob final : public Value
     {
     public :
         // Public type definitions.
@@ -87,6 +87,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Blob
             (const Blob &   other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Blob
+            (Blob &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -184,12 +190,20 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         Blob &
         operator =
             (const Blob &   other);
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Blob &
+        operator =
+            (Blob &&  other)
+            noexcept;
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[out] outBuffer The buffer to be appended to.

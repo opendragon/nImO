@@ -92,7 +92,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -129,7 +129,7 @@ setValueAndCheck
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    auto    contents1(stuff.getBytes());
+    auto    contents1{stuff.getBytes()};
     size_t  length1 = contents1.size();
     int     result;
 
@@ -142,7 +142,7 @@ setValueAndCheck
         {
             if (expectedContents2 && expectedSize2)
             {
-                std::string contents2(stuff.getBytesForTransmission());
+                std::string contents2{stuff.getBytesForTransmission()};
                 size_t      length2 = contents2.size();
 
                 ODL_PACKET("expectedContents2", expectedContents2, expectedSize2); //####
@@ -195,7 +195,7 @@ doTestInsertEmptyMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -208,7 +208,7 @@ doTestInsertEmptyMessage
             };
             const size_t            expectedEmptyByteCount = A_SIZE(expectedEmptyBytes);
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto                    contents1(stuff->getBytes());
+            auto                    contents1{stuff->getBytes()};
             size_t                  length1 = contents1.size();
 
             stuff->open(true);
@@ -230,7 +230,7 @@ doTestInsertEmptyMessage
                             0x17 // Checksum
                         };
                         const size_t            transmitEmptyByteCount = A_SIZE(transmitEmptyBytes);
-                        std::string             contents2(stuff->getBytesForTransmission());
+                        std::string             contents2{stuff->getBytesForTransmission()};
                         size_t                  length2 = contents2.size();
 
                         ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
@@ -294,7 +294,7 @@ doTestInsertLogicalMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -391,7 +391,7 @@ doTestInsertTinyIntegerMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -518,7 +518,7 @@ doTestInsertSmallIntegerMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -618,7 +618,7 @@ doTestInsertMediumIntegerMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -720,7 +720,7 @@ doTestInsertBigIntegerMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -824,7 +824,7 @@ doTestInsertEmptyStringMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -894,7 +894,7 @@ doTestInsertShortStringMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -967,7 +967,7 @@ doTestInsertMediumStringMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1062,7 +1062,7 @@ doTestInsertEmptyBlobMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1132,7 +1132,7 @@ doTestInsertSmallBlobMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1210,7 +1210,7 @@ doTestInsertMediumBlobMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1319,7 +1319,7 @@ doTestInsertSingleDoubleMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1428,7 +1428,7 @@ doTestInsertMultipleEscapesMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1509,7 +1509,7 @@ doTestInsertEmptyArrayMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1584,7 +1584,7 @@ doTestInsertEmptyMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1659,7 +1659,7 @@ doTestInsertEmptySetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1734,7 +1734,7 @@ doTestInsertArrayOneLogicalMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1819,7 +1819,7 @@ doTestInsertArrayOneIntegerMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1904,7 +1904,7 @@ doTestInsertArrayOneDoubleMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1994,7 +1994,7 @@ doTestInsertArrayOneStringMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2080,7 +2080,7 @@ doTestInsertArrayOneBlobMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2166,7 +2166,7 @@ doTestInsertArrayOneArrayMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2257,7 +2257,7 @@ doTestInsertArrayOneMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2348,7 +2348,7 @@ doTestInsertArrayOneSetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2439,7 +2439,7 @@ doTestInsertArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2528,7 +2528,7 @@ doTestInsertArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2617,7 +2617,7 @@ doTestInsertArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2713,7 +2713,7 @@ doTestInsertArrayTwoStringsMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2804,7 +2804,7 @@ doTestInsertArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2895,7 +2895,7 @@ doTestInsertArrayTwoArraysMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2997,7 +2997,7 @@ doTestInsertArrayTwoMapsMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3099,7 +3099,7 @@ doTestInsertArrayTwoSetsMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3201,7 +3201,7 @@ doTestInsertArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3303,7 +3303,7 @@ doTestInsertArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3405,7 +3405,7 @@ doTestInsertArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3507,7 +3507,7 @@ doTestInsertArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3812,7 +3812,7 @@ doTestInsertLogicalMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3901,7 +3901,7 @@ doTestInsertIntegerMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -3990,7 +3990,7 @@ doTestInsertStringMapMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -4080,7 +4080,7 @@ doTestInsertLogicalSetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -4165,7 +4165,7 @@ doTestInsertIntegerSetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -4250,7 +4250,7 @@ doTestInsertStringSetMessage
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -4330,7 +4330,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

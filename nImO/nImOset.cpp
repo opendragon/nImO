@@ -138,7 +138,7 @@ nImO::Set::addValue
 
     if (nullptr == val)
     {
-        result = InsertResult(inherited2::end(), false);
+        result = {inherited2::end(), false};
     }
     else
     {
@@ -152,7 +152,7 @@ nImO::Set::addValue
         }
         else
         {
-            result = InsertResult(inherited2::end(), false);
+            result = {inherited2::end(), false};
         }
     }
     ODL_OBJEXIT(); //####
@@ -184,13 +184,13 @@ nImO::Set::deeplyEqualTo
 
         if (otherPtr && (size() == otherPtr->size()))
         {
-            const_iterator  thisWalker(inherited2::begin());
-            const_iterator  otherWalker(otherPtr->inherited2::begin());
+            auto    thisWalker{inherited2::begin()};
+            auto    otherWalker{otherPtr->inherited2::begin()};
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisValue(*thisWalker);
-                SpValue otherValue(*otherWalker);
+                SpValue thisValue{*thisWalker};
+                SpValue otherValue{*otherWalker};
 
                 if ((nullptr != thisValue) && (nullptr != otherValue))
                 {
@@ -224,9 +224,9 @@ nImO::Set::equalTo
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(*walker);
+                SpValue aValue{*walker};
 
                 if (aValue)
                 {
@@ -315,7 +315,7 @@ nImO::Set::extractValue
                 }
                 else
                 {
-                    auto    aSet = std::make_shared<Set>();
+                    auto    aSet{std::make_shared<Set>()};
 
                     result = aSet;
                     if (nullptr == result)
@@ -340,7 +340,7 @@ nImO::Set::extractValue
                             }
                             else
                             {
-                                SpValue aValue(getValueFromMessage(theMessage, position, aByte, nullptr));
+                                SpValue aValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
 
                                 if (nullptr == aValue)
                                 {
@@ -478,9 +478,9 @@ nImO::Set::greaterThan
     }
     else
     {
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(*walker);
+            SpValue aValue{*walker};
 
             if (aValue)
             {
@@ -509,9 +509,9 @@ nImO::Set::greaterThanOrEqual
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(*walker);
+                SpValue aValue{*walker};
 
                 if (aValue)
                 {
@@ -543,9 +543,9 @@ nImO::Set::lessThan
     }
     else
     {
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(*walker);
+            SpValue aValue{*walker};
 
             if (aValue)
             {
@@ -574,9 +574,9 @@ nImO::Set::lessThanOrEqual
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(*walker);
+                SpValue aValue{*walker};
 
                 if (aValue)
                 {
@@ -597,9 +597,9 @@ nImO::Set::operator <<
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
     out << kStartSetChar;
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (nullptr != aValue)
         {
@@ -623,9 +623,9 @@ nImO::Set::printToStringBuffer
     bool first = true;
 
     outBuffer.addChar(kStartSetChar);
-    for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
-        SpValue aValue(*walker);
+        SpValue aValue{*walker};
 
         if (nullptr != aValue)
         {
@@ -655,7 +655,7 @@ nImO::Set::readFromStringBuffer
     bool    atEnd;
     bool    done = false;
     bool    valid = false;
-    auto    result = std::make_shared<Set>();
+    auto    result{std::make_shared<Set>()};
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
@@ -689,7 +689,7 @@ nImO::Set::readFromStringBuffer
             }
             else
             {
-                SpValue element(Value::readFromStringBuffer(inBuffer, localIndex));
+                SpValue element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == element)
@@ -764,9 +764,9 @@ nImO::Set::writeToMessage
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(*walker);
+            SpValue aValue{*walker};
 
             if (aValue)
             {

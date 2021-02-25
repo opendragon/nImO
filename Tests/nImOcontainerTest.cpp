@@ -95,7 +95,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -124,7 +124,7 @@ compareValueWithSquishedString
     int             result;
 
     aValue.printToStringBuffer(buff, true);
-    auto    resultString(buff.getString());
+    auto    resultString{buff.getString()};
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -149,7 +149,7 @@ compareValueWithString
     int             result;
 
     aValue.printToStringBuffer(buff);
-    auto    resultString(buff.getString());
+    auto    resultString{buff.getString()};
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -180,7 +180,7 @@ doTestEmptyArrayValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -248,7 +248,7 @@ doTestSingularArrayValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -321,7 +321,7 @@ doTestSmallArrayValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -403,7 +403,7 @@ doTestBigArrayValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -492,7 +492,7 @@ doTestEmptyMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -560,7 +560,7 @@ doTestSingularLogicalMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -635,7 +635,7 @@ doTestSingularIntegerMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -708,7 +708,7 @@ doTestSingularStringMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -783,7 +783,7 @@ doTestSmallLogicalMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -861,7 +861,7 @@ doTestSmallIntegerMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -940,7 +940,7 @@ doTestSmallStringMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -1025,7 +1025,7 @@ doTestEmptySetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1093,7 +1093,7 @@ doTestSingularLogicalSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1166,7 +1166,7 @@ doTestSingularIntegerSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1239,7 +1239,7 @@ doTestSingularStringSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1312,7 +1312,7 @@ doTestSmallLogicalSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1390,7 +1390,7 @@ doTestSmallIntegerSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1476,7 +1476,7 @@ doTestSmallStringSetValue
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -1562,7 +1562,7 @@ doTestArrayWithArrayValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -1635,7 +1635,7 @@ doTestArrayWithMapValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -1708,7 +1708,7 @@ doTestArrayWithSetValue
 
     try
     {
-        auto    stuff(make_unique<Array>());
+        auto    stuff{make_unique<Array>()};
 
         if (stuff)
         {
@@ -1781,7 +1781,7 @@ doTestMapWithArrayValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -1856,7 +1856,7 @@ doTestMapWithMapValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -1931,7 +1931,7 @@ doTestMapWithSetValue
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -2006,7 +2006,7 @@ doTestLogicalMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -2084,7 +2084,7 @@ doTestIntegerMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -2160,7 +2160,7 @@ doTestStringMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Map>());
+        auto    stuff{make_unique<Map>()};
 
         if (stuff)
         {
@@ -2238,7 +2238,7 @@ doTestLogicalSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -2314,7 +2314,7 @@ doTestIntegerSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -2390,7 +2390,7 @@ doTestStringSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff(make_unique<Set>());
+        auto    stuff{make_unique<Set>()};
 
         if (stuff)
         {
@@ -5580,7 +5580,7 @@ doTestLogicalMapSearches
     {
         Map             stuff;
         Map::iterator   iter;
-        auto            falseString = std::make_shared<String>("false");
+        auto            falseString{std::make_shared<String>("false")};
         SpString        trueString;
 
         stuff.addValue(std::make_shared<Logical>(false), falseString);
@@ -5682,7 +5682,7 @@ doTestIntegerMapSearches
     {
         Map             stuff;
         Map::iterator   iter;
-        auto            string17 = std::make_shared<String>("17");
+        auto            string17{std::make_shared<String>("17")};
         SpString        string12;
 
         stuff.addValue(std::make_shared<Integer>(17), string17);
@@ -5784,7 +5784,7 @@ doTestStringMapSearches
     {
         Map             stuff;
         Map::iterator   iter;
-        auto            stringOneSeven = std::make_shared<String>("17");
+        auto            stringOneSeven{std::make_shared<String>("17")};
         SpString        stringOneTwo;
 
         stuff.addValue(std::make_shared<String>("abc"), stringOneSeven);
@@ -6145,7 +6145,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

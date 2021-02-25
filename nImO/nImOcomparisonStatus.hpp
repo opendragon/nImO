@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide comparison values. */
-    class ComparisonStatus
+    class ComparisonStatus final
     {
     public :
         // Public type definitions.
@@ -76,6 +76,12 @@ namespace nImO
             _result(result), _valid(valid)
         {
         } // constructor
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ComparisonStatus
+            (ComparisonStatus &&	other)
+            noexcept;
 
         /*! @brief Update the current status by merging in the other status.
          @param[in] other The status to be merged in.

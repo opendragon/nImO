@@ -69,7 +69,7 @@ namespace nImO
      suffixValue ::= string suffix (prefix is passed as default);
 
      isRandom ::= '0' | '1'; */
-    class FilePathArgumentDescriptor : public StringArgumentDescriptor
+    class FilePathArgumentDescriptor final : public StringArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -108,6 +108,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         FilePathArgumentDescriptor
             (const FilePathArgumentDescriptor & other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        FilePathArgumentDescriptor
+            (FilePathArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

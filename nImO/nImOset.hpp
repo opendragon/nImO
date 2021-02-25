@@ -62,8 +62,8 @@ namespace nImO
 
      Note that Sets 'own' their data and will perform a delete of the
      contained elements on deletion. */
-    class Set : public Container,
-                public SetBase
+    class Set final : public Container,
+                      public SetBase
     {
     public :
         // Public type definitions.
@@ -109,6 +109,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Set
             (const Set &    other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Set
+            (Set &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -267,7 +273,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         Set &
@@ -281,6 +287,14 @@ namespace nImO
             }
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Set &
+        operator =
+            (Set &&  other)
+            noexcept;
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

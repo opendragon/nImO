@@ -84,7 +84,13 @@ namespace nImO
         Atom
             (void);
 
-    private :
+            /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Atom
+            (Atom &&	other)
+            noexcept;
+
+private :
         // Private methods.
 
     public :

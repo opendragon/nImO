@@ -120,7 +120,7 @@ StringsArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<StringsArgumentDescriptor>(*this);
+    auto    result{std::make_shared<StringsArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -131,7 +131,7 @@ StringsArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue);
+    std::string result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -142,7 +142,7 @@ StringsArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
     ODL_OBJENTER(); //####
-    std::string result("\"");
+    std::string result{"\""};
 
     result += getDefaultValue();
     result += "\"";
@@ -172,12 +172,12 @@ StringsArgumentDescriptor::parseArgString
     {
         ArgumentMode    argMode;
         bool            okSoFar = true;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]);
-        std::string     stringList(inVector[4]);
-        std::string     description(inVector[5]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]};
+        std::string     stringList{inVector[4]};
+        std::string     description{inVector[5]};
 
         if ("L" != typeTag)
         {
@@ -199,7 +199,7 @@ StringsArgumentDescriptor::parseArgString
             // We need to split the input into keys.
             for ( ; 0 < stringList.length(); )
             {
-                size_t  indx = stringList.find(_parameterSeparator);
+                size_t  indx = stringList.find(getParameterSeparator());
 
                 if (stringList.npos == indx)
                 {
@@ -261,23 +261,23 @@ StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("L"));
+    std::string result{prefixFields("L")};
 
-    result += _parameterSeparator;
+    result += getParameterSeparator();
     std::string scratch;
 
-    for (StringSet::const_iterator walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
+    for (auto & walker : _allowedValues)
     {
-        scratch += *walker;
+        scratch += walker;
     }
     char    delim = identifyDelimiter(scratch);
 
     result += delim;
-    for (StringSet::const_iterator walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
+    for (auto walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
     {
         if (walker != _allowedValues.begin())
         {
-            result += _parameterSeparator;
+            result += getParameterSeparator();
         }
         result += *walker;
     }
@@ -292,15 +292,15 @@ StringsArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    _valid = (_allowedValues.find(value) != _allowedValues.end());
-    ODL_B1("_valid <- ", _valid); //####
-    if (_valid)
+    setValidity(_allowedValues.find(value) != _allowedValues.end());
+    ODL_B1("_valid <- ", isValid()); //####
+    if (isValid())
     {
         _currentValue = value;
         ODL_S1s("_currentValue <- ", _currentValue); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // StringsArgumentDescriptor::validate
 
 #if defined(__APPLE__)

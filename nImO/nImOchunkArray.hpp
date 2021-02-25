@@ -79,6 +79,12 @@ namespace nImO
         ChunkArray
             (const ChunkArray & other) = delete;
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ChunkArray
+            (ChunkArray &&	other)
+            noexcept;
+
         /*! @brief The destructor. */
         virtual
         ~ChunkArray
@@ -134,12 +140,20 @@ namespace nImO
             (void)
             const;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         ChunkArray &
         operator =
             (const ChunkArray & other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        ChunkArray &
+        operator =
+            (ChunkArray &&  other)
+            noexcept;
 
         /*! @brief Prepare the buffer for reuse.
          @return The ChunkArray object so that cascading can be done. */
@@ -150,6 +164,27 @@ namespace nImO
     protected :
         // Protected methods.
 
+        /*! @brief Return a chunk.
+        @param[in] index The index of a chunk.
+        @return The selected chunk. */
+        inline BufferChunk *
+        getBufferChunk
+            (const size_t   index)
+            const
+        {
+            return _buffers[index];
+        } // getBufferChunk
+
+        /*! @brief Return the number of chunks.
+         @return The number of chunks. */
+        inline size_t
+        getNumChunks
+            (void)
+            const
+        {
+            return _numChunks;
+        } // getNumChunks
+
     private :
         // Private methods.
 
@@ -159,21 +194,21 @@ namespace nImO
     protected :
         // Protected fields.
 
-        /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk **  _buffers;
-
-        /*! @brief The number of buffer chunks being used. */
-        size_t  _numChunks;
-
     private :
         // Private fields.
 
-        /*! @brief The cached value of the buffer. */
-        std::string _cachedString;
+        /*! @brief The internal buffers used to hold the assembled text. */
+        BufferChunk **  _buffers;
 
         /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
          @c false otherwise. */
         bool    _buffersArePadded;
+
+        /*! @brief The cached value of the buffer. */
+        std::string _cachedString;
+
+        /*! @brief The number of buffer chunks being used. */
+        size_t  _numChunks;
 
     }; // ChunkArray
 

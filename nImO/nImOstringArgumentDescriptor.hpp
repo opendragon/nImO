@@ -94,6 +94,12 @@ namespace nImO
         StringArgumentDescriptor
             (const StringArgumentDescriptor &   other);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        StringArgumentDescriptor
+            (StringArgumentDescriptor &&	other)
+            noexcept;
+
         /*! @brief The destructor. */
         virtual
         ~StringArgumentDescriptor
@@ -138,6 +144,18 @@ namespace nImO
         getPrintableDefaultValue
             (void)
             override;
+
+        /*! @brief Change the current value.
+         @param[in] newValue The new current value. */
+        void
+        setCurrentValue
+            (const std::string &    newValue);
+
+        /*! @brief Change the default value.
+         @param[in] newValue The new default value. */
+        void
+        setDefaultValue
+            (const std::string &    newValue);
 
     private :
         // Private methods.
@@ -185,14 +203,14 @@ namespace nImO
     protected :
         // Protected fields.
 
+    private :
+        // Private fields.
+
         /*! @brief The current value of the command-line argument. */
         std::string _currentValue;
 
         /*! @brief The default value for the command-line argument. */
         std::string _defaultValue;
-
-    private :
-        // Private fields.
 
     }; // StringArgumentDescriptor
 

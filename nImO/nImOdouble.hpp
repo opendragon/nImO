@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide numeric values. */
-    class Double : public Number
+    class Double final : public Number
     {
     public :
         // Public type definitions.
@@ -85,6 +85,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Double
             (const Double & other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Double
+            (Double &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -189,7 +195,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         inline Double &
@@ -202,6 +208,14 @@ namespace nImO
             }
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Double &
+        operator =
+            (Double &&  other)
+            noexcept;
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.

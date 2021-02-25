@@ -90,14 +90,14 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::PortArgumentDescriptor firstArg("port", T_("Port for communication"),
-                                          nImO::ArgumentMode::Optional, 2020);
+    nImO::PortArgumentDescriptor firstArg{"port", T_("Port for communication"),
+                                          nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector       argumentList;
     nImO::OutputFlavour          flavour;
 

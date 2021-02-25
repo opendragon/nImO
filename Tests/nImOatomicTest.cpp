@@ -98,7 +98,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -127,7 +127,7 @@ compareValueWithString
     int             result;
 
     aValue.printToStringBuffer(buff);
-    auto    valString(buff.getString());
+    auto    valString{buff.getString()};
 
     result = valString.compare(aString);
     ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
@@ -158,7 +158,7 @@ doTestEmptyBufferChunk
 
     try
     {
-        auto    stuff(make_unique<BufferChunk>(false));
+        auto    stuff{make_unique<BufferChunk>(false)};
 
         if (stuff)
         {
@@ -208,7 +208,7 @@ doTestBufferChunkWithSingleByte
 
     try
     {
-        auto    stuff(make_unique<BufferChunk>(false));
+        auto    stuff{make_unique<BufferChunk>(false)};
 
         if (stuff)
         {
@@ -270,7 +270,7 @@ doTestFilledBufferChunk
 
     try
     {
-        auto    stuff(make_unique<BufferChunk>(false));
+        auto    stuff{make_unique<BufferChunk>(false)};
 
         if (stuff)
         {
@@ -358,7 +358,7 @@ doTestOverfilledBufferChunk
 
     try
     {
-        auto    stuff(make_unique<BufferChunk>(false));
+        auto    stuff{make_unique<BufferChunk>(false)};
 
         if (stuff)
         {
@@ -446,7 +446,7 @@ doTestBufferChunkReset
 
     try
     {
-        auto    stuff(make_unique<BufferChunk>(false));
+        auto    stuff{make_unique<BufferChunk>(false)};
 
         if (stuff)
         {
@@ -507,13 +507,13 @@ doTestEmptyStringBuffer
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
             if (0 == stuff->getLength())
             {
-                auto    outString(stuff->getString());
+                auto    outString{stuff->getString()};
                 size_t  length = outString.size();
 
                 if (0 == length)
@@ -572,7 +572,7 @@ doTestStringBufferWithCharacters
             const char *    inString = *argv;
             const char *    outString = argv[1];
             size_t          outLength = strlen(outString);
-            auto            stuff(make_unique<StringBuffer>());
+            auto            stuff{make_unique<StringBuffer>()};
 
             if (stuff)
             {
@@ -581,7 +581,7 @@ doTestStringBufferWithCharacters
 
                 if (resultLength == outLength)
                 {
-                    auto    resultString(stuff->getString());
+                    auto    resultString{stuff->getString()};
 
                     if (0 == resultString.compare(outString))
                     {
@@ -648,14 +648,14 @@ doTestStringBufferWithLogical
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff(make_unique<StringBuffer>());
+                auto    stuff{make_unique<StringBuffer>()};
 
                 if (stuff)
                 {
                     bool asBool = (0 != value);
 
                     stuff->addBool(asBool);
-                    auto    resultString(stuff->getString());
+                    auto    resultString{stuff->getString()};
 
                     if (0 == resultString.compare(outString))
                     {
@@ -720,12 +720,12 @@ doTestStringBufferWithInteger
 
             if (ConvertToInt64(*argv, value))
             {
-                auto    stuff(make_unique<StringBuffer>());
+                auto    stuff{make_unique<StringBuffer>()};
 
                 if (stuff)
                 {
                     stuff->addLong(value);
-                    auto    resultString(stuff->getString());
+                    auto    resultString{stuff->getString()};
 
                     if (0 == resultString.compare(outString))
                     {
@@ -788,7 +788,7 @@ doTestStringBufferWithString
             const char *    inString = *argv;
             const char *    outString = argv[1];
             size_t          outLength = strlen(outString);
-            auto            stuff(make_unique<StringBuffer>());
+            auto            stuff{make_unique<StringBuffer>()};
 
             if (stuff)
             {
@@ -797,7 +797,7 @@ doTestStringBufferWithString
 
                 if (resultLength == outLength)
                 {
-                    auto    resultString(stuff->getString());
+                    auto    resultString{stuff->getString()};
 
                     if (0 == resultString.compare(outString))
                     {
@@ -858,7 +858,7 @@ doTestStringBufferWithSpecialCharacters
         const char *    inString = "abc\tdef\f\rghi\302";
         const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
         size_t          outLength = strlen(outString);
-        auto            stuff(make_unique<StringBuffer>());
+        auto            stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
@@ -867,7 +867,7 @@ doTestStringBufferWithSpecialCharacters
 
             if (resultLength == outLength)
             {
-                auto    resultString(stuff->getString());
+                auto    resultString{stuff->getString()};
 
                 if (0 == resultString.compare(outString))
                 {
@@ -927,12 +927,12 @@ doTestStringBufferWithDouble
 
             if (ConvertToDouble(*argv, value))
             {
-                auto    stuff(make_unique<StringBuffer>());
+                auto    stuff{make_unique<StringBuffer>()};
 
                 if (stuff)
                 {
                     stuff->addDouble(value);
-                    auto    resultString(stuff->getString());
+                    auto    resultString{stuff->getString()};
                     size_t  ii = 0;
 
                     for (result = 0; *outString && resultString[ii]; ++outString, ++ii)
@@ -999,7 +999,7 @@ doTestBigStringBuffer
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
@@ -1010,12 +1010,12 @@ doTestBigStringBuffer
             {
                 stuff->addString(bigString);
             }
-            auto    resultString(stuff->getString());
+            auto    resultString{stuff->getString()};
             size_t  length = resultString.size();
 
             if ((bigLength * kBigTestSize) == length)
             {
-                auto bytes = resultString.data();
+                auto bytes{resultString.data()};
 
                 result = 0;
                 for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii, bytes += bigLength)
@@ -1069,12 +1069,12 @@ doTestStringBufferWithEmptyBlob
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
             stuff->addBytes(nullptr, 0);
-            auto            resultString(stuff->getString());
+            auto            resultString{stuff->getString()};
             const char *    expectedString = "%0%%";
 
             if (0 == resultString.compare(expectedString))
@@ -1123,7 +1123,7 @@ doTestStringBufferWithSmallBlob
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
@@ -1139,8 +1139,8 @@ doTestStringBufferWithSmallBlob
                     smallBlob[ii] = aByte;
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
-                auto        resultString(stuff->getString());
-                std::string expectedString("%");
+                auto        resultString{stuff->getString()};
+                std::string expectedString{"%"};
 
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
@@ -1204,7 +1204,7 @@ doTestStringBufferWithBigBlob
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
@@ -1220,8 +1220,8 @@ doTestStringBufferWithBigBlob
                     bigBlob[ii] = aByte;
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
-                auto        resultString(stuff->getString());
-                std::string expectedString("%");
+                auto        resultString{stuff->getString()};
+                std::string expectedString{"%"};
 
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
@@ -1285,7 +1285,7 @@ doTestStringBufferReset
 
     try
     {
-        auto    stuff(make_unique<StringBuffer>());
+        auto    stuff{make_unique<StringBuffer>()};
 
         if (stuff)
         {
@@ -1295,7 +1295,7 @@ doTestStringBufferReset
 
             if (0 == resultLength)
             {
-                auto    resultString(stuff->getString());
+                auto    resultString{stuff->getString()};
 
                 if (0 == resultString.length())
                 {
@@ -1348,7 +1348,7 @@ doTestDefaultLogicalValue
 
     try
     {
-        auto    stuff = make_unique<Logical>();
+        auto    stuff{make_unique<Logical>()};
 
         if (stuff)
         {
@@ -1405,7 +1405,7 @@ doTestLogicalValue
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff = make_unique<Logical>(0 != value);
+                auto    stuff{make_unique<Logical>(0 != value)};
 
                 if (stuff)
                 {
@@ -1465,7 +1465,7 @@ doTestDefaultIntegerValue
 
     try
     {
-        auto    stuff = make_unique<Integer>();
+        auto    stuff{make_unique<Integer>()};
 
         if (stuff)
         {
@@ -1523,7 +1523,7 @@ doTestNumberValue
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto    stuff = make_unique<Integer>(intValue);
+                auto    stuff{make_unique<Integer>(intValue)};
 
                 if (stuff)
                 {
@@ -1547,7 +1547,7 @@ doTestNumberValue
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto    stuff = make_unique<Double>(floatValue);
+                    auto    stuff{make_unique<Double>(floatValue)};
 
                     if (stuff)
                     {
@@ -1608,7 +1608,7 @@ doTestDefaultStringValue
 
     try
     {
-        auto    stuff(make_unique<String>());
+        auto    stuff{make_unique<String>()};
 
         if (stuff)
         {
@@ -1660,7 +1660,7 @@ doTestStringValue
     {
         if (1 < argc)
         {
-            auto    stuff(make_unique<String>(*argv));
+            auto    stuff{make_unique<String>(*argv)};
 
             if (stuff)
             {
@@ -1717,7 +1717,7 @@ doTestStringValueWithEscapes
     {
         const char *    inString = "abc\tdef\f\rghi\302";
         const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        auto            stuff(make_unique<String>(inString));
+        auto            stuff{make_unique<String>(inString)};
 
         if (stuff)
         {
@@ -1767,7 +1767,7 @@ doTestDefaultBlobValue
 
     try
     {
-        auto    stuff = make_unique<Blob>();
+        auto    stuff{make_unique<Blob>()};
 
         if (stuff)
         {
@@ -1827,11 +1827,11 @@ doTestSmallBlobValue
 
                 smallBlob[ii] = aByte;
             }
-            auto    stuff = make_unique<Blob>(smallBlob.get(), kSmallTestSize);
+            auto    stuff{make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
 
             if (stuff)
             {
-                std::string expectedString("%");
+                std::string expectedString{"%"};
 
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
@@ -1906,11 +1906,11 @@ doTestBigBlobValue
 
                 bigBlob[ii] = aByte;
             }
-            auto    stuff = make_unique<Blob>(bigBlob.get(), kBigTestSize);
+            auto    stuff{make_unique<Blob>(bigBlob.get(), kBigTestSize)};
 
             if (stuff)
             {
-                std::string expectedString("%");
+                std::string expectedString{"%"};
 
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
@@ -3643,7 +3643,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

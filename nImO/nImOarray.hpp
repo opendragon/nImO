@@ -61,8 +61,8 @@ namespace nImO
 
      Note that Arrays 'own' their data and will perform a delete of the
      contained elements on deletion. */
-    class Array : public Container,
-                  public ArrayBase
+    class Array final : public Container,
+                        public ArrayBase
     {
     public :
         // Public type definitions.
@@ -105,6 +105,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Array
             (const Array &   other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Array
+            (Array &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -238,7 +244,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         inline Array &
@@ -252,6 +258,14 @@ namespace nImO
             }
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Array &
+        operator =
+            (Array &&  other)
+            noexcept;
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

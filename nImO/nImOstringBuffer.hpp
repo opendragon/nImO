@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief The data constituting a string buffer. */
-    class StringBuffer : public ChunkArray
+    class StringBuffer final : public ChunkArray
     {
     public :
         // Public type definitions.
@@ -80,6 +80,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         StringBuffer
             (const StringBuffer &   other) = delete;
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        StringBuffer
+            (StringBuffer &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -194,12 +200,20 @@ namespace nImO
             return inherited::getBytes();
         } // getString
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         StringBuffer &
         operator =
             (const StringBuffer &   other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        StringBuffer &
+        operator =
+            (StringBuffer &&  other)
+            noexcept;
 
         friend std::ostream &
         operator <<

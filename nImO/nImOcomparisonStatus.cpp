@@ -91,7 +91,10 @@ nImO::operator <<
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aValue = ", &aValue); //####
-    out << "result:" << std::boolalpha << aValue._result << "/valid:" << std::boolalpha << aValue._valid;
+    std::ios_base::fmtflags  originalFormat = out.flags();
+
+    out << "result:" << std::boolalpha << aValue._result << "/valid:" << aValue._valid;
+    out.flags(originalFormat);
     ODL_EXIT_P(&out); //####
     return out;
 } // nImO::operator <<

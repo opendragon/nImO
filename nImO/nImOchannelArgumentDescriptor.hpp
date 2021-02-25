@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a channel-type argument description is:
 
      channelTagAndInfo ::= 'C'; */
-    class ChannelArgumentDescriptor : public BaseArgumentDescriptor
+    class ChannelArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -93,6 +93,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         ChannelArgumentDescriptor
             (const ChannelArgumentDescriptor &  other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ChannelArgumentDescriptor
+            (ChannelArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

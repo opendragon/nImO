@@ -94,7 +94,7 @@ using std::endl;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-enum E_choice
+enum class E_choice
 {
     kApps,
     kChan,
@@ -137,7 +137,7 @@ helpForList
     outStream << "Available choices:" << std::endl;
     size_t  choiceWidth = 0;
 
-    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
         size_t  thisWidth = walker->first.length();
 
@@ -147,7 +147,7 @@ helpForList
         }
     }
     choiceWidth += 2;
-    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
         std::string padding;
 
@@ -171,24 +171,24 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    lChoiceMap.insert(T_choiceMap::value_type("apps", T_choiceInfo(kApps, "available applications")));
-    lChoiceMap.insert(T_choiceMap::value_type("chan", T_choiceInfo(kChan, "available channels")));
-    lChoiceMap.insert(T_choiceMap::value_type("conn", T_choiceInfo(kConn, "active connections")));
-    lChoiceMap.insert(T_choiceMap::value_type("serv", T_choiceInfo(kServ, "active services")));
+    lChoiceMap.insert({"apps", T_choiceInfo{E_choice::kApps, "available applications"}});
+    lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
+    lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});
+    lChoiceMap.insert({"serv", T_choiceInfo{E_choice::kServ, "active services"}});
     nImO::StringSet choiceSet;
 
-    for (T_choiceMap::const_iterator walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    for (auto & walker : lChoiceMap)
     {
-        choiceSet.insert(walker->first);
+        choiceSet.insert(walker.first);
     }
-    nImO::StringsArgumentDescriptor firstArg("choice", T_("Objects to report"),
-                                             nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet);
+    nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"),
+                                             nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
 
@@ -199,23 +199,23 @@ main
         try
         {
             nImO::Initialize(progName);
-            std::string                   choice(firstArg.getCurrentValue());
-            T_choiceMap::const_iterator   match(lChoiceMap.find(choice));
+            std::string choice{firstArg.getCurrentValue()};
+            auto        match{lChoiceMap.find(choice)};
 
             if (match != lChoiceMap.end())
             {
                 switch (match->second._choice)
                 {
-                    case kApps :
+                    case E_choice::kApps :
                         break;
 
-                    case kChan :
+                    case E_choice::kChan :
                         break;
 
-                    case kConn :
+                    case E_choice::kConn :
                         break;
 
-                    case kServ :
+                    case E_choice::kServ :
                         break;
 
                 }

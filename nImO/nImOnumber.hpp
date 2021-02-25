@@ -69,12 +69,18 @@ namespace nImO
         /*! @brief The class that this class is derived from. */
         using inherited = Atom;
 
-        public :
+    public :
         // Public methods.
 
         /*! @brief The constructor. */
         Number
             (void);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Number
+            (Number &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

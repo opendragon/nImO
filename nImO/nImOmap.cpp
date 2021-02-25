@@ -122,8 +122,8 @@ nImO::Map::addEntries
     {
         for (auto & walker : other)
         {
-            SpValue key(walker.first);
-            SpValue mappedValue(walker.second);
+            SpValue key{walker.first};
+            SpValue mappedValue{walker.second};
 
             addValue(key, mappedValue);
         }
@@ -190,21 +190,21 @@ nImO::Map::deeplyEqualTo
 
         if (otherPtr && (size() == otherPtr->size()))
         {
-            const_iterator  thisWalker(inherited2::begin());
-            const_iterator  otherWalker(otherPtr->inherited2::begin());
+            auto    thisWalker{inherited2::begin()};
+            auto    otherWalker{otherPtr->inherited2::begin()};
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisKey(thisWalker->first);
-                SpValue otherKey(otherWalker->first);
+                SpValue thisKey{thisWalker->first};
+                SpValue otherKey{otherWalker->first};
 
                 if ((nullptr != thisKey) && (nullptr != otherKey))
                 {
                     result = thisKey->deeplyEqualTo(*otherKey);
                     if (result)
                     {
-                        SpValue thisValue(thisWalker->second);
-                        SpValue otherValue(otherWalker->second);
+                        SpValue thisValue{thisWalker->second};
+                        SpValue otherValue{otherWalker->second};
 
                         if ((nullptr != thisValue) && (nullptr != otherValue))
                         {
@@ -244,9 +244,9 @@ nImO::Map::equalTo
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(walker->first);
+                SpValue aValue{walker->first};
 
                 if (aValue)
                 {
@@ -335,7 +335,7 @@ nImO::Map::extractValue
                 }
                 else
                 {
-                    auto    aMap = std::make_shared<Map>();
+                    auto    aMap{std::make_shared<Map>()};
 
                     result = aMap;
                     if (nullptr == result)
@@ -360,7 +360,7 @@ nImO::Map::extractValue
                             }
                             else
                             {
-                                SpValue keyValue(getValueFromMessage(theMessage, position, aByte, nullptr));
+                                SpValue keyValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
 
                                 if (nullptr == keyValue)
                                 {
@@ -388,7 +388,7 @@ nImO::Map::extractValue
                                     }
                                     else
                                     {
-                                        SpValue vValue(getValueFromMessage(theMessage, position, aByte, nullptr));
+                                        SpValue vValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
 
                                         if (nullptr == vValue)
                                         {
@@ -528,9 +528,9 @@ nImO::Map::greaterThan
     }
     else
     {
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(walker->first);
+            SpValue aValue{walker->first};
 
             if (aValue)
             {
@@ -559,9 +559,9 @@ nImO::Map::greaterThanOrEqual
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(walker->first);
+                SpValue aValue{walker->first};
 
                 if (aValue)
                 {
@@ -574,9 +574,9 @@ nImO::Map::greaterThanOrEqual
 //
 //    validComparison = (Enumerable::Unknown != _keyKind);
 //    ODL_B1("validComparison <- ", validComparison); //####
-//    for (const_iterator walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
+//    for (auto walker(inherited2::begin()); validComparison && (inherited2::end() != walker); ++walker)
 //    {
-//        SpValue aValue(walker->first);
+//        SpValue aValue{walker->first};
 //
 //        if (aValue)
 //        {
@@ -606,9 +606,9 @@ nImO::Map::lessThan
     }
     else
     {
-        for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
-            SpValue aValue(walker->first);
+            SpValue aValue{walker->first};
 
             if (aValue)
             {
@@ -637,9 +637,9 @@ nImO::Map::lessThanOrEqual
         }
         else
         {
-            for (const_iterator walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
             {
-                SpValue aValue(walker->first);
+                SpValue aValue{walker->first};
 
                 if (aValue)
                 {
@@ -718,7 +718,7 @@ nImO::Map::readFromStringBuffer
     bool    atEnd;
     bool    done = false;
     bool    valid = false;
-    auto    result = std::make_shared<Map>();
+    auto    result{std::make_shared<Map>()};
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
@@ -752,7 +752,7 @@ nImO::Map::readFromStringBuffer
             }
             else
             {
-                SpValue keyValue(Value::readFromStringBuffer(inBuffer, localIndex));
+                SpValue keyValue{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == keyValue)
@@ -807,7 +807,7 @@ nImO::Map::readFromStringBuffer
                     else if (kKeyValueSeparator == aChar)
                     {
                         ++localIndex;
-                        SpValue assocValue(Value::readFromStringBuffer(inBuffer, localIndex));
+                        SpValue assocValue{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                         if (nullptr == assocValue)
                         {

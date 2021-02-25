@@ -116,14 +116,14 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ChannelArgumentDescriptor firstArg("output", T_("Channel to write to"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/out");
+    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
 

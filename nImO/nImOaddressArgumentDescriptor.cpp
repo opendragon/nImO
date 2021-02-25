@@ -92,9 +92,9 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
             defaultValue); //####
     ODL_P1("addrBuff = ", addrBuff); //####
-    if (_defaultValue == SELF_ADDRESS_NAME_)
+    if (SELF_ADDRESS_NAME_ == inherited::getDefaultValue())
     {
-        _defaultValue = SELF_ADDRESS_IPADDR_;
+        setDefaultValue(SELF_ADDRESS_IPADDR_);
     }
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
@@ -125,7 +125,7 @@ AddressArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<AddressArgumentDescriptor>(*this);
+    auto    result{std::make_shared<AddressArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -142,13 +142,13 @@ AddressArgumentDescriptor::parseArgString
 
     if (partitionString(inString, 3, inVector))
     {
-        ArgumentMode    argMode = ArgumentMode::Required;
+        ArgumentMode    argMode{ArgumentMode::Required};
         bool            okSoFar = true;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]);
-        std::string     description(inVector[4]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]};
+        std::string     description{inVector[4]};
 
         if ("A" != typeTag)
         {
@@ -198,7 +198,7 @@ AddressArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("A"));
+    std::string result{prefixFields("A")};
 
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
@@ -212,7 +212,7 @@ AddressArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     std::string testValue;
 
-    if (value == SELF_ADDRESS_NAME_)
+    if (SELF_ADDRESS_NAME_ == value)
     {
         testValue = SELF_ADDRESS_IPADDR_;
     }
@@ -223,30 +223,30 @@ AddressArgumentDescriptor::validate
     if (_addrBuff)
     {
 #if MAC_OR_LINUX_
-        _valid = (0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
+        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
 #else // ! MAC_OR_LINUX_
-        _valid = (0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
+        setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
 #endif // ! MAC_OR_LINUX_
-        ODL_B1("_valid <- ", _valid); //####
+        ODL_B1("_valid <- ", isValid()); //####
     }
     else
     {
         struct in_addr  addrBuff;
 
 #if MAC_OR_LINUX_
-        _valid = (0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
+        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
 #else // ! MAC_OR_LINUX_
-        _valid = (0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
+        setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
 #endif // ! MAC_OR_LINUX_
-        ODL_B1("_valid <- ", _valid); //####
+        ODL_B1("_valid <- ", isValid()); //####
     }
-    if (_valid)
+    if (isValid())
     {
-        _currentValue = testValue;
-        ODL_S1s("_currentValue <- ", _currentValue); //####
+        setCurrentValue(testValue);
+        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // AddressArgumentDescriptor::validate
 
 #if defined(__APPLE__)

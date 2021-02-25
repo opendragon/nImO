@@ -63,7 +63,7 @@ namespace nImO
      portTagAndInfo ::= 'P' sep systemOrRegular;
 
      systemOrRegular ::= 's' | 'r'; */
-    class PortArgumentDescriptor : public IntArgumentDescriptor
+    class PortArgumentDescriptor final : public IntArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -98,6 +98,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         PortArgumentDescriptor
             (const PortArgumentDescriptor & other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        PortArgumentDescriptor
+            (PortArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

@@ -123,7 +123,7 @@ PortArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<PortArgumentDescriptor>(*this);
+    auto    result{std::make_shared<PortArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -144,12 +144,12 @@ PortArgumentDescriptor::parseArgString
         bool            okSoFar = true;
         bool            isSystemPort = false;
         int             defaultValue = 0;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     portClass(inVector[3]);
-        std::string     defaultString(inVector[4]);
-        std::string     description(inVector[5]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     portClass{inVector[3]};
+        std::string     defaultString{inVector[4]};
+        std::string     description{inVector[5]};
 
         if ("P" != typeTag)
         {
@@ -180,7 +180,7 @@ PortArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(defaultString.c_str(), intValue))
+            if (nImO::ConvertToInt64(defaultString, intValue))
             {
                 defaultValue = StaticCast(int, intValue);
             }
@@ -214,9 +214,9 @@ PortArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("P"));
+    std::string result{prefixFields("P")};
 
-    result += _parameterSeparator + (_isSystemPort ? "s" : "r") + suffixFields(getDefaultValue());
+    result += getParameterSeparator() + (_isSystemPort ? "s" : "r") + suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
 } // PortArgumentDescriptor::toString

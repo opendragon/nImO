@@ -66,7 +66,7 @@ namespace nImO
      arguments, as it's possible to have zero or more of them.
      Likewise, there is no 'default' value that makes sense or, for that matter, a single
      argument reference is of no practical use. */
-    class ExtraArgumentDescriptor : public BaseArgumentDescriptor
+    class ExtraArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -94,6 +94,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         ExtraArgumentDescriptor
             (const ExtraArgumentDescriptor &    other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ExtraArgumentDescriptor
+            (ExtraArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

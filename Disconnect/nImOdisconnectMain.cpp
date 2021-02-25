@@ -116,16 +116,16 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ChannelArgumentDescriptor firstArg("from", T_("'Sending' channel"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/out");
-    nImO::ChannelArgumentDescriptor secondArg("to", T_("'Receiving' channel"),
-                                              nImO::ArgumentMode::RequiredModifiable, "/in");
+    nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out"};
+    nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
+                                              nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
 

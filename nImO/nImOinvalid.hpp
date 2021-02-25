@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide descriptions of invalid values. */
-    class Invalid : public Flaw
+    class Invalid final : public Flaw
     {
     public :
         // Public type definitions.
@@ -87,6 +87,12 @@ namespace nImO
         Invalid
             (const std::string &    description,
              const int64_t          associatedValue);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Invalid
+            (Invalid &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

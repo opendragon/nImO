@@ -80,6 +80,12 @@ namespace nImO
         ~Container
             (void);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Container
+            (Container &&	other)
+            noexcept;
+
         /*! @brief Return non-@c nullptr if the object is a Container.
          @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
         virtual const Container *

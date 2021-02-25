@@ -119,7 +119,7 @@ BoolArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<BoolArgumentDescriptor>(*this);
+    auto    result{std::make_shared<BoolArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -130,7 +130,7 @@ BoolArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue ? "1" : "0");
+    std::string result{_defaultValue ? "1" : "0"};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -141,7 +141,7 @@ BoolArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue ? "true" : "false");
+    std::string result{_defaultValue ? "true" : "false"};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -152,7 +152,7 @@ BoolArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_currentValue ? "1" : "0");
+    std::string result{_currentValue ? "1" : "0"};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -182,11 +182,11 @@ BoolArgumentDescriptor::parseArgString
         ArgumentMode    argMode;
         bool            okSoFar = true;
         bool            defaultValue;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]);
-        std::string     description(inVector[4]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]};
+        std::string     description{inVector[4]};
 
         if ("B" != typeTag)
         {
@@ -259,7 +259,7 @@ BoolArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("B"));
+    std::string result{prefixFields("B")};
 
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
@@ -277,27 +277,27 @@ BoolArgumentDescriptor::validate
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {
         boolValue = false;
-        _valid = true;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(true);
+        ODL_B1("_valid <- ", isValid()); //####
     }
     else if (('1' == firstChar) || ('t' == firstChar) || ('y' == firstChar))
     {
         boolValue = true;
-        _valid = true;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(true);
+        ODL_B1("_valid <- ", isValid()); //####
     }
     else
     {
-        _valid = false;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(false);
+        ODL_B1("_valid <- ", isValid()); //####
     }
-    if (_valid)
+    if (isValid())
     {
         _currentValue = boolValue;
         ODL_B1("_currentValue <- ", _currentValue); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // BoolArgumentDescriptor::validate
 
 #if defined(__APPLE__)

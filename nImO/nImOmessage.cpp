@@ -206,7 +206,7 @@ nImO::Message::getBytesForTransmission
     if (0 == _cachedTransmissionString.size())
     {
         ODL_LOG("(0 == _cachedTransmissionString.size())"); //####
-        auto    intermediate(getBytes());
+        auto    intermediate{getBytes()};
         size_t  length = intermediate.size();
 
         if (1 < length)

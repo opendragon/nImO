@@ -119,7 +119,7 @@ StringArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<StringArgumentDescriptor>(*this);
+    auto    result{std::make_shared<StringArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -130,7 +130,7 @@ StringArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue);
+    std::string result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -141,7 +141,7 @@ StringArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
     ODL_OBJENTER(); //####
-    std::string result("\"");
+    std::string result{"\""};
 
     result += getDefaultValue();
     result += "\"";
@@ -171,11 +171,11 @@ StringArgumentDescriptor::parseArgString
     {
         ArgumentMode    argMode;
         bool            okSoFar = true;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]);
-        std::string     description(inVector[4]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]};
+        std::string     description{inVector[4]};
 
         if ("S" != typeTag)
         {
@@ -198,6 +198,26 @@ StringArgumentDescriptor::parseArgString
     ODL_EXIT_P(result.get()); //####
     return result;
 } // StringArgumentDescriptor::parseArgString
+
+void
+StringArgumentDescriptor::setCurrentValue
+    (const std::string &    newValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("newValue = ", newValue); //####
+    _currentValue = newValue;
+    ODL_OBJEXIT(); //####
+} // StringArgumentDescriptor::setCurrentValue
+
+void
+StringArgumentDescriptor::setDefaultValue
+    (const std::string &    newValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("newValue = ", newValue); //####
+    _defaultValue = newValue;
+    ODL_OBJEXIT(); //####
+} // StringArgumentDescriptor::setDefaultValue
 
 void
 StringArgumentDescriptor::setToDefaultValue
@@ -226,7 +246,7 @@ StringArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("S"));
+    std::string result{prefixFields("S")};
 
     result += suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####
@@ -238,15 +258,15 @@ StringArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    _valid = true;
-    ODL_B1("_valid <- ", _valid); //####
-    if (_valid)
+    setValidity(true);
+    ODL_B1("_valid <- ", isValid()); //####
+    if (isValid())
     {
         _currentValue = value;
         ODL_S1s("_currentValue <- ", _currentValue); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // StringArgumentDescriptor::validate
 
 #if defined(__APPLE__)

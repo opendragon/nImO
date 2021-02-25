@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide string values. */
-    class String : public Atom
+    class String final : public Atom
     {
     public :
         // Public type definitions.
@@ -76,11 +76,6 @@ namespace nImO
         String
             (void);
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        String
-            (const String & other);
-
         /*! @brief The constructor.
          @param[in] initialValue The initial value for the object. */
         explicit String
@@ -90,6 +85,17 @@ namespace nImO
          @param[in] initialValue The initial value for the object. */
         explicit String
             (const char *   initialValue);
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        String
+            (const String & other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        String
+            (String &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -200,7 +206,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         inline String &
@@ -213,6 +219,14 @@ namespace nImO
             }
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        String &
+        operator =
+            (String &&  other)
+            noexcept;
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.

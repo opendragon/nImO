@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief The data constituting a Message. */
-    class Message : public ChunkArray
+    class Message final : public ChunkArray
     {
     public :
         // Public type definitions.
@@ -80,6 +80,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Message
             (const Message &    other) = delete;
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Message
+            (Message &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -158,12 +164,20 @@ namespace nImO
         open
             (const bool forWriting);
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         Message &
         operator =
             (const Message &    other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Message &
+        operator =
+            (Message &&  other)
+            noexcept;
 
         /*! @brief Return @c true if the read position is past the last character.
          @return @c true if the read position is past the last character. */

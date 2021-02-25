@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide simple values. */
-    class ZeroConfService// : public Value
+    class ZeroConfService final // : public Value
     {
     public :
         // Public type definitions.
@@ -71,6 +71,12 @@ namespace nImO
 
     public :
         // Public methods.
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ZeroConfService
+            (ZeroConfService &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

@@ -84,7 +84,7 @@ using namespace nImO;
 
 nImO::ChunkArray::ChunkArray
     (const bool padWithNull) :
-        _buffers(new BufferChunk *[1]), _numChunks(1), _cachedString(), _buffersArePadded(padWithNull)
+        _buffers(new BufferChunk *[1]), _buffersArePadded(padWithNull), _cachedString(), _numChunks(1)
 {
     ODL_ENTER(); //####
     ODL_B1("padWithNull = ", padWithNull); //####
@@ -280,7 +280,7 @@ nImO::ChunkArray::getBytes
 
             if (nullptr != aChunk)
             {
-                auto    data = aChunk->getData();
+                auto    data{aChunk->getData()};
 
                 for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj)
                 {

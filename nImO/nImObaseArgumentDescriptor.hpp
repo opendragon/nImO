@@ -181,6 +181,12 @@ namespace nImO
         BaseArgumentDescriptor
             (const BaseArgumentDescriptor & other);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        BaseArgumentDescriptor
+            (BaseArgumentDescriptor &&	other)
+            noexcept;
+
         /*! @brief The destructor. */
         virtual
         ~BaseArgumentDescriptor
@@ -316,7 +322,7 @@ namespace nImO
             return _valid;
         } // isValid
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @tparam Type The type of value being assigned.
          @param[in] other The object to be copied.
          @return The updated object. */
@@ -331,6 +337,14 @@ namespace nImO
             swap(temp);
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        BaseArgumentDescriptor &
+        operator =
+            (BaseArgumentDescriptor &&  other)
+            noexcept;
 
         /*! @brief Set the associated variable to the default value. */
         virtual void
@@ -353,6 +367,15 @@ namespace nImO
 
     protected :
         // Protected methods.
+
+        /*! @brief Return the paramter separator.
+         @return The parameter separator. */
+        inline static std::string
+        getParameterSeparator
+            (void)
+        {
+            return _parameterSeparator;
+        } // getParameterSeparator
 
         /*! @brief Find a character that is not present in the input, to use as a delimiter.
          @param[in] inString The string to be analyzed.
@@ -388,6 +411,12 @@ namespace nImO
             (const std::string &    tagForField)
             const;
 
+        /*! @brief Sets the validity of the object.
+         @param[in] isValid @c true if the object is valid. */
+        void
+        setValidity
+            (const bool isValid);
+            
         /*! @brief Returns a string that contains a printable representation of the standard
          fields for a command-line argument.
          @param[in] defaultToUse The string to put in the printable representation for the default
@@ -413,23 +442,23 @@ namespace nImO
     protected :
         // Protected fields.
 
-        /*! @brief The separator string to use when converting to a string. */
-        static std::string _parameterSeparator;
-
-        /*! @brief @c true if the argument was valid and @c false otherwise. */
-        bool _valid;
-
     private :
         // Private fields.
 
         /*! @brief The description of the command-line argument for the adapter. */
         std::string _argDescription;
 
+        /*! @brief The mode of the command-line argument. */
+        ArgumentMode _argMode;
+
         /*! @brief The name of the command-line argument. */
         std::string _argName;
 
-        /*! @brief The mode of the command-line argument. */
-        ArgumentMode _argMode;
+        /*! @brief The separator string to use when converting to a string. */
+        static std::string _parameterSeparator;
+
+        /*! @brief @c true if the argument was valid and @c false otherwise. */
+        bool _valid;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

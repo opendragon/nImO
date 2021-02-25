@@ -117,14 +117,14 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ChannelArgumentDescriptor firstArg("input", T_("Channel to read from"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/in");
+    nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
 

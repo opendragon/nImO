@@ -141,6 +141,12 @@ namespace nImO
         ~Value
             (void);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Value
+            (Value &&	other)
+            noexcept;
+
         /*! @brief Return non-@c nullptr if the object is an Array.
          @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
         virtual const Array *

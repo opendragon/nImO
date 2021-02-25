@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief The data constituting a chunk of a buffer. */
-    class BufferChunk
+    class BufferChunk final
     {
     public :
         // Public type definitions.
@@ -73,13 +73,19 @@ namespace nImO
          @param[in] addPadding @c true if a single byte of padding is added to each buffer.
          The padding is to support direct access to a chunk as a @c nullptr-terminated
          string. */
-        BufferChunk
+        explicit BufferChunk
             (const bool addPadding);
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         BufferChunk
             (const BufferChunk &    other) = delete;
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        BufferChunk
+            (BufferChunk &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -127,12 +133,20 @@ namespace nImO
             return StaticCast(size_t, _write - _buffer.get());
         } // getDataSize
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         BufferChunk &
         operator =
             (const BufferChunk &    other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        BufferChunk &
+        operator =
+            (BufferChunk &&  other)
+            noexcept;
 
         /*! @brief Prepare the buffer for reuse.
          @return The BufferChunk object so that cascading can be done. */

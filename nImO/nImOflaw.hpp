@@ -77,6 +77,12 @@ namespace nImO
         ~Flaw
             (void);
 
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Flaw
+            (Flaw &&	other)
+            noexcept;
+
         /*! @brief Return non-@c nullptr if the object is a Flaw.
          @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
         virtual const Flaw *

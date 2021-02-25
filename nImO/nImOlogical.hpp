@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide true / false values. */
-    class Logical : public Atom
+    class Logical final : public Atom
     {
     public :
         // Public type definitions.
@@ -85,6 +85,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Logical
             (const Logical &    other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Logical
+            (Logical &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -202,12 +208,20 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         Logical &
         operator =
             (const Logical &    other);
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Logical &
+        operator =
+            (Logical &&  other)
+            noexcept;
 
         /*! @brief The assignment operator.
          @param[in] value The value to be assigned.

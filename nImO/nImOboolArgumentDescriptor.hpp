@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a boolean argument description is:
 
      booleanTagAndInfo ::= 'B'; */
-    class BoolArgumentDescriptor : public BaseArgumentDescriptor
+    class BoolArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -93,6 +93,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         BoolArgumentDescriptor
             (const BoolArgumentDescriptor & other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        BoolArgumentDescriptor
+            (BoolArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -193,11 +199,11 @@ namespace nImO
     protected :
         // Protected fields.
 
-        /*! @brief The default value for the command-line argument. */
-        bool    _defaultValue;
-
     private :
         // Private fields.
+
+        /*! @brief The default value for the command-line argument. */
+        bool    _defaultValue;
 
         /*! @brief The current value of the command-line argument. */
         bool    _currentValue;

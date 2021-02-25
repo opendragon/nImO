@@ -121,7 +121,7 @@ ChannelArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<ChannelArgumentDescriptor>(*this);
+    auto    result{std::make_shared<ChannelArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -132,7 +132,7 @@ ChannelArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue);
+    std::string result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -143,7 +143,7 @@ ChannelArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(_defaultValue);
+    std::string result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -177,11 +177,11 @@ ChannelArgumentDescriptor::parseArgString
     {
         ArgumentMode    argMode;
         bool            okSoFar = true;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     defaultString(inVector[3]);
-        std::string     description(inVector[4]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     defaultString{inVector[3]};
+        std::string     description{inVector[4]};
 
         if ("C" != typeTag)
         {
@@ -222,7 +222,7 @@ ChannelArgumentDescriptor::setToDefaultValue
     std::string failReason;
 
     _currentValue = ChannelName::parse(_defaultValue, failReason);
-    ODL_P1("_currentValue <- ", _currentValue); //####
+    ODL_S1s("_currentValue = ", _currentValue->getName()); //####
     ODL_OBJEXIT(); //####
 } // ChannelArgumentDescriptor::setToDefaultValue
 
@@ -243,7 +243,7 @@ ChannelArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("C"));
+    std::string result{prefixFields("C")};
 
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
@@ -256,17 +256,17 @@ ChannelArgumentDescriptor::validate
 {
     ODL_OBJENTER(); //####
     std::string failReason;
-    SpChannelName   trialValue = ChannelName::parse(value, failReason);
+    SpChannelName   trialValue{ChannelName::parse(value, failReason)};
 
-    _valid = (nullptr != trialValue);
-    ODL_B1("_valid <- ", _valid); //####
-    if (_valid)
+    setValidity(nullptr != trialValue);
+    ODL_B1("_valid <- ", isValid()); //####
+    if (isValid())
     {
         _currentValue = trialValue;
-        ODL_P1("_currentValue <- ", _currentValue); //####
+        ODL_S1s("_currentValue <- ", _currentValue->getName()); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // ChannelArgumentDescriptor::validate
 
 #if defined(__APPLE__)

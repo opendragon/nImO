@@ -91,7 +91,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -121,7 +121,7 @@ compareValueWithString
     int             result;
 
     aValue.printToStringBuffer(buff);
-    auto    resultString(buff.getString());
+    auto    resultString{buff.getString()};
 
     result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
@@ -156,7 +156,7 @@ doTestParseLogicalValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue(buff.convertToValue());
+        SpValue readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -226,7 +226,7 @@ main
     (int        NOT_USED_(argc),
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

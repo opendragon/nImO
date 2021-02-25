@@ -70,13 +70,13 @@ static const char   kStartPath = '/';
 static const char   kStartProtocol = '#';
 
 /*! @brief The standard name for the TCP protocol. */
-static const std::string    kProtocolTcpName = "tcp";
+static const std::string    kProtocolTcpName{"tcp"};
 
 /*! @brief The standard name for the UDP protocol. */
-static const std::string    kProtocolUdpName = "udp";
+static const std::string    kProtocolUdpName{"udp"};
 
 /*! @brief The standard name for an unknown protocol. */
-static const std::string    kProtocolUnknownName = "unknown";
+static const std::string    kProtocolUnknownName{"unknown"};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -194,7 +194,7 @@ nImO::ChannelName::parse
     ODL_S1s("input = ", input); //####
     ODL_P1("problemDescription = ", &problemDescription); //####
     bool            okSoFar;
-    enum
+    enum // Note that this can't be an 'enum class' since it will reqire a name; it's only used in this function, however.
     {
         kNetwork,
         kNode,

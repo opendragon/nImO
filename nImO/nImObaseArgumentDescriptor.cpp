@@ -79,7 +79,7 @@ using namespace nImO;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::string BaseArgumentDescriptor::_parameterSeparator("\t");
+std::string BaseArgumentDescriptor::_parameterSeparator{"\t"};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -97,7 +97,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription,
      const ArgumentMode     argMode) :
-        _valid(true), _argDescription(argDescription), _argName(argName), _argMode(argMode)
+        _argDescription(argDescription), _argMode(argMode), _argName(argName), _valid(true)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -106,8 +106,8 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 
 BaseArgumentDescriptor::BaseArgumentDescriptor
     (const BaseArgumentDescriptor & other) :
-        _valid(other._valid), _argDescription(other._argDescription), _argName(other._argName),
-        _argMode(other._argMode)
+        _argDescription(other._argDescription), _argMode(other._argMode), _argName(other._argName),
+        _valid(other._valid)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -193,7 +193,7 @@ BaseArgumentDescriptor::partitionString
            "indexOfListValue = ", indexOfListValue); //####
     ODL_P1("result = ", &result); //####
     bool        okSoFar = false;
-    std::string workingCopy(inString);
+    std::string workingCopy{inString};
 
     // We need to split the input into fields.
     result.clear();
@@ -280,12 +280,22 @@ BaseArgumentDescriptor::prefixFields
 {
     ODL_OBJENTER(); //####
     ODL_S1s("tagForField = ", tagForField); //####
-    std::string result(_argName);
+    std::string result{_argName};
 
     result += (_parameterSeparator + tagForField + _parameterSeparator + std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
+
+void
+BaseArgumentDescriptor::setValidity
+    (const bool isValid)
+{
+    ODL_OBJENTER(); //####
+    ODL_B1("isValid = ", isValid); //####
+    _valid = isValid;
+    ODL_OBJEXIT(); //####
+} // BaseArgumentDescriptor::setValidity
 
 std::string
 BaseArgumentDescriptor::suffixFields
@@ -293,8 +303,8 @@ BaseArgumentDescriptor::suffixFields
 {
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
-    char        charToUse = identifyDelimiter(defaultToUse);
-    std::string result(_parameterSeparator);
+    char        charToUse{identifyDelimiter(defaultToUse)};
+    std::string result{_parameterSeparator};
 
     result += charToUse;
     result += defaultToUse + charToUse + _parameterSeparator + _argDescription;
@@ -402,14 +412,14 @@ nImO::ArgumentsToDescriptionArray
 
             if (anArg)
             {
-                std::string aLine(anArg->argumentName());
+                std::string aLine{anArg->argumentName()};
 
                 aLine += std::string(nameSize - aLine.length(), ' ');
                 if (0 < optionSize)
                 {
                     if (anArg->isOptional())
                     {
-                        std::string anOption(anArg->getPrintableDefaultValue());
+                        std::string anOption{anArg->getPrintableDefaultValue()};
 
                         aLine += "(Optional, default=";
                         aLine += anOption;
@@ -509,10 +519,10 @@ nImO::ModeFromString
 {
     ODL_ENTER(); //####
     ODL_S1s("modeString = ", modeString); //####
-    ArgumentMode result = ArgumentMode::Unknown;
+    ArgumentMode result{ArgumentMode::Unknown};
     int64_t      modeAsInt;
 
-    if (nImO::ConvertToInt64(modeString.c_str(), modeAsInt))
+    if (nImO::ConvertToInt64(modeString, modeAsInt))
     {
         // Check that only the known bits are set!
         if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))
@@ -659,12 +669,12 @@ nImO::PromptForValues
 
         if (anArg && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
-            std::string currentValue(anArg->getProcessedValue().c_str());
-            std::string defaultValue(anArg->getDefaultValue().c_str());
+            std::string currentValue{anArg->getProcessedValue()};
+            std::string defaultValue{anArg->getDefaultValue()};
             std::string inputLine;
 
-            std::cout << anArg->argumentDescription().c_str();
-            std::cout << " (default=" << defaultValue << ", current=" << currentValue << "): ";
+            std::cout << anArg->argumentDescription() << " (default=" << defaultValue <<
+                        ", current=" << currentValue << "): ";
             std::cout.flush();
             // Eat whitespace until we get something useful.
             for ( ; ; )

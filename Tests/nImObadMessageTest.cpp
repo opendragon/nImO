@@ -93,7 +93,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -127,7 +127,7 @@ attemptExtractValueAndCheck
 
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
-    SpValue extractedValue(stuff.getValue());
+    SpValue extractedValue{stuff.getValue()};
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     stuff.close();
@@ -178,7 +178,7 @@ doTestMessageInitialEndTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -231,7 +231,7 @@ doTestMessageTerminalStartTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -284,7 +284,7 @@ doTestEmptyMessageWithContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -340,7 +340,7 @@ doTestNonEmptyMessageWithoutContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -397,7 +397,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -457,7 +457,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -517,7 +517,7 @@ doTestNonEmptyMessageWithInvalidContentTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -576,7 +576,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -637,7 +637,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -699,7 +699,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -761,7 +761,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -826,7 +826,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -891,7 +891,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -959,7 +959,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1029,7 +1029,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1098,7 +1098,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1174,7 +1174,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1253,7 +1253,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1342,7 +1342,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1407,7 +1407,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1472,7 +1472,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1540,7 +1540,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1610,7 +1610,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1679,7 +1679,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1761,7 +1761,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1843,7 +1843,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1922,7 +1922,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -1987,7 +1987,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2052,7 +2052,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2120,7 +2120,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2190,7 +2190,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2259,7 +2259,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2335,7 +2335,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 
     try
     {
-        auto    stuff(make_unique<Message>());
+        auto    stuff{make_unique<Message>()};
 
         if (stuff)
         {
@@ -2408,7 +2408,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

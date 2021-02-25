@@ -113,9 +113,9 @@ helpForConnect
     nImO::StringSet modes(nImO::ChannelName::transportNames());
 
     outStream << "Available modes:" << std::endl;
-    for (nImO::StringSet::const_iterator walker(modes.begin()); walker != modes.end(); ++walker)
+    for (auto & walker : modes)
     {
-        outStream << "  " << *walker << std::endl;
+        outStream << "  " << walker << std::endl;
     }
 } // helpForConnect
 
@@ -133,19 +133,19 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ChannelArgumentDescriptor firstArg("from", T_("'Sending' channel"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/out");
-    nImO::ChannelArgumentDescriptor secondArg("to", T_("'Receiving' channel"),
-                                              nImO::ArgumentMode::RequiredModifiable, "/in");
-    nImO::StringsArgumentDescriptor thirdArg("mode", T_("Transport mode"),
+    nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
+                                             nImO::ArgumentMode::RequiredModifiable, "/out"};
+    nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
+                                              nImO::ArgumentMode::RequiredModifiable, "/in"};
+    nImO::StringsArgumentDescriptor thirdArg{"mode", T_("Transport mode"),
                                              nImO::ArgumentMode::OptionalModifiable, "tcp",
-                                             nImO::ChannelName::transportNames());
+                                             nImO::ChannelName::transportNames()};
     // third argument will be a StringsArgumentDescriptor for Mode
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;

@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a string-type argument description is:
 
      stringTagAndInfo ::= 'S'; */
-    class StringsArgumentDescriptor : public BaseArgumentDescriptor
+    class StringsArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -95,6 +95,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         StringsArgumentDescriptor
             (const StringsArgumentDescriptor &   other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        StringsArgumentDescriptor
+            (StringsArgumentDescriptor &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

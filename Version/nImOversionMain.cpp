@@ -84,8 +84,8 @@ static std::string
 getBoostVersion
     (void)
 {
-    std::string source(BOOST_LIB_VERSION);
-    std::regex  exp("_");
+    std::string source{BOOST_LIB_VERSION};
+    std::regex  exp{"_"};
 
     return std::regex_replace(source, exp, ".");
 } // getBoostVersion
@@ -105,7 +105,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -129,7 +129,7 @@ main
                 case nImO::OutputFlavour::Tabs :
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                    cout << nImOversionString.c_str() << "\t" << odlVersionString << "\t" <<
+                    cout << nImOversionString << "\t" << odlVersionString << "\t" <<
                             getBoostVersion() << endl;
                     break;
 
@@ -140,7 +140,7 @@ main
                                CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                             T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
                                "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                            odlVersionString.c_str() <<
+                            odlVersionString <<
                             T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
                                CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
                             getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
@@ -149,7 +149,7 @@ main
                 case nImO::OutputFlavour::Normal :
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                    cout << "nImO Version: " << nImOversionString.c_str() << ", ODL Version: " <<
+                    cout << "nImO Version: " << nImOversionString << ", ODL Version: " <<
                             odlVersionString << ", Boost Version: " << getBoostVersion() << endl;
                     break;
 

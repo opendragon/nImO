@@ -129,7 +129,7 @@ DoubleArgumentDescriptor::clone
     const
 {
     ODL_OBJENTER(); //####
-    auto    result = std::make_shared<DoubleArgumentDescriptor>(*this);
+    auto    result{std::make_shared<DoubleArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
@@ -140,7 +140,7 @@ DoubleArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result = nImO::ConvertDoubleToString(_defaultValue);
+    std::string result{nImO::ConvertDoubleToString(_defaultValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -151,7 +151,7 @@ DoubleArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(getDefaultValue());
+    std::string result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -162,7 +162,7 @@ DoubleArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result = nImO::ConvertDoubleToString(_currentValue);
+    std::string result{nImO::ConvertDoubleToString(_currentValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -184,13 +184,13 @@ DoubleArgumentDescriptor::parseArgString
         double          defaultValue = 0;
         double          maxValue = 0;
         double          minValue = 0;
-        std::string     name(inVector[0]);
-        std::string     typeTag(inVector[1]);
-        std::string     modeString(inVector[2]);
-        std::string     minValString(inVector[3]);
-        std::string     maxValString(inVector[4]);
-        std::string     defaultString(inVector[5]);
-        std::string     description(inVector[6]);
+        std::string     name{inVector[0]};
+        std::string     typeTag{inVector[1]};
+        std::string     modeString{inVector[2]};
+        std::string     minValString{inVector[3]};
+        std::string     maxValString{inVector[4]};
+        std::string     defaultString{inVector[5]};
+        std::string     description{inVector[6]};
 
         if ("D" != typeTag)
         {
@@ -209,7 +209,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(defaultString.c_str(), dblValue))
+            if (nImO::ConvertToDouble(defaultString, dblValue))
             {
                 minValue = defaultValue;
             }
@@ -222,7 +222,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(minValString.c_str(), dblValue))
+            if (nImO::ConvertToDouble(minValString, dblValue))
             {
                 minValue = dblValue;
             }
@@ -235,7 +235,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(maxValString.c_str(), dblValue))
+            if (nImO::ConvertToDouble(maxValString, dblValue))
             {
                 maxValue = dblValue;
             }
@@ -289,14 +289,14 @@ DoubleArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result(prefixFields("D"));
+    std::string result{prefixFields("D")};
 
-    result += _parameterSeparator;
+    result += getParameterSeparator();
     if (_hasMinimumValue)
     {
         result += ConvertDoubleToString(_minimumValue);
     }
-    result += _parameterSeparator;
+    result += getParameterSeparator();
     if (_hasMaximumValue)
     {
         result += ConvertDoubleToString(_maximumValue);
@@ -313,33 +313,33 @@ DoubleArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     double  dblValue;
 
-    if (nImO::ConvertToDouble(value.c_str(), dblValue))
+    if (nImO::ConvertToDouble(value, dblValue))
     {
-        _valid = true;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(true);
+        ODL_B1("_valid <- ", isValid()); //####
         if (_hasMinimumValue && (dblValue < _minimumValue))
         {
-            _valid = false;
-            ODL_B1("_valid <- ", _valid); //####
+            setValidity(false);
+            ODL_B1("_valid <- ", isValid()); //####
         }
         if (_hasMaximumValue && (dblValue > _maximumValue))
         {
-            _valid = false;
-            ODL_B1("_valid <- ", _valid); //####
+            setValidity(false);
+            ODL_B1("_valid <- ", isValid()); //####
         }
     }
     else
     {
-        _valid = false;
-        ODL_B1("_valid <- ", _valid); //####
+        setValidity(false);
+        ODL_B1("_valid <- ", isValid()); //####
     }
-    if (_valid)
+    if (isValid())
     {
         _currentValue = dblValue;
         ODL_D1("_currentValue <- ", _currentValue); //####
     }
-    ODL_OBJEXIT_B(_valid); //####
-    return _valid;
+    ODL_OBJEXIT_B(isValid()); //####
+    return isValid();
 } // DoubleArgumentDescriptor::validate
 
 #if defined(__APPLE__)

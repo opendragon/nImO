@@ -91,7 +91,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -112,7 +112,7 @@ fixDescriptorString
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    std::string result(inString);
+    std::string result{inString};
 
     for (std::string::size_type pos = result.find("\\t"); pos != result.npos;
          pos = result.find("\\t"))
@@ -983,7 +983,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

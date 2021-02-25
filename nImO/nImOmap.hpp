@@ -62,8 +62,8 @@ namespace nImO
 
      Note that Maps 'own' their data and will perform a delete of the
      contained elements and their keys on deletion. */
-    class Map : public Container,
-                public MapBase
+    class Map final : public Container,
+                      public MapBase
     {
     public :
         // Public type definitions.
@@ -112,6 +112,12 @@ namespace nImO
          @param[in] other The object to be copied. */
         Map
             (const Map &    other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        Map
+            (Map &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -273,7 +279,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief The assignment operator.
+        /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
         inline Map &
@@ -287,6 +293,14 @@ namespace nImO
             }
             return *this;
         } // operator =
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        Map &
+        operator =
+            (Map &&  other)
+            noexcept;
 
         /*! @brief Add a readable representation of the object to the buffer.
          @param[in,out] outBuffer The buffer to be appended to.

@@ -233,7 +233,7 @@ nImO::StringBuffer::convertToValue
 {
     ODL_OBJENTER(); //####
     size_t  position = 0;
-    SpValue result(Value::readFromStringBuffer(*this, position));
+    SpValue result{Value::readFromStringBuffer(*this, position)};
 
     ODL_P1("result <- ", result.get()); //####
     if (result)
@@ -446,9 +446,9 @@ nImO::operator <<
 {
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
-    for (size_t ii = 0; aBuffer._numChunks > ii; ++ii)
+    for (size_t ii = 0, num = aBuffer.getNumChunks(); num > ii; ++ii)
     {
-        BufferChunk *   aChunk = aBuffer._buffers[ii];
+        BufferChunk *   aChunk = aBuffer.getBufferChunk(ii);
 
         if (nullptr != aChunk)
         {

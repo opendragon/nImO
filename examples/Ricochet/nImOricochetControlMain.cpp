@@ -90,16 +90,16 @@ main
 (int        argc,
  char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::BoolArgumentDescriptor firstArg("random", T_("True if random path"),
-                                          nImO::ArgumentMode::Optional, false);
-    nImO::PortArgumentDescriptor secondArg("port", T_("Port for communication"),
-                                           nImO::ArgumentMode::Optional, 2020);
+    nImO::BoolArgumentDescriptor firstArg{"random", T_("True if random path"),
+                                          nImO::ArgumentMode::Optional, false};
+    nImO::PortArgumentDescriptor secondArg{"port", T_("Port for communication"),
+                                           nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector       argumentList;
     nImO::OutputFlavour          flavour;
 

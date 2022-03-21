@@ -219,6 +219,17 @@ if(IF_FOUND)
     include_directories(${IF_INCLUDE_DIRS})
 endif()
 
+# The following is to help CMake find mdns_plusplus...
+if(WIN32)
+    set(mdns_plusplus_DIR "C:/Program Files/mdns_plusplus/lib")
+else()
+    set(mdns_plusplus_DIR "/opt/mdns_plusplus/lib")
+endif()
+find_package(mdns_plusplus 1.0.0 REQUIRED)
+if(mdns_plusplus_FOUND)
+    include_directories(${mdns_plusplus_INCLUDE_DIRS})
+endif()
+
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)

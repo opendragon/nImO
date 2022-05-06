@@ -130,6 +130,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcommon.hpp"
         "${THIS_SOURCE_DIR}/nImOcompareValues.hpp"
         "${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp"
+        "${THIS_SOURCE_DIR}/nImOconfig.hpp"
         "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
         "${THIS_SOURCE_DIR}/nImOconverters.hpp"
         "${THIS_SOURCE_DIR}/nImOdouble.hpp"

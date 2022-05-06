@@ -45,6 +45,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunused-function"
+#endif // defined(__APPLE__)
+#include <mdns.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -117,6 +126,7 @@ main
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version number of the library",
                                               progName, 2016, NIMO_COPYRIGHT_NAME_, flavour))
     {
+        std::string mdnsVersionString;
         std::string nImOversionString;
         std::string odlVersionString;
 
@@ -127,30 +137,35 @@ main
             switch (flavour)
             {
                 case nImO::OutputFlavour::Tabs :
+                    mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                    cout << nImOversionString << "\t" << odlVersionString << "\t" <<
+                    cout << nImOversionString << "\t" << odlVersionString << "\t" << mdnsVersionString << "\t" <<
                             getBoostVersion() << endl;
                     break;
 
                 case nImO::OutputFlavour::JSON :
+                    mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_);
                     cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": "
                                CHAR_DOUBLEQUOTE_) << nImOversionString.c_str() <<
                             T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
                                "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                            odlVersionString <<
-                            T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
-                               CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                            odlVersionString << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mdns_plusplus"
+                                                   CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                            mdnsVersionString << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
+                                                    CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
                             getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ " }") << endl;
                     break;
 
                 case nImO::OutputFlavour::Normal :
+                    mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
                     cout << "nImO Version: " << nImOversionString << ", ODL Version: " <<
-                            odlVersionString << ", Boost Version: " << getBoostVersion() << endl;
+                    odlVersionString << ", mdns_plusplus Version: " << mdnsVersionString << ", Boost Version: " <<
+                            getBoostVersion() << endl;
                     break;
 
                 default :

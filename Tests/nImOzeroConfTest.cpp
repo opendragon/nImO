@@ -224,7 +224,7 @@ doTestParseLogicalValue
 int
 main
     (int        NOT_USED_(argc),
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -241,7 +241,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
 #if 0
         if (3 < --argc)
         {
@@ -303,6 +303,7 @@ main
             ODL_LOG("! (3 < --argc)"); //####
         }
 #endif//0
+        nImO::Terminate();
     }
     catch (...)
     {

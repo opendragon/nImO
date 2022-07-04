@@ -39,6 +39,7 @@
 #include <nImOcommon.hpp>
 
 #include <nImOchannelArgumentDescriptor.hpp>
+#include <nImOstringArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -114,7 +115,7 @@ using std::endl;
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -124,17 +125,21 @@ main
     ODL_ENTER(); //####
     nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out"};
+    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
+                                             nImO::ArgumentMode::OptionalModifiable, "source"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
 
     argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Source);
 
+            nImO::Terminate();
         }
         catch (...)
         {

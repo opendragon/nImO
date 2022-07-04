@@ -373,7 +373,7 @@ doTestParseExtractProtocol
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -390,7 +390,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
         if (2 < --argc)
         {
             int64_t selector;
@@ -460,6 +460,7 @@ main
         {
             ODL_LOG("! (2 < --argc)"); //####
         }
+        nImO::Terminate();
     }
     catch (...)
     {

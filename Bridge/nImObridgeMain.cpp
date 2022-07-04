@@ -38,6 +38,8 @@
 
 #include <nImOcommon.hpp>
 
+#include <nImOstringArgumentDescriptor.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -112,7 +114,7 @@ using std::endl;
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -120,16 +122,20 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
+                                             nImO::ArgumentMode::OptionalModifiable, "bridge"};
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
 
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
                                               2016, NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
     {
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
 
+            nImO::Terminate();
         }
         catch (...)
         {

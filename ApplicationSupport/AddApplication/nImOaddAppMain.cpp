@@ -88,7 +88,7 @@ using std::endl;
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -104,8 +104,9 @@ main
     {
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
 
+            nImO::Terminate();
         }
         catch (...)
         {

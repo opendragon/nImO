@@ -622,7 +622,8 @@ nImO::IdleUntilNotRunning
 
 void
 nImO::Initialize
-    (const std::string &    NOT_USED_(progName))
+    (const std::string &    NOT_USED_(progName),
+     const ApplicationRole  NOT_USED_(role))
 {
     ODL_ENTER(); //####
     //ODL_S1s("progName = ", progName); //####
@@ -882,7 +883,7 @@ nImO::OutputDescription
 bool
 nImO::ProcessStandardUtilitiesOptions
     (const int                  argc,
-     char **                    argv,
+     char * *                   argv,
      nImO::DescriptorVector &   argumentDescriptions,
      const std::string &        utilityDescription,
      const std::string &        utilityExample,
@@ -933,7 +934,7 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor     usage[7]; // first, help, info, json, tabs, version
     Option_::Descriptor *   usageWalker = usage;
     int                     argcWork = argc;
-    char **                 argvWork = argv;
+    char * *                argvWork = argv;
     std::string             usageString{"USAGE: "};
     std::string             argList{ArgumentsToArgString(argumentDescriptions)};
 
@@ -1349,3 +1350,21 @@ nImO::StopRunning
     ODL_EXIT(); //####
 } // nImO::StopRunning
 #endif//0
+
+void
+nImO::Terminate
+    (void)
+{
+    ODL_ENTER(); //####
+    //ODL_S1s("progName = ", progName); //####
+    try
+    {
+
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT(); //####
+} // nImO::Terminate

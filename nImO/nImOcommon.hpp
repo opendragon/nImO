@@ -222,6 +222,18 @@ namespace nImO
 
     // Type definitions.
 
+    /*! @brief The application role. */
+    enum class ApplicationRole
+    {
+        Source,
+        Sink,
+        Filter,
+        Service,
+        Utility,
+        Test,
+        Miscellaneous
+    }; // ApplicationRole
+
     /*! @brief The tag values for Message contents. */
     enum class DataKind : uint8_t
     {
@@ -415,13 +427,6 @@ namespace nImO
 
     }; // DataKind
 
-    /*! @brief A pointer to a function that can be invoked when help is requested, to
-     provide more detailed information on the arguments to an application.
-     @param[in,out] outStream The stream to write to. */
-    typedef void
-        (* HelpFunction)
-            (std::ostream & outStream);
-
     /*! @brief Whether a Value is enumerable. */
     enum class Enumerable
     {
@@ -441,6 +446,13 @@ namespace nImO
         NotEnumerable
 
     }; // Enumerable
+
+    /*! @brief A pointer to a function that can be invoked when help is requested, to
+     provide more detailed information on the arguments to an application.
+     @param[in,out] outStream The stream to write to. */
+    typedef void
+        (* HelpFunction)
+            (std::ostream & outStream);
 
     /*! @brief The state of a Message. */
     enum class MessageState
@@ -740,11 +752,13 @@ namespace nImO
 
     /*! @brief Perform initialization of internal resources.
      @param[in] progName The name of the executing program.
+     @param[in] role The role of the executing program.
 
      Should be called in the main() function of each application or service. */
     void
     Initialize
-        (const std::string &    progName);
+        (const std::string &    progName,
+         const ApplicationRole  role);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
@@ -752,6 +766,12 @@ namespace nImO
     const char *
     NameOfSignal
         (const int  theSignal);
+
+    /*! @brief Release internal resources.
+     Should be called in the main() function of each application or service. */
+    void
+    Terminate
+        (void);
 
     /*! @brief Complement a DataKind value.
      @param[in] rightValue The value to be inverted.
@@ -870,7 +890,7 @@ namespace nImO
     bool
     ProcessStandardUtilitiesOptions
         (const int              argc,
-         char **                argv,
+         char * *               argv,
          DescriptorVector &     argumentDescriptions,
          const std::string &    utilityDescription,
          const std::string &    utilityExample,

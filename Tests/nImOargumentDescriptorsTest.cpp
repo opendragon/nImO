@@ -139,7 +139,7 @@ doTestAddressArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -234,7 +234,7 @@ doTestBoolArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -325,7 +325,7 @@ doTestChannelArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -420,7 +420,7 @@ doTestDoubleArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -515,7 +515,7 @@ doTestFilePathArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -610,7 +610,7 @@ doTestIntArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -708,7 +708,7 @@ doTestPortArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -804,7 +804,7 @@ doTestStringArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -883,7 +883,7 @@ doTestStringsArgumentDescriptors
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char **        argv)
+     char * *       argv)
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -981,7 +981,7 @@ doTestStringsArgumentDescriptors
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -998,7 +998,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
         if (2 < --argc)
         {
             int64_t selector;
@@ -1077,6 +1077,7 @@ main
         {
             ODL_LOG("! (2 < --argc)"); //####
         }
+        nImO::Terminate();
     }
     catch (...)
     {

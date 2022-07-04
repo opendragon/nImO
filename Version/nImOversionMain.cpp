@@ -112,7 +112,7 @@ getBoostVersion
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -130,10 +130,9 @@ main
         std::string nImOversionString;
         std::string odlVersionString;
 
-        nImO::Initialize(progName);
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
             switch (flavour)
             {
                 case nImO::OutputFlavour::Tabs :
@@ -172,6 +171,7 @@ main
                     break;
 
             }
+            nImO::Terminate();
         }
         catch (...)
         {

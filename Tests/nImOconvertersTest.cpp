@@ -114,7 +114,7 @@ static int
 doTestInvalidArgs
     (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char **        argv) // invalid args
+     char * *       argv) // invalid args
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -196,7 +196,7 @@ static int
 doTestIntegerSize
     (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char **        argv) // integer size
+     char * *       argv) // integer size
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -256,7 +256,7 @@ static int
 doTestDoubleSize
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // double size
+     char * *       NOT_USED_(argv)) // double size
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -301,7 +301,7 @@ static int
 doTestIntegerConversion
     (const char *   NOT_USED_(launchPath),
      const int      argc,
-     char **        argv) // integer conversion
+     char * *       argv) // integer conversion
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -372,7 +372,7 @@ static int
 doTestDoubleConversion
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // double conversion
+     char * *       NOT_USED_(argv)) // double conversion
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -439,7 +439,7 @@ doTestDoubleConversion
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -456,7 +456,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
         if (0 < --argc)
         {
             int64_t selector;
@@ -509,6 +509,7 @@ main
         {
             ODL_LOG("! (0 < --argc)"); //####
         }
+        nImO::Terminate();
     }
     catch (...)
     {

@@ -169,7 +169,7 @@ helpForList
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -198,7 +198,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
             std::string choice{firstArg.getCurrentValue()};
             auto        match{lChoiceMap.find(choice)};
 
@@ -220,6 +220,7 @@ main
 
                 }
             }
+            nImO::Terminate();
         }
         catch (...)
         {

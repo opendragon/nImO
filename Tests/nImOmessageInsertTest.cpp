@@ -185,7 +185,7 @@ static int
 doTestInsertEmptyMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty message
+     char * *       NOT_USED_(argv)) // empty message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -284,7 +284,7 @@ static int
 doTestInsertLogicalMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // logical message
+     char * *       NOT_USED_(argv)) // logical message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -381,7 +381,7 @@ static int
 doTestInsertTinyIntegerMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // tiny integer message
+     char * *       NOT_USED_(argv)) // tiny integer message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -508,7 +508,7 @@ static int
 doTestInsertSmallIntegerMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // small integer message
+     char * *       NOT_USED_(argv)) // small integer message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -608,7 +608,7 @@ static int
 doTestInsertMediumIntegerMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // medium integer message
+     char * *       NOT_USED_(argv)) // medium integer message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -710,7 +710,7 @@ static int
 doTestInsertBigIntegerMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // big integer message
+     char * *       NOT_USED_(argv)) // big integer message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -814,7 +814,7 @@ static int
 doTestInsertEmptyStringMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty string message
+     char * *       NOT_USED_(argv)) // empty string message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -884,7 +884,7 @@ static int
 doTestInsertShortStringMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // short string message
+     char * *       NOT_USED_(argv)) // short string message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -957,7 +957,7 @@ static int
 doTestInsertMediumStringMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // medium string message
+     char * *       NOT_USED_(argv)) // medium string message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1052,7 +1052,7 @@ static int
 doTestInsertEmptyBlobMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty blob message
+     char * *       NOT_USED_(argv)) // empty blob message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1122,7 +1122,7 @@ static int
 doTestInsertSmallBlobMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // small blob message
+     char * *       NOT_USED_(argv)) // small blob message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1200,7 +1200,7 @@ static int
 doTestInsertMediumBlobMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // medium blob message
+     char * *       NOT_USED_(argv)) // medium blob message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1309,7 +1309,7 @@ static int
 doTestInsertSingleDoubleMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // single double message
+     char * *       NOT_USED_(argv)) // single double message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1418,7 +1418,7 @@ static int
 doTestInsertMultipleEscapesMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with multiple escapes
+     char * *       NOT_USED_(argv)) // message with multiple escapes
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1499,7 +1499,7 @@ static int
 doTestInsertEmptyArrayMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty array message
+     char * *       NOT_USED_(argv)) // empty array message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1574,7 +1574,7 @@ static int
 doTestInsertEmptyMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty map message
+     char * *       NOT_USED_(argv)) // empty map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1649,7 +1649,7 @@ static int
 doTestInsertEmptySetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty set message
+     char * *       NOT_USED_(argv)) // empty set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1724,7 +1724,7 @@ static int
 doTestInsertArrayOneLogicalMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one logical message
+     char * *       NOT_USED_(argv)) // array with one logical message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1809,7 +1809,7 @@ static int
 doTestInsertArrayOneIntegerMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one integer message
+     char * *       NOT_USED_(argv)) // array with one integer message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1894,7 +1894,7 @@ static int
 doTestInsertArrayOneDoubleMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one double message
+     char * *       NOT_USED_(argv)) // array with one double message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1984,7 +1984,7 @@ static int
 doTestInsertArrayOneStringMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one string message
+     char * *       NOT_USED_(argv)) // array with one string message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2070,7 +2070,7 @@ static int
 doTestInsertArrayOneBlobMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one blob message
+     char * *       NOT_USED_(argv)) // array with one blob message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2156,7 +2156,7 @@ static int
 doTestInsertArrayOneArrayMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one array message
+     char * *       NOT_USED_(argv)) // array with one array message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2247,7 +2247,7 @@ static int
 doTestInsertArrayOneMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one map message
+     char * *       NOT_USED_(argv)) // array with one map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2338,7 +2338,7 @@ static int
 doTestInsertArrayOneSetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with one set message
+     char * *       NOT_USED_(argv)) // array with one set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2429,7 +2429,7 @@ static int
 doTestInsertArrayTwoLogicalsMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two logicals message
+     char * *       NOT_USED_(argv)) // array with two logicals message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2518,7 +2518,7 @@ static int
 doTestInsertArrayTwoIntegersMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two integers message
+     char * *       NOT_USED_(argv)) // array with two integers message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2607,7 +2607,7 @@ static int
 doTestInsertArrayTwoDoublesMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two doubles message
+     char * *       NOT_USED_(argv)) // array with two doubles message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2703,7 +2703,7 @@ static int
 doTestInsertArrayTwoStringsMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two strings message
+     char * *       NOT_USED_(argv)) // array with two strings message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2794,7 +2794,7 @@ static int
 doTestInsertArrayTwoBlobsMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two blobs message
+     char * *       NOT_USED_(argv)) // array with two blobs message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2885,7 +2885,7 @@ static int
 doTestInsertArrayTwoArraysMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two arrays message
+     char * *       NOT_USED_(argv)) // array with two arrays message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2987,7 +2987,7 @@ static int
 doTestInsertArrayTwoMapsMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two maps message
+     char * *       NOT_USED_(argv)) // array with two maps message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3089,7 +3089,7 @@ static int
 doTestInsertArrayTwoSetsMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with two sets message
+     char * *       NOT_USED_(argv)) // array with two sets message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3191,7 +3191,7 @@ static int
 doTestInsertArrayOneArrayOneMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with array and map message
+     char * *       NOT_USED_(argv)) // array with array and map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3293,7 +3293,7 @@ static int
 doTestInsertArrayOneMapOneSetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with map and set message
+     char * *       NOT_USED_(argv)) // array with map and set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3395,7 +3395,7 @@ static int
 doTestInsertArrayOneSetOneArrayMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with set and array message
+     char * *       NOT_USED_(argv)) // array with set and array message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3497,7 +3497,7 @@ static int
 doTestInsertArrayWithManyDoublesMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // array with many doubles message
+     char * *       NOT_USED_(argv)) // array with many doubles message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3802,7 +3802,7 @@ static int
 doTestInsertLogicalMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // logical map message
+     char * *       NOT_USED_(argv)) // logical map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3891,7 +3891,7 @@ static int
 doTestInsertIntegerMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // integer map message
+     char * *       NOT_USED_(argv)) // integer map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -3980,7 +3980,7 @@ static int
 doTestInsertStringMapMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // integer map message
+     char * *       NOT_USED_(argv)) // integer map message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -4070,7 +4070,7 @@ static int
 doTestInsertLogicalSetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // logical set message
+     char * *       NOT_USED_(argv)) // logical set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -4155,7 +4155,7 @@ static int
 doTestInsertIntegerSetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // integer set message
+     char * *       NOT_USED_(argv)) // integer set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -4240,7 +4240,7 @@ static int
 doTestInsertStringSetMessage
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // integer set message
+     char * *       NOT_USED_(argv)) // integer set message
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -4328,7 +4328,7 @@ doTestInsertStringSetMessage
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -4345,7 +4345,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
         if (0 < --argc)
         {
             int64_t selector;
@@ -4545,6 +4545,7 @@ main
         {
             ODL_LOG("! (0 < --argc)"); //####
         }
+        nImO::Terminate();
     }
     catch (...)
     {

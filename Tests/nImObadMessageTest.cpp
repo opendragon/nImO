@@ -168,7 +168,7 @@ static int
 doTestMessageInitialEndTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message wrong initial tag
+     char * *       NOT_USED_(argv)) // message wrong initial tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -221,7 +221,7 @@ static int
 doTestMessageTerminalStartTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message wrong terminal tag
+     char * *       NOT_USED_(argv)) // message wrong terminal tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -274,7 +274,7 @@ static int
 doTestEmptyMessageWithContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // empty message with content
+     char * *       NOT_USED_(argv)) // empty message with content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -330,7 +330,7 @@ static int
 doTestNonEmptyMessageWithoutContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // non-empty message without content
+     char * *       NOT_USED_(argv)) // non-empty message without content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -387,7 +387,7 @@ static int
 doTestNonEmptyMessageWithMismatchedInitialStartTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with mismatched tag
+     char * *       NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -447,7 +447,7 @@ static int
 doTestNonEmptyMessageWithMismatchedTerminalEndTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with mismatched tag
+     char * *       NOT_USED_(argv)) // message with mismatched tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -507,7 +507,7 @@ static int
 doTestNonEmptyMessageWithInvalidContentTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with invalid content tag
+     char * *       NOT_USED_(argv)) // message with invalid content tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -566,7 +566,7 @@ static int
 doTestNonEmptyMessageWithZeroDoubleCount
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with bad double count
+     char * *       NOT_USED_(argv)) // message with bad double count
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -627,7 +627,7 @@ static int
 doTestNonEmptyMessageWithStringWithInvalidLength
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with string with invalid length
+     char * *       NOT_USED_(argv)) // message with string with invalid length
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -689,7 +689,7 @@ static int
 doTestNonEmptyMessageWithBlobWithInvalidLength
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with blob with invalid length
+     char * *       NOT_USED_(argv)) // message with blob with invalid length
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -751,7 +751,7 @@ static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with array with initial end tag
+     char * *       NOT_USED_(argv)) // message with array with initial end tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -816,7 +816,7 @@ static int
 doTestNonEmptyMessageWithArrayWithTerminalStartTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with array with terminal start tag
+     char * *       NOT_USED_(argv)) // message with array with terminal start tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -881,7 +881,7 @@ static int
 doTestNonEmptyMessageWithEmptyArrayWithContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with empty array with content
+     char * *       NOT_USED_(argv)) // message with empty array with content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -949,7 +949,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty array without content
+     char * *       NOT_USED_(argv)) // message with nonempty array without content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1019,7 +1019,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty array with invalid count
+     char * *       NOT_USED_(argv)) // message with nonempty array with invalid count
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1088,7 +1088,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with array with too few values
+     char * *       NOT_USED_(argv)) // message with array with too few values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1164,7 +1164,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with array with too many values
+     char * *       NOT_USED_(argv)) // message with array with too many values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1243,7 +1243,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with array with too many doubles
+     char * *       NOT_USED_(argv)) // message with array with too many doubles
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1332,7 +1332,7 @@ static int
 doTestNonEmptyMessageWithMapWithInitialEndTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with map with initial end tag
+     char * *       NOT_USED_(argv)) // message with map with initial end tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1397,7 +1397,7 @@ static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with map with terminal start tag
+     char * *       NOT_USED_(argv)) // message with map with terminal start tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1462,7 +1462,7 @@ static int
 doTestNonEmptyMessageWithEmptyMapWithContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with empty map with content
+     char * *       NOT_USED_(argv)) // message with empty map with content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1530,7 +1530,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty map without content
+     char * *       NOT_USED_(argv)) // message with nonempty map without content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1600,7 +1600,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty map with invalid count
+     char * *       NOT_USED_(argv)) // message with nonempty map with invalid count
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1669,7 +1669,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with map with too few values
+     char * *       NOT_USED_(argv)) // message with map with too few values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1751,7 +1751,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with map with too many values
+     char * *       NOT_USED_(argv)) // message with map with too many values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1833,7 +1833,7 @@ static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with map with incomplete pair
+     char * *       NOT_USED_(argv)) // message with map with incomplete pair
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1912,7 +1912,7 @@ static int
 doTestNonEmptyMessageWithSetWithInitialEndTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with set with initial end tag
+     char * *       NOT_USED_(argv)) // message with set with initial end tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -1977,7 +1977,7 @@ static int
 doTestNonEmptyMessageWithSetWithTerminalStartTag
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with set with terminal start tag
+     char * *       NOT_USED_(argv)) // message with set with terminal start tag
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2042,7 +2042,7 @@ static int
 doTestNonEmptyMessageWithEmptySetWithContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with empty set with content
+     char * *       NOT_USED_(argv)) // message with empty set with content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2110,7 +2110,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty set without content
+     char * *       NOT_USED_(argv)) // message with nonempty set without content
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2180,7 +2180,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with nonempty set with invalid count
+     char * *       NOT_USED_(argv)) // message with nonempty set with invalid count
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2249,7 +2249,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with set with too few values
+     char * *       NOT_USED_(argv)) // message with set with too few values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2325,7 +2325,7 @@ static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     (const char *   NOT_USED_(launchPath),
      const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv)) // message with set with too many values
+     char * *       NOT_USED_(argv)) // message with set with too many values
 {
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -2406,7 +2406,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 int
 main
     (int        argc,
-     char **    argv)
+     char * *   argv)
 {
     std::string progName{*argv};
 
@@ -2423,7 +2423,7 @@ main
 
     try
     {
-        Initialize(progName);
+        Initialize(progName, nImO::ApplicationRole::Test);
         if (0 < --argc)
         {
             int64_t selector;
@@ -2583,6 +2583,7 @@ main
         {
             ODL_LOG("! (0 < --argc)"); //####
         }
+        nImO::Terminate();
     }
     catch (...)
     {

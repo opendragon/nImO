@@ -88,7 +88,7 @@ using std::endl;
 int
 main
 (int        argc,
- char **    argv)
+ char * *   argv)
 {
     std::string progName{*argv};
 
@@ -110,7 +110,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName);
+            nImO::Initialize(progName, nImO::ApplicationRole::Miscellaneous);
 #if 0
             start the ricochet program on each cluster machine, with a specified port number
             get the list of cluster machines from 'hosts.list'
@@ -140,7 +140,8 @@ main
                 }
             }
             exit
-#endif//0
+#endif //0
+            nImO::Terminate();
         }
         catch (...)
         {

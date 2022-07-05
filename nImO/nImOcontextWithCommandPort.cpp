@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOutilityContext.hpp
+//  File:       nImO/nImOcontextWithCommandPort.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'utility' execution context.
+//  Contains:   The class definition for nImO execution contexts that use a command port.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,71 +36,77 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOutilityContext_HPP_))
-# define nImOutilityContext_HPP_ /* Header guard */
+#include "nImOcontextWithCommandPort.hpp"
 
-# include <nImOcontextWithCommandPort.hpp>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'utility' %nImO execution context. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+ @brief The class definition for %nImO execution contexts that use a command port. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-namespace nImO
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::ContextWithCommandPort::ContextWithCommandPort
+    (const std::string &    executableName,
+     const std::string &    nodeName) :
+        inherited(executableName, nodeName)
 {
-    /*! @brief A class to provide support for a 'utility' application. */
-    class UtilityContext final : public ContextWithCommandPort
+    ODL_ENTER(); //####
+    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    try
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_P(this); //####
+} // nImO::ContextWithCommandPort::ContextWithCommandPort
 
-    private :
-        // Private type definitions.
+nImO::ContextWithCommandPort::~ContextWithCommandPort
+    (void)
+{
+    ODL_OBJENTER(); //####
+//    removeAllEntries();
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithCommandPort::~ContextWithCommandPort
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithCommandPort;
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        UtilityContext
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
-
-        /*! @brief The destructor. */
-        virtual
-        ~UtilityContext
-            (void);
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-    }; // UtilityContext
-
-} // nImO
-
-#endif // ! defined(nImOutilityContext_HPP_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

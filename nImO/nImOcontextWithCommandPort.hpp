@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOutilityContext.hpp
+//  File:       nImO/nImOcontextWithCommandPort.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'utility' execution context.
+//  Contains:   The class declaration for nImO execution contexts that use a command port.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOutilityContext_HPP_))
-# define nImOutilityContext_HPP_ /* Header guard */
+#if (! defined(nImOcontextWithCommandPort_HPP_))
+# define nImOcontextWithCommandPort_HPP_ /* Header guard */
 
-# include <nImOcontextWithCommandPort.hpp>
+# include <nImOcontext.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'utility' %nImO execution context. */
+ @brief The class declaration for %nImO execution contexts that use a command port. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for a 'utility' application. */
-    class UtilityContext final : public ContextWithCommandPort
+    /*! @brief A class to provide support for an application that uses a command port. */
+    class ContextWithCommandPort : public Context
     {
     public :
         // Public type definitions.
@@ -67,25 +67,25 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithCommandPort;
+        using inherited = Context;
 
     public :
         // Public methods.
 
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        UtilityContext
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
-
         /*! @brief The destructor. */
         virtual
-        ~UtilityContext
+        ~ContextWithCommandPort
             (void);
 
     protected :
         // Protected methods.
+
+        /*! @brief The constructor.
+        @param[in] executable The name of the executing program.
+        @param[in] nodeName The @nImO-visible name of the executing program. */
+        ContextWithCommandPort
+            (const std::string &    executableName,
+             const std::string &    nodeName = "");
 
     private :
         // Private methods.
@@ -99,8 +99,8 @@ namespace nImO
     private :
         // Private fields.
 
-    }; // UtilityContext
+    }; // ContextWithCommandPort
 
 } // nImO
 
-#endif // ! defined(nImOutilityContext_HPP_)
+#endif // ! defined(nImOcontextWithCommandPort_HPP_)

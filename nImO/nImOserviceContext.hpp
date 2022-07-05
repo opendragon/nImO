@@ -39,7 +39,7 @@
 #if (! defined(nImOserviceContext_HPP_))
 # define nImOserviceContext_HPP_ /* Header guard */
 
-# include <nImOcontext.hpp>
+# include <nImOcontextWithCommandPort.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for a 'service' application. */
-    class ServiceContext final : public Context
+    class ServiceContext final : public ContextWithCommandPort
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = Context;
+        using inherited = ContextWithCommandPort;
 
     public :
         // Public methods.

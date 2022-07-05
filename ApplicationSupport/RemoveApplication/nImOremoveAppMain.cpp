@@ -104,7 +104,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
+            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
 
             nImO::Terminate();
         }

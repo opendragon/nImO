@@ -202,11 +202,12 @@ nImO::Logical::equalTo
 
 nImO::SpValue
 nImO::Logical::extractValue
-    (const nImO::Message &  NOT_USED_(theMessage),
+    (const nImO::Message &  theMessage,
      const int              leadByte,
      size_t &               position,
      nImO::SpArray          parentValue)
 {
+    MDNS_UNUSED_ARG_(theMessage);
     ODL_ENTER(); //####
     //ODL_P1("theMessage = ", &theMessage);
     ODL_P2("position = ", &position, "parentValue = ", parentValue.get()); //####
@@ -455,12 +456,13 @@ nImO::Logical::operator <<
 void
 nImO::Logical::printToStringBuffer
     (nImO::StringBuffer &   outBuffer,
-     const bool             NOT_USED_(squished))
+     const bool             squished)
     const
 {
+    MDNS_UNUSED_ARG_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    //ODL_B1("squished = ", squished); //####
+    ODL_B1("squished = ", squished); //####
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer

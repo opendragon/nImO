@@ -76,8 +76,9 @@ namespace nImO
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
         inline CompareValues
-            (const CompareValues &	NOT_USED_(other))
+            (const CompareValues &	other)
         {
+            MDNS_UNUSED_ARG_(other);
         } // copy constructor
 
         /*! @brief The move constructor.

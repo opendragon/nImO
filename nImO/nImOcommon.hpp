@@ -82,6 +82,15 @@
 # include <sstream>
 # include <vector>
 
+# if defined(__APPLE__)
+#  pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wunused-function"
+# endif // defined(__APPLE__)
+# include <mdns.hpp>
+# if defined(__APPLE__)
+#  pragma clang diagnostic pop
+# endif // defined(__APPLE__)
+
 # if MAC_OR_LINUX_
 #  include <arpa/inet.h>
 #  include <sys/socket.h>
@@ -158,9 +167,6 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 # if (! defined(TRUE))
 #  define TRUE 1
 # endif // ! defined(TRUE)
-
-/*! @brief A simple macro to hide unused parameters for a function. */
-# define NOT_USED_(var_) /* var_ */
 
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
@@ -751,14 +757,14 @@ namespace nImO
          NumberAsBytes &    outString);
 
     /*! @brief Perform initialization of internal resources.
-     @param[in] progName The name of the executing program.
      @param[in] role The role of the executing program.
+     @param[in] progName The name of the executing program.
 
      Should be called in the main() function of each application or service. */
     void
     Initialize
-        (const std::string &    progName,
-         const ApplicationRole  role);
+        (const ApplicationRole  role,
+         const std::string &    progName);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.

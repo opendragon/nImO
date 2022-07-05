@@ -489,12 +489,13 @@ nImO::String::operator <<
 void
 nImO::String::printToStringBuffer
     (nImO::StringBuffer &   outBuffer,
-     const bool             NOT_USED_(squished))
+     const bool             squished)
     const
 {
+    MDNS_UNUSED_ARG_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    //ODL_B1("squished = ", squished); //####
+    ODL_B1("squished = ", squished); //####
     outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer

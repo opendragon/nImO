@@ -37,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
-
 #include <nImOstringsArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -198,7 +197,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
+            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
             std::string choice{firstArg.getCurrentValue()};
             auto        match{lChoiceMap.find(choice)};
 

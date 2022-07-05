@@ -168,10 +168,13 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty array value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -236,10 +239,13 @@ doTestEmptyArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular array value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular array value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -309,10 +315,13 @@ doTestSingularArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small array value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small array value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -391,10 +400,13 @@ doTestSmallArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // big array value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // big array value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -480,10 +492,13 @@ doTestBigArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -548,10 +563,13 @@ doTestEmptyMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular logical map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular logical map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -623,10 +641,13 @@ doTestSingularLogicalMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular integer map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular integer map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -696,10 +717,13 @@ doTestSingularIntegerMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular string map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular string map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -771,10 +795,13 @@ doTestSingularStringMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small logical map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small logical map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -849,10 +876,13 @@ doTestSmallLogicalMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small integer map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small integer map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -928,10 +958,13 @@ doTestSmallIntegerMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small string map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small string map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1013,10 +1046,13 @@ doTestSmallStringMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1081,10 +1117,13 @@ doTestEmptySetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular logical set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular logical set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1154,10 +1193,13 @@ doTestSingularLogicalSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular integer set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular integer set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1227,10 +1269,13 @@ doTestSingularIntegerSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // singular string set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // singular string set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1300,10 +1345,13 @@ doTestSingularStringSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small logical set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small logical set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1378,10 +1426,13 @@ doTestSmallLogicalSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small integer set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small integer set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1464,10 +1515,13 @@ doTestSmallIntegerSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small string set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small string set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1550,10 +1604,13 @@ doTestSmallStringSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with array value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with array value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1623,10 +1680,13 @@ doTestArrayWithArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1696,10 +1756,13 @@ doTestArrayWithMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1769,10 +1832,13 @@ doTestArrayWithSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // map with array
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // map with array
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1844,10 +1910,13 @@ doTestMapWithArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithMapValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // map with map
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // map with map
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1919,10 +1988,13 @@ doTestMapWithMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithSetValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // map with set
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // map with set
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1994,10 +2066,13 @@ doTestMapWithSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical map with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical map with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2072,10 +2147,13 @@ doTestLogicalMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer map with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer map with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2148,10 +2226,13 @@ doTestIntegerMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string map with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string map with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2226,10 +2307,13 @@ doTestStringMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical set with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical set with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2302,10 +2386,13 @@ doTestLogicalSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer set with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer set with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2378,10 +2465,13 @@ doTestIntegerSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetValueWithIncompatibleKeys
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string set with incompatible keys
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string set with incompatible keys
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2454,10 +2544,13 @@ doTestStringSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidArrayCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid array compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid array compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3156,10 +3249,13 @@ doTestValidArrayCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid logical map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid logical map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3444,10 +3540,13 @@ doTestValidLogicalMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid integer map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid integer map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3718,10 +3817,13 @@ doTestValidIntegerMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid string map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid string map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3918,10 +4020,13 @@ doTestValidStringMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid logical set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid logical set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4206,10 +4311,13 @@ doTestValidLogicalSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid integer set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid integer set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4480,10 +4588,13 @@ doTestValidIntegerSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid string set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid string set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4680,10 +4791,13 @@ doTestValidStringSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArrayCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid array compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid array compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4792,10 +4906,13 @@ doTestInvalidArrayCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid logical map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid logical map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4902,10 +5019,13 @@ doTestInvalidLogicalMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid integer map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid integer map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5011,10 +5131,13 @@ doTestInvalidIntegerMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringMapCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid string map compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid string map compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5122,10 +5245,13 @@ doTestInvalidStringMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid logical set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid logical set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5232,10 +5358,13 @@ doTestInvalidLogicalSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid integer set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid integer set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5341,10 +5470,13 @@ doTestInvalidIntegerSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringSetCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid string set compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid string set compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5452,10 +5584,13 @@ doTestInvalidStringSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayIndices
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array indices
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array indices
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5566,10 +5701,13 @@ doTestArrayIndices
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical map searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical map searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5668,10 +5806,13 @@ doTestLogicalMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer map searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer map searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5770,10 +5911,13 @@ doTestIntegerMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string map searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string map searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5872,10 +6016,13 @@ doTestStringMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical set searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical set searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -5961,10 +6108,13 @@ doTestLogicalSetSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer set searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer set searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -6050,10 +6200,13 @@ doTestIntegerSetSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetSearches
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string set searches
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string set searches
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -6160,7 +6313,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (0 < --argc)
         {
             int64_t selector;

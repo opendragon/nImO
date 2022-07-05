@@ -166,10 +166,13 @@ attemptExtractValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageInitialEndTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message wrong initial tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message wrong initial tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -219,10 +222,13 @@ doTestMessageInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageTerminalStartTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message wrong terminal tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message wrong terminal tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -272,10 +278,13 @@ doTestMessageTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessageWithContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty message with content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty message with content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -328,10 +337,13 @@ doTestEmptyMessageWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithoutContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // non-empty message without content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty message without content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -385,10 +397,13 @@ doTestNonEmptyMessageWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedInitialStartTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with mismatched tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with mismatched tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -445,10 +460,13 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedTerminalEndTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with mismatched tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with mismatched tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -505,10 +523,13 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithInvalidContentTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with invalid content tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with invalid content tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -564,10 +585,13 @@ doTestNonEmptyMessageWithInvalidContentTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithZeroDoubleCount
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with bad double count
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with bad double count
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -625,10 +649,13 @@ doTestNonEmptyMessageWithZeroDoubleCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithStringWithInvalidLength
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with string with invalid length
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with string with invalid length
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -687,10 +714,13 @@ doTestNonEmptyMessageWithStringWithInvalidLength
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithBlobWithInvalidLength
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with blob with invalid length
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with blob with invalid length
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -749,10 +779,13 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with array with initial end tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with array with initial end tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -814,10 +847,13 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithTerminalStartTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with array with terminal start tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with array with terminal start tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -879,10 +915,13 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyArrayWithContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with empty array with content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with empty array with content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -947,10 +986,13 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty array without content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty array without content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1017,10 +1059,13 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty array with invalid count
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty array with invalid count
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1086,10 +1131,13 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with array with too few values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with array with too few values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1162,10 +1210,13 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with array with too many values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with array with too many values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1241,10 +1292,13 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with array with too many doubles
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with array with too many doubles
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1330,10 +1384,13 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithInitialEndTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with map with initial end tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with map with initial end tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1395,10 +1452,13 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with map with terminal start tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with map with terminal start tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1460,10 +1520,13 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyMapWithContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with empty map with content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with empty map with content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1528,10 +1591,13 @@ doTestNonEmptyMessageWithEmptyMapWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty map without content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty map without content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1598,10 +1664,13 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty map with invalid count
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty map with invalid count
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1667,10 +1736,13 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with map with too few values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with map with too few values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1749,10 +1821,13 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with map with too many values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with map with too many values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1831,10 +1906,13 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with map with incomplete pair
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with map with incomplete pair
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1910,10 +1988,13 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithInitialEndTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with set with initial end tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with set with initial end tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1975,10 +2056,13 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithTerminalStartTag
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with set with terminal start tag
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with set with terminal start tag
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2040,10 +2124,13 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptySetWithContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with empty set with content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with empty set with content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2108,10 +2195,13 @@ doTestNonEmptyMessageWithEmptySetWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty set without content
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty set without content
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2178,10 +2268,13 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with nonempty set with invalid count
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with nonempty set with invalid count
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2247,10 +2340,13 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with set with too few values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with set with too few values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2323,10 +2419,13 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // message with set with too many values
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // message with set with too many values
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2423,7 +2522,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (0 < --argc)
         {
             int64_t selector;

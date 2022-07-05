@@ -37,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
-
 #include <nImOchannelArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -134,7 +133,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
+            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
 
             nImO::Terminate();
         }

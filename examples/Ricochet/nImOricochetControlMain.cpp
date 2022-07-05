@@ -110,7 +110,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Miscellaneous);
+            nImO::Initialize(nImO::ApplicationRole::Miscellaneous, progName);
 #if 0
             start the ricochet program on each cluster machine, with a specified port number
             get the list of cluster machines from 'hosts.list'

@@ -132,8 +132,9 @@ const std::string   nImO::kDirectorySeparator{"\\"};
 [[noreturn]]
 static void
 localCatcher
-    (int    NOT_USED_(signal))
+    (int    signal)
 {
+    MDNS_UNUSED_ARG_(signal);
     ODL_ENTER(); //####
     //ODL_I1("signal = ", signal); //####
 #if 0
@@ -622,9 +623,11 @@ nImO::IdleUntilNotRunning
 
 void
 nImO::Initialize
-    (const std::string &    NOT_USED_(progName),
-     const ApplicationRole  NOT_USED_(role))
+    (const ApplicationRole  role,
+     const std::string &    progName)
 {
+    MDNS_UNUSED_ARG_(role);
+    MDNS_UNUSED_ARG_(progName);
     ODL_ENTER(); //####
     //ODL_S1s("progName = ", progName); //####
     try
@@ -1308,8 +1311,9 @@ nImO::ShutDownCatcher
 #if 0
 void
 nImO::SignalRunningStop
-    (const int  NOT_USED_(signal))
+    (const int  signal)
 {
+    MDNS_UNUSED_ARG_(signal);
     ODL_ENTER(); //####
     //ODL_I1("signal = ", signal); //####
     StopRunning();

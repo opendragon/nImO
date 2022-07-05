@@ -238,8 +238,9 @@ ExtraArgumentDescriptor::toString
 
 bool
 ExtraArgumentDescriptor::validate
-    (const std::string &    NOT_USED_(value))
+    (const std::string &    value)
 {
+    MDNS_UNUSED_ARG_(value);
     ODL_OBJENTER(); //####
     //ODL_P1("value = ", &value); //####
     setValidity(true);

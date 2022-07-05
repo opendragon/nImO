@@ -112,10 +112,11 @@ catchSignal
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArgs
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // invalid args
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -194,10 +195,11 @@ doTestInvalidArgs
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSize
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer size
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -254,10 +256,13 @@ doTestIntegerSize
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleSize
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // double size
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // double size
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -299,10 +304,11 @@ doTestDoubleSize
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerConversion
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer conversion
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -370,10 +376,13 @@ doTestIntegerConversion
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleConversion
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // double conversion
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // double conversion
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -456,7 +465,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (0 < --argc)
         {
             int64_t selector;

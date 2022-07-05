@@ -390,7 +390,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (2 < --argc)
         {
             int64_t selector;

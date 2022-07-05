@@ -423,9 +423,10 @@ nImO::Value::getValueFromMessage
 
 nImO::ComparisonStatus
 nImO::Value::greaterThan
-    (const nImO::Value &    NOT_USED_(other))
+    (const nImO::Value &    other)
     const
 {
+    MDNS_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
@@ -579,13 +580,14 @@ nImO::Value::isLegalTerminator
 
 nImO::ComparisonStatus
 nImO::Value::lessThan
-    (const nImO::Value &    NOT_USED_(other))
+    (const nImO::Value &    other)
     const
 {
+    MDNS_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
-    //ODL_P1("other = ", &other); //####
+    ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
     return result;
 } // nImO::Value::lessThan
@@ -624,13 +626,15 @@ nImO::Value::operator <<
 
 void
 nImO::Value::printToStringBuffer
-    (nImO::StringBuffer &   NOT_USED_(outBuffer),
-     const bool             NOT_USED_(squished))
+    (nImO::StringBuffer &   outBuffer,
+     const bool             squished)
     const
 {
+    MDNS_UNUSED_ARG_(outBuffer);
+    MDNS_UNUSED_ARG_(squished);
     ODL_OBJENTER(); //####
-    //ODL_P1("outBuffer = ", &outBuffer); //####
-    //ODL_B1("squished = ", squished); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBuffer
 
@@ -731,11 +735,12 @@ nImO::Value::writeInt64ToMessage
 
 void
 nImO::Value::writeToMessage
-    (nImO::Message &    NOT_USED_(outMessage))
+    (nImO::Message &    outMessage)
     const
 {
+    MDNS_UNUSED_ARG_(outMessage);
     ODL_OBJENTER(); //####
-    //ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1("outMessage = ", &outMessage); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::writeToMessage
 

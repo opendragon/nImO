@@ -204,10 +204,13 @@ extractValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -309,10 +312,13 @@ doTestEmptyMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -389,10 +395,13 @@ doTestLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestTinyIntegerMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // tiny integer message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // tiny integer message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -489,10 +498,13 @@ doTestTinyIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small integer message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small integer message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -571,10 +583,13 @@ doTestSmallIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumIntegerMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // medium integer message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium integer message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -655,10 +670,13 @@ doTestMediumIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigIntegerMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // big integer message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // big integer message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -741,10 +759,13 @@ doTestBigIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty string message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty string message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -802,10 +823,13 @@ doTestEmptyStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestShortStringMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // short string message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // short string message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -866,10 +890,13 @@ doTestShortStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumStringMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // medium string message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium string message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -949,10 +976,13 @@ doTestMediumStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBlobMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty blob message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty blob message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1010,10 +1040,13 @@ doTestEmptyBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small blob message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small blob message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1079,10 +1112,13 @@ doTestSmallBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMediumBlobMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // medium blob message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium blob message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1173,10 +1209,13 @@ doTestMediumBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingleDoubleMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // single double message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // single double message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1263,10 +1302,13 @@ doTestSingleDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty array message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1328,10 +1370,13 @@ doTestEmptyArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1393,10 +1438,13 @@ doTestEmptyMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1458,10 +1506,13 @@ doTestEmptySetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneLogicalMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one logical message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one logical message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1532,10 +1583,13 @@ doTestArrayOneLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneIntegerMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one integer message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one integer message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1606,10 +1660,13 @@ doTestArrayOneIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneDoubleMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one double message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one double message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1685,10 +1742,13 @@ doTestArrayOneDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneStringMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one string message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one string message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1760,10 +1820,13 @@ doTestArrayOneStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneBlobMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one blob message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one blob message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1835,10 +1898,13 @@ doTestArrayOneBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one array message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one array message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1914,10 +1980,13 @@ doTestArrayOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1993,10 +2062,13 @@ doTestArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with one set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2072,10 +2144,13 @@ doTestArrayOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoLogicalsMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two logicals message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two logicals message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2150,10 +2225,13 @@ doTestArrayTwoLogicalsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoIntegersMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two integers message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two integers message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2228,10 +2306,13 @@ doTestArrayTwoIntegersMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoDoublesMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two doubles message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two doubles message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2312,10 +2393,13 @@ doTestArrayTwoDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoStringsMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two strings message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two strings message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2392,10 +2476,13 @@ doTestArrayTwoStringsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoBlobsMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two blobs message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two blobs message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2472,10 +2559,13 @@ doTestArrayTwoBlobsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoArraysMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two arrays message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two arrays message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2560,10 +2650,13 @@ doTestArrayTwoArraysMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoMapsMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two maps message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two maps message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2648,10 +2741,13 @@ doTestArrayTwoMapsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayTwoSetsMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with two sets message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two sets message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2736,10 +2832,13 @@ doTestArrayTwoSetsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneArrayOneMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with array and map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with array and map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2824,10 +2923,13 @@ doTestArrayOneArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneMapOneSetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with map and set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with map and set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2912,10 +3014,13 @@ doTestArrayOneMapOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayOneSetOneArrayMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with set and array message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with set and array message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3000,10 +3105,13 @@ doTestArrayOneSetOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithManyDoublesMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with many doubles message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with many doubles message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3251,10 +3359,13 @@ doTestArrayWithManyDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3328,10 +3439,13 @@ doTestLogicalMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3405,10 +3519,13 @@ doTestIntegerMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string map message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string map message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3483,10 +3600,13 @@ doTestStringMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3557,10 +3677,13 @@ doTestLogicalSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3631,10 +3754,13 @@ doTestIntegerSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetMessage
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string set message
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string set message
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3706,10 +3832,13 @@ doTestStringSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageWithArrayWithRangeOfIntegers
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // array with range of integers
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with range of integers
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4067,7 +4196,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (0 < --argc)
         {
             int64_t selector;

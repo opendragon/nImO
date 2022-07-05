@@ -37,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
-
 #include <nImOchannelArgumentDescriptor.hpp>
 #include <nImOchannelName.hpp>
 #include <nImOstringsArgumentDescriptor.hpp>
@@ -158,7 +157,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
+            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
 
             nImO::Terminate();
         }

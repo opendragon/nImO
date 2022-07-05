@@ -37,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcommon.hpp>
-
 #include <nImOstringArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -133,7 +132,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Utility);
+            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
 
             nImO::Terminate();
         }

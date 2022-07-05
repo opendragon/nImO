@@ -146,10 +146,13 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBufferChunk
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty buffer chunk
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty buffer chunk
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -196,10 +199,13 @@ doTestEmptyBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkWithSingleByte
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // buffer chunk with 1 byte of data
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // buffer chunk with 1 byte of data
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -258,10 +264,13 @@ doTestBufferChunkWithSingleByte
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFilledBufferChunk
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // buffer chunk filled with data
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // buffer chunk filled with data
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -346,10 +355,13 @@ doTestFilledBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestOverfilledBufferChunk
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // buffer chunk overfilled with data
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // buffer chunk overfilled with data
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -434,10 +446,13 @@ doTestOverfilledBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkReset
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // resetting buffer chunk
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // resetting buffer chunk
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -495,10 +510,13 @@ doTestBufferChunkReset
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringBuffer
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // empty string buffer
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty string buffer
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -555,10 +573,11 @@ doTestEmptyStringBuffer
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithCharacters
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string buffer with character string
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -629,10 +648,11 @@ doTestStringBufferWithCharacters
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithLogical
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string buffer with logical
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -701,10 +721,11 @@ doTestStringBufferWithLogical
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithInteger
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string buffer with integer
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -771,10 +792,11 @@ doTestStringBufferWithInteger
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithString
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string buffer with string
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -843,10 +865,13 @@ doTestStringBufferWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSpecialCharacters
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string buffer with special chars
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string buffer with special chars
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -908,10 +933,11 @@ doTestStringBufferWithSpecialCharacters
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithDouble
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string buffer with floating point
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -987,10 +1013,13 @@ doTestStringBufferWithDouble
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigStringBuffer
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // big string buffer
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // big string buffer
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1057,10 +1086,13 @@ doTestBigStringBuffer
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithEmptyBlob
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string buffer with empty blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string buffer with empty blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1111,10 +1143,13 @@ doTestStringBufferWithEmptyBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSmallBlob
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string buffer with small blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string buffer with small blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1192,10 +1227,13 @@ doTestStringBufferWithSmallBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithBigBlob
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string buffer with big blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string buffer with big blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1273,10 +1311,13 @@ doTestStringBufferWithBigBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferReset
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // resetting string buffer
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // resetting string buffer
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1336,10 +1377,13 @@ doTestStringBufferReset
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultLogicalValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // default logical value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // default logical value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1386,10 +1430,11 @@ doTestDefaultLogicalValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical values
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1453,10 +1498,13 @@ doTestLogicalValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultIntegerValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // default integer value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // default integer value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1504,10 +1552,11 @@ doTestDefaultIntegerValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNumberValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // number values
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1596,10 +1645,13 @@ doTestNumberValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultStringValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // default string value
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // default string value
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1646,10 +1698,11 @@ doTestDefaultStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      argc,
      char * *       argv) // string values
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1703,10 +1756,13 @@ doTestStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValueWithEscapes
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string value with escapes
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string value with escapes
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1755,10 +1811,13 @@ doTestStringValueWithEscapes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultBlobValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // default blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // default blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1805,10 +1864,13 @@ doTestDefaultBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // small blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1884,10 +1946,13 @@ doTestSmallBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigBlobValue
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // big blob
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // big blob
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1963,10 +2028,13 @@ doTestBigBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalCopyAndAssign
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // logical copy and assign
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical copy and assign
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2032,10 +2100,13 @@ doTestLogicalCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerCopyAndAssign
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // integer copy and assign
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer copy and assign
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2122,10 +2193,13 @@ doTestIntegerCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleCopyAndAssign
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // floating point copy and assign
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // floating point copy and assign
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2211,10 +2285,13 @@ doTestDoubleCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringCopyAndAssign
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // string copy and assign
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string copy and assign
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2280,10 +2357,13 @@ doTestStringCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBlobCopyAndAssign
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // blob copy and assign
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // blob copy and assign
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2394,10 +2474,13 @@ doTestBlobCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid logical compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid logical compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2510,10 +2593,13 @@ doTestValidLogicalCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidNumberCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid number compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid number compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2945,10 +3031,13 @@ doTestValidNumberCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid string compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid string compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3086,10 +3175,13 @@ doTestValidStringCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidBlobCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // valid blob compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // valid blob compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3237,10 +3329,13 @@ doTestValidBlobCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid logical compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid logical compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3337,10 +3432,13 @@ doTestInvalidLogicalCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidNumberCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid number compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid number compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3437,10 +3535,13 @@ doTestInvalidNumberCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid string compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid string compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3537,10 +3638,13 @@ doTestInvalidStringCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidBlobCompares
-    (const char *   NOT_USED_(launchPath),
-     const int      NOT_USED_(argc),
-     char * *       NOT_USED_(argv)) // invalid blob compares
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // invalid blob compares
 {
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3658,7 +3762,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (0 < --argc)
         {
             int64_t selector;

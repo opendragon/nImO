@@ -107,7 +107,7 @@ main
     {
         try
         {
-            nImO::Initialize(progName, nImO::ApplicationRole::Miscellaneous);
+            nImO::Initialize(nImO::ApplicationRole::Miscellaneous, progName);
 #if 0
             running = true
             while running

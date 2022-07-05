@@ -223,9 +223,10 @@ doTestParseLogicalValue
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        NOT_USED_(argc),
+    (int        argc,
      char * *   argv)
 {
+    MDNS_UNUSED_ARG_(argc);
     std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -241,7 +242,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
 #if 0
         if (3 < --argc)
         {

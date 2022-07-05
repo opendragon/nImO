@@ -135,14 +135,15 @@ fixDescriptorString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddressArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -230,14 +231,15 @@ doTestAddressArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBoolArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -321,14 +323,15 @@ doTestBoolArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestChannelArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -416,14 +419,15 @@ doTestChannelArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -511,14 +515,15 @@ doTestDoubleArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFilePathArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -606,14 +611,15 @@ doTestFilePathArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -704,14 +710,15 @@ doTestIntArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestPortArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -800,14 +807,15 @@ doTestPortArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -879,14 +887,15 @@ doTestStringArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringsArgumentDescriptors
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
      char * *       argv)
 {
+    MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
+    ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
@@ -998,7 +1007,7 @@ main
 
     try
     {
-        Initialize(progName, nImO::ApplicationRole::Test);
+        Initialize(nImO::ApplicationRole::Test, progName);
         if (2 < --argc)
         {
             int64_t selector;

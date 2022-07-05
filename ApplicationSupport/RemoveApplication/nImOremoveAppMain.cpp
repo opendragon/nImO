@@ -37,9 +37,9 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOboolArgumentDescriptor.hpp>
-#include <nImOcontext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
+#include <nImOutilityContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -104,7 +104,7 @@ main
     {
         try
         {
-            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+            nImO::UtilityContext    ourContext(progName);
 
         }
         catch (...)

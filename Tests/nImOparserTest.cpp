@@ -38,11 +38,11 @@
 
 #include <nImOblob.hpp>
 #include <nImObufferChunk.hpp>
-#include <nImOcontext.hpp>
 #include <nImOlogical.hpp>
 #include <nImOnumber.hpp>
 #include <nImOstring.hpp>
 #include <nImOstringBuffer.hpp>
+#include <nImOtestContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -690,7 +690,7 @@ main
 
     try
     {
-        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+        nImO::TestContext   ourContext(progName);
 
         if (3 < --argc)
         {

@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOchannelName.hpp>
-#include <nImOcontext.hpp>
+#include <nImOtestContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -391,7 +391,7 @@ main
 
     try
     {
-        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+        nImO::TestContext   ourContext(progName);
 
         if (2 < --argc)
         {

@@ -39,13 +39,13 @@
 #include <nImOaddressArgumentDescriptor.hpp>
 #include <nImOboolArgumentDescriptor.hpp>
 #include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOcontext.hpp>
 #include <nImOdoubleArgumentDescriptor.hpp>
 #include <nImOfilePathArgumentDescriptor.hpp>
 #include <nImOintArgumentDescriptor.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 #include <nImOstringsArgumentDescriptor.hpp>
+#include <nImOtestContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -1008,7 +1008,7 @@ main
 
     try
     {
-        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+        nImO::TestContext   ourContext(progName);
 
         if (2 < --argc)
         {

@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOboolArgumentDescriptor.hpp>
-#include <nImOcontext.hpp>
+#include <nImOmiscellaneousContext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
@@ -110,7 +110,7 @@ main
     {
         try
         {
-            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+            nImO::MiscellaneousContext  ourContext(progName);
 
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number

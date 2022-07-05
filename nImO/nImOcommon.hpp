@@ -218,6 +218,7 @@ namespace nImO
     class BaseArgumentDescriptor;
     class BufferChunk;
     class ChannelName;
+    class Context;
     class Flaw;
     class Map;
     class Message;
@@ -227,18 +228,6 @@ namespace nImO
     class Value;
 
     // Type definitions.
-
-    /*! @brief The application role. */
-    enum class ApplicationRole
-    {
-        Source,
-        Sink,
-        Filter,
-        Service,
-        Utility,
-        Test,
-        Miscellaneous
-    }; // ApplicationRole
 
     /*! @brief The tag values for Message contents. */
     enum class DataKind : uint8_t

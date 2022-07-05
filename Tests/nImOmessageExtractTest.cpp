@@ -39,7 +39,6 @@
 #include <nImOarray.hpp>
 #include <nImOblob.hpp>
 #include <nImObufferChunk.hpp>
-#include <nImOcontext.hpp>
 #include <nImOdouble.hpp>
 #include <nImOflaw.hpp>
 #include <nImOinteger.hpp>
@@ -49,6 +48,7 @@
 #include <nImOset.hpp>
 #include <nImOstring.hpp>
 #include <nImOstringBuffer.hpp>
+#include <nImOtestContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -4197,7 +4197,7 @@ main
 
     try
     {
-        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+        nImO::TestContext   ourContext(progName);
 
         if (0 < --argc)
         {

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontext.hpp
+//  File:       nImO/nImOmiscellaneousContext.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO execution context.
+//  Contains:   The class declaration for the nImO 'miscellaneous' execution context.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontext_HPP_))
-# define nImOcontext_HPP_ /* Header guard */
+#if (! defined(nImOmiscellaneousContext_HPP_))
+# define nImOmiscellaneousContext_HPP_ /* Header guard */
 
-# include <nImOcommon.hpp>
+# include <nImOcontext.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO execution context. */
+ @brief The class declaration for the 'miscellaneous' %nImO execution context. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide binary data with unknown structure. */
-    class Context
+    /*! @brief A class to provide support for a 'miscellaneous' application. */
+    class MiscellaneousContext final : public Context
     {
     public :
         // Public type definitions.
@@ -66,23 +66,26 @@ namespace nImO
     private :
         // Private type definitions.
 
+        /*! @brief The class that this class is derived from. */
+        using inherited = Context;
+
     public :
         // Public methods.
-
-        /*! @brief The destructor. */
-        virtual
-        ~Context
-            (void);
-
-    protected :
-        // Protected methods.
 
         /*! @brief The constructor.
         @param[in] executable The name of the executing program.
         @param[in] nodeName The @nImO-visible name of the executing program. */
-        Context
+        MiscellaneousContext
             (const std::string &    executableName,
              const std::string &    nodeName = "");
+
+        /*! @brief The destructor. */
+        virtual
+        ~MiscellaneousContext
+            (void);
+
+    protected :
+        // Protected methods.
 
     private :
         // Private methods.
@@ -93,17 +96,11 @@ namespace nImO
     protected :
         // Protected fields.
 
-        /*! @brief The name of the executing program. */
-        std::string _executableName;
-
-        /*! @brief The @nImO-visible name of the executing program. */
-        std::string _nodeName;
-
     private :
         // Private fields.
 
-    }; // Context
+    }; // MiscellaneousContext
 
 } // nImO
 
-#endif // ! defined(nImOcontext_HPP_)
+#endif // ! defined(nImOmiscellaneousContext_HPP_)

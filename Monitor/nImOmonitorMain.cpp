@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcontext.hpp>
+#include <nImOutilityContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -129,7 +129,7 @@ main
     {
         try
         {
-            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+            nImO::UtilityContext    ourContext(progName);
 
         }
         catch (...)

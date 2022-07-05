@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcontext.hpp>
+#include <nImOmiscellaneousContext.hpp>
 
 #include <boost/version.hpp>
 #include <regex>
@@ -124,7 +124,7 @@ main
 
         try
         {
-            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+            nImO::MiscellaneousContext  ourContext(progName);
 
             switch (flavour)
             {

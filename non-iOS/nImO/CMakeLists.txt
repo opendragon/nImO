@@ -75,6 +75,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
             "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
@@ -82,13 +83,19 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
+            "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOserviceContext.cpp"
             "${THIS_SOURCE_DIR}/nImOset.cpp"
+            "${THIS_SOURCE_DIR}/nImOsinkContext.cpp"
+            "${THIS_SOURCE_DIR}/nImOsourceContext.cpp"
             "${THIS_SOURCE_DIR}/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOstringBuffer.cpp"
             "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOtestContext.cpp"
+            "${THIS_SOURCE_DIR}/nImOutilityContext.cpp"
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
@@ -139,6 +146,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOfilterContext.hpp"
         "${THIS_SOURCE_DIR}/nImOflaw.hpp"
         "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOinteger.hpp"
@@ -146,13 +154,19 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOlogical.hpp"
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
         "${THIS_SOURCE_DIR}/nImOmessage.hpp"
+        "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp"
         "${THIS_SOURCE_DIR}/nImOnumber.hpp"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOserviceContext.hpp"
         "${THIS_SOURCE_DIR}/nImOset.hpp"
+        "${THIS_SOURCE_DIR}/nImOsinkContext.hpp"
+        "${THIS_SOURCE_DIR}/nImOsourceContext.hpp"
         "${THIS_SOURCE_DIR}/nImOstring.hpp"
         "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOstringBuffer.hpp"
         "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImOtestContext.hpp"
+        "${THIS_SOURCE_DIR}/nImOutilityContext.hpp"
         "${THIS_SOURCE_DIR}/nImOvalue.hpp"
         "${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp"
         "${THIS_SOURCE_DIR}/nImOzeroConfService.hpp"
@@ -183,6 +197,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp
+        ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.hpp
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.hpp
         ${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.hpp
@@ -190,13 +205,19 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.hpp
+        ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.hpp
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp
+        ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.hpp
         ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.hpp
+        ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.hpp
+        ${THIS_SOURCE_DIR}/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/nImOsinkContext.hpp
         ${THIS_SOURCE_DIR}/nImOstring.cpp ${THIS_SOURCE_DIR}/nImOstring.hpp
         ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/nImOstringBuffer.hpp
         ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp
+        ${THIS_SOURCE_DIR}/nImOtestContext.cpp ${THIS_SOURCE_DIR}/nImOtestContext.hpp
+        ${THIS_SOURCE_DIR}/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/nImOutilityContext.hpp
         ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.hpp
         ${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp ${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp
         ${THIS_SOURCE_DIR}/nImOzeroConfService.cpp ${THIS_SOURCE_DIR}/nImOzeroConfService.hpp)

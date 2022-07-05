@@ -39,6 +39,7 @@
 #include <nImOarray.hpp>
 #include <nImOblob.hpp>
 #include <nImObufferChunk.hpp>
+#include <nImOcontext.hpp>
 #include <nImOdouble.hpp>
 #include <nImOflaw.hpp>
 #include <nImOinteger.hpp>
@@ -2522,7 +2523,8 @@ main
 
     try
     {
-        Initialize(nImO::ApplicationRole::Test, progName);
+        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+
         if (0 < --argc)
         {
             int64_t selector;
@@ -2682,7 +2684,6 @@ main
         {
             ODL_LOG("! (0 < --argc)"); //####
         }
-        nImO::Terminate();
     }
     catch (...)
     {

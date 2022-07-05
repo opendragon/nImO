@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
+#include <nImOcontext.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -132,9 +132,8 @@ main
     {
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName, firstArg.getCurrentValue());
 
-            nImO::Terminate();
         }
         catch (...)
         {

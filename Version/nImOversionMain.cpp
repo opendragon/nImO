@@ -36,7 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
+#include <nImOcontext.hpp>
+
 #include <boost/version.hpp>
 #include <regex>
 
@@ -123,7 +124,8 @@ main
 
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+
             switch (flavour)
             {
                 case nImO::OutputFlavour::Tabs :
@@ -162,7 +164,6 @@ main
                     break;
 
             }
-            nImO::Terminate();
         }
         catch (...)
         {

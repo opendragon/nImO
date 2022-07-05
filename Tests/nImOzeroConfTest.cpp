@@ -44,7 +44,7 @@
 #include <nImOstring.hpp>
 #include <nImOstringBuffer.hpp>
 #endif//0
-#include <nImOcommon.hpp>
+#include <nImOcontext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -242,7 +242,8 @@ main
 
     try
     {
-        Initialize(nImO::ApplicationRole::Test, progName);
+        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+
 #if 0
         if (3 < --argc)
         {
@@ -304,7 +305,6 @@ main
             ODL_LOG("! (3 < --argc)"); //####
         }
 #endif//0
-        nImO::Terminate();
     }
     catch (...)
     {

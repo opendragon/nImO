@@ -621,59 +621,6 @@ nImO::IdleUntilNotRunning
 } // nImO::IdleUntilNotRunning
 #endif//0
 
-void
-nImO::Initialize
-    (const ApplicationRole  role,
-     const std::string &    progName)
-{
-    MDNS_UNUSED_ARG_(role);
-    MDNS_UNUSED_ARG_(progName);
-    ODL_ENTER(); //####
-    //ODL_S1s("progName = ", progName); //####
-    try
-    {
-        Value::initialize();
-#if 0
-#if (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        yarp::os::Network::setVerbosity(1);
-#else // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        yarp::os::Network::setVerbosity(-1);
-#endif // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        double  intPart;
-        double  now = yarp::os::Time::now();
-        double  fraction = modf(now, &intPart);
-        int     seed = StaticCast(int, ceil(fraction * kMaxRandom));
-
-#if defined(MpM_ChattyStart)
-# if MAC_OR_LINUX_
-        if (lLogger)
-        {
-            std::string message{"Program "};
-
-            message += progName;
-#  if USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info("%s", message.c_str());
-#  else // ! USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info(message.c_str());
-#  endif // ! USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info("Movement And Meaning Version: " MpM_VERSION_ ", YARP Version: "
-                          YARP_VERSION_STRING ", ACE Version: " ACE_VERSION);
-        }
-# endif // MAC_OR_LINUX_
-#endif // defined(MpM_ChattyStart)
-        ODL_D2("time = ", now, "fraction = ", fraction); //####
-        ODL_I1("seed = ", seed); //####
-        yarp::os::Random::seed(seed);
-#endif//0
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT(); //####
-} // nImO::Initialize
-
 #if 0
 bool
 nImO::IsRunning
@@ -1354,21 +1301,3 @@ nImO::StopRunning
     ODL_EXIT(); //####
 } // nImO::StopRunning
 #endif//0
-
-void
-nImO::Terminate
-    (void)
-{
-    ODL_ENTER(); //####
-    //ODL_S1s("progName = ", progName); //####
-    try
-    {
-
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT(); //####
-} // nImO::Terminate

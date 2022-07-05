@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOchannelName.hpp>
+#include <nImOcontext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -390,7 +391,8 @@ main
 
     try
     {
-        Initialize(nImO::ApplicationRole::Test, progName);
+        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+
         if (2 < --argc)
         {
             int64_t selector;
@@ -460,7 +462,6 @@ main
         {
             ODL_LOG("! (2 < --argc)"); //####
         }
-        nImO::Terminate();
     }
     catch (...)
     {

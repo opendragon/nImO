@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
 #include <nImOboolArgumentDescriptor.hpp>
+#include <nImOcontext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
@@ -104,9 +104,8 @@ main
     {
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
 
-            nImO::Terminate();
         }
         catch (...)
         {

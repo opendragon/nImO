@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
+#include <nImOcontext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -129,9 +129,8 @@ main
     {
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Utility, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
 
-            nImO::Terminate();
         }
         catch (...)
         {

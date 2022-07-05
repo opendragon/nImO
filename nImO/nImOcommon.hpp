@@ -756,28 +756,12 @@ namespace nImO
         (const int64_t      inValue,
          NumberAsBytes &    outString);
 
-    /*! @brief Perform initialization of internal resources.
-     @param[in] role The role of the executing program.
-     @param[in] progName The name of the executing program.
-
-     Should be called in the main() function of each application or service. */
-    void
-    Initialize
-        (const ApplicationRole  role,
-         const std::string &    progName);
-
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
      @return A string description of the signal. */
     const char *
     NameOfSignal
         (const int  theSignal);
-
-    /*! @brief Release internal resources.
-     Should be called in the main() function of each application or service. */
-    void
-    Terminate
-        (void);
 
     /*! @brief Complement a DataKind value.
      @param[in] rightValue The value to be inverted.

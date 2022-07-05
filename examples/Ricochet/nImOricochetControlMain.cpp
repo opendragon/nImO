@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
 #include <nImOboolArgumentDescriptor.hpp>
+#include <nImOcontext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
@@ -110,38 +110,38 @@ main
     {
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Miscellaneous, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+
 #if 0
-            start the ricochet program on each cluster machine, with a specified port number
-            get the list of cluster machines from 'hosts.list'
-            running = true
-            while running
-            {
-                read a character from the terminal
-                if it's an 's':
-                {
-                    if random mode
-                    {
-                        create a random vector of 'next' machines, with a random length from #machines/4 to #machines*4;
-                        duplicates allowed
-                    }
-                    else
-                    {
-                        create a vector of 'next' machines with a random hop count of #machines/4 to #machines*4,
-                        reusing the 'hosts.list' entries to fill the vector
-                        select a cluster machine at random
-                        send a 'fire' message with the vector of 'next' machines on the specified port number
-                    }
-                }
-                else if it's a 'q':
-                {
-                    send a 'quit' message to all the cluster machines on the specified port number
-                    running = false
-                }
-            }
-            exit
+            //start the ricochet program on each cluster machine, with a specified port number
+            //get the list of cluster machines from 'hosts.list'
+            //running = true
+            // while running
+            // {
+            //     read a character from the terminal
+            //     if it's an 's':
+            //     {
+            //         if random mode
+            //         {
+            //             create a random vector of 'next' machines, with a random length from #machines/4 to #machines*4;
+            //             duplicates allowed
+            //         }
+            //         else
+            //         {
+            //             create a vector of 'next' machines with a random hop count of #machines/4 to #machines*4,
+            //             reusing the 'hosts.list' entries to fill the vector
+            //             select a cluster machine at random
+            //             send a 'fire' message with the vector of 'next' machines on the specified port number
+            //         }
+            //     }
+            //     else if it's a 'q':
+            //     {
+            //         send a 'quit' message to all the cluster machines on the specified port number
+            //         running = false
+            //     }
+            // }
+            // exit
 #endif //0
-            nImO::Terminate();
         }
         catch (...)
         {

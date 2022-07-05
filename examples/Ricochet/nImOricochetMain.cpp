@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommon.hpp>
 #include <nImOboolArgumentDescriptor.hpp>
+#include <nImOcontext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
@@ -107,7 +107,8 @@ main
     {
         try
         {
-            nImO::Initialize(nImO::ApplicationRole::Miscellaneous, progName);
+            nImO::Context   ourContext(nImO::ApplicationRole::Utility, progName);
+
 #if 0
             running = true
             while running

@@ -39,6 +39,7 @@
 #include <nImOaddressArgumentDescriptor.hpp>
 #include <nImOboolArgumentDescriptor.hpp>
 #include <nImOchannelArgumentDescriptor.hpp>
+#include <nImOcontext.hpp>
 #include <nImOdoubleArgumentDescriptor.hpp>
 #include <nImOfilePathArgumentDescriptor.hpp>
 #include <nImOintArgumentDescriptor.hpp>
@@ -1007,7 +1008,8 @@ main
 
     try
     {
-        Initialize(nImO::ApplicationRole::Test, progName);
+        nImO::Context   ourContext(nImO::ApplicationRole::Test, progName);
+
         if (2 < --argc)
         {
             int64_t selector;
@@ -1086,7 +1088,6 @@ main
         {
             ODL_LOG("! (2 < --argc)"); //####
         }
-        nImO::Terminate();
     }
     catch (...)
     {

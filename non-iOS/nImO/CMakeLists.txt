@@ -69,6 +69,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
             "${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp"
             "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
+            "${THIS_SOURCE_DIR}/nImOcontext.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
             "${THIS_SOURCE_DIR}/nImOdouble.cpp"
             "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
@@ -132,6 +133,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp"
         "${THIS_SOURCE_DIR}/nImOconfig.hpp"
         "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
+        "${THIS_SOURCE_DIR}/nImOcontext.hpp"
         "${THIS_SOURCE_DIR}/nImOconverters.hpp"
         "${THIS_SOURCE_DIR}/nImOdouble.hpp"
         "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
@@ -175,6 +177,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.hpp
         ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp
         ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.hpp
+        ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.hpp
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.hpp
         ${THIS_SOURCE_DIR}/nImOdouble.cpp ${THIS_SOURCE_DIR}/nImOdouble.hpp
         ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp

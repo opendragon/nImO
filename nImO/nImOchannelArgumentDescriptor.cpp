@@ -172,38 +172,23 @@ ChannelArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 3, inVector))
+    if (partitionString(inString, ArgumentTypeTag::ChannelTypeTag, 3, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     defaultString{inVector[3]};
-        std::string     description{inVector[4]};
+        bool        okSoFar;
+        std::string defaultString{inVector[0]};
+        std::string description{inVector[1]};
+        std::string failReason;
 
-        if ("C" != typeTag)
+        if (ChannelName::parse(defaultString, failReason))
         {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
+            okSoFar = true;
         }
         else
         {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            std::string     failReason;
-
-            if (! ChannelName::parse(defaultString, failReason))
-            {
-                okSoFar = false;
-            }
+            okSoFar = false;
         }
         if (okSoFar)
         {

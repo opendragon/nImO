@@ -183,7 +183,10 @@ BaseArgumentDescriptor::isLogical
 bool
 BaseArgumentDescriptor::partitionString
     (const std::string &    inString,
+     const ArgumentTypeTag  expectedTag,
      const size_t           indexOfDefaultValue,
+     std::string &          name,
+     ArgumentMode &         argMode,
      StringVector &         result,
      const size_t           indexOfListValue)
 {
@@ -269,6 +272,30 @@ BaseArgumentDescriptor::partitionString
         }
     }
     okSoFar &= (result.size() > indexOfDefaultValue);
+    if (okSoFar)
+    {
+        std::string typeTag(result[1]);
+        std::string modeString(result[2]);
+
+        name = result[0];
+        if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
+        {
+            okSoFar = false;
+        }
+        if (okSoFar)
+        {
+            argMode = ModeFromString(modeString);
+            okSoFar = (ArgumentMode::Unknown != argMode);
+        }
+        else
+        {
+            argMode = ArgumentMode::Unknown;
+        }
+        if (okSoFar)
+        {
+            result.erase(result.begin(), result.begin() + 3); // drop the first three elements
+        }
+    }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // BaseArgumentDescriptor::partitionString

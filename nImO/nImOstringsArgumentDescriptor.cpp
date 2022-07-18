@@ -167,67 +167,47 @@ StringsArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 3, inVector, 4))
+    if (partitionString(inString, ArgumentTypeTag::StringsTypeTag, 3, name, argMode, inVector, 4))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     defaultString{inVector[3]};
-        std::string     stringList{inVector[4]};
-        std::string     description{inVector[5]};
+        std::string defaultString{inVector[0]};
+        std::string stringList{inVector[1]};
+        std::string description{inVector[2]};
+        StringSet   allowedValues;
 
-        if ("L" != typeTag)
+        // We need to split the input into keys.
+        for ( ; 0 < stringList.length(); )
         {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            StringSet   allowedValues;
+            size_t  indx = stringList.find(getParameterSeparator());
 
-            // We need to split the input into keys.
-            for ( ; 0 < stringList.length(); )
+            if (stringList.npos == indx)
             {
-                size_t  indx = stringList.find(getParameterSeparator());
-
-                if (stringList.npos == indx)
+                // Make sure to strip off any trailing newlines!
+                for (size_t ii = stringList.length(); 0 < ii; --ii)
                 {
-                    // Make sure to strip off any trailing newlines!
-                    for (size_t ii = stringList.length(); 0 < ii; --ii)
+                    if ('\n' == stringList[ii - 1])
                     {
-                        if ('\n' == stringList[ii - 1])
-                        {
-                            stringList = stringList.substr(0, ii - 1);
-                        }
-                        else
-                        {
-                            break;
-
-                        }
+                        stringList = stringList.substr(0, ii - 1);
                     }
-                    allowedValues.insert(stringList);
-                    stringList = "";
+                    else
+                    {
+                        break;
+
+                    }
                 }
-                else
-                {
-                    allowedValues.insert(stringList.substr(0, indx));
-                    stringList = stringList.substr(indx + 1);
-                }
+                allowedValues.insert(stringList);
+                stringList = "";
             }
-            // Copy the values in stringList into allowedValues
-            result.reset(new StringsArgumentDescriptor(name, description, argMode, defaultString, allowedValues));
+            else
+            {
+                allowedValues.insert(stringList.substr(0, indx));
+                stringList = stringList.substr(indx + 1);
+            }
         }
+        // Copy the values in stringList into allowedValues
+        result.reset(new StringsArgumentDescriptor(name, description, argMode, defaultString, allowedValues));
     }
     ODL_EXIT_P(result.get()); //####
     return result;

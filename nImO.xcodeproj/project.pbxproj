@@ -45,6 +45,24 @@
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
 		F67032551CB1CBB500E04BBC /* nImOcompareValues.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcompareValues.hpp; path = nImO/nImOcompareValues.hpp; sourceTree = "<group>"; };
+		F6737D5B28857E25000DD5FC /* nImOcontextWithCommandPort.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithCommandPort.hpp; path = nImO/nImOcontextWithCommandPort.hpp; sourceTree = "<group>"; };
+		F6737D5C28857E25000DD5FC /* nImOcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontext.cpp; path = nImO/nImOcontext.cpp; sourceTree = "<group>"; };
+		F6737D5D28857E25000DD5FC /* nImOcontextWithCommandPort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithCommandPort.cpp; path = nImO/nImOcontextWithCommandPort.cpp; sourceTree = "<group>"; };
+		F6737D5E28857E25000DD5FC /* nImOcontext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontext.hpp; path = nImO/nImOcontext.hpp; sourceTree = "<group>"; };
+		F6737D5F28857E42000DD5FC /* nImOsourceContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOsourceContext.hpp; path = nImO/nImOsourceContext.hpp; sourceTree = "<group>"; };
+		F6737D6028857E42000DD5FC /* nImOtestContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOtestContext.cpp; path = nImO/nImOtestContext.cpp; sourceTree = "<group>"; };
+		F6737D6128857E42000DD5FC /* nImOserviceContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOserviceContext.hpp; path = nImO/nImOserviceContext.hpp; sourceTree = "<group>"; };
+		F6737D6228857E42000DD5FC /* nImOsinkContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOsinkContext.hpp; path = nImO/nImOsinkContext.hpp; sourceTree = "<group>"; };
+		F6737D6328857E42000DD5FC /* nImOmiscellaneousContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOmiscellaneousContext.hpp; path = nImO/nImOmiscellaneousContext.hpp; sourceTree = "<group>"; };
+		F6737D6428857E42000DD5FC /* nImOtestContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOtestContext.hpp; path = nImO/nImOtestContext.hpp; sourceTree = "<group>"; };
+		F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmiscellaneousContext.cpp; path = nImO/nImOmiscellaneousContext.cpp; sourceTree = "<group>"; };
+		F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsourceContext.cpp; path = nImO/nImOsourceContext.cpp; sourceTree = "<group>"; };
+		F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsinkContext.cpp; path = nImO/nImOsinkContext.cpp; sourceTree = "<group>"; };
+		F6737D6828857E43000DD5FC /* nImOfilterContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOfilterContext.cpp; path = nImO/nImOfilterContext.cpp; sourceTree = "<group>"; };
+		F6737D6928857E43000DD5FC /* nImOfilterContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOfilterContext.hpp; path = nImO/nImOfilterContext.hpp; sourceTree = "<group>"; };
+		F6737D6A28857E43000DD5FC /* nImOutilityContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOutilityContext.hpp; path = nImO/nImOutilityContext.hpp; sourceTree = "<group>"; };
+		F6737D6B28857E43000DD5FC /* nImOserviceContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOserviceContext.cpp; path = nImO/nImOserviceContext.cpp; sourceTree = "<group>"; };
+		F6737D6C28857E43000DD5FC /* nImOutilityContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOutilityContext.cpp; path = nImO/nImOutilityContext.cpp; sourceTree = "<group>"; };
 		F6755302228B8EED0037B342 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Bridge/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6755305228B8F580037B342 /* nImObridgeMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObridgeMain.cpp; path = Bridge/nImObridgeMain.cpp; sourceTree = "<group>"; };
 		F6755306228B8F580037B342 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Bridge/resource.h; sourceTree = "<group>"; };
@@ -328,12 +346,6 @@
 		F6B388DF1C77F18B004B2D42 = {
 			isa = PBXGroup;
 			children = (
-				F6D7AD07224A5D7C0095AA43 /* iOS */,
-				F6D7AD05224A5D560095AA43 /* non-iOS */,
-				F60B49742104F787009D2CDA /* README.md */,
-				F60B49732104F760009D2CDA /* LICENSE.txt */,
-				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
-				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
 				F6B0B17A2408171000CB5ED5 /* ApplicationSupport */,
 				F6755309228B8F740037B342 /* Bridge */,
 				F6B388ED1C77F298004B2D42 /* Connect */,
@@ -341,11 +353,17 @@
 				F6B388EF1C77F2AA004B2D42 /* Disconnect */,
 				F68373EA240409500030F969 /* examples */,
 				F6B388F01C77F2B4004B2D42 /* Info */,
+				F6D7AD07224A5D7C0095AA43 /* iOS */,
 				F695626D23E6593C009831B7 /* Launch */,
+				F60B49732104F760009D2CDA /* LICENSE.txt */,
 				F6B388F11C77F2BC004B2D42 /* List */,
 				F666302D1E3AD65000CAD88F /* Monitor */,
 				F6B388F21C77F2E0004B2D42 /* nImO */,
+				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
+				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
+				F6D7AD05224A5D560095AA43 /* non-iOS */,
 				F6B388F31C77F2EF004B2D42 /* Read */,
+				F60B49742104F787009D2CDA /* README.md */,
 				F627506924141ACB00FCF36C /* sloc.sh */,
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F6B388F41C77F2F9004B2D42 /* Version */,
@@ -463,6 +481,10 @@
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.hpp.in */,
 				F6866F011CA4145E00849A76 /* nImOcontainer.cpp */,
 				F6866F021CA4145E00849A76 /* nImOcontainer.hpp */,
+				F6737D5C28857E25000DD5FC /* nImOcontext.cpp */,
+				F6737D5E28857E25000DD5FC /* nImOcontext.hpp */,
+				F6737D5D28857E25000DD5FC /* nImOcontextWithCommandPort.cpp */,
+				F6737D5B28857E25000DD5FC /* nImOcontextWithCommandPort.hpp */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.hpp */,
 				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,
@@ -473,6 +495,8 @@
 				F60F86551CA4B24C004D35AB /* nImOextraArgumentDescriptor.hpp */,
 				F60F86561CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.cpp */,
 				F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.hpp */,
+				F6737D6828857E43000DD5FC /* nImOfilterContext.cpp */,
+				F6737D6928857E43000DD5FC /* nImOfilterContext.hpp */,
 				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
 				F6A787771E65BDAD00940F97 /* nImOflaw.hpp */,
 				F60F86581CA4B24C004D35AB /* nImOintArgumentDescriptor.cpp */,
@@ -487,12 +511,20 @@
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */,
 				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,
 				F6A3C2251CCD3C7900CA5C76 /* nImOmessage.hpp */,
+				F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */,
+				F6737D6328857E42000DD5FC /* nImOmiscellaneousContext.hpp */,
 				F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */,
 				F6EE0AD61CA2C7F4004748ED /* nImOnumber.hpp */,
 				F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */,
 				F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.hpp */,
+				F6737D6B28857E43000DD5FC /* nImOserviceContext.cpp */,
+				F6737D6128857E42000DD5FC /* nImOserviceContext.hpp */,
 				F6EE0AD71CA2C7F4004748ED /* nImOset.cpp */,
 				F6EE0AD81CA2C7F4004748ED /* nImOset.hpp */,
+				F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */,
+				F6737D6228857E42000DD5FC /* nImOsinkContext.hpp */,
+				F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */,
+				F6737D5F28857E42000DD5FC /* nImOsourceContext.hpp */,
 				F6EE0AD91CA2C7F4004748ED /* nImOstring.cpp */,
 				F6EE0ADA1CA2C7F4004748ED /* nImOstring.hpp */,
 				F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */,
@@ -501,6 +533,10 @@
 				F66FA33B1CA9542A000B283D /* nImOstringBuffer.hpp */,
 				F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */,
 				F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.hpp */,
+				F6737D6028857E42000DD5FC /* nImOtestContext.cpp */,
+				F6737D6428857E42000DD5FC /* nImOtestContext.hpp */,
+				F6737D6C28857E43000DD5FC /* nImOutilityContext.cpp */,
+				F6737D6A28857E43000DD5FC /* nImOutilityContext.hpp */,
 				F6EE0ADB1CA2C7F4004748ED /* nImOvalue.cpp */,
 				F6EE0ADC1CA2C7F4004748ED /* nImOvalue.hpp */,
 				F6EDEF231E4E9D8A00E0CF1B /* nImOzeroConfClient.cpp */,
@@ -717,6 +753,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F6B388DF1C77F18B004B2D42;

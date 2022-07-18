@@ -108,6 +108,41 @@ namespace nImO
 
     }; // ArgumentMode
 
+    /*! @brief The type of an argument. */
+    enum class ArgumentTypeTag : char
+    {
+        /*! @brief The argument is an IP address. */
+        AddressTypeTag = 'A',
+
+        /*! @brief The argument is bool value (true or false). */
+        BoolTypeTag = 'B',
+
+        /*! @brief The argument is a channel name. */
+        ChannelTypeTag = 'C',
+
+        /*! @brief The argument is a double value. */
+        DoubleTypeTag = 'D',
+
+        /*! @brief The argument is a placeholder for zero or more trailing arguments. */
+        ExtraTypeTag = 'E',
+
+        /*! @brief The argument is a file path. */
+        FilePathTypeTag = 'F',
+
+        /*! @brief The argument is an integer value. */
+        IntegerTypeTag = 'I',
+
+        /*! @brief The argument is a list of strings. */
+        StringsTypeTag = 'L',
+
+        /*! @brief The argument is a port number. */
+        PortTypeTag = 'P',
+
+        /*! @brief The argument is a string. */
+        StringTypeTag = 'S'
+
+    }; // ArgumentTypeTag
+
     /*! @brief A holder for a shared pointer to a BaseArgumentDescriptor. */
     using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
 
@@ -131,28 +166,7 @@ namespace nImO
      default_value ::= delimiter text delimiter;
      # use matching pairs of |, <>, (), {}, [], whichever is not present in the text
 
-     where typeTagAndInfo is described with each derived class.
-     The following enumerates the standard type tags:
-
-     'A' => address
-
-     'B' => boolean
-
-     'C' => channel
-
-     'D' => double
-
-     'E' => extra (a placeholder for zero or more trailing arguments)
-
-     'F' => file path
-
-     'I' => integer
-
-     'L' => strings (a list of strings)
-
-     'P' => port number
-
-     'S' => string */
+     where typeTagAndInfo is described with each derived class. */
     class BaseArgumentDescriptor
     {
     public :
@@ -387,8 +401,11 @@ namespace nImO
 
         /*! @brief Partition a string that is in 'arguments' format into a sequence of strings.
          @param[in] inString The string to be partitioned.
+         @param[in] expectedTag The tag that is required for this argument.
          @param[in] indexOfDefaultValue The position in the input string where the default value
          will appear. The default value uses a secondary delimiter.
+         @param[out] name The argument name.
+         @param[out] argMode The mode of the argument.
          @param[out] result The partitioned string.
          @param[in] indexOfListValue The position in the input string where a list value will
          appear. A list value uses the field separator internally and a secondary delimiter.
@@ -397,7 +414,10 @@ namespace nImO
         static bool
         partitionString
             (const std::string &    inString,
+             const ArgumentTypeTag  expectedTag,
              const size_t           indexOfDefaultValue,
+             std::string &          name,
+             ArgumentMode &         argMode,
              StringVector &         result,
              const size_t           indexOfListValue = 0);
 

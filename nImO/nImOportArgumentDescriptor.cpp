@@ -137,45 +137,26 @@ PortArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 4, inVector))
+    if (partitionString(inString, ArgumentTypeTag::PortTypeTag, 4, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        bool            isSystemPort = false;
-        int             defaultValue = 0;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     portClass{inVector[3]};
-        std::string     defaultString{inVector[4]};
-        std::string     description{inVector[5]};
+        bool        okSoFar = true;
+        bool        isSystemPort = false;
+        int         defaultValue = 0;
+        std::string portClass{inVector[0]};
+        std::string defaultString{inVector[1]};
+        std::string description{inVector[2]};
 
-        if ("P" != typeTag)
+        if ("s" == portClass)
+        {
+            isSystemPort = true;
+        }
+        else if ("r" != portClass)
         {
             okSoFar = false;
         }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            if ("s" == portClass)
-            {
-                isSystemPort = true;
-            }
-            else if ("r" != portClass)
-            {
-                okSoFar = false;
-            }
-        }
-
         if (okSoFar && (0 < defaultString.length()))
         {
             int64_t intValue;

@@ -166,34 +166,15 @@ StringArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 3, inVector))
+    if (partitionString(inString, ArgumentTypeTag::StringTypeTag, 3, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     defaultString{inVector[3]};
-        std::string     description{inVector[4]};
+        std::string defaultString{inVector[0]};
+        std::string description{inVector[1]};
 
-        if ("S" != typeTag)
-        {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            result.reset(new StringArgumentDescriptor(name, description, argMode, defaultString));
-        }
+        result.reset(new StringArgumentDescriptor(name, description, argMode, defaultString));
     }
     ODL_EXIT_P(result.get()); //####
     return result;

@@ -176,36 +176,21 @@ DoubleArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 5, inVector))
+    if (partitionString(inString, ArgumentTypeTag::DoubleTypeTag, 5, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        double          defaultValue = 0;
-        double          maxValue = 0;
-        double          minValue = 0;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     minValString{inVector[3]};
-        std::string     maxValString{inVector[4]};
-        std::string     defaultString{inVector[5]};
-        std::string     description{inVector[6]};
+        bool        okSoFar = true;
+        double      defaultValue = 0;
+        double      maxValue = 0;
+        double      minValue = 0;
+        std::string minValString{inVector[0]};
+        std::string maxValString{inVector[1]};
+        std::string defaultString{inVector[2]};
+        std::string description{inVector[3]};
 
-        if ("D" != typeTag)
-        {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar && (0 < defaultString.length()))
+        if (0 < defaultString.length())
         {
             double  dblValue;
 
@@ -217,6 +202,10 @@ DoubleArgumentDescriptor::parseArgString
             {
                 okSoFar = false;
             }
+        }
+        else
+        {
+            okSoFar = false;
         }
         if (okSoFar && (0 < minValString.length()))
         {

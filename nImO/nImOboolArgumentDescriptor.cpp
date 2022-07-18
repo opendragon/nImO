@@ -176,52 +176,34 @@ BoolArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 3, inVector))
+    if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            okSoFar = true;
-        bool            defaultValue;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     defaultString{inVector[3]};
-        std::string     description{inVector[4]};
+        bool        okSoFar = true;
+        bool        defaultValue;
+        std::string defaultString{inVector[0]};
+        std::string description{inVector[1]};
 
-        if ("B" != typeTag)
+        if (0 < defaultString.length())
         {
-            okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            if (0 < defaultString.length())
+            if ('1' == defaultString[0])
             {
-                if ('1' == defaultString[0])
-                {
-                    defaultValue = true;
-                }
-                else if ('0' == defaultString[0])
-                {
-                    defaultValue = false;
-                }
-                else
-                {
-                    okSoFar = false;
-                }
+                defaultValue = true;
+            }
+            else if ('0' == defaultString[0])
+            {
+                defaultValue = false;
             }
             else
             {
                 okSoFar = false;
             }
+        }
+        else
+        {
+            okSoFar = false;
         }
         if (okSoFar)
         {

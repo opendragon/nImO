@@ -255,45 +255,27 @@ FilePathArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 6, inVector))
+    if (partitionString(inString, ArgumentTypeTag::FilePathTypeTag, 6, name, argMode, inVector))
     {
-        ArgumentMode    argMode;
-        bool            forOutput = false;
-        bool            okSoFar = true;
-        bool            usesRandom = false;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     direction{inVector[3]};
-        std::string     suffixValue{inVector[4]};
-        std::string     randomFlag{inVector[5]};
-        std::string     defaultString{inVector[6]};
-        std::string     description{inVector[7]};
+        bool        forOutput = false;
+        bool        okSoFar = true;
+        bool        usesRandom = false;
+        std::string direction{inVector[0]};
+        std::string suffixValue{inVector[1]};
+        std::string randomFlag{inVector[2]};
+        std::string defaultString{inVector[3]};
+        std::string description{inVector[4]};
 
-        if ("F" != typeTag)
+        if ("o" == direction)
+        {
+            forOutput = true;
+        }
+        else if ("i" != direction)
         {
             okSoFar = false;
-        }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        else
-        {
-            argMode = ArgumentMode::Unknown;
-        }
-        if (okSoFar)
-        {
-            if ("o" == direction)
-            {
-                forOutput = true;
-            }
-            else if ("i" != direction)
-            {
-                okSoFar = false;
-            }
         }
         if (okSoFar)
         {

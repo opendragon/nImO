@@ -139,40 +139,25 @@ AddressArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
+    std::string                 name;
+    ArgumentMode                argMode;
 
-    if (partitionString(inString, 3, inVector))
+    if (partitionString(inString, ArgumentTypeTag::AddressTypeTag, 3, name, argMode, inVector))
     {
-        ArgumentMode    argMode{ArgumentMode::Required};
         bool            okSoFar = true;
-        std::string     name{inVector[0]};
-        std::string     typeTag{inVector[1]};
-        std::string     modeString{inVector[2]};
-        std::string     defaultString{inVector[3]};
-        std::string     description{inVector[4]};
+        std::string     defaultString{inVector[0]};
+        std::string     description{inVector[1]};
+        struct in_addr  addrBuff;
 
-        if ("A" != typeTag)
+        if (defaultString == SELF_ADDRESS_NAME_)
         {
-            okSoFar = false;
+            defaultString = SELF_ADDRESS_IPADDR_;
         }
-        if (okSoFar)
-        {
-            argMode = ModeFromString(modeString);
-            okSoFar = (ArgumentMode::Unknown != argMode);
-        }
-        if (okSoFar)
-        {
-            struct in_addr addrBuff;
-
-            if (defaultString == SELF_ADDRESS_NAME_)
-            {
-                defaultString = SELF_ADDRESS_IPADDR_;
-            }
 #if MAC_OR_LINUX_
-            okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
+        okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
 #else // ! MAC_OR_LINUX_
-            okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
+        okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
 #endif // ! MAC_OR_LINUX_
-        }
         if (okSoFar)
         {
             result.reset(new AddressArgumentDescriptor(name, description, argMode, defaultString));

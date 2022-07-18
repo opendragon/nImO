@@ -5,12 +5,14 @@ THIS_FILE_NAME=$(basename $0)
 function list_commands() {
     echo "  where <command> is"
     echo "    add        add an application"
+    echo "    bridge     connect two subnets"
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"
     echo "    help       list the available commands"
     echo "    info       report on a channel"
     echo "    launch     launch an application"
     echo "    list       list channels, applications, services, et cetera"
+    echo "    monitor    report on nImO"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
     echo "    version    report the version numbers of the libraries"
@@ -32,6 +34,9 @@ function usage_help() {
             "add")
                nImOaddApp -h
                 ;;
+            "bridge")
+               nImObridge -h
+                ;;
             "connect")
                 nImOconnect -h
                 ;;
@@ -49,6 +54,9 @@ function usage_help() {
                 ;;
             "list")
                 nImOlist -h
+                ;;
+            "monitor")
+                nImOmonitor -h
                 ;;
             "read")
                 nImOread -h
@@ -80,6 +88,13 @@ else
                 usage_help add
             else
                 nImOaddApp $*
+            fi
+            ;;
+        "bridge")
+            if [[ $# -eq 0 ]]; then
+                usage_help bridge
+            else
+                nImObridge $*
             fi
             ;;
         "connect")
@@ -118,6 +133,13 @@ else
                 usage_help list
             else
                 nImOlist $*
+            fi
+            ;;
+        "monitor")
+            if [[ $# -eq 0 ]]; then
+                usage_help list
+            else
+                nImOmonitor $*
             fi
             ;;
         "read")

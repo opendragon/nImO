@@ -37,11 +37,11 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOaddressArgumentDescriptor.hpp>
-#include <nImOboolArgumentDescriptor.hpp>
+#include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOchannelArgumentDescriptor.hpp>
 #include <nImOdoubleArgumentDescriptor.hpp>
 #include <nImOfilePathArgumentDescriptor.hpp>
-#include <nImOintArgumentDescriptor.hpp>
+#include <nImOintegerArgumentDescriptor.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 #include <nImOstringsArgumentDescriptor.hpp>
@@ -231,7 +231,7 @@ doTestAddressArgumentDescriptors
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestBoolArgumentDescriptors
+doTestBooleanArgumentDescriptors
     (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
@@ -258,7 +258,7 @@ doTestBoolArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new BoolArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, true));
+                testDescriptor.reset(new BooleanArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, true));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -276,7 +276,7 @@ doTestBoolArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new BoolArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                    testDescriptor.reset(new BooleanArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                        0 == strcmp(*argv, "true")));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
@@ -289,7 +289,7 @@ doTestBoolArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new BoolArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                    testDescriptor.reset(new BooleanArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                        false));
                     if (testDescriptor->validate(*argv) == expected)
                     {
@@ -310,7 +310,7 @@ doTestBoolArgumentDescriptors
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestBoolArgumentDescriptors
+} // doTestBooleanArgumentDescriptors
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
@@ -611,7 +611,7 @@ doTestFilePathArgumentDescriptors
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestIntArgumentDescriptors
+doTestIntegerArgumentDescriptors
     (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
@@ -638,7 +638,7 @@ doTestIntArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new IntArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                42, false, 0, false, 0));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
@@ -648,7 +648,7 @@ doTestIntArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new IntArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                42, true, 1000, true, 200));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
@@ -660,7 +660,7 @@ doTestIntArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new IntArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                    testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                    strtol(*argv, nullptr, 10), false, 0, true, 1000));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
@@ -673,7 +673,7 @@ doTestIntArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new IntArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
+                    testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                    42, true, -100, true, 100));
                     if (testDescriptor->validate(*argv) == expected)
                     {
@@ -694,7 +694,7 @@ doTestIntArgumentDescriptors
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestIntArgumentDescriptors
+} // doTestIntegerArgumentDescriptors
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -1031,7 +1031,7 @@ main
 
                     case 2 :
                         // Bool argument descriptor
-                        result = doTestBoolArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
+                        result = doTestBooleanArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
                         break;
 
                     case 3 :
@@ -1051,7 +1051,7 @@ main
 
                     case 6 :
                         // Int argument descriptor
-                        result = doTestIntArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
+                        result = doTestIntegerArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
                         break;
 
                     case 7 :

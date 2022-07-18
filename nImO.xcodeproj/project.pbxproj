@@ -13,8 +13,8 @@
 		F60F864B1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOaddressArgumentDescriptor.hpp; path = nImO/nImOaddressArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F864C1CA4B24C004D35AB /* nImObaseArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObaseArgumentDescriptor.cpp; path = nImO/nImObaseArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F864D1CA4B24C004D35AB /* nImObaseArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObaseArgumentDescriptor.hpp; path = nImO/nImObaseArgumentDescriptor.hpp; sourceTree = "<group>"; };
-		F60F864E1CA4B24C004D35AB /* nImOboolArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOboolArgumentDescriptor.cpp; path = nImO/nImOboolArgumentDescriptor.cpp; sourceTree = "<group>"; };
-		F60F864F1CA4B24C004D35AB /* nImOboolArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOboolArgumentDescriptor.hpp; path = nImO/nImOboolArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F60F864E1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObooleanArgumentDescriptor.cpp; path = nImO/nImObooleanArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F60F864F1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImObooleanArgumentDescriptor.hpp; path = nImO/nImObooleanArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelArgumentDescriptor.cpp; path = nImO/nImOchannelArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOchannelArgumentDescriptor.hpp; path = nImO/nImOchannelArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F86521CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdoubleArgumentDescriptor.cpp; path = nImO/nImOdoubleArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -23,8 +23,8 @@
 		F60F86551CA4B24C004D35AB /* nImOextraArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOextraArgumentDescriptor.hpp; path = nImO/nImOextraArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F86561CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOfilePathArgumentDescriptor.cpp; path = nImO/nImOfilePathArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOfilePathArgumentDescriptor.hpp; path = nImO/nImOfilePathArgumentDescriptor.hpp; sourceTree = "<group>"; };
-		F60F86581CA4B24C004D35AB /* nImOintArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOintArgumentDescriptor.cpp; path = nImO/nImOintArgumentDescriptor.cpp; sourceTree = "<group>"; };
-		F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOintArgumentDescriptor.hpp; path = nImO/nImOintArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOintegerArgumentDescriptor.cpp; path = nImO/nImOintegerArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOintegerArgumentDescriptor.hpp; path = nImO/nImOintegerArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOportArgumentDescriptor.cpp; path = nImO/nImOportArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOportArgumentDescriptor.hpp; path = nImO/nImOportArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringArgumentDescriptor.cpp; path = nImO/nImOstringArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -459,8 +459,8 @@
 				F60F864D1CA4B24C004D35AB /* nImObaseArgumentDescriptor.hpp */,
 				F6EE0AC51CA2C7F4004748ED /* nImOblob.cpp */,
 				F6EE0AC61CA2C7F4004748ED /* nImOblob.hpp */,
-				F60F864E1CA4B24C004D35AB /* nImOboolArgumentDescriptor.cpp */,
-				F60F864F1CA4B24C004D35AB /* nImOboolArgumentDescriptor.hpp */,
+				F60F864E1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.cpp */,
+				F60F864F1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.hpp */,
 				F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */,
 				F68020331CAA0DA500C2374A /* nImObufferChunk.hpp */,
 				F6EE0ACD1CA2C7F4004748ED /* nImOchannel.cpp */,
@@ -499,8 +499,8 @@
 				F6737D6928857E43000DD5FC /* nImOfilterContext.hpp */,
 				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
 				F6A787771E65BDAD00940F97 /* nImOflaw.hpp */,
-				F60F86581CA4B24C004D35AB /* nImOintArgumentDescriptor.cpp */,
-				F60F86591CA4B24C004D35AB /* nImOintArgumentDescriptor.hpp */,
+				F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */,
+				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.hpp */,
 				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
 				F6C146291CD18D830045C291 /* nImOinteger.hpp */,
 				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,

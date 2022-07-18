@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOintArgumentDescriptor.cpp
+//  File:       nImO/nImObooleanArgumentDescriptor.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the minimal functionality required to represent an integer
+//  Contains:   The class definition for the minimal functionality required to represent a boolean
 //              command-line argument.
 //
 //  Written by: Norman Jaffe
@@ -33,11 +33,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2015-05-15
+//  Created:    2015-08-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOintArgumentDescriptor.hpp"
+#include "nImObooleanArgumentDescriptor.hpp"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -48,7 +48,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The definition for the minimal functionality required to represent an integer command-line
+ @brief The definition for the minimal functionality required to represent a boolean command-line
  argument. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -80,96 +80,96 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-IntArgumentDescriptor::IntArgumentDescriptor
+BooleanArgumentDescriptor::BooleanArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription,
      const ArgumentMode     argMode,
-     const int              defaultValue,
-     const bool             hasMinimumValue,
-     const int              minimumValue,
-     const bool             hasMaximumValue,
-     const int              maximumValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
-        _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
-        _hasMinimumValue(hasMinimumValue)
+     const bool             defaultValue) :
+        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, //####
-            "maximumValue = ", maximumValue); //####
-    ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
+    ODL_B1("defaultValue = ", defaultValue); //####
     ODL_EXIT_P(this); //####
-} // IntArgumentDescriptor::IntArgumentDescriptor
+} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
-IntArgumentDescriptor::IntArgumentDescriptor
-    (const IntArgumentDescriptor &  other) :
-        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
-        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
-        _hasMinimumValue(other._hasMinimumValue)
+BooleanArgumentDescriptor::BooleanArgumentDescriptor
+    (const BooleanArgumentDescriptor & other) :
+        inherited(other), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
-} // IntArgumentDescriptor::IntArgumentDescriptor
+} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
-IntArgumentDescriptor::~IntArgumentDescriptor
+BooleanArgumentDescriptor::~BooleanArgumentDescriptor
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // IntArgumentDescriptor::~IntArgumentDescriptor
+} // BooleanArgumentDescriptor::~BooleanArgumentDescriptor
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 SpBaseArgumentDescriptor
-IntArgumentDescriptor::clone
+BooleanArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<IntArgumentDescriptor>(*this)};
+    auto    result{std::make_shared<BooleanArgumentDescriptor>(*this)};
 
     ODL_EXIT_P(result.get());
     return result;
-} // IntArgumentDescriptor::clone
+} // BooleanArgumentDescriptor::clone
 
 std::string
-IntArgumentDescriptor::getDefaultValue
+BooleanArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{std::to_string(_defaultValue)};
+    std::string result{_defaultValue ? "1" : "0"};
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // IntArgumentDescriptor::getDefaultValue
+} // BooleanArgumentDescriptor::getDefaultValue
 
 std::string
-IntArgumentDescriptor::getPrintableDefaultValue
-(void)
-{
-    ODL_OBJENTER(); //####
-    std::string result{getDefaultValue()};
-
-    ODL_OBJEXIT_s(result); //####
-    return result;
-} // IntArgumentDescriptor::getPrintableDefaultValue
-
-std::string
-IntArgumentDescriptor::getProcessedValue
+BooleanArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{std::to_string(_currentValue)};
+    std::string result{_defaultValue ? "true" : "false"};
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // IntArgumentDescriptor::getProcessedValue
+} // BooleanArgumentDescriptor::getPrintableDefaultValue
+
+std::string
+BooleanArgumentDescriptor::getProcessedValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{_currentValue ? "1" : "0"};
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // BooleanArgumentDescriptor::getProcessedValue
+
+bool
+BooleanArgumentDescriptor::isLogical
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
+} // BooleanArgumentDescriptor::isLogical
 
 SpBaseArgumentDescriptor
-IntArgumentDescriptor::parseArgString
+BooleanArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -179,24 +179,22 @@ IntArgumentDescriptor::parseArgString
     std::string                 name;
     ArgumentMode                argMode;
 
-    if (partitionString(inString, ArgumentTypeTag::IntegerTypeTag, 5, name, argMode, inVector))
+    if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
     {
         bool        okSoFar = true;
-        int         defaultValue = 0;
-        int         maxValue;
-        int         minValue = 0;
-        std::string minValString{inVector[0]};
-        std::string maxValString{inVector[1]};
-        std::string defaultString{inVector[2]};
-        std::string description{inVector[3]};
+        bool        defaultValue;
+        std::string defaultString{inVector[0]};
+        std::string description{inVector[1]};
 
         if (0 < defaultString.length())
         {
-            int64_t intValue;
-
-            if (nImO::ConvertToInt64(defaultString, intValue))
+            if ('1' == defaultString[0])
             {
-                defaultValue = StaticCast(int, intValue);
+                defaultValue = true;
+            }
+            else if ('0' == defaultString[0])
+            {
+                defaultValue = false;
             }
             else
             {
@@ -207,115 +205,68 @@ IntArgumentDescriptor::parseArgString
         {
             okSoFar = false;
         }
-        if (okSoFar && (0 < minValString.length()))
-        {
-            int64_t intValue;
-
-            if (nImO::ConvertToInt64(minValString, intValue))
-            {
-                minValue = StaticCast(int, intValue);
-            }
-            else
-            {
-                okSoFar = false;
-            }
-        }
-        if (okSoFar && (0 < maxValString.length()))
-        {
-            int64_t intValue;
-
-            if (nImO::ConvertToInt64(maxValString, intValue))
-            {
-                maxValue = StaticCast(int, intValue);
-            }
-            else
-            {
-                okSoFar = false;
-            }
-        }
         if (okSoFar)
         {
-            bool    hasMaximumValue = (0 < maxValString.length());
-            bool    hasMinimumValue = (0 < minValString.length());
-
-            result.reset(new IntArgumentDescriptor(name, description, argMode, defaultValue,
-                                                   hasMinimumValue, hasMinimumValue ? minValue : 0,
-                                                   hasMaximumValue, hasMaximumValue ? maxValue : 0));
+            result.reset(new BooleanArgumentDescriptor(name, description, argMode, defaultValue));
         }
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // IntArgumentDescriptor::parseArgString
+} // BooleanArgumentDescriptor::parseArgString
 
 void
-IntArgumentDescriptor::setToDefaultValue
+BooleanArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_I1("_currentValue <- ", _currentValue); //####
+    ODL_B1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
-} // IntArgumentDescriptor::setToDefaultValue
+} // BooleanArgumentDescriptor::setToDefaultValue
 
 void
-IntArgumentDescriptor::swap
-    (IntArgumentDescriptor &    other)
+BooleanArgumentDescriptor::swap
+    (BooleanArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     inherited::swap(other);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
-    std::swap(_maximumValue, other._maximumValue);
-    std::swap(_minimumValue, other._minimumValue);
-    std::swap(_hasMaximumValue, other._hasMaximumValue);
-    std::swap(_hasMinimumValue, other._hasMinimumValue);
     ODL_OBJEXIT(); //####
-} // IntArgumentDescriptor::swap
+} // BooleanArgumentDescriptor::swap
 
 std::string
-IntArgumentDescriptor::toString
+BooleanArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields("I")};
+    std::string result{prefixFields(ArgumentTypeTag::BoolTypeTag)};
 
-    result += getParameterSeparator();
-    if (_hasMinimumValue)
-    {
-        result += std::to_string(_minimumValue);
-    }
-    result += getParameterSeparator();
-    if (_hasMaximumValue)
-    {
-        result += std::to_string(_maximumValue);
-    }
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
-} // IntArgumentDescriptor::toString
+} // BooleanArgumentDescriptor::toString
 
 bool
-IntArgumentDescriptor::validate
+BooleanArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    int64_t intValue;
+    bool    boolValue;
+    char    firstChar = tolower(value[0]);
 
-    if (nImO::ConvertToInt64(value, intValue))
+    if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {
+        boolValue = false;
         setValidity(true);
         ODL_B1("_valid <- ", isValid()); //####
-        if (_hasMinimumValue && (intValue < _minimumValue))
-        {
-            setValidity(false);
-            ODL_B1("_valid <- ", isValid()); //####
-        }
-        if (_hasMaximumValue && (intValue > _maximumValue))
-        {
-            setValidity(false);
-            ODL_B1("_valid <- ", isValid()); //####
-        }
+    }
+    else if (('1' == firstChar) || ('t' == firstChar) || ('y' == firstChar))
+    {
+        boolValue = true;
+        setValidity(true);
+        ODL_B1("_valid <- ", isValid()); //####
     }
     else
     {
@@ -324,12 +275,12 @@ IntArgumentDescriptor::validate
     }
     if (isValid())
     {
-        _currentValue = StaticCast(int, intValue);
-        ODL_I1("_currentValue <- ", _currentValue); //####
+        _currentValue = boolValue;
+        ODL_B1("_currentValue <- ", _currentValue); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();
-} // IntArgumentDescriptor::validate
+} // BooleanArgumentDescriptor::validate
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -40,7 +40,7 @@
 #if (! defined(nImOportArgumentDescriptor_HPP_))
 # define nImOportArgumentDescriptor_HPP_ /* Header guard */
 
-# include <nImOintArgumentDescriptor.hpp>
+# include <nImOintegerArgumentDescriptor.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -63,7 +63,7 @@ namespace nImO
      portTagAndInfo ::= 'P' sep systemOrRegular;
 
      systemOrRegular ::= 's' | 'r'; */
-    class PortArgumentDescriptor final : public IntArgumentDescriptor
+    class PortArgumentDescriptor final : public IntegerArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -75,7 +75,7 @@ namespace nImO
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = IntArgumentDescriptor;
+        using inherited = IntegerArgumentDescriptor;
 
     public :
         // Public methods.

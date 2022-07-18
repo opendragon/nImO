@@ -341,7 +341,7 @@ FilePathArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     std::string oldDefault{inherited::getDefaultValue()};
-    std::string result{prefixFields("F")};
+    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag)};
 
     // Temporarily change the default value to the prefix value, as that's how we pass the path
     // prefix to the outside world.

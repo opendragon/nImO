@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOboolArgumentDescriptor.hpp>
+#include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOmiscellaneousContext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
@@ -96,8 +96,8 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::BoolArgumentDescriptor firstArg{"random", T_("True if random path"),
-                                          nImO::ArgumentMode::Optional, false};
+    nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
+                                            nImO::ArgumentMode::Optional, false};
     nImO::PortArgumentDescriptor secondArg{"port", T_("Port for communication"),
                                            nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector       argumentList;

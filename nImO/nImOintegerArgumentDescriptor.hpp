@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOintArgumentDescriptor.hpp
+//  File:       nImO/nImOintegerArgumentDescriptor.hpp
 //
 //  Project:    nImO
 //
@@ -69,7 +69,7 @@ namespace nImO
 
      maxIntegerValue ::= integerValue | ;
      # empty value indicates no maximum constraint. */
-    class IntArgumentDescriptor : public BaseArgumentDescriptor
+    class IntegerArgumentDescriptor : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -97,7 +97,7 @@ namespace nImO
          @param[in] hasMaximumValue @c true if the value must be less than or equal to a specified
          maximum and @c false otherwise.
          @param[in] maximumValue The maximum value that is acceptable. */
-        IntArgumentDescriptor
+        IntegerArgumentDescriptor
             (const std::string &    argName,
              const std::string &    argDescription,
              const ArgumentMode     argMode,
@@ -109,18 +109,18 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        IntArgumentDescriptor
-            (const IntArgumentDescriptor &  other);
+        IntegerArgumentDescriptor
+            (const IntegerArgumentDescriptor &  other);
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        IntArgumentDescriptor
-            (IntArgumentDescriptor &&	other)
+        IntegerArgumentDescriptor
+            (IntegerArgumentDescriptor &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~IntArgumentDescriptor
+        ~IntegerArgumentDescriptor
             (void);
 
         /*! @brief Return the current value.
@@ -144,7 +144,7 @@ namespace nImO
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (IntArgumentDescriptor &    other);
+            (IntegerArgumentDescriptor &    other);
 
     protected :
         // Protected methods.
@@ -241,7 +241,7 @@ namespace nImO
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-    }; // IntArgumentDescriptor
+    }; // IntegerArgumentDescriptor
 
 } // nImO
 

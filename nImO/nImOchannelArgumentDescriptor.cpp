@@ -228,7 +228,7 @@ ChannelArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields("C")};
+    std::string result{prefixFields(ArgumentTypeTag::ChannelTypeTag)};
 
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####

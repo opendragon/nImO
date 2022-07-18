@@ -227,7 +227,7 @@ StringArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields("S")};
+    std::string result{prefixFields(ArgumentTypeTag::StringTypeTag)};
 
     result += suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####

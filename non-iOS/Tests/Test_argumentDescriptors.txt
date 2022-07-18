@@ -81,7 +81,7 @@ add_test(NAME TestValidBoolArgumentParameters COMMAND ${THIS_TARGET} 2 t 1)
 # Test that 'unreasonable' parameters build a descriptor that rejects the default value
 add_test(NAME TestInvalidBoolArgumentParameters COMMAND ${THIS_TARGET} 2 f 2)
 # Test that a 'reasonable' parameter results in the expected description
-add_test(NAME TestBoolArgumentDescriptor COMMAND ${THIS_TARGET} 2 t 3 "false" "descriptor\tB\t0\t~0~\tsomething")
+add_test(NAME TestBooleanArgumentDescriptor COMMAND ${THIS_TARGET} 2 t 3 "false" "descriptor\tB\t0\t~0~\tsomething")
 # Test valid input
 add_test(NAME TestBoolArgumentValidInput1 COMMAND ${THIS_TARGET} 2 t 4 "true")
 # Test valid input
@@ -155,7 +155,7 @@ add_test(NAME TestValidIntArgumentParameters COMMAND ${THIS_TARGET} 6 t 1)
 # Test that 'unreasonable' parameters build a descriptor that rejects the default value
 add_test(NAME TestInvalidIntArgumentParameters COMMAND ${THIS_TARGET} 6 f 2)
 # Test that a 'reasonable' parameter results in the expected description
-add_test(NAME TestIntArgumentDescriptor COMMAND ${THIS_TARGET} 6 t 3 "17" "descriptor\tI\t0\t\t1000\t~17~\tsomething")
+add_test(NAME TestIntegerArgumentDescriptor COMMAND ${THIS_TARGET} 6 t 3 "17" "descriptor\tI\t0\t\t1000\t~17~\tsomething")
 # Test valid input
 add_test(NAME TestIntArgumentValidInput1 COMMAND ${THIS_TARGET} 6 t 4 "-12")
 # Test valid input

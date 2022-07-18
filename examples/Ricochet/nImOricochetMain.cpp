@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOboolArgumentDescriptor.hpp>
+#include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOmiscellaneousContext.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>

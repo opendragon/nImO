@@ -428,7 +428,7 @@ namespace nImO
          fields for a command-line argument. */
         std::string
         prefixFields
-            (const std::string &    tagForField)
+            (const ArgumentTypeTag  tagForField)
             const;
 
         /*! @brief Sets the validity of the object.

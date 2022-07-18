@@ -241,7 +241,7 @@ StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields("L")};
+    std::string result{prefixFields(ArgumentTypeTag::StringsTypeTag)};
 
     result += getParameterSeparator();
     std::string scratch;

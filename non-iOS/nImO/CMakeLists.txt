@@ -59,7 +59,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOblob.cpp"
-            "${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImObufferChunk.cpp"
             "${THIS_SOURCE_DIR}/nImOchannel.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp"
@@ -78,8 +78,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
-            "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
+            "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
@@ -130,7 +130,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOatom.hpp"
         "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOblob.hpp"
-        "${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.hpp"
+        "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImObufferChunk.hpp"
         "${THIS_SOURCE_DIR}/nImOchannel.hpp"
         "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.hpp"
@@ -150,8 +150,8 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOfilterContext.hpp"
         "${THIS_SOURCE_DIR}/nImOflaw.hpp"
-        "${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOinteger.hpp"
+        "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOinvalid.hpp"
         "${THIS_SOURCE_DIR}/nImOlogical.hpp"
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
@@ -183,7 +183,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOatom.cpp ${THIS_SOURCE_DIR}/nImOatom.hpp
         ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOblob.cpp ${THIS_SOURCE_DIR}/nImOblob.hpp
-        ${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOboolArgumentDescriptor.hpp
+        ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/nImObufferChunk.hpp
         ${THIS_SOURCE_DIR}/nImOchannel.cpp ${THIS_SOURCE_DIR}/nImOchannel.hpp
         ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.hpp
@@ -202,8 +202,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.hpp
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.hpp
-        ${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.hpp
+        ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.hpp
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp

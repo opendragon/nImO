@@ -40,12 +40,12 @@
 #include "nImObaseArgumentDescriptor.hpp"
 
 #include <nImOaddressArgumentDescriptor.hpp>
-#include <nImOboolArgumentDescriptor.hpp>
+#include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOchannelArgumentDescriptor.hpp>
 #include <nImOdoubleArgumentDescriptor.hpp>
 #include <nImOextraArgumentDescriptor.hpp>
 #include <nImOfilePathArgumentDescriptor.hpp>
-#include <nImOintArgumentDescriptor.hpp>
+#include <nImOintegerArgumentDescriptor.hpp>
 #include <nImOportArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 #include <nImOstringsArgumentDescriptor.hpp>
@@ -302,14 +302,15 @@ BaseArgumentDescriptor::partitionString
 
 std::string
 BaseArgumentDescriptor::prefixFields
-    (const std::string &    tagForField)
+    (const ArgumentTypeTag  tagForField)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("tagForField = ", tagForField); //####
     std::string result{_argName};
 
-    result += (_parameterSeparator + tagForField + _parameterSeparator + std::to_string(toUType(_argMode)));
+    result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator +
+               std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
@@ -502,7 +503,7 @@ nImO::ConvertStringToArgument
     result = AddressArgumentDescriptor::parseArgString(inString);
     if (! result)
     {
-        result = BoolArgumentDescriptor::parseArgString(inString);
+        result = BooleanArgumentDescriptor::parseArgString(inString);
     }
     if (! result)
     {
@@ -522,7 +523,7 @@ nImO::ConvertStringToArgument
     }
     if (! result)
     {
-        result = IntArgumentDescriptor::parseArgString(inString);
+        result = IntegerArgumentDescriptor::parseArgString(inString);
     }
     if (! result)
     {

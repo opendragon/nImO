@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOboolArgumentDescriptor.hpp
+//  File:       nImO/nImObooleanArgumentDescriptor.hpp
 //
 //  Project:    nImO
 //
@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a boolean argument description is:
 
      booleanTagAndInfo ::= 'B'; */
-    class BoolArgumentDescriptor final : public BaseArgumentDescriptor
+    class BooleanArgumentDescriptor final : public BaseArgumentDescriptor
     {
     public :
         // Public type definitions.
@@ -83,7 +83,7 @@ namespace nImO
          @param[in] argDescription A description of the command-line argument.
          @param[in] argMode The mode of the command-line argument.
          @param[in] defaultValue The default value for the command-line argument. */
-        BoolArgumentDescriptor
+        BooleanArgumentDescriptor
             (const std::string &    argName,
              const std::string &    argDescription,
              const ArgumentMode     argMode,
@@ -91,18 +91,18 @@ namespace nImO
 
         /*! @brief The copy constructor.
          @param[in] other The object to be copied. */
-        BoolArgumentDescriptor
-            (const BoolArgumentDescriptor & other);
+        BooleanArgumentDescriptor
+            (const BooleanArgumentDescriptor & other);
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        BoolArgumentDescriptor
-            (BoolArgumentDescriptor &&	other)
+        BooleanArgumentDescriptor
+            (BooleanArgumentDescriptor &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~BoolArgumentDescriptor
+        ~BooleanArgumentDescriptor
             (void);
 
         /*! @brief Return the current value.
@@ -134,7 +134,7 @@ namespace nImO
          @param[in,out] other The object to be swapped with. */
         void
         swap
-            (BoolArgumentDescriptor &   other);
+            (BooleanArgumentDescriptor &   other);
 
     protected :
         // Protected methods.
@@ -218,7 +218,7 @@ namespace nImO
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-    }; // BoolArgumentDescriptor
+    }; // BooleanArgumentDescriptor
 
 } // nImO
 

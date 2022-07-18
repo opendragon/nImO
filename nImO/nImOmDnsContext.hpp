@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontextWithCommandPort.hpp
+//  File:       nImO/nImOmDnsContext.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use a command port.
+//  Contains:   The class declaration for nImO execution contexts that use mDNS.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2022-07-18
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithCommandPort_HPP_))
-# define nImOcontextWithCommandPort_HPP_ /* Header guard */
+#if (! defined(nImOmDnsContext_HPP_))
+# define nImOmDnsContext_HPP_ /* Header guard */
 
 # include <nImOcontextWithZeroConfig.hpp>
 
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use a command port. */
+ @brief The class declaration for %nImO execution contexts that use mDNS. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for an application that uses a command port. */
-    class ContextWithCommandPort : public ContextWithZeroConfig
+    /*! @brief A class to provide support for an application that uses mDNS. */
+    class MdnsContext final : public ContextWithZeroConfig
     {
     public :
         // Public type definitions.
@@ -72,20 +72,20 @@ namespace nImO
     public :
         // Public methods.
 
+        /*! @brief The constructor.
+         @param[in] executable The name of the executing program.
+         @param[in] nodeName The @nImO-visible name of the executing program. */
+        MdnsContext
+            (const std::string &    executableName,
+             const std::string &    nodeName = "");
+
         /*! @brief The destructor. */
         virtual
-        ~ContextWithCommandPort
+        ~MdnsContext
             (void);
 
     protected :
         // Protected methods.
-
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        ContextWithCommandPort
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
 
     private :
         // Private methods.
@@ -99,8 +99,8 @@ namespace nImO
     private :
         // Private fields.
 
-    }; // ContextWithCommandPort
+    }; // MdnsContext
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithCommandPort_HPP_)
+#endif // ! defined(nImOmDnsContext_HPP_)

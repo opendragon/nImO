@@ -71,6 +71,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
             "${THIS_SOURCE_DIR}/nImOcontext.cpp"
             "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp"
+            "${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
             "${THIS_SOURCE_DIR}/nImOdouble.cpp"
             "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
@@ -83,6 +84,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
+            "${THIS_SOURCE_DIR}/nImOmDnsContext.cpp"
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
@@ -143,6 +145,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
         "${THIS_SOURCE_DIR}/nImOcontext.hpp"
         "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp"
+        "${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.hpp"
         "${THIS_SOURCE_DIR}/nImOconverters.hpp"
         "${THIS_SOURCE_DIR}/nImOdouble.hpp"
         "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
@@ -155,6 +158,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOinvalid.hpp"
         "${THIS_SOURCE_DIR}/nImOlogical.hpp"
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
+        "${THIS_SOURCE_DIR}/nImOmDnsContext.hpp"
         "${THIS_SOURCE_DIR}/nImOmessage.hpp"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp"
         "${THIS_SOURCE_DIR}/nImOnumber.hpp"
@@ -195,6 +199,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.hpp
         ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.hpp
         ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp
+        ${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.cpp ${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.hpp
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.hpp
         ${THIS_SOURCE_DIR}/nImOdouble.cpp ${THIS_SOURCE_DIR}/nImOdouble.hpp
         ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp
@@ -207,6 +212,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.hpp
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
+        ${THIS_SOURCE_DIR}/nImOmDnsContext.cpp ${THIS_SOURCE_DIR}/nImOmdnsContext.hpp
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.hpp
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.hpp

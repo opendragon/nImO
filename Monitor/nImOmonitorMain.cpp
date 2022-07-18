@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOutilityContext.hpp>
+#include <nImOmDnsContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -129,7 +129,7 @@ main
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName);
+            nImO::MdnsContext   ÍourContext(progName);
 
         }
         catch (...)

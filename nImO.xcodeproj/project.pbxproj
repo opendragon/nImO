@@ -38,6 +38,10 @@
 		F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringsArgumentDescriptor.hpp; path = nImO/nImOstringsArgumentDescriptor.hpp; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcomparisonStatus.hpp; path = nImO/nImOcomparisonStatus.hpp; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
+		F660586E2885FE7F008F8A09 /* nImOcontextWithZeroConfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithZeroConfig.hpp; path = nImO/nImOcontextWithZeroConfig.hpp; sourceTree = "<group>"; };
+		F660586F2885FEAB008F8A09 /* nImOcontextWithZeroConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithZeroConfig.cpp; path = nImO/nImOcontextWithZeroConfig.cpp; sourceTree = "<group>"; };
+		F6605870288603FA008F8A09 /* nImOmDnsContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmDnsContext.cpp; path = nImO/nImOmDnsContext.cpp; sourceTree = "<group>"; };
+		F6605871288603FA008F8A09 /* nImOmDnsContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOmDnsContext.hpp; path = nImO/nImOmDnsContext.hpp; sourceTree = "<group>"; };
 		F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmonitor.rc.in; path = Monitor/nImOmonitor.rc.in; sourceTree = SOURCE_ROOT; };
 		F66630301E3AD67000CAD88F /* nImOmonitorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmonitorMain.cpp; path = Monitor/nImOmonitorMain.cpp; sourceTree = SOURCE_ROOT; };
 		F66630311E3AD67000CAD88F /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Monitor/resource.h; sourceTree = SOURCE_ROOT; };
@@ -485,6 +489,8 @@
 				F6737D5E28857E25000DD5FC /* nImOcontext.hpp */,
 				F6737D5D28857E25000DD5FC /* nImOcontextWithCommandPort.cpp */,
 				F6737D5B28857E25000DD5FC /* nImOcontextWithCommandPort.hpp */,
+				F660586F2885FEAB008F8A09 /* nImOcontextWithZeroConfig.cpp */,
+				F660586E2885FE7F008F8A09 /* nImOcontextWithZeroConfig.hpp */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.hpp */,
 				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,
@@ -499,16 +505,18 @@
 				F6737D6928857E43000DD5FC /* nImOfilterContext.hpp */,
 				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
 				F6A787771E65BDAD00940F97 /* nImOflaw.hpp */,
-				F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */,
-				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.hpp */,
 				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
 				F6C146291CD18D830045C291 /* nImOinteger.hpp */,
+				F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */,
+				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.hpp */,
 				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,
 				F61B8C011E6CB58E00606F25 /* nImOinvalid.hpp */,
 				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
 				F6991C801E5C747A00678450 /* nImOlogical.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.hpp */,
+				F6605870288603FA008F8A09 /* nImOmDnsContext.cpp */,
+				F6605871288603FA008F8A09 /* nImOmDnsContext.hpp */,
 				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,
 				F6A3C2251CCD3C7900CA5C76 /* nImOmessage.hpp */,
 				F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */,

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontextWithCommandPort.hpp
+//  File:       nImO/nImOcontextWithZeroConfig.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use a command port.
+//  Contains:   The class definition for nImO execution contexts that use mDNS.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,75 +32,81 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2022-07-18
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithCommandPort_HPP_))
-# define nImOcontextWithCommandPort_HPP_ /* Header guard */
+#include "nImOcontextWithZeroConfig.hpp"
 
-# include <nImOcontextWithZeroConfig.hpp>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use a command port. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+ @brief The class definition for %nImO execution contexts that use mDNS. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-namespace nImO
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::ContextWithZeroConfig::ContextWithZeroConfig
+(const std::string &    executableName,
+ const std::string &    nodeName) :
+inherited(executableName, nodeName)
 {
-    /*! @brief A class to provide support for an application that uses a command port. */
-    class ContextWithCommandPort : public ContextWithZeroConfig
+    ODL_ENTER(); //####
+                 //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    try
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_P(this); //####
+} // nImO::ContextWithZeroConfig::ContextWithZeroConfig
 
-    private :
-        // Private type definitions.
+nImO::ContextWithZeroConfig::~ContextWithZeroConfig
+(void)
+{
+    ODL_OBJENTER(); //####
+                    //    removeAllEntries();
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithZeroConfig::~ContextWithZeroConfig
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithZeroConfig;
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-    public :
-        // Public methods.
-
-        /*! @brief The destructor. */
-        virtual
-        ~ContextWithCommandPort
-            (void);
-
-    protected :
-        // Protected methods.
-
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        ContextWithCommandPort
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
-
-    private :
-        // Private methods.
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-    }; // ContextWithCommandPort
-
-} // nImO
-
-#endif // ! defined(nImOcontextWithCommandPort_HPP_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

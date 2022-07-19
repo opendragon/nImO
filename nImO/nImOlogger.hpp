@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOmDnsContext.hpp
+//  File:       nImO/nImOlogger.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use mDNS.
+//  Contains:   The class declaration for the nImO logging mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-18
+//  Created:    2022-07-19
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOmDnsContext_HPP_))
-# define nImOmDnsContext_HPP_ /* Header guard */
+#if (! defined(nImOlogger_HPP_))
+# define nImOlogger_HPP_ /* Header guard */
 
-# include <nImOcontextWithZeroConfig.hpp>
+# include <nImOcommon.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use mDNS. */
+ @brief The class declaration for the %nImO logging mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for an application that uses mDNS. */
-    class MdnsContext final : public ContextWithZeroConfig
+    /*! @brief A class to provide the @nImO logging mechanism. */
+    class Logger final
     {
     public :
         // Public type definitions.
@@ -66,27 +66,26 @@ namespace nImO
     private :
         // Private type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithZeroConfig;
-
     public :
         // Public methods.
 
-        /*! @brief The constructor.
-         @param[in] executable The name of the executing program.
-         @param[in] logging @c true if the executing program is to be logged.
-         @param[in] nodeName The @nImO-visible name of the executing program. */
-        MdnsContext
-            (const std::string &    executableName,
-             const bool             logging,
-             const std::string &    nodeName = "");
+        /*! @brief The constructor. */
+        Logger
+            (void);
 
         /*! @brief The destructor. */
         virtual
-        ~MdnsContext
+        ~Logger
             (void);
 
-    protected :
+        /*! @brief Log a message.
+         @param[in] message The message to be logged. */
+        void
+        report
+            (const std::string &    message)
+            const;
+
+        protected :
         // Protected methods.
 
     private :
@@ -101,8 +100,8 @@ namespace nImO
     private :
         // Private fields.
 
-    }; // MdnsContext
+    }; // Logger
 
 } // nImO
 
-#endif // ! defined(nImOmDnsContext_HPP_)
+#endif // ! defined(nImOlogger_HPP_)

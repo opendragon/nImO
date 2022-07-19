@@ -123,13 +123,14 @@ main
     ODL_ENTER(); //####
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
+    bool                    logging = false;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
-                                              NIMO_COPYRIGHT_NAME_, flavour))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
     {
         try
         {
-            nImO::MdnsContext   ÍourContext(progName);
+            nImO::MdnsContext   ÍourContext(progName, logging);
 
         }
         catch (...)

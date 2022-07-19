@@ -100,10 +100,11 @@ main
                                           nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector       argumentList;
     nImO::OutputFlavour          flavour;
+    bool                         logging = false;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
     {
         try
         {

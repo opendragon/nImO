@@ -145,19 +145,19 @@ main
     nImO::StringsArgumentDescriptor thirdArg{"mode", T_("Transport mode"),
                                              nImO::ArgumentMode::OptionalModifiable, "tcp",
                                              nImO::ChannelName::transportNames()};
-    // third argument will be a StringsArgumentDescriptor for Mode
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, helpForConnect, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, helpForConnect, true))
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName);
+            nImO::UtilityContext    ourContext(progName, logging);
 
         }
         catch (...)

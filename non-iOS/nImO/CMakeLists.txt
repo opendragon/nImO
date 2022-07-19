@@ -82,6 +82,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
             "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
+            "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
             "${THIS_SOURCE_DIR}/nImOmDnsContext.cpp"
@@ -156,6 +157,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOinteger.hpp"
         "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp"
         "${THIS_SOURCE_DIR}/nImOinvalid.hpp"
+        "${THIS_SOURCE_DIR}/nImOlogger.hpp"
         "${THIS_SOURCE_DIR}/nImOlogical.hpp"
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
         "${THIS_SOURCE_DIR}/nImOmDnsContext.hpp"
@@ -210,6 +212,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.hpp
         ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.hpp
+        ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.hpp
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
         ${THIS_SOURCE_DIR}/nImOmDnsContext.cpp ${THIS_SOURCE_DIR}/nImOmdnsContext.hpp

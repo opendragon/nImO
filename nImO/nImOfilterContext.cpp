@@ -78,11 +78,13 @@
 
 nImO::FilterContext::FilterContext
     (const std::string &    executableName,
+     const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, nodeName)
+        inherited(executableName, logging, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_B1("logging = ", logging); //####
     try
     {
 

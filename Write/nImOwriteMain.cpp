@@ -128,15 +128,16 @@ main
                                              nImO::ArgumentMode::OptionalModifiable, "source"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
     {
         try
         {
-            nImO::SourceContext ourContext(progName, secondArg.getCurrentValue());
+            nImO::SourceContext ourContext(progName, logging, secondArg.getCurrentValue());
 
         }
         catch (...)

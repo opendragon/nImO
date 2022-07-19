@@ -97,6 +97,8 @@
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6866F021CA4145E00849A76 /* nImOcontainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOcontainer.hpp; path = nImO/nImOcontainer.hpp; sourceTree = "<group>"; };
+		F6943A572886C275002117FA /* nImOlogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOlogger.hpp; path = nImO/nImOlogger.hpp; sourceTree = "<group>"; };
+		F6943A582886C275002117FA /* nImOlogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogger.cpp; path = nImO/nImOlogger.cpp; sourceTree = "<group>"; };
 		F695626A23E65933009831B7 /* nImOlaunch.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOlaunch.rc.in; path = Launch/nImOlaunch.rc.in; sourceTree = "<group>"; };
 		F695626B23E65933009831B7 /* nImOlaunchMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlaunchMain.cpp; path = Launch/nImOlaunchMain.cpp; sourceTree = "<group>"; };
 		F695626C23E65933009831B7 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Launch/resource.h; sourceTree = "<group>"; };
@@ -511,6 +513,8 @@
 				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.hpp */,
 				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,
 				F61B8C011E6CB58E00606F25 /* nImOinvalid.hpp */,
+				F6943A582886C275002117FA /* nImOlogger.cpp */,
+				F6943A572886C275002117FA /* nImOlogger.hpp */,
 				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
 				F6991C801E5C747A00678450 /* nImOlogical.hpp */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,

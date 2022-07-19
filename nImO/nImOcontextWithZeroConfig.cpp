@@ -77,15 +77,20 @@
 #endif // defined(__APPLE__)
 
 nImO::ContextWithZeroConfig::ContextWithZeroConfig
-(const std::string &    executableName,
- const std::string &    nodeName) :
-inherited(executableName, nodeName)
+    (const std::string &    executableName,
+     const bool             logging,
+     const std::string &    nodeName) :
+        inherited(executableName, nodeName), _logger(nullptr)
 {
     ODL_ENTER(); //####
-                 //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_B1("logging = ", logging); //####
     try
     {
-
+        if (logging)
+        {
+            _logger = new Logger;
+        }
     }
     catch (...)
     {
@@ -96,16 +101,59 @@ inherited(executableName, nodeName)
 } // nImO::ContextWithZeroConfig::ContextWithZeroConfig
 
 nImO::ContextWithZeroConfig::~ContextWithZeroConfig
-(void)
+    (void)
 {
     ODL_OBJENTER(); //####
-                    //    removeAllEntries();
+    removeAllListeners();
+    if (nullptr != _logger)
+    {
+        delete _logger;
+    }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithZeroConfig::~ContextWithZeroConfig
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::ContextWithZeroConfig::addListener
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithZeroConfig::addListener
+
+/*! @brief Remove all listeners. */
+void
+nImO::ContextWithZeroConfig::removeAllListeners
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithZeroConfig::removeAllListeners
+
+void
+nImO::ContextWithZeroConfig::removeListener
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithZeroConfig::removeListener
+
+void
+nImO::ContextWithZeroConfig::report
+    (const std::string &    message)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("message = ", message); //####
+    if (nullptr != _logger)
+    {
+        _logger->report(message);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithZeroConfig::report
 
 #if defined(__APPLE__)
 # pragma mark Global functions

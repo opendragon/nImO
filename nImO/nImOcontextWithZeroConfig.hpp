@@ -40,6 +40,7 @@
 # define nImOcontextWithZeroConfig_HPP_ /* Header guard */
 
 # include <nImOcontext.hpp>
+# include <nImOlogger.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -82,13 +83,37 @@ namespace nImO
 
         /*! @brief The constructor.
          @param[in] executable The name of the executing program.
+         @param[in] logging @c true if the executing program is to be logged.
          @param[in] nodeName The @nImO-visible name of the executing program. */
         ContextWithZeroConfig
             (const std::string &    executableName,
+             const bool             logging,
              const std::string &    nodeName = "");
+
+        /*! @brief Log a message.
+         @param[in] message The message to be logged. */
+        void
+        report
+            (const std::string &    message)
+            const;
 
     private :
         // Private methods.
+
+        /*! @brief Add a new listener for the logged messages. */
+        void
+        addListener
+            (void);
+
+        /*! @brief Remove all listeners. */
+        void
+        removeAllListeners
+            (void);
+
+        /*! @brief Remove a listener. */
+        void
+        removeListener
+            (void);
 
     public :
         // Public fields.
@@ -98,6 +123,7 @@ namespace nImO
 
     private :
         // Private fields.
+        Logger *    _logger;
 
     }; // ContextWithZeroConfig
 

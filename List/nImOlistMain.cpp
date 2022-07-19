@@ -190,14 +190,15 @@ main
                                              nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List information about objects in the nImO space", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, helpForList))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, helpForList, false, true))
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName);
+            nImO::UtilityContext    ourContext(progName, logging);
             std::string             choice{firstArg.getCurrentValue()};
             auto                    match{lChoiceMap.find(choice)};
 

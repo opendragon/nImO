@@ -126,14 +126,15 @@ main
                                               nImO::ArgumentMode::RequiredModifiable, "/in");
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName);
+            nImO::UtilityContext    ourContext(progName, logging);
 
         }
         catch (...)

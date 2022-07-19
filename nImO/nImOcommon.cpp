@@ -840,18 +840,20 @@ nImO::ProcessStandardUtilitiesOptions
      const int                  year,
      const char *               copyrightHolder,
      nImO::OutputFlavour &      flavour,
+     bool &                     logging,
      HelpFunction               helper,
      const bool                 ignoreFlavours,
+     const bool                 ignoreLogging,
      nImO::StringVector *       arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
            "flavour = ", &flavour, "helper = ", &helper); //####
-    ODL_P1("arguments = ", arguments); //####
+    ODL_P2("logging = ", &logging, "arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
-    ODL_B1("ignoreFlavours = ", ignoreFlavours); //####
+    ODL_B2("ignoreFlavours = ", ignoreFlavours, "ignoreLogging = ", ignoreLogging); //####
     enum class OptionIndex
     {
         UNKNOWN,
@@ -859,6 +861,7 @@ nImO::ProcessStandardUtilitiesOptions
         INFO,
         JSON,
         TABS,
+        LOGG,
         VERSION
     }; // OptionIndex
 
@@ -874,6 +877,8 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor     jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
                                            Option_::Arg::None,
                                            T_("  --json, -j    Generate output in JSON format")};
+    Option_::Descriptor     loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
+                                           "logg", Option_::Arg::None, T_("  --logg, -l    Log application")};
     Option_::Descriptor     tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
                                            Option_::Arg::None,
                                            T_("  --tabs, -t    Generate output in tab-format")};
@@ -881,7 +886,7 @@ nImO::ProcessStandardUtilitiesOptions
                                               "vers", Option_::Arg::None,
                                               T_("  --vers, -v    Print version information and exit")};
     Option_::Descriptor     lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor     usage[7]; // first, help, info, json, tabs, version
+    Option_::Descriptor     usage[8]; // first, help, info, json, logg, tabs, version
     Option_::Descriptor *   usageWalker = usage;
     int                     argcWork = argc;
     char * *                argvWork = argv;
@@ -934,6 +939,10 @@ nImO::ProcessStandardUtilitiesOptions
         memcpy(usageWalker++, &jsonDescriptor, sizeof(jsonDescriptor));
         memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
+    if (! ignoreLogging)
+    {
+        memcpy(usageWalker++, &loggDescriptor, sizeof(loggDescriptor));
+    }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
@@ -979,6 +988,10 @@ nImO::ProcessStandardUtilitiesOptions
         else if (options[StaticCast(size_t, OptionIndex::TABS)])
         {
             flavour = OutputFlavour::Tabs;
+        }
+        if (options[StaticCast(size_t, OptionIndex::LOGG)])
+        {
+            logging = true;
         }
         if (arguments)
         {

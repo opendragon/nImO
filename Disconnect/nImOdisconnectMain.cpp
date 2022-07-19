@@ -127,15 +127,16 @@ main
                                               nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName);
+            nImO::UtilityContext    ourContext(progName, logging);
 
         }
         catch (...)

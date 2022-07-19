@@ -74,9 +74,11 @@ namespace nImO
 
         /*! @brief The constructor.
         @param[in] executable The name of the executing program.
+        @param[in] logging @c true if the executing program is to be logged.
         @param[in] nodeName The @nImO-visible name of the executing program. */
         SourceContext
             (const std::string &    executableName,
+             const bool             logging,
              const std::string &    nodeName = "");
 
         /*! @brief The destructor. */

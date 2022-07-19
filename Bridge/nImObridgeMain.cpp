@@ -125,14 +125,15 @@ main
                                              nImO::ArgumentMode::OptionalModifiable, "bridge"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
+    bool                            logging = false;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, nullptr, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
     {
         try
         {
-            nImO::UtilityContext    ourContext(progName, firstArg.getCurrentValue());
+            nImO::UtilityContext    ourContext(progName, logging, firstArg.getCurrentValue());
 
         }
         catch (...)

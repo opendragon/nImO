@@ -114,9 +114,10 @@ main
     ODL_ENTER(); //####
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
+    bool                    logging = false;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version number of the library",
-                                              progName, 2016, NIMO_COPYRIGHT_NAME_, flavour))
+                                              progName, 2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, false, true))
     {
         std::string mdnsVersionString;
         std::string nImOversionString;

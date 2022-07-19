@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOmDnsContext.hpp
+//  File:       nImO/nImOlogger.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use mDNS.
+//  Contains:   The class definition for the nImO logging mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,77 +32,80 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-18
+//  Created:    2022-07-19
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOmDnsContext_HPP_))
-# define nImOmDnsContext_HPP_ /* Header guard */
+#include "nImOlogger.hpp"
 
-# include <nImOcontextWithZeroConfig.hpp>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use mDNS. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+ @brief The class definition for the %nImO logging mechanism. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-namespace nImO
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::Logger::Logger
+    (void)
 {
-    /*! @brief A class to provide support for an application that uses mDNS. */
-    class MdnsContext final : public ContextWithZeroConfig
-    {
-    public :
-        // Public type definitions.
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Logger::Logger
 
-    protected :
-        // Protected type definitions.
+nImO::Logger::~Logger
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Logger::~Logger
 
-    private :
-        // Private type definitions.
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithZeroConfig;
+void
+nImO::Logger::report
+    (const std::string &    message)
+    const
+{
+    MDNS_UNUSED_ARG_(message);
+    ODL_OBJENTER(); //####
+    ODL_S1s("message = ", message); //####
+    //
+    ODL_OBJEXIT(); //####
+} // nImO::Logger::report
 
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-         @param[in] executable The name of the executing program.
-         @param[in] logging @c true if the executing program is to be logged.
-         @param[in] nodeName The @nImO-visible name of the executing program. */
-        MdnsContext
-            (const std::string &    executableName,
-             const bool             logging,
-             const std::string &    nodeName = "");
-
-        /*! @brief The destructor. */
-        virtual
-        ~MdnsContext
-            (void);
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-    }; // MdnsContext
-
-} // nImO
-
-#endif // ! defined(nImOmDnsContext_HPP_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

@@ -851,6 +851,7 @@ namespace nImO
      The option '-i' / '--info' displays the type of the executable and the description of the
      executable and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
+     The option '-l' / '--logg' specifies that the executable is to be logged.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--vers'displays the version and copyright information and returns
      @c false.
@@ -862,8 +863,10 @@ namespace nImO
      @param[in] year The copyright year for the calling application.
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[in,out] flavour Set if the -j or -t options are seen.
+     @param[in,out] logging Set if the -l option is seen.
      @param[in] helper A function to call when -h is requested, to provide more details.
      @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
+     @param[in] ignoreLogging @c true if the logging option is ignored and @c false otherwise.
      @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
      @return @c true if the program should continue and @c false if it should leave. */
     bool
@@ -876,8 +879,10 @@ namespace nImO
          const int              year,
          const char *           copyrightHolder,
          OutputFlavour &        flavour,
+         bool &                 logging,
          HelpFunction           helper = nullptr,
          const bool             ignoreFlavours = false,
+         const bool             ignoreLogging = false,
          StringVector *         arguments = nullptr);
 
     /*! @brief Standardize the handling of multiple Transport value specifications.

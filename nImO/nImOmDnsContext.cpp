@@ -77,12 +77,14 @@
 #endif // defined(__APPLE__)
 
 nImO::MdnsContext::MdnsContext
-(const std::string &    executableName,
- const std::string &    nodeName) :
-inherited(executableName, nodeName)
+    (const std::string &    executableName,
+     const bool             logging,
+     const std::string &    nodeName) :
+        inherited(executableName, logging, nodeName)
 {
     ODL_ENTER(); //####
-                 //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_B1("logging = ", logging); //####
     try
     {
 
@@ -96,10 +98,10 @@ inherited(executableName, nodeName)
 } // nImO::MdnsContext::MdnsContext
 
 nImO::MdnsContext::~MdnsContext
-(void)
+    (void)
 {
     ODL_OBJENTER(); //####
-                    //    removeAllEntries();
+    //    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::MdnsContext::~MdnsContext
 

@@ -28,6 +28,7 @@
 #include "nImOinteger.hpp"
 #include "nImOintegerArgumentDescriptor.hpp"
 #include "nImOinvalid.hpp"
+#include "nImOlogger.hpp"
 #include "nImOlogical.hpp"
 #include "nImOmap.hpp"
 #include "nImOmDnsContext.hpp"

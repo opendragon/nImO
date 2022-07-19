@@ -41,6 +41,8 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
+#include <signal.h>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -92,6 +94,9 @@ using std::endl;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief Set to @0 when a SIGINT occurs. */
+static volatile sig_atomic_t    lKeepRunning = 1;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -99,6 +104,32 @@ using std::endl;
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief The signal handler to catch requests to stop the application.
+ @param[in] signal The signal being handled. */
+static void
+catchSignal
+    (int signal)
+{
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
+#if defined(SIGINT)
+    if (SIGINT == signal)
+    {
+        lKeepRunning = 0;
+    }
+    else
+#endif // defined(SIGINT)
+    {
+        std::string message{"Exiting due to signal "};
+
+        message += std::to_string(signal);
+        message += " = ";
+        message += nImO::NameOfSignal(signal);
+        ODL_EXIT_EXIT(1); //####
+        exit(1);
+    }
+} // catchSignal
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -130,8 +161,19 @@ main
     {
         try
         {
-            nImO::MdnsContext   ÍourContext(progName, logging);
+            nImO::MdnsContext   ourContext(progName, logging);
 
+            nImO::SetSignalHandlers(catchSignal);
+            // Open a UDP port to collect messages.
+            // Announce the UDP port so that other applications can report.
+            // Wait for messages until exit requested.
+            for ( ; 1 == lKeepRunning; )
+            {
+
+            }
+            std::cout << "saw Ctrl-C" << std::endl;
+            // Retract announcement.
+            // Close UDP port.
         }
         catch (...)
         {

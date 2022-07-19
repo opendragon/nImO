@@ -136,11 +136,7 @@ else
             fi
             ;;
         "monitor")
-            if [[ $# -eq 0 ]]; then
-                usage_help list
-            else
-                nImOmonitor $*
-            fi
+            nImOmonitor $*
             ;;
         "read")
             if [[ $# -eq 0 ]]; then

@@ -576,6 +576,23 @@ nImO::Array::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::Array::printToStringBuffer
 
+int
+nImO::Array::randomIndex
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    int     result = -1;
+    size_t  howMany = size();
+
+    if (0 < howMany)
+    {
+        result = (rand() % howMany);
+    }
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} /* nImO::Array::randomIndex */
+
 nImO::SpValue
 nImO::Array::readFromStringBuffer
     (const nImO::StringBuffer & inBuffer,

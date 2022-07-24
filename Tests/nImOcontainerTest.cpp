@@ -806,6 +806,68 @@ doTestNonEmptyArrayClearFunction
 } // doTestNonEmptyArrayClearFunction
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 11 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayRandomIndex
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array random index
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Integer>(42));
+            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            {
+                int key = stuff->randomIndex();
+
+                if ((0 > key) || (key >= StaticCast(int, stuff->size())))
+                {
+                    ODL_LOG("((0 > key) || (key >= StaticCast(int, stuff->size())))"); //####
+                    result = 1;
+                    break;
+
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestArrayRandomIndex
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 20 ***
 #endif // defined(__APPLE__)
 
@@ -1681,6 +1743,67 @@ doTestNonEmptyMapClearFunction
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptyMapClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 33 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMapRandomKey
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // map random key
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
+            result = 0;
+            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            {
+                SpValue key = stuff->randomKey();
+
+                if (stuff->end() == stuff->find(key))
+                {
+                    ODL_LOG("(stuff->end() == stuff->find(key))"); //####
+                    result = 1;
+                    break;
+
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMapRandomKey
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 40 ***
@@ -2562,6 +2685,69 @@ doTestNonEmptySetClearFunction
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptySetClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 53 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSetRandomKey
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // set random key
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
+            stuff->addValue(std::make_shared<String>("epsilon"));
+            result = 0;
+            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            {
+                SpValue key = stuff->randomKey();
+
+                if (stuff->end() == stuff->find(key))
+                {
+                    ODL_LOG("(stuff->end() == stuff->find(key))"); //####
+                    result = 1;
+                    break;
+
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSetRandomKey
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 60 ***
@@ -7339,6 +7525,10 @@ main
                         result = doTestNonEmptyArrayClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 11 :
+                        result = doTestArrayRandomIndex(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 20 :
                         result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
                         break;
@@ -7391,6 +7581,10 @@ main
                         result = doTestNonEmptyMapClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 33 :
+                        result = doTestMapRandomKey(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 40 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
@@ -7441,6 +7635,10 @@ main
 
                     case 52 :
                         result = doTestNonEmptySetClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 53 :
+                        result = doTestSetRandomKey(*argv, argc - 1, argv + 2);
                         break;
 
                     case 60 :

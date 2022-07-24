@@ -173,7 +173,7 @@ namespace nImO
             const
             override;
 
-        /*! @brief Search the Map for an element with the given key value an return an iterator
+        /*! @brief Search the Map for an element with the given key value and return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @return An iterator for the given key key value or Map::end if not found. */
@@ -195,7 +195,7 @@ namespace nImO
         } // find
 
 
-        /*! @brief Search the Map for an element with the given key value an return an iterator
+        /*! @brief Search the Map for an element with the given key value and return an iterator
          to it, or Map::end if not found.
          @param[in] key The key to be searched for.
          @return An iterator for the given key key value or Map::end if not found. */
@@ -316,6 +316,12 @@ namespace nImO
              const bool     squished = false)
             const
             override;
+
+        /*! @brief Return a random key from the Map. */
+        SpValue
+        randomKey
+            (void)
+            const;
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.

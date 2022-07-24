@@ -291,6 +291,12 @@ namespace nImO
             const
             override;
 
+        /*! @brief Return a random index from the Array. */
+        int
+        randomIndex
+            (void)
+            const;
+
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.
          @param[in,out] position Where in the buffer to start.

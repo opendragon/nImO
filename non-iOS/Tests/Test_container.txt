@@ -81,6 +81,8 @@ add_test(NAME TestNonEmptyArrayEmptyFunction COMMAND ${THIS_TARGET} 8)
 add_test(NAME TestEmptyArrayClearFunction COMMAND ${THIS_TARGET} 9)
 # Test non-empty array clear() function
 add_test(NAME TestNonEmptyArrayClearFunction COMMAND ${THIS_TARGET} 10)
+# Test array randomIndex
+add_test(NAME TestArrayRandomIndex COMMAND ${THIS_TARGET} 11)
 
 # Test empty map
 add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
@@ -108,6 +110,8 @@ add_test(NAME TestNonEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 30)
 add_test(NAME TestEmptyMapClearFunction COMMAND ${THIS_TARGET} 31)
 # Test non-empty map clear() function
 add_test(NAME TestNonEmptyMapClearFunction COMMAND ${THIS_TARGET} 32)
+# Test map randomIndex
+add_test(NAME TestMapRandomKey COMMAND ${THIS_TARGET} 33)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
@@ -135,6 +139,8 @@ add_test(NAME TestNonEmptyMapSetFunction COMMAND ${THIS_TARGET} 50)
 add_test(NAME TestEmptySetClearFunction COMMAND ${THIS_TARGET} 51)
 # Test non-empty set clear() function
 add_test(NAME TestNonEmptySetClearFunction COMMAND ${THIS_TARGET} 52)
+# Test set randomIndex
+add_test(NAME TestSetRandomKey COMMAND ${THIS_TARGET} 53)
 
 # Test array with array
 add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 60)

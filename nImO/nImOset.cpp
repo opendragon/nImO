@@ -668,6 +668,28 @@ nImO::Set::printToStringBuffer
 } // nImO::Set::printToStringBuffer
 
 nImO::SpValue
+nImO::Set::randomKey
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    SpValue result;
+    auto    walker(inherited2::begin());
+    size_t  howMany = size();
+
+    if (0 < howMany)
+    {
+        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        {
+            ++walker;
+        }
+        result = *walker;
+    }
+    ODL_OBJEXIT_P(result.get()); //####
+    return result;
+} /* nImO::Set::randomKey */
+
+nImO::SpValue
 nImO::Set::readFromStringBuffer
     (const nImO::StringBuffer & inBuffer,
      size_t &                   position)

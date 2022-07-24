@@ -111,7 +111,7 @@ namespace nImO
             (void)
             const = 0;
 
-        protected :
+    protected :
         // Protected methods.
 
         /*! @brief The constructor. */

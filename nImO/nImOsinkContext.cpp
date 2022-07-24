@@ -80,7 +80,7 @@ nImO::SinkContext::SinkContext
     (const std::string &    executableName,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, logging, nodeName)
+        inherited(executableName, logging, true, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####

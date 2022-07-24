@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOlogger.cpp
+//  File:       nImOregistryMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO logging mechanism.
+//  Contains:   A utility application to read from a nImO channel.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-19
+//  Created:    2022-07-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOlogger.hpp"
+#include <nImOserviceContext.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -44,10 +44,39 @@
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wc++11-extensions"
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+# pragma clang diagnostic ignored "-Wdocumentation"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+# pragma clang diagnostic ignored "-Wextern-c-compat"
+# pragma clang diagnostic ignored "-Wpadded"
+# pragma clang diagnostic ignored "-Wshadow"
+# pragma clang diagnostic ignored "-Wunused-parameter"
+# pragma clang diagnostic ignored "-Wweak-vtables"
+#endif // defined(__APPLE__)
+#if (! MAC_OR_LINUX_)
+# pragma warning(push)
+# pragma warning(disable: 4996)
+#endif // ! MAC_OR_LINUX_
+//#include <ace/Version.h>
+//#include <yarp/conf/version.h>
+#if (! MAC_OR_LINUX_)
+# pragma warning(pop)
+#endif // ! MAC_OR_LINUX_
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO logging mechanism. */
+ @brief A service application to register #nImO entities. */
+
+/*! @dir Read
+ @brief The set of files that implement the Register application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -55,6 +84,9 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using std::cout;
+using std::endl;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -69,69 +101,43 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Class methods
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark Constructors and Destructors
-#endif // defined(__APPLE__)
-
-nImO::Logger::Logger
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::Logger::Logger
-
-nImO::Logger::~Logger
-    (void)
-{
-    ODL_OBJENTER(); //####
-    removeAllListeningPorts();
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::~Logger
-
-#if defined(__APPLE__)
-# pragma mark Actions and Accessors
-#endif // defined(__APPLE__)
-
-void
-nImO::Logger::addListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::addListeningPort
-
-/*! @brief Remove all listeners. */
-void
-nImO::Logger::removeAllListeningPorts
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::removeAllListeningPorts
-
-void
-nImO::Logger::removeListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::removeListeningPort
-
-void
-nImO::Logger::report
-    (const std::string &    message)
-    const
-{
-    MDNS_UNUSED_ARG_(message);
-    ODL_OBJENTER(); //####
-    ODL_S1s("message = ", message); //####
-    //
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::report
-
-#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+/*! @brief The entry point for reading from a #nImO channel.
+
+ Standard output will receive messages received on the #nImO channel.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used with the application.
+ @return @c 0. */
+int
+main
+    (int        argc,
+     char * *   argv)
+{
+    std::string progName{*argv};
+
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
+    nImO::DescriptorVector  argumentList;
+    nImO::OutputFlavour     flavour;
+    bool                    logging = false;
+
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+    {
+        try
+        {
+            nImO::ServiceContext    ourContext(progName, logging, false);
+
+        }
+        catch (...)
+        {
+            ODL_LOG("Exception caught"); //####
+        }
+    }
+    ODL_EXIT_I(0); //####
+    return 0;
+} // main

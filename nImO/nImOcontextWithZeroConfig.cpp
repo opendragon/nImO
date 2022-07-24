@@ -104,7 +104,6 @@ nImO::ContextWithZeroConfig::~ContextWithZeroConfig
     (void)
 {
     ODL_OBJENTER(); //####
-    removeAllListeners();
     if (nullptr != _logger)
     {
         delete _logger;
@@ -117,29 +116,28 @@ nImO::ContextWithZeroConfig::~ContextWithZeroConfig
 #endif // defined(__APPLE__)
 
 void
-nImO::ContextWithZeroConfig::addListener
+nImO::ContextWithZeroConfig::addListeningPort
     (void)
 {
     ODL_OBJENTER(); //####
+    if (nullptr != _logger)
+    {
+        _logger->addListeningPort();
+    }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::addListener
-
-/*! @brief Remove all listeners. */
-void
-nImO::ContextWithZeroConfig::removeAllListeners
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::removeAllListeners
+} // nImO::ContextWithZeroConfig::addListeningPort
 
 void
-nImO::ContextWithZeroConfig::removeListener
+nImO::ContextWithZeroConfig::removeListeningPort
     (void)
 {
     ODL_OBJENTER(); //####
+    if (nullptr != _logger)
+    {
+        _logger->removeListeningPort();
+    }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::removeListener
+} // nImO::ContextWithZeroConfig::removeListeningPort
 
 void
 nImO::ContextWithZeroConfig::report

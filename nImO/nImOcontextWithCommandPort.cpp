@@ -79,6 +79,7 @@
 nImO::ContextWithCommandPort::ContextWithCommandPort
     (const std::string &    executableName,
      const bool             logging,
+     const bool             autoLaunchRegistry,
      const std::string &    nodeName) :
         inherited(executableName, logging, nodeName)
 {
@@ -87,7 +88,10 @@ nImO::ContextWithCommandPort::ContextWithCommandPort
     //ODL_B1("logging = ", logging); //####
     try
     {
-
+        if (autoLaunchRegistry)
+        {
+            //TBD
+        }
     }
     catch (...)
     {

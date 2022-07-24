@@ -78,6 +78,13 @@ namespace nImO
         ~ContextWithZeroConfig
             (void);
 
+        /*! @brief Log a message.
+         @param[in] message The message to be logged. */
+        void
+        report
+            (const std::string &    message)
+            const;
+
     protected :
         // Protected methods.
 
@@ -90,29 +97,17 @@ namespace nImO
              const bool             logging,
              const std::string &    nodeName = "");
 
-        /*! @brief Log a message.
-         @param[in] message The message to be logged. */
-        void
-        report
-            (const std::string &    message)
-            const;
-
     private :
         // Private methods.
 
-        /*! @brief Add a new listener for the logged messages. */
+        /*! @brief Add a new listening port for the logged messages. */
         void
-        addListener
+        addListeningPort
             (void);
 
-        /*! @brief Remove all listeners. */
+        /*! @brief Remove a listening port. */
         void
-        removeAllListeners
-            (void);
-
-        /*! @brief Remove a listener. */
-        void
-        removeListener
+        removeListeningPort
             (void);
 
     public :

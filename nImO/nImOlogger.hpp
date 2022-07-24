@@ -78,6 +78,16 @@ namespace nImO
         ~Logger
             (void);
 
+        /*! @brief Add a new listening port for the logged messages. */
+        void
+        addListeningPort
+            (void);
+
+        /*! @brief Remove a listening port. */
+        void
+        removeListeningPort
+            (void);
+
         /*! @brief Log a message.
          @param[in] message The message to be logged. */
         void
@@ -85,11 +95,16 @@ namespace nImO
             (const std::string &    message)
             const;
 
-        protected :
+    protected :
         // Protected methods.
 
     private :
         // Private methods.
+
+        /*! @brief Remove all listening ports. */
+        void
+        removeAllListeningPorts
+            (void);
 
     public :
         // Public fields.

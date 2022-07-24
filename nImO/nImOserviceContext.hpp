@@ -75,10 +75,12 @@ namespace nImO
         /*! @brief The constructor.
         @param[in] executable The name of the executing program.
         @param[in] logging @c true if the executing program is to be logged.
+        @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
         @param[in] nodeName The @nImO-visible name of the executing program. */
         ServiceContext
             (const std::string &    executableName,
              const bool             logging,
+             const bool             autoLaunchRegistry = true,
              const std::string &    nodeName = "");
 
         /*! @brief The destructor. */

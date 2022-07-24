@@ -138,13 +138,10 @@ namespace nImO
             override;
 
         /*! @brief Remove all entries from the Set. */
-        inline void
+        virtual void
         clear
             (void)
-        {
-            inherited2::clear();
-            _keyKind = Enumerable::Unknown;
-        } // clear
+            override;
 
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
@@ -152,6 +149,13 @@ namespace nImO
         virtual bool
         deeplyEqualTo
             (const Value &  other)
+            const
+            override;
+
+        /*! @brief Return @c true if the Set is empty. */
+        virtual bool
+        empty
+            (void)
             const
             override;
 
@@ -315,6 +319,13 @@ namespace nImO
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
              size_t &               position);
+
+        /*! @brief Returns the number of elements in the Set. */
+        virtual size_t
+        size
+            (void)
+            const
+            override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in,out] outMessage The Message to be appended to. */

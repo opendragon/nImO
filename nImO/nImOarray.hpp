@@ -160,12 +160,25 @@ namespace nImO
             return result;
         } // at
 
+        /*! @brief Remove all entries from the Array. */
+        virtual void
+        clear
+            (void)
+            override;
+
         /*! @brief Return @c true if two Values are structurally identical.
          @param[in] other The Value to be compared with.
          @return @c true if the two Values are structurally identical. */
         virtual bool
         deeplyEqualTo
             (const Value &  other)
+            const
+            override;
+
+        /*! @brief Return @c true if the Array is empty. */
+        virtual bool
+        empty
+            (void)
             const
             override;
 
@@ -286,6 +299,13 @@ namespace nImO
         readFromStringBuffer
             (const StringBuffer &   inBuffer,
              size_t &               position);
+
+        /*! @brief Returns the number of elements in the Array. */
+        virtual size_t
+            size
+            (void)
+            const
+            override;
 
         /*! @brief Add a binary representation of the object to the message.
          @param[in] outMessage The Message to be appended to. */

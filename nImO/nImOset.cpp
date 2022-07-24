@@ -169,6 +169,16 @@ nImO::Set::asSet
     return this;
 } // nImO::Set::asSet
 
+void
+nImO::Set::clear
+    (void)
+{
+    ODL_OBJENTER(); //####
+    inherited2::clear();
+    _keyKind = Enumerable::Unknown;
+    ODL_OBJEXIT(); //####
+} // nImO::Set::clear
+
 bool
 nImO::Set::deeplyEqualTo
     (const nImO::Value &    other)
@@ -206,6 +216,18 @@ nImO::Set::deeplyEqualTo
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Set::deeplyEqualTo
+
+bool
+nImO::Set::empty
+    (void)
+    const
+{
+    ODL_ENTER(); //####
+    bool    result = inherited2::empty();
+
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Set::empty
 
 nImO::ComparisonStatus
 nImO::Set::equalTo
@@ -746,6 +768,18 @@ nImO::Set::readFromStringBuffer
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Set::readFromStringBuffer
+
+size_t
+nImO::Set::size
+    (void)
+    const
+{
+    ODL_ENTER(); //####
+    size_t  result = inherited2::size();
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Set::size
 
 void
 nImO::Set::writeToMessage

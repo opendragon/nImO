@@ -483,7 +483,330 @@ doTestBigArrayValue
 } // doTestBigArrayValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 41 ***
+# pragma mark *** Test Case 5 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyArraySizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyArraySizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 6 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyArraySizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty array size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (1 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (1 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyArraySizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 7 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyArrayEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            if (stuff->empty())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->empty())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyArrayEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 8 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyArrayEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty array empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (stuff->empty())
+            {
+                ODL_LOG("(stuff->empty())"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyArrayEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 9 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyArrayClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyArrayClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 10 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyArrayClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty array clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyArrayClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 20 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1035,6 +1358,329 @@ doTestSmallStringMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallStringMapValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 27 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyMapSizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyMapSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 28 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMapSizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty map size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            if (1 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (1 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMapSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 29 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyMapEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            if (stuff->empty())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->empty())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyMapEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 30 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMapEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty map empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            if (stuff->empty())
+            {
+                ODL_LOG("(stuff->empty())"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMapEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 31 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyMapClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyMapClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 32 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMapClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty map clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMapClearFunction
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 40 ***
@@ -1593,6 +2239,329 @@ doTestSmallStringSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallStringSetValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 47 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptySetSizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptySetSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 48 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptySetSizeFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty set size()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true));
+            if (1 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptySetSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 49 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptySetEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            if (stuff->empty())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->empty())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptySetEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 50 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptySetEmptyFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty set empty()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true));
+            if (stuff->empty())
+            {
+                ODL_LOG("(stuff->empty())"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptySetEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 51 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptySetClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptySetClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 52 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptySetClearFunction
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty set clear()
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptySetClearFunction
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 60 ***
@@ -6346,6 +7315,30 @@ main
                         result = doTestBigArrayValue(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 5 :
+                        result = doTestEmptyArraySizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 6 :
+                        result = doTestNonEmptyArraySizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 7 :
+                        result = doTestEmptyArrayEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 8 :
+                        result = doTestNonEmptyArrayEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 9 :
+                        result = doTestEmptyArrayClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 10 :
+                        result = doTestNonEmptyArrayClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 20 :
                         result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
                         break;
@@ -6374,6 +7367,30 @@ main
                         result = doTestSmallStringMapValue(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 27 :
+                        result = doTestEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 28 :
+                        result = doTestNonEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 29 :
+                        result = doTestEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 30 :
+                        result = doTestNonEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 31 :
+                        result = doTestEmptyMapClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 32 :
+                        result = doTestNonEmptyMapClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 40 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
@@ -6400,6 +7417,30 @@ main
 
                     case 46 :
                         result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 47 :
+                        result = doTestEmptySetSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 48 :
+                        result = doTestNonEmptySetSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 49 :
+                        result = doTestEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 50 :
+                        result = doTestNonEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 51 :
+                        result = doTestEmptySetClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 52 :
+                        result = doTestNonEmptySetClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 60 :

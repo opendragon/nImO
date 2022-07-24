@@ -136,6 +136,15 @@ nImO::Array::asArray
     return this;
 } // nImO::Array::asArray
 
+void
+nImO::Array::clear
+(void)
+{
+    ODL_OBJENTER(); //####
+    inherited2::clear();
+    ODL_OBJEXIT(); //####
+} // nImO::Array::clear
+
 bool
 nImO::Array::deeplyEqualTo
     (const nImO::Value &    other)
@@ -173,6 +182,18 @@ nImO::Array::deeplyEqualTo
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Array::deeplyEqualTo
+
+bool
+nImO::Array::empty
+    (void)
+    const
+{
+    ODL_ENTER(); //####
+    bool    result = inherited2::empty();
+
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Array::empty
 
 nImO::ComparisonStatus
 nImO::Array::equalTo
@@ -629,6 +650,18 @@ nImO::Array::readFromStringBuffer
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Array::readFromStringBuffer
+
+size_t
+nImO::Array::size
+    (void)
+    const
+{
+    ODL_ENTER(); //####
+    size_t  result = inherited2::size();
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Array::size
 
 void
 nImO::Array::writeToMessage

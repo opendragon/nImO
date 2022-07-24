@@ -94,7 +94,24 @@ namespace nImO
             const
             override;
 
-    protected :
+        /*! @brief Remove all entries from the Container. */
+        virtual void
+        clear
+            (void) = 0;
+
+        /*! @brief Return @c true if the Container is empty. */
+        virtual bool
+        empty
+            (void)
+            const = 0;
+
+        /*! @brief Returns the number of elements in the Container. */
+        virtual size_t
+        size
+            (void)
+            const = 0;
+
+        protected :
         // Protected methods.
 
         /*! @brief The constructor. */

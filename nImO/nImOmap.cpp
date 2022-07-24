@@ -175,6 +175,16 @@ nImO::Map::asMap
     return this;
 } // nImO::Map::asMap
 
+void
+nImO::Map::clear
+    (void)
+{
+    ODL_OBJENTER(); //####
+    inherited2::clear();
+    _keyKind = Enumerable::Unknown;
+    ODL_OBJEXIT(); //####
+} // nImO::Map::clear
+
 bool
 nImO::Map::deeplyEqualTo
     (const nImO::Value &    other)
@@ -226,6 +236,18 @@ nImO::Map::deeplyEqualTo
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Map::deeplyEqualTo
+
+bool
+nImO::Map::empty
+    (void)
+    const
+{
+    ODL_ENTER(); //####
+    bool    result = inherited2::empty();
+
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Map::empty
 
 nImO::ComparisonStatus
 nImO::Map::equalTo
@@ -839,6 +861,18 @@ nImO::Map::readFromStringBuffer
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Map::readFromStringBuffer
+
+size_t
+nImO::Map::size
+(void)
+const
+{
+    ODL_ENTER(); //####
+    size_t  result = inherited2::size();
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Map::size
 
 void
 nImO::Map::writeToMessage

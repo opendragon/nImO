@@ -69,6 +69,18 @@ add_test(NAME TestSingularArrayValue COMMAND ${THIS_TARGET} 2)
 add_test(NAME TestSmallArrayValue COMMAND ${THIS_TARGET} 3)
 # Test big array
 add_test(NAME TestBigArrayValue COMMAND ${THIS_TARGET} 4)
+# Test empty array size() function
+add_test(NAME TestEmptyArraySizeFunction COMMAND ${THIS_TARGET} 5)
+# Test non-empty array size() function
+add_test(NAME TestNonEmptyArraySizeFunction COMMAND ${THIS_TARGET} 6)
+# Test empty array empty() function
+add_test(NAME TestEmptyArrayEmptyFunction COMMAND ${THIS_TARGET} 7)
+# Test non-empty array empty() function
+add_test(NAME TestNonEmptyArrayEmptyFunction COMMAND ${THIS_TARGET} 8)
+# Test empty array clear() function
+add_test(NAME TestEmptyArrayClearFunction COMMAND ${THIS_TARGET} 9)
+# Test non-empty array clear() function
+add_test(NAME TestNonEmptyArrayClearFunction COMMAND ${THIS_TARGET} 10)
 
 # Test empty map
 add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
@@ -84,6 +96,18 @@ add_test(NAME TestSmallLogicalMapValue COMMAND ${THIS_TARGET} 24)
 add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 25)
 # Test small map with string keys
 add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 26)
+# Test empty map size() function
+add_test(NAME TestEmptyMapSizeFunction COMMAND ${THIS_TARGET} 27)
+# Test non-empty map size() function
+add_test(NAME TestNonEmptyMapSizeFunction COMMAND ${THIS_TARGET} 28)
+# Test empty map empty() function
+add_test(NAME TestEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 29)
+# Test non-empty map empty() function
+add_test(NAME TestNonEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 30)
+# Test empty map clear() function
+add_test(NAME TestEmptyMapClearFunction COMMAND ${THIS_TARGET} 31)
+# Test non-empty map clear() function
+add_test(NAME TestNonEmptyMapClearFunction COMMAND ${THIS_TARGET} 32)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
@@ -99,6 +123,18 @@ add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 44)
 add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 45)
 # Test small set with string keys
 add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 46)
+# Test empty set size() function
+add_test(NAME TestEmptySetSizeFunction COMMAND ${THIS_TARGET} 47)
+# Test non-empty set size() function
+add_test(NAME TestNonEmptySetSizeFunction COMMAND ${THIS_TARGET} 48)
+# Test empty set empty() function
+add_test(NAME TestEmptyMapSetFunction COMMAND ${THIS_TARGET} 49)
+# Test non-empty set empty() function
+add_test(NAME TestNonEmptyMapSetFunction COMMAND ${THIS_TARGET} 50)
+# Test empty set clear() function
+add_test(NAME TestEmptySetClearFunction COMMAND ${THIS_TARGET} 51)
+# Test non-empty set clear() function
+add_test(NAME TestNonEmptySetClearFunction COMMAND ${THIS_TARGET} 52)
 
 # Test array with array
 add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 60)

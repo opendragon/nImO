@@ -311,11 +311,16 @@ namespace nImO
             const
             override;
 
-        /*! @brief Return a random key from the Set. */
-        SpValue
-        randomKey
+        /*! @brief Return a random iterator from the Set. */
+        const_iterator
+        random
             (void)
             const;
+
+        /*! @brief Return a random iterator from the Set. */
+        iterator
+        random
+            (void);
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.

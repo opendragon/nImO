@@ -291,11 +291,16 @@ namespace nImO
             const
             override;
 
-        /*! @brief Return a random index from the Array. */
-        int
-        randomIndex
+        /*! @brief Return a random iterator from the Array. */
+        const_iterator
+        random
             (void)
             const;
+
+        /*! @brief Return a random iterator from the Array. */
+        iterator
+        random
+            (void);
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.

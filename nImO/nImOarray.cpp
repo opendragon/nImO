@@ -576,22 +576,44 @@ nImO::Array::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::Array::printToStringBuffer
 
-int
-nImO::Array::randomIndex
+nImO::Array::const_iterator
+nImO::Array::random
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    int     result = -1;
+    auto    result(inherited2::begin());
     size_t  howMany = size();
 
     if (0 < howMany)
     {
-        result = (rand() % howMany);
+        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        {
+            ++result;
+        }
     }
-    ODL_OBJEXIT_I(result); //####
+    ODL_OBJEXIT(); //####
     return result;
-} /* nImO::Array::randomIndex */
+} /* nImO::Array::random */
+
+nImO::Array::iterator
+nImO::Array::random
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    result(inherited2::begin());
+    size_t  howMany = size();
+
+    if (0 < howMany)
+    {
+        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        {
+            ++result;
+        }
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} /* nImO::Array::random */
 
 nImO::SpValue
 nImO::Array::readFromStringBuffer

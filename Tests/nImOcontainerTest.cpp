@@ -815,10 +815,63 @@ doTestNonEmptyArrayClearFunction
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayRandomIndex
+doTestEmptyArrayRandomIterator
     (const char *   launchPath,
      const int      argc,
-     char * *       argv) // array random index
+     char * *       argv) // empty array random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            if (stuff->end() == stuff->random())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyArrayRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 12 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyArrayRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty array random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -842,11 +895,9 @@ doTestArrayRandomIndex
             stuff->addValue(std::make_shared<Integer>(42));
             for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
             {
-                int key = stuff->randomIndex();
-
-                if ((0 > key) || (key >= StaticCast(int, stuff->size())))
+                if (stuff->end() == stuff->random())
                 {
-                    ODL_LOG("((0 > key) || (key >= StaticCast(int, stuff->size())))"); //####
+                    ODL_LOG("(stuff->end() == stuff->random())"); //####
                     result = 1;
                     break;
 
@@ -865,10 +916,10 @@ doTestArrayRandomIndex
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayRandomIndex
+} // doTestNonEmptyArrayRandomIterator
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 20 ***
+# pragma mark *** Test Case 50 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -939,7 +990,7 @@ doTestEmptyMapValue
 } // doTestEmptyMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 21 ***
+# pragma mark *** Test Case 51 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1017,7 +1068,7 @@ doTestSingularLogicalMapValue
 } // doTestSingularLogicalMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 22 ***
+# pragma mark *** Test Case 52 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1093,7 +1144,7 @@ doTestSingularIntegerMapValue
 } // doTestSingularIntegerMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 23 ***
+# pragma mark *** Test Case 53 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1171,7 +1222,7 @@ doTestSingularStringMapValue
 } // doTestSingularStringMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 24 ***
+# pragma mark *** Test Case 54 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1252,7 +1303,7 @@ doTestSmallLogicalMapValue
 } // doTestSmallLogicalMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 25 ***
+# pragma mark *** Test Case 55 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1334,7 +1385,7 @@ doTestSmallIntegerMapValue
 } // doTestSmallIntegerMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 26 ***
+# pragma mark *** Test Case 56 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1422,7 +1473,7 @@ doTestSmallStringMapValue
 } // doTestSmallStringMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 27 ***
+# pragma mark *** Test Case 57 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1475,7 +1526,7 @@ doTestEmptyMapSizeFunction
 } // doTestEmptyMapSizeFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 28 ***
+# pragma mark *** Test Case 58 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1529,7 +1580,7 @@ doTestNonEmptyMapSizeFunction
 } // doTestNonEmptyMapSizeFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 29 ***
+# pragma mark *** Test Case 59 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1582,7 +1633,7 @@ doTestEmptyMapEmptyFunction
 } // doTestEmptyMapEmptyFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 30 ***
+# pragma mark *** Test Case 60 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1636,7 +1687,7 @@ doTestNonEmptyMapEmptyFunction
 } // doTestNonEmptyMapEmptyFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 31 ***
+# pragma mark *** Test Case 61 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1690,7 +1741,7 @@ doTestEmptyMapClearFunction
 } // doTestEmptyMapClearFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 32 ***
+# pragma mark *** Test Case 62 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1745,7 +1796,7 @@ doTestNonEmptyMapClearFunction
 } // doTestNonEmptyMapClearFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 33 ***
+# pragma mark *** Test Case 63 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1754,10 +1805,63 @@ doTestNonEmptyMapClearFunction
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMapRandomKey
+doTestEmptyMapRandomIterator
     (const char *   launchPath,
      const int      argc,
-     char * *       argv) // map random key
+     char * *       argv) // empty map random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            if (stuff->end() == stuff->random())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyMapRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 64 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMapRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty map random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1780,11 +1884,9 @@ doTestMapRandomKey
             result = 0;
             for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
             {
-                SpValue key = stuff->randomKey();
-
-                if (stuff->end() == stuff->find(key))
+                if (stuff->end() == stuff->random())
                 {
-                    ODL_LOG("(stuff->end() == stuff->find(key))"); //####
+                    ODL_LOG("(stuff->end() == stuff->random())"); //####
                     result = 1;
                     break;
 
@@ -1803,10 +1905,10 @@ doTestMapRandomKey
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMapRandomKey
+} // doTestNonEmptyMapRandomIterator
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 40 ***
+# pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1877,7 +1979,7 @@ doTestEmptySetValue
 } // doTestEmptySetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 41 ***
+# pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1953,7 +2055,7 @@ doTestSingularLogicalSetValue
 } // doTestSingularLogicalSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 42 ***
+# pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2029,7 +2131,7 @@ doTestSingularIntegerSetValue
 } // doTestSingularIntegerSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 43 ***
+# pragma mark *** Test Case 103 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2105,7 +2207,7 @@ doTestSingularStringSetValue
 } // doTestSingularStringSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 44 ***
+# pragma mark *** Test Case 104 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2186,7 +2288,7 @@ doTestSmallLogicalSetValue
 } // doTestSmallLogicalSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 45 ***
+# pragma mark *** Test Case 105 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2275,7 +2377,7 @@ doTestSmallIntegerSetValue
 } // doTestSmallIntegerSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 46 ***
+# pragma mark *** Test Case 106 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2364,7 +2466,7 @@ doTestSmallStringSetValue
 } // doTestSmallStringSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 47 ***
+# pragma mark *** Test Case 107 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2417,7 +2519,7 @@ doTestEmptySetSizeFunction
 } // doTestEmptySetSizeFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 48 ***
+# pragma mark *** Test Case 108 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2471,7 +2573,7 @@ doTestNonEmptySetSizeFunction
 } // doTestNonEmptySetSizeFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 49 ***
+# pragma mark *** Test Case 109 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2524,7 +2626,7 @@ doTestEmptySetEmptyFunction
 } // doTestEmptySetEmptyFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 50 ***
+# pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2578,7 +2680,7 @@ doTestNonEmptySetEmptyFunction
 } // doTestNonEmptySetEmptyFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 51 ***
+# pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2632,7 +2734,7 @@ doTestEmptySetClearFunction
 } // doTestEmptySetClearFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 52 ***
+# pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2687,7 +2789,7 @@ doTestNonEmptySetClearFunction
 } // doTestNonEmptySetClearFunction
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 53 ***
+# pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2696,10 +2798,63 @@ doTestNonEmptySetClearFunction
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSetRandomKey
+doTestEmptySetRandomIterator
     (const char *   launchPath,
      const int      argc,
-     char * *       argv) // set random key
+     char * *       argv) // empty set random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            if (stuff->end() == stuff->random())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptySetRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 114 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptySetRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // non-empty set random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2724,11 +2879,9 @@ doTestSetRandomKey
             result = 0;
             for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
             {
-                SpValue key = stuff->randomKey();
-
-                if (stuff->end() == stuff->find(key))
+                if (stuff->end() == stuff->random())
                 {
-                    ODL_LOG("(stuff->end() == stuff->find(key))"); //####
+                    ODL_LOG("(stuff->end() == stuff->random())"); //####
                     result = 1;
                     break;
 
@@ -2747,10 +2900,10 @@ doTestSetRandomKey
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSetRandomKey
+} // doTestNonEmptySetRandomIterator
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 60 ***
+# pragma mark *** Test Case 150 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2826,7 +2979,7 @@ doTestArrayWithArrayValue
 } // doTestArrayWithArrayValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 61 ***
+# pragma mark *** Test Case 151 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2902,7 +3055,7 @@ doTestArrayWithMapValue
 } // doTestArrayWithMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 62 ***
+# pragma mark *** Test Case 152 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2978,7 +3131,7 @@ doTestArrayWithSetValue
 } // doTestArrayWithSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 63 ***
+# pragma mark *** Test Case 153 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3056,7 +3209,7 @@ doTestMapWithArrayValue
 } // doTestMapWithArrayValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 64 ***
+# pragma mark *** Test Case 154 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3134,7 +3287,7 @@ doTestMapWithMapValue
 } // doTestMapWithMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 65 ***
+# pragma mark *** Test Case 155 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3212,7 +3365,7 @@ doTestMapWithSetValue
 } // doTestMapWithSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 80 ***
+# pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3293,7 +3446,7 @@ doTestLogicalMapValueWithIncompatibleKeys
 } // doTestLogicalMapValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 81 ***
+# pragma mark *** Test Case 201 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3372,7 +3525,7 @@ doTestIntegerMapValueWithIncompatibleKeys
 } // doTestIntegerMapValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 82 ***
+# pragma mark *** Test Case 202 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3453,7 +3606,7 @@ doTestStringMapValueWithIncompatibleKeys
 } // doTestStringMapValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 83 ***
+# pragma mark *** Test Case 203 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3532,7 +3685,7 @@ doTestLogicalSetValueWithIncompatibleKeys
 } // doTestLogicalSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 84 ***
+# pragma mark *** Test Case 204 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3611,7 +3764,7 @@ doTestIntegerSetValueWithIncompatibleKeys
 } // doTestIntegerSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 85 ***
+# pragma mark *** Test Case 205 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3690,7 +3843,7 @@ doTestStringSetValueWithIncompatibleKeys
 } // doTestStringSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 100 ***
+# pragma mark *** Test Case 250 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4395,7 +4548,7 @@ doTestValidArrayCompares
 } // doTestValidArrayCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 101 ***
+# pragma mark *** Test Case 251 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4686,7 +4839,7 @@ doTestValidLogicalMapCompares
 } // doTestValidLogicalMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 102 ***
+# pragma mark *** Test Case 252 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4963,7 +5116,7 @@ doTestValidIntegerMapCompares
 } // doTestValidIntegerMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 103 ***
+# pragma mark *** Test Case 253 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5166,7 +5319,7 @@ doTestValidStringMapCompares
 } // doTestValidStringMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 104 ***
+# pragma mark *** Test Case 254 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5457,7 +5610,7 @@ doTestValidLogicalSetCompares
 } // doTestValidLogicalSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 105 ***
+# pragma mark *** Test Case 255 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5734,7 +5887,7 @@ doTestValidIntegerSetCompares
 } // doTestValidIntegerSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 106 ***
+# pragma mark *** Test Case 256 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5937,7 +6090,7 @@ doTestValidStringSetCompares
 } // doTestValidStringSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 107 ***
+# pragma mark *** Test Case 257 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6052,7 +6205,7 @@ doTestInvalidArrayCompares
 } // doTestInvalidArrayCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 108 ***
+# pragma mark *** Test Case 258 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6165,7 +6318,7 @@ doTestInvalidLogicalMapCompares
 } // doTestInvalidLogicalMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 109 ***
+# pragma mark *** Test Case 259 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6277,7 +6430,7 @@ doTestInvalidIntegerMapCompares
 } // doTestInvalidIntegerMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 110 ***
+# pragma mark *** Test Case 260 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6391,7 +6544,7 @@ doTestInvalidStringMapCompares
 } // doTestInvalidStringMapCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 111 ***
+# pragma mark *** Test Case 261 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6504,7 +6657,7 @@ doTestInvalidLogicalSetCompares
 } // doTestInvalidLogicalSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 112 ***
+# pragma mark *** Test Case 262 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6616,7 +6769,7 @@ doTestInvalidIntegerSetCompares
 } // doTestInvalidIntegerSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 113 ***
+# pragma mark *** Test Case 263 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6730,7 +6883,7 @@ doTestInvalidStringSetCompares
 } // doTestInvalidStringSetCompares
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 120 ***
+# pragma mark *** Test Case 300 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6847,7 +7000,7 @@ doTestArrayIndices
 } // doTestArrayIndices
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 121 ***
+# pragma mark *** Test Case 301 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -6952,7 +7105,7 @@ doTestLogicalMapSearches
 } // doTestLogicalMapSearches
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 122 ***
+# pragma mark *** Test Case 302 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7057,7 +7210,7 @@ doTestIntegerMapSearches
 } // doTestIntegerMapSearches
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 123 ***
+# pragma mark *** Test Case 303 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7162,7 +7315,7 @@ doTestStringMapSearches
 } // doTestStringMapSearches
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 124 ***
+# pragma mark *** Test Case 304 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7254,7 +7407,7 @@ doTestLogicalSetSearches
 } // doTestLogicalSetSearches
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 125 ***
+# pragma mark *** Test Case 305 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7346,7 +7499,7 @@ doTestIntegerSetSearches
 } // doTestIntegerSetSearches
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 126 ***
+# pragma mark *** Test Case 306 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7526,250 +7679,262 @@ main
                         break;
 
                     case 11 :
-                        result = doTestArrayRandomIndex(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyArrayRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 20 :
-                        result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 21 :
-                        result = doTestSingularLogicalMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 22 :
-                        result = doTestSingularIntegerMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 23 :
-                        result = doTestSingularStringMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 24 :
-                        result = doTestSmallLogicalMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 25 :
-                        result = doTestSmallIntegerMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 26 :
-                        result = doTestSmallStringMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 27 :
-                        result = doTestEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 28 :
-                        result = doTestNonEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 29 :
-                        result = doTestEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 30 :
-                        result = doTestNonEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 31 :
-                        result = doTestEmptyMapClearFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 32 :
-                        result = doTestNonEmptyMapClearFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 33 :
-                        result = doTestMapRandomKey(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 40 :
-                        result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 41 :
-                        result = doTestSingularLogicalSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 42 :
-                        result = doTestSingularIntegerSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 43 :
-                        result = doTestSingularStringSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 44 :
-                        result = doTestSmallLogicalSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 45 :
-                        result = doTestSmallIntegerSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 46 :
-                        result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 47 :
-                        result = doTestEmptySetSizeFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 48 :
-                        result = doTestNonEmptySetSizeFunction(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 49 :
-                        result = doTestEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
+                    case 12 :
+                        result = doTestNonEmptyArrayRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
                     case 50 :
-                        result = doTestNonEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 51 :
-                        result = doTestEmptySetClearFunction(*argv, argc - 1, argv + 2);
+                        result = doTestSingularLogicalMapValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 52 :
-                        result = doTestNonEmptySetClearFunction(*argv, argc - 1, argv + 2);
+                        result = doTestSingularIntegerMapValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 53 :
-                        result = doTestSetRandomKey(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStringMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 54 :
+                        result = doTestSmallLogicalMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 55 :
+                        result = doTestSmallIntegerMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 56 :
+                        result = doTestSmallStringMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 57 :
+                        result = doTestEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 58 :
+                        result = doTestNonEmptyMapSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 59 :
+                        result = doTestEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 60 :
-                        result = doTestArrayWithArrayValue(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptyMapEmptyFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 61 :
-                        result = doTestArrayWithMapValue(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyMapClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 62 :
-                        result = doTestArrayWithSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptyMapClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 63 :
-                        result = doTestMapWithArrayValue(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyMapRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
                     case 64 :
-                        result = doTestMapWithMapValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 65 :
-                        result = doTestMapWithSetValue(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 80 :
-                        result = doTestLogicalMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 81 :
-                        result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 82 :
-                        result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 83 :
-                        result = doTestLogicalSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 84 :
-                        result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 85 :
-                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptyMapRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
-                        result = doTestValidArrayCompares(*argv, argc - 1, argv + 2);
+                        result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 101 :
-                        result = doTestValidLogicalMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSingularLogicalSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 102 :
-                        result = doTestValidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSingularIntegerSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 103 :
-                        result = doTestValidStringMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 104 :
-                        result = doTestValidLogicalSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSmallLogicalSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 105 :
-                        result = doTestValidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSmallIntegerSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 106 :
-                        result = doTestValidStringSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 107 :
-                        result = doTestInvalidArrayCompares(*argv, argc - 1, argv + 2);
+                        result = doTestEmptySetSizeFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 108 :
-                        result = doTestInvalidLogicalMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptySetSizeFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 109 :
-                        result = doTestInvalidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 110 :
-                        result = doTestInvalidStringMapCompares(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptySetEmptyFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 111 :
-                        result = doTestInvalidLogicalSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestEmptySetClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 112 :
-                        result = doTestInvalidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestNonEmptySetClearFunction(*argv, argc - 1, argv + 2);
                         break;
 
                     case 113 :
+                        result = doTestEmptySetRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 114 :
+                        result = doTestNonEmptySetRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 150 :
+                        result = doTestArrayWithArrayValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 151 :
+                        result = doTestArrayWithMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 152 :
+                        result = doTestArrayWithSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 153 :
+                        result = doTestMapWithArrayValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 154 :
+                        result = doTestMapWithMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 155 :
+                        result = doTestMapWithSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 200 :
+                        result = doTestLogicalMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 201 :
+                        result = doTestIntegerMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 202 :
+                        result = doTestStringMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 203 :
+                        result = doTestLogicalSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 204 :
+                        result = doTestIntegerSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 205 :
+                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 250 :
+                        result = doTestValidArrayCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 251 :
+                        result = doTestValidLogicalMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 252 :
+                        result = doTestValidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 253 :
+                        result = doTestValidStringMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 254 :
+                        result = doTestValidLogicalSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 255 :
+                        result = doTestValidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 256 :
+                        result = doTestValidStringSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 257 :
+                        result = doTestInvalidArrayCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 258 :
+                        result = doTestInvalidLogicalMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 259 :
+                        result = doTestInvalidIntegerMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 260 :
+                        result = doTestInvalidStringMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 261 :
+                        result = doTestInvalidLogicalSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 262 :
+                        result = doTestInvalidIntegerSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 263 :
                         result = doTestInvalidStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 120 :
+                    case 300 :
                         result = doTestArrayIndices(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 121 :
+                    case 301 :
                         result = doTestLogicalMapSearches(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 122 :
+                    case 302 :
                         result = doTestIntegerMapSearches(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 123 :
+                    case 303 :
                         result = doTestStringMapSearches(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 124 :
+                    case 304 :
                         result = doTestLogicalSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 125 :
+                    case 305 :
                         result = doTestIntegerSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 126 :
+                    case 306 :
                         result = doTestStringSetSearches(*argv, argc - 1, argv + 2);
                         break;
 

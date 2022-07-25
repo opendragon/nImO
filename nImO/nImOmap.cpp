@@ -730,27 +730,44 @@ nImO::Map::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::Map::printToStringBuffer
 
-nImO::SpValue
-nImO::Map::randomKey
+nImO::Map::const_iterator
+nImO::Map::random
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    SpValue result;
-    auto    walker(inherited2::begin());
+    auto    result(inherited2::begin());
     size_t  howMany = size();
 
     if (0 < howMany)
     {
         for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
         {
-            ++walker;
+            ++result;
         }
-        result = walker->first;
     }
-    ODL_OBJEXIT_P(result.get()); //####
+    ODL_OBJEXIT(); //####
     return result;
-} /* nImO::Map::randomKey */
+} /* nImO::Map::random */
+
+nImO::Map::iterator
+nImO::Map::random
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    result(inherited2::begin());
+    size_t  howMany = size();
+
+    if (0 < howMany)
+    {
+        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        {
+            ++result;
+        }
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} /* nImO::Map::random */
 
 nImO::SpValue
 nImO::Map::readFromStringBuffer

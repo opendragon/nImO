@@ -81,133 +81,139 @@ add_test(NAME TestNonEmptyArrayEmptyFunction COMMAND ${THIS_TARGET} 8)
 add_test(NAME TestEmptyArrayClearFunction COMMAND ${THIS_TARGET} 9)
 # Test non-empty array clear() function
 add_test(NAME TestNonEmptyArrayClearFunction COMMAND ${THIS_TARGET} 10)
-# Test array randomIndex
-add_test(NAME TestArrayRandomIndex COMMAND ${THIS_TARGET} 11)
+# Test empty array randomIterator
+add_test(NAME TestEmptyArrayRandomIterator COMMAND ${THIS_TARGET} 11)
+# Test non-empty array randomIterator
+add_test(NAME TestNonEmptyArrayRandomIterator COMMAND ${THIS_TARGET} 12)
 
 # Test empty map
-add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 20)
+add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 50)
 # Test singular map with logical keys
-add_test(NAME TestSingularLogicalMapValue COMMAND ${THIS_TARGET} 21)
+add_test(NAME TestSingularLogicalMapValue COMMAND ${THIS_TARGET} 51)
 # Test singular map with integer keys
-add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 22)
+add_test(NAME TestSingularIntegerMapValue COMMAND ${THIS_TARGET} 52)
 # Test singular map with string keys
-add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 23)
+add_test(NAME TestSingularStringMapValue COMMAND ${THIS_TARGET} 53)
 # Test small map with logical keys
-add_test(NAME TestSmallLogicalMapValue COMMAND ${THIS_TARGET} 24)
+add_test(NAME TestSmallLogicalMapValue COMMAND ${THIS_TARGET} 54)
 # Test small map with integer keys
-add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 25)
+add_test(NAME TestSmallIntegerMapValue COMMAND ${THIS_TARGET} 55)
 # Test small map with string keys
-add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 26)
+add_test(NAME TestSmallStringMapValue COMMAND ${THIS_TARGET} 56)
 # Test empty map size() function
-add_test(NAME TestEmptyMapSizeFunction COMMAND ${THIS_TARGET} 27)
+add_test(NAME TestEmptyMapSizeFunction COMMAND ${THIS_TARGET} 57)
 # Test non-empty map size() function
-add_test(NAME TestNonEmptyMapSizeFunction COMMAND ${THIS_TARGET} 28)
+add_test(NAME TestNonEmptyMapSizeFunction COMMAND ${THIS_TARGET} 58)
 # Test empty map empty() function
-add_test(NAME TestEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 29)
+add_test(NAME TestEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 59)
 # Test non-empty map empty() function
-add_test(NAME TestNonEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 30)
+add_test(NAME TestNonEmptyMapEmptyFunction COMMAND ${THIS_TARGET} 60)
 # Test empty map clear() function
-add_test(NAME TestEmptyMapClearFunction COMMAND ${THIS_TARGET} 31)
+add_test(NAME TestEmptyMapClearFunction COMMAND ${THIS_TARGET} 61)
 # Test non-empty map clear() function
-add_test(NAME TestNonEmptyMapClearFunction COMMAND ${THIS_TARGET} 32)
-# Test map randomIndex
-add_test(NAME TestMapRandomKey COMMAND ${THIS_TARGET} 33)
+add_test(NAME TestNonEmptyMapClearFunction COMMAND ${THIS_TARGET} 62)
+# Test empty map randomIterator
+add_test(NAME TestEmptyMapRandomIterator COMMAND ${THIS_TARGET} 63)
+# Test non-empty map randomIterator
+add_test(NAME TestNonEmptyMapRandomIterator COMMAND ${THIS_TARGET} 64)
 
 # Test empty set
-add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 40)
+add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 100)
 # Test singular set with logical keys
-add_test(NAME TestSingularLogicalSetValue COMMAND ${THIS_TARGET} 41)
+add_test(NAME TestSingularLogicalSetValue COMMAND ${THIS_TARGET} 101)
 # Test singular set with integer keys
-add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 42)
+add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 102)
 # Test singular set with string keys
-add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 43)
+add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 103)
 # Test small set with logical keys
-add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 44)
+add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 104)
 # Test small set with integer keys
-add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 45)
+add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 105)
 # Test small set with string keys
-add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 46)
+add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 106)
 # Test empty set size() function
-add_test(NAME TestEmptySetSizeFunction COMMAND ${THIS_TARGET} 47)
+add_test(NAME TestEmptySetSizeFunction COMMAND ${THIS_TARGET} 107)
 # Test non-empty set size() function
-add_test(NAME TestNonEmptySetSizeFunction COMMAND ${THIS_TARGET} 48)
+add_test(NAME TestNonEmptySetSizeFunction COMMAND ${THIS_TARGET} 108)
 # Test empty set empty() function
-add_test(NAME TestEmptyMapSetFunction COMMAND ${THIS_TARGET} 49)
+add_test(NAME TestEmptyMapSetFunction COMMAND ${THIS_TARGET} 109)
 # Test non-empty set empty() function
-add_test(NAME TestNonEmptyMapSetFunction COMMAND ${THIS_TARGET} 50)
+add_test(NAME TestNonEmptyMapSetFunction COMMAND ${THIS_TARGET} 110)
 # Test empty set clear() function
-add_test(NAME TestEmptySetClearFunction COMMAND ${THIS_TARGET} 51)
+add_test(NAME TestEmptySetClearFunction COMMAND ${THIS_TARGET} 111)
 # Test non-empty set clear() function
-add_test(NAME TestNonEmptySetClearFunction COMMAND ${THIS_TARGET} 52)
-# Test set randomIndex
-add_test(NAME TestSetRandomKey COMMAND ${THIS_TARGET} 53)
+add_test(NAME TestNonEmptySetClearFunction COMMAND ${THIS_TARGET} 112)
+# Test empty set randomIterator
+add_test(NAME TestEmptySetRandomIterator COMMAND ${THIS_TARGET} 113)
+# Test non-empty set randomIterator
+add_test(NAME TestNonEmptySetRandomIterator COMMAND ${THIS_TARGET} 114)
 
 # Test array with array
-add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 60)
+add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 150)
 # Test array with map
-add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 61)
+add_test(NAME TestArrayWithMapValue COMMAND ${THIS_TARGET} 151)
 # Test array with set
-add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 62)
+add_test(NAME TestArrayWithSetValue COMMAND ${THIS_TARGET} 152)
 # Test map with array
-add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 63)
+add_test(NAME TestMapWithArrayValue COMMAND ${THIS_TARGET} 153)
 # Test map with map
-add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 64)
+add_test(NAME TestMapWithMapValue COMMAND ${THIS_TARGET} 154)
 # Test map with set
-add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 65)
+add_test(NAME TestMapWithSetValue COMMAND ${THIS_TARGET} 155)
 
 # Test logical map with incompatible keys
-add_test(NAME TestLogicalMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 80)
+add_test(NAME TestLogicalMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 200)
 # Test integer map with incompatible keys
-add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 81)
+add_test(NAME TestIntegerMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 201)
 # Test string map with incompatible keys
-add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 82)
+add_test(NAME TestStringMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 202)
 # Test logical set with incompatible keys
-add_test(NAME TestLogicalSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 83)
+add_test(NAME TestLogicalSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 203)
 # Test integer set with incompatible keys
-add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 84)
+add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 204)
 # Test string set with incompatible keys
-add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 85)
+add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 205)
 
 # Test valid array compares
-add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 100)
+add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 250)
 # Test valid logical map compares
-add_test(NAME TestValidLogicalMapCompares COMMAND ${THIS_TARGET} 101)
+add_test(NAME TestValidLogicalMapCompares COMMAND ${THIS_TARGET} 251)
 # Test valid integer map compares
-add_test(NAME TestValidIntegerMapCompares COMMAND ${THIS_TARGET} 102)
+add_test(NAME TestValidIntegerMapCompares COMMAND ${THIS_TARGET} 252)
 # Test valid string map compares
-add_test(NAME TestValidStringMapCompares COMMAND ${THIS_TARGET} 103)
+add_test(NAME TestValidStringMapCompares COMMAND ${THIS_TARGET} 253)
 # Test valid logical set compares
-add_test(NAME TestValidLogicalSetCompares COMMAND ${THIS_TARGET} 104)
+add_test(NAME TestValidLogicalSetCompares COMMAND ${THIS_TARGET} 254)
 # Test valid integer set compares
-add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 105)
+add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 255)
 # Test valid string set compares
-add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 106)
+add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 256)
 # Test invalid array compares
-add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 107)
+add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 257)
 # Test invalid logical map compares
-add_test(NAME TestInvalidLogicalMapCompares COMMAND ${THIS_TARGET} 108)
+add_test(NAME TestInvalidLogicalMapCompares COMMAND ${THIS_TARGET} 258)
 # Test invalid integer map compares
-add_test(NAME TestInvalidIntegerMapCompares COMMAND ${THIS_TARGET} 109)
+add_test(NAME TestInvalidIntegerMapCompares COMMAND ${THIS_TARGET} 259)
 # Test invalid string map compares
-add_test(NAME TestInvalidStringMapCompares COMMAND ${THIS_TARGET} 110)
+add_test(NAME TestInvalidStringMapCompares COMMAND ${THIS_TARGET} 260)
 # Test invalid logical set compares
-add_test(NAME TestInvalidLogicalSetCompares COMMAND ${THIS_TARGET} 111)
+add_test(NAME TestInvalidLogicalSetCompares COMMAND ${THIS_TARGET} 261)
 # Test invalid integer set compares
-add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 112)
+add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 262)
 # Test invalid string set compares
-add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 113)
+add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 263)
 
 # Test array indices
-add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 120)
+add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 300)
 # Test logical map searches
-add_test(NAME TestLogicalMapSearches COMMAND ${THIS_TARGET} 121)
+add_test(NAME TestLogicalMapSearches COMMAND ${THIS_TARGET} 301)
 # Test integer map searches
-add_test(NAME TestIntegerMapSearches COMMAND ${THIS_TARGET} 122)
+add_test(NAME TestIntegerMapSearches COMMAND ${THIS_TARGET} 302)
 # Test string map searches
-add_test(NAME TestStringMapSearches COMMAND ${THIS_TARGET} 123)
+add_test(NAME TestStringMapSearches COMMAND ${THIS_TARGET} 303)
 # Test logical set searches
-add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 124)
+add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 304)
 # Test integer set searches
-add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 125)
+add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 305)
 # Test string set searches
-add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 126)
+add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 306)

@@ -317,11 +317,16 @@ namespace nImO
             const
             override;
 
-        /*! @brief Return a random key from the Map. */
-        SpValue
-        randomKey
+        /*! @brief Return a random iterator from the Map. */
+        const_iterator
+        random
             (void)
             const;
+
+        /*! @brief Return a random iterator from the Map. */
+        iterator
+        random
+            (void);
 
         /*! @brief Convert a readable representation of the object in a buffer into an object.
          @param[in] inBuffer The buffer to be scanned.

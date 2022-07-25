@@ -919,6 +919,77 @@ doTestNonEmptyArrayRandomIterator
 } // doTestNonEmptyArrayRandomIterator
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 13 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearingNonEmptyArrayUsingRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // clear non-empty array using random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Integer>(42));
+            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            {
+                Array::iterator walker(stuff->random());
+
+                if (stuff->end() == walker)
+                {
+                    ODL_LOG("(stuff->end() == walker)"); //####
+                    result = 1;
+                    break;
+
+                }
+                stuff->erase(walker);
+            }
+            if (0 == result)
+            {
+                if (! stuff->empty())
+                {
+                    ODL_LOG("(! stuff->empty())"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearingNonEmptyArrayUsingRandomIterator
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 50 ***
 #endif // defined(__APPLE__)
 
@@ -1907,6 +1978,75 @@ doTestNonEmptyMapRandomIterator
     return result;
 } // doTestNonEmptyMapRandomIterator
 
+#if defined(__APPLE__)
+# pragma mark *** Test Case 65 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearingNonEmptyMapUsingRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // clear non-empty map using random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+     //ODL_S1("launchPath = ", launchPath); //####
+     //ODL_I1("argc = ", argc); //####
+     //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
+            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            {
+                Map::iterator walker(stuff->random());
+
+                if (stuff->end() == walker)
+                {
+                    ODL_LOG("(stuff->end() == walker)"); //####
+                    result = 1;
+                    break;
+
+                }
+                stuff->erase(walker);
+            }
+            if (0 == result)
+            {
+                if (! stuff->empty())
+                {
+                    ODL_LOG("(! stuff->empty())"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearingNonEmptyMapUsingRandomIterator
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
@@ -2901,6 +3041,78 @@ doTestNonEmptySetRandomIterator
     ODL_EXIT_I(result); //####
     return result;
 } // doTestNonEmptySetRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 115 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearingNonEmptySetUsingRandomIterator
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // clear non-empty set using random iterator
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
+            stuff->addValue(std::make_shared<String>("epsilon"));
+            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            {
+                Set::iterator walker(stuff->random());
+
+                if (stuff->end() == walker)
+                {
+                    ODL_LOG("(stuff->end() == walker)"); //####
+                    result = 1;
+                    break;
+
+                }
+                stuff->erase(walker);
+            }
+            if (0 == result)
+            {
+                if (! stuff->empty())
+                {
+                    ODL_LOG("(! stuff->empty())"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearingNonEmptySetUsingRandomIterator
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 150 ***
@@ -7686,6 +7898,10 @@ main
                         result = doTestNonEmptyArrayRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 13 :
+                        result = doTestClearingNonEmptyArrayUsingRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 50 :
                         result = doTestEmptyMapValue(*argv, argc - 1, argv + 2);
                         break;
@@ -7746,6 +7962,10 @@ main
                         result = doTestNonEmptyMapRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 65 :
+                        result = doTestClearingNonEmptyMapUsingRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
@@ -7804,6 +8024,10 @@ main
 
                     case 114 :
                         result = doTestNonEmptySetRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 115 :
+                        result = doTestClearingNonEmptySetUsingRandomIterator(*argv, argc - 1, argv + 2);
                         break;
 
                     case 150 :

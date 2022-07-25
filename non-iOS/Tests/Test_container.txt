@@ -85,6 +85,8 @@ add_test(NAME TestNonEmptyArrayClearFunction COMMAND ${THIS_TARGET} 10)
 add_test(NAME TestEmptyArrayRandomIterator COMMAND ${THIS_TARGET} 11)
 # Test non-empty array randomIterator
 add_test(NAME TestNonEmptyArrayRandomIterator COMMAND ${THIS_TARGET} 12)
+# Test clearing non-empty array using randomIterator
+add_test(NAME TestClearingNonEmptyArrayUsingRandomIterator COMMAND ${THIS_TARGET} 13)
 
 # Test empty map
 add_test(NAME TestEmptyMapValue COMMAND ${THIS_TARGET} 50)
@@ -116,6 +118,8 @@ add_test(NAME TestNonEmptyMapClearFunction COMMAND ${THIS_TARGET} 62)
 add_test(NAME TestEmptyMapRandomIterator COMMAND ${THIS_TARGET} 63)
 # Test non-empty map randomIterator
 add_test(NAME TestNonEmptyMapRandomIterator COMMAND ${THIS_TARGET} 64)
+# Test clearing non-empty map using randomIterator
+add_test(NAME TestClearingNonEmptyMapUsingRandomIterator COMMAND ${THIS_TARGET} 65)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 100)
@@ -147,6 +151,8 @@ add_test(NAME TestNonEmptySetClearFunction COMMAND ${THIS_TARGET} 112)
 add_test(NAME TestEmptySetRandomIterator COMMAND ${THIS_TARGET} 113)
 # Test non-empty set randomIterator
 add_test(NAME TestNonEmptySetRandomIterator COMMAND ${THIS_TARGET} 114)
+# Test clearing non-empty set using randomIterator
+add_test(NAME TestClearingNonEmptySetUsingRandomIterator COMMAND ${THIS_TARGET} 115)
 
 # Test array with array
 add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 150)

@@ -102,6 +102,9 @@ non-iOS/Tests/nImOmessageTest.rc
 non-iOS/Tests/nImOparserTest
 non-iOS/Tests/nImOparserTest.dir/
 non-iOS/Tests/nImOparserTest.rc
+non-iOS/Version/nImOregistry
+non-iOS/Version/nImOregistry.dir/
+non-iOS/Version/nImOregistry.rc
 non-iOS/Tests/nImOzeroConfTest
 non-iOS/Tests/nImOzeroConfTest.dir/
 non-iOS/Tests/nImOzeroConfTest.rc

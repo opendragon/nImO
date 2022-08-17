@@ -72,6 +72,9 @@ non-iOS/Monitor/nImOmonitor.rc
 non-iOS/Read/nImOread
 non-iOS/Read/nImOread.dir/
 non-iOS/Read/nImOread.rc
+non-iOS/Registry/nImOregistry
+non-iOS/Registry/nImOregistry.dir/
+non-iOS/Registry/nImOregistry.rc
 non-iOS/Tests/nImOargumentDescriptorsTest
 non-iOS/Tests/nImOargumentDescriptorsTest.dir/
 non-iOS/Tests/nImOargumentDescriptorsTest.rc

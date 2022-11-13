@@ -87,9 +87,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using std::cout;
-using std::endl;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)

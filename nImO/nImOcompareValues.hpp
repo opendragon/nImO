@@ -57,65 +57,66 @@ namespace nImO
     /*! @brief A class to provide values that are used to compare pointers to values. */
     class CompareValues final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor. */
-        CompareValues
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        inline CompareValues
-            (const CompareValues &	other)
-        {
-            MDNS_UNUSED_ARG_(other);
-        } // copy constructor
+            /*! @brief The constructor. */
+            CompareValues
+                (void);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        CompareValues
-            (CompareValues &&	other)
-            noexcept = default;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            inline CompareValues
+                (const CompareValues &	other)
+            {
+                MDNS_UNUSED_ARG_(other);
+            } // copy constructor
 
-        /*! @brief The destructor. */
-        virtual
-        ~CompareValues
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            CompareValues
+                (CompareValues &&	other)
+                noexcept = default;
 
-        /*! @brief Compare two Values, returning @c true if the first is less than the second.
-         @param[in] lhs The first Value to be compared.
-         @param[in] rhs The second Value to be compared.
-         @return @c true if the first Value is less than the second. */
-        bool
-        operator()
-            (SpValue    lhs,
-             SpValue    rhs)
-            const;
+            /*! @brief The destructor. */
+            virtual
+            ~CompareValues
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Compare two Values, returning @c true if the first is less than the second.
+            @param[in] lhs The first Value to be compared.
+            @param[in] rhs The second Value to be compared.
+            @return @c true if the first Value is less than the second. */
+            bool
+            operator()
+                (SpValue    lhs,
+                SpValue    rhs)
+                const;
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // CompareValues
 

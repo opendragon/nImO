@@ -65,103 +65,104 @@ namespace nImO
      systemOrRegular ::= 's' | 'r'; */
     class PortArgumentDescriptor final : public IntegerArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = IntegerArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = IntegerArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument.
-         @param[in] defaultValue The default value for the command-line argument.
-         @param[in] isSystemPort @c true if the value can be a system port and @c false
-         otherwise. */
-        PortArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode,
-             const int              defaultValue,
-             const bool             isSystemPort = false);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        PortArgumentDescriptor
-            (const PortArgumentDescriptor & other);
+            /*! @brief The constructor.
+            @param[in] argName The name of the command-line argument.
+            @param[in] argDescription A description of the command-line argument.
+            @param[in] argMode The mode of the command-line argument.
+            @param[in] defaultValue The default value for the command-line argument.
+            @param[in] isSystemPort @c true if the value can be a system port and @c false
+            otherwise. */
+            PortArgumentDescriptor
+                (const std::string &    argName,
+                const std::string &    argDescription,
+                const ArgumentMode     argMode,
+                const int              defaultValue,
+                const bool             isSystemPort = false);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        PortArgumentDescriptor
-            (PortArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            PortArgumentDescriptor
+                (const PortArgumentDescriptor & other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~PortArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            PortArgumentDescriptor
+                (PortArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief The destructor. */
+            virtual
+            ~PortArgumentDescriptor
+                (void);
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (PortArgumentDescriptor &   other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+            @param[in] inString The input string in 'arguments' format.
+            @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+            @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (PortArgumentDescriptor &   other);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+            @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Convert to a printable representation.
+            @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief @c true if the value can be a system port and @c false otherwise. */
-        bool    _isSystemPort;
+        private :
+            // Private fields.
+
+            /*! @brief @c true if the value can be a system port and @c false otherwise. */
+            bool    _isSystemPort;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
-        /*! @brief Filler to pad to alignment boundary */
-        char    _filler[7];
+            /*! @brief Filler to pad to alignment boundary */
+            char    _filler[7];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

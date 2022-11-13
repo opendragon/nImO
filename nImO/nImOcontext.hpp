@@ -52,55 +52,63 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+# include <boost/asio.hpp>
+
+using namespace boost;
+
 namespace nImO
 {
     /*! @brief A class to provide binary data with unknown structure. */
     class Context
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The destructor. */
-        virtual
-        ~Context
-            (void);
+        public :
+            // Public methods.
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~Context
+                (void);
 
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        Context
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+            /*! @brief The constructor.
+            @param[in] executable The name of the executing program.
+            @param[in] nodeName The @nImO-visible name of the executing program. */
+            Context
+                (const std::string &    executableName,
+                const std::string &    nodeName = "");
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-        /*! @brief The name of the executing program. */
-        std::string _executableName;
+        protected :
+            // Protected fields.
 
-        /*! @brief The @nImO-visible name of the executing program. */
-        std::string _nodeName;
+            /*! @brief The name of the executing program. */
+            std::string _executableName;
 
-    private :
-        // Private fields.
+            /*! @brief The @nImO-visible name of the executing program. */
+            std::string _nodeName;
+
+            /*! @brief The service object to be used for asynchronous operations. */
+            asio::io_service    _ios;
+
+        private :
+            // Private fields.
 
     }; // Context
 

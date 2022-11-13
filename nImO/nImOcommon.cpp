@@ -66,8 +66,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using std::cout;
-using std::endl;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -820,14 +818,14 @@ nImO::OutputDescription
         {
             std::string piece{description.substr(pieceStart, ii - pieceStart)};
 
-            outStream << indent << piece.c_str() << endl;
+            outStream << indent << piece.c_str() << std::endl;
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
     std::string piece{description.substr(pieceStart, descriptionLength - pieceStart)};
 
-    outStream << indent << piece.c_str() << endl;
+    outStream << indent << piece.c_str() << std::endl;
 } // nImO::OutputDescription
 
 bool
@@ -959,10 +957,10 @@ nImO::ProcessStandardUtilitiesOptions
     }
     else if (options[StaticCast(size_t, OptionIndex::HELP)] || options[StaticCast(size_t, OptionIndex::UNKNOWN)])
     {
-        Option_::printUsage(cout, usage, HELP_LINE_LENGTH_);
+        Option_::printUsage(std::cout, usage, HELP_LINE_LENGTH_);
         if (helper)
         {
-            helper(cout);
+            helper(std::cout);
         }
         keepGoing = false;
     }
@@ -970,13 +968,13 @@ nImO::ProcessStandardUtilitiesOptions
     {
         std::string nImOversionString{SanitizeString(nImO_VERSION_, true)};
 
-        cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
-                copyrightHolder << "." << endl;
+        std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
+                    copyrightHolder << "." << std::endl;
         keepGoing = false;
     }
     else if (options[StaticCast(size_t, OptionIndex::INFO)])
     {
-        cout << "Utility\t" << utilityDescription << endl;
+        std::cout << "Utility\t" << utilityDescription << std::endl;
         keepGoing = false;
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
@@ -993,7 +991,7 @@ nImO::ProcessStandardUtilitiesOptions
         {
             logging = true;
         }
-        if (arguments)
+        if (nullptr != arguments)
         {
             arguments->clear();
             for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
@@ -1004,7 +1002,7 @@ nImO::ProcessStandardUtilitiesOptions
     }
     else
     {
-        cout << "One or more invalid or missing arguments (" << badArgs << ")." << endl;
+        std::cout << "One or more invalid or missing arguments (" << badArgs << ")." << std::endl;
         keepGoing = false;
     }
     ODL_EXIT_B(keepGoing); //####

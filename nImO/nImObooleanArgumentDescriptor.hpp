@@ -63,157 +63,158 @@ namespace nImO
      booleanTagAndInfo ::= 'B'; */
     class BooleanArgumentDescriptor final : public BaseArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument.
-         @param[in] defaultValue The default value for the command-line argument. */
-        BooleanArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode,
-             const bool             defaultValue = false);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BooleanArgumentDescriptor
-            (const BooleanArgumentDescriptor & other);
+            /*! @brief The constructor.
+             @param[in] argName The name of the command-line argument.
+             @param[in] argDescription A description of the command-line argument.
+             @param[in] argMode The mode of the command-line argument.
+             @param[in] defaultValue The default value for the command-line argument. */
+            BooleanArgumentDescriptor
+                (const std::string &    argName,
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode,
+                 const bool             defaultValue = false);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        BooleanArgumentDescriptor
-            (BooleanArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            BooleanArgumentDescriptor
+                (const BooleanArgumentDescriptor & other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~BooleanArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BooleanArgumentDescriptor
+                (BooleanArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Return the current value.
-         @return The current value. */
-        inline bool
-        getCurrentValue
-            (void)
-            const
-        {
-            return _currentValue;
-        } // getCurrentValue
+            /*! @brief The destructor. */
+            virtual
+            ~BooleanArgumentDescriptor
+                (void);
 
-        /*! @brief Return @c true if the argument is for Logical arguments.
-         @return @c true if the argument is for Logical arguments and @c false otherwise. */
-        virtual bool
-        isLogical
-            (void)
-            const
-            override;
+            /*! @brief Return the current value.
+             @return The current value. */
+            inline bool
+            getCurrentValue
+                (void)
+                const
+            {
+                return _currentValue;
+            } // getCurrentValue
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief Return @c true if the argument is for Logical arguments.
+             @return @c true if the argument is for Logical arguments and @c false otherwise. */
+            virtual bool
+            isLogical
+                (void)
+                const
+                override;
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (BooleanArgumentDescriptor &   other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+             @param[in] inString The input string in 'arguments' format.
+             @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+             @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (BooleanArgumentDescriptor &   other);
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void)
-            override;
+        protected :
+            // Protected methods.
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void)
-            override;
+            /*! @brief Return the default value.
+             @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void)
+                override;
 
-    private :
-        // Private methods.
+            /*! @brief Return the default value as a human-readable string.
+             @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Return the processed value.
-         @return The processed value. */
-        virtual std::string
-        getProcessedValue
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+             @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void)
-            override;
+            /*! @brief Return the processed value.
+             @return The processed value. */
+            virtual std::string
+            getProcessedValue
+                (void)
+                override;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void)
+                override;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value)
-            override;
+            /*! @brief Convert to a printable representation.
+             @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Check an input value against the constraints of the descriptor.
+             @param[in] value The value to be checked.
+             @return @c true if the value is within the domain of the descriptor and @c false
+             otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The default value for the command-line argument. */
-        bool    _defaultValue;
+        private :
+            // Private fields.
 
-        /*! @brief The current value of the command-line argument. */
-        bool    _currentValue;
+            /*! @brief The default value for the command-line argument. */
+            bool    _defaultValue;
+
+            /*! @brief The current value of the command-line argument. */
+            bool    _currentValue;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
-        /*! @brief Filler to pad to alignment boundary */
-        char    _filler[6];
+            /*! @brief Filler to pad to alignment boundary */
+            char    _filler[6];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

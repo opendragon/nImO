@@ -57,132 +57,133 @@ namespace nImO
     /*! @brief The data constituting a chunk of a buffer. */
     class BufferChunk final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor.
-         @param[in] addPadding @c true if a single byte of padding is added to each buffer.
-         The padding is to support direct access to a chunk as a @c nullptr-terminated
-         string. */
-        explicit BufferChunk
-            (const bool addPadding);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BufferChunk
-            (const BufferChunk &    other) = delete;
+            /*! @brief The constructor.
+             @param[in] addPadding @c true if a single byte of padding is added to each buffer.
+             The padding is to support direct access to a chunk as a @c nullptr-terminated
+             string. */
+            explicit BufferChunk
+                (const bool addPadding);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        BufferChunk
-            (BufferChunk &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            BufferChunk
+                (const BufferChunk &    other) = delete;
 
-        /*! @brief The destructor. */
-        virtual
-        ~BufferChunk
-            (void);
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BufferChunk
+                (BufferChunk &&	other)
+                noexcept;
 
-        /*! @brief Add a sequence of bytes to the chunk.
-         @param[in] data The bytes to be added.
-         @param[in] numBytes The number of bytes to add.
+            /*! @brief The destructor. */
+            virtual
+            ~BufferChunk
+                (void);
 
-         Note that if there is insufficient space, the added data will be truncated.
-         @return The BufferChunk object so that cascading can be done. */
-        BufferChunk &
-        appendData
-            (const void *   data,
-             const size_t   numBytes);
+            /*! @brief Add a sequence of bytes to the chunk.
+             @param[in] data The bytes to be added.
+             @param[in] numBytes The number of bytes to add.
 
-        /*! @brief Return the number of available bytes in the chunk.
-         @return The number of available bytes in the chunk. */
-        inline size_t
-        getAvailableBytes
-            (void)
-            const
-        {
-            return StaticCast(size_t, _bufferEnd - _write);
-        } // getAvailableBytes
+             Note that if there is insufficient space, the added data will be truncated.
+             @return The BufferChunk object so that cascading can be done. */
+            BufferChunk &
+            appendData
+                (const void *   data,
+                 const size_t   numBytes);
 
-        /*! @brief Return the stored data.
-         @return A pointer to the stored data. */
-        inline const uint8_t *
-        getData
-            (void)
-            const
-        {
-            return _buffer.get();
-        } // getData
+            /*! @brief Return the number of available bytes in the chunk.
+             @return The number of available bytes in the chunk. */
+            inline size_t
+            getAvailableBytes
+                (void)
+                const
+            {
+                return StaticCast(size_t, _bufferEnd - _write);
+            } // getAvailableBytes
 
-        /*! @brief Return the number of bytes used in the chunk.
-         @return The number of bytes used in the chunk. */
-        inline size_t
-        getDataSize
-            (void)
-            const
-        {
-            return StaticCast(size_t, _write - _buffer.get());
-        } // getDataSize
+            /*! @brief Return the stored data.
+             @return A pointer to the stored data. */
+            inline const uint8_t *
+            getData
+                (void)
+                const
+            {
+                return _buffer.get();
+            } // getData
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        BufferChunk &
-        operator =
-            (const BufferChunk &    other) = delete;
+            /*! @brief Return the number of bytes used in the chunk.
+             @return The number of bytes used in the chunk. */
+            inline size_t
+            getDataSize
+                (void)
+                const
+            {
+                return StaticCast(size_t, _write - _buffer.get());
+            } // getDataSize
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        BufferChunk &
-        operator =
-            (BufferChunk &&  other)
-            noexcept;
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            BufferChunk &
+            operator =
+                (const BufferChunk &    other) = delete;
 
-        /*! @brief Prepare the buffer for reuse.
-         @return The BufferChunk object so that cascading can be done. */
-        BufferChunk &
-        reset
-            (void);
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            BufferChunk &
+            operator =
+                (BufferChunk &&  other)
+                noexcept;
 
-    protected :
-        // Protected methods.
+            /*! @brief Prepare the buffer for reuse.
+             @return The BufferChunk object so that cascading can be done. */
+            BufferChunk &
+            reset
+                (void);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-        /*! @brief The size to use for the buffer. */
-        static const size_t kBufferSize;
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+            /*! @brief The size to use for the buffer. */
+            static const size_t kBufferSize;
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The internal buffer used to hold the assembled data. */
-        UpAuint8_t  _buffer;
+        private :
+            // Private fields.
 
-        /*! @brief The byte just past the end of the internal buffer. */
-        uint8_t *   _bufferEnd;
+            /*! @brief The internal buffer used to hold the assembled data. */
+            UpAuint8_t  _buffer;
 
-        /*! @brief The next byte to write in the internal buffer. */
-        uint8_t *   _write;
+            /*! @brief The byte just past the end of the internal buffer. */
+            uint8_t *   _bufferEnd;
 
-        /*! @brief @c true if the buffer has an extra byte. */
-        bool    _padded;
+            /*! @brief The next byte to write in the internal buffer. */
+            uint8_t *   _write;
+
+            /*! @brief @c true if the buffer has an extra byte. */
+            bool    _padded;
 
     }; // BufferChunk
 

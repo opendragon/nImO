@@ -57,158 +57,159 @@ namespace nImO
     /*! @brief The data constituting an array of chunks. */
     class ChunkArray
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor.
-         @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
-        ChunkArray
-            (const bool padWithNull = false);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ChunkArray
-            (const ChunkArray & other) = delete;
+            /*! @brief The constructor.
+            @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
+            ChunkArray
+                (const bool padWithNull = false);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ChunkArray
-            (ChunkArray &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            ChunkArray
+                (const ChunkArray & other) = delete;
 
-        /*! @brief The destructor. */
-        virtual
-        ~ChunkArray
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ChunkArray
+                (ChunkArray &&	other)
+                noexcept;
 
-        /*! @brief Add some bytes to the buffer.
-         @param[in] data The bytes to be added.
-         @param[in] numBytes The number of bytes to add. */
-        virtual void
-        appendBytes
-            (const uint8_t *    data,
-             const size_t       numBytes);
+            /*! @brief The destructor. */
+            virtual
+            ~ChunkArray
+                (void);
 
-        /*! @brief Add some bytes to the buffer.
-         @param[in] data The bytes to be added.
-         @param[in] numBytes The number of bytes to add. */
-        inline void
-        appendBytes
-            (const DataKind *   data,
-             const size_t       numBytes)
-        {
-            appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
-        } // appendBytes
+            /*! @brief Add some bytes to the buffer.
+            @param[in] data The bytes to be added.
+            @param[in] numBytes The number of bytes to add. */
+            virtual void
+            appendBytes
+                (const uint8_t *    data,
+                const size_t       numBytes);
 
-        /*! @brief Return @c true if a particular index is past the end of the buffer.
-         @param[in] index The zero-based location in the buffer.
-         @return @c true if the index is past the end of the buffer. */
-        bool
-        atEnd
-            (const size_t   index)
-            const;
+            /*! @brief Add some bytes to the buffer.
+            @param[in] data The bytes to be added.
+            @param[in] numBytes The number of bytes to add. */
+            inline void
+            appendBytes
+                (const DataKind *   data,
+                const size_t       numBytes)
+            {
+                appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
+            } // appendBytes
 
-        /*! @brief Return the byte found at a particular index.
-         @param[in] index The zero-based location in the buffer.
-         @param[out] atEnd @c true if the index is past the end of the buffer.
-         @return The byte found at the provided index. */
-        int
-        getByte
-            (const size_t   index,
-             bool &         atEnd)
-            const;
+            /*! @brief Return @c true if a particular index is past the end of the buffer.
+            @param[in] index The zero-based location in the buffer.
+            @return @c true if the index is past the end of the buffer. */
+            bool
+            atEnd
+                (const size_t   index)
+                const;
 
-        /*! @brief Return a copy of the bytes in the buffer.
-         @return A copy of the bytes in the buffer. */
-        virtual std::string
-        getBytes
-            (void);
+            /*! @brief Return the byte found at a particular index.
+            @param[in] index The zero-based location in the buffer.
+            @param[out] atEnd @c true if the index is past the end of the buffer.
+            @return The byte found at the provided index. */
+            int
+            getByte
+                (const size_t   index,
+                bool &         atEnd)
+                const;
 
-        /*! @brief Return the number of valid bytes in the buffer.
-         @return The number of valid bytes in the buffer. */
-        virtual size_t
-        getLength
-            (void)
-            const;
+            /*! @brief Return a copy of the bytes in the buffer.
+            @return A copy of the bytes in the buffer. */
+            virtual std::string
+            getBytes
+                (void);
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        ChunkArray &
-        operator =
-            (const ChunkArray & other) = delete;
+            /*! @brief Return the number of valid bytes in the buffer.
+            @return The number of valid bytes in the buffer. */
+            virtual size_t
+            getLength
+                (void)
+                const;
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        ChunkArray &
-        operator =
-            (ChunkArray &&  other)
-            noexcept;
+            /*! @brief The copy assignment operator.
+            @param[in] other The object to be copied.
+            @return The updated object. */
+            ChunkArray &
+            operator =
+                (const ChunkArray & other) = delete;
 
-        /*! @brief Prepare the buffer for reuse.
-         @return The ChunkArray object so that cascading can be done. */
-        virtual ChunkArray &
-        reset
-            (void);
+            /*! @brief The move assignment operator.
+            @param[in] other The object to be moved.
+            @return The updated object. */
+            ChunkArray &
+            operator =
+                (ChunkArray &&  other)
+                noexcept;
 
-    protected :
-        // Protected methods.
+            /*! @brief Prepare the buffer for reuse.
+            @return The ChunkArray object so that cascading can be done. */
+            virtual ChunkArray &
+            reset
+                (void);
 
-        /*! @brief Return a chunk.
-        @param[in] index The index of a chunk.
-        @return The selected chunk. */
-        inline BufferChunk *
-        getBufferChunk
-            (const size_t   index)
-            const
-        {
-            return _buffers[index];
-        } // getBufferChunk
+        protected :
+            // Protected methods.
 
-        /*! @brief Return the number of chunks.
-         @return The number of chunks. */
-        inline size_t
-        getNumChunks
-            (void)
-            const
-        {
-            return _numChunks;
-        } // getNumChunks
+            /*! @brief Return a chunk.
+            @param[in] index The index of a chunk.
+            @return The selected chunk. */
+            inline BufferChunk *
+            getBufferChunk
+                (const size_t   index)
+                const
+            {
+                return _buffers[index];
+            } // getBufferChunk
 
-    private :
-        // Private methods.
+            /*! @brief Return the number of chunks.
+            @return The number of chunks. */
+            inline size_t
+            getNumChunks
+                (void)
+                const
+            {
+                return _numChunks;
+            } // getNumChunks
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The internal buffers used to hold the assembled text. */
-        BufferChunk **  _buffers;
+        private :
+            // Private fields.
 
-        /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
-         @c false otherwise. */
-        bool    _buffersArePadded;
+            /*! @brief The internal buffers used to hold the assembled text. */
+            BufferChunk **  _buffers;
 
-        /*! @brief The cached value of the buffer. */
-        std::string _cachedString;
+            /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
+            @c false otherwise. */
+            bool    _buffersArePadded;
 
-        /*! @brief The number of buffer chunks being used. */
-        size_t  _numChunks;
+            /*! @brief The cached value of the buffer. */
+            std::string _cachedString;
+
+            /*! @brief The number of buffer chunks being used. */
+            size_t  _numChunks;
 
     }; // ChunkArray
 

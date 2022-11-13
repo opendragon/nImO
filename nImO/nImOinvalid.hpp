@@ -57,73 +57,74 @@ namespace nImO
     /*! @brief A class to provide descriptions of invalid values. */
     class Invalid final : public Flaw
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Flaw;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Flaw;
 
-        /*! @brief The constructor. */
-        Invalid
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The constructor.
-          @param[in] description A textual description of the problem encountered. */
-        explicit Invalid
-            (const std::string &    description);
+            /*! @brief The constructor. */
+            Invalid
+                (void);
 
-        /*! @brief The constructor.
-         @param[in] description A textual description of the problem encountered.
-         @param[in] associatedValue A number that is concatenated to the description. */
-        Invalid
-            (const std::string &    description,
-             const int64_t          associatedValue);
+            /*! @brief The constructor.
+            @param[in] description A textual description of the problem encountered. */
+            explicit Invalid
+                (const std::string &    description);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Invalid
-            (Invalid &&	other)
-            noexcept;
+            /*! @brief The constructor.
+            @param[in] description A textual description of the problem encountered.
+            @param[in] associatedValue A number that is concatenated to the description. */
+            Invalid
+                (const std::string &    description,
+                const int64_t          associatedValue);
 
-        /*! @brief The destructor. */
-        virtual
-        ~Invalid
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Invalid
+                (Invalid &&	other)
+                noexcept;
 
-        /*! @brief Return a textual description of the Flaw.
-         @return A textual description of the Flaw. */
-        virtual std::string
-        getDescription
-            (void)
-            const
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~Invalid
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Return a textual description of the Flaw.
+            @return A textual description of the Flaw. */
+            virtual std::string
+            getDescription
+                (void)
+                const
+                override;
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief A description of what was found to be invalid. */
-        std::string _description;
+        private :
+            // Private fields.
+
+            /*! @brief A description of what was found to be invalid. */
+            std::string _description;
 
     }; // Invalid
 

@@ -169,323 +169,324 @@ namespace nImO
      where typeTagAndInfo is described with each derived class. */
     class BaseArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument. */
-        BaseArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BaseArgumentDescriptor
-            (const BaseArgumentDescriptor & other);
+            /*! @brief The constructor.
+             @param[in] argName The name of the command-line argument.
+             @param[in] argDescription A description of the command-line argument.
+             @param[in] argMode The mode of the command-line argument. */
+            BaseArgumentDescriptor
+                (const std::string &    argName,
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        BaseArgumentDescriptor
-            (BaseArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            BaseArgumentDescriptor
+                (const BaseArgumentDescriptor & other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~BaseArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BaseArgumentDescriptor
+                (BaseArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Return the description of the command-line argument.
-         @return The description of the command-line argument. */
-        inline const std::string &
-        argumentDescription
-            (void)
-            const
-        {
-            return _argDescription;
-        } // argumentDescription
+            /*! @brief The destructor. */
+            virtual
+            ~BaseArgumentDescriptor
+                (void);
 
-        /*! @brief Return the mode of the command-line argument.
-         @return The mode of the command-line argument. */
-        inline ArgumentMode
-        argumentMode
-            (void)
-            const
-        {
-            return _argMode;
-        } // argumentMode
+            /*! @brief Return the description of the command-line argument.
+             @return The description of the command-line argument. */
+            inline const std::string &
+            argumentDescription
+                (void)
+                const
+            {
+                return _argDescription;
+            } // argumentDescription
 
-        /*! @brief Return the name of the command-line argument.
-         @return The name of the command-line argument. */
-        inline const std::string &
-        argumentName
-            (void)
-            const
-        {
-            return _argName;
-        } // argumentName
+            /*! @brief Return the mode of the command-line argument.
+             @return The mode of the command-line argument. */
+            inline ArgumentMode
+            argumentMode
+                (void)
+                const
+            {
+                return _argMode;
+            } // argumentMode
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const = 0;
+            /*! @brief Return the name of the command-line argument.
+             @return The name of the command-line argument. */
+            inline const std::string &
+            argumentName
+                (void)
+                const
+            {
+                return _argName;
+            } // argumentName
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void) = 0;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+             @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const = 0;
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void) = 0;
+            /*! @brief Return the default value.
+             @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void) = 0;
 
-        /*! @brief Return the processed value.
-         @return The processed value. */
-        virtual std::string
-        getProcessedValue
-            (void) = 0;
+            /*! @brief Return the default value as a human-readable string.
+             @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void) = 0;
 
-        /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
-         arguments.
-         @return @c true if the argument is a placeholder for zero of more trailing arguments
-         and @c false otherwise. */
-        virtual bool
-        isExtra
-            (void)
-            const;
+            /*! @brief Return the processed value.
+             @return The processed value. */
+            virtual std::string
+            getProcessedValue
+                (void) = 0;
 
-        /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
-         @param[out] isForOutput Set to @c true if the argument is for output files and @c false
-         otherwise.
-         @return @c true if the argument is for file paths and @c false otherwise. */
-        virtual bool
-        isForFiles
-            (bool & isForOutput)
-            const;
+            /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
+             arguments.
+             @return @c true if the argument is a placeholder for zero of more trailing arguments
+             and @c false otherwise. */
+            virtual bool
+            isExtra
+                (void)
+                const;
 
-        /*! @brief Return @c true if the argument is for Logical arguments.
-         @return @c true if the argument is for Logical arguments and @c false otherwise. */
-        virtual bool
-        isLogical
-            (void)
-            const;
+            /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
+             @param[out] isForOutput Set to @c true if the argument is for output files and @c false
+             otherwise.
+             @return @c true if the argument is for file paths and @c false otherwise. */
+            virtual bool
+            isForFiles
+                (bool & isForOutput)
+                const;
 
-        /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
-         @return @c true if the argument is modifiable and @c false otherwise. */
-        inline bool
-        isModifiable
-            (void)
-            const
-        {
-            return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
-        } // isModifiable
+            /*! @brief Return @c true if the argument is for Logical arguments.
+             @return @c true if the argument is for Logical arguments and @c false otherwise. */
+            virtual bool
+            isLogical
+                (void)
+                const;
 
-        /*! @brief Return @c true if the argument is optional and @c false otherwise.
-         @return @c true if the argument is optional and @c false otherwise. */
-        inline bool
-        isOptional
-            (void)
-            const
-        {
-            return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Optional))));
-        } // isOptional
+            /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
+             @return @c true if the argument is modifiable and @c false otherwise. */
+            inline bool
+            isModifiable
+                (void)
+                const
+            {
+                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
+            } // isModifiable
 
-        /*! @brief Return @c true if the argument is a password and @c false otherwise.
-         @return @c true if the argument is a password and @c false otherwise. */
-        inline bool
-        isPassword
-            (void)
-            const
-        {
-            return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Password))));
-        } // isPassword
+            /*! @brief Return @c true if the argument is optional and @c false otherwise.
+             @return @c true if the argument is optional and @c false otherwise. */
+            inline bool
+            isOptional
+                (void)
+                const
+            {
+                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Optional))));
+            } // isOptional
 
-        /*! @brief Return @c true if the argument is required and @c false otherwise.
-         @return @c true if the argument is required and @c false otherwise. */
-        inline bool
-        isRequired
-            (void)
-            const
-        {
-            return ((ArgumentMode::Unknown != _argMode) && (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
-        } // isRequired
+            /*! @brief Return @c true if the argument is a password and @c false otherwise.
+             @return @c true if the argument is a password and @c false otherwise. */
+            inline bool
+            isPassword
+                (void)
+                const
+            {
+                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Password))));
+            } // isPassword
 
-        /*! @brief Return @c true if the argument is valid and @c false otherwise.
-         @return @c true if the argument is valid and @c false otherwise. */
-        inline bool
-        isValid
-            (void)
-            const
-        {
-            return _valid;
-        } // isValid
+            /*! @brief Return @c true if the argument is required and @c false otherwise.
+             @return @c true if the argument is required and @c false otherwise. */
+            inline bool
+            isRequired
+                (void)
+                const
+            {
+                return ((ArgumentMode::Unknown != _argMode) && (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
+            } // isRequired
 
-        /*! @brief The copy assignment operator.
-         @tparam Type The type of value being assigned.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        template
-            <typename Type>
-        Type &
-        operator =
-            (const Type &   other)
-        {
-            Type    temp(other);
+            /*! @brief Return @c true if the argument is valid and @c false otherwise.
+             @return @c true if the argument is valid and @c false otherwise. */
+            inline bool
+            isValid
+                (void)
+                const
+            {
+                return _valid;
+            } // isValid
 
-            swap(temp);
-            return *this;
-        } // operator =
+            /*! @brief The copy assignment operator.
+             @tparam Type The type of value being assigned.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            template
+                <typename Type>
+            Type &
+            operator =
+                (const Type &   other)
+            {
+                Type    temp(other);
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        BaseArgumentDescriptor &
-        operator =
-            (BaseArgumentDescriptor &&  other)
-            noexcept;
+                swap(temp);
+                return *this;
+            } // operator =
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void) = 0;
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            BaseArgumentDescriptor &
+            operator =
+                (BaseArgumentDescriptor &&  other)
+                noexcept;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void) = 0;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void) = 0;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value) = 0;
+            /*! @brief Convert to a printable representation.
+             @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void) = 0;
 
-    protected :
-        // Protected methods.
+            /*! @brief Check an input value against the constraints of the descriptor.
+             @param[in] value The value to be checked.
+             @return @c true if the value is within the domain of the descriptor and @c false
+             otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value) = 0;
 
-        /*! @brief Return the paramter separator.
-         @return The parameter separator. */
-        inline static std::string
-        getParameterSeparator
-            (void)
-        {
-            return _parameterSeparator;
-        } // getParameterSeparator
+        protected :
+            // Protected methods.
 
-        /*! @brief Find a character that is not present in the input, to use as a delimiter.
-         @param[in] inString The string to be analyzed.
-         @return @c A character not present in the string that can be used as a delimiter for
-         the string. */
-        static char
-        identifyDelimiter
-            (const std::string &    valueToCheck);
+            /*! @brief Return the paramter separator.
+             @return The parameter separator. */
+            inline static std::string
+            getParameterSeparator
+                (void)
+            {
+                return _parameterSeparator;
+            } // getParameterSeparator
 
-        /*! @brief Partition a string that is in 'arguments' format into a sequence of strings.
-         @param[in] inString The string to be partitioned.
-         @param[in] expectedTag The tag that is required for this argument.
-         @param[in] indexOfDefaultValue The position in the input string where the default value
-         will appear. The default value uses a secondary delimiter.
-         @param[out] name The argument name.
-         @param[out] argMode The mode of the argument.
-         @param[out] result The partitioned string.
-         @param[in] indexOfListValue The position in the input string where a list value will
-         appear. A list value uses the field separator internally and a secondary delimiter.
-         @return @c true if the correct number of fields appear within the input string and
-         @c false otherwise. */
-        static bool
-        partitionString
-            (const std::string &    inString,
-             const ArgumentTypeTag  expectedTag,
-             const size_t           indexOfDefaultValue,
-             std::string &          name,
-             ArgumentMode &         argMode,
-             StringVector &         result,
-             const size_t           indexOfListValue = 0);
+            /*! @brief Find a character that is not present in the input, to use as a delimiter.
+             @param[in] inString The string to be analyzed.
+             @return @c A character not present in the string that can be used as a delimiter for
+             the string. */
+            static char
+            identifyDelimiter
+                (const std::string &    valueToCheck);
 
-        /*! @brief Returns a string that contains a printable representation of the standard
-         prefix fields for a command-line argument.
-         @param[in] tagForField The tag value to use for the field.
-         @return A string that contains a printable representation of the standard prefix
-         fields for a command-line argument. */
-        std::string
-        prefixFields
-            (const ArgumentTypeTag  tagForField)
-            const;
+            /*! @brief Partition a string that is in 'arguments' format into a sequence of strings.
+             @param[in] inString The string to be partitioned.
+             @param[in] expectedTag The tag that is required for this argument.
+             @param[in] indexOfDefaultValue The position in the input string where the default value
+             will appear. The default value uses a secondary delimiter.
+             @param[out] name The argument name.
+             @param[out] argMode The mode of the argument.
+             @param[out] result The partitioned string.
+             @param[in] indexOfListValue The position in the input string where a list value will
+             appear. A list value uses the field separator internally and a secondary delimiter.
+             @return @c true if the correct number of fields appear within the input string and
+             @c false otherwise. */
+            static bool
+            partitionString
+                (const std::string &    inString,
+                 const ArgumentTypeTag  expectedTag,
+                 const size_t           indexOfDefaultValue,
+                 std::string &          name,
+                 ArgumentMode &         argMode,
+                 StringVector &         result,
+                 const size_t           indexOfListValue = 0);
 
-        /*! @brief Sets the validity of the object.
-         @param[in] isValid @c true if the object is valid. */
-        void
-        setValidity
-            (const bool isValid);
-            
-        /*! @brief Returns a string that contains a printable representation of the standard
-         fields for a command-line argument.
-         @param[in] defaultToUse The string to put in the printable representation for the default
-         value.
-         @return A string that contains a printable representation of the standard fields for
-         a command-line argument. */
-        std::string
-        suffixFields
-            (const std::string &    defaultToUse);
+            /*! @brief Returns a string that contains a printable representation of the standard
+             prefix fields for a command-line argument.
+             @param[in] tagForField The tag value to use for the field.
+             @return A string that contains a printable representation of the standard prefix
+             fields for a command-line argument. */
+            std::string
+            prefixFields
+                (const ArgumentTypeTag  tagForField)
+                const;
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (BaseArgumentDescriptor &   other);
+            /*! @brief Sets the validity of the object.
+             @param[in] isValid @c true if the object is valid. */
+            void
+            setValidity
+                (const bool isValid);
 
-    private :
-        // Private methods.
+            /*! @brief Returns a string that contains a printable representation of the standard
+             fields for a command-line argument.
+             @param[in] defaultToUse The string to put in the printable representation for the default
+             value.
+             @return A string that contains a printable representation of the standard fields for
+             a command-line argument. */
+            std::string
+            suffixFields
+                (const std::string &    defaultToUse);
 
-    public :
-        // Public fields.
+            /*! @brief Exchanges the contents of the object with those of other.
+             @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (BaseArgumentDescriptor &   other);
 
-    protected :
-        // Protected fields.
+        private :
+            // Private methods.
 
-    private :
-        // Private fields.
+        public :
+            // Public fields.
 
-        /*! @brief The description of the command-line argument for the adapter. */
-        std::string _argDescription;
+        protected :
+            // Protected fields.
 
-        /*! @brief The mode of the command-line argument. */
-        ArgumentMode _argMode;
+        private :
+            // Private fields.
 
-        /*! @brief The name of the command-line argument. */
-        std::string _argName;
+            /*! @brief The description of the command-line argument for the adapter. */
+            std::string _argDescription;
 
-        /*! @brief The separator string to use when converting to a string. */
-        static std::string _parameterSeparator;
+            /*! @brief The mode of the command-line argument. */
+            ArgumentMode _argMode;
 
-        /*! @brief @c true if the argument was valid and @c false otherwise. */
-        bool _valid;
+            /*! @brief The name of the command-line argument. */
+            std::string _argName;
+
+            /*! @brief The separator string to use when converting to a string. */
+            static std::string _parameterSeparator;
+
+            /*! @brief @c true if the argument was valid and @c false otherwise. */
+            bool _valid;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
-        /*! @brief Filler to pad to alignment boundary */
-        char _filler[7];
+            /*! @brief Filler to pad to alignment boundary */
+            char _filler[7];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

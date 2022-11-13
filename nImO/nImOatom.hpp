@@ -57,50 +57,51 @@ namespace nImO
     /*! @brief A class to provide simple values. */
     class Atom : public Value
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Value;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Value;
 
-        /*! @brief The destructor. */
-        virtual
-        ~Atom
-            (void);
+        public :
+            // Public methods.
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~Atom
+                (void);
 
-        /*! @brief The constructor. */
-        Atom
-            (void);
+        protected :
+            // Protected methods.
 
-            /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Atom
-            (Atom &&	other)
-            noexcept;
+            /*! @brief The constructor. */
+            Atom
+                (void);
 
-private :
-        // Private methods.
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
+                /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            Atom
+                (Atom &&	other)
+                noexcept;
 
     private :
-        // Private fields.
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Atom
 

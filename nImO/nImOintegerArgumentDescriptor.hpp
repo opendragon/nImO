@@ -71,172 +71,173 @@ namespace nImO
      # empty value indicates no maximum constraint. */
     class IntegerArgumentDescriptor : public BaseArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument.
-         @param[in] defaultValue The default value for the command-line argument.
-         @param[in] hasMinimumValue @c true if the value must be greater than or equal to a
-         specified minimum and @c false otherwise.
-         @param[in] minimumValue The minimum value that is acceptable.
-         @param[in] hasMaximumValue @c true if the value must be less than or equal to a specified
-         maximum and @c false otherwise.
-         @param[in] maximumValue The maximum value that is acceptable. */
-        IntegerArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode,
-             const int              defaultValue,
-             const bool             hasMinimumValue,
-             const int              minimumValue,
-             const bool             hasMaximumValue,
-             const int              maximumValue);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        IntegerArgumentDescriptor
-            (const IntegerArgumentDescriptor &  other);
+            /*! @brief The constructor.
+            @param[in] argName The name of the command-line argument.
+            @param[in] argDescription A description of the command-line argument.
+            @param[in] argMode The mode of the command-line argument.
+            @param[in] defaultValue The default value for the command-line argument.
+            @param[in] hasMinimumValue @c true if the value must be greater than or equal to a
+            specified minimum and @c false otherwise.
+            @param[in] minimumValue The minimum value that is acceptable.
+            @param[in] hasMaximumValue @c true if the value must be less than or equal to a specified
+            maximum and @c false otherwise.
+            @param[in] maximumValue The maximum value that is acceptable. */
+            IntegerArgumentDescriptor
+                (const std::string &    argName,
+                const std::string &    argDescription,
+                const ArgumentMode     argMode,
+                const int              defaultValue,
+                const bool             hasMinimumValue,
+                const int              minimumValue,
+                const bool             hasMaximumValue,
+                const int              maximumValue);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        IntegerArgumentDescriptor
-            (IntegerArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            IntegerArgumentDescriptor
+                (const IntegerArgumentDescriptor &  other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~IntegerArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            IntegerArgumentDescriptor
+                (IntegerArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Return the current value.
-         @return The current value. */
-        inline int
-        getCurrentValue
-            (void)
-            const
-        {
-            return _currentValue;
-        } // getCurrentValue
+            /*! @brief The destructor. */
+            virtual
+            ~IntegerArgumentDescriptor
+                (void);
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief Return the current value.
+            @return The current value. */
+            inline int
+            getCurrentValue
+                (void)
+                const
+            {
+                return _currentValue;
+            } // getCurrentValue
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (IntegerArgumentDescriptor &    other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+            @param[in] inString The input string in 'arguments' format.
+            @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+            @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (IntegerArgumentDescriptor &    other);
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void)
-            override;
+        protected :
+            // Protected methods.
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void)
-            override;
+            /*! @brief Return the default value.
+            @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void)
+                override;
 
-    private :
-        // Private methods.
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Return the processed value.
-         @return The processed value. */
-        virtual std::string
-        getProcessedValue
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+            @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void)
-            override;
+            /*! @brief Return the processed value.
+            @return The processed value. */
+            virtual std::string
+            getProcessedValue
+                (void)
+                override;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void)
+                override;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value)
-            override;
+            /*! @brief Convert to a printable representation.
+            @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Check an input value against the constraints of the descriptor.
+            @param[in] value The value to be checked.
+            @return @c true if the value is within the domain of the descriptor and @c false
+            otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The current value of the command-line argument. */
-        int _currentValue;
+        private :
+            // Private fields.
 
-        /*! @brief The default value for the command-line argument. */
-        int _defaultValue;
+            /*! @brief The current value of the command-line argument. */
+            int _currentValue;
 
-        /*! @brief The maximum value that is acceptable. */
-        int64_t _maximumValue;
+            /*! @brief The default value for the command-line argument. */
+            int _defaultValue;
 
-        /*! @brief The minimum value that is acceptable. */
-        int64_t _minimumValue;
+            /*! @brief The maximum value that is acceptable. */
+            int64_t _maximumValue;
 
-        /*! @brief @c true if the value must be less than or equal to the specified maximum. */
-        bool    _hasMaximumValue;
+            /*! @brief The minimum value that is acceptable. */
+            int64_t _minimumValue;
 
-        /*! @brief @c true if the value must be greater than or equal to the specified minimum
-         or @c false otherwise. */
-        bool    _hasMinimumValue;
+            /*! @brief @c true if the value must be less than or equal to the specified maximum. */
+            bool    _hasMaximumValue;
+
+            /*! @brief @c true if the value must be greater than or equal to the specified minimum
+            or @c false otherwise. */
+            bool    _hasMinimumValue;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
-        /*! @brief Filler to pad to alignment boundary */
-        char    _filler[6];
+            /*! @brief Filler to pad to alignment boundary */
+            char    _filler[6];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

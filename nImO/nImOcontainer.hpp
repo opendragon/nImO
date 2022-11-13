@@ -60,75 +60,76 @@ namespace nImO
      contained elements on deletion. */
     class Container : public Value
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Value;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Value;
 
-        /*! @brief The destructor. */
-        virtual
-        ~Container
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Container
-            (Container &&	other)
-            noexcept;
+            /*! @brief The destructor. */
+            virtual
+            ~Container
+                (void);
 
-        /*! @brief Return non-@c nullptr if the object is a Container.
-         @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
-        virtual const Container *
-        asContainer
-            (void)
-            const
-            override;
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Container
+                (Container &&	other)
+                noexcept;
 
-        /*! @brief Remove all entries from the Container. */
-        virtual void
-        clear
-            (void) = 0;
+            /*! @brief Return non-@c nullptr if the object is a Container.
+            @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
+            virtual const Container *
+            asContainer
+                (void)
+                const
+                override;
 
-        /*! @brief Return @c true if the Container is empty. */
-        virtual bool
-        empty
-            (void)
-            const = 0;
+            /*! @brief Remove all entries from the Container. */
+            virtual void
+            clear
+                (void) = 0;
 
-        /*! @brief Returns the number of elements in the Container. */
-        virtual size_t
-        size
-            (void)
-            const = 0;
+            /*! @brief Return @c true if the Container is empty. */
+            virtual bool
+            empty
+                (void)
+                const = 0;
 
-    protected :
-        // Protected methods.
+            /*! @brief Returns the number of elements in the Container. */
+            virtual size_t
+            size
+                (void)
+                const = 0;
 
-        /*! @brief The constructor. */
-        Container
-            (void);
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+            /*! @brief The constructor. */
+            Container
+                (void);
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Container
 

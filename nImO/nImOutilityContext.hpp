@@ -57,49 +57,50 @@ namespace nImO
     /*! @brief A class to provide support for a 'utility' application. */
     class UtilityContext final : public ContextWithCommandPort
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithCommandPort;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = ContextWithCommandPort;
 
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] logging @c true if the executing program is to be logged.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        UtilityContext
-            (const std::string &    executableName,
-             const bool             logging,
-             const std::string &    nodeName = "");
+        public :
+            // Public methods.
 
-        /*! @brief The destructor. */
-        virtual
-        ~UtilityContext
-            (void);
+            /*! @brief The constructor.
+            @param[in] executable The name of the executing program.
+            @param[in] logging @c true if the executing program is to be logged.
+            @param[in] nodeName The @nImO-visible name of the executing program. */
+            UtilityContext
+                (const std::string &    executableName,
+                const bool             logging,
+                const std::string &    nodeName = "");
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~UtilityContext
+                (void);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // UtilityContext
 

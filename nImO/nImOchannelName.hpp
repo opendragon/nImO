@@ -57,133 +57,134 @@ namespace nImO
     /*! @brief A class to provide network connection points. */
     class ChannelName final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The destructor. */
-        virtual
-        ~ChannelName
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ChannelName
-            (const ChannelName &  other);
+            /*! @brief The destructor. */
+            virtual
+            ~ChannelName
+                (void);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ChannelName
-            (ChannelName &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            ChannelName
+                (const ChannelName &  other);
 
-        /*! @brief Return the name in standard form.
-         @return The name in standard form. */
-        std::string
-        getName
-            (void)
-            const;
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ChannelName
+                (ChannelName &&	other)
+                noexcept;
 
-        /*! @brief Return the name of the network for the channel.
-         @return The network name for the channel. */
-        inline const std::string &
-        getNetwork
-            (void)
-            const
-        {
-            return _network;
-        } // getNetwork
+            /*! @brief Return the name in standard form.
+            @return The name in standard form. */
+            std::string
+            getName
+                (void)
+                const;
 
-        /*! @brief Return the name of the node for the channel.
-         @return The node name for the channel. */
-        inline const std::string &
-        getNode
-            (void)
-            const
-        {
-            return _node;
-        } // getNode
+            /*! @brief Return the name of the network for the channel.
+            @return The network name for the channel. */
+            inline const std::string &
+            getNetwork
+                (void)
+                const
+            {
+                return _network;
+            } // getNetwork
 
-        /*! @brief Return the path for the channel.
-         @return The path for the channel. */
-        inline const std::string &
-        getPath
-            (void)
-            const
-        {
-            return _path;
-        } // getNodeName
+            /*! @brief Return the name of the node for the channel.
+            @return The node name for the channel. */
+            inline const std::string &
+            getNode
+                (void)
+                const
+            {
+                return _node;
+            } // getNode
 
-        /*! @brief Return the transport mechanism for the channel.
-         @return The transport mechanism for the channel. */
-        inline Transport
-        getTransport
-            (void)
-            const
-        {
-            return _transport;
-        } // getTransport
+            /*! @brief Return the path for the channel.
+            @return The path for the channel. */
+            inline const std::string &
+            getPath
+                (void)
+                const
+            {
+                return _path;
+            } // getNodeName
 
-        /*! @brief Extracts a ChannelName from a string.
-         @param[in] input The string being processed.
-         @param[out] problemDescription A description of the first problem with the input that was detected.
-         @return @c nullptr if the ChannelName could not be extracted or a non-nullptr if extraction was successful. */
-        static SpChannelName
-        parse
-            (const std::string &    input,
-             std::string &          problemDescription);
+            /*! @brief Return the transport mechanism for the channel.
+            @return The transport mechanism for the channel. */
+            inline Transport
+            getTransport
+                (void)
+                const
+            {
+                return _transport;
+            } // getTransport
 
-        /*! @brief Returns the set of names for Transport values.
-         @return The standard names for the Transport values. */
-        static StringSet
-        transportNames
-            (void);
+            /*! @brief Extracts a ChannelName from a string.
+            @param[in] input The string being processed.
+            @param[out] problemDescription A description of the first problem with the input that was detected.
+            @return @c nullptr if the ChannelName could not be extracted or a non-nullptr if extraction was successful. */
+            static SpChannelName
+            parse
+                (const std::string &    input,
+                std::string &          problemDescription);
 
-        /*! @brief Returns the name corresponding to a Transport value.
-         @param[in] aValue The Transport value to be converted.
-         @return The standard name for the Transport value. */
-        static std::string
-        transportToName
-            (const Transport    aValue);
+            /*! @brief Returns the set of names for Transport values.
+            @return The standard names for the Transport values. */
+            static StringSet
+            transportNames
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Returns the name corresponding to a Transport value.
+            @param[in] aValue The Transport value to be converted.
+            @return The standard name for the Transport value. */
+            static std::string
+            transportToName
+                (const Transport    aValue);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief The constructor. */
-        ChannelName
-            (void);
+        private :
+            // Private methods.
 
-    public :
-        // Public fields.
+            /*! @brief The constructor. */
+            ChannelName
+                (void);
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The associated network name. */
-        std::string _network;
+        private :
+            // Private fields.
 
-        /*! @brief The associated node name. */
-        std::string _node;
+            /*! @brief The associated network name. */
+            std::string _network;
 
-        /*! @brief The associated path. */
-        std::string _path;
+            /*! @brief The associated node name. */
+            std::string _node;
 
-        /*! @brief The associated transport mechanism. */
-        Transport   _transport;
+            /*! @brief The associated path. */
+            std::string _path;
+
+            /*! @brief The associated transport mechanism. */
+            Transport   _transport;
 
     }; // ChannelName
 

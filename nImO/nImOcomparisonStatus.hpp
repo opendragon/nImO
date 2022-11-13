@@ -57,145 +57,146 @@ namespace nImO
     /*! @brief A class to provide comparison values. */
     class ComparisonStatus final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor. */
-        inline ComparisonStatus
-            (const bool result = true,
-             const bool valid = true) :
-            _result(result), _valid(valid)
-        {
-        } // constructor
+        public :
+            // Public methods.
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ComparisonStatus
-            (ComparisonStatus &&	other)
-            noexcept;
+            /*! @brief The constructor. */
+            inline ComparisonStatus
+                (const bool result = true,
+                const bool valid = true) :
+                _result(result), _valid(valid)
+            {
+            } // constructor
 
-        /*! @brief Update the current status by merging in the other status.
-         @param[in] other The status to be merged in.
-         @return The modified status. */
-        inline ComparisonStatus &
-        operator &=
-            (const ComparisonStatus &   other)
-        {
-            _result &= other._result;
-            _valid &= other._valid;
-            return *this;
-        } // operator &=
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ComparisonStatus
+                (ComparisonStatus &&	other)
+                noexcept;
 
-        /*! @brief Copy a status.
-         @param[in] other The status to be copied.
-         @return The modified status. */
-        inline ComparisonStatus &
-        operator =
-            (const ComparisonStatus &   other)
-        {
-            _result = other._result;
-            _valid = other._valid;
-            return *this;
-        } // operator =
+            /*! @brief Update the current status by merging in the other status.
+            @param[in] other The status to be merged in.
+            @return The modified status. */
+            inline ComparisonStatus &
+            operator &=
+                (const ComparisonStatus &   other)
+            {
+                _result &= other._result;
+                _valid &= other._valid;
+                return *this;
+            } // operator &=
 
-        /*! @brief Return @c true if the two statuses are equal.
-            @param[in] other The status to be compared with.
-            @return @c true if the two statuses are comparable and equal. */
-        inline bool
-        operator ==
-            (const ComparisonStatus &   other)
-            const
-        {
-            return ((_result == other._result) && (_valid == other._valid));
-        } // operator ==
-
-        /*! @brief Return @c false if the two statuses are equal.
-            @param[in] other The status to be compared with.
-            @return @c false if the two statuses are comparable and equal and @c true otherwise. */
-        inline bool
-        operator !=
-            (const ComparisonStatus &   other)
-            const
-        {
-            return ((_result != other._result) || (_valid != other._valid));
-        } // operator !=
-
-        /*! @brief Set a valid status.
-         @param[in] value The status to be assigned.
-         @return The modified status. */
-        inline ComparisonStatus &
+            /*! @brief Copy a status.
+            @param[in] other The status to be copied.
+            @return The modified status. */
+            inline ComparisonStatus &
             operator =
-            (const bool value)
-        {
-            _result = value;
-            _valid = true;
-            return *this;
-        } // operator =
+                (const ComparisonStatus &   other)
+            {
+                _result = other._result;
+                _valid = other._valid;
+                return *this;
+            } // operator =
 
-        /*! @brief Clear the status.
-         @return The modified status. */
-        inline ComparisonStatus &
-            clear
-            (void)
-        {
-            _result = _valid = false;
-            return *this;
-        } // clear
+            /*! @brief Return @c true if the two statuses are equal.
+                @param[in] other The status to be compared with.
+                @return @c true if the two statuses are comparable and equal. */
+            inline bool
+            operator ==
+                (const ComparisonStatus &   other)
+                const
+            {
+                return ((_result == other._result) && (_valid == other._valid));
+            } // operator ==
 
-        /*! @brief Return the validity of the status.
-         @return The validity of the comparison. */
-        inline bool
-        IsValid
-            (void)
-            const
-        {
-            return _valid;
-        } // IsValid
+            /*! @brief Return @c false if the two statuses are equal.
+                @param[in] other The status to be compared with.
+                @return @c false if the two statuses are comparable and equal and @c true otherwise. */
+            inline bool
+            operator !=
+                (const ComparisonStatus &   other)
+                const
+            {
+                return ((_result != other._result) || (_valid != other._valid));
+            } // operator !=
 
-        /*! @brief Return the result of the status.
-         @return The result of the comparison. */
-        inline bool
-        Result
-            (void)
-            const
-        {
-            return _result;
-        } // Result
+            /*! @brief Set a valid status.
+            @param[in] value The status to be assigned.
+            @return The modified status. */
+            inline ComparisonStatus &
+                operator =
+                (const bool value)
+            {
+                _result = value;
+                _valid = true;
+                return *this;
+            } // operator =
 
-        friend std::ostream &
-        operator <<
-            (std::ostream &             out,
-             const ComparisonStatus &   aValue);
+            /*! @brief Clear the status.
+            @return The modified status. */
+            inline ComparisonStatus &
+                clear
+                (void)
+            {
+                _result = _valid = false;
+                return *this;
+            } // clear
 
-    protected :
-        // Protected methods.
+            /*! @brief Return the validity of the status.
+            @return The validity of the comparison. */
+            inline bool
+            IsValid
+                (void)
+                const
+            {
+                return _valid;
+            } // IsValid
 
-    private :
-        // Private methods.
+            /*! @brief Return the result of the status.
+            @return The result of the comparison. */
+            inline bool
+            Result
+                (void)
+                const
+            {
+                return _result;
+            } // Result
 
-    public :
-        // Public fields.
+            friend std::ostream &
+            operator <<
+                (std::ostream &             out,
+                const ComparisonStatus &   aValue);
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected methods.
 
-    private :
-        // Private fields.
+        private :
+            // Private methods.
 
-        /*! @brief The comparison result; @c true if successful. */
-        bool    _result;
+        public :
+            // Public fields.
 
-        /*! @brief The validity of the comparison; @c true if all comparisons were allowed. */
-        bool    _valid;
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief The comparison result; @c true if successful. */
+            bool    _result;
+
+            /*! @brief The validity of the comparison; @c true if all comparisons were allowed. */
+            bool    _valid;
 
     }; // ComparisonStatus
 

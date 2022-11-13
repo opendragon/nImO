@@ -57,191 +57,192 @@ namespace nImO
     /*! @brief The data constituting a string buffer. */
     class StringBuffer final : public ChunkArray
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ChunkArray;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = ChunkArray;
 
-        /*! @brief The constructor. */
-        StringBuffer
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        StringBuffer
-            (const StringBuffer &   other) = delete;
+            /*! @brief The constructor. */
+            StringBuffer
+                (void);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        StringBuffer
-            (StringBuffer &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            StringBuffer
+                (const StringBuffer &   other) = delete;
 
-        /*! @brief The destructor. */
-        virtual
-        ~StringBuffer
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            StringBuffer
+                (StringBuffer &&	other)
+                noexcept;
 
-        /*! @brief Add a boolean value to the buffer.
-         @param[in] aBool The value to add.
-         @return The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addBool
-            (const bool aBool);
+            /*! @brief The destructor. */
+            virtual
+            ~StringBuffer
+                (void);
 
-        /*! @brief Add a sequence of bytes to the buffer.
-         @param[in] inBytes The bytes to be added.
-         @param[in] numBytes The number of bytes to add.
-         @return The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addBytes
-            (const uint8_t *    inBytes,
-             const size_t       numBytes);
+            /*! @brief Add a boolean value to the buffer.
+            @param[in] aBool The value to add.
+            @return The StringBuffer object so that cascading can be done. */
+            StringBuffer &
+            addBool
+                (const bool aBool);
 
-        /*! @brief Add a character to the buffer.
-         @param[in] aChar The character to add.
-         @return The StringBuffer object so that cascading can be done. */
-        inline StringBuffer &
-        addChar
-            (const char aChar)
-        {
-            uint8_t temp = aChar;
+            /*! @brief Add a sequence of bytes to the buffer.
+            @param[in] inBytes The bytes to be added.
+            @param[in] numBytes The number of bytes to add.
+            @return The StringBuffer object so that cascading can be done. */
+            StringBuffer &
+            addBytes
+                (const uint8_t *    inBytes,
+                const size_t       numBytes);
 
-            inherited::appendBytes(&temp, sizeof(temp));
-            return *this;
-        } // addChar
+            /*! @brief Add a character to the buffer.
+            @param[in] aChar The character to add.
+            @return The StringBuffer object so that cascading can be done. */
+            inline StringBuffer &
+            addChar
+                (const char aChar)
+            {
+                uint8_t temp = aChar;
 
-        /*! @brief Add a character string representation of a floating-point value to the buffer.
-         @param[in] aDouble The value to add.
-         @return The StringBuffer object so that cascading can be done. */
-        inline StringBuffer &
-        addDouble
-            (const double   aDouble)
-        {
-            addString(ConvertDoubleToString(aDouble));
-            return *this;
-        } // addDouble
+                inherited::appendBytes(&temp, sizeof(temp));
+                return *this;
+            } // addChar
 
-        /*! @brief Add a character string representation of an integer value to the buffer.
-         @param[in] aLong The value to add.
-         @return The StringBuffer object so that cascading can be done. */
-        inline StringBuffer &
-        addLong
-            (const int64_t  aLong)
-        {
-            addString(std::to_string(aLong));
-            return *this;
-        } // addLong
+            /*! @brief Add a character string representation of a floating-point value to the buffer.
+            @param[in] aDouble The value to add.
+            @return The StringBuffer object so that cascading can be done. */
+            inline StringBuffer &
+            addDouble
+                (const double   aDouble)
+            {
+                addString(ConvertDoubleToString(aDouble));
+                return *this;
+            } // addDouble
 
-        /*! @brief Add a character string to the buffer.
-         @param[in] aString The value to add.
-         @param[in] addQuotes @c true if the string is to be delimited by quote characters.
-         @return The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addString
-            (const char *   aString,
-             const bool     addQuotes = false);
+            /*! @brief Add a character string representation of an integer value to the buffer.
+            @param[in] aLong The value to add.
+            @return The StringBuffer object so that cascading can be done. */
+            inline StringBuffer &
+            addLong
+                (const int64_t  aLong)
+            {
+                addString(std::to_string(aLong));
+                return *this;
+            } // addLong
 
-        /*! @brief Add a character string to the buffer.
-         @param[in] aString The value to add.
-         @param[in] addQuotes @c true if the string is to be delimited by quote characters.
-         @return The StringBuffer object so that cascading can be done. */
-        StringBuffer &
-        addString
-            (const std::string &    aString,
-             const bool             addQuotes = false);
+            /*! @brief Add a character string to the buffer.
+            @param[in] aString The value to add.
+            @param[in] addQuotes @c true if the string is to be delimited by quote characters.
+            @return The StringBuffer object so that cascading can be done. */
+            StringBuffer &
+            addString
+                (const char *   aString,
+                const bool     addQuotes = false);
 
-        /*! @brief Add a horizontal tab character to the buffer.
-         @return The StringBuffer object so that cascading can be done. */
-        inline StringBuffer &
-        addTab
-            (void)
-        {
-            addChar('\t');
-            return *this;
-        } // addTab
+            /*! @brief Add a character string to the buffer.
+            @param[in] aString The value to add.
+            @param[in] addQuotes @c true if the string is to be delimited by quote characters.
+            @return The StringBuffer object so that cascading can be done. */
+            StringBuffer &
+            addString
+                (const std::string &    aString,
+                const bool             addQuotes = false);
 
-        /*! @brief Convert the buffer to a Value.
-         @return The Value represented by the buffer contents. */
-        SpValue
-        convertToValue
-            (void)
-            const;
+            /*! @brief Add a horizontal tab character to the buffer.
+            @return The StringBuffer object so that cascading can be done. */
+            inline StringBuffer &
+            addTab
+                (void)
+            {
+                addChar('\t');
+                return *this;
+            } // addTab
 
-        /*! @brief Return the byte found at a particular index.
-         @param[in] index The zero-based location in the buffer.
-         @param[out] atEnd @c true if the index is past the end of the buffer.
-         @return The byte found at the provided index. */
-        inline int
-        getChar
-            (const size_t   index,
-             bool &         atEnd)
-            const
-        {
-            return inherited::getByte(index, atEnd);
-        } // getChar
+            /*! @brief Convert the buffer to a Value.
+            @return The Value represented by the buffer contents. */
+            SpValue
+            convertToValue
+                (void)
+                const;
 
-        /*! @brief Return a copy of the characters in the buffer.
-         @return A copy of the characters in the buffer. */
-        inline std::string
-        getString
-            (void)
-        {
-            return inherited::getBytes();
-        } // getString
+            /*! @brief Return the byte found at a particular index.
+            @param[in] index The zero-based location in the buffer.
+            @param[out] atEnd @c true if the index is past the end of the buffer.
+            @return The byte found at the provided index. */
+            inline int
+            getChar
+                (const size_t   index,
+                bool &         atEnd)
+                const
+            {
+                return inherited::getByte(index, atEnd);
+            } // getChar
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        StringBuffer &
-        operator =
-            (const StringBuffer &   other) = delete;
+            /*! @brief Return a copy of the characters in the buffer.
+            @return A copy of the characters in the buffer. */
+            inline std::string
+            getString
+                (void)
+            {
+                return inherited::getBytes();
+            } // getString
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        StringBuffer &
-        operator =
-            (StringBuffer &&  other)
-            noexcept;
+            /*! @brief The copy assignment operator.
+            @param[in] other The object to be copied.
+            @return The updated object. */
+            StringBuffer &
+            operator =
+                (const StringBuffer &   other) = delete;
 
-        friend std::ostream &
-        operator <<
-            (std::ostream &         out,
-             const StringBuffer &   aBuffer);
+            /*! @brief The move assignment operator.
+            @param[in] other The object to be moved.
+            @return The updated object. */
+            StringBuffer &
+            operator =
+                (StringBuffer &&  other)
+                noexcept;
 
-    protected :
-        // Protected methods.
+            friend std::ostream &
+            operator <<
+                (std::ostream &         out,
+                const StringBuffer &   aBuffer);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief Add quotes and escapes to a string.
-         @param[in] aString The string to be processed.
-         @param[in] length The length of the string. */
-        void
-        processCharacters
-            (const char *   aString,
-             const size_t   length);
+        private :
+            // Private methods.
 
-    public :
-        // Public fields.
+            /*! @brief Add quotes and escapes to a string.
+            @param[in] aString The string to be processed.
+            @param[in] length The length of the string. */
+            void
+            processCharacters
+                (const char *   aString,
+                const size_t   length);
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // StringBuffer
 

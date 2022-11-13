@@ -63,157 +63,158 @@ namespace nImO
      stringTagAndInfo ::= 'S'; */
     class StringsArgumentDescriptor final : public BaseArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument.
-         @param[in] defaultValue The default value for the command-line argument.
-         @param[in] allowedValues The set of values that can be entered. */
-        StringsArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode,
-             const std::string &    defaultValue,
-             const StringSet        allowedValues);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        StringsArgumentDescriptor
-            (const StringsArgumentDescriptor &   other);
+            /*! @brief The constructor.
+            @param[in] argName The name of the command-line argument.
+            @param[in] argDescription A description of the command-line argument.
+            @param[in] argMode The mode of the command-line argument.
+            @param[in] defaultValue The default value for the command-line argument.
+            @param[in] allowedValues The set of values that can be entered. */
+            StringsArgumentDescriptor
+                (const std::string &    argName,
+                const std::string &    argDescription,
+                const ArgumentMode     argMode,
+                const std::string &    defaultValue,
+                const StringSet        allowedValues);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        StringsArgumentDescriptor
-            (StringsArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            StringsArgumentDescriptor
+                (const StringsArgumentDescriptor &   other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~StringsArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            StringsArgumentDescriptor
+                (StringsArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Return the allowed values.
-         @return The allowed values. */
-        inline const StringSet &
-        getAllowedValues
-            (void)
-            const
-        {
-            return _allowedValues;
-        } // getAllowedValues
+            /*! @brief The destructor. */
+            virtual
+            ~StringsArgumentDescriptor
+                (void);
 
-        /*! @brief Return the current value.
-         @return The current value. */
-        inline const std::string &
-        getCurrentValue
-            (void)
-            const
-        {
-            return _currentValue;
-        } // getCurrentValue
+            /*! @brief Return the allowed values.
+            @return The allowed values. */
+            inline const StringSet &
+            getAllowedValues
+                (void)
+                const
+            {
+                return _allowedValues;
+            } // getAllowedValues
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief Return the current value.
+            @return The current value. */
+            inline const std::string &
+            getCurrentValue
+                (void)
+                const
+            {
+                return _currentValue;
+            } // getCurrentValue
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (StringsArgumentDescriptor & other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+            @param[in] inString The input string in 'arguments' format.
+            @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+            @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (StringsArgumentDescriptor & other);
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void)
-            override;
+        protected :
+            // Protected methods.
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void)
-            override;
+            /*! @brief Return the default value.
+            @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void)
+                override;
 
-    private :
-        // Private methods.
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Return the processed value.
-         @return The processed value. */
-        virtual std::string
-        getProcessedValue
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+            @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void)
-            override;
+            /*! @brief Return the processed value.
+            @return The processed value. */
+            virtual std::string
+            getProcessedValue
+                (void)
+                override;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void)
+                override;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value)
-            override;
+            /*! @brief Convert to a printable representation.
+            @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Check an input value against the constraints of the descriptor.
+            @param[in] value The value to be checked.
+            @return @c true if the value is within the domain of the descriptor and @c false
+            otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The current value of the command-line argument. */
-        std::string _currentValue;
+        private :
+            // Private fields.
 
-        /*! @brief The default value for the command-line argument. */
-        std::string _defaultValue;
+            /*! @brief The current value of the command-line argument. */
+            std::string _currentValue;
 
-        /*! @brief The values that are allowed for the command-line argument. */
-        StringSet   _allowedValues;
+            /*! @brief The default value for the command-line argument. */
+            std::string _defaultValue;
+
+            /*! @brief The values that are allowed for the command-line argument. */
+            StringSet   _allowedValues;
 
     }; // StringsArgumentDescriptor
 

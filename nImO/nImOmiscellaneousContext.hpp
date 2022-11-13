@@ -57,47 +57,48 @@ namespace nImO
     /*! @brief A class to provide support for a 'miscellaneous' application. */
     class MiscellaneousContext final : public Context
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Context;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Context;
 
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        MiscellaneousContext
-            (const std::string &    executableName,
-             const std::string &    nodeName = "");
+        public :
+            // Public methods.
 
-        /*! @brief The destructor. */
-        virtual
-        ~MiscellaneousContext
-            (void);
+            /*! @brief The constructor.
+            @param[in] executable The name of the executing program.
+            @param[in] nodeName The @nImO-visible name of the executing program. */
+            MiscellaneousContext
+                (const std::string &    executableName,
+                const std::string &    nodeName = "");
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~MiscellaneousContext
+                (void);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // MiscellaneousContext
 

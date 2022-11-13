@@ -57,75 +57,76 @@ namespace nImO
     /*! @brief A class to provide simple values. */
     class Flaw : public Value
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Value;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Value;
 
-        /*! @brief The destructor. */
-        virtual
-        ~Flaw
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Flaw
-            (Flaw &&	other)
-            noexcept;
+            /*! @brief The destructor. */
+            virtual
+            ~Flaw
+                (void);
 
-        /*! @brief Return non-@c nullptr if the object is a Flaw.
-         @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-        virtual const Flaw *
-        asFlaw
-            (void)
-            const
-            override;
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Flaw
+                (Flaw &&	other)
+                noexcept;
 
-        /*! @brief Return a textual description of the Flaw.
-         @return A textual description of the Flaw. */
-        virtual std::string
-        getDescription
-            (void)
-            const = 0;
+            /*! @brief Return non-@c nullptr if the object is a Flaw.
+            @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
+            virtual const Flaw *
+            asFlaw
+                (void)
+                const
+                override;
 
-    protected :
-        // Protected methods.
+            /*! @brief Return a textual description of the Flaw.
+            @return A textual description of the Flaw. */
+            virtual std::string
+            getDescription
+                (void)
+                const = 0;
 
-        /*! @brief The constructor. */
-        Flaw
-            (void);
+        protected :
+            // Protected methods.
 
-        /*! @brief Insert a readable version of the object into an output stream.
-         @param[in,out] out The stream to be added to.
-         @param[in] aValue The object to be printed.
-         @return The modified stream. */
-        virtual std::ostream &
-        operator <<
-            (std::ostream & out)
-            const
-            override;
+            /*! @brief The constructor. */
+            Flaw
+                (void);
 
-    private :
-        // Private methods.
+            /*! @brief Insert a readable version of the object into an output stream.
+            @param[in,out] out The stream to be added to.
+            @param[in] aValue The object to be printed.
+            @return The modified stream. */
+            virtual std::ostream &
+            operator <<
+                (std::ostream & out)
+                const
+                override;
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Flaw
 

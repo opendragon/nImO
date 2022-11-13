@@ -57,73 +57,74 @@ namespace nImO
     /*! @brief A class to provide numeric values. */
     class Number : public Atom
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Atom;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Atom;
 
-        /*! @brief The constructor. */
-        Number
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Number
-            (Number &&	other)
-            noexcept;
+            /*! @brief The constructor. */
+            Number
+                (void);
 
-        /*! @brief The destructor. */
-        virtual
-        ~Number
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Number
+                (Number &&	other)
+                noexcept;
 
-        /*! @brief Return non-@c nullptr if the object is a Number.
-         @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-        virtual const Number *
-        asNumber
-            (void)
-            const
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~Number
+                (void);
 
-        /*! @brief Return the characters that can appear as the start of a Number.
-         @return The characters that can appear as the start of a Number. */
-        static const char *
-        getInitialCharacters
-            (void);
+            /*! @brief Return non-@c nullptr if the object is a Number.
+            @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
+            virtual const Number *
+            asNumber
+                (void)
+                const
+                override;
 
-        /*! @brief Convert a readable representation of the object in a buffer into an object.
-         @param[in] inBuffer The buffer to be scanned.
-         @param[in,out] position Where in the buffer to start.
-         @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
-        static SpValue
-        readFromStringBuffer
-            (const StringBuffer &   inBuffer,
-             size_t &               position);
+            /*! @brief Return the characters that can appear as the start of a Number.
+            @return The characters that can appear as the start of a Number. */
+            static const char *
+            getInitialCharacters
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Convert a readable representation of the object in a buffer into an object.
+            @param[in] inBuffer The buffer to be scanned.
+            @param[in,out] position Where in the buffer to start.
+            @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
+            static SpValue
+            readFromStringBuffer
+                (const StringBuffer &   inBuffer,
+                size_t &               position);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Number
 

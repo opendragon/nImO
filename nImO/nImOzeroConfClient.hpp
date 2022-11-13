@@ -57,50 +57,51 @@ namespace nImO
     /*! @brief A class to provide simple values. */
     class ZeroConfClient final // : public Value
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        //using inherited = Value;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            //using inherited = Value;
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ZeroConfClient
-            (ZeroConfClient &&	other)
-            noexcept;
+        public :
+            // Public methods.
 
-        /*! @brief The destructor. */
-        virtual
-        ~ZeroConfClient
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ZeroConfClient
+                (ZeroConfClient &&	other)
+                noexcept;
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~ZeroConfClient
+                (void);
 
-        /*! @brief The constructor. */
-        ZeroConfClient
-            (void);
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+            /*! @brief The constructor. */
+            ZeroConfClient
+                (void);
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // ZeroConfClient
 

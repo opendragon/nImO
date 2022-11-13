@@ -68,132 +68,133 @@ namespace nImO
      argument reference is of no practical use. */
     class ExtraArgumentDescriptor final : public BaseArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument. */
-        ExtraArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ExtraArgumentDescriptor
-            (const ExtraArgumentDescriptor &    other);
+            /*! @brief The constructor.
+            @param[in] argName The name of the command-line argument.
+            @param[in] argDescription A description of the command-line argument. */
+            ExtraArgumentDescriptor
+                (const std::string &    argName,
+                const std::string &    argDescription);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ExtraArgumentDescriptor
-            (ExtraArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            ExtraArgumentDescriptor
+                (const ExtraArgumentDescriptor &    other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~ExtraArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ExtraArgumentDescriptor
+                (ExtraArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief The destructor. */
+            virtual
+            ~ExtraArgumentDescriptor
+                (void);
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (ExtraArgumentDescriptor &  other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+            @param[in] inString The input string in 'arguments' format.
+            @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+            @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (ExtraArgumentDescriptor &  other);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+            @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void)
-            override;
+            /*! @brief Return the default value.
+            @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return the processed value.
-         @return The processed value. */
-        virtual std::string
-        getProcessedValue
-            (void)
-            override;
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
-         arguments.
-         @return @c true if the argument is a placeholder for zero of more trailing arguments
-         and @c false otherwise. */
-        virtual bool
-        isExtra
-            (void)
-            const
-            override;
+            /*! @brief Return the processed value.
+            @return The processed value. */
+            virtual std::string
+            getProcessedValue
+                (void)
+                override;
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void)
-            override;
+            /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
+            arguments.
+            @return @c true if the argument is a placeholder for zero of more trailing arguments
+            and @c false otherwise. */
+            virtual bool
+            isExtra
+                (void)
+                const
+                override;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void)
+                override;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value)
-            override;
+            /*! @brief Convert to a printable representation.
+            @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Check an input value against the constraints of the descriptor.
+            @param[in] value The value to be checked.
+            @return @c true if the value is within the domain of the descriptor and @c false
+            otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // ExtraArgumentDescriptor
 

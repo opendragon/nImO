@@ -58,67 +58,68 @@ namespace nImO
     /*! @brief A class to provide support for an application that uses mDNS. */
     class ContextWithZeroConfig : public Context
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Context;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Context;
 
-        /*! @brief The destructor. */
-        virtual
-        ~ContextWithZeroConfig
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief Log a message.
-         @param[in] message The message to be logged. */
-        void
-        report
-            (const std::string &    message)
-            const;
+            /*! @brief The destructor. */
+            virtual
+            ~ContextWithZeroConfig
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Log a message.
+            @param[in] message The message to be logged. */
+            void
+            report
+                (const std::string &    message)
+                const;
 
-        /*! @brief The constructor.
-         @param[in] executable The name of the executing program.
-         @param[in] logging @c true if the executing program is to be logged.
-         @param[in] nodeName The @nImO-visible name of the executing program. */
-        ContextWithZeroConfig
-            (const std::string &    executableName,
-             const bool             logging,
-             const std::string &    nodeName = "");
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+            /*! @brief The constructor.
+            @param[in] executable The name of the executing program.
+            @param[in] logging @c true if the executing program is to be logged.
+            @param[in] nodeName The @nImO-visible name of the executing program. */
+            ContextWithZeroConfig
+                (const std::string &    executableName,
+                const bool             logging,
+                const std::string &    nodeName = "");
 
-        /*! @brief Add a new listening port for the logged messages. */
-        void
-        addListeningPort
-            (void);
+        private :
+            // Private methods.
 
-        /*! @brief Remove a listening port. */
-        void
-        removeListeningPort
-            (void);
+            /*! @brief Add a new listening port for the logged messages. */
+            void
+            addListeningPort
+                (void);
 
-    public :
-        // Public fields.
+            /*! @brief Remove a listening port. */
+            void
+            removeListeningPort
+                (void);
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
-        Logger *    _logger;
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+            Logger *    _logger;
 
     }; // ContextWithZeroConfig
 

@@ -57,63 +57,64 @@ namespace nImO
     /*! @brief A class to provide the @nImO logging mechanism. */
     class Logger final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor. */
-        Logger
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The destructor. */
-        virtual
-        ~Logger
-            (void);
+            /*! @brief The constructor. */
+            Logger
+                (void);
 
-        /*! @brief Add a new listening port for the logged messages. */
-        void
-        addListeningPort
-            (void);
+            /*! @brief The destructor. */
+            virtual
+            ~Logger
+                (void);
 
-        /*! @brief Remove a listening port. */
-        void
-        removeListeningPort
-            (void);
+            /*! @brief Add a new listening port for the logged messages. */
+            void
+            addListeningPort
+                (void);
 
-        /*! @brief Log a message.
-         @param[in] message The message to be logged. */
-        void
-        report
-            (const std::string &    message)
-            const;
+            /*! @brief Remove a listening port. */
+            void
+            removeListeningPort
+                (void);
 
-    protected :
-        // Protected methods.
+            /*! @brief Log a message.
+            @param[in] message The message to be logged. */
+            void
+            report
+                (const std::string &    message)
+                const;
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief Remove all listening ports. */
-        void
-        removeAllListeningPorts
-            (void);
+        private :
+            // Private methods.
 
-    public :
-        // Public fields.
+            /*! @brief Remove all listening ports. */
+            void
+            removeAllListeningPorts
+                (void);
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Logger
 

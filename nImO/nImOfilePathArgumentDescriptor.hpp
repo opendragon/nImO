@@ -71,159 +71,160 @@ namespace nImO
      isRandom ::= '0' | '1'; */
     class FilePathArgumentDescriptor final : public StringArgumentDescriptor
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = StringArgumentDescriptor;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = StringArgumentDescriptor;
 
-        /*! @brief The constructor.
-         @param[in] argName The name of the command-line argument.
-         @param[in] argDescription A description of the command-line argument.
-         @param[in] argMode The mode of the command-line argument.
-         @param[in] pathPrefix The prefix to the default value for the command-line argument.
-         @param[in] pathSuffix The suffix to the default value for the command-line argument.
-         @param[in] forOutput @c true if the file will be used for output and @c false otherwise.
-         @param[in] useRandomPath @c true if the file path will be constructed with a random number
-         and @c false if the file path is fixed. */
-        FilePathArgumentDescriptor
-            (const std::string &    argName,
-             const std::string &    argDescription,
-             const ArgumentMode     argMode,
-             const std::string &    pathPrefix,
-             const std::string &    pathSuffix,
-             const bool             forOutput = false,
-             const bool             useRandomPath = false);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        FilePathArgumentDescriptor
-            (const FilePathArgumentDescriptor & other);
+            /*! @brief The constructor.
+            @param[in] argName The name of the command-line argument.
+            @param[in] argDescription A description of the command-line argument.
+            @param[in] argMode The mode of the command-line argument.
+            @param[in] pathPrefix The prefix to the default value for the command-line argument.
+            @param[in] pathSuffix The suffix to the default value for the command-line argument.
+            @param[in] forOutput @c true if the file will be used for output and @c false otherwise.
+            @param[in] useRandomPath @c true if the file path will be constructed with a random number
+            and @c false if the file path is fixed. */
+            FilePathArgumentDescriptor
+                (const std::string &    argName,
+                const std::string &    argDescription,
+                const ArgumentMode     argMode,
+                const std::string &    pathPrefix,
+                const std::string &    pathSuffix,
+                const bool             forOutput = false,
+                const bool             useRandomPath = false);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        FilePathArgumentDescriptor
-            (FilePathArgumentDescriptor &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            FilePathArgumentDescriptor
+                (const FilePathArgumentDescriptor & other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~FilePathArgumentDescriptor
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            FilePathArgumentDescriptor
+                (FilePathArgumentDescriptor &&	other)
+                noexcept;
 
-        /*! @brief Construct a descriptor, if at all possible, from the input string.
-         @param[in] inString The input string in 'arguments' format.
-         @return A valid descriptor or @c nullptr if the input is not recognized. */
-        static SpBaseArgumentDescriptor
-        parseArgString
-            (const std::string &    inString);
+            /*! @brief The destructor. */
+            virtual
+            ~FilePathArgumentDescriptor
+                (void);
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-            (FilePathArgumentDescriptor &   other);
+            /*! @brief Construct a descriptor, if at all possible, from the input string.
+            @param[in] inString The input string in 'arguments' format.
+            @return A valid descriptor or @c nullptr if the input is not recognized. */
+            static SpBaseArgumentDescriptor
+            parseArgString
+                (const std::string &    inString);
 
-    protected :
-        // Protected methods.
+            /*! @brief Exchanges the contents of the object with those of other.
+            @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (FilePathArgumentDescriptor &   other);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
-         @return A copy of the descriptor, with only non-pointer types duplicated. */
-        virtual SpBaseArgumentDescriptor
-        clone
-            (void)
-            const
-            override;
+        private :
+            // Private methods.
 
-        /*! @brief Return the default value.
-         @return The default value. */
-        virtual std::string
-        getDefaultValue
-            (void)
-            override;
+            /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
+            @return A copy of the descriptor, with only non-pointer types duplicated. */
+            virtual SpBaseArgumentDescriptor
+            clone
+                (void)
+                const
+                override;
 
-        /*! @brief Return the default value as a human-readable string.
-         @return The default value as a human-readable string. */
-        virtual std::string
-        getPrintableDefaultValue
-            (void)
-            override;
+            /*! @brief Return the default value.
+            @return The default value. */
+            virtual std::string
+            getDefaultValue
+                (void)
+                override;
 
-        /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
-         @param[out] isForOutput Set to @c true if the argument is for output files and @c false
-         otherwise.
-         @return @c true if the argument is for file paths and @c false otherwise. */
-        virtual bool
-        isForFiles
-            (bool & isForOutput)
-            const
-            override;
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            virtual std::string
+            getPrintableDefaultValue
+                (void)
+                override;
 
-        /*! @brief Set the associated variable to the default value. */
-        virtual void
-        setToDefaultValue
-            (void)
-            override;
+            /*! @brief Return @c true if the argument is for file paths and @c false otherwise.
+            @param[out] isForOutput Set to @c true if the argument is for output files and @c false
+            otherwise.
+            @return @c true if the argument is for file paths and @c false otherwise. */
+            virtual bool
+            isForFiles
+                (bool & isForOutput)
+                const
+                override;
 
-        /*! @brief Convert to a printable representation.
-         @return A printable representation of the descriptor. */
-        virtual std::string
-        toString
-            (void)
-            override;
+            /*! @brief Set the associated variable to the default value. */
+            virtual void
+            setToDefaultValue
+                (void)
+                override;
 
-        /*! @brief Check an input value against the constraints of the descriptor.
-         @param[in] value The value to be checked.
-         @return @c true if the value is within the domain of the descriptor and @c false
-         otherwise. */
-        virtual bool
-        validate
-            (const std::string &    value)
-            override;
+            /*! @brief Convert to a printable representation.
+            @return A printable representation of the descriptor. */
+            virtual std::string
+            toString
+                (void)
+                override;
 
-    public :
-        // Public fields.
+            /*! @brief Check an input value against the constraints of the descriptor.
+            @param[in] value The value to be checked.
+            @return @c true if the value is within the domain of the descriptor and @c false
+            otherwise. */
+            virtual bool
+            validate
+                (const std::string &    value)
+                override;
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The prefix value to use for constructing the default value. */
-        std::string _pathPrefix;
+        private :
+            // Private fields.
 
-        /*! @brief The suffix value to use for constructing the default value. */
-        std::string _pathSuffix;
+            /*! @brief The prefix value to use for constructing the default value. */
+            std::string _pathPrefix;
 
-        /*! @brief @c true if the default value is available and @c false otherwise. */
-        bool    _defaultSet;
+            /*! @brief The suffix value to use for constructing the default value. */
+            std::string _pathSuffix;
 
-        /*! @brief @c true if the file path will be used for output and @c false otherwise. */
-        bool    _forOutput;
+            /*! @brief @c true if the default value is available and @c false otherwise. */
+            bool    _defaultSet;
 
-        /*! @brief @c true if the file path will be constructed with a random number
-         and @c false if the file path is fixed. */
-        bool    _useRandomPath;
+            /*! @brief @c true if the file path will be used for output and @c false otherwise. */
+            bool    _forOutput;
+
+            /*! @brief @c true if the file path will be constructed with a random number
+            and @c false if the file path is fixed. */
+            bool    _useRandomPath;
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
 # endif // defined(__APPLE__)
-        /*! @brief Filler to pad to alignment boundary */
-        char    _filler[5];
+            /*! @brief Filler to pad to alignment boundary */
+            char    _filler[5];
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

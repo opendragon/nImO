@@ -57,243 +57,244 @@ namespace nImO
     /*! @brief A class to provide numeric values. */
     class Integer final : public Number
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = Number;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = Number;
 
-        /*! @brief The constructor. */
-        Integer
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The constructor.
-          @param[in] initialValue The initial value for the object. */
-        explicit Integer
-            (const int64_t  initialValue);
+            /*! @brief The constructor. */
+            Integer
+                (void);
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        Integer
-            (const Integer &    other);
+            /*! @brief The constructor.
+            @param[in] initialValue The initial value for the object. */
+            explicit Integer
+                (const int64_t  initialValue);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Integer
-            (Integer &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            Integer
+                (const Integer &    other);
 
-        /*! @brief The destructor. */
-        virtual
-        ~Integer
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Integer
+                (Integer &&	other)
+                noexcept;
 
-        /*! @brief Return non-@c nullptr if the object is an Integer.
-         @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
-        virtual const Integer *
-        asInteger
-            (void)
-            const
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~Integer
+                (void);
 
-        /*! @brief Return @c true if two Values are structurally identical.
-         @param[in] other The Value to be compared with.
-         @return @c true if the two Values are structurally identical. */
-        virtual bool
-        deeplyEqualTo
-            (const Value &  other)
-            const
-            override;
+            /*! @brief Return non-@c nullptr if the object is an Integer.
+            @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
+            virtual const Integer *
+            asInteger
+                (void)
+                const
+                override;
 
-        /*! @brief Return the enumeration type of an object.
-         @return The enumeration type of an object. */
-        virtual Enumerable
-        enumerationType
-            (void)
-            const
-            override;
+            /*! @brief Return @c true if two Values are structurally identical.
+            @param[in] other The Value to be compared with.
+            @return @c true if the two Values are structurally identical. */
+            virtual bool
+            deeplyEqualTo
+                (const Value &  other)
+                const
+                override;
 
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
-        virtual ComparisonStatus
-        equalTo
-            (const Value &  other)
-            const
-            override;
+            /*! @brief Return the enumeration type of an object.
+            @return The enumeration type of an object. */
+            virtual Enumerable
+            enumerationType
+                (void)
+                const
+                override;
 
-        /*! @brief Get the extraction information for Integer objects.
-         @param[out] aByte The byte value that indicates the start of a Integer value.
-         @param[out] aMask The mask to apply to a lead byte.
-         @param[out] theExtractor The function to perform when the lead byte is seen. */
-        static void
-        getExtractionInfo
-            (DataKind &     aByte,
-             DataKind &     aMask,
-             Extractor &    theExtractor);
+            /*! @brief Return the relative ordering of two Values.
+            @param[in] other The Value to be compared with.
+            @return The relative ordering of the two Values. */
+            virtual ComparisonStatus
+            equalTo
+                (const Value &  other)
+                const
+                override;
 
-        /*! @brief Return the value of the object.
-         @return The value of the object. */
-        inline int64_t
-        getIntegerValue
-            (void)
-            const
-        {
-            return _intValue;
-        } // getIntegerValue
+            /*! @brief Get the extraction information for Integer objects.
+            @param[out] aByte The byte value that indicates the start of a Integer value.
+            @param[out] aMask The mask to apply to a lead byte.
+            @param[out] theExtractor The function to perform when the lead byte is seen. */
+            static void
+            getExtractionInfo
+                (DataKind &     aByte,
+                DataKind &     aMask,
+                Extractor &    theExtractor);
 
-        /*! @brief Return the type tag for the Value for use with Messages.
-         @return The type tag for the Value for use with Messages. */
-        virtual DataKind
-        getTypeTag
-            (void)
-            const
-            override;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
-        virtual ComparisonStatus
-        greaterThan
-            (const Value &  other)
-            const
-            override;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
-        virtual ComparisonStatus
-        greaterThanOrEqual
-            (const Value &  other)
-            const
-            override;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
-        virtual ComparisonStatus
-        lessThan
-            (const Value &  other)
-            const
-            override;
-
-        /*! @brief Return the relative ordering of two Values.
-         @param[in] other The Value to be compared with.
-         @return The relative ordering of the two Values. */
-        virtual ComparisonStatus
-        lessThanOrEqual
-            (const Value &  other)
-            const
-            override;
-
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        inline Integer &
-        operator =
-            (const Integer &    other)
-        {
-            if (this != &other)
+            /*! @brief Return the value of the object.
+            @return The value of the object. */
+            inline int64_t
+            getIntegerValue
+                (void)
+                const
             {
-                _intValue = other._intValue;
-            }
-            return *this;
-        } // operator =
+                return _intValue;
+            } // getIntegerValue
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        Integer &
-        operator =
-            (Integer &&  other)
-            noexcept;
+            /*! @brief Return the type tag for the Value for use with Messages.
+            @return The type tag for the Value for use with Messages. */
+            virtual DataKind
+            getTypeTag
+                (void)
+                const
+                override;
 
-        /*! @brief The assignment operator.
-         @param[in] value The value to be assigned.
-         @return The updated object. */
-        inline Integer &
-        operator =
-            (const int64_t  value)
-        {
-            _intValue = value;
-            return *this;
-        } // operator =
+            /*! @brief Return the relative ordering of two Values.
+            @param[in] other The Value to be compared with.
+            @return The relative ordering of the two Values. */
+            virtual ComparisonStatus
+            greaterThan
+                (const Value &  other)
+                const
+                override;
 
-        /*! @brief Add a readable representation of the object to the buffer.
-         @param[in,out] outBuffer The buffer to be appended to.
-         @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-         is as readable as possible. */
-        virtual void
-        printToStringBuffer
-            (StringBuffer & outBuffer,
-             const bool     squished = false)
-            const
-            override;
+            /*! @brief Return the relative ordering of two Values.
+            @param[in] other The Value to be compared with.
+            @return The relative ordering of the two Values. */
+            virtual ComparisonStatus
+            greaterThanOrEqual
+                (const Value &  other)
+                const
+                override;
 
-        /*! @brief Add a binary representation of the object to the message.
-         @param[in,out] outMessage The Message to be appended to. */
-        virtual void
-        writeToMessage
-            (Message &  outMessage)
-            const
-            override;
+            /*! @brief Return the relative ordering of two Values.
+            @param[in] other The Value to be compared with.
+            @return The relative ordering of the two Values. */
+            virtual ComparisonStatus
+            lessThan
+                (const Value &  other)
+                const
+                override;
 
-    protected :
-        // Protected methods.
+            /*! @brief Return the relative ordering of two Values.
+            @param[in] other The Value to be compared with.
+            @return The relative ordering of the two Values. */
+            virtual ComparisonStatus
+            lessThanOrEqual
+                (const Value &  other)
+                const
+                override;
 
-        /*! @brief Insert a readable version of the object into an output stream.
-         @param[in,out] out The stream to be added to.
-         @param[in] aValue The object to be printed.
-         @return The modified stream. */
-        virtual std::ostream &
-        operator <<
-            (std::ostream & out)
-            const
-            override;
+            /*! @brief The copy assignment operator.
+            @param[in] other The object to be copied.
+            @return The updated object. */
+            inline Integer &
+            operator =
+                (const Integer &    other)
+            {
+                if (this != &other)
+                {
+                    _intValue = other._intValue;
+                }
+                return *this;
+            } // operator =
 
-    private :
-        // Private methods.
+            /*! @brief The move assignment operator.
+            @param[in] other The object to be moved.
+            @return The updated object. */
+            Integer &
+            operator =
+                (Integer &&  other)
+                noexcept;
 
-        /*! @brief Extracts Value objects from a Message.
-         Note that the parentValue argument is normally @c nullptr, and is used for handling
-         multiple floating-point numbers in a sequence; if a series of Double values are extracted,
-         they are directly added to the Array and the last Value is returned as the result of the
-         function; for all other Value objects, the (single) Value that is extracted is added to
-         the Array to simplify the logic, as well as being returned.
-         @param[in] theMessage The Message being processed.
-         @param[in] leadByte The initial byte of the Value.
-         @param[in,out] position The location of the next byte to be processed.
-         @param[in] parentValue A pointer to the Value that will contain the new object.
-         @return @c nullptr if the Value could not be extracted because the Message ended before
-         the Value did, a Flaw if the Value could not be extracted because it was not correct and
-         a non-Flaw Value if extraction was successful. */
-        static SpValue
-        extractValue
-            (const Message &    theMessage,
-             const int          leadByte,
-             size_t &           position,
-             SpArray            parentValue);
+            /*! @brief The assignment operator.
+            @param[in] value The value to be assigned.
+            @return The updated object. */
+            inline Integer &
+            operator =
+                (const int64_t  value)
+            {
+                _intValue = value;
+                return *this;
+            } // operator =
 
-    public :
-        // Public fields.
+            /*! @brief Add a readable representation of the object to the buffer.
+            @param[in,out] outBuffer The buffer to be appended to.
+            @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+            is as readable as possible. */
+            virtual void
+            printToStringBuffer
+                (StringBuffer & outBuffer,
+                const bool     squished = false)
+                const
+                override;
 
-    protected :
-        // Protected fields.
+            /*! @brief Add a binary representation of the object to the message.
+            @param[in,out] outMessage The Message to be appended to. */
+            virtual void
+            writeToMessage
+                (Message &  outMessage)
+                const
+                override;
 
-    private :
-        // Private fields.
+        protected :
+            // Protected methods.
 
-        /*! @brief The associated value, if it is floating point. */
-        int64_t _intValue;
+            /*! @brief Insert a readable version of the object into an output stream.
+            @param[in,out] out The stream to be added to.
+            @param[in] aValue The object to be printed.
+            @return The modified stream. */
+            virtual std::ostream &
+            operator <<
+                (std::ostream & out)
+                const
+                override;
+
+        private :
+            // Private methods.
+
+            /*! @brief Extracts Value objects from a Message.
+            Note that the parentValue argument is normally @c nullptr, and is used for handling
+            multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+            they are directly added to the Array and the last Value is returned as the result of the
+            function; for all other Value objects, the (single) Value that is extracted is added to
+            the Array to simplify the logic, as well as being returned.
+            @param[in] theMessage The Message being processed.
+            @param[in] leadByte The initial byte of the Value.
+            @param[in,out] position The location of the next byte to be processed.
+            @param[in] parentValue A pointer to the Value that will contain the new object.
+            @return @c nullptr if the Value could not be extracted because the Message ended before
+            the Value did, a Flaw if the Value could not be extracted because it was not correct and
+            a non-Flaw Value if extraction was successful. */
+            static SpValue
+            extractValue
+                (const Message &    theMessage,
+                const int          leadByte,
+                size_t &           position,
+                SpArray            parentValue);
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief The associated value, if it is floating point. */
+            int64_t _intValue;
 
     }; // Integer
 

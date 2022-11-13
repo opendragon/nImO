@@ -57,47 +57,48 @@ namespace nImO
     /*! @brief A class to provide network connection points. */
     class Channel final
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-    public :
-        // Public methods.
+        private :
+            // Private type definitions.
 
-        /*! @brief The constructor. */
-        Channel
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Channel
-            (Channel &&	other)
-            noexcept;
+            /*! @brief The constructor. */
+            Channel
+                (void);
 
-        /*! @brief The destructor. */
-        virtual
-        ~Channel
-            (void);
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            Channel
+                (Channel &&	other)
+                noexcept;
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~Channel
+                (void);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // Channel
 

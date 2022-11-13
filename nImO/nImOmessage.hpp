@@ -57,181 +57,182 @@ namespace nImO
     /*! @brief The data constituting a Message. */
     class Message final : public ChunkArray
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ChunkArray;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = ChunkArray;
 
-        /*! @brief The constructor. */
-        Message
-            (void);
+        public :
+            // Public methods.
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        Message
-            (const Message &    other) = delete;
+            /*! @brief The constructor. */
+            Message
+                (void);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        Message
-            (Message &&	other)
-            noexcept;
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            Message
+                (const Message &    other) = delete;
 
-        /*! @brief The destructor. */
-        virtual
-        ~Message
-            (void);
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            Message
+                (Message &&	other)
+                noexcept;
 
-        /*! @brief Add some bytes to the buffer.
-         @param[in] data The bytes to be added.
-         @param[in] numBytes The number of bytes to add. */
-        virtual void
-        appendBytes
-            (const uint8_t *    data,
-             const size_t       numBytes)
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~Message
+                (void);
 
-        /*! @brief Add some bytes to the buffer.
-         @param[in] data The bytes to be added.
-         @param[in] numBytes The number of bytes to add. */
-        inline void
-        appendBytes
-            (const DataKind *   data,
-             const size_t       numBytes)
-        {
-            appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
-        } // appendBytes
+            /*! @brief Add some bytes to the buffer.
+            @param[in] data The bytes to be added.
+            @param[in] numBytes The number of bytes to add. */
+            virtual void
+            appendBytes
+                (const uint8_t *    data,
+                const size_t       numBytes)
+                override;
 
-        /*! @brief Close the Message, completing its contents.
-         @return The Message object so that cascading can be done. */
-        Message &
-        close
-            (void);
+            /*! @brief Add some bytes to the buffer.
+            @param[in] data The bytes to be added.
+            @param[in] numBytes The number of bytes to add. */
+            inline void
+            appendBytes
+                (const DataKind *   data,
+                const size_t       numBytes)
+            {
+                appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
+            } // appendBytes
 
-        /*! @brief Return a copy of the bytes in the buffer.
-         @return A copy of the bytes in the buffer. */
-        virtual std::string
-        getBytes
-            (void)
-            override;
+            /*! @brief Close the Message, completing its contents.
+            @return The Message object so that cascading can be done. */
+            Message &
+            close
+                (void);
 
-        /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
-         transmitted.
-         Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
-         except for the initial start-of-message byte.
-         Escaping a byte involves inverting the high bit of the byte and having an escape byte
-         inserted before the byte.
-         The Message bytes are followed by a checksum byte, which is escaped if it matches a
-         start-of-message byte or an escape byte.
-         @param[out] length Set to the number of bytes returned.
-         @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
-        std::string
-        getBytesForTransmission
-            (void);
+            /*! @brief Return a copy of the bytes in the buffer.
+            @return A copy of the bytes in the buffer. */
+            virtual std::string
+            getBytes
+                (void)
+                override;
 
-        /*! @brief Return the number of valid bytes in the buffer.
-         @return The number of valid bytes in the buffer. */
-        virtual size_t
-        getLength
-            (void)
-            const
-            override;
+            /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
+            transmitted.
+            Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
+            except for the initial start-of-message byte.
+            Escaping a byte involves inverting the high bit of the byte and having an escape byte
+            inserted before the byte.
+            The Message bytes are followed by a checksum byte, which is escaped if it matches a
+            start-of-message byte or an escape byte.
+            @param[out] length Set to the number of bytes returned.
+            @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
+            std::string
+            getBytesForTransmission
+                (void);
 
-        /*! @brief Return the next Value in the Message.
-         @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
-         opened for reading
-         @return The next Value in the Message or @c nullptr if the Value cannot be retrieved or
-         a Flaw if the Value is invalid. */
-        SpValue
-        getValue
-            (const bool allowClosed = false);
+            /*! @brief Return the number of valid bytes in the buffer.
+            @return The number of valid bytes in the buffer. */
+            virtual size_t
+            getLength
+                (void)
+                const
+                override;
 
-        /*! @brief Open the Message, so that data can be read or written.
-         @param[in] forWriting @c true if the Message is being written to and @c false if it's being
-         read.
-         @return The Message object so that cascading can be done. */
-        Message &
-        open
-            (const bool forWriting);
+            /*! @brief Return the next Value in the Message.
+            @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
+            opened for reading
+            @return The next Value in the Message or @c nullptr if the Value cannot be retrieved or
+            a Flaw if the Value is invalid. */
+            SpValue
+            getValue
+                (const bool allowClosed = false);
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        Message &
-        operator =
-            (const Message &    other) = delete;
+            /*! @brief Open the Message, so that data can be read or written.
+            @param[in] forWriting @c true if the Message is being written to and @c false if it's being
+            read.
+            @return The Message object so that cascading can be done. */
+            Message &
+            open
+                (const bool forWriting);
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        Message &
-        operator =
-            (Message &&  other)
-            noexcept;
+            /*! @brief The copy assignment operator.
+            @param[in] other The object to be copied.
+            @return The updated object. */
+            Message &
+            operator =
+                (const Message &    other) = delete;
 
-        /*! @brief Return @c true if the read position is past the last character.
-         @return @c true if the read position is past the last character. */
-        inline bool
-        readAtEnd
-            (void)
-            const
-        {
-            return atEnd(_readPosition);
-        } // readAtEnd
+            /*! @brief The move assignment operator.
+            @param[in] other The object to be moved.
+            @return The updated object. */
+            Message &
+            operator =
+                (Message &&  other)
+                noexcept;
 
-        /*! @brief Prepare the Message for reuse.
-         @return The Message object so that cascading can be done. */
-        ChunkArray &
-        reset
-            (void)
-            override;
+            /*! @brief Return @c true if the read position is past the last character.
+            @return @c true if the read position is past the last character. */
+            inline bool
+            readAtEnd
+                (void)
+                const
+            {
+                return atEnd(_readPosition);
+            } // readAtEnd
 
-        /*! @brief Set the contents of the Message.
-         @param[in] theValue The value to be put in the Message.
-         @return The Message object so that cascading can be done. */
-        Message &
-        setValue
-            (const Value &  theValue);
+            /*! @brief Prepare the Message for reuse.
+            @return The Message object so that cascading can be done. */
+            ChunkArray &
+            reset
+                (void)
+                override;
 
-    protected :
-        // Protected methods.
+            /*! @brief Set the contents of the Message.
+            @param[in] theValue The value to be put in the Message.
+            @return The Message object so that cascading can be done. */
+            Message &
+            setValue
+                (const Value &  theValue);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief Mutual-exclusion protection. */
-        mutable std::mutex  _lock;
+        private :
+            // Private fields.
 
-        /*! @brief The cached value of the buffer for transmission. */
-        std::string _cachedTransmissionString;
+            /*! @brief Mutual-exclusion protection. */
+            mutable std::mutex  _lock;
 
-        /*! @brief The position of the next byte being read. */
-        size_t  _readPosition;
+            /*! @brief The cached value of the buffer for transmission. */
+            std::string _cachedTransmissionString;
 
-        /*! @brief The state of the object. */
-        MessageState    _state;
+            /*! @brief The position of the next byte being read. */
+            size_t  _readPosition;
 
-        /*! @brief @c true if the initial header bytes are present in the buffer. */
-        bool    _headerAdded;
+            /*! @brief The state of the object. */
+            MessageState    _state;
+
+            /*! @brief @c true if the initial header bytes are present in the buffer. */
+            bool    _headerAdded;
 
     }; // Message
 

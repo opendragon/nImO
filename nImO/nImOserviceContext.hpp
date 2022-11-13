@@ -57,51 +57,52 @@ namespace nImO
     /*! @brief A class to provide support for a 'service' application. */
     class ServiceContext final : public ContextWithCommandPort
     {
-    public :
-        // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        public :
+            // Public type definitions.
 
-    private :
-        // Private type definitions.
+        protected :
+            // Protected type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = ContextWithCommandPort;
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+            /*! @brief The class that this class is derived from. */
+            using inherited = ContextWithCommandPort;
 
-        /*! @brief The constructor.
-        @param[in] executable The name of the executing program.
-        @param[in] logging @c true if the executing program is to be logged.
-        @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
-        @param[in] nodeName The @nImO-visible name of the executing program. */
-        ServiceContext
-            (const std::string &    executableName,
-             const bool             logging,
-             const bool             autoLaunchRegistry = true,
-             const std::string &    nodeName = "");
+        public :
+            // Public methods.
 
-        /*! @brief The destructor. */
-        virtual
-        ~ServiceContext
-            (void);
+            /*! @brief The constructor.
+            @param[in] executable The name of the executing program.
+            @param[in] logging @c true if the executing program is to be logged.
+            @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
+            @param[in] nodeName The @nImO-visible name of the executing program. */
+            ServiceContext
+                (const std::string &    executableName,
+                const bool             logging,
+                const bool             autoLaunchRegistry = true,
+                const std::string &    nodeName = "");
 
-    protected :
-        // Protected methods.
+            /*! @brief The destructor. */
+            virtual
+            ~ServiceContext
+                (void);
 
-    private :
-        // Private methods.
+        protected :
+            // Protected methods.
 
-    public :
-        // Public fields.
+        private :
+            // Private methods.
 
-    protected :
-        // Protected fields.
+        public :
+            // Public fields.
 
-    private :
-        // Private fields.
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
 
     }; // ServiceContext
 

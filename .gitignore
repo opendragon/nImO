@@ -88,6 +88,7 @@ non-iOS/Tests/nImOchannelTest
 non-iOS/Tests/nImOchannelTest.dir/
 non-iOS/Tests/nImOchannelTest.rc
 non-iOS/Tests/nImOcommonTest
+non-iOS/Tests/nImOcommonTest.dir/
 non-iOS/Tests/nImOcommonTest.rc
 non-iOS/Tests/nImOcontainerTest
 non-iOS/Tests/nImOcontainerTest.dir/
@@ -101,10 +102,14 @@ non-iOS/Tests/nImOmessageInsertTest
 non-iOS/Tests/nImOmessageInsertTest.dir/
 non-iOS/Tests/nImOmessageInsertTest.rc
 non-iOS/Tests/nImOmessageTest
+non-iOS/Tests/nImOmessageTest.dir/
 non-iOS/Tests/nImOmessageTest.rc
 non-iOS/Tests/nImOparserTest
 non-iOS/Tests/nImOparserTest.dir/
 non-iOS/Tests/nImOparserTest.rc
+non-iOS/Tests/nImOMIMEAndMessagesTest
+non-iOS/Tests/nImOMIMEAndMessagesTest.dir/
+non-iOS/Tests/nImOMIMEAndMessagesTest.rc
 non-iOS/Version/nImOregistry
 non-iOS/Version/nImOregistry.dir/
 non-iOS/Version/nImOregistry.rc

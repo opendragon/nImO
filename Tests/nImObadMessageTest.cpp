@@ -181,7 +181,7 @@ doTestMessageInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             ODL_LOG("(stuff)"); //####
             static const DataKind   bytesToInsert[] =
@@ -237,7 +237,7 @@ doTestMessageTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -293,7 +293,7 @@ doTestEmptyMessageWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -352,7 +352,7 @@ doTestNonEmptyMessageWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -412,7 +412,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -475,7 +475,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -538,7 +538,7 @@ doTestNonEmptyMessageWithInvalidContentTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -600,7 +600,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -664,7 +664,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -729,7 +729,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -794,7 +794,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -862,7 +862,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -930,7 +930,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1001,7 +1001,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1074,7 +1074,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1146,7 +1146,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1225,7 +1225,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1307,7 +1307,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1399,7 +1399,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1467,7 +1467,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1535,7 +1535,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1606,7 +1606,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1679,7 +1679,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1751,7 +1751,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1836,7 +1836,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -1921,7 +1921,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2003,7 +2003,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2071,7 +2071,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2139,7 +2139,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2210,7 +2210,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2283,7 +2283,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2355,7 +2355,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2434,7 +2434,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   bytesToInsert[] =
             {
@@ -2667,7 +2667,7 @@ main
                         break;
 
                 }
-                if (result)
+                if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }

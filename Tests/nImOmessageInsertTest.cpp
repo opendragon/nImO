@@ -198,7 +198,7 @@ doTestInsertEmptyMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptyBytes[] =
             {
@@ -300,7 +300,7 @@ doTestInsertLogicalMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedTrueBytes[] =
             {
@@ -400,7 +400,7 @@ doTestInsertTinyIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMinus12Bytes[] =
             {
@@ -530,7 +530,7 @@ doTestInsertSmallIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMinus144Bytes[] =
             {
@@ -633,7 +633,7 @@ doTestInsertMediumIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMinus1234567Bytes[] =
             {
@@ -738,7 +738,7 @@ doTestInsertBigIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMinusBigNumberBytes[] =
             {
@@ -845,7 +845,7 @@ doTestInsertEmptyStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptyStringBytes[] =
             {
@@ -918,7 +918,7 @@ doTestInsertShortStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedShortStringBytes[] =
             {
@@ -994,7 +994,7 @@ doTestInsertMediumStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMediumStringBytes[] =
             {
@@ -1092,7 +1092,7 @@ doTestInsertEmptyBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptyBlobBytes[] =
             {
@@ -1165,7 +1165,7 @@ doTestInsertSmallBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedSmallBlobBytes[] =
             {
@@ -1246,7 +1246,7 @@ doTestInsertMediumBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMediumBlobBytes[] =
             {
@@ -1358,7 +1358,7 @@ doTestInsertSingleDoubleMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedPlus42Point5Bytes[] =
             {
@@ -1470,7 +1470,7 @@ doTestInsertMultipleEscapesMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedMultipleEscapesBytes[] =
             {
@@ -1554,7 +1554,7 @@ doTestInsertEmptyArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptyArrayBytes[] =
             {
@@ -1632,7 +1632,7 @@ doTestInsertEmptyMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptyMapBytes[] =
             {
@@ -1710,7 +1710,7 @@ doTestInsertEmptySetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedEmptySetBytes[] =
             {
@@ -1788,7 +1788,7 @@ doTestInsertArrayOneLogicalMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneLogicalBytes[] =
             {
@@ -1876,7 +1876,7 @@ doTestInsertArrayOneIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneIntegerBytes[] =
             {
@@ -1964,7 +1964,7 @@ doTestInsertArrayOneDoubleMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneDoubleBytes[] =
             {
@@ -2057,7 +2057,7 @@ doTestInsertArrayOneStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneStringBytes[] =
             {
@@ -2146,7 +2146,7 @@ doTestInsertArrayOneBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneBlobBytes[] =
             {
@@ -2235,7 +2235,7 @@ doTestInsertArrayOneArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneArrayBytes[] =
             {
@@ -2329,7 +2329,7 @@ doTestInsertArrayOneMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneMapBytes[] =
             {
@@ -2423,7 +2423,7 @@ doTestInsertArrayOneSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneSetBytes[] =
             {
@@ -2517,7 +2517,7 @@ doTestInsertArrayTwoLogicalsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoLogicalsBytes[] =
             {
@@ -2609,7 +2609,7 @@ doTestInsertArrayTwoIntegersMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoIntegersBytes[] =
             {
@@ -2701,7 +2701,7 @@ doTestInsertArrayTwoDoublesMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoDoublesBytes[] =
             {
@@ -2800,7 +2800,7 @@ doTestInsertArrayTwoStringsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoStringsBytes[] =
             {
@@ -2894,7 +2894,7 @@ doTestInsertArrayTwoBlobsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoBlobsBytes[] =
             {
@@ -2988,7 +2988,7 @@ doTestInsertArrayTwoArraysMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoArraysBytes[] =
             {
@@ -3093,7 +3093,7 @@ doTestInsertArrayTwoMapsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoMapsBytes[] =
             {
@@ -3198,7 +3198,7 @@ doTestInsertArrayTwoSetsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayTwoSetsBytes[] =
             {
@@ -3303,7 +3303,7 @@ doTestInsertArrayOneArrayOneMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneArrayOneMapBytes[] =
             {
@@ -3408,7 +3408,7 @@ doTestInsertArrayOneMapOneSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneMapOneSetBytes[] =
             {
@@ -3513,7 +3513,7 @@ doTestInsertArrayOneSetOneArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedArrayOneSetOneArrayBytes[] =
             {
@@ -3618,7 +3618,7 @@ doTestInsertArrayWithManyDoublesMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             const size_t            numValues = 43;
             static const DataKind   expectedArrayManyDoublesBytes[] =
@@ -3926,7 +3926,7 @@ doTestInsertLogicalMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedLogicalMapBytes[] =
             {
@@ -4018,7 +4018,7 @@ doTestInsertIntegerMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedIntegerMapBytes[] =
             {
@@ -4110,7 +4110,7 @@ doTestInsertStringMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedStringMapBytes[] =
             {
@@ -4203,7 +4203,7 @@ doTestInsertLogicalSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedLogicalSetBytes[] =
             {
@@ -4291,7 +4291,7 @@ doTestInsertIntegerSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedIntegerSetBytes[] =
             {
@@ -4379,7 +4379,7 @@ doTestInsertStringSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const DataKind   expectedStringSetBytes[] =
             {
@@ -4659,7 +4659,7 @@ main
                         break;
 
                 }
-                if (result)
+                if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }

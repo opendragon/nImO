@@ -184,7 +184,7 @@ doTestEmptyArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -255,7 +255,7 @@ doTestSingularArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -331,7 +331,7 @@ doTestSmallArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -416,7 +416,7 @@ doTestBigArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
@@ -508,7 +508,7 @@ doTestEmptyArraySizeFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == stuff->size())
             {
@@ -561,7 +561,7 @@ doTestNonEmptyArraySizeFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -615,7 +615,7 @@ doTestEmptyArrayEmptyFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->empty())
             {
@@ -668,7 +668,7 @@ doTestNonEmptyArrayEmptyFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -722,7 +722,7 @@ doTestEmptyArrayClearFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -776,7 +776,7 @@ doTestNonEmptyArrayClearFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             stuff->clear();
@@ -831,7 +831,7 @@ doTestEmptyArrayRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -884,7 +884,7 @@ doTestNonEmptyArrayRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -944,7 +944,7 @@ doTestClearingNonEmptyArrayUsingRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -1015,7 +1015,7 @@ doTestEmptyMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1086,7 +1086,7 @@ doTestSingularLogicalMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1164,7 +1164,7 @@ doTestSingularIntegerMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1240,7 +1240,7 @@ doTestSingularStringMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1318,7 +1318,7 @@ doTestSmallLogicalMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1399,7 +1399,7 @@ doTestSmallIntegerMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1481,7 +1481,7 @@ doTestSmallStringMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -1569,7 +1569,7 @@ doTestEmptyMapSizeFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == stuff->size())
             {
@@ -1622,7 +1622,7 @@ doTestNonEmptyMapSizeFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -1676,7 +1676,7 @@ doTestEmptyMapEmptyFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->empty())
             {
@@ -1729,7 +1729,7 @@ doTestNonEmptyMapEmptyFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -1783,7 +1783,7 @@ doTestEmptyMapClearFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -1837,7 +1837,7 @@ doTestNonEmptyMapClearFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             stuff->clear();
@@ -1892,7 +1892,7 @@ doTestEmptyMapRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -1945,7 +1945,7 @@ doTestNonEmptyMapRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
             stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
@@ -2004,7 +2004,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
@@ -2073,7 +2073,7 @@ doTestEmptySetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2144,7 +2144,7 @@ doTestSingularLogicalSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2220,7 +2220,7 @@ doTestSingularIntegerSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2296,7 +2296,7 @@ doTestSingularStringSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2372,7 +2372,7 @@ doTestSmallLogicalSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2453,7 +2453,7 @@ doTestSmallIntegerSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2542,7 +2542,7 @@ doTestSmallStringSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -2631,7 +2631,7 @@ doTestEmptySetSizeFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == stuff->size())
             {
@@ -2684,7 +2684,7 @@ doTestNonEmptySetSizeFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (1 == stuff->size())
@@ -2738,7 +2738,7 @@ doTestEmptySetEmptyFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->empty())
             {
@@ -2791,7 +2791,7 @@ doTestNonEmptySetEmptyFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (stuff->empty())
@@ -2845,7 +2845,7 @@ doTestEmptySetClearFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -2899,7 +2899,7 @@ doTestNonEmptySetClearFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             stuff->clear();
@@ -2954,7 +2954,7 @@ doTestEmptySetRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -3007,7 +3007,7 @@ doTestNonEmptySetRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addValue(std::make_shared<String>("gamma"));
             stuff->addValue(std::make_shared<String>("alpha"));
@@ -3068,7 +3068,7 @@ doTestClearingNonEmptySetUsingRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("gamma"));
@@ -3140,7 +3140,7 @@ doTestArrayWithArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3216,7 +3216,7 @@ doTestArrayWithMapValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3292,7 +3292,7 @@ doTestArrayWithSetValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3368,7 +3368,7 @@ doTestMapWithArrayValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3446,7 +3446,7 @@ doTestMapWithMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3524,7 +3524,7 @@ doTestMapWithSetValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3602,7 +3602,7 @@ doTestLogicalMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3683,7 +3683,7 @@ doTestIntegerMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3762,7 +3762,7 @@ doTestStringMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3843,7 +3843,7 @@ doTestLogicalSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -3922,7 +3922,7 @@ doTestIntegerSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -4001,7 +4001,7 @@ doTestStringSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             static const char   expectedSquishedString[] =
             {
@@ -8164,7 +8164,7 @@ main
                         break;
 
                 }
-                if (result)
+                if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }

@@ -622,7 +622,7 @@ nImO::ProcessArguments
         }
     }
     // Check the arguments with matching descriptions, unless it is a placeholder for extra arguments.
-    if (result)
+    if (0 != result)
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {

@@ -211,7 +211,7 @@ nImO::Map::deeplyEqualTo
                 if ((nullptr != thisKey) && (nullptr != otherKey))
                 {
                     result = thisKey->deeplyEqualTo(*otherKey);
-                    if (result)
+                    if (0 != result)
                     {
                         SpValue thisValue{thisWalker->second};
                         SpValue otherValue{otherWalker->second};

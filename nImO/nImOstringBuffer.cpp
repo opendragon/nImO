@@ -236,7 +236,7 @@ nImO::StringBuffer::convertToValue
     SpValue result{Value::readFromStringBuffer(*this, position)};
 
     ODL_P1("result <- ", result.get()); //####
-    if (result)
+    if (0 != result)
     {
         bool    atEnd;
         bool    done = false;

@@ -162,7 +162,7 @@ doTestEmptyBufferChunk
     {
         auto    stuff{make_unique<BufferChunk>(false)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == stuff->getDataSize())
             {
@@ -215,7 +215,7 @@ doTestBufferChunkWithSingleByte
     {
         auto    stuff{make_unique<BufferChunk>(false)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
@@ -280,7 +280,7 @@ doTestFilledBufferChunk
     {
         auto    stuff{make_unique<BufferChunk>(false)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             size_t  howMuch = stuff->getAvailableBytes();
 
@@ -371,7 +371,7 @@ doTestOverfilledBufferChunk
     {
         auto    stuff{make_unique<BufferChunk>(false)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             size_t  howMuch = stuff->getAvailableBytes();
 
@@ -462,7 +462,7 @@ doTestBufferChunkReset
     {
         auto    stuff{make_unique<BufferChunk>(false)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
 
@@ -526,7 +526,7 @@ doTestEmptyStringBuffer
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == stuff->getLength())
             {
@@ -592,7 +592,7 @@ doTestStringBufferWithCharacters
             size_t          outLength = strlen(outString);
             auto            stuff{make_unique<StringBuffer>()};
 
-            if (stuff)
+            if (nullptr != stuff)
             {
                 stuff->addString(inString);
                 size_t  resultLength = stuff->getLength();
@@ -669,7 +669,7 @@ doTestStringBufferWithLogical
             {
                 auto    stuff{make_unique<StringBuffer>()};
 
-                if (stuff)
+                if (nullptr != stuff)
                 {
                     bool asBool = (0 != value);
 
@@ -742,7 +742,7 @@ doTestStringBufferWithInteger
             {
                 auto    stuff{make_unique<StringBuffer>()};
 
-                if (stuff)
+                if (nullptr != stuff)
                 {
                     stuff->addLong(value);
                     auto    resultString{stuff->getString()};
@@ -811,7 +811,7 @@ doTestStringBufferWithString
             size_t          outLength = strlen(outString);
             auto            stuff{make_unique<StringBuffer>()};
 
-            if (stuff)
+            if (nullptr != stuff)
             {
                 stuff->addString(inString, true);
                 size_t  resultLength = stuff->getLength();
@@ -884,7 +884,7 @@ doTestStringBufferWithSpecialCharacters
         size_t          outLength = strlen(outString);
         auto            stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addString(inString, true);
             size_t  resultLength = stuff->getLength();
@@ -954,7 +954,7 @@ doTestStringBufferWithDouble
             {
                 auto    stuff{make_unique<StringBuffer>()};
 
-                if (stuff)
+                if (nullptr != stuff)
                 {
                     stuff->addDouble(value);
                     auto    resultString{stuff->getString()};
@@ -1029,7 +1029,7 @@ doTestBigStringBuffer
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             const char *    bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
             size_t          bigLength = strlen(bigString);
@@ -1102,7 +1102,7 @@ doTestStringBufferWithEmptyBlob
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addBytes(nullptr, 0);
             auto            resultString{stuff->getString()};
@@ -1159,7 +1159,7 @@ doTestStringBufferWithSmallBlob
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
@@ -1243,7 +1243,7 @@ doTestStringBufferWithBigBlob
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
@@ -1327,7 +1327,7 @@ doTestStringBufferReset
     {
         auto    stuff{make_unique<StringBuffer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             stuff->addString("abcdef");
             stuff->reset();
@@ -1393,7 +1393,7 @@ doTestDefaultLogicalValue
     {
         auto    stuff{make_unique<Logical>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == compareValueWithString(*stuff, "false"))
             {
@@ -1451,7 +1451,7 @@ doTestLogicalValue
             {
                 auto    stuff{make_unique<Logical>(0 != value)};
 
-                if (stuff)
+                if (nullptr != stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1514,7 +1514,7 @@ doTestDefaultIntegerValue
     {
         auto    stuff{make_unique<Integer>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if ((0 == compareValueWithString(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
@@ -1573,7 +1573,7 @@ doTestNumberValue
             {
                 auto    stuff{make_unique<Integer>(intValue)};
 
-                if (stuff)
+                if (nullptr != stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1597,7 +1597,7 @@ doTestNumberValue
                 {
                     auto    stuff{make_unique<Double>(floatValue)};
 
-                    if (stuff)
+                    if (nullptr != stuff)
                     {
                         if (0 == compareValueWithString(*stuff, outString))
                         {
@@ -1661,7 +1661,7 @@ doTestDefaultStringValue
     {
         auto    stuff{make_unique<String>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == compareValueWithString(*stuff, "\"\""))
             {
@@ -1714,7 +1714,7 @@ doTestStringValue
         {
             auto    stuff{make_unique<String>(*argv)};
 
-            if (stuff)
+            if (nullptr != stuff)
             {
                 if (0 == compareValueWithString(*stuff, argv[1]))
                 {
@@ -1774,7 +1774,7 @@ doTestStringValueWithEscapes
         const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
         auto            stuff{make_unique<String>(inString)};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == compareValueWithString(*stuff, outString))
             {
@@ -1827,7 +1827,7 @@ doTestDefaultBlobValue
     {
         auto    stuff{make_unique<Blob>()};
 
-        if (stuff)
+        if (nullptr != stuff)
         {
             if (0 == compareValueWithString(*stuff, "%0%%"))
             {
@@ -1890,7 +1890,7 @@ doTestSmallBlobValue
             }
             auto    stuff{make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
 
-            if (stuff)
+            if (nullptr != stuff)
             {
                 std::string expectedString{"%"};
 
@@ -1972,7 +1972,7 @@ doTestBigBlobValue
             }
             auto    stuff{make_unique<Blob>(bigBlob.get(), kBigTestSize)};
 
-            if (stuff)
+            if (nullptr != stuff)
             {
                 std::string expectedString{"%"};
 
@@ -3941,7 +3941,7 @@ main
                         break;
 
                 }
-                if (result)
+                if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }

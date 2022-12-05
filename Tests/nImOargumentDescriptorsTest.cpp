@@ -1071,7 +1071,7 @@ main
                         break;
 
                 }
-                if (result)
+                if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####
                 }

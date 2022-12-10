@@ -89,7 +89,7 @@ namespace nImO
             @param[in] argDescription A description of the command-line argument. */
             ExtraArgumentDescriptor
                 (const std::string &    argName,
-                const std::string &    argDescription);
+                 const std::string &    argDescription);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */

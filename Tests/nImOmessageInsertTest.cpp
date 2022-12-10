@@ -138,7 +138,7 @@ setValueAndCheck
         result = StaticCast(int, CompareBytes(expectedContents1, contents1.data(), expectedSize1));
         if (0 == result)
         {
-            if (expectedContents2 && expectedSize2)
+            if ((nullptr != expectedContents2) && (0 < expectedSize2))
             {
                 std::string contents2{stuff.getBytesForTransmission()};
                 size_t      length2 = contents2.size();
@@ -157,7 +157,7 @@ setValueAndCheck
             }
             else
             {
-                ODL_LOG("! (expectedContents2 && expectedSize2)"); //####
+                ODL_LOG("! ((nullptr != expectedContents2) && (0 < expectedSize2))"); //####
             }
         }
     }

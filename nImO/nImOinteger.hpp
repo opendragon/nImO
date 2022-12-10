@@ -133,14 +133,14 @@ namespace nImO
                 override;
 
             /*! @brief Get the extraction information for Integer objects.
-            @param[out] aByte The byte value that indicates the start of a Integer value.
+            @param[out] aByte The byte value that indicates the start of an Integer value.
             @param[out] aMask The mask to apply to a lead byte.
             @param[out] theExtractor The function to perform when the lead byte is seen. */
             static void
             getExtractionInfo
                 (DataKind &     aByte,
-                DataKind &     aMask,
-                Extractor &    theExtractor);
+                 DataKind &     aMask,
+                 Extractor &    theExtractor);
 
             /*! @brief Return the value of the object.
             @return The value of the object. */
@@ -150,7 +150,7 @@ namespace nImO
                 const
             {
                 return _intValue;
-            } // getIntegerValue
+            }
 
             /*! @brief Return the type tag for the Value for use with Messages.
             @return The type tag for the Value for use with Messages. */
@@ -208,7 +208,7 @@ namespace nImO
                     _intValue = other._intValue;
                 }
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
@@ -227,7 +227,7 @@ namespace nImO
             {
                 _intValue = value;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief Add a readable representation of the object to the buffer.
             @param[in,out] outBuffer The buffer to be appended to.
@@ -236,7 +236,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const
                 override;
 
@@ -280,9 +280,9 @@ namespace nImO
             static SpValue
             extractValue
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                SpArray            parentValue);
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         public :
             // Public fields.

@@ -73,10 +73,10 @@ namespace nImO
             /*! @brief The constructor. */
             inline ComparisonStatus
                 (const bool result = true,
-                const bool valid = true) :
+                 const bool valid = true) :
                 _result(result), _valid(valid)
             {
-            } // constructor
+            }
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
@@ -94,7 +94,7 @@ namespace nImO
                 _result &= other._result;
                 _valid &= other._valid;
                 return *this;
-            } // operator &=
+            }
 
             /*! @brief Copy a status.
             @param[in] other The status to be copied.
@@ -106,7 +106,7 @@ namespace nImO
                 _result = other._result;
                 _valid = other._valid;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief Return @c true if the two statuses are equal.
                 @param[in] other The status to be compared with.
@@ -117,7 +117,7 @@ namespace nImO
                 const
             {
                 return ((_result == other._result) && (_valid == other._valid));
-            } // operator ==
+            }
 
             /*! @brief Return @c false if the two statuses are equal.
                 @param[in] other The status to be compared with.
@@ -128,7 +128,7 @@ namespace nImO
                 const
             {
                 return ((_result != other._result) || (_valid != other._valid));
-            } // operator !=
+            }
 
             /*! @brief Set a valid status.
             @param[in] value The status to be assigned.
@@ -140,7 +140,7 @@ namespace nImO
                 _result = value;
                 _valid = true;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief Clear the status.
             @return The modified status. */
@@ -150,7 +150,7 @@ namespace nImO
             {
                 _result = _valid = false;
                 return *this;
-            } // clear
+            }
 
             /*! @brief Return the validity of the status.
             @return The validity of the comparison. */
@@ -160,7 +160,7 @@ namespace nImO
                 const
             {
                 return _valid;
-            } // IsValid
+            }
 
             /*! @brief Return the result of the status.
             @return The result of the comparison. */
@@ -170,12 +170,12 @@ namespace nImO
                 const
             {
                 return _result;
-            } // Result
+            }
 
             friend std::ostream &
             operator <<
                 (std::ostream &             out,
-                const ComparisonStatus &   aValue);
+                 const ComparisonStatus &   aValue);
 
         protected :
             // Protected methods.

@@ -140,7 +140,7 @@ namespace nImO
                 const
             {
                 return _floatValue;
-            } // getDoubleValue
+            }
 
             /*! @brief Get the extraction information for Double objects.
             @param[out] aByte The byte value that indicates the start of a Double value.
@@ -149,8 +149,8 @@ namespace nImO
             static void
             getExtractionInfo
                 (DataKind &     aByte,
-                DataKind &     aMask,
-                Extractor &    theExtractor);
+                 DataKind &     aMask,
+                 Extractor &    theExtractor);
 
             /*! @brief Return the type tag for the Value for use with Messages.
             @return The type tag for the Value for use with Messages. */
@@ -208,7 +208,7 @@ namespace nImO
                     _floatValue = other._floatValue;
                 }
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
@@ -227,7 +227,7 @@ namespace nImO
             {
                 _floatValue = value;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief Add a readable representation of the object to the buffer.
             @param[out] outBuffer The buffer to be appended to.
@@ -236,7 +236,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const
                 override;
 
@@ -254,7 +254,7 @@ namespace nImO
             static void
             writeValuesToMessage
                 (std::queue<double> &   values,
-                Message &              outMessage);
+                 Message &              outMessage);
 
         protected :
             // Protected methods.
@@ -288,9 +288,9 @@ namespace nImO
             static SpValue
             extractValue
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                SpArray            parentValue);
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         public :
             // Public fields.

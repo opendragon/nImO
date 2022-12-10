@@ -13,6 +13,7 @@ function list_commands() {
     echo "    launch     launch an application"
     echo "    list       list channels, applications, services, et cetera"
     echo "    monitor    report on nImO"
+    echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
     echo "    version    report the version numbers of the libraries"
@@ -57,6 +58,9 @@ function usage_help() {
                 ;;
             "monitor")
                 nImOmonitor -h
+                ;;
+            "post")
+                nImOpost -h
                 ;;
             "read")
                 nImOread -h
@@ -137,6 +141,13 @@ else
             ;;
         "monitor")
             nImOmonitor $*
+            ;;
+        "post")
+            if [[ $# -eq 0 ]]; then
+                usage_help post
+            else
+                nImOpost $*
+            fi
             ;;
         "read")
             if [[ $# -eq 0 ]]; then

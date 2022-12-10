@@ -109,7 +109,7 @@ namespace nImO
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
-                size_t &               position);
+                 size_t &               position);
 
         protected :
             // Protected methods.

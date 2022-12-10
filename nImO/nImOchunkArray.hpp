@@ -97,7 +97,7 @@ namespace nImO
             virtual void
             appendBytes
                 (const uint8_t *    data,
-                const size_t       numBytes);
+                 const size_t       numBytes);
 
             /*! @brief Add some bytes to the buffer.
             @param[in] data The bytes to be added.
@@ -105,10 +105,10 @@ namespace nImO
             inline void
             appendBytes
                 (const DataKind *   data,
-                const size_t       numBytes)
+                 const size_t       numBytes)
             {
                 appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
-            } // appendBytes
+            }
 
             /*! @brief Return @c true if a particular index is past the end of the buffer.
             @param[in] index The zero-based location in the buffer.
@@ -125,7 +125,7 @@ namespace nImO
             int
             getByte
                 (const size_t   index,
-                bool &         atEnd)
+                 bool &         atEnd)
                 const;
 
             /*! @brief Return a copy of the bytes in the buffer.
@@ -174,7 +174,7 @@ namespace nImO
                 const
             {
                 return _buffers[index];
-            } // getBufferChunk
+            }
 
             /*! @brief Return the number of chunks.
             @return The number of chunks. */
@@ -184,7 +184,7 @@ namespace nImO
                 const
             {
                 return _numChunks;
-            } // getNumChunks
+            }
 
         private :
             // Private methods.
@@ -199,7 +199,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The internal buffers used to hold the assembled text. */
-            BufferChunk **  _buffers;
+            BufferChunk * *  _buffers;
 
             /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
             @c false otherwise. */

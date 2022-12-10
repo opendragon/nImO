@@ -550,8 +550,8 @@ namespace Option_
             (void)
             const
         {
-            return (desc ? desc->type : 0);
-        } // type
+            return ((nullptr != desc) ? desc->type : 0);
+        }
 
         /**
          *@brief Returns Descriptor::index of this Option's Descriptor, or -1 if this Option
@@ -562,8 +562,8 @@ namespace Option_
             (void)
             const
         {
-            return (desc ? desc->index : -1);
-        } // index
+            return ((nullptr != desc) ? desc->index : -1);
+        }
 
         /**
          *@brief Returns the number of times this Option (or others with the same
@@ -595,7 +595,7 @@ namespace Option_
             const
         {
             return isTagged(prev_);
-        } // isFirst
+        }
 
         /**
          *@brief Returns true iff this is the last element of the linked list.
@@ -605,13 +605,13 @@ namespace Option_
          *
          *Returns true for an unused/invalid option.
          */
-        bool
+        inline bool
         isLast
             (void)
             const
         {
             return isTagged(next_);
-        } // isLast
+        }
 
         /**
          *@brief Returns a pointer to the first element of the linked list.
@@ -649,7 +649,7 @@ namespace Option_
             (void)
         {
             return first()->prevwrap();
-        } // last
+        }
 
         /**
          *@brief Returns a pointer to the previous element of the linked list or nullptr if
@@ -664,7 +664,7 @@ namespace Option_
             (void)
         {
             return (isFirst() ? nullptr : prev_);
-        } // prev
+        }
 
         /**
          *@brief Returns a pointer to the previous element of the linked list with wrap-around from
@@ -679,7 +679,7 @@ namespace Option_
             (void)
         {
             return untag(prev_);
-        } // prevwrap
+        }
 
         /**
          *@brief Returns a pointer to the next element of the linked list or nullptr if called
@@ -694,7 +694,7 @@ namespace Option_
             (void)
         {
             return (isLast() ? nullptr : next_);
-        } // next
+        }
 
         /**
          *@brief Returns a pointer to the next element of the linked list with wrap-around from
@@ -709,7 +709,7 @@ namespace Option_
             (void)
         {
             return untag(next_);
-        } // nextwrap
+        }
 
         /**
          *@brief Makes @c new_last the new last() by chaining it into the list after last().
@@ -745,8 +745,8 @@ namespace Option_
             (void)
             const
         {
-            return (desc ? this : nullptr);
-        } // operator const Option *
+            return ((nullptr != desc) ? this : nullptr);
+        }
 
         /**
          *@brief Casts from Option to Option * but only if this Option is valid.
@@ -767,8 +767,8 @@ namespace Option_
         inline operator Option *
             (void)
         {
-            return (desc ? this : nullptr);
-        } // operator Option *
+            return ((nullptr != desc) ? this : nullptr);
+        }
 
         /**
          *@brief Creates a new Option that is a one-element linked list and has nullptr
@@ -828,22 +828,21 @@ namespace Option_
             (Option *ptr)
         {
             return reinterpret_cast<Option *>(reinterpret_cast<size_t>(ptr) | 1);
-        } // tag
+        }
 
         inline static Option *
         untag
             (Option *ptr)
         {
-            return reinterpret_cast<Option *>(reinterpret_cast<size_t>(ptr) &
-                                              ~static_cast<size_t>(1));
-        } // untag
+            return reinterpret_cast<Option *>(reinterpret_cast<size_t>(ptr) & ~static_cast<size_t>(1));
+        }
 
         inline static bool
         isTagged
             (Option *ptr)
         {
-            return (reinterpret_cast<size_t>(ptr) & 1);
-        } // isTagged
+            return (0 != (reinterpret_cast<size_t>(ptr) & 1));
+        }
 
     }; // Option
 
@@ -910,7 +909,7 @@ namespace Option_
              const bool)
         {
             return ARG_NONE;
-        } // None
+        }
 
         //! @brief Returns ARG_OK if the argument is attached and ARG_IGNORE otherwise.
         inline static ArgStatus
@@ -930,7 +929,7 @@ namespace Option_
                 result = ARG_IGNORE;
             }
             return result;
-        } // Optional
+        }
 
         //! @brief Returns ARG_OK if the argument is attached and ARG_ILLEGAL otherwise.
         inline static ArgStatus
@@ -950,7 +949,7 @@ namespace Option_
                 result = ARG_ILLEGAL;
             }
             return result;
-        } // Required
+        }
 
     }; // Arg
 
@@ -1295,7 +1294,7 @@ namespace Option_
             const
         {
             return op_count;
-        } // optionsCount
+        }
 
         /**
          *@brief Returns the number of non-option arguments that remained at the end of the
@@ -1317,7 +1316,7 @@ namespace Option_
             const
         {
             return nonop_count;
-        } // nonOptionsCount
+        }
 
         /**
          *@brief Returns a pointer to an array of non-option arguments (only valid
@@ -1336,7 +1335,7 @@ namespace Option_
             const
         {
             return nonop_args;
-        } // nonOptions
+        }
 
         /**
          *@brief Returns <b><code>nonOptions()[i]</code></b> (@e without checking if i is in
@@ -1348,7 +1347,7 @@ namespace Option_
             const
         {
             return nonOptions()[ii];
-        } // nonOption
+        }
 
         /**
          *@brief Returns @c true if an unrecoverable error occurred while parsing options.
@@ -1365,7 +1364,7 @@ namespace Option_
          *@endcode
          *
          */
-        bool
+        inline bool
         error
             (void)
             const
@@ -1714,7 +1713,7 @@ namespace Option_
              const int i2)
         {
             i1 = ((i1 >= i2) ? i1 : i2);
-        } // upmax
+        }
 
         /**
          *@internal
@@ -1875,7 +1874,7 @@ namespace Option_
                 const
             {
                 return col;
-            } // column
+            }
 
             /**
              *@brief Returns the index (counting from 0) of the line within the current column
@@ -1888,7 +1887,7 @@ namespace Option_
             {
                 return target_line_in_block; // NOT line_in_block !!! It would be wrong if
                 // !hit_target_line
-            } // line
+            }
 
             /**
              *@brief Returns the length of the part pointed to by @ref data() in raw chars (not
@@ -1900,7 +1899,7 @@ namespace Option_
                 const
             {
                 return len;
-            } // length
+            }
 
             /**
              *@brief Returns the width in screen columns of the part pointed to by @ref data().
@@ -1912,7 +1911,7 @@ namespace Option_
                 const
             {
                 return screenlen;
-            } // screenLength
+            }
 
             /**
              *@brief Returns the current part of the iteration.
@@ -1923,7 +1922,8 @@ namespace Option_
                 const
             {
                 return ptr;
-            } // data
+            }
+
         }; // LinePartIterator
 
         /**
@@ -1990,7 +1990,7 @@ namespace Option_
                 const
             {
                 return (((tail + 1) & bufmask) == head);
-            } // buf_empty
+            }
 
             inline bool
             buf_full
@@ -1998,7 +1998,7 @@ namespace Option_
                 const
             {
                 return (tail == head);
-            } // buf_full
+            }
 
             void
             buf_store
@@ -2011,7 +2011,7 @@ namespace Option_
                 (void)
             {
                 tail = ((tail + 1) & bufmask);
-            } // buf_next
+            }
 
             /**
              *@brief Writes (data,len) into the ring buffer. If the buffer is full, a single line

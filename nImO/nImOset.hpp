@@ -219,8 +219,8 @@ namespace nImO
             static void
             getExtractionInfo
                 (DataKind &     aByte,
-                DataKind &     aMask,
-                Extractor &    theExtractor);
+                 DataKind &     aMask,
+                 Extractor &    theExtractor);
 
             /*! @brief Return the characters that can appear as the start of a Set.
             @return The characters that can appear as the start of a Set. */
@@ -308,7 +308,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const
                 override;
 
@@ -330,7 +330,7 @@ namespace nImO
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
-                size_t &               position);
+                 size_t &               position);
 
             /*! @brief Returns the number of elements in the Set. */
             virtual size_t
@@ -385,9 +385,9 @@ namespace nImO
             static SpValue
             extractValue
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                SpArray            parentValue);
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         public :
             // Public fields.

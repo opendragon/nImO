@@ -211,7 +211,7 @@ nImO::Message::getBytesForTransmission
 
         if (1 < length)
         {
-            ODL_LOG("(intermediate && (1 < length))"); //####
+            ODL_LOG("(1 < length)"); //####
             // First, check that the buffer starts correctly.
             if (DataKind::StartOfMessageValue == (intermediate[0] & DataKind::StartOfMessageMask))
             {
@@ -234,8 +234,8 @@ nImO::Message::getBytesForTransmission
                 // Calculate the checksum byte and correct the escape and start counts if it will
                 // need to be escaped.
                 uint8_t checkSum = StaticCast(uint8_t, 0x00FF & ~sum);
-                ODL_X2("sum = ", sum, "checkSum = ", checkSum); //####
 
+                ODL_X2("sum = ", sum, "checkSum = ", checkSum); //####
                 if ((DataKind::StartOfMessageValue == (checkSum & DataKind::StartOfMessageMask)) ||
                     (DataKind::EscapeValue == StaticCast(DataKind, checkSum)))
                 {
@@ -283,8 +283,7 @@ nImO::Message::getBytesForTransmission
             ODL_LOG("! (1 < length)"); //####
         }
     }
-    ODL_PACKET("_cachedTransmissionString", _cachedTransmissionString.data(), //####
-               _cachedTransmissionString.size()); //####
+    ODL_PACKET("_cachedTransmissionString", _cachedTransmissionString.data(), _cachedTransmissionString.size()); //####
     ODL_OBJEXIT(); //####
     return _cachedTransmissionString;
 } // nImO::Message::getBytesForTransmission

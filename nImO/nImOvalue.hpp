@@ -101,9 +101,9 @@ namespace nImO
             a Value was found and processed. */
             using Extractor = SpValue (*)
                 (const Message & theMessage,
-                    const int       leadByte,
-                    size_t &        position,
-                    SpArray         parentValue);
+                 const int       leadByte,
+                 size_t &        position,
+                 SpArray         parentValue);
 
         private :
             // Private type definitions.
@@ -114,7 +114,7 @@ namespace nImO
             @return The next Value in the StringBuffer. */
             using BufferReader = SpValue (*)
                     (const StringBuffer &   inBuffer,
-                    size_t &               position);
+                     size_t &               position);
 
             /*! @brief The map from characters to BufferReaders. */
             using BufferReaderMap = std::map<char, BufferReader>;
@@ -265,9 +265,9 @@ namespace nImO
             static SpValue
             getValueFromMessage
                 (const Message &    inMessage,
-                size_t &           position,
-                const int          leadByte,
-                SpArray            parent);
+                 size_t &           position,
+                 const int          leadByte,
+                 SpArray            parent);
 
             /*! @brief Return the relative ordering of two Values.
             @param[in] other The Value to be compared with.
@@ -316,7 +316,7 @@ namespace nImO
                 ComparisonStatus    result(lessThan(other));
 
                 return (result.Result() && result.IsValid());
-            } // operator <
+            }
 
             /*! @brief Return the relative ordering of two Values.
             @param[in] other The Value to be compared with.
@@ -328,7 +328,7 @@ namespace nImO
                 ComparisonStatus    result(greaterThan(other));
 
                 return (result.Result() && result.IsValid());
-            } // operator >
+            }
 
             /*! @brief Return the relative ordering of two Values.
             @param[in] other The Value to be compared with.
@@ -340,7 +340,7 @@ namespace nImO
                 ComparisonStatus    result(lessThanOrEqual(other));
 
                 return (result.Result() && result.IsValid());
-            } // operator <=
+            }
 
             /*! @brief Return the relative ordering of two Values.
             @param[in] other The Value to be compared with.
@@ -352,7 +352,7 @@ namespace nImO
                 ComparisonStatus    result(greaterThanOrEqual(other));
 
                 return (result.Result() && result.IsValid());
-            } // operator >=
+            }
 
             /*! @brief Return @c true if the two Values are equal.
                 @param[in] other The Value to be compared with.
@@ -364,7 +364,7 @@ namespace nImO
                 ComparisonStatus    result(equalTo(other));
 
                 return (result.Result() && result.IsValid());
-            } // operator ==
+            }
 
             /*! @brief Return @c false if the two Values are equal.
                 @param[in] other The Value to be compared with.
@@ -376,7 +376,7 @@ namespace nImO
                 ComparisonStatus    result(equalTo(other));
 
                 return ((! result.Result()) && result.IsValid());
-            } // operator !=
+            }
 
             /*! @brief Add a readable representation of the object to the buffer.
             @param[in,out] outBuffer The buffer to be appended to.
@@ -385,7 +385,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const;
 
             /*! @brief Convert a readable representation of the object in a buffer into an object.
@@ -395,7 +395,7 @@ namespace nImO
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
-                size_t &               position);
+                 size_t &               position);
 
             /*! @brief Add a binary representation of the object to the Message.
             @param[in,out] outMessage The Message to be appended to. */
@@ -407,7 +407,7 @@ namespace nImO
             friend std::ostream &
             operator <<
                 (std::ostream & out,
-                const Value &  aValue);
+                 const Value &  aValue);
 
         protected :
             // Protected methods.
@@ -434,9 +434,9 @@ namespace nImO
             static int64_t
             extractInt64FromMessage
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                IntStatus &        status);
+                 const int          leadByte,
+                 size_t &           position,
+                 IntStatus &        status);
 
             /*! @brief Returns @c true if the character can appear immediately after a Value in a
             string.
@@ -452,7 +452,7 @@ namespace nImO
             static void
             writeInt64ToMessage
                 (Message &      outMessage,
-                const int64_t  outValue);
+                 const int64_t  outValue);
 
         private :
             // Private methods.
@@ -464,8 +464,8 @@ namespace nImO
             static void
             addToExtractionMap
                 (const DataKind aByte,
-                const DataKind aMask,
-                Extractor      theExtractor);
+                 const DataKind aMask,
+                 Extractor      theExtractor);
 
         public :
             // Public fields.

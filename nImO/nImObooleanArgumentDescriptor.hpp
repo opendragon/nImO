@@ -114,7 +114,7 @@ namespace nImO
                 const
             {
                 return _currentValue;
-            } // getCurrentValue
+            }
 
             /*! @brief Return @c true if the argument is for Logical arguments.
              @return @c true if the argument is for Logical arguments and @c false otherwise. */

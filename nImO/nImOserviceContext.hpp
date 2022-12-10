@@ -80,9 +80,9 @@ namespace nImO
             @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
                 (const std::string &    executableName,
-                const bool             logging,
-                const bool             autoLaunchRegistry = true,
-                const std::string &    nodeName = "");
+                 const bool             logging,
+                 const bool             autoLaunchRegistry = true,
+                 const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual

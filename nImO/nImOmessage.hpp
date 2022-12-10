@@ -99,7 +99,7 @@ namespace nImO
             virtual void
             appendBytes
                 (const uint8_t *    data,
-                const size_t       numBytes)
+                 const size_t       numBytes)
                 override;
 
             /*! @brief Add some bytes to the buffer.
@@ -108,10 +108,10 @@ namespace nImO
             inline void
             appendBytes
                 (const DataKind *   data,
-                const size_t       numBytes)
+                 const size_t       numBytes)
             {
                 appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
-            } // appendBytes
+            }
 
             /*! @brief Close the Message, completing its contents.
             @return The Message object so that cascading can be done. */
@@ -188,7 +188,7 @@ namespace nImO
                 const
             {
                 return atEnd(_readPosition);
-            } // readAtEnd
+            }
 
             /*! @brief Prepare the Message for reuse.
             @return The Message object so that cascading can be done. */

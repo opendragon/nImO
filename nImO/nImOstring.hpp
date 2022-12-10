@@ -144,8 +144,8 @@ namespace nImO
             static void
             getExtractionInfo
                 (DataKind &     aByte,
-                DataKind &     aMask,
-                Extractor &    theExtractor);
+                 DataKind &     aMask,
+                 Extractor &    theExtractor);
 
             /*! @brief Return the characters that can appear as the start of a String.
             @return The characters that can appear as the start of a String. */
@@ -169,7 +169,7 @@ namespace nImO
                 const
             {
                 return _value;
-            } // getValue
+            }
 
             /*! @brief Return the relative ordering of two Values.
             @param[in] other The Value to be compared with.
@@ -219,7 +219,7 @@ namespace nImO
                     _value = other._value;
                 }
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
@@ -238,7 +238,7 @@ namespace nImO
             {
                 _value = value;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The assignment operator.
             @param[in] value The value to be assigned.
@@ -249,7 +249,7 @@ namespace nImO
             {
                 _value = value;
                 return *this;
-            } // operator =
+            }
 
             /*! @brief Add a readable representation of the object to the buffer.
             @param[in,out] outBuffer The buffer to be appended to.
@@ -258,7 +258,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const
                 override;
 
@@ -269,7 +269,7 @@ namespace nImO
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
-                size_t &               position);
+                 size_t &               position);
 
             /*! @brief Add a binary representation of the object to the message.
             @param[in,out] outMessage The Message to be appended to. */
@@ -311,9 +311,9 @@ namespace nImO
             static SpValue
             extractValue
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                SpArray            parentValue);
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         public :
             // Public fields.

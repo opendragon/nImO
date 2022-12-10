@@ -100,13 +100,13 @@ namespace nImO
             @param[in] maximumValue The maximum value that is acceptable. */
             DoubleArgumentDescriptor
                 (const std::string &    argName,
-                const std::string &    argDescription,
-                const ArgumentMode     argMode,
-                const double           defaultValue,
-                const bool             hasMinimumValue,
-                const double           minimumValue,
-                const bool             hasMaximumValue,
-                const double           maximumValue);
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode,
+                 const double           defaultValue,
+                 const bool             hasMinimumValue,
+                 const double           minimumValue,
+                 const bool             hasMaximumValue,
+                 const double           maximumValue);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -132,7 +132,7 @@ namespace nImO
                 const
             {
                 return _currentValue;
-            } // getCurrentValue
+            }
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.
             @param[in] inString The input string in 'arguments' format.

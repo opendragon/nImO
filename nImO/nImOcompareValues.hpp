@@ -80,7 +80,7 @@ namespace nImO
                 (const CompareValues &	other)
             {
                 MDNS_UNUSED_ARG_(other);
-            } // copy constructor
+            }
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
@@ -100,7 +100,7 @@ namespace nImO
             bool
             operator()
                 (SpValue    lhs,
-                SpValue    rhs)
+                 SpValue    rhs)
                 const;
 
         protected :

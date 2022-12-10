@@ -87,7 +87,7 @@ namespace nImO
             @param[in] associatedValue A number that is concatenated to the description. */
             Invalid
                 (const std::string &    description,
-                const int64_t          associatedValue);
+                 const int64_t          associatedValue);
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */

@@ -98,12 +98,12 @@ namespace nImO
             and @c false if the file path is fixed. */
             FilePathArgumentDescriptor
                 (const std::string &    argName,
-                const std::string &    argDescription,
-                const ArgumentMode     argMode,
-                const std::string &    pathPrefix,
-                const std::string &    pathSuffix,
-                const bool             forOutput = false,
-                const bool             useRandomPath = false);
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode,
+                 const std::string &    pathPrefix,
+                 const std::string &    pathSuffix,
+                 const bool             forOutput = false,
+                 const bool             useRandomPath = false);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */

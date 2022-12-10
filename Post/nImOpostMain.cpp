@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOlistMain.cpp
+//  File:       nImOpostMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to report the visible nImO channels.
+//  Contains:   A utility application to write to the log applications.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2022 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-02-19
+//  Created:    2022-12-10
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOstringsArgumentDescriptor.hpp>
+#include <nImOstringArgumentDescriptor.hpp>
 #include <nImOutilityContext.hpp>
 
 //#include <odlEnable.h>
@@ -74,10 +74,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to report the visible #nImO channels. */
+ @brief A utility application to write to the log applications. */
 
 /*! @dir List
- @brief The set of files that implement the List application. */
+ @brief The set of files that implement the Post application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -90,32 +90,6 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-enum class E_choice
-{
-    kApps,
-    kChan,
-    kConn,
-    kServ
-}; // E_choice
-
-struct T_choiceInfo
-{
-    E_choice    _choice;
-    std::string _description;
-
-    T_choiceInfo
-        (const E_choice         choice,
-         const std::string &    description) :
-            _choice(choice), _description(description)
-    {
-    } // constructor
-
-}; // T_choiceInfo
-
-typedef std::map<std::string, T_choiceInfo> T_choiceMap;
-
-static T_choiceMap  lChoiceMap;
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -124,41 +98,12 @@ static T_choiceMap  lChoiceMap;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Writes out a description of the 'choice' argument.
- @param[in,out] outStream The stream to write to. */
-static void
-helpForList
-    (std::ostream & outStream)
-{
-    outStream << "Available choices:" << std::endl;
-    size_t  choiceWidth = 0;
-
-    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
-    {
-        size_t  thisWidth = walker->first.length();
-
-        if (thisWidth > choiceWidth)
-        {
-            choiceWidth = thisWidth;
-        }
-    }
-    choiceWidth += 2;
-    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
-    {
-        std::string padding;
-
-        padding.append(choiceWidth - walker->first.length(), ' ');
-        outStream << "  " << walker->first << padding << walker->second._description << std::endl;
-    }
-} // helpForList
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for reporting the visible #nImO channels.
+/*! @brief The entry point for writing to the log applications.
 
- Standard output will receive a list of the visible #nImO channels.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -173,50 +118,20 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    lChoiceMap.insert({"apps", T_choiceInfo{E_choice::kApps, "available applications"}});
-    lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
-    lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});
-    lChoiceMap.insert({"serv", T_choiceInfo{E_choice::kServ, "active services"}});
-    nImO::StringSet choiceSet;
-
-    for (auto & walker : lChoiceMap)
-    {
-        choiceSet.insert(walker.first);
-    }
-    nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"),
-                                             nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet};
+    nImO::StringArgumentDescriptor  firstArg{"message", T_("Text to send to logging applications"),
+                                                nImO::ArgumentMode::OptionalModifiable, ""};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List information about objects in the nImO space", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, helpForList, false, true))
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",
+                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
     {
         try
         {
             nImO::UtilityContext    ourContext(progName, logging);
-            std::string             choice{firstArg.getCurrentValue()};
-            auto                    match{lChoiceMap.find(choice)};
 
-            if (match != lChoiceMap.end())
-            {
-                switch (match->second._choice)
-                {
-                    case E_choice::kApps :
-                        break;
-
-                    case E_choice::kChan :
-                        break;
-
-                    case E_choice::kConn :
-                        break;
-
-                    case E_choice::kServ :
-                        break;
-
-                }
-            }
         }
         catch (...)
         {

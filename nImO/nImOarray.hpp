@@ -130,7 +130,7 @@ namespace nImO
                     inherited2::emplace_back(newElement);
                 }
                 return *this;
-            } // addValue
+            }
 
             /*! @brief Return non-@c nullptr if the object is an Array.
              @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
@@ -159,7 +159,7 @@ namespace nImO
                     result = nullptr;
                 }
                 return result;
-            } // at
+            }
 
             /*! @brief Remove all entries from the Array. */
             virtual void
@@ -271,7 +271,7 @@ namespace nImO
                     addEntries(other);
                 }
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.

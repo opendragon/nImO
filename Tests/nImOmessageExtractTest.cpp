@@ -138,31 +138,34 @@ extractValueAndCheck
     {
         const Flaw *    asFlaw = extractedValue->asFlaw();
 
-        if (asFlaw)
+        if (nullptr == asFlaw)
         {
-            ODL_LOG("(asFlaw)"); //####
-            ODL_LOG(asFlaw->getDescription().c_str()); //####
-        }
-        else if (stuff.readAtEnd())
-        {
-            if (extractedValue->deeplyEqualTo(expectedValue))
+            if (stuff.readAtEnd())
             {
-                result = 0;
+                if (extractedValue->deeplyEqualTo(expectedValue))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
+                }
             }
             else
             {
-                ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
+                ODL_LOG("! (stuff.readAtEnd())"); //####
             }
         }
         else
         {
-            ODL_LOG("! (stuff.readAtEnd())"); //####
+            ODL_LOG("! (nullptr == asFlaw)"); //####
+            ODL_LOG(asFlaw->getDescription().c_str()); //####
         }
     }
     if (0 == result)
     {
         // And now, let's make sure that 'short' messages are handled correctly:
-        for (size_t ii = 1, shortenedSize = insertedSize - 1; (0 == result) && (shortenedSize > ii); ++ii)
+        for (size_t ii = 1, shortenedSize = (insertedSize - 1); (0 == result) && (shortenedSize > ii); ++ii)
         {
             stuff.open(false);
             stuff.appendBytes(insertedContents, ii);
@@ -173,16 +176,16 @@ extractValueAndCheck
             {
                 const Flaw *    asFlaw = extractedValue->asFlaw();
 
-                if (asFlaw)
+                if (nullptr == asFlaw)
                 {
-                    ODL_LOG("(asFlaw)"); //####
-                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                    ODL_LOG("(nullptr == asFlaw)");
+                    ODL_I1("ii = ", ii); //####
+                    result = 1;
                 }
                 else
                 {
-                    ODL_LOG("! (nullptr == extractedValue)");
-                    ODL_I1("ii = ", ii); //####
-                    result = 1;
+                    ODL_LOG("! (nullptr == asFlaw)"); //####
+                    ODL_LOG(asFlaw->getDescription().c_str()); //####
                 }
             }
         }
@@ -201,7 +204,7 @@ extractValueAndCheck
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMessage
+doTestExtractEmptyMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty message
@@ -297,7 +300,7 @@ doTestEmptyMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptyMessage
+} // doTestExtractEmptyMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
@@ -309,7 +312,7 @@ doTestEmptyMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMessage
+doTestExtractLogicalMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical message
@@ -380,7 +383,7 @@ doTestLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestLogicalMessage
+} // doTestExtractLogicalMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 003 ***
@@ -392,7 +395,7 @@ doTestLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestTinyIntegerMessage
+doTestExtractTinyIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // tiny integer message
@@ -483,7 +486,7 @@ doTestTinyIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestTinyIntegerMessage
+} // doTestExtractTinyIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 004 ***
@@ -495,7 +498,7 @@ doTestTinyIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallIntegerMessage
+doTestExtractSmallIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // small integer message
@@ -568,7 +571,7 @@ doTestSmallIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallIntegerMessage
+} // doTestExtractSmallIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 005 ***
@@ -580,7 +583,7 @@ doTestSmallIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumIntegerMessage
+doTestExtractMediumIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium integer message
@@ -655,7 +658,7 @@ doTestMediumIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMediumIntegerMessage
+} // doTestExtractMediumIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 006 ***
@@ -667,7 +670,7 @@ doTestMediumIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestBigIntegerMessage
+doTestExtractBigIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // big integer message
@@ -744,7 +747,7 @@ doTestBigIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestBigIntegerMessage
+} // doTestExtractBigIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 007 ***
@@ -756,7 +759,7 @@ doTestBigIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyStringMessage
+doTestExtractEmptyStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty string message
@@ -808,7 +811,7 @@ doTestEmptyStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptyStringMessage
+} // doTestExtractEmptyStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 008 ***
@@ -820,7 +823,7 @@ doTestEmptyStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestShortStringMessage
+doTestExtractShortStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // short string message
@@ -875,7 +878,7 @@ doTestShortStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestShortStringMessage
+} // doTestExtractShortStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 009 ***
@@ -887,7 +890,7 @@ doTestShortStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumStringMessage
+doTestExtractMediumStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium string message
@@ -961,7 +964,7 @@ doTestMediumStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMediumStringMessage
+} // doTestExtractMediumStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 010 ***
@@ -973,7 +976,7 @@ doTestMediumStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyBlobMessage
+doTestExtractEmptyBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty blob message
@@ -1025,7 +1028,7 @@ doTestEmptyBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptyBlobMessage
+} // doTestExtractEmptyBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 011 ***
@@ -1037,7 +1040,7 @@ doTestEmptyBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallBlobMessage
+doTestExtractSmallBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // small blob message
@@ -1097,7 +1100,7 @@ doTestSmallBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallBlobMessage
+} // doTestExtractSmallBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 012 ***
@@ -1109,7 +1112,7 @@ doTestSmallBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMediumBlobMessage
+doTestExtractMediumBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium blob message
@@ -1194,7 +1197,7 @@ doTestMediumBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMediumBlobMessage
+} // doTestExtractMediumBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 013 ***
@@ -1206,7 +1209,7 @@ doTestMediumBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSingleDoubleMessage
+doTestExtractSingleDoubleMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // single double message
@@ -1287,7 +1290,7 @@ doTestSingleDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSingleDoubleMessage
+} // doTestExtractSingleDoubleMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -1299,7 +1302,7 @@ doTestSingleDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyArrayMessage
+doTestExtractEmptyArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty array message
@@ -1355,7 +1358,7 @@ doTestEmptyArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptyArrayMessage
+} // doTestExtractEmptyArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
@@ -1367,7 +1370,7 @@ doTestEmptyArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptyMapMessage
+doTestExtractEmptyMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty map message
@@ -1423,7 +1426,7 @@ doTestEmptyMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptyMapMessage
+} // doTestExtractEmptyMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 102 ***
@@ -1435,7 +1438,7 @@ doTestEmptyMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestEmptySetMessage
+doTestExtractEmptySetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty set message
@@ -1491,7 +1494,7 @@ doTestEmptySetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestEmptySetMessage
+} // doTestExtractEmptySetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
@@ -1503,7 +1506,7 @@ doTestEmptySetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneLogicalMessage
+doTestExtractArrayOneLogicalMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one logical message
@@ -1568,7 +1571,7 @@ doTestArrayOneLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneLogicalMessage
+} // doTestExtractArrayOneLogicalMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
@@ -1580,7 +1583,7 @@ doTestArrayOneLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneIntegerMessage
+doTestExtractArrayOneIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one integer message
@@ -1645,7 +1648,7 @@ doTestArrayOneIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneIntegerMessage
+} // doTestExtractArrayOneIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 112 ***
@@ -1657,7 +1660,7 @@ doTestArrayOneIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneDoubleMessage
+doTestExtractArrayOneDoubleMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one double message
@@ -1727,7 +1730,7 @@ doTestArrayOneDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneDoubleMessage
+} // doTestExtractArrayOneDoubleMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 113 ***
@@ -1739,7 +1742,7 @@ doTestArrayOneDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneStringMessage
+doTestExtractArrayOneStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one string message
@@ -1805,7 +1808,7 @@ doTestArrayOneStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneStringMessage
+} // doTestExtractArrayOneStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 114 ***
@@ -1817,7 +1820,7 @@ doTestArrayOneStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneBlobMessage
+doTestExtractArrayOneBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one blob message
@@ -1883,7 +1886,7 @@ doTestArrayOneBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneBlobMessage
+} // doTestExtractArrayOneBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 115 ***
@@ -1895,7 +1898,7 @@ doTestArrayOneBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayMessage
+doTestExtractArrayOneArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one array message
@@ -1965,7 +1968,7 @@ doTestArrayOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneArrayMessage
+} // doTestExtractArrayOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 116 ***
@@ -1977,7 +1980,7 @@ doTestArrayOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapMessage
+doTestExtractArrayOneMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one map message
@@ -2047,7 +2050,7 @@ doTestArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneMapMessage
+} // doTestExtractArrayOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 117 ***
@@ -2059,7 +2062,7 @@ doTestArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetMessage
+doTestExtractArrayOneSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one set message
@@ -2129,7 +2132,7 @@ doTestArrayOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneSetMessage
+} // doTestExtractArrayOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 130 ***
@@ -2141,7 +2144,7 @@ doTestArrayOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoLogicalsMessage
+doTestExtractArrayTwoLogicalsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two logicals message
@@ -2210,7 +2213,7 @@ doTestArrayTwoLogicalsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoLogicalsMessage
+} // doTestExtractArrayTwoLogicalsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 131 ***
@@ -2222,7 +2225,7 @@ doTestArrayTwoLogicalsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoIntegersMessage
+doTestExtractArrayTwoIntegersMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two integers message
@@ -2291,7 +2294,7 @@ doTestArrayTwoIntegersMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoIntegersMessage
+} // doTestExtractArrayTwoIntegersMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 132 ***
@@ -2303,7 +2306,7 @@ doTestArrayTwoIntegersMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoDoublesMessage
+doTestExtractArrayTwoDoublesMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two doubles message
@@ -2378,7 +2381,7 @@ doTestArrayTwoDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoDoublesMessage
+} // doTestExtractArrayTwoDoublesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 133 ***
@@ -2390,7 +2393,7 @@ doTestArrayTwoDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoStringsMessage
+doTestExtractArrayTwoStringsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two strings message
@@ -2461,7 +2464,7 @@ doTestArrayTwoStringsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoStringsMessage
+} // doTestExtractArrayTwoStringsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 134 ***
@@ -2473,7 +2476,7 @@ doTestArrayTwoStringsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoBlobsMessage
+doTestExtractArrayTwoBlobsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two blobs message
@@ -2544,7 +2547,7 @@ doTestArrayTwoBlobsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoBlobsMessage
+} // doTestExtractArrayTwoBlobsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 135 ***
@@ -2556,7 +2559,7 @@ doTestArrayTwoBlobsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoArraysMessage
+doTestExtractArrayTwoArraysMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two arrays message
@@ -2635,7 +2638,7 @@ doTestArrayTwoArraysMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoArraysMessage
+} // doTestExtractArrayTwoArraysMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 136 ***
@@ -2647,7 +2650,7 @@ doTestArrayTwoArraysMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoMapsMessage
+doTestExtractArrayTwoMapsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two maps message
@@ -2726,7 +2729,7 @@ doTestArrayTwoMapsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoMapsMessage
+} // doTestExtractArrayTwoMapsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 137 ***
@@ -2738,7 +2741,7 @@ doTestArrayTwoMapsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayTwoSetsMessage
+doTestExtractArrayTwoSetsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two sets message
@@ -2817,7 +2820,7 @@ doTestArrayTwoSetsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayTwoSetsMessage
+} // doTestExtractArrayTwoSetsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 138 ***
@@ -2829,7 +2832,7 @@ doTestArrayTwoSetsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneArrayOneMapMessage
+doTestExtractArrayOneArrayOneMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with array and map message
@@ -2908,7 +2911,7 @@ doTestArrayOneArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneArrayOneMapMessage
+} // doTestExtractArrayOneArrayOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 139 ***
@@ -2920,7 +2923,7 @@ doTestArrayOneArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneMapOneSetMessage
+doTestExtractArrayOneMapOneSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with map and set message
@@ -2999,7 +3002,7 @@ doTestArrayOneMapOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneMapOneSetMessage
+} // doTestExtractArrayOneMapOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 140 ***
@@ -3011,7 +3014,7 @@ doTestArrayOneMapOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayOneSetOneArrayMessage
+doTestExtractArrayOneSetOneArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with set and array message
@@ -3090,7 +3093,7 @@ doTestArrayOneSetOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayOneSetOneArrayMessage
+} // doTestExtractArrayOneSetOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 141 ***
@@ -3102,7 +3105,7 @@ doTestArrayOneSetOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestArrayWithManyDoublesMessage
+doTestExtractArrayWithManyDoublesMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with many doubles message
@@ -3344,7 +3347,7 @@ doTestArrayWithManyDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestArrayWithManyDoublesMessage
+} // doTestExtractArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 160 ***
@@ -3356,7 +3359,7 @@ doTestArrayWithManyDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalMapMessage
+doTestExtractLogicalMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical map message
@@ -3424,7 +3427,7 @@ doTestLogicalMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestLogicalMapMessage
+} // doTestExtractLogicalMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 161 ***
@@ -3436,7 +3439,7 @@ doTestLogicalMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerMapMessage
+doTestExtractIntegerMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer map message
@@ -3504,7 +3507,7 @@ doTestIntegerMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestIntegerMapMessage
+} // doTestExtractIntegerMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 162 ***
@@ -3516,7 +3519,7 @@ doTestIntegerMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStringMapMessage
+doTestExtractStringMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // string map message
@@ -3585,7 +3588,7 @@ doTestStringMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStringMapMessage
+} // doTestExtractStringMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 163 ***
@@ -3597,7 +3600,7 @@ doTestStringMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestLogicalSetMessage
+doTestExtractLogicalSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical set message
@@ -3662,7 +3665,7 @@ doTestLogicalSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestLogicalSetMessage
+} // doTestExtractLogicalSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 164 ***
@@ -3674,7 +3677,7 @@ doTestLogicalSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestIntegerSetMessage
+doTestExtractIntegerSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer set message
@@ -3739,7 +3742,7 @@ doTestIntegerSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestIntegerSetMessage
+} // doTestExtractIntegerSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 165 ***
@@ -3751,7 +3754,7 @@ doTestIntegerSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetMessage
+doTestExtractStringSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // string set message
@@ -3817,7 +3820,7 @@ doTestStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStringSetMessage
+} // doTestExtractStringSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 180 ***
@@ -3829,7 +3832,7 @@ doTestStringSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMessageWithArrayWithRangeOfIntegers
+doTestExtractMessageWithArrayWithRangeOfIntegers
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with range of integers
@@ -4160,7 +4163,7 @@ doTestMessageWithArrayWithRangeOfIntegers
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMessageWithArrayWithRangeOfIntegers
+} // doTestExtractMessageWithArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4206,175 +4209,175 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestEmptyMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 2 :
-                        result = doTestLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 3 :
-                        result = doTestTinyIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractTinyIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 4 :
-                        result = doTestSmallIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractSmallIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
-                        result = doTestMediumIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractMediumIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 6 :
-                        result = doTestBigIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractBigIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 7 :
-                        result = doTestEmptyStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptyStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 8 :
-                        result = doTestShortStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractShortStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 9 :
-                        result = doTestMediumStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractMediumStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 10 :
-                        result = doTestEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptyBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 11 :
-                        result = doTestSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractSmallBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 12 :
-                        result = doTestMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractMediumBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 13 :
-                        result = doTestSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
-                        result = doTestEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 101 :
-                        result = doTestEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptyMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 102 :
-                        result = doTestEmptySetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 110 :
-                        result = doTestArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 111 :
-                        result = doTestArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 112 :
-                        result = doTestArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 113 :
-                        result = doTestArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 114 :
-                        result = doTestArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 115 :
-                        result = doTestArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 116 :
-                        result = doTestArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 117 :
-                        result = doTestArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 130 :
-                        result = doTestArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 131 :
-                        result = doTestArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 132 :
-                        result = doTestArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 133 :
-                        result = doTestArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 134 :
-                        result = doTestArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 135 :
-                        result = doTestArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 136 :
-                        result = doTestArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 137 :
-                        result = doTestArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 138 :
-                        result = doTestArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 139 :
-                        result = doTestArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 140 :
-                        result = doTestArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 141 :
-                        result = doTestArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 160 :
-                        result = doTestLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 161 :
-                        result = doTestIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractIntegerMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 162 :
-                        result = doTestStringMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractStringMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 163 :
-                        result = doTestLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractLogicalSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 164 :
-                        result = doTestIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractIntegerSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 165 :
-                        result = doTestStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 180 :
-                        result = doTestMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        result = doTestExtractMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

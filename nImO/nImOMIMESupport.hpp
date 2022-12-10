@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOsinkContext.hpp
+//  File:       nImO/nImOMIMESupport.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'sink' execution context.
+//  Contains:   The function definitions for MIME conversions.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2022-12-10
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOsinkContext_HPP_))
-# define nImOsinkContext_HPP_ /* Header guard */
+#if (! defined(nImOMIMESupport_HPP_))
+# define nImOMIMESupport_HPP_ /* Header guard */
 
-# include <nImOcontextWithCommandPort.hpp>
+# include <nImOcommon.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,63 +47,73 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'sink' %nImO execution context. */
+ @brief The function definitions for MIME conversions. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for a 'sink' application. */
-    class SinkContext final : public ContextWithCommandPort
-    {
 
-        public :
-            // Public type definitions.
+    bool
+    DecodeMimeToBytes
+        (const StringVector &   inValue,
+         ByteVector &           outBytes);
 
-        protected :
-            // Protected type definitions.
+    void
+    EncodeBytesAsMime
+        (StringVector & outValue,
+         const void *   inBytes,
+         const size_t   numBytes);
 
-        private :
-            // Private type definitions.
-
-            /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithCommandPort;
-
-        public :
-            // Public methods.
-
-            /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] logging @c true if the executing program is to be logged.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
-            SinkContext
-                (const std::string &    executableName,
-                 const bool             logging,
-                 const std::string &    nodeName = "");
-
-            /*! @brief The destructor. */
-            virtual
-            ~SinkContext
-                (void);
-
-        protected :
-            // Protected methods.
-
-        private :
-            // Private methods.
-
-        public :
-            // Public fields.
-
-        protected :
-            // Protected fields.
-
-        private :
-            // Private fields.
-
-    }; // SinkContext
+//ByteVector--> uint8_t//    /*! @brief A class to provide network connection points. */
+//    class Channel final
+//    {
+//
+//        public :
+//            // Public type definitions.
+//
+//        protected :
+//            // Protected type definitions.
+//
+//        private :
+//            // Private type definitions.
+//
+//        public :
+//            // Public methods.
+//
+//            /*! @brief The constructor. */
+//            Channel
+//                (void);
+//
+//            /*! @brief The move constructor.
+//             @param[in] other The object to be moved. */
+//            Channel
+//                (Channel &&    other)
+//                noexcept;
+//
+//            /*! @brief The destructor. */
+//            virtual
+//            ~Channel
+//                (void);
+//
+//        protected :
+//            // Protected methods.
+//
+//        private :
+//            // Private methods.
+//
+//        public :
+//            // Public fields.
+//
+//        protected :
+//            // Protected fields.
+//
+//        private :
+//            // Private fields.
+//
+//    }; // Channel
 
 } // nImO
 
-#endif // ! defined(nImOsinkContext_HPP_)
+#endif // ! defined(nImOzMIMESupport_HPP_)

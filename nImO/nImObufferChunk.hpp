@@ -112,7 +112,7 @@ namespace nImO
                 const
             {
                 return StaticCast(size_t, _bufferEnd - _write);
-            } // getAvailableBytes
+            }
 
             /*! @brief Return the stored data.
              @return A pointer to the stored data. */
@@ -122,7 +122,7 @@ namespace nImO
                 const
             {
                 return _buffer.get();
-            } // getData
+            }
 
             /*! @brief Return the number of bytes used in the chunk.
              @return The number of bytes used in the chunk. */
@@ -132,7 +132,7 @@ namespace nImO
                 const
             {
                 return StaticCast(size_t, _write - _buffer.get());
-            } // getDataSize
+            }
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.

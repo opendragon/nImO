@@ -62,92 +62,179 @@ target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 fix_dynamic_libs(${THIS_TARGET})
 
 # Test empty message
-#add_test(NAME TestInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
+add_test(NAME TestMIMEInsertEmptyMessage COMMAND ${THIS_TARGET} 1)
+# Test empty message
+add_test(NAME TestMIMEExtractEmptyMessage COMMAND ${THIS_TARGET} 2)
 # Test message with logical
-#add_test(NAME TestInsertLogicalMessage COMMAND ${THIS_TARGET} 2)
+add_test(NAME TestMIMEInsertLogicalMessage COMMAND ${THIS_TARGET} 3)
+# Test message with logical
+add_test(NAME TestMIMEExtractLogicalMessage COMMAND ${THIS_TARGET} 4)
 # Test message with tiny integer
-#add_test(NAME TestInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 3)
+add_test(NAME TestMIMEInsertTinyIntegerMessage COMMAND ${THIS_TARGET} 5)
+# Test message with tiny integer
+add_test(NAME TestMIMEExtractTinyIntegerMessage COMMAND ${THIS_TARGET} 6)
 # Test message with short integer
-#add_test(NAME TestInsertSmallIntegerMessage COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestMIMEInsertSmallIntegerMessage COMMAND ${THIS_TARGET} 7)
+# Test message with short integer
+add_test(NAME TestMIMEExtractSmallIntegerMessage COMMAND ${THIS_TARGET} 8)
 # Test message with medium integer
-#add_test(NAME TestInsertMediumIntegerMessage COMMAND ${THIS_TARGET} 5)
+add_test(NAME TestMIMEInsertMediumIntegerMessage COMMAND ${THIS_TARGET} 9)
+# Test message with medium integer
+add_test(NAME TestMIMEExtractMediumIntegerMessage COMMAND ${THIS_TARGET} 10)
 # Test message with big integer
-#add_test(NAME TestInsertBigIntegerMessage COMMAND ${THIS_TARGET} 6)
+add_test(NAME TestMIMEInsertBigIntegerMessage COMMAND ${THIS_TARGET} 11)
+# Test message with big integer
+add_test(NAME TestMIMEExtractBigIntegerMessage COMMAND ${THIS_TARGET} 12)
 # Test message with empty string
-#add_test(NAME TestInsertEmptyStringMessage COMMAND ${THIS_TARGET} 7)
+add_test(NAME TestMIMEInsertEmptyStringMessage COMMAND ${THIS_TARGET} 13)
+# Test message with empty string
+add_test(NAME TestMIMEExtractEmptyStringMessage COMMAND ${THIS_TARGET} 14)
 # Test message with short string
-#add_test(NAME TestInsertShortStringMessage COMMAND ${THIS_TARGET} 8)
+add_test(NAME TestMIMEInsertShortStringMessage COMMAND ${THIS_TARGET} 15)
+# Test message with short string
+add_test(NAME TestMIMEExtractShortStringMessage COMMAND ${THIS_TARGET} 16)
 # Test message with medium string
-#add_test(NAME TestInsertMediumStringMessage COMMAND ${THIS_TARGET} 9)
+add_test(NAME TestMIMEInsertMediumStringMessage COMMAND ${THIS_TARGET} 17)
+# Test message with medium string
+add_test(NAME TestMIMEExtractMediumStringMessage COMMAND ${THIS_TARGET} 18)
 # Test message with empty blob
-#add_test(NAME TestInsertEmptyBlobMessage COMMAND ${THIS_TARGET} 10)
+add_test(NAME TestMIMEInsertEmptyBlobMessage COMMAND ${THIS_TARGET} 19)
+# Test message with empty blob
+add_test(NAME TestMIMEExtractEmptyBlobMessage COMMAND ${THIS_TARGET} 20)
 # Test message with short blob
-#add_test(NAME TestInsertSmallBlobMessage COMMAND ${THIS_TARGET} 11)
+add_test(NAME TestMIMEInsertSmallBlobMessage COMMAND ${THIS_TARGET} 21)
+# Test message with short blob
+add_test(NAME TestMIMEExtractSmallBlobMessage COMMAND ${THIS_TARGET} 22)
 # Test message with medium blob
-#add_test(NAME TestInsertMediumBlobMessage COMMAND ${THIS_TARGET} 12)
+add_test(NAME TestMIMEInsertMediumBlobMessage COMMAND ${THIS_TARGET} 23)
+# Test message with medium blob
+add_test(NAME TestMIMEExtractMediumBlobMessage COMMAND ${THIS_TARGET} 24)
 # Test message with single double
-#add_test(NAME TestInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
+add_test(NAME TestMIMEInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 25)
+# Test message with single double
+add_test(NAME TestMIMEExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 26)
 # Test message with multiple escapes
-#add_test(NAME TestInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 14)
+add_test(NAME TestMIMEInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 27)
 
 # Test message with empty array
-#add_test(NAME TestInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+add_test(NAME TestMIMEInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
+# Test message with empty array
+add_test(NAME TestMIMEExtractEmptyArrayMessage COMMAND ${THIS_TARGET} 101)
 # Test message with empty map
-#add_test(NAME TestInsertEmptyMapMessage COMMAND ${THIS_TARGET} 101)
+add_test(NAME TestMIMEInsertEmptyMapMessage COMMAND ${THIS_TARGET} 102)
+# Test message with empty map
+add_test(NAME TestMIMEExtractEmptyMapMessage COMMAND ${THIS_TARGET} 103)
 # Test message with empty set
-#add_test(NAME TestInsertEmptySetMessage COMMAND ${THIS_TARGET} 102)
+add_test(NAME TestMIMEInsertEmptySetMessage COMMAND ${THIS_TARGET} 104)
+# Test message with empty set
+add_test(NAME TestMIMEExtractEmptySetMessage COMMAND ${THIS_TARGET} 105)
 
 # Test message with array with one logical
-#add_test(NAME TestInsertArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 110)
+add_test(NAME TestMIMEInsertArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 200)
+# Test message with array with one logical
+add_test(NAME TestMIMEExtractArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 201)
 # Test message with array with one integer
-#add_test(NAME TestInsertArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 111)
+add_test(NAME TestMIMEInsertArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 202)
+# Test message with array with one integer
+add_test(NAME TestMIMEExtractArrayWithOneIntegerMessage COMMAND ${THIS_TARGET} 203)
 # Test message with array with one double
-#add_test(NAME TestInsertArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 112)
+add_test(NAME TestMIMEInsertArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 204)
+# Test message with array with one double
+add_test(NAME TestMIMEExtractArrayWithOneDoubleMessage COMMAND ${THIS_TARGET} 205)
 # Test message with array with one string
-#add_test(NAME TestInsertArrayWithOneStringMessage COMMAND ${THIS_TARGET} 113)
+add_test(NAME TestMIMEInsertArrayWithOneStringMessage COMMAND ${THIS_TARGET} 206)
+# Test message with array with one string
+add_test(NAME TestMIMEExtractArrayWithOneStringMessage COMMAND ${THIS_TARGET} 207)
 # Test message with array with one blob
-#add_test(NAME TestInsertArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 114)
+add_test(NAME TestMIMEInsertArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 208)
+# Test message with array with one blob
+add_test(NAME TestMIMEExtractArrayWithOneBlobMessage COMMAND ${THIS_TARGET} 209)
 # Test message with array with one empty array
-#add_test(NAME TestInsertArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 115)
+add_test(NAME TestMIMEInsertArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 210)
+# Test message with array with one empty array
+add_test(NAME TestMIMEExtractArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 211)
 # Test message with array with one empty map
-#add_test(NAME TestInsertArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
+add_test(NAME TestMIMEInsertArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 212)
+# Test message with array with one empty map
+add_test(NAME TestMIMEExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 213)
 # Test message with array with one empty set
-#add_test(NAME TestInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
+add_test(NAME TestMIMEInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 214)
+# Test message with array with one empty set
+add_test(NAME TestMIMEExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 215)
 
 # Test message with array with two logicals
-#add_test(NAME TestInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
+add_test(NAME TestMIMEInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 300)
+# Test message with array with two logicals
+add_test(NAME TestMIMEExtractArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 301)
 # Test message with array with two integers
-#add_test(NAME TestInsertArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 131)
+add_test(NAME TestMIMEInsertArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 302)
+# Test message with array with two integers
+add_test(NAME TestMIMEExtractArrayWithTwoIntegersMessage COMMAND ${THIS_TARGET} 303)
 # Test message with array with two doubles
-#add_test(NAME TestInsertArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 132)
+add_test(NAME TestMIMEInsertArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 304)
+# Test message with array with two doubles
+add_test(NAME TestMIMEExtractArrayWithTwoDoublesMessage COMMAND ${THIS_TARGET} 305)
 # Test message with array with two strings
-#add_test(NAME TestInsertArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 133)
+add_test(NAME TestMIMEInsertArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 306)
+# Test message with array with two strings
+add_test(NAME TestMIMEExtractArrayWithTwoStringsMessage COMMAND ${THIS_TARGET} 307)
 # Test message with array with two blobs
-#add_test(NAME TestInsertArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 134)
+add_test(NAME TestMIMEInsertArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 308)
+# Test message with array with two blobs
+add_test(NAME TestMIMEExtractArrayWithTwoBlobsMessage COMMAND ${THIS_TARGET} 309)
 # Test message with array with two empty arrays
-#add_test(NAME TestInsertArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 135)
+add_test(NAME TestMIMEInsertArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 310)
+# Test message with array with two empty arrays
+add_test(NAME TestMIMEExtractArrayWithTwoEmptyArraysMessage COMMAND ${THIS_TARGET} 311)
 # Test message with array with two empty maps
-#add_test(NAME TestInsertArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 136)
+add_test(NAME TestMIMEInsertArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 312)
+# Test message with array with two empty maps
+add_test(NAME TestMIMEExtractArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET} 313)
 # Test message with array with two empty sets
-#add_test(NAME TestInsertArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 137)
+add_test(NAME TestMIMEInsertArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 314)
+# Test message with array with two empty sets
+add_test(NAME TestMIMEExtractArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 315)
 # Test message with array with empty array and empty map
-#add_test(NAME TestInsertArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 138)
+add_test(NAME TestMIMEInsertArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 316)
+# Test message with array with empty array and empty map
+add_test(NAME TestMIMEExtractArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 317)
 # Test message with array with empty map and empty set
-#add_test(NAME TestInsertArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 139)
+add_test(NAME TestMIMEInsertArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 318)
+# Test message with array with empty map and empty set
+add_test(NAME TestMIMEExtractArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARGET} 319)
 # Test message with array with empty set and empty array
-#add_test(NAME TestInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
+add_test(NAME TestMIMEInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 320)
+# Test message with array with empty set and empty array
+add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 321)
 # Test message with array with many doubles
-#add_test(NAME TestInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
+add_test(NAME TestMIMEInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 322)
+# Test message with array with many doubles
+add_test(NAME TestMIMEExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 323)
 
 # Test message with logical map
-#add_test(NAME TestInsertLogicalMapMessage COMMAND ${THIS_TARGET} 160)
+add_test(NAME TestMIMEInsertLogicalMapMessage COMMAND ${THIS_TARGET} 400)
+# Test message with logical map
+add_test(NAME TestMIMEExtractLogicalMapMessage COMMAND ${THIS_TARGET} 401)
 # Test message with integer map
-#add_test(NAME TestInsertIntegerMapMessage COMMAND ${THIS_TARGET} 161)
+add_test(NAME TestMIMEInsertIntegerMapMessage COMMAND ${THIS_TARGET} 402)
+# Test message with integer map
+add_test(NAME TestMIMEExtractIntegerMapMessage COMMAND ${THIS_TARGET} 403)
 # Test message with string map
-#add_test(NAME TestInsertStringMapMessage COMMAND ${THIS_TARGET} 162)
+add_test(NAME TestMIMEInsertStringMapMessage COMMAND ${THIS_TARGET} 404)
+# Test message with string map
+add_test(NAME TestMIMEExtractStringMapMessage COMMAND ${THIS_TARGET} 405)
 # Test message with logical set
-#add_test(NAME TestInsertLogicalSetMessage COMMAND ${THIS_TARGET} 163)
+add_test(NAME TestMIMEInsertLogicalSetMessage COMMAND ${THIS_TARGET} 406)
+# Test message with logical set
+add_test(NAME TestMIMEExtractLogicalSetMessage COMMAND ${THIS_TARGET} 407)
 # Test message with integer set
-#add_test(NAME TestInsertIntegerSetMessage COMMAND ${THIS_TARGET} 164)
+add_test(NAME TestMIMEInsertIntegerSetMessage COMMAND ${THIS_TARGET} 408)
+# Test message with integer set
+add_test(NAME TestMIMEExtractIntegerSetMessage COMMAND ${THIS_TARGET} 409)
 # Test message with string set
-#add_test(NAME TestInsertStringSetMessage COMMAND ${THIS_TARGET} 165)
+add_test(NAME TestMIMEInsertStringSetMessage COMMAND ${THIS_TARGET} 410)
+# Test message with string set
+add_test(NAME TestMIMEExtractStringSetMessage COMMAND ${THIS_TARGET} 411)
+
+# Test message with array with range of integers
+add_test(NAME TestMIMEMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 500)

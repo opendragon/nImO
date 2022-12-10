@@ -78,7 +78,7 @@ namespace nImO
             @param[in] nodeName The @nImO-visible name of the executing program. */
             MiscellaneousContext
                 (const std::string &    executableName,
-                const std::string &    nodeName = "");
+                 const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual

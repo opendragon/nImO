@@ -101,7 +101,7 @@ namespace nImO
                 const
             {
                 return _network;
-            } // getNetwork
+            }
 
             /*! @brief Return the name of the node for the channel.
             @return The node name for the channel. */
@@ -111,7 +111,7 @@ namespace nImO
                 const
             {
                 return _node;
-            } // getNode
+            }
 
             /*! @brief Return the path for the channel.
             @return The path for the channel. */
@@ -121,7 +121,7 @@ namespace nImO
                 const
             {
                 return _path;
-            } // getNodeName
+            }
 
             /*! @brief Return the transport mechanism for the channel.
             @return The transport mechanism for the channel. */
@@ -131,7 +131,7 @@ namespace nImO
                 const
             {
                 return _transport;
-            } // getTransport
+            }
 
             /*! @brief Extracts a ChannelName from a string.
             @param[in] input The string being processed.
@@ -140,7 +140,7 @@ namespace nImO
             static SpChannelName
             parse
                 (const std::string &    input,
-                std::string &          problemDescription);
+                 std::string &          problemDescription);
 
             /*! @brief Returns the set of names for Transport values.
             @return The standard names for the Transport values. */

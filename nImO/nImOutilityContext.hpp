@@ -79,8 +79,8 @@ namespace nImO
             @param[in] nodeName The @nImO-visible name of the executing program. */
             UtilityContext
                 (const std::string &    executableName,
-                const bool             logging,
-                const std::string &    nodeName = "");
+                 const bool             logging,
+                 const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual

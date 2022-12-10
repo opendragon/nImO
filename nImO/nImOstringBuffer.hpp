@@ -107,7 +107,7 @@ namespace nImO
             StringBuffer &
             addBytes
                 (const uint8_t *    inBytes,
-                const size_t       numBytes);
+                 const size_t       numBytes);
 
             /*! @brief Add a character to the buffer.
             @param[in] aChar The character to add.
@@ -120,7 +120,7 @@ namespace nImO
 
                 inherited::appendBytes(&temp, sizeof(temp));
                 return *this;
-            } // addChar
+            }
 
             /*! @brief Add a character string representation of a floating-point value to the buffer.
             @param[in] aDouble The value to add.
@@ -131,7 +131,7 @@ namespace nImO
             {
                 addString(ConvertDoubleToString(aDouble));
                 return *this;
-            } // addDouble
+            }
 
             /*! @brief Add a character string representation of an integer value to the buffer.
             @param[in] aLong The value to add.
@@ -142,7 +142,7 @@ namespace nImO
             {
                 addString(std::to_string(aLong));
                 return *this;
-            } // addLong
+            }
 
             /*! @brief Add a character string to the buffer.
             @param[in] aString The value to add.
@@ -151,7 +151,7 @@ namespace nImO
             StringBuffer &
             addString
                 (const char *   aString,
-                const bool     addQuotes = false);
+                 const bool     addQuotes = false);
 
             /*! @brief Add a character string to the buffer.
             @param[in] aString The value to add.
@@ -160,7 +160,7 @@ namespace nImO
             StringBuffer &
             addString
                 (const std::string &    aString,
-                const bool             addQuotes = false);
+                 const bool             addQuotes = false);
 
             /*! @brief Add a horizontal tab character to the buffer.
             @return The StringBuffer object so that cascading can be done. */
@@ -170,7 +170,7 @@ namespace nImO
             {
                 addChar('\t');
                 return *this;
-            } // addTab
+            }
 
             /*! @brief Convert the buffer to a Value.
             @return The Value represented by the buffer contents. */
@@ -186,11 +186,11 @@ namespace nImO
             inline int
             getChar
                 (const size_t   index,
-                bool &         atEnd)
+                 bool &         atEnd)
                 const
             {
                 return inherited::getByte(index, atEnd);
-            } // getChar
+            }
 
             /*! @brief Return a copy of the characters in the buffer.
             @return A copy of the characters in the buffer. */
@@ -199,7 +199,7 @@ namespace nImO
                 (void)
             {
                 return inherited::getBytes();
-            } // getString
+            }
 
             /*! @brief The copy assignment operator.
             @param[in] other The object to be copied.
@@ -219,7 +219,7 @@ namespace nImO
             friend std::ostream &
             operator <<
                 (std::ostream &         out,
-                const StringBuffer &   aBuffer);
+                 const StringBuffer &   aBuffer);
 
         protected :
             // Protected methods.
@@ -233,7 +233,7 @@ namespace nImO
             void
             processCharacters
                 (const char *   aString,
-                const size_t   length);
+                 const size_t   length);
 
         public :
             // Public fields.

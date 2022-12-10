@@ -193,7 +193,7 @@ toUType
     noexcept
 {
     return StaticCast(typename std::underlying_type<Type>::type, enumerator);
-} // toUType
+}
 
 /*! @brief Return a unique_ptr for a freshly-allocated object.
  { From Effective Modern C++. }
@@ -208,7 +208,7 @@ make_unique
     (Types &&...    params)
 {
     return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
-} // make_unique
+}
 
 namespace nImO
 {
@@ -760,7 +760,7 @@ namespace nImO
         (const DataKind rightValue)
     {
         return StaticCast(DataKind, ~ toUType(rightValue));
-    } // operator ~
+    }
 
     /*! @brief Merge two DataKind values together.
      @param[in] leftValue The first value to be merged.
@@ -772,7 +772,7 @@ namespace nImO
          const DataKind rightValue)
     {
         return StaticCast(DataKind, toUType(leftValue) | toUType(rightValue));
-    } // operator |
+    }
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
      @param[in] leftValue The first value to be merged.
@@ -784,7 +784,7 @@ namespace nImO
          const uint8_t  rightValue)
     {
         return StaticCast(DataKind, toUType(leftValue) | rightValue);
-    } // operator |
+    }
 
     /*! @brief Merge a DataKind value and an unsigned byte together.
      @param[in] leftValue The first value to be merged.
@@ -796,7 +796,7 @@ namespace nImO
          const DataKind rightValue)
     {
         return StaticCast(DataKind, leftValue | toUType(rightValue));
-    } // operator |
+    }
 
       /*! @brief Merge two DataKind values together.
       @param[in] leftValue The first value to be merged.
@@ -808,7 +808,7 @@ namespace nImO
          const DataKind rightValue)
     {
         return StaticCast(DataKind, toUType(leftValue) & toUType(rightValue));
-    } // operator &
+    }
 
       /*! @brief Mask an unsigned byte with a DataKind mask.
      @param[in] leftValue The first value to be combined.
@@ -820,7 +820,7 @@ namespace nImO
          const uint8_t  rightValue)
     {
         return StaticCast(DataKind, toUType(leftValue) & rightValue);
-    } // operator &
+    }
 
     /*! @brief Mask an unsigned byte with a DataKind mask.
      @param[in] leftValue The first value to be combined.
@@ -832,7 +832,7 @@ namespace nImO
          const DataKind rightValue)
     {
         return StaticCast(DataKind, leftValue & toUType(rightValue));
-    } // operator &
+    }
 
     /*! @brief Write out a (possibly multi-line) description.
      @param[in,out] outStream The stream to write to.
@@ -940,7 +940,7 @@ namespace nImO
          const bool systemAllowed = false)
     {
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) && (MAXIMUM_PORT_ALLOWED_ >= aPort));
-    } // ValidPortNumber
+    }
 
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char   kBlobSeparator;

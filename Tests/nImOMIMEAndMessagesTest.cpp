@@ -44,6 +44,7 @@
 #include <nImOlogical.hpp>
 #include <nImOmap.hpp>
 #include <nImOmessage.hpp>
+#include <nImOMIMESupport.hpp>
 #include <nImOset.hpp>
 #include <nImOstring.hpp>
 #include <nImOstringBuffer.hpp>
@@ -139,7 +140,7 @@ setValueAndCheck
         result = StaticCast(int, CompareBytes(expectedContents1, contents1.data(), expectedSize1));
         if (0 == result)
         {
-            if (expectedContents2 && expectedSize2)
+            if ((nullptr != expectedContents2) && (0 < expectedSize2))
             {
                 std::string contents2{stuff.getBytesForTransmission()};
                 size_t      length2 = contents2.size();
@@ -158,7 +159,7 @@ setValueAndCheck
             }
             else
             {
-                ODL_LOG("! (expectedContents2 && expectedSize2)"); //####
+                ODL_LOG("! ((nullptr != expectedContents2) && (0 < expectedSize2))"); //####
             }
         }
     }
@@ -173,6 +174,98 @@ setValueAndCheck
 #endif//0
 
 #if 0
+/*! @brief Extract a Value from a Message and verify what was stored.
+ @param[in,out] stuff The Message to be modified.
+ @param[in] insertedContents The data to be added to the Message.
+ @param[in] insertedSize The size of the data added to the Message.
+ @param[in] expectedValue The expected Value from the Message.
+ @return Zero on success and non-zero on failure. */
+static int
+extractValueAndCheck
+    (Message &          stuff,
+     const DataKind *   insertedContents,
+     const size_t       insertedSize,
+     const Value &      expectedValue)
+{
+    ODL_ENTER(); //####
+    ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
+           &expectedValue); //####
+    ODL_I1("insertedSize = ", insertedSize); //####
+    ODL_PACKET("inserted", insertedContents, insertedSize); //####
+    int result = 1;
+
+    // First, the 'this-should-work' test:
+    stuff.open(false);
+    stuff.appendBytes(insertedContents, insertedSize);
+    SpValue extractedValue{stuff.getValue()};
+
+    ODL_P1("extractedValue <- ", extractedValue.get()); //####
+    stuff.close();
+    if (nullptr == extractedValue)
+    {
+        ODL_LOG("(nullptr == extractedValue)"); //####
+    }
+    else
+    {
+        const Flaw *    asFlaw = extractedValue->asFlaw();
+
+        if (nullptr == asFlaw)
+        {
+            if (stuff.readAtEnd())
+            {
+                if (extractedValue->deeplyEqualTo(expectedValue))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (stuff.readAtEnd())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr == asFlaw)"); //####
+            ODL_LOG(asFlaw->getDescription().c_str()); //####
+        }
+    }
+    if (0 == result)
+    {
+        // And now, let's make sure that 'short' messages are handled correctly:
+        for (size_t ii = 1, shortenedSize = insertedSize - 1; (0 == result) && (shortenedSize > ii); ++ii)
+        {
+            stuff.open(false);
+            stuff.appendBytes(insertedContents, ii);
+            extractedValue = stuff.getValue();
+            ODL_P1("extractedValue <- ", extractedValue.get()); //####
+            stuff.close();
+            if (nullptr != extractedValue)
+            {
+                const Flaw *    asFlaw = extractedValue->asFlaw();
+
+                if (nullptr == asFlaw)
+                {
+                    ODL_LOG("(nullptr == asFlaw)");
+                    ODL_I1("ii = ", ii); //####
+                    result = 1;
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr == asFlaw)"); //####
+                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                }
+            }
+        }
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // extractValueAndCheck
+#endif//0
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 001 ***
 #endif // defined(__APPLE__)
@@ -183,7 +276,7 @@ setValueAndCheck
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyMessage
+doTestMIMEInsertEmptyMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty message
@@ -203,62 +296,50 @@ doTestInsertEmptyMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptyBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
-            };
-            const size_t            expectedEmptyByteCount = A_SIZE(expectedEmptyBytes);
-            ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto                    contents1{stuff->getBytes()};
-            size_t                  length1 = contents1.size();
+            // static const DataKind   expectedEmptyBytes[] =
+            // {
+            //     // Start of Message
+            //     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
+            //     // End of Message
+            //     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
+            // };
+            StringVector    outVec;
 
             stuff->open(true);
-            if (0 == length1)
+            stuff->close();
+//            stuff->getBytesAsMIME(outVec);
+            if (0 < outVec.size())
             {
-                stuff->close();
-                contents1 = stuff->getBytes();
-                length1 = contents1.size();
-                ODL_PACKET("contents", contents1.data(), length1); //####
-                if (expectedEmptyByteCount == length1)
-                {
-                    result = StaticCast(int, CompareBytes(expectedEmptyBytes, contents1.data(), expectedEmptyByteCount));
-                    if (0 == result)
-                    {
+                std::string     expectedLines[] = { "a", "b" };
+                const size_t    expectedLinesCount = A_SIZE(expectedLines);
+#if 0
                         static const uint8_t    transmitEmptyBytes[] =
                         {
                             0xF0, // Start of message
                             0xF8, // End of message
                             0x17 // Checksum
                         };
-                        const size_t            transmitEmptyByteCount = A_SIZE(transmitEmptyBytes);
-                        std::string             contents2{stuff->getBytesForTransmission()};
-                        size_t                  length2 = contents2.size();
-
-                        ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
-                                   transmitEmptyByteCount); //####
-                        ODL_PACKET("contents2", contents2.data(), length2); //####
-                        if (transmitEmptyByteCount == length2)
+#endif//0                
+                if (expectedLinesCount == outVec.size())
+                {
+                    result = 0;
+                    for (size_t ii = 0; (0 == result) && (ii < expectedLinesCount); ++ii)
+                    {
+                        if (expectedLines[ii] != outVec[ii])
                         {
-                            result = StaticCast(int, CompareBytes(transmitEmptyBytes, contents2.data(), transmitEmptyByteCount));
-                        }
-                        else
-                        {
-                            ODL_LOG("! (transmitEmptyByteCount == length2)"); //####
+                            ODL_LOG("(expectedLines[ii] != outVec[ii])"); //####
                             result = 1;
                         }
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (expectedEmptyByteCount == length1)"); //####
+                    ODL_LOG("! (expectedLinesCount == outVec.size())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 == length1)"); //####
+                ODL_LOG("! (0 < outVec.size())"); //####
             }
         }
         else
@@ -273,7 +354,7 @@ doTestInsertEmptyMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptyMessage
+} // doTestMIMEInsertEmptyMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 002 ***
@@ -285,7 +366,117 @@ doTestInsertEmptyMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalMessage
+doTestMIMEExtractEmptyMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            ODL_LOG("(stuff)"); //####
+            static const DataKind   bytesToInsert[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
+            };
+            const size_t            insertionCount = A_SIZE(bytesToInsert);
+            ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
+            SpValue                 extractedValue{stuff->getValue()};
+
+            ODL_P1("extractedValue <- ", extractedValue.get()); //####
+            if (stuff->readAtEnd())
+            {
+                if (nullptr == extractedValue)
+                {
+                    ODL_LOG("Null Value read"); //####
+                }
+                else
+                {
+                    const Flaw *    asFlaw = extractedValue->asFlaw();
+
+                    if (asFlaw)
+                    {
+                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
+                        stuff->open(true);
+                        stuff->close();
+                        stuff->open(false);
+                        stuff->appendBytes(bytesToInsert, insertionCount);
+                        extractedValue = stuff->getValue();
+                        ODL_P1("extractedValue <- ", extractedValue.get()); //####
+                        stuff->close();
+                        if (stuff->readAtEnd())
+                        {
+                            if (nullptr == extractedValue)
+                            {
+                                ODL_LOG("(nullptr == extractedValue)"); //####
+                                result = 0;
+                            }
+                            else
+                            {
+                                asFlaw = extractedValue->asFlaw();
+                                if (asFlaw)
+                                {
+                                    ODL_LOG("(asFlaw)"); //####
+                                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (asFlaw)"); //####
+                                }
+                            }
+                        }
+                        stuff->reset();
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (stuff->readAtEnd())"); //####
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 003 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertLogicalMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical message
@@ -335,6 +526,7 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedFalseByteCount = A_SIZE(expectedFalseBytes);
+#if 0
             static const uint8_t    transmitFalseBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -360,6 +552,7 @@ doTestInsertLogicalMessage
                 result = setValueAndCheck(*stuff, falseValue, expectedFalseBytes, expectedFalseByteCount, transmitFalseBytes,
                                           transmitFalseByteCount);
             }
+#endif//0
         }
         else
         {
@@ -373,10 +566,10 @@ doTestInsertLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertLogicalMessage
+} // doTestMIMEInsertLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 003 ***
+# pragma mark *** Test Case 004 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -385,7 +578,92 @@ doTestInsertLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertTinyIntegerMessage
+doTestMIMEExtractLogicalMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForTrue[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalTrueValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedTrueCount = A_SIZE(insertedBytesForTrue);
+            static const DataKind   insertedBytesForFalse[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedFalseCount = A_SIZE(insertedBytesForFalse);
+            Logical                 falseValue(false);
+            Logical                 trueValue(true);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount, trueValue);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount, falseValue);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractLogicalMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 005 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertTinyIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // tiny integer message
@@ -450,6 +728,7 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus12ByteCount = A_SIZE(expectedPlus12Bytes);
+#if 0
             static const uint8_t    transmitMinus12Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
@@ -490,6 +769,7 @@ doTestInsertTinyIntegerMessage
                 result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Bytes, expectedPlus12ByteCount, transmitPlus12Bytes,
                                           transmitPlus12ByteCount);
             }
+#endif//0
         }
         else
         {
@@ -503,10 +783,10 @@ doTestInsertTinyIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertTinyIntegerMessage
+} // doTestMIMEInsertTinyIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 004 ***
+# pragma mark *** Test Case 006 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -515,7 +795,112 @@ doTestInsertTinyIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertSmallIntegerMessage
+doTestMIMEExtractTinyIntegerMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // tiny integer message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMinus12[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                (-12 & DataKind::IntegerShortValueValueMask),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedMinus12Count = A_SIZE(insertedBytesForMinus12);
+            static const DataKind   insertedBytesForZero[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedZeroCount = A_SIZE(insertedBytesForZero);
+            static const DataKind   insertedBytesForPlus12[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                (12 & DataKind::IntegerShortValueValueMask),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedPlus12Count = A_SIZE(insertedBytesForPlus12);
+            Integer                 minus12Value(-12);
+            Integer                 zeroValue(0);
+            Integer                 plus12Value(12);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count, minus12Value);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForZero, insertedZeroCount, zeroValue);
+            }
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count, plus12Value);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractTinyIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 007 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertSmallIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // small integer message
@@ -567,6 +952,7 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus144ByteCount = A_SIZE(expectedPlus144Bytes);
+#if 0
             static const uint8_t    transmitMinus144Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
@@ -593,6 +979,7 @@ doTestInsertSmallIntegerMessage
                 result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Bytes, expectedPlus144ByteCount, transmitPlus144Bytes,
                                           transmitPlus144ByteCount);
             }
+#endif//0
         }
         else
         {
@@ -606,10 +993,10 @@ doTestInsertSmallIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertSmallIntegerMessage
+} // doTestMIMEInsertSmallIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 005 ***
+# pragma mark *** Test Case 008 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -618,7 +1005,94 @@ doTestInsertSmallIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumIntegerMessage
+doTestMIMEExtractSmallIntegerMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small integer message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMinus144[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x70),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedMinus144Count = A_SIZE(insertedBytesForMinus144);
+            static const DataKind   insertedBytesForPlus144[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x90),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedPlus144Count = A_SIZE(insertedBytesForPlus144);
+            Integer                 minus144Value(-144);
+            Integer                 plus144Value(144);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count, minus144Value);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count, plus144Value);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractSmallIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 009 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertMediumIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium integer message
@@ -672,6 +1146,7 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus1234567ByteCount = A_SIZE(expectedPlus1234567Bytes);
+#if 0
             static const uint8_t    transmitMinus1234567Bytes[] =
             {
                 0xF4, // Start of message, next is Integer
@@ -698,6 +1173,7 @@ doTestInsertMediumIntegerMessage
                 result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes, expectedPlus1234567ByteCount, transmitPlus1234567Bytes,
                                           transmitPlus1234567ByteCount);
             }
+#endif//0
         }
         else
         {
@@ -711,10 +1187,10 @@ doTestInsertMediumIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertMediumIntegerMessage
+} // doTestMIMEInsertMediumIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 006 ***
+# pragma mark *** Test Case 010 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -723,7 +1199,96 @@ doTestInsertMediumIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertBigIntegerMessage
+doTestMIMEExtractMediumIntegerMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium integer message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMinus1234567[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0x29),
+                StaticCast(DataKind, 0x79),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedMinus1234567Count = A_SIZE(insertedBytesForMinus1234567);
+            static const DataKind   insertedBytesForPlus1234567[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0xD6),
+                StaticCast(DataKind, 0x87),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedPlus1234567Count = A_SIZE(insertedBytesForPlus1234567);
+            Integer                 minus1234567Value(-1234567);
+            Integer                 plus1234567Value(1234567);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567, insertedMinus1234567Count, minus1234567Value);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count, plus1234567Value);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractMediumIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 011 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertBigIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // big integer message
@@ -779,6 +1344,7 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlusBigNumberByteCount = A_SIZE(expectedPlusBigNumberBytes);
+#if 0
             static const uint8_t    transmitMinusBigNumberBytes[] =
             {
                 0xF4, // Start of message, next is Integer
@@ -805,6 +1371,7 @@ doTestInsertBigIntegerMessage
                 result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes, expectedPlusBigNumberByteCount,
                                           transmitPlusBigNumberBytes, transmitPlusBigNumberByteCount);
             }
+#endif//0
         }
         else
         {
@@ -818,10 +1385,10 @@ doTestInsertBigIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertBigIntegerMessage
+} // doTestMIMEInsertBigIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 007 ***
+# pragma mark *** Test Case 012 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -830,7 +1397,98 @@ doTestInsertBigIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyStringMessage
+doTestMIMEExtractBigIntegerMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // big integer message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMinusBigNumber[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0xCB),
+                StaticCast(DataKind, 0xA9), StaticCast(DataKind, 0x87),
+                StaticCast(DataKind, 0x65), StaticCast(DataKind, 0x44),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedMinusBigNumberCount = A_SIZE(insertedBytesForMinusBigNumber);
+            static const DataKind   insertedBytesForPlusBigNumber[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x34),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x78),
+                StaticCast(DataKind, 0x9A), StaticCast(DataKind, 0xBC),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedIntegerValue
+            };
+            const size_t            insertedPlusBigNumberCount = A_SIZE(insertedBytesForPlusBigNumber);
+            Integer                 minusBigNumberValue(-20015998343868);
+            Integer                 plusBigNumberValue(20015998343868);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber, insertedMinusBigNumberCount, minusBigNumberValue);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount, plusBigNumberValue);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractBigIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 013 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertEmptyStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty string message
@@ -866,6 +1524,7 @@ doTestInsertEmptyStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyStringByteCount = A_SIZE(expectedEmptyStringBytes);
+#if 0
             static const uint8_t    transmitEmptyStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -878,6 +1537,7 @@ doTestInsertEmptyStringMessage
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount, transmitEmptyStringBytes,
                                       transmitEmptyStringByteCount);
+#endif//0
         }
         else
         {
@@ -891,10 +1551,10 @@ doTestInsertEmptyStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptyStringMessage
+} // doTestMIMEInsertEmptyStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 008 ***
+# pragma mark *** Test Case 014 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -903,7 +1563,73 @@ doTestInsertEmptyStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertShortStringMessage
+doTestMIMEExtractEmptyStringMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty string message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForEmptyString[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedEmptyStringCount = A_SIZE(insertedBytesForEmptyString);
+            String                  emptyStringValue;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 015 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertShortStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // short string message
@@ -942,6 +1668,7 @@ doTestInsertShortStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedShortStringByteCount = A_SIZE(expectedShortStringBytes);
+#if 0
             static const uint8_t    transmitShortStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -954,6 +1681,7 @@ doTestInsertShortStringMessage
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount, transmitShortStringBytes,
                                       transmitShortStringByteCount);
+#endif//0
         }
         else
         {
@@ -967,10 +1695,10 @@ doTestInsertShortStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertShortStringMessage
+} // doTestMIMEInsertShortStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 009 ***
+# pragma mark *** Test Case 016 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -979,7 +1707,76 @@ doTestInsertShortStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumStringMessage
+doTestMIMEExtractShortStringMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // short string message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForShortString[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (6 & DataKind::StringOrBlobShortLengthMask),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedShortStringCount = A_SIZE(insertedBytesForShortString);
+            String                  shortStringValue("abcdef");
+
+            result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractShortStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 017 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertMediumStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium string message
@@ -1037,6 +1834,7 @@ doTestInsertMediumStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedMediumStringByteCount = A_SIZE(expectedMediumStringBytes);
+#if 0
             static const uint8_t    transmitMediumStringBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -1052,6 +1850,7 @@ doTestInsertMediumStringMessage
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount,
                                       transmitMediumStringBytes, transmitMediumStringByteCount);
+#endif//0
         }
         else
         {
@@ -1065,10 +1864,10 @@ doTestInsertMediumStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertMediumStringMessage
+} // doTestMIMEInsertMediumStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 010 ***
+# pragma mark *** Test Case 018 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1077,7 +1876,95 @@ doTestInsertMediumStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyBlobMessage
+doTestMIMEExtractMediumStringMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium string message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMediumString[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobLongLengthValue |
+                ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
+                StaticCast(DataKind, 42),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
+                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
+                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedMediumStringCount = A_SIZE(insertedBytesForMediumString);
+            String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractMediumStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 019 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertEmptyBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty blob message
@@ -1113,6 +2000,7 @@ doTestInsertEmptyBlobMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyBlobByteCount = A_SIZE(expectedEmptyBlobBytes);
+#if 0
             static const uint8_t    transmitEmptyBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -1125,6 +2013,7 @@ doTestInsertEmptyBlobMessage
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount,
                                       transmitEmptyBlobBytes, transmitEmptyBlobByteCount);
+#endif//0
         }
         else
         {
@@ -1138,10 +2027,10 @@ doTestInsertEmptyBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptyBlobMessage
+} // doTestMIMEInsertEmptyBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 011 ***
+# pragma mark *** Test Case 020 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1150,7 +2039,73 @@ doTestInsertEmptyBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertSmallBlobMessage
+doTestMIMEExtractEmptyBlobMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty blob message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForEmptyBlob[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedEmptyBlobCount = A_SIZE(insertedBytesForEmptyBlob);
+            Blob                    emptyBlobValue;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 021 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertSmallBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // small blob message
@@ -1194,6 +2149,7 @@ doTestInsertSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
+#if 0
             static const uint8_t    transmitSmallBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -1206,6 +2162,7 @@ doTestInsertSmallBlobMessage
 
             result = setValueAndCheck(*stuff, shortBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount, transmitSmallBlobBytes,
                                       transmitSmallBlobByteCount);
+#endif//0
         }
         else
         {
@@ -1219,10 +2176,10 @@ doTestInsertSmallBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertSmallBlobMessage
+} // doTestMIMEInsertSmallBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 012 ***
+# pragma mark *** Test Case 022 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1231,7 +2188,81 @@ doTestInsertSmallBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMediumBlobMessage
+doTestMIMEExtractSmallBlobMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // small blob message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForSmallBlob[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (6 & DataKind::StringOrBlobShortLengthMask),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedSmallBlobCount = A_SIZE(insertedBytesForSmallBlob);
+            static const uint8_t    actualData[] =
+            {
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67
+            };
+            const size_t            actualDataCount = A_SIZE(actualData);
+            Blob                    shortBlobValue(actualData, actualDataCount);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, shortBlobValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractSmallBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 023 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertMediumBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // medium blob message
@@ -1300,6 +2331,7 @@ doTestInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
+#if 0
             static const uint8_t    transmitMediumBlobBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -1318,6 +2350,7 @@ doTestInsertMediumBlobMessage
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount, transmitMediumBlobBytes,
                                       transmitMediumBlobByteCount);
+#endif//0
         }
         else
         {
@@ -1331,10 +2364,10 @@ doTestInsertMediumBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertMediumBlobMessage
+} // doTestMIMEInsertMediumBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 013 ***
+# pragma mark *** Test Case 024 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1343,7 +2376,106 @@ doTestInsertMediumBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertSingleDoubleMessage
+doTestMIMEExtractMediumBlobMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // medium blob message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForMediumBlob[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue,
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobLongLengthValue |
+                ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
+                StaticCast(DataKind, 42),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
+                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedStringOrBlobValue
+            };
+            const size_t            insertedMediumBlobCount = A_SIZE(insertedBytesForMediumBlob);
+            static const uint8_t    actualData[] =
+            {
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
+                0x12, 0x23, 0x34, 0x45, 0x56, 0x67
+            };
+            const size_t            actualDataCount = A_SIZE(actualData);
+            Blob                    mediumBlobValue(actualData, actualDataCount);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractMediumBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 025 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertSingleDoubleMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // single double message
@@ -1403,6 +2535,7 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t            expectedMinus42Point5ByteCount = A_SIZE(expectedMinus42Point5Bytes);
+#if 0
             static const uint8_t    transmitMinus42Point5Bytes[] =
             {
                 0xF5, // Start of message, next is Doubleing-point
@@ -1430,6 +2563,7 @@ doTestInsertSingleDoubleMessage
                 result = setValueAndCheck(*stuff, minus42Point5, expectedMinus42Point5Bytes, expectedMinus42Point5ByteCount,
                                           transmitMinus42Point5Bytes, transmitMinus42Point5ByteCount);
             }
+#endif//0
         }
         else
         {
@@ -1443,10 +2577,10 @@ doTestInsertSingleDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertSingleDoubleMessage
+} // doTestMIMEInsertSingleDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 014 ***
+# pragma mark *** Test Case 013 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1455,7 +2589,102 @@ doTestInsertSingleDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertMultipleEscapesMessage
+doTestMIMEExtractSingleDoubleMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // single double message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForPlus42Point5[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedDoubleValue,
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                ((1 - DataKindDoubleShortCountMinValue) &
+                 DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedDoubleValue
+            };
+            const size_t            insertedPlus42Point5Count = A_SIZE(insertedBytesForPlus42Point5);
+            static const DataKind   insertedBytesForMinus42Point5[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedDoubleValue,
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                ((1 - DataKindDoubleShortCountMinValue) &
+                 DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedDoubleValue
+            };
+            const size_t            insertedMinus42Point5Count = A_SIZE(insertedBytesForMinus42Point5);
+            Double                  plus42Point5(42.5);
+            Double                  minus42Point5(-42.5);
+
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count, minus42Point5);
+            if (0 == result)
+            {
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5);
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractSingleDoubleMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 027 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertMultipleEscapesMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // message with multiple escapes
@@ -1501,6 +2730,7 @@ doTestInsertMultipleEscapesMessage
                 0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
             };
             const size_t            actualDataCount = A_SIZE(actualData);
+#if 0
             static const uint8_t    transmitMultipleEscapesBytes[] =
             {
                 0xF6, // Start of message, next is String or Blob
@@ -1514,6 +2744,7 @@ doTestInsertMultipleEscapesMessage
 
             result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes, expectedMultipleEscapesByteCount,
                                       transmitMultipleEscapesBytes, transmitMultipleEscapesByteCount);
+#endif//0
         }
         else
         {
@@ -1527,7 +2758,7 @@ doTestInsertMultipleEscapesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertMultipleEscapesMessage
+} // doTestMIMEInsertMultipleEscapesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -1539,7 +2770,7 @@ doTestInsertMultipleEscapesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyArrayMessage
+doTestMIMEInsertEmptyArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty array message
@@ -1579,6 +2810,7 @@ doTestInsertEmptyArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyArrayByteCount = A_SIZE(expectedEmptyArrayBytes);
+#if 0
             static const uint8_t    transmitEmptyArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -1592,6 +2824,7 @@ doTestInsertEmptyArrayMessage
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount, transmitEmptyArrayBytes,
                                       transmitEmptyArrayByteCount);
+#endif//0
         }
         else
         {
@@ -1605,7 +2838,7 @@ doTestInsertEmptyArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptyArrayMessage
+} // doTestMIMEInsertEmptyArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
@@ -1617,7 +2850,77 @@ doTestInsertEmptyArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptyMapMessage
+doTestMIMEExtractEmptyArrayMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty array message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForEmptyArray[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedEmptyArrayCount = A_SIZE(insertedBytesForEmptyArray);
+            Array                   emptyArray;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 102 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertEmptyMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty map message
@@ -1657,6 +2960,7 @@ doTestInsertEmptyMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyMapByteCount = A_SIZE(expectedEmptyMapBytes);
+#if 0
             static const uint8_t    transmitEmptyMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -1670,6 +2974,7 @@ doTestInsertEmptyMapMessage
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount, transmitEmptyMapBytes,
                                       transmitEmptyMapByteCount);
+#endif//0
         }
         else
         {
@@ -1683,10 +2988,10 @@ doTestInsertEmptyMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptyMapMessage
+} // doTestMIMEInsertEmptyMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 102 ***
+# pragma mark *** Test Case 103 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1695,7 +3000,77 @@ doTestInsertEmptyMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertEmptySetMessage
+doTestMIMEExtractEmptyMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForEmptyMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedEmptyMapCount = A_SIZE(insertedBytesForEmptyMap);
+            Map                     emptyMap;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 104 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertEmptySetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // empty set message
@@ -1735,6 +3110,7 @@ doTestInsertEmptySetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptySetByteCount = A_SIZE(expectedEmptySetBytes);
+#if 0
             static const uint8_t    transmitEmptySetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -1748,6 +3124,7 @@ doTestInsertEmptySetMessage
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount, transmitEmptySetBytes,
                                       transmitEmptySetByteCount);
+#endif//0
         }
         else
         {
@@ -1761,10 +3138,10 @@ doTestInsertEmptySetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertEmptySetMessage
+} // doTestMIMEInsertEmptySetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 110 ***
+# pragma mark *** Test Case 105 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1773,7 +3150,77 @@ doTestInsertEmptySetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneLogicalMessage
+doTestMIMEExtractEmptySetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // empty set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForEmptySet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedEmptySetCount = A_SIZE(insertedBytesForEmptySet);
+            Set                     emptySet;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptySetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 200 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneLogicalMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one logical message
@@ -1821,6 +3268,7 @@ doTestInsertArrayOneLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneLogicalByteCount = A_SIZE(expectedArrayOneLogicalBytes);
+#if 0
             static const uint8_t    transmitArrayOneLogicalBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -1836,6 +3284,7 @@ doTestInsertArrayOneLogicalMessage
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes, expectedArrayOneLogicalByteCount,
                                       transmitArrayOneLogicalBytes, transmitArrayOneLogicalByteCount);
+#endif//0
         }
         else
         {
@@ -1849,10 +3298,10 @@ doTestInsertArrayOneLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneLogicalMessage
+} // doTestMIMEInsertArrayOneLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 111 ***
+# pragma mark *** Test Case 201 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1861,7 +3310,86 @@ doTestInsertArrayOneLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneIntegerMessage
+doTestMIMEExtractArrayOneLogicalMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one logical message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneLogical[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneLogicalCount = A_SIZE(insertedBytesForArrayOneLogical);
+            Array                   arrayOneLogical;
+
+            arrayOneLogical.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount, arrayOneLogical);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneLogicalMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 202 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneIntegerMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one integer message
@@ -1909,6 +3437,7 @@ doTestInsertArrayOneIntegerMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneIntegerByteCount = A_SIZE(expectedArrayOneIntegerBytes);
+#if 0
             static const uint8_t    transmitArrayOneIntegerBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -1924,6 +3453,7 @@ doTestInsertArrayOneIntegerMessage
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes, expectedArrayOneIntegerByteCount,
                                       transmitArrayOneIntegerBytes, transmitArrayOneIntegerByteCount);
+#endif//0
         }
         else
         {
@@ -1937,10 +3467,10 @@ doTestInsertArrayOneIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneIntegerMessage
+} // doTestMIMEInsertArrayOneIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 112 ***
+# pragma mark *** Test Case 203 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1949,7 +3479,86 @@ doTestInsertArrayOneIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneDoubleMessage
+doTestMIMEExtractArrayOneIntegerMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one integer message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneInteger[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneIntegerCount = A_SIZE(insertedBytesForArrayOneInteger);
+            Array                   arrayOneInteger;
+
+            arrayOneInteger.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount, arrayOneInteger);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 204 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneDoubleMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one double message
@@ -2002,6 +3611,7 @@ doTestInsertArrayOneDoubleMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneDoubleByteCount = A_SIZE(expectedArrayOneDoubleBytes);
+#if 0
             static const uint8_t    transmitArrayOneDoubleBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2017,6 +3627,7 @@ doTestInsertArrayOneDoubleMessage
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes, expectedArrayOneDoubleByteCount,
                                       transmitArrayOneDoubleBytes, transmitArrayOneDoubleByteCount);
+#endif//0
         }
         else
         {
@@ -2030,10 +3641,10 @@ doTestInsertArrayOneDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneDoubleMessage
+} // doTestMIMEInsertArrayOneDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 113 ***
+# pragma mark *** Test Case 205 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2042,7 +3653,91 @@ doTestInsertArrayOneDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneStringMessage
+doTestMIMEExtractArrayOneDoubleMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one double message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneDouble[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                ((1 - DataKindDoubleShortCountMinValue) &
+                 DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneDoubleCount = A_SIZE(insertedBytesForArrayOneDouble);
+            Array                   arrayOneDouble;
+
+            arrayOneDouble.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount, arrayOneDouble);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneDoubleMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 206 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneStringMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one string message
@@ -2091,6 +3786,7 @@ doTestInsertArrayOneStringMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneStringByteCount = A_SIZE(expectedArrayOneStringBytes);
+#if 0
             static const uint8_t    transmitArrayOneStringBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2106,6 +3802,7 @@ doTestInsertArrayOneStringMessage
             arrayOneString.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes, expectedArrayOneStringByteCount,
                                       transmitArrayOneStringBytes, transmitArrayOneStringByteCount);
+#endif//0
         }
         else
         {
@@ -2119,10 +3816,10 @@ doTestInsertArrayOneStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneStringMessage
+} // doTestMIMEInsertArrayOneStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 114 ***
+# pragma mark *** Test Case 207 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2131,7 +3828,87 @@ doTestInsertArrayOneStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneBlobMessage
+doTestMIMEExtractArrayOneStringMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one string message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneString[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneStringCount = A_SIZE(insertedBytesForArrayOneString);
+            Array                   arrayOneString;
+
+            arrayOneString.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount, arrayOneString);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 208 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneBlobMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one blob message
@@ -2180,6 +3957,7 @@ doTestInsertArrayOneBlobMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneBlobByteCount = A_SIZE(expectedArrayOneBlobBytes);
+#if 0
             static const uint8_t    transmitArrayOneBlobBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2195,6 +3973,7 @@ doTestInsertArrayOneBlobMessage
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes, expectedArrayOneBlobByteCount,
                                       transmitArrayOneBlobBytes, transmitArrayOneBlobByteCount);
+#endif//0
         }
         else
         {
@@ -2208,10 +3987,10 @@ doTestInsertArrayOneBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneBlobMessage
+} // doTestMIMEInsertArrayOneBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 115 ***
+# pragma mark *** Test Case 209 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2220,7 +3999,87 @@ doTestInsertArrayOneBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneArrayMessage
+doTestMIMEExtractArrayOneBlobMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one blob message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneBlob[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneBlobCount = A_SIZE(insertedBytesForArrayOneBlob);
+            Array                   arrayOneBlob;
+
+            arrayOneBlob.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount, arrayOneBlob);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 210 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one array message
@@ -2273,6 +4132,7 @@ doTestInsertArrayOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayByteCount = A_SIZE(expectedArrayOneArrayBytes);
+#if 0
             static const uint8_t    transmitArrayOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2289,6 +4149,7 @@ doTestInsertArrayOneArrayMessage
             arrayOneArray.addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes, expectedArrayOneArrayByteCount,
                                       transmitArrayOneArrayBytes, transmitArrayOneArrayByteCount);
+#endif//0
         }
         else
         {
@@ -2302,10 +4163,10 @@ doTestInsertArrayOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneArrayMessage
+} // doTestMIMEInsertArrayOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 116 ***
+# pragma mark *** Test Case 211 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2314,7 +4175,91 @@ doTestInsertArrayOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneMapMessage
+doTestMIMEExtractArrayOneArrayMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one array message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneArray[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneArrayCount = A_SIZE(insertedBytesForArrayOneArray);
+            Array                   arrayOneArray;
+
+            arrayOneArray.addValue(std::make_shared<Array>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount, arrayOneArray);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 212 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one map message
@@ -2367,6 +4312,7 @@ doTestInsertArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapByteCount = A_SIZE(expectedArrayOneMapBytes);
+#if 0
             static const uint8_t    transmitArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2383,6 +4329,7 @@ doTestInsertArrayOneMapMessage
             arrayOneMap.addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes, expectedArrayOneMapByteCount,
                                       transmitArrayOneMapBytes, transmitArrayOneMapByteCount);
+#endif//0
         }
         else
         {
@@ -2396,10 +4343,10 @@ doTestInsertArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneMapMessage
+} // doTestMIMEInsertArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 117 ***
+# pragma mark *** Test Case 213 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2408,7 +4355,91 @@ doTestInsertArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneSetMessage
+doTestMIMEExtractArrayOneMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneMapCount = A_SIZE(insertedBytesForArrayOneMap);
+            Array                   arrayOneMap;
+
+            arrayOneMap.addValue(std::make_shared<Map>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap, insertedArrayOneMapCount, arrayOneMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 214 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with one set message
@@ -2461,6 +4492,7 @@ doTestInsertArrayOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetByteCount = A_SIZE(expectedArrayOneSetBytes);
+#if 0
             static const uint8_t    transmitArrayOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2477,6 +4509,7 @@ doTestInsertArrayOneSetMessage
             arrayOneSet.addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes, expectedArrayOneSetByteCount,
                                       transmitArrayOneSetBytes, transmitArrayOneSetByteCount);
+#endif//0
         }
         else
         {
@@ -2490,10 +4523,10 @@ doTestInsertArrayOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneSetMessage
+} // doTestMIMEInsertArrayOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 130 ***
+# pragma mark *** Test Case 215 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2502,7 +4535,91 @@ doTestInsertArrayOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoLogicalsMessage
+doTestMIMEExtractArrayOneSetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with one set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneSet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneSetCount = A_SIZE(insertedBytesForArrayOneSet);
+            Array                   arrayOneSet;
+
+            arrayOneSet.addValue(std::make_shared<Set>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet, insertedArrayOneSetCount, arrayOneSet);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 300 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoLogicalsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two logicals message
@@ -2553,6 +4670,7 @@ doTestInsertArrayTwoLogicalsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoLogicalsByteCount = A_SIZE(expectedArrayTwoLogicalsBytes);
+#if 0
             static const uint8_t    transmitArrayTwoLogicalsBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2569,6 +4687,7 @@ doTestInsertArrayTwoLogicalsMessage
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes, expectedArrayTwoLogicalsByteCount,
                                       transmitArrayTwoLogicalsBytes, transmitArrayTwoLogicalsByteCount);
+#endif//0
         }
         else
         {
@@ -2582,10 +4701,10 @@ doTestInsertArrayTwoLogicalsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoLogicalsMessage
+} // doTestMIMEInsertArrayTwoLogicalsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 131 ***
+# pragma mark *** Test Case 301 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2594,7 +4713,90 @@ doTestInsertArrayTwoLogicalsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoIntegersMessage
+doTestMIMEExtractArrayTwoLogicalsMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two logicals message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoLogicals[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoLogicalsCount = A_SIZE(insertedBytesForArrayTwoLogicals);
+            Array                   arrayTwoLogicals;
+
+            arrayTwoLogicals.addValue(std::make_shared<Logical>());
+            arrayTwoLogicals.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount, arrayTwoLogicals);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoLogicalsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 302 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoIntegersMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two integers message
@@ -2645,6 +4847,7 @@ doTestInsertArrayTwoIntegersMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoIntegersByteCount = A_SIZE(expectedArrayTwoIntegersBytes);
+#if 0
             static const uint8_t    transmitArrayTwoIntegersBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2661,6 +4864,7 @@ doTestInsertArrayTwoIntegersMessage
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes, expectedArrayTwoIntegersByteCount,
                                       transmitArrayTwoIntegersBytes, transmitArrayTwoIntegersByteCount);
+#endif//0
         }
         else
         {
@@ -2674,10 +4878,10 @@ doTestInsertArrayTwoIntegersMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoIntegersMessage
+} // doTestMIMEInsertArrayTwoIntegersMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 132 ***
+# pragma mark *** Test Case 303 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2686,7 +4890,90 @@ doTestInsertArrayTwoIntegersMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoDoublesMessage
+doTestMIMEExtractArrayTwoIntegersMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two integers message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoIntegers[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoIntegersCount = A_SIZE(insertedBytesForArrayTwoIntegers);
+            Array                   arrayTwoIntegers;
+
+            arrayTwoIntegers.addValue(std::make_shared<Integer>());
+            arrayTwoIntegers.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount, arrayTwoIntegers);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoIntegersMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 304 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoDoublesMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two doubles message
@@ -2743,6 +5030,7 @@ doTestInsertArrayTwoDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoDoublesByteCount = A_SIZE(expectedArrayTwoDoublesBytes);
+#if 0
             static const uint8_t    transmitArrayTwoDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2760,6 +5048,7 @@ doTestInsertArrayTwoDoublesMessage
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes, expectedArrayTwoDoublesByteCount,
                                       transmitArrayTwoDoublesBytes, transmitArrayTwoDoublesByteCount);
+#endif//0
         }
         else
         {
@@ -2773,10 +5062,10 @@ doTestInsertArrayTwoDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoDoublesMessage
+} // doTestMIMEInsertArrayTwoDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 133 ***
+# pragma mark *** Test Case 305 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2785,7 +5074,96 @@ doTestInsertArrayTwoDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoStringsMessage
+doTestMIMEExtractArrayTwoDoublesMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two doubles message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoDoubles[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                ((2 - DataKindDoubleShortCountMinValue) &
+                 DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoDoublesCount = A_SIZE(insertedBytesForArrayTwoDoubles);
+            Array                   arrayTwoDoubles;
+
+            arrayTwoDoubles.addValue(std::make_shared<Double>());
+            arrayTwoDoubles.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount, arrayTwoDoubles);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 306 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoStringsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two strings message
@@ -2838,6 +5216,7 @@ doTestInsertArrayTwoStringsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoStringsByteCount = A_SIZE(expectedArrayTwoStringsBytes);
+#if 0
             static const uint8_t    transmitArrayTwoStringsBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2854,6 +5233,7 @@ doTestInsertArrayTwoStringsMessage
             arrayTwoStrings.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes, expectedArrayTwoStringsByteCount,
                                       transmitArrayTwoStringsBytes, transmitArrayTwoStringsByteCount);
+#endif//0
         }
         else
         {
@@ -2867,10 +5247,10 @@ doTestInsertArrayTwoStringsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoStringsMessage
+} // doTestMIMEInsertArrayTwoStringsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 134 ***
+# pragma mark *** Test Case 307 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2879,7 +5259,92 @@ doTestInsertArrayTwoStringsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoBlobsMessage
+doTestMIMEExtractArrayTwoStringsMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two strings message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoStrings[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoStringsCount = A_SIZE(insertedBytesForArrayTwoStrings);
+            Array                   arrayTwoStrings;
+
+            arrayTwoStrings.addValue(std::make_shared<String>());
+            arrayTwoStrings.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount, arrayTwoStrings);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoStringsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 308 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoBlobsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two blobs message
@@ -2932,6 +5397,7 @@ doTestInsertArrayTwoBlobsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoBlobsByteCount = A_SIZE(expectedArrayTwoBlobsBytes);
+#if 0
             static const uint8_t    transmitArrayTwoBlobsBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -2948,6 +5414,7 @@ doTestInsertArrayTwoBlobsMessage
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes, expectedArrayTwoBlobsByteCount,
                                       transmitArrayTwoBlobsBytes, transmitArrayTwoBlobsByteCount);
+#endif//0
         }
         else
         {
@@ -2961,10 +5428,10 @@ doTestInsertArrayTwoBlobsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoBlobsMessage
+} // doTestMIMEInsertArrayTwoBlobsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 135 ***
+# pragma mark *** Test Case 309 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2973,7 +5440,92 @@ doTestInsertArrayTwoBlobsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoArraysMessage
+doTestMIMEExtractArrayTwoBlobsMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two blobs message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoBlobs[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoBlobsCount = A_SIZE(insertedBytesForArrayTwoBlobs);
+            Array                   arrayTwoBlobs;
+
+            arrayTwoBlobs.addValue(std::make_shared<Blob>());
+            arrayTwoBlobs.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount, arrayTwoBlobs);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoBlobsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 310 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoArraysMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two arrays message
@@ -3034,6 +5586,7 @@ doTestInsertArrayTwoArraysMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoArraysByteCount = A_SIZE(expectedArrayTwoArraysBytes);
+#if 0
             static const uint8_t    transmitArrayTwoArraysBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3053,6 +5606,7 @@ doTestInsertArrayTwoArraysMessage
             arrayTwoArrays.addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes, expectedArrayTwoArraysByteCount,
                                       transmitArrayTwoArraysBytes, transmitArrayTwoArraysByteCount);
+#endif//0
         }
         else
         {
@@ -3066,10 +5620,10 @@ doTestInsertArrayTwoArraysMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoArraysMessage
+} // doTestMIMEInsertArrayTwoArraysMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 136 ***
+# pragma mark *** Test Case 311 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3078,7 +5632,100 @@ doTestInsertArrayTwoArraysMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoMapsMessage
+doTestMIMEExtractArrayTwoArraysMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two arrays message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoArrays[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoArraysCount = A_SIZE(insertedBytesForArrayTwoArrays);
+            Array                   arrayTwoArrays;
+
+            arrayTwoArrays.addValue(std::make_shared<Array>());
+            arrayTwoArrays.addValue(std::make_shared<Array>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount, arrayTwoArrays);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoArraysMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 312 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoMapsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two maps message
@@ -3139,6 +5786,7 @@ doTestInsertArrayTwoMapsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoMapsByteCount = A_SIZE(expectedArrayTwoMapsBytes);
+#if 0
             static const uint8_t    transmitArrayTwoMapsBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3158,6 +5806,7 @@ doTestInsertArrayTwoMapsMessage
             arrayTwoMaps.addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsBytes, expectedArrayTwoMapsByteCount,
                                       transmitArrayTwoMapsBytes, transmitArrayTwoMapsByteCount);
+#endif//0
         }
         else
         {
@@ -3171,10 +5820,10 @@ doTestInsertArrayTwoMapsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoMapsMessage
+} // doTestMIMEInsertArrayTwoMapsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 137 ***
+# pragma mark *** Test Case 313 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3183,7 +5832,100 @@ doTestInsertArrayTwoMapsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayTwoSetsMessage
+doTestMIMEExtractArrayTwoMapsMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two maps message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoMaps[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoMapsCount = A_SIZE(insertedBytesForArrayTwoMaps);
+            Array                   arrayTwoMaps;
+
+            arrayTwoMaps.addValue(std::make_shared<Map>());
+            arrayTwoMaps.addValue(std::make_shared<Map>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount, arrayTwoMaps);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoMapsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 314 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayTwoSetsMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with two sets message
@@ -3244,6 +5986,7 @@ doTestInsertArrayTwoSetsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoSetsByteCount = A_SIZE(expectedArrayTwoSetsBytes);
+#if 0
             static const uint8_t    transmitArrayTwoSetsBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3263,6 +6006,7 @@ doTestInsertArrayTwoSetsMessage
             arrayTwoSets.addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsBytes, expectedArrayTwoSetsByteCount,
                                       transmitArrayTwoSetsBytes, transmitArrayTwoSetsByteCount);
+#endif//0
         }
         else
         {
@@ -3276,10 +6020,10 @@ doTestInsertArrayTwoSetsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayTwoSetsMessage
+} // doTestMIMEInsertArrayTwoSetsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 138 ***
+# pragma mark *** Test Case 315 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3288,7 +6032,100 @@ doTestInsertArrayTwoSetsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneArrayOneMapMessage
+doTestMIMEExtractArrayTwoSetsMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with two sets message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayTwoSets[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoSetsCount = A_SIZE(insertedBytesForArrayTwoSets);
+            Array                   arrayTwoSets;
+
+            arrayTwoSets.addValue(std::make_shared<Set>());
+            arrayTwoSets.addValue(std::make_shared<Set>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount, arrayTwoSets);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayTwoSetsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 316 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneArrayOneMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with array and map message
@@ -3349,6 +6186,7 @@ doTestInsertArrayOneArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayOneMapByteCount = A_SIZE(expectedArrayOneArrayOneMapBytes);
+#if 0
             static const uint8_t    transmitArrayOneArrayOneMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3368,6 +6206,7 @@ doTestInsertArrayOneArrayOneMapMessage
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes, expectedArrayOneArrayOneMapByteCount,
                                       transmitArrayOneArrayOneMapBytes, transmitArrayOneArrayOneMapByteCount);
+#endif//0
         }
         else
         {
@@ -3381,10 +6220,10 @@ doTestInsertArrayOneArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneArrayOneMapMessage
+} // doTestMIMEInsertArrayOneArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 139 ***
+# pragma mark *** Test Case 317 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3393,7 +6232,100 @@ doTestInsertArrayOneArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneMapOneSetMessage
+doTestMIMEExtractArrayOneArrayOneMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with array and map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneArrayOneMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneArrayOneMapCount = A_SIZE(insertedBytesForArrayOneArrayOneMap);
+            Array                   arrayOneArrayOneMap;
+
+            arrayOneArrayOneMap.addValue(std::make_shared<Array>());
+            arrayOneArrayOneMap.addValue(std::make_shared<Map>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneArrayOneMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 318 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneMapOneSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with map and set message
@@ -3454,6 +6386,7 @@ doTestInsertArrayOneMapOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapOneSetByteCount = A_SIZE(expectedArrayOneMapOneSetBytes);
+#if 0
             static const uint8_t    transmitArrayOneMapOneSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3473,6 +6406,7 @@ doTestInsertArrayOneMapOneSetMessage
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes, expectedArrayOneMapOneSetByteCount,
                                       transmitArrayOneMapOneSetBytes, transmitArrayOneMapOneSetByteCount);
+#endif//0
         }
         else
         {
@@ -3486,10 +6420,10 @@ doTestInsertArrayOneMapOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneMapOneSetMessage
+} // doTestMIMEInsertArrayOneMapOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 140 ***
+# pragma mark *** Test Case 319 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3498,7 +6432,100 @@ doTestInsertArrayOneMapOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayOneSetOneArrayMessage
+doTestMIMEExtractArrayOneMapOneSetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with map and set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneMapOneSet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneMapOneSetCount = A_SIZE(insertedBytesForArrayOneMapOneSet);
+            Array                   arrayOneMapOneSet;
+
+            arrayOneMapOneSet.addValue(std::make_shared<Map>());
+            arrayOneMapOneSet.addValue(std::make_shared<Set>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneMapOneSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 320 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayOneSetOneArrayMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with set and array message
@@ -3559,6 +6586,7 @@ doTestInsertArrayOneSetOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetOneArrayByteCount = A_SIZE(expectedArrayOneSetOneArrayBytes);
+#if 0
             static const uint8_t    transmitArrayOneSetOneArrayBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3578,6 +6606,7 @@ doTestInsertArrayOneSetOneArrayMessage
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes, expectedArrayOneSetOneArrayByteCount,
                                       transmitArrayOneSetOneArrayBytes, transmitArrayOneSetOneArrayByteCount);
+#endif//0
         }
         else
         {
@@ -3591,10 +6620,10 @@ doTestInsertArrayOneSetOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayOneSetOneArrayMessage
+} // doTestMIMEInsertArrayOneSetOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 141 ***
+# pragma mark *** Test Case 321 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3603,7 +6632,100 @@ doTestInsertArrayOneSetOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertArrayWithManyDoublesMessage
+doTestMIMEExtractArrayOneSetOneArrayMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with set and array message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForArrayOneSetOneArray[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((2 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerEmptyValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerEmptyValue,
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneSetOneArrayCount = A_SIZE(insertedBytesForArrayOneSetOneArray);
+            Array                   arrayOneSetOneArray;
+
+            arrayOneSetOneArray.addValue(std::make_shared<Set>());
+            arrayOneSetOneArray.addValue(std::make_shared<Array>());
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayOneSetOneArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 322 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithManyDoublesMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // array with many doubles message
@@ -3825,6 +6947,7 @@ doTestInsertArrayWithManyDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayManyDoublesByteCount = A_SIZE(expectedArrayManyDoublesBytes);
+#if 0
             static const uint8_t    transmitArrayManyDoublesBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3886,6 +7009,7 @@ doTestInsertArrayWithManyDoublesMessage
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes, expectedArrayManyDoublesByteCount,
                                       transmitArrayManyDoublesBytes, transmitArrayManyDoublesByteCount);
+#endif//0
         }
         else
         {
@@ -3899,10 +7023,10 @@ doTestInsertArrayWithManyDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertArrayWithManyDoublesMessage
+} // doTestMIMEInsertArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 160 ***
+# pragma mark *** Test Case 323 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3911,7 +7035,263 @@ doTestInsertArrayWithManyDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalMapMessage
+doTestMIMEExtractArrayWithManyDoublesMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with many doubles message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const size_t     numValues = 43;
+            static const DataKind   insertedBytesForArrayManyDoubles[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, StaticCast(int, numValues) +
+                           DataKindIntegerShortValueMinValue - 1),
+                // Double
+                DataKind::Double | DataKind::DoubleLongCount |
+                ((1 - 1) & DataKind::DoubleLongCountMask),
+                StaticCast(DataKind, numValues),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
+                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x08),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 3
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x10),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 4
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x14),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 5
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x18),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 6
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x1C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 7
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x20),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 8
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x22),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 9
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x24),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 10
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x26),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 11
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x28),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 12
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2A),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 13
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 14
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2E),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 15
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x30),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 16
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x31),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 17
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x32),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 18
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x33),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 19
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x34),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 20
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x35),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 21
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x36),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 22
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x37),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 23
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x38),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 24
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x39),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 25
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3A),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 26
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3B),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 27
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 28
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3D),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 29
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3E),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 30
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3F),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 31
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 32
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 33
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 34
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 35
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 36
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 37
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 38
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 39
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 40
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 41
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 42
+                                                                        // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayManyDoublesCount = A_SIZE(insertedBytesForArrayManyDoubles);
+            Array                   arrayManyDoubles;
+
+            for (size_t ii = 0; numValues > ii; ++ii)
+            {
+                arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
+            }
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount, arrayManyDoubles);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithManyDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 400 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertLogicalMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical map message
@@ -3962,6 +7342,7 @@ doTestInsertLogicalMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalMapByteCount = A_SIZE(expectedLogicalMapBytes);
+#if 0
             static const uint8_t    transmitLogicalMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -3978,6 +7359,7 @@ doTestInsertLogicalMapMessage
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes, expectedLogicalMapByteCount, transmitLogicalMapBytes,
                                       transmitLogicalMapByteCount);
+#endif//0
         }
         else
         {
@@ -3991,10 +7373,10 @@ doTestInsertLogicalMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertLogicalMapMessage
+} // doTestMIMEInsertLogicalMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 161 ***
+# pragma mark *** Test Case 401 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4003,7 +7385,89 @@ doTestInsertLogicalMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertIntegerMapMessage
+doTestMIMEExtractLogicalMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForLogicalMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedLogicalMapCount = A_SIZE(insertedBytesForLogicalMap);
+            Map                     logicalMap;
+
+            logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap, insertedLogicalMapCount, logicalMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractLogicalMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 402 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertIntegerMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer map message
@@ -4054,6 +7518,7 @@ doTestInsertIntegerMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerMapByteCount = A_SIZE(expectedIntegerMapBytes);
+#if 0
             static const uint8_t    transmitIntegerMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -4070,6 +7535,7 @@ doTestInsertIntegerMapMessage
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes, expectedIntegerMapByteCount, transmitIntegerMapBytes,
                                       transmitIntegerMapByteCount);
+#endif//0
         }
         else
         {
@@ -4083,10 +7549,10 @@ doTestInsertIntegerMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertIntegerMapMessage
+} // doTestMIMEInsertIntegerMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 162 ***
+# pragma mark *** Test Case 403 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4095,7 +7561,89 @@ doTestInsertIntegerMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertStringMapMessage
+doTestMIMEExtractIntegerMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForIntegerMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedIntegerMapCount = A_SIZE(insertedBytesForIntegerMap);
+            Map                     integerMap;
+
+            integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap, insertedIntegerMapCount, integerMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractIntegerMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 404 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertStringMapMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer map message
@@ -4147,6 +7695,7 @@ doTestInsertStringMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringMapByteCount = A_SIZE(expectedStringMapBytes);
+#if 0
             static const uint8_t    transmitStringMapBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -4163,6 +7712,7 @@ doTestInsertStringMapMessage
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes, expectedStringMapByteCount, transmitStringMapBytes,
                                       transmitStringMapByteCount);
+#endif//0
         }
         else
         {
@@ -4176,10 +7726,10 @@ doTestInsertStringMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertStringMapMessage
+} // doTestMIMEInsertStringMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 163 ***
+# pragma mark *** Test Case 405 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4188,7 +7738,90 @@ doTestInsertStringMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertLogicalSetMessage
+doTestMIMEExtractStringMapMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string map message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForStringMap[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeMap |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedStringMapCount = A_SIZE(insertedBytesForStringMap);
+            Map                     stringMap;
+
+            stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedBytesForStringMap, insertedStringMapCount, stringMap);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractStringMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 406 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertLogicalSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // logical set message
@@ -4236,6 +7869,7 @@ doTestInsertLogicalSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalSetByteCount = A_SIZE(expectedLogicalSetBytes);
+#if 0
             static const uint8_t    transmitLogicalSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -4251,6 +7885,7 @@ doTestInsertLogicalSetMessage
             logicalSet.addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes, expectedLogicalSetByteCount, transmitLogicalSetBytes,
                                       transmitLogicalSetByteCount);
+#endif//0
         }
         else
         {
@@ -4264,10 +7899,10 @@ doTestInsertLogicalSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertLogicalSetMessage
+} // doTestMIMEInsertLogicalSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 164 ***
+# pragma mark *** Test Case 407 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4276,7 +7911,86 @@ doTestInsertLogicalSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertIntegerSetMessage
+doTestMIMEExtractLogicalSetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // logical set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForLogicalSet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherLogical |
+                DataKind::OtherLogicalFalseValue,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedLogicalSetCount = A_SIZE(insertedBytesForLogicalSet);
+            Set                     logicalSet;
+
+            logicalSet.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet, insertedLogicalSetCount, logicalSet);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractLogicalSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 408 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertIntegerSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer set message
@@ -4324,6 +8038,7 @@ doTestInsertIntegerSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerSetByteCount = A_SIZE(expectedIntegerSetBytes);
+#if 0
             static const uint8_t    transmitIntegerSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -4339,6 +8054,7 @@ doTestInsertIntegerSetMessage
             integerSet.addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes, expectedIntegerSetByteCount, transmitIntegerSetBytes,
                                       transmitIntegerSetByteCount);
+#endif//0
         }
         else
         {
@@ -4352,10 +8068,10 @@ doTestInsertIntegerSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertIntegerSetMessage
+} // doTestMIMEInsertIntegerSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 165 ***
+# pragma mark *** Test Case 409 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4364,7 +8080,86 @@ doTestInsertIntegerSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertStringSetMessage
+doTestMIMEExtractIntegerSetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // integer set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForIntegerSet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                0,
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedIntegerSetCount = A_SIZE(insertedBytesForIntegerSet);
+            Set                     integerSet;
+
+            integerSet.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet, insertedIntegerSetCount, integerSet);
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractIntegerSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 410 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertStringSetMessage
     (const char *   launchPath,
      const int      argc,
      char * *       argv) // integer set message
@@ -4413,6 +8208,7 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringSetByteCount = A_SIZE(expectedStringSetBytes);
+#if 0
             static const uint8_t    transmitStringSetBytes[] =
             {
                 0xF7, // Start of message, next is Other
@@ -4428,6 +8224,7 @@ doTestInsertStringSetMessage
             stringSet.addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount, transmitStringSetBytes,
                                       transmitStringSetByteCount);
+#endif//0
         }
         else
         {
@@ -4441,8 +8238,432 @@ doTestInsertStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertStringSetMessage
+} // doTestMIMEInsertStringSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 411 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractStringSetMessage
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // string set message
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const DataKind   insertedBytesForStringSet[] =
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                DataKind::IntegerShortValue |
+                ((1 + DataKindIntegerShortValueMinValue - 1) &
+                 DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                DataKind::StringOrBlobShortLengthValue |
+                (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                DataKind::OtherContainerTypeSet |
+                DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                DataKind::OtherMessageNonEmptyValue |
+                DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedStringSetCount = A_SIZE(insertedBytesForStringSet);
+            Set                     stringSet;
+
+            stringSet.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedBytesForStringSet, insertedStringSetCount, stringSet);
 #endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractStringSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 500 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
+    (const char *   launchPath,
+     const int      argc,
+     char * *       argv) // array with range of integers
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+#if 0
+            static const size_t kNumValues = 18;
+            Array               arrayWithIntegers;
+            int64_t             posValue = 1;
+
+            for (size_t ii = 0; kNumValues > ii; ++ii)
+            {
+                arrayWithIntegers.addValue(std::make_shared<Integer>(posValue));
+                posValue *= 10;
+            }
+            for ( ; 0 < posValue; )
+            {
+                arrayWithIntegers.addValue(std::make_shared<Integer>(- posValue));
+                posValue /= 10;
+            }
+            if (arrayWithIntegers.size() == ((2 * kNumValues) + 1))
+            {
+                // Insert the array into the message.
+                stuff->open(true);
+                stuff->setValue(arrayWithIntegers);
+                stuff->close();
+                // Extract objects from the message and compare with the expected contents.
+                SpValue extractedValue{stuff->getValue(true)};
+
+                ODL_P1("extractedValue <- ", extractedValue.get()); //####
+                if (nullptr == extractedValue)
+                {
+                    ODL_LOG("(nullptr == extractedValue)"); //####
+                }
+                else
+                {
+                    const Flaw *    asFlaw = extractedValue->asFlaw();
+
+                    if (asFlaw)
+                    {
+                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
+                    }
+                    else if (stuff->readAtEnd())
+                    {
+                        if (extractedValue->deeplyEqualTo(arrayWithIntegers))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (extractedValue->deeplyEqualTo(arrayWithIntegers))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (stuff->readAtEnd())"); //####
+                    }
+                }
+                if (0 == result)
+                {
+                    // Compare the bytes with the expected minimal bytes.
+                    static const DataKind   expectedBytesForArrayWithIntegers[] =
+                    {
+                        // Start of Message
+                        DataKind::StartOfMessageValue |
+                          DataKind::OtherMessageNonEmptyValue |
+                          DataKind::OtherMessageExpectedOtherValue,
+                        // Start of Array
+                        DataKind::Other | DataKind::OtherContainerStart |
+                          DataKind::OtherContainerTypeArray |
+                          DataKind::OtherContainerNonEmptyValue,
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) +
+                                              DataKindIntegerShortValueMinValue - 1),
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0x01, // 1
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          0x0A, // 10
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x64), // 100
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x03), StaticCast(DataKind, 0xE8), // 1000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x27), StaticCast(DataKind, 0x10), // 10000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x01), StaticCast(DataKind, 0x86),
+                        StaticCast(DataKind, 0xA0), // 100000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x0F), StaticCast(DataKind, 0x42),
+                        StaticCast(DataKind, 0x40), // 1000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x98),
+                        StaticCast(DataKind, 0x96), StaticCast(DataKind, 0x80), // 10000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x05), StaticCast(DataKind, 0xF5),
+                        StaticCast(DataKind, 0xE1), StaticCast(DataKind, 0x00), // 100000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x3B), StaticCast(DataKind, 0x9A),
+                        StaticCast(DataKind, 0xCA), StaticCast(DataKind, 0x00), // 1000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x02), StaticCast(DataKind, 0x54),
+                        StaticCast(DataKind, 0x0B), StaticCast(DataKind, 0xE4),
+                        StaticCast(DataKind, 0x00), // 10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x17), StaticCast(DataKind, 0x48),
+                        StaticCast(DataKind, 0x76), StaticCast(DataKind, 0xE8),
+                        StaticCast(DataKind, 0x00), // 10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0xE8),
+                        StaticCast(DataKind, 0xD4), StaticCast(DataKind, 0xA5),
+                        StaticCast(DataKind, 0x10), StaticCast(DataKind, 0x00), // 100000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x09), StaticCast(DataKind, 0x18),
+                        StaticCast(DataKind, 0x4E), StaticCast(DataKind, 0x72),
+                        StaticCast(DataKind, 0xA0), StaticCast(DataKind, 0x00), // 1000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x5A), StaticCast(DataKind, 0xF3),
+                        StaticCast(DataKind, 0x10), StaticCast(DataKind, 0x7A),
+                        StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00), // 10000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x03), StaticCast(DataKind, 0x8D),
+                        StaticCast(DataKind, 0x7E), StaticCast(DataKind, 0xA4),
+                        StaticCast(DataKind, 0xC6), StaticCast(DataKind, 0x80),
+                        StaticCast(DataKind, 0x00), // 100000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x23), StaticCast(DataKind, 0x86),
+                        StaticCast(DataKind, 0xF2), StaticCast(DataKind, 0x6F),
+                        StaticCast(DataKind, 0xC1), StaticCast(DataKind, 0x00),
+                        StaticCast(DataKind, 0x00), // 10000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x01), StaticCast(DataKind, 0x63),
+                        StaticCast(DataKind, 0x45), StaticCast(DataKind, 0x78),
+                        StaticCast(DataKind, 0x5D), StaticCast(DataKind, 0x8A),
+                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 100000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xF2), StaticCast(DataKind, 0x1F),
+                        StaticCast(DataKind, 0x49), StaticCast(DataKind, 0x4C),
+                        StaticCast(DataKind, 0x58), StaticCast(DataKind, 0x9C),
+                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // -1000000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFE), StaticCast(DataKind, 0x9C),
+                        StaticCast(DataKind, 0xBA), StaticCast(DataKind, 0x87),
+                        StaticCast(DataKind, 0xA2), StaticCast(DataKind, 0x76),
+                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // -100000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xDC), StaticCast(DataKind, 0x79),
+                        StaticCast(DataKind, 0x0D), StaticCast(DataKind, 0x90),
+                        StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0x00),
+                        StaticCast(DataKind, 0x00), // -10000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFC), StaticCast(DataKind, 0x72),
+                        StaticCast(DataKind, 0x81), StaticCast(DataKind, 0x5B),
+                        StaticCast(DataKind, 0x39), StaticCast(DataKind, 0x80),
+                        StaticCast(DataKind, 0x00), // -1000000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xA5), StaticCast(DataKind, 0x0C),
+                        StaticCast(DataKind, 0xEF), StaticCast(DataKind, 0x85),
+                        StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x00), // -100000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xF6), StaticCast(DataKind, 0xE7),
+                        StaticCast(DataKind, 0xB1), StaticCast(DataKind, 0x8D),
+                        StaticCast(DataKind, 0x60), StaticCast(DataKind, 0x00), // -10000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x17),
+                        StaticCast(DataKind, 0x2B), StaticCast(DataKind, 0x5A),
+                        StaticCast(DataKind, 0xF0), StaticCast(DataKind, 0x00), // -1000000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xE8), StaticCast(DataKind, 0xB7),
+                        StaticCast(DataKind, 0x89), StaticCast(DataKind, 0x18),
+                        StaticCast(DataKind, 0x00), // -100000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFD), StaticCast(DataKind, 0xAB),
+                        StaticCast(DataKind, 0xF4), StaticCast(DataKind, 0x1C),
+                        StaticCast(DataKind, 0x00), // -10000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xC4), StaticCast(DataKind, 0x65),
+                        StaticCast(DataKind, 0x36), StaticCast(DataKind, 0x00), // -1000000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFA), StaticCast(DataKind, 0x0A),
+                        StaticCast(DataKind, 0x1F), StaticCast(DataKind, 0x00), // -100000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x67),
+                        StaticCast(DataKind, 0x69), StaticCast(DataKind, 0x80), // -10000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xF0), StaticCast(DataKind, 0xBD),
+                        StaticCast(DataKind, 0xC0), // -1000000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFE), StaticCast(DataKind, 0x79),
+                        StaticCast(DataKind, 0x60), // -100000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xD8), StaticCast(DataKind, 0xF0), // -10000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0xFC), StaticCast(DataKind, 0x18), // -1000
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerLongValue |
+                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                        StaticCast(DataKind, 0x9C), // -100
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          (0xF6 & DataKind::IntegerShortValueValueMask), // -10
+                        // Signed Integer
+                        DataKind::Integer | DataKind::IntegerShortValue |
+                          (0xFF & DataKind::IntegerShortValueValueMask), // -1
+                        // End of Array
+                        DataKind::Other | DataKind::OtherContainerEnd |
+                          DataKind::OtherContainerTypeArray |
+                          DataKind::OtherContainerNonEmptyValue,
+                        // End of Message
+                        DataKind::EndOfMessageValue |
+                          DataKind::OtherMessageNonEmptyValue |
+                          DataKind::OtherMessageExpectedOtherValue
+                    };
+                    const size_t            expectedBytesForArrayWithIntegersCount = A_SIZE(expectedBytesForArrayWithIntegers);
+                    auto                    contents{stuff->getBytes()};
+                    size_t                  length = contents.size();
+
+                    ODL_PACKET("contents", contents.data(), length); //####
+                    ODL_PACKET("expected", expectedBytesForArrayWithIntegers, //####
+                               expectedBytesForArrayWithIntegersCount); //####
+                    if (expectedBytesForArrayWithIntegersCount == length)
+                    {
+                        result = StaticCast(int, CompareBytes(expectedBytesForArrayWithIntegers, contents.data(),
+                                                               expectedBytesForArrayWithIntegersCount));
+                    }
+                    else
+                    {
+                        ODL_LOG("! (expectedBytesForArrayWithIntegersCount == length)"); //####
+                        result = 1;
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (arrayWithIntegers.size() == ((2 * kNumValues) + 1))"); //####
+            }
+#endif//0
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4485,186 +8706,356 @@ main
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);
-#if 0
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestInsertEmptyMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 2 :
-                        result = doTestInsertLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 3 :
-                        result = doTestInsertTinyIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 4 :
-                        result = doTestInsertSmallIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
-                        result = doTestInsertMediumIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertTinyIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 6 :
-                        result = doTestInsertBigIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractTinyIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 7 :
-                        result = doTestInsertEmptyStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertSmallIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 8 :
-                        result = doTestInsertShortStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractSmallIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 9 :
-                        result = doTestInsertMediumStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertMediumIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 10 :
-                        result = doTestInsertEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractMediumIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 11 :
-                        result = doTestInsertSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertBigIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 12 :
-                        result = doTestInsertMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractBigIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 13 :
-                        result = doTestInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 14 :
-                        result = doTestInsertMultipleEscapesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 15 :
+                        result = doTestMIMEInsertShortStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 16 :
+                        result = doTestMIMEExtractShortStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 17 :
+                        result = doTestMIMEInsertMediumStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 18 :
+                        result = doTestMIMEExtractMediumStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 19 :
+                        result = doTestMIMEInsertEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 20 :
+                        result = doTestMIMEExtractEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 21 :
+                        result = doTestMIMEInsertSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 22 :
+                        result = doTestMIMEExtractSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 23 :
+                        result = doTestMIMEInsertMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 24 :
+                        result = doTestMIMEExtractMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 25 :
+                        result = doTestMIMEInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 26 :
+                        result = doTestMIMEExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 27 :
+                        result = doTestMIMEInsertMultipleEscapesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
-                        result = doTestInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 101 :
-                        result = doTestInsertEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 102 :
-                        result = doTestInsertEmptySetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 110 :
-                        result = doTestInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                    case 103 :
+                        result = doTestMIMEExtractEmptyMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 111 :
-                        result = doTestInsertArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                    case 104 :
+                        result = doTestMIMEInsertEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 112 :
-                        result = doTestInsertArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                    case 105 :
+                        result = doTestMIMEExtractEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 113 :
-                        result = doTestInsertArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                    case 200 :
+                        result = doTestMIMEInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 114 :
-                        result = doTestInsertArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                    case 201 :
+                        result = doTestMIMEExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 115 :
-                        result = doTestInsertArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                    case 202 :
+                        result = doTestMIMEInsertArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 116 :
-                        result = doTestInsertArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                    case 203 :
+                        result = doTestMIMEExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 117 :
-                        result = doTestInsertArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                    case 204 :
+                        result = doTestMIMEInsertArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 130 :
-                        result = doTestInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                    case 205 :
+                        result = doTestMIMEExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 131 :
-                        result = doTestInsertArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                    case 206 :
+                        result = doTestMIMEInsertArrayOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 132 :
-                        result = doTestInsertArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                    case 207 :
+                        result = doTestMIMEExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 133 :
-                        result = doTestInsertArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                    case 208 :
+                        result = doTestMIMEInsertArrayOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 134 :
-                        result = doTestInsertArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                    case 209 :
+                        result = doTestMIMEExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 135 :
-                        result = doTestInsertArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                    case 210 :
+                        result = doTestMIMEInsertArrayOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 136 :
-                        result = doTestInsertArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                    case 211 :
+                        result = doTestMIMEExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 137 :
-                        result = doTestInsertArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                    case 212 :
+                        result = doTestMIMEInsertArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 138 :
-                        result = doTestInsertArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                    case 213 :
+                        result = doTestMIMEExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 139 :
-                        result = doTestInsertArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                    case 214 :
+                        result = doTestMIMEInsertArrayOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 140 :
-                        result = doTestInsertArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                    case 215 :
+                        result = doTestMIMEExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 141 :
-                        result = doTestInsertArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                    case 300 :
+                        result = doTestMIMEInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 160 :
-                        result = doTestInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
+                    case 301 :
+                        result = doTestMIMEExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 161 :
-                        result = doTestInsertIntegerMapMessage(*argv, argc - 1, argv + 2);
+                    case 302 :
+                        result = doTestMIMEInsertArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 162 :
-                        result = doTestInsertStringMapMessage(*argv, argc - 1, argv + 2);
+                    case 303 :
+                        result = doTestMIMEExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 163 :
-                        result = doTestInsertLogicalSetMessage(*argv, argc - 1, argv + 2);
+                    case 304 :
+                        result = doTestMIMEInsertArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 164 :
-                        result = doTestInsertIntegerSetMessage(*argv, argc - 1, argv + 2);
+                    case 305 :
+                        result = doTestMIMEExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
-                    case 165 :
-                        result = doTestInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                    case 306 :
+                        result = doTestMIMEInsertArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 307 :
+                        result = doTestMIMEExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 308 :
+                        result = doTestMIMEInsertArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 309 :
+                        result = doTestMIMEExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 310 :
+                        result = doTestMIMEInsertArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 311 :
+                        result = doTestMIMEExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 312 :
+                        result = doTestMIMEInsertArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 313 :
+                        result = doTestMIMEExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 314 :
+                        result = doTestMIMEInsertArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 315 :
+                        result = doTestMIMEExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 316 :
+                        result = doTestMIMEInsertArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 317 :
+                        result = doTestMIMEExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 318 :
+                        result = doTestMIMEInsertArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 319 :
+                        result = doTestMIMEExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 320 :
+                        result = doTestMIMEInsertArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 321 :
+                        result = doTestMIMEExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 322 :
+                        result = doTestMIMEInsertArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 323 :
+                        result = doTestMIMEExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 400 :
+                        result = doTestMIMEInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 401 :
+                        result = doTestMIMEExtractLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 402 :
+                        result = doTestMIMEInsertIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 403 :
+                        result = doTestMIMEExtractIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 404 :
+                        result = doTestMIMEInsertStringMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 405 :
+                        result = doTestMIMEExtractStringMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 406 :
+                        result = doTestMIMEInsertLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 407 :
+                        result = doTestMIMEExtractLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 408 :
+                        result = doTestMIMEInsertIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 409 :
+                        result = doTestMIMEExtractIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 410 :
+                        result = doTestMIMEInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 411 :
+                        result = doTestMIMEExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 500 :
+                        result = doTestMIMEExtractMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     default :
                         break;
 
                 }
-#endif//0
                 if (0 != result)
                 {
                     ODL_I1("%%%%%%% unit test failure = ", result); //####

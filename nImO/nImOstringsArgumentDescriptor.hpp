@@ -87,10 +87,10 @@ namespace nImO
             @param[in] allowedValues The set of values that can be entered. */
             StringsArgumentDescriptor
                 (const std::string &    argName,
-                const std::string &    argDescription,
-                const ArgumentMode     argMode,
-                const std::string &    defaultValue,
-                const StringSet        allowedValues);
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode,
+                 const std::string &    defaultValue,
+                 const StringSet        allowedValues);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -116,7 +116,7 @@ namespace nImO
                 const
             {
                 return _allowedValues;
-            } // getAllowedValues
+            }
 
             /*! @brief Return the current value.
             @return The current value. */
@@ -126,7 +126,7 @@ namespace nImO
                 const
             {
                 return _currentValue;
-            } // getCurrentValue
+            }
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.
             @param[in] inString The input string in 'arguments' format.

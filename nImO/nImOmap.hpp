@@ -133,7 +133,7 @@ namespace nImO
             InsertResult
             addValue
                 (SpValue    newKey,
-                SpValue    newValue);
+                 SpValue    newValue);
 
             /*! @brief Return non-@c nullptr if the object is a Map.
             @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
@@ -193,7 +193,7 @@ namespace nImO
                     result = inherited2::end();
                 }
                 return result;
-            } // find
+            }
 
 
             /*! @brief Search the Map for an element with the given key value and return an iterator
@@ -216,7 +216,7 @@ namespace nImO
                     result = inherited2::end();
                 }
                 return result;
-            } // find
+            }
 
             /*! @brief Get the extraction information for Map objects.
             @param[out] aByte The byte value that indicates the start of a Map value.
@@ -225,8 +225,8 @@ namespace nImO
             static void
             getExtractionInfo
                 (DataKind &     aByte,
-                DataKind &     aMask,
-                Extractor &    theExtractor);
+                 DataKind &     aMask,
+                 Extractor &    theExtractor);
 
             /*! @brief Return the characters that can appear as the start of a Map.
             @return The characters that can appear as the start of a Map. */
@@ -297,7 +297,7 @@ namespace nImO
                     addEntries(other);
                 }
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
@@ -314,7 +314,7 @@ namespace nImO
             virtual void
             printToStringBuffer
                 (StringBuffer & outBuffer,
-                const bool     squished = false)
+                 const bool     squished = false)
                 const
                 override;
 
@@ -336,7 +336,7 @@ namespace nImO
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
-                size_t &               position);
+                 size_t &               position);
 
             /*! @brief Returns the number of elements in the Map. */
             virtual size_t
@@ -391,9 +391,9 @@ namespace nImO
             static SpValue
             extractValue
                 (const Message &    theMessage,
-                const int          leadByte,
-                size_t &           position,
-                SpArray            parentValue);
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         public :
             // Public fields.

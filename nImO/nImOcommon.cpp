@@ -867,19 +867,16 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor     firstDescriptor{StaticCast(unsigned int, OptionIndex::UNKNOWN), 0, "", "",
                                             Option_::Arg::None, nullptr};
     Option_::Descriptor     helpDescriptor{StaticCast(unsigned int, OptionIndex::HELP), 0, "h", "help",
-                                           Option_::Arg::None,
-                                           T_("  --help, -h    Print usage and exit")};
+                                           Option_::Arg::None, T_("  --help, -h    Print usage and exit")};
     Option_::Descriptor     infoDescriptor{StaticCast(unsigned int, OptionIndex::INFO), 0, "i", "info",
                                            Option_::Arg::None,
                                            T_("  --info, -i    Print type and description and exit")};
     Option_::Descriptor     jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
-                                           Option_::Arg::None,
-                                           T_("  --json, -j    Generate output in JSON format")};
+                                           Option_::Arg::None, T_("  --json, -j    Generate output in JSON format")};
     Option_::Descriptor     loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
                                            "logg", Option_::Arg::None, T_("  --logg, -l    Log application")};
     Option_::Descriptor     tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
-                                           Option_::Arg::None,
-                                           T_("  --tabs, -t    Generate output in tab-format")};
+                                           Option_::Arg::None, T_("  --tabs, -t    Generate output in tab-format")};
     Option_::Descriptor     versionDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "v",
                                               "vers", Option_::Arg::None,
                                               T_("  --vers, -v    Print version information and exit")};

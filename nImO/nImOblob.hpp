@@ -153,7 +153,7 @@ namespace nImO
             {
                 length = _size;
                 return _value.get();
-            } // getValue
+            }
 
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
@@ -268,7 +268,7 @@ namespace nImO
             {
                 _value.reset();
                 _size = 0;
-            } // removeAllEntries
+            }
 
         public :
             // Public fields.

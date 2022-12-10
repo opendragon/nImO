@@ -95,8 +95,8 @@ namespace nImO
             @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithZeroConfig
                 (const std::string &    executableName,
-                const bool             logging,
-                const std::string &    nodeName = "");
+                 const bool             logging,
+                 const std::string &    nodeName = "");
 
         private :
             // Private methods.

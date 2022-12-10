@@ -215,7 +215,7 @@ namespace nImO
                 const
             {
                 return _argDescription;
-            } // argumentDescription
+            }
 
             /*! @brief Return the mode of the command-line argument.
              @return The mode of the command-line argument. */
@@ -225,7 +225,7 @@ namespace nImO
                 const
             {
                 return _argMode;
-            } // argumentMode
+            }
 
             /*! @brief Return the name of the command-line argument.
              @return The name of the command-line argument. */
@@ -235,7 +235,7 @@ namespace nImO
                 const
             {
                 return _argName;
-            } // argumentName
+            }
 
             /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
              @return A copy of the descriptor, with only non-pointer types duplicated. */
@@ -295,7 +295,7 @@ namespace nImO
                 const
             {
                 return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
-            } // isModifiable
+            }
 
             /*! @brief Return @c true if the argument is optional and @c false otherwise.
              @return @c true if the argument is optional and @c false otherwise. */
@@ -305,7 +305,7 @@ namespace nImO
                 const
             {
                 return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Optional))));
-            } // isOptional
+            }
 
             /*! @brief Return @c true if the argument is a password and @c false otherwise.
              @return @c true if the argument is a password and @c false otherwise. */
@@ -315,7 +315,7 @@ namespace nImO
                 const
             {
                 return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Password))));
-            } // isPassword
+            }
 
             /*! @brief Return @c true if the argument is required and @c false otherwise.
              @return @c true if the argument is required and @c false otherwise. */
@@ -325,7 +325,7 @@ namespace nImO
                 const
             {
                 return ((ArgumentMode::Unknown != _argMode) && (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
-            } // isRequired
+            }
 
             /*! @brief Return @c true if the argument is valid and @c false otherwise.
              @return @c true if the argument is valid and @c false otherwise. */
@@ -335,7 +335,7 @@ namespace nImO
                 const
             {
                 return _valid;
-            } // isValid
+            }
 
             /*! @brief The copy assignment operator.
              @tparam Type The type of value being assigned.
@@ -351,7 +351,7 @@ namespace nImO
 
                 swap(temp);
                 return *this;
-            } // operator =
+            }
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
@@ -390,7 +390,7 @@ namespace nImO
                 (void)
             {
                 return _parameterSeparator;
-            } // getParameterSeparator
+            }
 
             /*! @brief Find a character that is not present in the input, to use as a delimiter.
              @param[in] inString The string to be analyzed.

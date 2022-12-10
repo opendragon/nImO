@@ -87,6 +87,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
             "${THIS_SOURCE_DIR}/nImOmDnsContext.cpp"
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
+            "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
@@ -162,6 +163,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
         "${THIS_SOURCE_DIR}/nImOmDnsContext.hpp"
         "${THIS_SOURCE_DIR}/nImOmessage.hpp"
+        "${THIS_SOURCE_DIR}/nImOMIMESupport.hpp"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp"
         "${THIS_SOURCE_DIR}/nImOnumber.hpp"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp"
@@ -217,6 +219,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
         ${THIS_SOURCE_DIR}/nImOmDnsContext.cpp ${THIS_SOURCE_DIR}/nImOmdnsContext.hpp
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.hpp
+        ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.hpp
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.hpp
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp

@@ -86,9 +86,9 @@ namespace nImO
             @param[in] defaultValue The default value for the command-line argument. */
             StringArgumentDescriptor
                 (const std::string &    argName,
-                const std::string &    argDescription,
-                const ArgumentMode     argMode,
-                const std::string &    defaultValue);
+                 const std::string &    argDescription,
+                 const ArgumentMode     argMode,
+                 const std::string &    defaultValue);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -114,7 +114,7 @@ namespace nImO
                 const
             {
                 return _currentValue;
-            } // getCurrentValue
+            }
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.
             @param[in] inString The input string in 'arguments' format.

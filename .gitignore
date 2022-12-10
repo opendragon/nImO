@@ -69,6 +69,9 @@ non-iOS/List/nImOlist.rc
 non-iOS/Monitor/nImOmonitor
 non-iOS/Monitor/nImOmonitor.dir/
 non-iOS/Monitor/nImOmonitor.rc
+non-iOS/Post/nImOpost
+non-iOS/Post/nImOpost.dir/
+non-iOS/Post/nImOpost.rc
 non-iOS/Read/nImOread
 non-iOS/Read/nImOread.dir/
 non-iOS/Read/nImOread.rc

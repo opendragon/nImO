@@ -132,8 +132,8 @@ nImO::Message::~Message
 
 void
 nImO::Message::appendBytes
-    (const uint8_t *    data,
-     const size_t       numBytes)
+    (CPtr(uint8_t)  data,
+     const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
@@ -199,7 +199,7 @@ nImO::Message::getBytes
 } // nImO::Message:getBytes
 
 std::string
-nImO::Message::getBytesForTransmission
+nImO::Message::getBytesWithEscapes
     (void)
 {
     ODL_OBJENTER(); //####
@@ -286,7 +286,7 @@ nImO::Message::getBytesForTransmission
     ODL_PACKET("_cachedTransmissionString", _cachedTransmissionString.data(), _cachedTransmissionString.size()); //####
     ODL_OBJEXIT(); //####
     return _cachedTransmissionString;
-} // nImO::Message::getBytesForTransmission
+} // nImO::Message::getBytesWithEscapes
 
 size_t
 nImO::Message::getLength

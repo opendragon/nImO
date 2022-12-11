@@ -224,13 +224,13 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of a Set.
             @return The characters that can appear as the start of a Set. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 
             /*! @brief Return the characters that can appear as the end of a Set.
             @return The characters that can appear as the end of a Set. */
-            static const char *
+            static CPtr(char)
             getTerminalCharacters
                 (void);
 

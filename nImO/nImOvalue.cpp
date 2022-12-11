@@ -457,7 +457,7 @@ nImO::Value::initialize
     (void)
 {
     ODL_ENTER(); //####
-    const char *    prefixes = Logical::getInitialCharacters();
+    CPtr(char)  prefixes = Logical::getInitialCharacters();
 
     if (nullptr != prefixes)
     {
@@ -518,7 +518,7 @@ nImO::Value::initialize
             gReaders.emplace(aValue);
         }
     }
-    const char *    suffixes = Array::getTerminalCharacters();
+    CPtr(char)  suffixes = Array::getTerminalCharacters();
 
     gTerminators = suffixes;
     suffixes = Map::getTerminalCharacters();

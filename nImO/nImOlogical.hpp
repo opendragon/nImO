@@ -151,7 +151,7 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of a Logical.
             @return The characters that can appear as the start of a Logical. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 

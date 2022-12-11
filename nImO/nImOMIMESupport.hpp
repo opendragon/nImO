@@ -54,65 +54,47 @@
 
 namespace nImO
 {
+    /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
+     transmitted.
+     Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
+     except for the initial start-of-message byte.
+     Escaping a byte involves inverting the high bit of the byte and having an escape byte
+     inserted before the byte.
+     The Message bytes are followed by a checksum byte, which is escaped if it matches a
+     start-of-message byte or an escape byte.
+     @param[out] length Set to the number of bytes returned.
+     @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
 
+    /*! @brief Convert a MIME-encoded string into the corresponding byttes.
+     @param[in] inValue The MIME-encoding of some bytes.
+     @param[out] outBytes The bytes represented by the MIME encoding.
+     @return @c true if the input string can be converted into a sequence of bytes and
+     @c false otherwise. */
     bool
-    DecodeMimeToBytes
+    DecodeMIMEToBytes
         (const StringVector &   inValue,
          ByteVector &           outBytes);
 
+    /*! @brief Convert a sequence of bytes into a sequence of MIME-encoded strings.
+     @param[out] outValue The MIME encoding of the sequence of bytes.
+     @param[in] inBytes The bytes to be encoded.
+     @param[in] numBytes The number of bytes to be encoded. */
     void
-    EncodeBytesAsMime
+    EncodeBytesAsMIME
         (StringVector & outValue,
-         const void *   inBytes,
+         CPtr(void)     inBytes,
          const size_t   numBytes);
 
-//ByteVector--> uint8_t//    /*! @brief A class to provide network connection points. */
-//    class Channel final
-//    {
-//
-//        public :
-//            // Public type definitions.
-//
-//        protected :
-//            // Protected type definitions.
-//
-//        private :
-//            // Private type definitions.
-//
-//        public :
-//            // Public methods.
-//
-//            /*! @brief The constructor. */
-//            Channel
-//                (void);
-//
-//            /*! @brief The move constructor.
-//             @param[in] other The object to be moved. */
-//            Channel
-//                (Channel &&    other)
-//                noexcept;
-//
-//            /*! @brief The destructor. */
-//            virtual
-//            ~Channel
-//                (void);
-//
-//        protected :
-//            // Protected methods.
-//
-//        private :
-//            // Private methods.
-//
-//        public :
-//            // Public fields.
-//
-//        protected :
-//            // Protected fields.
-//
-//        private :
-//            // Private fields.
-//
-//    }; // Channel
+    /*! @brief Convert a string into a sequence of MIME-encoded strings.
+     @param[out] outValue The MIME encoding of the sequence of bytes.
+     @param[in] inString The characters to be encoded. */
+    inline void
+    EncodeBytesAsMIME
+        (StringVector &         outValue,
+         const std::string &    inString)
+    {
+        EncodeBytesAsMIME(outValue, inString.c_str(), inString.length());
+    }
 
 } // nImO
 

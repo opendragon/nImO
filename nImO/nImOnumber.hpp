@@ -98,7 +98,7 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of a Number.
             @return The characters that can appear as the start of a Number. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 

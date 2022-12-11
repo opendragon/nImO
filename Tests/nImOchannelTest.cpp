@@ -105,7 +105,7 @@ catchSignal
 static int
 doTestParseChannelName
     (const bool     expected,
-     const char *   inString)
+     CPtr(char)   inString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -143,8 +143,8 @@ doTestParseChannelName
 static int
 doTestParseExpectedName
     (const bool     expected,
-     const char *   inString,
-     const char *   expectedString)
+     CPtr(char)   inString,
+     CPtr(char)   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -188,8 +188,8 @@ doTestParseExpectedName
 static int
 doTestParseExtractNetwork
     (const bool     expected,
-     const char *   inString,
-     const char *   expectedString)
+     CPtr(char)   inString,
+     CPtr(char)   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -233,8 +233,8 @@ doTestParseExtractNetwork
 static int
 doTestParseExtractNode
     (const bool     expected,
-     const char *   inString,
-     const char *   expectedString)
+     CPtr(char)   inString,
+     CPtr(char)   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -278,8 +278,8 @@ doTestParseExtractNode
 static int
 doTestParseExtractPath
     (const bool     expected,
-     const char *   inString,
-     const char *   expectedString)
+     CPtr(char)   inString,
+     CPtr(char)   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -323,8 +323,8 @@ doTestParseExtractPath
 static int
 doTestParseExtractProtocol
     (const bool     expected,
-     const char *   inString,
-     const char *   expectedString)
+     CPtr(char)   inString,
+     CPtr(char)   expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -370,8 +370,8 @@ doTestParseExtractProtocol
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

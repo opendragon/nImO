@@ -71,7 +71,7 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The canonical names for control characters. */
-static const char * kCanonicalControl[] =
+static CPtr(char)   kCanonicalControl[] =
 {
     "C-@", // 00 NUL
     "C-A", // 01 SOH
@@ -155,8 +155,8 @@ nImO::StringBuffer::addBool
 
 nImO::StringBuffer &
 nImO::StringBuffer::addBytes
-    (const uint8_t *    inBytes,
-     const size_t       numBytes)
+    (CPtr(uint8_t)  inBytes,
+     const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
@@ -181,13 +181,13 @@ nImO::StringBuffer::addBytes
 
 nImO::StringBuffer &
 nImO::StringBuffer::addString
-    (const char *   aString,
-     const bool     addQuotes)
+    (CPtr(char) aString,
+     const bool addQuotes)
 {
     ODL_OBJENTER(); //####
     ODL_S1("aString = ", aString); //####
     ODL_B1("addQuotes = ", addQuotes); //####
-    if (aString)
+    if (nullptr != aString)
     {
         size_t  length = strlen(aString);
 
@@ -197,7 +197,7 @@ nImO::StringBuffer::addString
         }
         else
         {
-            inherited::appendBytes(ReinterpretCast(const uint8_t *, aString), length * sizeof(*aString));
+            inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString), length * sizeof(*aString));
         }
     }
     ODL_OBJEXIT_P(this); //####
@@ -220,7 +220,7 @@ nImO::StringBuffer::addString
     }
     else
     {
-        inherited::appendBytes(ReinterpretCast(const uint8_t *, aString.c_str()), length * sizeof(*aString.c_str()));
+        inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString.c_str()), length * sizeof(*aString.c_str()));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -307,7 +307,7 @@ nImO::StringBuffer::convertToValue
 
 void
 nImO::StringBuffer::processCharacters
-    (const char *   aString,
+    (CPtr(char)     aString,
      const size_t   length)
 {
     ODL_ENTER(); //####
@@ -355,9 +355,9 @@ nImO::StringBuffer::processCharacters
                 inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
-                    const char *    controlString = kCanonicalControl[aByte];
+                    CPtr(char)  controlString = kCanonicalControl[aByte];
 
-                    inherited::appendBytes(ReinterpretCast(const uint8_t *, controlString),
+                    inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
                                            strlen(controlString) * sizeof(*controlString));
                 }
                 else
@@ -400,10 +400,10 @@ nImO::StringBuffer::processCharacters
                         inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)
                         {
-                            const char *    controlString = kCanonicalControl[aByte];
+                            CPtr(char)  controlString = kCanonicalControl[aByte];
 
                             inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
-                            inherited::appendBytes(ReinterpretCast(const uint8_t *, controlString),
+                            inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
                                                    strlen(controlString) * sizeof(*controlString));
                         }
                         else
@@ -420,7 +420,7 @@ nImO::StringBuffer::processCharacters
                 {
                     inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 }
-                inherited::appendBytes(ReinterpretCast(const uint8_t *, aString + ii), sizeof(*aString));
+                inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString + ii), sizeof(*aString));
             }
         }
         inherited::appendBytes(&delimiter, sizeof(delimiter));
@@ -429,7 +429,7 @@ nImO::StringBuffer::processCharacters
     {
         // Nothing special
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
-        inherited::appendBytes(ReinterpretCast(const uint8_t *, aString), length * sizeof(*aString));
+        inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString), length * sizeof(*aString));
         inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
     }
     ODL_EXIT(); //####
@@ -448,7 +448,7 @@ nImO::operator <<
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
     for (size_t ii = 0, num = aBuffer.getNumChunks(); num > ii; ++ii)
     {
-        BufferChunk *   aChunk = aBuffer.getBufferChunk(ii);
+        Ptr(BufferChunk)    aChunk = aBuffer.getBufferChunk(ii);
 
         if (nullptr != aChunk)
         {
@@ -456,7 +456,7 @@ nImO::operator <<
 
            if (0 < nn)
            {
-               out.write(ReinterpretCast(const char *, aChunk->getData()), nn);
+               out.write(ReinterpretCast(CPtr(char), aChunk->getData()), nn);
            }
         }
     }

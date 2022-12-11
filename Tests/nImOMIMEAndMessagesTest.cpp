@@ -40,6 +40,7 @@
 #include <nImOblob.hpp>
 #include <nImObufferChunk.hpp>
 #include <nImOdouble.hpp>
+#include <nImOflaw.hpp>
 #include <nImOinteger.hpp>
 #include <nImOlogical.hpp>
 #include <nImOmap.hpp>
@@ -103,7 +104,6 @@ catchSignal
     exit(1);
 } // catchSignal
 
-#if 0
 /*! @brief Put a Value into a Message and verify what was stored.
  @param[in,out] stuff The Message to be modified.
  @param[in] aValue The Value to be added to the Message.
@@ -117,63 +117,56 @@ static int
 setValueAndCheck
     (Message &          stuff,
      const Value &      aValue,
-     const DataKind *   expectedContents1,
-     const size_t       expectedSize1,
-     const uint8_t *    expectedContents2,
-     const size_t       expectedSize2)
+     CPtr(std::string)  expectedContents,
+     const size_t       expectedSize)
 {
     ODL_ENTER(); //####
-    ODL_P4("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents1 = ", //####
-           expectedContents1, "expectedContents2 = ", expectedContents2); //####
-    ODL_I2("expectedSize1 = ", expectedSize1, "expectedSize2 = ", expectedSize2); //####
+    ODL_P3("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents = ", expectedContents); //####
+    ODL_I1("expectedSize = ", expectedSize); //####
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    auto    contents1{stuff.getBytes()};
-    size_t  length1 = contents1.size();
-    int     result;
+    int     result = 1;
 
-    ODL_PACKET("expectedContents1", expectedContents1, expectedSize1); //####
-    ODL_PACKET("contents1", contents1.data(), length1); //####
-    if (expectedSize1 == length1)
+    if (0 < stuff.getLength())
     {
-        result = StaticCast(int, CompareBytes(expectedContents1, contents1.data(), expectedSize1));
-        if (0 == result)
-        {
-            if ((nullptr != expectedContents2) && (0 < expectedSize2))
-            {
-                std::string contents2{stuff.getBytesForTransmission()};
-                size_t      length2 = contents2.size();
+        auto    asString{stuff.getBytes()};
 
-                ODL_PACKET("expectedContents2", expectedContents2, expectedSize2); //####
-                ODL_PACKET("contents2", contents2.data(), length2); //####
-                if (expectedSize2 == length2)
+        if (0 < asString.length())
+        {
+            StringVector    outVec;
+
+            EncodeBytesAsMIME(outVec, asString);
+            if (expectedSize == outVec.size())
+            {
+                result = 0;
+                for (size_t ii = 0; (0 == result) && (ii < expectedSize); ++ii)
                 {
-                    result = StaticCast(int, CompareBytes(expectedContents2, contents2.data(), expectedSize2));
-                }
-                else
-                {
-                    ODL_LOG("! (expectedSize2 == length2)"); //####
-                    result = 1;
+                    if (expectedContents[ii] != outVec[ii])
+                    {
+                        ODL_LOG("(expectedContents[ii] != outVec[ii])"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                ODL_LOG("! ((nullptr != expectedContents2) && (0 < expectedSize2))"); //####
+                ODL_LOG("! (expectedSize == outVec.size())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (0 < asString.length())"); //####
         }
     }
     else
     {
-        ODL_LOG("! (expectedSize1 == length1)"); //####
-        result = 1;
+        ODL_LOG("! (0 < stuff.getLength())"); //####
     }
     ODL_EXIT_I(result); //####
     return result;
 } // setValueAndCheck
-#endif//0
 
-#if 0
 /*! @brief Extract a Value from a Message and verify what was stored.
  @param[in,out] stuff The Message to be modified.
  @param[in] insertedContents The data to be added to the Message.
@@ -183,7 +176,7 @@ setValueAndCheck
 static int
 extractValueAndCheck
     (Message &          stuff,
-     const DataKind *   insertedContents,
+     CPtr(std::string)  insertedContents,
      const size_t       insertedSize,
      const Value &      expectedValue)
 {
@@ -192,79 +185,77 @@ extractValueAndCheck
            &expectedValue); //####
     ODL_I1("insertedSize = ", insertedSize); //####
     ODL_PACKET("inserted", insertedContents, insertedSize); //####
-    int result = 1;
+    int             result = 1;
+    StringVector    inVec;
+    ByteVector      outBytes;
 
-    // First, the 'this-should-work' test:
-    stuff.open(false);
-    stuff.appendBytes(insertedContents, insertedSize);
-    SpValue extractedValue{stuff.getValue()};
-
-    ODL_P1("extractedValue <- ", extractedValue.get()); //####
-    stuff.close();
-    if (nullptr == extractedValue)
+    for (size_t ii = 0; ii < insertedSize; ++ii)
     {
-        ODL_LOG("(nullptr == extractedValue)"); //####
+        inVec.push_back(insertedContents[ii]);
     }
-    else
+    if (DecodeMIMEToBytes(inVec, outBytes))
     {
-        const Flaw *    asFlaw = extractedValue->asFlaw();
-
-        if (nullptr == asFlaw)
+        if (0 < outBytes.size())
         {
+            stuff.open(false);
+            stuff.appendBytes(outBytes.data(), outBytes.size());
+            SpValue extractedValue{stuff.getValue()};
+
+            ODL_P1("extractedValue <- ", extractedValue.get()); //####
+            stuff.close();
             if (stuff.readAtEnd())
             {
-                if (extractedValue->deeplyEqualTo(expectedValue))
+                if (nullptr == extractedValue)
                 {
-                    result = 0;
+                    ODL_LOG("(nullptr == extractedValue)"); //####
                 }
                 else
                 {
-                    ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
+                    CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+
+                    if (nullptr == asFlaw)
+                    {
+                        if (stuff.readAtEnd())
+                        {
+                            if (extractedValue->deeplyEqualTo(expectedValue))
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (stuff.readAtEnd())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nullptr == asFlaw)"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
+                    }
                 }
             }
             else
             {
-                ODL_LOG("! (stuff.readAtEnd())"); //####
+                ODL_LOG("! (stuff->readAtEnd())"); //####
             }
+            stuff.reset();
         }
         else
         {
-            ODL_LOG("! (nullptr == asFlaw)"); //####
-            ODL_LOG(asFlaw->getDescription().c_str()); //####
+            ODL_LOG("! (0 < outBytes.size())"); //####
         }
     }
-    if (0 == result)
+    else
     {
-        // And now, let's make sure that 'short' messages are handled correctly:
-        for (size_t ii = 1, shortenedSize = insertedSize - 1; (0 == result) && (shortenedSize > ii); ++ii)
-        {
-            stuff.open(false);
-            stuff.appendBytes(insertedContents, ii);
-            extractedValue = stuff.getValue();
-            ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            stuff.close();
-            if (nullptr != extractedValue)
-            {
-                const Flaw *    asFlaw = extractedValue->asFlaw();
-
-                if (nullptr == asFlaw)
-                {
-                    ODL_LOG("(nullptr == asFlaw)");
-                    ODL_I1("ii = ", ii); //####
-                    result = 1;
-                }
-                else
-                {
-                    ODL_LOG("! (nullptr == asFlaw)"); //####
-                    ODL_LOG(asFlaw->getDescription().c_str()); //####
-                }
-            }
-        }
+        ODL_LOG("! (DecodeMIMEToBytes(inVec, outBytes))"); //####
     }
     ODL_EXIT_I(result); //####
     return result;
 } // extractValueAndCheck
-#endif//0
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 001 ***
@@ -277,9 +268,9 @@ extractValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptyMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty message
+     Ptr(Ptr(char)) argv) // empty message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -296,50 +287,44 @@ doTestMIMEInsertEmptyMessage
 
         if (nullptr != stuff)
         {
-            // static const DataKind   expectedEmptyBytes[] =
-            // {
-            //     // Start of Message
-            //     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
-            //     // End of Message
-            //     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
-            // };
-            StringVector    outVec;
-
             stuff->open(true);
             stuff->close();
-//            stuff->getBytesAsMIME(outVec);
-            if (0 < outVec.size())
+            if (0 < stuff->getLength())
             {
-                std::string     expectedLines[] = { "a", "b" };
-                const size_t    expectedLinesCount = A_SIZE(expectedLines);
-#if 0
-                        static const uint8_t    transmitEmptyBytes[] =
-                        {
-                            0xF0, // Start of message
-                            0xF8, // End of message
-                            0x17 // Checksum
-                        };
-#endif//0                
-                if (expectedLinesCount == outVec.size())
+                auto    asString{stuff->getBytes()};
+
+                if (0 < asString.length())
                 {
-                    result = 0;
-                    for (size_t ii = 0; (0 == result) && (ii < expectedLinesCount); ++ii)
+                    std::string     expectedLines[]{ "8Pg=" };
+                    const size_t    expectedLinesCount = A_SIZE(expectedLines);
+                    StringVector    outVec;
+
+                    EncodeBytesAsMIME(outVec, asString);
+                    if (expectedLinesCount == outVec.size())
                     {
-                        if (expectedLines[ii] != outVec[ii])
+                        result = 0;
+                        for (size_t ii = 0; (0 == result) && (ii < expectedLinesCount); ++ii)
                         {
-                            ODL_LOG("(expectedLines[ii] != outVec[ii])"); //####
-                            result = 1;
+                            if (expectedLines[ii] != outVec[ii])
+                            {
+                                ODL_LOG("(expectedLines[ii] != outVec[ii])"); //####
+                                result = 1;
+                            }
                         }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (expectedLinesCount == outVec.size())"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (expectedLinesCount == outVec.size())"); //####
+                    ODL_LOG("! (0 < asString.length())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 < outVec.size())"); //####
+                ODL_LOG("! (0 < stuff->getLength())"); //####
             }
         }
         else
@@ -367,9 +352,9 @@ doTestMIMEInsertEmptyMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptyMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty message
+     Ptr(Ptr(char)) argv) // empty message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -386,71 +371,58 @@ doTestMIMEExtractEmptyMessage
 
         if (nullptr != stuff)
         {
-#if 0
             ODL_LOG("(stuff)"); //####
-            static const DataKind   bytesToInsert[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
-            };
-            const size_t            insertionCount = A_SIZE(bytesToInsert);
-            ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
-            SpValue                 extractedValue{stuff->getValue()};
+            StringVector    inVec;
+            ByteVector      outBytes;
 
-            ODL_P1("extractedValue <- ", extractedValue.get()); //####
-            if (stuff->readAtEnd())
+            inVec.push_back("8Pg=");
+            if (DecodeMIMEToBytes(inVec, outBytes))
             {
-                if (nullptr == extractedValue)
+                if (0 < outBytes.size())
                 {
-                    ODL_LOG("Null Value read"); //####
-                }
-                else
-                {
-                    const Flaw *    asFlaw = extractedValue->asFlaw();
+                    stuff->open(false);
+                    stuff->appendBytes(outBytes.data(), outBytes.size());
+                    SpValue extractedValue{stuff->getValue()};
 
-                    if (asFlaw)
+                    ODL_P1("extractedValue <- ", extractedValue.get()); //####
+                    stuff->close();
+                    if (stuff->readAtEnd())
                     {
-                        ODL_LOG("(asFlaw)"); //####
-                        ODL_LOG(asFlaw->getDescription().c_str()); //####
-                        stuff->open(true);
-                        stuff->close();
-                        stuff->open(false);
-                        stuff->appendBytes(bytesToInsert, insertionCount);
-                        extractedValue = stuff->getValue();
-                        ODL_P1("extractedValue <- ", extractedValue.get()); //####
-                        stuff->close();
-                        if (stuff->readAtEnd())
+                        if (nullptr == extractedValue)
                         {
-                            if (nullptr == extractedValue)
+                            ODL_LOG("(nullptr == extractedValue)"); //####
+                            result = 0;
+                        }
+                        else
+                        {
+                            CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+
+                            if (nullptr != asFlaw)
                             {
-                                ODL_LOG("(nullptr == extractedValue)"); //####
-                                result = 0;
+                                ODL_LOG("(nullptr != asFlaw)"); //####
+                                ODL_LOG(asFlaw->getDescription().c_str()); //####
                             }
                             else
                             {
-                                asFlaw = extractedValue->asFlaw();
-                                if (asFlaw)
-                                {
-                                    ODL_LOG("(asFlaw)"); //####
-                                    ODL_LOG(asFlaw->getDescription().c_str()); //####
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (asFlaw)"); //####
-                                }
+                                ODL_LOG("! (nullptr != asFlaw)"); //####
                             }
                         }
-                        stuff->reset();
                     }
+                    else
+                    {
+                        ODL_LOG("! (stuff->readAtEnd())"); //####
+                    }
+                    stuff->reset();
+                }
+                else
+                {
+                    ODL_LOG("! (0 < outBytes.size())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (stuff->readAtEnd())"); //####
+                ODL_LOG("! (DecodeMIMEToBytes(inVec, outBytes))"); //####
             }
-#endif//0
         }
         else
         {
@@ -477,9 +449,9 @@ doTestMIMEExtractEmptyMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical message
+     Ptr(Ptr(char)) argv) // logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -496,63 +468,18 @@ doTestMIMEInsertLogicalMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedTrueBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedTrueByteCount = A_SIZE(expectedTrueBytes);
-            static const DataKind   expectedFalseBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedFalseByteCount = A_SIZE(expectedFalseBytes);
-#if 0
-            static const uint8_t    transmitFalseBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xC0, // Logical False
-                0xFF, // End of message, last is Other
-                0x49 // Checksum
-            };
-            const size_t            transmitFalseByteCount = A_SIZE(transmitFalseBytes);
-            static const uint8_t    transmitTrueBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xC1, // Logical true
-                0xFF, // End of message, last is Other
-                0x48 // Checksum
-            };
-            const size_t            transmitTrueByteCount = A_SIZE(transmitTrueBytes);
-            Logical                 falseValue(false);
-            Logical                 trueValue(true);
+            Logical         falseValue(false);
+            Logical         trueValue(true);
+            std::string     expectedTrueLines[]{ "98H/" };
+            const size_t    expectedTrueLinesCount = A_SIZE(expectedTrueLines);
+            std::string     expectedFalseLines[]{ "98D/" };
+            const size_t    expectedFalseLinesCount = A_SIZE(expectedFalseLines);
 
-            result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount, transmitTrueBytes, transmitTrueByteCount);
+            result = setValueAndCheck(*stuff, trueValue, expectedTrueLines, expectedTrueLinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, falseValue, expectedFalseBytes, expectedFalseByteCount, transmitFalseBytes,
-                                          transmitFalseByteCount);
+                result = setValueAndCheck(*stuff, falseValue, expectedFalseLines, expectedFalseLinesCount);
             }
-#endif//0
         }
         else
         {
@@ -579,9 +506,9 @@ doTestMIMEInsertLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical message
+     Ptr(Ptr(char)) argv) // logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -598,46 +525,18 @@ doTestMIMEExtractLogicalMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForTrue[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalTrueValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedTrueCount = A_SIZE(insertedBytesForTrue);
-            static const DataKind   insertedBytesForFalse[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedFalseCount = A_SIZE(insertedBytesForFalse);
-            Logical                 falseValue(false);
-            Logical                 trueValue(true);
+            std::string     insertedTrueLines[]{ "98H/" };
+            const size_t    insertedTrueLinesCount = A_SIZE(insertedTrueLines);
+            std::string     insertedFalseLines[]{ "98D/" };
+            const size_t    insertedFalseLinesCount = A_SIZE(insertedFalseLines);
+            Logical         falseValue(false);
+            Logical         trueValue(true);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount, trueValue);
+            result = extractValueAndCheck(*stuff, insertedTrueLines, insertedTrueLinesCount, trueValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount, falseValue);
+                result = extractValueAndCheck(*stuff, insertedFalseLines, insertedFalseLinesCount, falseValue);
             }
-#endif//0
         }
         else
         {
@@ -664,9 +563,9 @@ doTestMIMEExtractLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertTinyIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // tiny integer message
+     Ptr(Ptr(char)) argv) // tiny integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -683,93 +582,25 @@ doTestMIMEInsertTinyIntegerMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMinus12Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  (-12 & DataKind::IntegerShortValueValueMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedMinus12ByteCount = A_SIZE(expectedMinus12Bytes);
-            static const DataKind   expectedZeroBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedZeroByteCount = A_SIZE(expectedZeroBytes);
-            static const DataKind   expectedPlus12Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  (12 & DataKind::IntegerShortValueValueMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedPlus12ByteCount = A_SIZE(expectedPlus12Bytes);
-#if 0
-            static const uint8_t    transmitMinus12Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x14, // Integer -12
-                0xFC, // End of message, last is Integer
-                0xFB // Checksum
-            };
-            const size_t            transmitMinus12ByteCount = A_SIZE(transmitMinus12Bytes);
-            static const uint8_t    transmitZeroBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x00, // Integer 0
-                0xFC, // End of message, last is Integer
-                0x0F // Checksum
-            };
-            const size_t            transmitZeroByteCount = A_SIZE(transmitZeroBytes);
-            static const uint8_t    transmitPlus12Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x0C, // Integer 12
-                0xFC, // End of message, last is Integer
-                0x03 // Checksum
-            };
-            const size_t            transmitPlus12ByteCount = A_SIZE(transmitPlus12Bytes);
-            Integer                 minus12Value(-12);
-            Integer                 zeroValue(0);
-            Integer                 plus12Value(12);
+            Integer         minus12Value(-12);
+            Integer         zeroValue(0);
+            Integer         plus12Value(12);
+            std::string     expectedMinus12Lines[]{ "9BT8" };
+            const size_t    expectedMinus12LinesCount = A_SIZE(expectedMinus12Lines);
+            std::string     expectedZeroLines[]{ "9AD8" };
+            const size_t    expectedZeroLinesCount = A_SIZE(expectedZeroLines);
+            std::string     expectedPlus12Lines[]{ "9Az8" };
+            const size_t    expectedPlus12LinesCount = A_SIZE(expectedPlus12Lines);
 
-            result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes, expectedMinus12ByteCount, transmitMinus12Bytes,
-                                      transmitMinus12ByteCount);
+            result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Lines, expectedMinus12LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, zeroValue, expectedZeroBytes, expectedZeroByteCount, transmitZeroBytes,
-                                          transmitZeroByteCount);
+                result = setValueAndCheck(*stuff, zeroValue, expectedZeroLines, expectedZeroLinesCount);
             }
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Bytes, expectedPlus12ByteCount, transmitPlus12Bytes,
-                                          transmitPlus12ByteCount);
+                result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Lines, expectedPlus12LinesCount);
             }
-#endif//0
         }
         else
         {
@@ -796,9 +627,9 @@ doTestMIMEInsertTinyIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractTinyIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // tiny integer message
+     Ptr(Ptr(char)) argv) // tiny integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -815,66 +646,25 @@ doTestMIMEExtractTinyIntegerMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMinus12[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                (-12 & DataKind::IntegerShortValueValueMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedMinus12Count = A_SIZE(insertedBytesForMinus12);
-            static const DataKind   insertedBytesForZero[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedZeroCount = A_SIZE(insertedBytesForZero);
-            static const DataKind   insertedBytesForPlus12[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                (12 & DataKind::IntegerShortValueValueMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedPlus12Count = A_SIZE(insertedBytesForPlus12);
-            Integer                 minus12Value(-12);
-            Integer                 zeroValue(0);
-            Integer                 plus12Value(12);
+            std::string     insertedMinus12Lines[]{ "9BT8" };
+            const size_t    insertedMinus12LinesCount = A_SIZE(insertedMinus12Lines);
+            std::string     insertedZeroLines[]{ "9AD8" };
+            const size_t    insertedZeroLinesCount = A_SIZE(insertedZeroLines);
+            std::string     insertedPlus12Lines[]{ "9Az8" };
+            const size_t    insertedPlus12LinesCount = A_SIZE(insertedPlus12Lines);
+            Integer         minus12Value(-12);
+            Integer         zeroValue(0);
+            Integer         plus12Value(12);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count, minus12Value);
+            result = extractValueAndCheck(*stuff, insertedMinus12Lines, insertedMinus12LinesCount, minus12Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForZero, insertedZeroCount, zeroValue);
+                result = extractValueAndCheck(*stuff, insertedZeroLines, insertedZeroLinesCount, zeroValue);
             }
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count, plus12Value);
+                result = extractValueAndCheck(*stuff, insertedPlus12Lines, insertedPlus12LinesCount, plus12Value);
             }
-#endif//0
         }
         else
         {
@@ -901,9 +691,9 @@ doTestMIMEExtractTinyIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertSmallIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer message
+     Ptr(Ptr(char)) argv) // small integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -920,66 +710,18 @@ doTestMIMEInsertSmallIntegerMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMinus144Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x70),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedMinus144ByteCount = A_SIZE(expectedMinus144Bytes);
-            static const DataKind   expectedPlus144Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x90),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedPlus144ByteCount = A_SIZE(expectedPlus144Bytes);
-#if 0
-            static const uint8_t    transmitMinus144Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x21, 0xFF, 0x70, // Integer -144
-                0xFC, // End of message, last is Integer
-                0x7F // Checksum
-            };
-            const size_t            transmitMinus144ByteCount = A_SIZE(transmitMinus144Bytes);
-            static const uint8_t    transmitPlus144Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x21, 0x00, 0x90, // Integer 144
-                0xFC, // End of message, last is Integer
-                0x5E // Checksum
-            };
-            const size_t            transmitPlus144ByteCount = A_SIZE(transmitPlus144Bytes);
-            Integer                 minus144Value(-144);
-            Integer                 plus144Value(144);
+            Integer         minus144Value(-144);
+            Integer         plus144Value(144);
+            std::string     expectedMinus144Lines[]{ "9CH/cPw=" };
+            const size_t    expectedMinus144LinesCount = A_SIZE(expectedMinus144Lines);
+            std::string     expectedPlus144Lines[]{ "9CEAkPw=" };
+            const size_t    expectedPlus144LinesCount = A_SIZE(expectedPlus144Lines);
 
-            result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes, expectedMinus144ByteCount, transmitMinus144Bytes,
-                                      transmitMinus144ByteCount);
+            result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Lines, expectedMinus144LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Bytes, expectedPlus144ByteCount, transmitPlus144Bytes,
-                                          transmitPlus144ByteCount);
+                result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Lines, expectedPlus144LinesCount);
             }
-#endif//0
         }
         else
         {
@@ -1006,9 +748,9 @@ doTestMIMEInsertSmallIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractSmallIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer message
+     Ptr(Ptr(char)) argv) // small integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1025,48 +767,18 @@ doTestMIMEExtractSmallIntegerMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMinus144[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x70),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedMinus144Count = A_SIZE(insertedBytesForMinus144);
-            static const DataKind   insertedBytesForPlus144[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x90),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedPlus144Count = A_SIZE(insertedBytesForPlus144);
-            Integer                 minus144Value(-144);
-            Integer                 plus144Value(144);
+            std::string     insertedMinus144Lines[]{ "9CH/cPw=" };
+            const size_t    insertedMinus144LinesCount = A_SIZE(insertedMinus144Lines);
+            std::string     insertedPlus144Lines[]{ "9CEAkPw=" };
+            const size_t    insertedPlus144LinesCount = A_SIZE(insertedPlus144Lines);
+            Integer         minus144Value(-144);
+            Integer         plus144Value(144);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count, minus144Value);
+            result = extractValueAndCheck(*stuff, insertedMinus144Lines, insertedMinus144LinesCount, minus144Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count, plus144Value);
+                result = extractValueAndCheck(*stuff, insertedPlus144Lines, insertedPlus144LinesCount, plus144Value);
             }
-#endif//0
         }
         else
         {
@@ -1093,9 +805,9 @@ doTestMIMEExtractSmallIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertMediumIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium integer message
+     Ptr(Ptr(char)) argv) // medium integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1112,68 +824,20 @@ doTestMIMEInsertMediumIntegerMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMinus1234567Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0x29),
-                StaticCast(DataKind, 0x79),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedMinus1234567ByteCount = A_SIZE(expectedMinus1234567Bytes);
-            static const DataKind   expectedPlus1234567Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0xD6),
-                StaticCast(DataKind, 0x87),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedPlus1234567ByteCount = A_SIZE(expectedPlus1234567Bytes);
-#if 0
-            static const uint8_t    transmitMinus1234567Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x22, 0xED, 0x29, 0x79, // Integer -1234567
-                0xFC, // End of message, last is Integer
-                0x5E // Checksum
-            };
-            const size_t            transmitMinus1234567ByteCount = A_SIZE(transmitMinus1234567Bytes);
-            static const uint8_t    transmitPlus1234567Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x22, 0x12, 0xD6, 0x87, // Integer 1234567
-                0xFC, // End of message, last is Integer
-                0x7E // Checksum
-            };
-            const size_t            transmitPlus1234567ByteCount = A_SIZE(transmitPlus1234567Bytes);
-            Integer                 minus1234567Value(-1234567);
-            Integer                 plus1234567Value(1234567);
+            Integer         minus1234567Value(-1234567);
+            Integer         plus1234567Value(1234567);
+            std::string     expectedMinus1234567Lines[]{ "9CLtKXn8" };
+            const size_t    expectedMinus1234567LinesCount = A_SIZE(expectedMinus1234567Lines);
+            std::string     expectedPlus1234567Lines[]{ "9CIS1of8" };
+            const size_t    expectedPlus1234567LinesCount = A_SIZE(expectedPlus1234567Lines);
 
-            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes, expectedMinus1234567ByteCount, transmitMinus1234567Bytes,
-                                      transmitMinus1234567ByteCount);
+            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Lines,
+                                      expectedMinus1234567LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes, expectedPlus1234567ByteCount, transmitPlus1234567Bytes,
-                                          transmitPlus1234567ByteCount);
+                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Lines,
+                                          expectedPlus1234567LinesCount);
             }
-#endif//0
         }
         else
         {
@@ -1200,9 +864,9 @@ doTestMIMEInsertMediumIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractMediumIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium integer message
+     Ptr(Ptr(char)) argv) // medium integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1219,50 +883,20 @@ doTestMIMEExtractMediumIntegerMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMinus1234567[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0x29),
-                StaticCast(DataKind, 0x79),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedMinus1234567Count = A_SIZE(insertedBytesForMinus1234567);
-            static const DataKind   insertedBytesForPlus1234567[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0xD6),
-                StaticCast(DataKind, 0x87),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedPlus1234567Count = A_SIZE(insertedBytesForPlus1234567);
-            Integer                 minus1234567Value(-1234567);
-            Integer                 plus1234567Value(1234567);
+            std::string     insertedMinus1234567Lines[]{ "9CLtKXn8" };
+            const size_t    insertedMinus1234567LinesCount = A_SIZE(insertedMinus1234567Lines);
+            std::string     insertedPlus1234567Lines[]{ "9CIS1of8" };
+            const size_t    insertedPlus1234567LinesCount = A_SIZE(insertedPlus1234567Lines);
+            Integer         minus1234567Value(-1234567);
+            Integer         plus1234567Value(1234567);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567, insertedMinus1234567Count, minus1234567Value);
+            result = extractValueAndCheck(*stuff, insertedMinus1234567Lines, insertedMinus1234567LinesCount,
+                                          minus1234567Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count, plus1234567Value);
+                result = extractValueAndCheck(*stuff, insertedPlus1234567Lines, insertedPlus1234567LinesCount,
+                                              plus1234567Value);
             }
-#endif//0
         }
         else
         {
@@ -1289,9 +923,9 @@ doTestMIMEExtractMediumIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertBigIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big integer message
+     Ptr(Ptr(char)) argv) // big integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1308,70 +942,20 @@ doTestMIMEInsertBigIntegerMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMinusBigNumberBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0xCB),
-                StaticCast(DataKind, 0xA9), StaticCast(DataKind, 0x87),
-                StaticCast(DataKind, 0x65), StaticCast(DataKind, 0x44),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedMinusBigNumberByteCount = A_SIZE(expectedMinusBigNumberBytes);
-            static const DataKind   expectedPlusBigNumberBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x34),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x78),
-                StaticCast(DataKind, 0x9A), StaticCast(DataKind, 0xBC),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            expectedPlusBigNumberByteCount = A_SIZE(expectedPlusBigNumberBytes);
-#if 0
-            static const uint8_t    transmitMinusBigNumberBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x25, 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44, // Integer -20015998343868
-                0xFC, // End of message, last is Integer
-                0x59 // Checksum
-            };
-            const size_t            transmitMinusBigNumberByteCount = A_SIZE(transmitMinusBigNumberBytes);
-            static const uint8_t    transmitPlusBigNumberBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x25, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, // Integer 20015998343868
-                0xFC, // End of message, last is Integer
-                0x80 // Checksum
-            };
-            const size_t            transmitPlusBigNumberByteCount = A_SIZE(transmitPlusBigNumberBytes);
-            Integer                 minusBigNumberValue(-20015998343868);
-            Integer                 plusBigNumberValue(20015998343868);
+            Integer         minusBigNumberValue(-20015998343868);
+            Integer         plusBigNumberValue(20015998343868);
+            std::string     expectedMinusBigNumberLines[]{ "9CXty6mHZUT8" };
+            const size_t    expectedMinusBigNumberLinesCount = A_SIZE(expectedMinusBigNumberLines);
+            std::string     expectedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
+            const size_t    expectedPlusBigNumberLinesCount = A_SIZE(expectedPlusBigNumberLines);
 
-            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes, expectedMinusBigNumberByteCount,
-                                      transmitMinusBigNumberBytes, transmitMinusBigNumberByteCount);
+            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberLines,
+                                      expectedMinusBigNumberLinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes, expectedPlusBigNumberByteCount,
-                                          transmitPlusBigNumberBytes, transmitPlusBigNumberByteCount);
+                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberLines,
+                                          expectedPlusBigNumberLinesCount);
             }
-#endif//0
         }
         else
         {
@@ -1398,9 +982,9 @@ doTestMIMEInsertBigIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractBigIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big integer message
+     Ptr(Ptr(char)) argv) // big integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1417,52 +1001,20 @@ doTestMIMEExtractBigIntegerMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMinusBigNumber[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0xED), StaticCast(DataKind, 0xCB),
-                StaticCast(DataKind, 0xA9), StaticCast(DataKind, 0x87),
-                StaticCast(DataKind, 0x65), StaticCast(DataKind, 0x44),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedMinusBigNumberCount = A_SIZE(insertedBytesForMinusBigNumber);
-            static const DataKind   insertedBytesForPlusBigNumber[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x34),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x78),
-                StaticCast(DataKind, 0x9A), StaticCast(DataKind, 0xBC),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedIntegerValue
-            };
-            const size_t            insertedPlusBigNumberCount = A_SIZE(insertedBytesForPlusBigNumber);
-            Integer                 minusBigNumberValue(-20015998343868);
-            Integer                 plusBigNumberValue(20015998343868);
+            std::string     insertedMinusBigNumberLines[]{ "9CXty6mHZUT8" };
+            const size_t    insertedMinusBigNumberLinesCount = A_SIZE(insertedMinusBigNumberLines);
+            std::string     insertedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
+            const size_t    insertedPlusBigNumberLinesCount = A_SIZE(insertedPlusBigNumberLines);
+            Integer         minusBigNumberValue(-20015998343868);
+            Integer         plusBigNumberValue(20015998343868);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber, insertedMinusBigNumberCount, minusBigNumberValue);
+            result = extractValueAndCheck(*stuff, insertedMinusBigNumberLines, insertedMinusBigNumberLinesCount,
+                                          minusBigNumberValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount, plusBigNumberValue);
+                result = extractValueAndCheck(*stuff, insertedPlusBigNumberLines, insertedPlusBigNumberLinesCount,
+                                              plusBigNumberValue);
             }
-#endif//0
         }
         else
         {
@@ -1489,9 +1041,9 @@ doTestMIMEExtractBigIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptyStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty string message
+     Ptr(Ptr(char)) argv) // empty string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1508,36 +1060,11 @@ doTestMIMEInsertEmptyStringMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptyStringBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedEmptyStringByteCount = A_SIZE(expectedEmptyStringBytes);
-#if 0
-            static const uint8_t    transmitEmptyStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x80, // String - empty
-                0xFE, // End of message, last is String or Blob
-                0x8B // Checksum
-            };
-            const size_t            transmitEmptyStringByteCount = A_SIZE(transmitEmptyStringBytes);
-            String                  emptyStringValue("");
+            String          emptyStringValue("");
+            std::string     expectedEmptyStringLines[]{ "9oD+" };
+            const size_t    expectedEmptyStringLinesCount = A_SIZE(expectedEmptyStringLines);
 
-            result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount, transmitEmptyStringBytes,
-                                      transmitEmptyStringByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringLines, expectedEmptyStringLinesCount);
         }
         else
         {
@@ -1564,9 +1091,9 @@ doTestMIMEInsertEmptyStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptyStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty string message
+     Ptr(Ptr(char)) argv) // empty string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1583,27 +1110,12 @@ doTestMIMEExtractEmptyStringMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForEmptyString[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedEmptyStringCount = A_SIZE(insertedBytesForEmptyString);
-            String                  emptyStringValue;
+            std::string     insertedEmptyStringLines[]{ "9oD+" };
+            const size_t    insertedEmptyStringLinesCount = A_SIZE(insertedEmptyStringLines);
+            String          emptyStringValue;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedEmptyStringLines, insertedEmptyStringLinesCount,
+                                          emptyStringValue);
         }
         else
         {
@@ -1630,9 +1142,9 @@ doTestMIMEExtractEmptyStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertShortStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // short string message
+     Ptr(Ptr(char)) argv) // short string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1649,39 +1161,12 @@ doTestMIMEInsertShortStringMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedShortStringBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (6 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedShortStringByteCount = A_SIZE(expectedShortStringBytes);
-#if 0
-            static const uint8_t    transmitShortStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x86, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'
-                0xFE, // End of message, last is String or Blob
-                0x30 // Checksum
-            };
-            const size_t            transmitShortStringByteCount = A_SIZE(transmitShortStringBytes);
-            String                  shortStringValue("abcdef");
+            String          shortStringValue("abcdef");
+            std::string     expectedShortStringLines[]{ "9oZhYmNkZWb+" };
+            const size_t    expectedShortStringLinesCount = A_SIZE(expectedShortStringLines);
 
-            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount, transmitShortStringBytes,
-                                      transmitShortStringByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringLines,
+                                      expectedShortStringLinesCount);
         }
         else
         {
@@ -1708,9 +1193,9 @@ doTestMIMEInsertShortStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractShortStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // short string message
+     Ptr(Ptr(char)) argv) // short string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1727,30 +1212,12 @@ doTestMIMEExtractShortStringMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForShortString[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (6 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedShortStringCount = A_SIZE(insertedBytesForShortString);
-            String                  shortStringValue("abcdef");
+            std::string     insertedShortStringLines[]{ "9oZhYmNkZWb+" };
+            const size_t    insertedShortStringLinesCount = A_SIZE(insertedShortStringLines);
+            String          shortStringValue("abcdef");
 
-            result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedShortStringLines, insertedShortStringLinesCount,
+                                          shortStringValue);
         }
         else
         {
@@ -1777,9 +1244,9 @@ doTestMIMEExtractShortStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertMediumStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium string message
+     Ptr(Ptr(char)) argv) // medium string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1796,61 +1263,13 @@ doTestMIMEInsertMediumStringMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMediumStringBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobLongLengthValue |
-                  ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                StaticCast(DataKind, 42),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedMediumStringByteCount = A_SIZE(expectedMediumStringBytes);
-#if 0
-            static const uint8_t    transmitMediumStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x90, 0x2A, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'*7, length = 42
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0xFE, // End of message, last is String or Blob
-                0xFE // Checksum
-            };
-            const size_t            transmitMediumStringByteCount = A_SIZE(transmitMediumStringBytes);
-            String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            String          mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            std::string     expectedMediumStringLines[]{
+                                                "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
+            const size_t    expectedMediumStringLinesCount = A_SIZE(expectedMediumStringLines);
 
-            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount,
-                                      transmitMediumStringBytes, transmitMediumStringByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringLines,
+                                      expectedMediumStringLinesCount);
         }
         else
         {
@@ -1877,9 +1296,9 @@ doTestMIMEInsertMediumStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractMediumStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium string message
+     Ptr(Ptr(char)) argv) // medium string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1896,49 +1315,13 @@ doTestMIMEExtractMediumStringMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMediumString[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobLongLengthValue |
-                ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                StaticCast(DataKind, 42),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                StaticCast(DataKind, 'a'), StaticCast(DataKind, 'b'),
-                StaticCast(DataKind, 'c'), StaticCast(DataKind, 'd'),
-                StaticCast(DataKind, 'e'), StaticCast(DataKind, 'f'),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedMediumStringCount = A_SIZE(insertedBytesForMediumString);
-            String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            std::string     insertedMediumStringLines[]{
+                                                "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
+            const size_t    insertedMediumStringLinesCount = A_SIZE(insertedMediumStringLines);
+            String          mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedMediumStringLines, insertedMediumStringLinesCount,
+                                          mediumStringValue);
         }
         else
         {
@@ -1965,9 +1348,9 @@ doTestMIMEExtractMediumStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptyBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty blob message
+     Ptr(Ptr(char)) argv) // empty blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1984,36 +1367,11 @@ doTestMIMEInsertEmptyBlobMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptyBlobBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedEmptyBlobByteCount = A_SIZE(expectedEmptyBlobBytes);
-#if 0
-            static const uint8_t    transmitEmptyBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xA0, // Empty Blob
-                0xFE, // End of message, last is String or Blob
-                0x6B // Checksum
-            };
-            const size_t            transmitEmptyBlobByteCount = A_SIZE(transmitEmptyBlobBytes);
-            Blob                    emptyBlobValue;
+            Blob            emptyBlobValue;
+            std::string     expectedEmptyBlobLines[]{ "9qD+" };
+            const size_t    expectedEmptyBlobLinesCount = A_SIZE(expectedEmptyBlobLines);
 
-            result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount,
-                                      transmitEmptyBlobBytes, transmitEmptyBlobByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobLines, expectedEmptyBlobLinesCount);
         }
         else
         {
@@ -2040,9 +1398,9 @@ doTestMIMEInsertEmptyBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptyBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty blob message
+     Ptr(Ptr(char)) argv) // empty blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2059,27 +1417,11 @@ doTestMIMEExtractEmptyBlobMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForEmptyBlob[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedEmptyBlobCount = A_SIZE(insertedBytesForEmptyBlob);
-            Blob                    emptyBlobValue;
+            std::string     insertedEmptyBlobLines[]{ "9qD+" };
+            const size_t    insertedEmptyBlobLinesCount = A_SIZE(insertedEmptyBlobLines);
+            Blob            emptyBlobValue;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedEmptyBlobLines, insertedEmptyBlobLinesCount, emptyBlobValue);
         }
         else
         {
@@ -2106,9 +1448,9 @@ doTestMIMEExtractEmptyBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertSmallBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small blob message
+     Ptr(Ptr(char)) argv) // small blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2125,44 +1467,16 @@ doTestMIMEInsertSmallBlobMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedSmallBlobBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (6 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedSmallBlobByteCount = A_SIZE(expectedSmallBlobBytes);
             static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-#if 0
-            static const uint8_t    transmitSmallBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xA6, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Short Blob
-                0xFE, // End of message, last is String or Blob
-                0xFA // Checksum
-            };
-            const size_t            transmitSmallBlobByteCount = A_SIZE(transmitSmallBlobBytes);
-            Blob                    shortBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue(actualData, actualDataCount);
+            std::string             expectedSmallBlobLines[]{ "9qYSIzRFVmf+" };
+            const size_t            expectedSmallBlobLinesCount = A_SIZE(expectedSmallBlobLines);
 
-            result = setValueAndCheck(*stuff, shortBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount, transmitSmallBlobBytes,
-                                      transmitSmallBlobByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobLines, expectedSmallBlobLinesCount);
         }
         else
         {
@@ -2189,9 +1503,9 @@ doTestMIMEInsertSmallBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractSmallBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small blob message
+     Ptr(Ptr(char)) argv) // small blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2208,35 +1522,16 @@ doTestMIMEExtractSmallBlobMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForSmallBlob[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (6 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedSmallBlobCount = A_SIZE(insertedBytesForSmallBlob);
+            std::string             insertedSmallBlobLines[]{ "9qYSIzRFVmf+" };
+            const size_t            insertedSmallBlobLinesCount = A_SIZE(insertedSmallBlobLines);
             static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-            Blob                    shortBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, shortBlobValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedSmallBlobLines, insertedSmallBlobLinesCount, smallBlobValue);
         }
         else
         {
@@ -2263,9 +1558,9 @@ doTestMIMEExtractSmallBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertMediumBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium blob message
+     Ptr(Ptr(char)) argv) // medium blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2282,44 +1577,6 @@ doTestMIMEInsertMediumBlobMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedMediumBlobBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobLongLengthValue |
-                  ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                StaticCast(DataKind, 42),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedMediumBlobByteCount = A_SIZE(expectedMediumBlobBytes);
             static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -2331,26 +1588,12 @@ doTestMIMEInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-#if 0
-            static const uint8_t    transmitMediumBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xB0, 0x2A, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Medium Blob, length = 42
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0xFE, // End of message, last is String or Blob
-                0x44 // Checksum
-            };
-            const size_t            transmitMediumBlobByteCount = A_SIZE(transmitMediumBlobBytes);
             Blob                    mediumBlobValue(actualData, actualDataCount);
+            std::string             expectedMediumBlobLines[]{
+                                                "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
+            const size_t            expectedMediumBlobLinesCount = A_SIZE(expectedMediumBlobLines);
 
-            result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount, transmitMediumBlobBytes,
-                                      transmitMediumBlobByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobLines, expectedMediumBlobLinesCount);
         }
         else
         {
@@ -2377,9 +1620,9 @@ doTestMIMEInsertMediumBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractMediumBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium blob message
+     Ptr(Ptr(char)) argv) // medium blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2396,45 +1639,9 @@ doTestMIMEExtractMediumBlobMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForMediumBlob[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobLongLengthValue |
-                ((1 - 1) & DataKind::StringOrBlobLongLengthMask),
-                StaticCast(DataKind, 42),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                StaticCast(DataKind, 0x12), StaticCast(DataKind, 0x23),
-                StaticCast(DataKind, 0x34), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x56), StaticCast(DataKind, 0x67),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            insertedMediumBlobCount = A_SIZE(insertedBytesForMediumBlob);
+            std::string             insertedMediumBlobLines[]{
+                                                "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
+            const size_t            insertedMediumBlobLinesCount = A_SIZE(insertedMediumBlobLines);
             static const uint8_t    actualData[] =
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -2448,8 +1655,8 @@ doTestMIMEExtractMediumBlobMessage
             const size_t            actualDataCount = A_SIZE(actualData);
             Blob                    mediumBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedMediumBlobLines, insertedMediumBlobLinesCount,
+                                          mediumBlobValue);
         }
         else
         {
@@ -2476,9 +1683,9 @@ doTestMIMEExtractMediumBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertSingleDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // single double message
+     Ptr(Ptr(char)) argv) // single double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2495,75 +1702,20 @@ doTestMIMEInsertSingleDoubleMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedPlus42Point5Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedDoubleValue,
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
-                    DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedDoubleValue
-            };
-            const size_t            expectedPlus42Point5ByteCount = A_SIZE(expectedPlus42Point5Bytes);
-            static const DataKind   expectedMinus42Point5Bytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedDoubleValue,
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
-                    DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedDoubleValue
-            };
-            const size_t            expectedMinus42Point5ByteCount = A_SIZE(expectedMinus42Point5Bytes);
-#if 0
-            static const uint8_t    transmitMinus42Point5Bytes[] =
-            {
-                0xF5, // Start of message, next is Doubleing-point
-                0x40, 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, -42.5
-                0xFD, // End of message, last is Doubleing-point
-                0x88 // Checksum
-            };
-            const size_t            transmitMinus42Point5ByteCount = A_SIZE(transmitMinus42Point5Bytes);
-            static const uint8_t    transmitPlus42Point5Bytes[] =
-            {
-                0xF5, // Start of message, next is Doubleing-point
-                0x40, 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, 42.5
-                0xFD, // End of message, last is Doubleing-point
-                0x08 // Checksum
-            };
-            const size_t            transmitPlus42Point5ByteCount = A_SIZE(transmitPlus42Point5Bytes);
-            Double                  plus42Point5(42.5);
-            Double                  minus42Point5(-42.5);
+            Double          plus42Point5Value(42.5);
+            Double          minus42Point5Value(-42.5);
+            std::string     expectedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0=" };
+            const size_t    expectedPlus42Point5LinesCount = A_SIZE(expectedPlus42Point5Lines);
+            std::string     expectedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
+            const size_t    expectedMinus42Point5LinesCount = A_SIZE(expectedMinus42Point5Lines);
 
-            result = setValueAndCheck(*stuff, plus42Point5, expectedPlus42Point5Bytes,
-                                      expectedPlus42Point5ByteCount, transmitPlus42Point5Bytes,
-                                      transmitPlus42Point5ByteCount);
+            result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Lines,
+                                      expectedPlus42Point5LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, minus42Point5, expectedMinus42Point5Bytes, expectedMinus42Point5ByteCount,
-                                          transmitMinus42Point5Bytes, transmitMinus42Point5ByteCount);
+                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Lines,
+                                          expectedMinus42Point5LinesCount);
             }
-#endif//0
         }
         else
         {
@@ -2580,7 +1732,7 @@ doTestMIMEInsertSingleDoubleMessage
 } // doTestMIMEInsertSingleDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 013 ***
+# pragma mark *** Test Case 026 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2590,9 +1742,9 @@ doTestMIMEInsertSingleDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractSingleDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // single double message
+     Ptr(Ptr(char)) argv) // single double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2609,56 +1761,20 @@ doTestMIMEExtractSingleDoubleMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForPlus42Point5[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedDoubleValue,
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                ((1 - DataKindDoubleShortCountMinValue) &
-                 DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedDoubleValue
-            };
-            const size_t            insertedPlus42Point5Count = A_SIZE(insertedBytesForPlus42Point5);
-            static const DataKind   insertedBytesForMinus42Point5[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedDoubleValue,
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                ((1 - DataKindDoubleShortCountMinValue) &
-                 DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedDoubleValue
-            };
-            const size_t            insertedMinus42Point5Count = A_SIZE(insertedBytesForMinus42Point5);
-            Double                  plus42Point5(42.5);
-            Double                  minus42Point5(-42.5);
+            std::string     insertedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0=" };
+            const size_t    insertedPlus42Point5LinesCount = A_SIZE(insertedPlus42Point5Lines);
+            std::string     insertedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
+            const size_t    insertedMinus42Point5LinesCount = A_SIZE(insertedMinus42Point5Lines);
+            Double          plus42Point5Value(42.5);
+            Double          minus42Point5Value(-42.5);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count, minus42Point5);
+            result = extractValueAndCheck(*stuff, insertedPlus42Point5Lines, insertedPlus42Point5LinesCount,
+                                          plus42Point5Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5);
+                result = extractValueAndCheck(*stuff, insertedMinus42Point5Lines, insertedMinus42Point5LinesCount,
+                                              minus42Point5Value);
             }
-#endif//0
         }
         else
         {
@@ -2675,92 +1791,6 @@ doTestMIMEExtractSingleDoubleMessage
 } // doTestMIMEExtractSingleDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 027 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestMIMEInsertMultipleEscapesMessage
-    (const char *   launchPath,
-     const int      argc,
-     char * *       argv) // message with multiple escapes
-{
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
-    try
-    {
-        auto    stuff{make_unique<Message>()};
-
-        if (nullptr != stuff)
-        {
-            static const DataKind   expectedMultipleEscapesBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (10 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 0xDC), StaticCast(DataKind, 0xF0),
-                StaticCast(DataKind, 0xF1), StaticCast(DataKind, 0xF2),
-                StaticCast(DataKind, 0x0D), StaticCast(DataKind, 0xF3),
-                StaticCast(DataKind, 0xF4), StaticCast(DataKind, 0xF5),
-                StaticCast(DataKind, 0xF6), StaticCast(DataKind, 0xF7),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedMultipleEscapesByteCount = A_SIZE(expectedMultipleEscapesBytes);
-            static const uint8_t    actualData[] =
-            {
-                0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
-            };
-            const size_t            actualDataCount = A_SIZE(actualData);
-#if 0
-            static const uint8_t    transmitMultipleEscapesBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xAA, 0xDC, 0x5C, 0xDC, 0x70, 0xDC, 0x71, 0xDC, 0x72, 0x0D, 0xDC, 0x73, 0xDC, 0x74,
-                0xDC, 0x75, 0xDC, 0x76, 0xDC, 0x77, // many escapes
-                0xFE, // End of message, last is String or Blob
-                0xDC, 0x5C // Checksum
-            };
-            const size_t            transmitMultipleEscapesByteCount = A_SIZE(transmitMultipleEscapesBytes);
-            Blob                    multipleEscapesValue(actualData, actualDataCount);
-
-            result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes, expectedMultipleEscapesByteCount,
-                                      transmitMultipleEscapesBytes, transmitMultipleEscapesByteCount);
-#endif//0
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestMIMEInsertMultipleEscapesMessage
-
-#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -2771,9 +1801,9 @@ doTestMIMEInsertMultipleEscapesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptyArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array message
+     Ptr(Ptr(char)) argv) // empty array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2790,41 +1820,11 @@ doTestMIMEInsertEmptyArrayMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptyArrayBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedEmptyArrayByteCount = A_SIZE(expectedEmptyArrayBytes);
-#if 0
-            static const uint8_t    transmitEmptyArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xFF, // End of message, last is Other
-                0x59 // Checksum
-            };
-            const size_t            transmitEmptyArrayByteCount = A_SIZE(transmitEmptyArrayBytes);
-            Array                   emptyArray;
+            Array           emptyArray;
+            std::string     expectedEmptyArrayLines[]{ "99Dg/w==" };
+            const size_t    expectedEmptyArrayLinesCount = A_SIZE(expectedEmptyArrayLines);
 
-            result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount, transmitEmptyArrayBytes,
-                                      transmitEmptyArrayByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayLines, expectedEmptyArrayLinesCount);
         }
         else
         {
@@ -2851,9 +1851,9 @@ doTestMIMEInsertEmptyArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptyArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array message
+     Ptr(Ptr(char)) argv) // empty array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2870,31 +1870,11 @@ doTestMIMEExtractEmptyArrayMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForEmptyArray[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedEmptyArrayCount = A_SIZE(insertedBytesForEmptyArray);
-            Array                   emptyArray;
+            std::string     insertedEmptyArrayLines[]{ "99Dg/w==" };
+            const size_t    insertedEmptyArrayLinesCount = A_SIZE(insertedEmptyArrayLines);
+            Array           emptyArray;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedEmptyArrayLines, insertedEmptyArrayLinesCount, emptyArray);
         }
         else
         {
@@ -2921,9 +1901,9 @@ doTestMIMEExtractEmptyArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptyMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map message
+     Ptr(Ptr(char)) argv) // empty map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2940,41 +1920,11 @@ doTestMIMEInsertEmptyMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptyMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedEmptyMapByteCount = A_SIZE(expectedEmptyMapBytes);
-#if 0
-            static const uint8_t    transmitEmptyMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xFF, // End of message, last is Other
-                0x51 // Checksum
-            };
-            const size_t            transmitEmptyMapByteCount = A_SIZE(transmitEmptyMapBytes);
-            Map                     emptyMap;
+            Map             emptyMap;
+            std::string     expectedEmptyMapLines[]{ "99Tk/w==" };
+            const size_t    expectedEmptyMapLinesCount = A_SIZE(expectedEmptyMapLines);
 
-            result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount, transmitEmptyMapBytes,
-                                      transmitEmptyMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapLines, expectedEmptyMapLinesCount);
         }
         else
         {
@@ -3001,9 +1951,9 @@ doTestMIMEInsertEmptyMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptyMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map message
+     Ptr(Ptr(char)) argv) // empty map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3020,31 +1970,11 @@ doTestMIMEExtractEmptyMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForEmptyMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedEmptyMapCount = A_SIZE(insertedBytesForEmptyMap);
-            Map                     emptyMap;
+            std::string     insertedEmptyMapLines[]{ "99Tk/w==" };
+            const size_t    insertedEmptyMapLinesCount = A_SIZE(insertedEmptyMapLines);
+            Map             emptyMap;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedEmptyMapLines, insertedEmptyMapLinesCount, emptyMap);
         }
         else
         {
@@ -3071,9 +2001,9 @@ doTestMIMEExtractEmptyMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertEmptySetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set message
+     Ptr(Ptr(char)) argv) // empty set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3090,41 +2020,11 @@ doTestMIMEInsertEmptySetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedEmptySetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedEmptySetByteCount = A_SIZE(expectedEmptySetBytes);
-#if 0
-            static const uint8_t    transmitEmptySetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xFF, // End of message, last is Other
-                0x49 // Checksum
-            };
-            const size_t            transmitEmptySetByteCount = A_SIZE(transmitEmptySetBytes);
-            Set                     emptySet;
+            Set             emptySet;
+            std::string     expectedEmptySetLines[]{ "99jo/w==" };
+            const size_t    expectedEmptySetLinesCount = A_SIZE(expectedEmptySetLines);
 
-            result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount, transmitEmptySetBytes,
-                                      transmitEmptySetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, emptySet, expectedEmptySetLines, expectedEmptySetLinesCount);
         }
         else
         {
@@ -3151,9 +2051,9 @@ doTestMIMEInsertEmptySetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractEmptySetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set message
+     Ptr(Ptr(char)) argv) // empty set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3170,31 +2070,11 @@ doTestMIMEExtractEmptySetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForEmptySet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedEmptySetCount = A_SIZE(insertedBytesForEmptySet);
-            Set                     emptySet;
+            std::string     insertedEmptySetLines[]{ "99jo/w==" };
+            const size_t    insertedEmptySetLinesCount = A_SIZE(insertedEmptySetLines);
+            Set             emptySet;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedEmptySetLines, insertedEmptySetLinesCount, emptySet);
         }
         else
         {
@@ -3221,9 +2101,9 @@ doTestMIMEExtractEmptySetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one logical message
+     Ptr(Ptr(char)) argv) // array with one logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3240,51 +2120,14 @@ doTestMIMEInsertArrayOneLogicalMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneLogicalBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneLogicalByteCount = A_SIZE(expectedArrayOneLogicalBytes);
-#if 0
-            static const uint8_t    transmitArrayOneLogicalBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xC0, // Logical false
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x87 // Checksum
-            };
-            const size_t            transmitArrayOneLogicalByteCount = A_SIZE(transmitArrayOneLogicalBytes);
-            Array                   arrayOneLogical;
+            Array           arrayOneLogical;
+            Logical         trueValue(true);
+            std::string     expectedArrayOneLogicalLines[]{ "99EQwOH/" };
+            const size_t    expectedArrayOneLogicalLinesCount = A_SIZE(expectedArrayOneLogicalLines);
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes, expectedArrayOneLogicalByteCount,
-                                      transmitArrayOneLogicalBytes, transmitArrayOneLogicalByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalLines,
+                                      expectedArrayOneLogicalLinesCount);
         }
         else
         {
@@ -3311,9 +2154,9 @@ doTestMIMEInsertArrayOneLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one logical message
+     Ptr(Ptr(char)) argv) // array with one logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3330,40 +2173,13 @@ doTestMIMEExtractArrayOneLogicalMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneLogical[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneLogicalCount = A_SIZE(insertedBytesForArrayOneLogical);
-            Array                   arrayOneLogical;
+            std::string     insertedArrayOneLogicalLines[]{ "99EQwOH/" };
+            const size_t    insertedArrayOneLogicalLinesCount = A_SIZE(insertedArrayOneLogicalLines);
+            Array           arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount, arrayOneLogical);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneLogicalLines, insertedArrayOneLogicalLinesCount,
+                                          arrayOneLogical);
         }
         else
         {
@@ -3390,9 +2206,9 @@ doTestMIMEExtractArrayOneLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one integer message
+     Ptr(Ptr(char)) argv) // array with one integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3409,51 +2225,13 @@ doTestMIMEInsertArrayOneIntegerMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneIntegerBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneIntegerByteCount = A_SIZE(expectedArrayOneIntegerBytes);
-#if 0
-            static const uint8_t    transmitArrayOneIntegerBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x00, // Integer zero
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x47 // Checksum
-            };
-            const size_t            transmitArrayOneIntegerByteCount = A_SIZE(transmitArrayOneIntegerBytes);
-            Array                   arrayOneInteger;
+            Array           arrayOneInteger;
+            std::string     expectedArrayOneIntegerLines[]{ "99EQAOH/" };
+            const size_t    expectedArrayOneIntegerLinesCount = A_SIZE(expectedArrayOneIntegerLines);
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes, expectedArrayOneIntegerByteCount,
-                                      transmitArrayOneIntegerBytes, transmitArrayOneIntegerByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerLines,
+                                      expectedArrayOneIntegerLinesCount);
         }
         else
         {
@@ -3480,9 +2258,9 @@ doTestMIMEInsertArrayOneIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one integer message
+     Ptr(Ptr(char)) argv) // array with one integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3499,40 +2277,13 @@ doTestMIMEExtractArrayOneIntegerMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneInteger[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneIntegerCount = A_SIZE(insertedBytesForArrayOneInteger);
-            Array                   arrayOneInteger;
+            std::string     insertedArrayOneIntegerLines[]{ "99EQAOH/" };
+            const size_t    insertedArrayOneIntegerLinesCount = A_SIZE(insertedArrayOneIntegerLines);
+            Array           arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount, arrayOneInteger);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneIntegerLines, insertedArrayOneIntegerLinesCount,
+                                          arrayOneInteger);
         }
         else
         {
@@ -3559,9 +2310,9 @@ doTestMIMEExtractArrayOneIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one double message
+     Ptr(Ptr(char)) argv) // array with one double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3578,56 +2329,13 @@ doTestMIMEInsertArrayOneDoubleMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneDoubleBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
-                    DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneDoubleByteCount = A_SIZE(expectedArrayOneDoubleBytes);
-#if 0
-            static const uint8_t    transmitArrayOneDoubleBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Double zero
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x07 // Checksum
-            };
-            const size_t            transmitArrayOneDoubleByteCount = A_SIZE(transmitArrayOneDoubleBytes);
-            Array                   arrayOneDouble;
+            Array           arrayOneDouble;
+            std::string     expectedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8=" };
+            const size_t    expectedArrayOneDoubleLinesCount = A_SIZE(expectedArrayOneDoubleLines);
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes, expectedArrayOneDoubleByteCount,
-                                      transmitArrayOneDoubleBytes, transmitArrayOneDoubleByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleLines,
+                                      expectedArrayOneDoubleLinesCount);
         }
         else
         {
@@ -3654,9 +2362,9 @@ doTestMIMEInsertArrayOneDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one double message
+     Ptr(Ptr(char)) argv) // array with one double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3673,45 +2381,13 @@ doTestMIMEExtractArrayOneDoubleMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneDouble[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                ((1 - DataKindDoubleShortCountMinValue) &
-                 DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneDoubleCount = A_SIZE(insertedBytesForArrayOneDouble);
-            Array                   arrayOneDouble;
+            std::string     insertedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8=" };
+            const size_t    insertedArrayOneDoubleLinesCount = A_SIZE(insertedArrayOneDoubleLines);
+            Array           arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount, arrayOneDouble);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneDoubleLines, insertedArrayOneDoubleLinesCount,
+                                          arrayOneDouble);
         }
         else
         {
@@ -3738,9 +2414,9 @@ doTestMIMEExtractArrayOneDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one string message
+     Ptr(Ptr(char)) argv) // array with one string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3757,52 +2433,13 @@ doTestMIMEInsertArrayOneStringMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneStringBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneStringByteCount = A_SIZE(expectedArrayOneStringBytes);
-#if 0
-            static const uint8_t    transmitArrayOneStringBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x80, // Empty String
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC7 // Checksum
-            };
-            const size_t            transmitArrayOneStringByteCount = A_SIZE(transmitArrayOneStringBytes);
-            Array                   arrayOneString;
+            Array           arrayOneString;
+            std::string     expectedArrayOneStringLines[]{ "99EQgOH/" };
+            const size_t    expectedArrayOneStringLinesCount = A_SIZE(expectedArrayOneStringLines);
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes, expectedArrayOneStringByteCount,
-                                      transmitArrayOneStringBytes, transmitArrayOneStringByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringLines,
+                                      expectedArrayOneStringLinesCount);
         }
         else
         {
@@ -3829,9 +2466,9 @@ doTestMIMEInsertArrayOneStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one string message
+     Ptr(Ptr(char)) argv) // array with one string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3848,41 +2485,13 @@ doTestMIMEExtractArrayOneStringMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneString[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneStringCount = A_SIZE(insertedBytesForArrayOneString);
-            Array                   arrayOneString;
+            std::string     insertedArrayOneStringLines[]{ "99EQgOH/" };
+            const size_t    insertedArrayOneStringLinesCount = A_SIZE(insertedArrayOneStringLines);
+            Array           arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount, arrayOneString);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneStringLines, insertedArrayOneStringLinesCount,
+                                          arrayOneString);
         }
         else
         {
@@ -3909,9 +2518,9 @@ doTestMIMEExtractArrayOneStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one blob message
+     Ptr(Ptr(char)) argv) // array with one blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3928,52 +2537,12 @@ doTestMIMEInsertArrayOneBlobMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneBlobBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneBlobByteCount = A_SIZE(expectedArrayOneBlobBytes);
-#if 0
-            static const uint8_t    transmitArrayOneBlobBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xA0, // Empty Blob
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xA7 // Checksum
-            };
-            const size_t            transmitArrayOneBlobByteCount = A_SIZE(transmitArrayOneBlobBytes);
-            Array                   arrayOneBlob;
+            Array           arrayOneBlob;
+            std::string     expectedArrayOneBlobLines[]{ "99EQoOH/" };
+            const size_t    expectedArrayOneBlobLinesCount = A_SIZE(expectedArrayOneBlobLines);
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes, expectedArrayOneBlobByteCount,
-                                      transmitArrayOneBlobBytes, transmitArrayOneBlobByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobLines, expectedArrayOneBlobLinesCount);
         }
         else
         {
@@ -4000,9 +2569,9 @@ doTestMIMEInsertArrayOneBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one blob message
+     Ptr(Ptr(char)) argv) // array with one blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4019,41 +2588,13 @@ doTestMIMEExtractArrayOneBlobMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneBlob[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneBlobCount = A_SIZE(insertedBytesForArrayOneBlob);
-            Array                   arrayOneBlob;
+            std::string     insertedArrayOneBlobLines[]{ "99EQoOH/" };
+            const size_t    insertedArrayOneBlobLinesCount = A_SIZE(insertedArrayOneBlobLines);
+            Array           arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount, arrayOneBlob);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneBlobLines, insertedArrayOneBlobLinesCount,
+                                          arrayOneBlob);
         }
         else
         {
@@ -4080,9 +2621,9 @@ doTestMIMEExtractArrayOneBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one array message
+     Ptr(Ptr(char)) argv) // array with one array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4099,57 +2640,13 @@ doTestMIMEInsertArrayOneArrayMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneArrayBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneArrayByteCount = A_SIZE(expectedArrayOneArrayBytes);
-#if 0
-            static const uint8_t    transmitArrayOneArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x97 // Checksum
-            };
-            const size_t            transmitArrayOneArrayByteCount = A_SIZE(transmitArrayOneArrayBytes);
-            Array                   arrayOneArray;
+            Array           arrayOneArray;
+            std::string     expectedArrayOneArrayLines[]{ "99EQ0ODh/w==" };
+            const size_t    expectedArrayOneArrayLinesCount = A_SIZE(expectedArrayOneArrayLines);
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes, expectedArrayOneArrayByteCount,
-                                      transmitArrayOneArrayBytes, transmitArrayOneArrayByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayLines,
+                                      expectedArrayOneArrayLinesCount);
         }
         else
         {
@@ -4176,9 +2673,9 @@ doTestMIMEInsertArrayOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one array message
+     Ptr(Ptr(char)) argv) // array with one array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4195,45 +2692,13 @@ doTestMIMEExtractArrayOneArrayMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneArray[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneArrayCount = A_SIZE(insertedBytesForArrayOneArray);
-            Array                   arrayOneArray;
+            std::string     insertedArrayOneArrayLines[]{ "99EQ0ODh/w==" };
+            const size_t    insertedArrayOneArrayLinesCount = A_SIZE(insertedArrayOneArrayLines);
+            Array           arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount, arrayOneArray);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayLines, insertedArrayOneArrayLinesCount,
+                                          arrayOneArray);
         }
         else
         {
@@ -4260,9 +2725,9 @@ doTestMIMEExtractArrayOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one map message
+     Ptr(Ptr(char)) argv) // array with one map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4279,57 +2744,12 @@ doTestMIMEInsertArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneMapByteCount = A_SIZE(expectedArrayOneMapBytes);
-#if 0
-            static const uint8_t    transmitArrayOneMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x8F // Checksum
-            };
-            const size_t            transmitArrayOneMapByteCount = A_SIZE(transmitArrayOneMapBytes);
-            Array                   arrayOneMap;
+            Array           arrayOneMap;
+            std::string     expectedArrayOneMapLines[]{ "99EQ1OTh/w==" };
+            const size_t    expectedArrayOneMapLinesCount = A_SIZE(expectedArrayOneMapLines);
 
             arrayOneMap.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes, expectedArrayOneMapByteCount,
-                                      transmitArrayOneMapBytes, transmitArrayOneMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapLines, expectedArrayOneMapLinesCount);
         }
         else
         {
@@ -4356,9 +2776,9 @@ doTestMIMEInsertArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one map message
+     Ptr(Ptr(char)) argv) // array with one map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4375,45 +2795,12 @@ doTestMIMEExtractArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneMapCount = A_SIZE(insertedBytesForArrayOneMap);
-            Array                   arrayOneMap;
+            std::string     insertedArrayOneMapLines[]{ "99EQ1OTh/w==" };
+            const size_t    insertedArrayOneMapLinesCount = A_SIZE(insertedArrayOneMapLines);
+            Array           arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap, insertedArrayOneMapCount, arrayOneMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneMapLines, insertedArrayOneMapLinesCount, arrayOneMap);
         }
         else
         {
@@ -4440,9 +2827,9 @@ doTestMIMEExtractArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one set message
+     Ptr(Ptr(char)) argv) // array with one set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4459,57 +2846,12 @@ doTestMIMEInsertArrayOneSetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneSetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneSetByteCount = A_SIZE(expectedArrayOneSetBytes);
-#if 0
-            static const uint8_t    transmitArrayOneSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD8, // Start of empty Map
-                0xE8, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x87 // Checksum
-            };
-            const size_t            transmitArrayOneSetByteCount = A_SIZE(transmitArrayOneSetBytes);
-            Array                   arrayOneSet;
+            Array           arrayOneSet;
+            std::string     expectedArrayOneSetLines[]{ "99EQ2Ojh/w==" };
+            const size_t    expectedArrayOneSetLinesCount = A_SIZE(expectedArrayOneSetLines);
 
             arrayOneSet.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes, expectedArrayOneSetByteCount,
-                                      transmitArrayOneSetBytes, transmitArrayOneSetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetLines, expectedArrayOneSetLinesCount);
         }
         else
         {
@@ -4536,9 +2878,9 @@ doTestMIMEInsertArrayOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one set message
+     Ptr(Ptr(char)) argv) // array with one set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4555,45 +2897,12 @@ doTestMIMEExtractArrayOneSetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneSet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneSetCount = A_SIZE(insertedBytesForArrayOneSet);
-            Array                   arrayOneSet;
+            std::string     insertedArrayOneSetLines[]{ "99EQ2Ojh/w==" };
+            const size_t    insertedArrayOneSetLinesCount = A_SIZE(insertedArrayOneSetLines);
+            Array           arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet, insertedArrayOneSetCount, arrayOneSet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneSetLines, insertedArrayOneSetLinesCount, arrayOneSet);
         }
         else
         {
@@ -4620,9 +2929,9 @@ doTestMIMEExtractArrayOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoLogicalsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two logicals message
+     Ptr(Ptr(char)) argv) // array with two logicals message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4639,55 +2948,14 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoLogicalsBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoLogicalsByteCount = A_SIZE(expectedArrayTwoLogicalsBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoLogicalsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xC0, 0xC0, // Two Logical falses
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC6 // Checksum
-            };
-            const size_t            transmitArrayTwoLogicalsByteCount = A_SIZE(transmitArrayTwoLogicalsBytes);
-            Array                   arrayTwoLogicals;
+            Array           arrayTwoLogicals;
+            std::string     expectedArrayTwoLogicalsLines[]{ "99ERwMDh/w==" };
+            const size_t    expectedArrayTwoLogicalsLinesCount = A_SIZE(expectedArrayTwoLogicalsLines);
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes, expectedArrayTwoLogicalsByteCount,
-                                      transmitArrayTwoLogicalsBytes, transmitArrayTwoLogicalsByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsLines,
+                                      expectedArrayTwoLogicalsLinesCount);
         }
         else
         {
@@ -4714,9 +2982,9 @@ doTestMIMEInsertArrayTwoLogicalsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoLogicalsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two logicals message
+     Ptr(Ptr(char)) argv) // array with two logicals message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4733,44 +3001,14 @@ doTestMIMEExtractArrayTwoLogicalsMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoLogicals[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoLogicalsCount = A_SIZE(insertedBytesForArrayTwoLogicals);
-            Array                   arrayTwoLogicals;
+            std::string     insertedArrayTwoLogicalsLines[]{ "99ERwMDh/w==" };
+            const size_t    insertedArrayTwoLogicalsLinesCount = A_SIZE(insertedArrayTwoLogicalsLines);
+            Array           arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount, arrayTwoLogicals);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoLogicalsLines, insertedArrayTwoLogicalsLinesCount,
+                                          arrayTwoLogicals);
         }
         else
         {
@@ -4797,9 +3035,9 @@ doTestMIMEExtractArrayTwoLogicalsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoIntegersMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two integers message
+     Ptr(Ptr(char)) argv) // array with two integers message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4816,55 +3054,14 @@ doTestMIMEInsertArrayTwoIntegersMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoIntegersBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoIntegersByteCount = A_SIZE(expectedArrayTwoIntegersBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoIntegersBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x00, 0x00, // Two Integer zeroes
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x46 // Checksum
-            };
-            const size_t            transmitArrayTwoIntegersByteCount = A_SIZE(transmitArrayTwoIntegersBytes);
-            Array                   arrayTwoIntegers;
+            Array           arrayTwoIntegers;
+            std::string     expectedArrayTwoIntegersLines[]{ "99ERAADh/w==" };
+            const size_t    expectedArrayTwoIntegersLinesCount = A_SIZE(expectedArrayTwoIntegersLines);
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes, expectedArrayTwoIntegersByteCount,
-                                      transmitArrayTwoIntegersBytes, transmitArrayTwoIntegersByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersLines,
+                                      expectedArrayTwoIntegersLinesCount);
         }
         else
         {
@@ -4891,9 +3088,9 @@ doTestMIMEInsertArrayTwoIntegersMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoIntegersMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two integers message
+     Ptr(Ptr(char)) argv) // array with two integers message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4910,44 +3107,14 @@ doTestMIMEExtractArrayTwoIntegersMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoIntegers[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoIntegersCount = A_SIZE(insertedBytesForArrayTwoIntegers);
-            Array                   arrayTwoIntegers;
+            std::string     insertedArrayTwoIntegersLines[]{ "99ERAADh/w==" };
+            const size_t    insertedArrayTwoIntegersLinesCount = A_SIZE(insertedArrayTwoIntegersLines);
+            Array           arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount, arrayTwoIntegers);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoIntegersLines, insertedArrayTwoIntegersLinesCount,
+                                          arrayTwoIntegers);
         }
         else
         {
@@ -4974,9 +3141,9 @@ doTestMIMEExtractArrayTwoIntegersMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two doubles message
+     Ptr(Ptr(char)) argv) // array with two doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4993,62 +3160,14 @@ doTestMIMEInsertArrayTwoDoublesMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoDoublesBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                  ((2 - DataKindDoubleShortCountMinValue) &
-                    DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoDoublesByteCount = A_SIZE(expectedArrayTwoDoublesBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoDoublesBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Two Double zeroes
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x05 // Checksum
-            };
-            const size_t            transmitArrayTwoDoublesByteCount = A_SIZE(transmitArrayTwoDoublesBytes);
-            Array                   arrayTwoDoubles;
+            Array           arrayTwoDoubles;
+            std::string     expectedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w==" };
+            const size_t    expectedArrayTwoDoublesLinesCount = A_SIZE(expectedArrayTwoDoublesLines);
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes, expectedArrayTwoDoublesByteCount,
-                                      transmitArrayTwoDoublesBytes, transmitArrayTwoDoublesByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesLines,
+                                      expectedArrayTwoDoublesLinesCount);
         }
         else
         {
@@ -5075,9 +3194,9 @@ doTestMIMEInsertArrayTwoDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two doubles message
+     Ptr(Ptr(char)) argv) // array with two doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5094,50 +3213,14 @@ doTestMIMEExtractArrayTwoDoublesMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoDoubles[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Double
-                DataKind::Double | DataKind::DoubleShortCount |
-                ((2 - DataKindDoubleShortCountMinValue) &
-                 DataKind::DoubleShortCountMask),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoDoublesCount = A_SIZE(insertedBytesForArrayTwoDoubles);
-            Array                   arrayTwoDoubles;
+            std::string     insertedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w==" };
+            const size_t    insertedArrayTwoDoublesLinesCount = A_SIZE(insertedArrayTwoDoublesLines);
+            Array           arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount, arrayTwoDoubles);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoDoublesLines, insertedArrayTwoDoublesLinesCount,
+                                          arrayTwoDoubles);
         }
         else
         {
@@ -5164,9 +3247,9 @@ doTestMIMEExtractArrayTwoDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoStringsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two strings message
+     Ptr(Ptr(char)) argv) // array with two strings message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5183,57 +3266,13 @@ doTestMIMEInsertArrayTwoStringsMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoStringsBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoStringsByteCount = A_SIZE(expectedArrayTwoStringsBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoStringsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x80, 0x80, // Two empty Strings
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x46 // Checksum
-            };
-            const size_t            transmitArrayTwoStringsByteCount = A_SIZE(transmitArrayTwoStringsBytes);
-            Array                   arrayTwoStrings;
+            Array           arrayTwoStrings;
+            std::string     expectedArrayTwoStringsLines[]{ "99ERgIDh/w==" };
+            const size_t    expectedArrayTwoStringsLinesCount = A_SIZE(expectedArrayTwoStringsLines);
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes, expectedArrayTwoStringsByteCount,
-                                      transmitArrayTwoStringsBytes, transmitArrayTwoStringsByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines, expectedArrayTwoStringsLinesCount);
         }
         else
         {
@@ -5260,9 +3299,9 @@ doTestMIMEInsertArrayTwoStringsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoStringsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two strings message
+     Ptr(Ptr(char)) argv) // array with two strings message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5279,46 +3318,14 @@ doTestMIMEExtractArrayTwoStringsMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoStrings[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoStringsCount = A_SIZE(insertedBytesForArrayTwoStrings);
-            Array                   arrayTwoStrings;
+            std::string     insertedArrayTwoStringsLines[]{ "99ERgIDh/w==" };
+            const size_t    insertedArrayTwoStringsLinesCount = A_SIZE(insertedArrayTwoStringsLines);
+            Array           arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount, arrayTwoStrings);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoStringsLines, insertedArrayTwoStringsLinesCount,
+                                          arrayTwoStrings);
         }
         else
         {
@@ -5345,9 +3352,9 @@ doTestMIMEExtractArrayTwoStringsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoBlobsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two blobs message
+     Ptr(Ptr(char)) argv) // array with two blobs message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5364,57 +3371,14 @@ doTestMIMEInsertArrayTwoBlobsMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoBlobsBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoBlobsByteCount = A_SIZE(expectedArrayTwoBlobsBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoBlobsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xA0, 0xA0, // Two empty Blobs
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x06 // Checksum
-            };
-            const size_t            transmitArrayTwoBlobsByteCount = A_SIZE(transmitArrayTwoBlobsBytes);
-            Array                   arrayTwoBlobs;
+            Array           arrayTwoBlobs;
+            std::string     expectedArrayTwoBlobsLines[]{ "99ERoKDh/w==" };
+            const size_t    expectedArrayTwoBlobsLinesCount = A_SIZE(expectedArrayTwoBlobsLines);
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes, expectedArrayTwoBlobsByteCount,
-                                      transmitArrayTwoBlobsBytes, transmitArrayTwoBlobsByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsLines,
+                                      expectedArrayTwoBlobsLinesCount);
         }
         else
         {
@@ -5441,9 +3405,9 @@ doTestMIMEInsertArrayTwoBlobsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoBlobsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two blobs message
+     Ptr(Ptr(char)) argv) // array with two blobs message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5460,46 +3424,14 @@ doTestMIMEExtractArrayTwoBlobsMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoBlobs[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoBlobsCount = A_SIZE(insertedBytesForArrayTwoBlobs);
-            Array                   arrayTwoBlobs;
+            std::string     insertedArrayTwoBlobsLines[]{ "99ERoKDh/w==" };
+            const size_t    insertedArrayTwoBlobsLinesCount = A_SIZE(insertedArrayTwoBlobsLines);
+            Array           arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount, arrayTwoBlobs);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoBlobsLines, insertedArrayTwoBlobsLinesCount,
+                                          arrayTwoBlobs);
         }
         else
         {
@@ -5526,9 +3458,9 @@ doTestMIMEExtractArrayTwoBlobsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoArraysMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two arrays message
+     Ptr(Ptr(char)) argv) // array with two arrays message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5545,68 +3477,14 @@ doTestMIMEInsertArrayTwoArraysMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoArraysBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoArraysByteCount = A_SIZE(expectedArrayTwoArraysBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoArraysBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD0, // Start of first empty Array
-                0xE0, // End of first empty Array
-                0xD0, // Start of second empty Array
-                0xE0, // End of second empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xE6 // Checksum
-            };
-            const size_t            transmitArrayTwoArraysByteCount = A_SIZE(transmitArrayTwoArraysBytes);
-            Array                   arrayTwoArrays;
+            Array           arrayTwoArrays;
+            std::string     expectedArrayTwoArraysLines[]{ "99ER0ODQ4OH/" };
+            const size_t    expectedArrayTwoArraysLinesCount = A_SIZE(expectedArrayTwoArraysLines);
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes, expectedArrayTwoArraysByteCount,
-                                      transmitArrayTwoArraysBytes, transmitArrayTwoArraysByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysLines,
+                                      expectedArrayTwoArraysLinesCount);
         }
         else
         {
@@ -5633,9 +3511,9 @@ doTestMIMEInsertArrayTwoArraysMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoArraysMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two arrays message
+     Ptr(Ptr(char)) argv) // array with two arrays message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5652,54 +3530,14 @@ doTestMIMEExtractArrayTwoArraysMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoArrays[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoArraysCount = A_SIZE(insertedBytesForArrayTwoArrays);
-            Array                   arrayTwoArrays;
+            std::string     insertedArrayTwoArraysLines[]{ "99ER0ODQ4OH/" };
+            const size_t    insertedArrayTwoArraysLinesCount = A_SIZE(insertedArrayTwoArraysLines);
+            Array           arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount, arrayTwoArrays);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoArraysLines, insertedArrayTwoArraysLinesCount,
+                                          arrayTwoArrays);
         }
         else
         {
@@ -5726,9 +3564,9 @@ doTestMIMEExtractArrayTwoArraysMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoMapsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two maps message
+     Ptr(Ptr(char)) argv) // array with two maps message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5745,68 +3583,13 @@ doTestMIMEInsertArrayTwoMapsMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoMapsBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoMapsByteCount = A_SIZE(expectedArrayTwoMapsBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoMapsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD4, // Start of first empty Map
-                0xE4, // End of first empty Map
-                0xD4, // Start of first empty Map
-                0xE4, // End of first empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xD6 // Checksum
-            };
-            const size_t            transmitArrayTwoMapsByteCount = A_SIZE(transmitArrayTwoMapsBytes);
-            Array                   arrayTwoMaps;
+            Array           arrayTwoMaps;
+            std::string     expectedArrayTwoMapsLines[]{ "99ER1OTU5OH/" };
+            const size_t    expectedArrayTwoMapsLinesCount = A_SIZE(expectedArrayTwoMapsLines);
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsBytes, expectedArrayTwoMapsByteCount,
-                                      transmitArrayTwoMapsBytes, transmitArrayTwoMapsByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsLines, expectedArrayTwoMapsLinesCount);
         }
         else
         {
@@ -5833,9 +3616,9 @@ doTestMIMEInsertArrayTwoMapsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoMapsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two maps message
+     Ptr(Ptr(char)) argv) // array with two maps message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5852,54 +3635,14 @@ doTestMIMEExtractArrayTwoMapsMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoMaps[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoMapsCount = A_SIZE(insertedBytesForArrayTwoMaps);
-            Array                   arrayTwoMaps;
+            std::string     insertedArrayTwoMapsLines[]{ "99ER1OTU5OH/" };
+            const size_t    insertedArrayTwoMapsLinesCount = A_SIZE(insertedArrayTwoMapsLines);
+            Array           arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount, arrayTwoMaps);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoMapsLines, insertedArrayTwoMapsLinesCount,
+                                          arrayTwoMaps);
         }
         else
         {
@@ -5926,9 +3669,9 @@ doTestMIMEExtractArrayTwoMapsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayTwoSetsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two sets message
+     Ptr(Ptr(char)) argv) // array with two sets message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5945,68 +3688,13 @@ doTestMIMEInsertArrayTwoSetsMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayTwoSetsBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayTwoSetsByteCount = A_SIZE(expectedArrayTwoSetsBytes);
-#if 0
-            static const uint8_t    transmitArrayTwoSetsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD8, // Start of first empty Set
-                0xE8, // End of first empty Set
-                0xD8, // Start of first empty Set
-                0xE8, // End of first empty Set
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC6 // Checksum
-            };
-            const size_t            transmitArrayTwoSetsByteCount = A_SIZE(transmitArrayTwoSetsBytes);
-            Array                   arrayTwoSets;
+            Array           arrayTwoSets;
+            std::string     expectedArrayTwoSetsLines[]{ "99ER2OjY6OH/" };
+            const size_t    expectedArrayTwoSetsLinesCount = A_SIZE(expectedArrayTwoSetsLines);
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsBytes, expectedArrayTwoSetsByteCount,
-                                      transmitArrayTwoSetsBytes, transmitArrayTwoSetsByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsLines, expectedArrayTwoSetsLinesCount);
         }
         else
         {
@@ -6033,9 +3721,9 @@ doTestMIMEInsertArrayTwoSetsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayTwoSetsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two sets message
+     Ptr(Ptr(char)) argv) // array with two sets message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6052,54 +3740,14 @@ doTestMIMEExtractArrayTwoSetsMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayTwoSets[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayTwoSetsCount = A_SIZE(insertedBytesForArrayTwoSets);
-            Array                   arrayTwoSets;
+            std::string     insertedArrayTwoSetsLines[]{ "99ER2OjY6OH/" };
+            const size_t    insertedArrayTwoSetsLinesCount = A_SIZE(insertedArrayTwoSetsLines);
+            Array           arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount, arrayTwoSets);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayTwoSetsLines, insertedArrayTwoSetsLinesCount,
+                                          arrayTwoSets);
         }
         else
         {
@@ -6126,9 +3774,9 @@ doTestMIMEExtractArrayTwoSetsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with array and map message
+     Ptr(Ptr(char)) argv) // array with array and map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6145,68 +3793,14 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneArrayOneMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneArrayOneMapByteCount = A_SIZE(expectedArrayOneArrayOneMapBytes);
-#if 0
-            static const uint8_t    transmitArrayOneArrayOneMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xDE // Checksum
-            };
-            const size_t            transmitArrayOneArrayOneMapByteCount = A_SIZE(transmitArrayOneArrayOneMapBytes);
-            Array                   arrayOneArrayOneMap;
+            Array           arrayOneArrayOneMap;
+            std::string     expectedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/" };
+            const size_t    expectedArrayOneArrayOneMapLinesCount = A_SIZE(expectedArrayOneArrayOneMapLines);
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes, expectedArrayOneArrayOneMapByteCount,
-                                      transmitArrayOneArrayOneMapBytes, transmitArrayOneArrayOneMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapLines,
+                                      expectedArrayOneArrayOneMapLinesCount);
         }
         else
         {
@@ -6233,9 +3827,9 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with array and map message
+     Ptr(Ptr(char)) argv) // array with array and map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6252,54 +3846,14 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneArrayOneMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneArrayOneMapCount = A_SIZE(insertedBytesForArrayOneArrayOneMap);
-            Array                   arrayOneArrayOneMap;
+            std::string     insertedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/" };
+            const size_t    insertedArrayOneArrayOneMapLinesCount = A_SIZE(insertedArrayOneArrayOneMapLines);
+            Array           arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneMapLines,
+                                          insertedArrayOneArrayOneMapLinesCount, arrayOneArrayOneMap);
         }
         else
         {
@@ -6326,9 +3880,9 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneMapOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with map and set message
+     Ptr(Ptr(char)) argv) // array with map and set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6345,68 +3899,14 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneMapOneSetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneMapOneSetByteCount = A_SIZE(expectedArrayOneMapOneSetBytes);
-#if 0
-            static const uint8_t    transmitArrayOneMapOneSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xCE // Checksum
-            };
-            const size_t            transmitArrayOneMapOneSetByteCount = A_SIZE(transmitArrayOneMapOneSetBytes);
-            Array                   arrayOneMapOneSet;
+            Array           arrayOneMapOneSet;
+            std::string     expectedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/" };
+            const size_t    expectedArrayOneMapOneSetLinesCount = A_SIZE(expectedArrayOneMapOneSetLines);
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes, expectedArrayOneMapOneSetByteCount,
-                                      transmitArrayOneMapOneSetBytes, transmitArrayOneMapOneSetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetLines,
+                                      expectedArrayOneMapOneSetLinesCount);
         }
         else
         {
@@ -6433,9 +3933,9 @@ doTestMIMEInsertArrayOneMapOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneMapOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with map and set message
+     Ptr(Ptr(char)) argv) // array with map and set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6452,54 +3952,14 @@ doTestMIMEExtractArrayOneMapOneSetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneMapOneSet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneMapOneSetCount = A_SIZE(insertedBytesForArrayOneMapOneSet);
-            Array                   arrayOneMapOneSet;
+            std::string     insertedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/" };
+            const size_t    insertedArrayOneMapOneSetLinesCount = A_SIZE(insertedArrayOneMapOneSetLines);
+            Array           arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneMapOneSetLines, insertedArrayOneMapOneSetLinesCount,
+                                          arrayOneMapOneSet);
         }
         else
         {
@@ -6526,9 +3986,9 @@ doTestMIMEExtractArrayOneMapOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayOneSetOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with set and array message
+     Ptr(Ptr(char)) argv) // array with set and array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6545,68 +4005,14 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedArrayOneSetOneArrayBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerEmptyValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayOneSetOneArrayByteCount = A_SIZE(expectedArrayOneSetOneArrayBytes);
-#if 0
-            static const uint8_t    transmitArrayOneSetOneArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xD6 // Checksum
-            };
-            const size_t            transmitArrayOneSetOneArrayByteCount = A_SIZE(transmitArrayOneSetOneArrayBytes);
-            Array                   arrayOneSetOneArray;
+            Array           arrayOneSetOneArray;
+            std::string     expectedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/" };
+            const size_t    expectedArrayOneSetOneArrayLinesCount = A_SIZE(expectedArrayOneSetOneArrayLines);
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes, expectedArrayOneSetOneArrayByteCount,
-                                      transmitArrayOneSetOneArrayBytes, transmitArrayOneSetOneArrayByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayLines,
+                                      expectedArrayOneSetOneArrayLinesCount);
         }
         else
         {
@@ -6633,9 +4039,9 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayOneSetOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with set and array message
+     Ptr(Ptr(char)) argv) // array with set and array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6652,54 +4058,14 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForArrayOneSetOneArray[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((2 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerEmptyValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerEmptyValue,
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayOneSetOneArrayCount = A_SIZE(insertedBytesForArrayOneSetOneArray);
-            Array                   arrayOneSetOneArray;
+            std::string     insertedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/" };
+            const size_t    insertedArrayOneSetOneArrayLinesCount = A_SIZE(insertedArrayOneSetOneArrayLines);
+            Array           arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayOneSetOneArrayLines,
+                                          insertedArrayOneSetOneArrayLinesCount, arrayOneSetOneArray);
         }
         else
         {
@@ -6726,9 +4092,9 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertArrayWithManyDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with many doubles message
+     Ptr(Ptr(char)) argv) // array with many doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6745,271 +4111,23 @@ doTestMIMEInsertArrayWithManyDoublesMessage
 
         if (nullptr != stuff)
         {
-            const size_t            numValues = 43;
-            static const DataKind   expectedArrayManyDoublesBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                  ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, StaticCast(int, numValues) +
-                                      DataKindIntegerShortValueMinValue - 1),
-                // Double
-                DataKind::Double | DataKind::DoubleLongCount |
-                  ((1 - 1) & DataKind::DoubleLongCountMask),
-                StaticCast(DataKind, numValues),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
-                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x08),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 3
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x10),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 4
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x14),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 5
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x18),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 6
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x1C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 7
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x20),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 8
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x22),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 9
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x24),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 10
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x26),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 11
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x28),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 12
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2A),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 13
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 14
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2E),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 15
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x30),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 16
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x31),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 17
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x32),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 18
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x33),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 19
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x34),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 20
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x35),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 21
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x36),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 22
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x37),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 23
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x38),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 24
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x39),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 25
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3A),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 26
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3B),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 27
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 28
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3D),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 29
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3E),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 30
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3F),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 31
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 32
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 33
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 34
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 35
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 36
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 37
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 38
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 39
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 40
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 41
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 42
-                // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeArray |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedArrayManyDoublesByteCount = A_SIZE(expectedArrayManyDoublesBytes);
-#if 0
-            static const uint8_t    transmitArrayManyDoublesBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x20, 0x1A, // Start of non-empty Array, 42 elements
-                0x60, 0x2B, // Count of doubles that follow
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
-                0x3F, 0xDC, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1 [note the escape]
-                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2
-                0x40, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 3
-                0x40, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 4
-                0x40, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5
-                0x40, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 6
-                0x40, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 7
-                0x40, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 8
-                0x40, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 9
-                0x40, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 10
-                0x40, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 11
-                0x40, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 12
-                0x40, 0x2A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 13
-                0x40, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 14
-                0x40, 0x2E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 15
-                0x40, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16
-                0x40, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 17
-                0x40, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 18
-                0x40, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 19
-                0x40, 0x34, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 20
-                0x40, 0x35, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 21
-                0x40, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 22
-                0x40, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 23
-                0x40, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 24
-                0x40, 0x39, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 25
-                0x40, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 26
-                0x40, 0x3B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 27
-                0x40, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 28
-                0x40, 0x3D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 29
-                0x40, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 30
-                0x40, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 31
-                0x40, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 32
-                0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 33
-                0x40, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 34
-                0x40, 0x41, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 35
-                0x40, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 36
-                0x40, 0x42, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 37
-                0x40, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 38
-                0x40, 0x43, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 39
-                0x40, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 40
-                0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
-                0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xBA // Checksum
-            };
-            const size_t            transmitArrayManyDoublesByteCount = A_SIZE(transmitArrayManyDoublesBytes);
-            Array                   arrayManyDoubles;
+            const size_t    numValues = 43;
+            Array           arrayManyDoubles;
+            std::string     expectedArrayManyDoublesLines[]{
+                                    "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAAQBgAAAAA",
+                                    "AABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAAAABAKgAAAAAAAEAs",
+                                    "AAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAAAAAAAEA0AAAAAAAAQDUAAAAA",
+                                    "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
+                                    "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
+                                    "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
+            const size_t    expectedArrayManyDoublesLinesCount = A_SIZE(expectedArrayManyDoublesLines);
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes, expectedArrayManyDoublesByteCount,
-                                      transmitArrayManyDoublesBytes, transmitArrayManyDoublesByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesLines,
+                                      expectedArrayManyDoublesLinesCount);
         }
         else
         {
@@ -7036,9 +4154,9 @@ doTestMIMEInsertArrayWithManyDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractArrayWithManyDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with many doubles message
+     Ptr(Ptr(char)) argv) // array with many doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7055,217 +4173,23 @@ doTestMIMEExtractArrayWithManyDoublesMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const size_t     numValues = 43;
-            static const DataKind   insertedBytesForArrayManyDoubles[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Array
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerLongValue |
-                ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, StaticCast(int, numValues) +
-                           DataKindIntegerShortValueMinValue - 1),
-                // Double
-                DataKind::Double | DataKind::DoubleLongCount |
-                ((1 - 1) & DataKind::DoubleLongCountMask),
-                StaticCast(DataKind, numValues),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
-                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x08),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 3
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x10),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 4
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x14),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 5
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x18),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 6
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x1C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 7
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x20),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 8
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x22),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 9
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x24),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 10
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x26),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 11
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x28),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 12
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2A),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 13
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 14
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2E),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 15
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x30),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 16
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x31),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 17
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x32),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 18
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x33),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 19
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x34),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 20
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x35),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 21
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x36),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 22
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x37),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 23
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x38),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 24
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x39),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 25
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3A),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 26
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3B),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 27
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3C),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 28
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3D),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 29
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3E),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 30
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3F),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 31
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 32
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 33
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 34
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 35
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 36
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 37
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 38
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 39
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 40
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
-                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 41
-                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
-                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 42
-                                                                        // End of Array
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeArray |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedArrayManyDoublesCount = A_SIZE(insertedBytesForArrayManyDoubles);
-            Array                   arrayManyDoubles;
+            const size_t    numValues = 43;
+            std::string     insertedArrayManyDoublesLines[]{
+                                    "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAAQBgAAAAA",
+                                    "AABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAAAABAKgAAAAAAAEAs",
+                                    "AAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAAAAAAAEA0AAAAAAAAQDUAAAAA",
+                                    "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
+                                    "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
+                                    "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
+            const size_t    insertedArrayManyDoublesLinesCount = A_SIZE(insertedArrayManyDoublesLines);
+            Array           arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount, arrayManyDoubles);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedArrayManyDoublesLines, insertedArrayManyDoublesLinesCount,
+                                          arrayManyDoubles);
         }
         else
         {
@@ -7292,9 +4216,9 @@ doTestMIMEExtractArrayWithManyDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertLogicalMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map message
+     Ptr(Ptr(char)) argv) // logical map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7311,55 +4235,12 @@ doTestMIMEInsertLogicalMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedLogicalMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedLogicalMapByteCount = A_SIZE(expectedLogicalMapBytes);
-#if 0
-            static const uint8_t    transmitLogicalMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0xC0, // Logical key = false
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0x72 // Checksum
-            };
-            const size_t            transmitLogicalMapByteCount = A_SIZE(transmitLogicalMapBytes);
-            Map                     logicalMap;
+            Map             logicalMap;
+            std::string     expectedLogicalMapLines[]{ "99UQwA3l/w==" };
+            const size_t    expectedLogicalMapLinesCount = A_SIZE(expectedLogicalMapLines);
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes, expectedLogicalMapByteCount, transmitLogicalMapBytes,
-                                      transmitLogicalMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapLines, expectedLogicalMapLinesCount);
         }
         else
         {
@@ -7386,9 +4267,9 @@ doTestMIMEInsertLogicalMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractLogicalMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map message
+     Ptr(Ptr(char)) argv) // logical map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7405,43 +4286,12 @@ doTestMIMEExtractLogicalMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForLogicalMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedLogicalMapCount = A_SIZE(insertedBytesForLogicalMap);
-            Map                     logicalMap;
+            std::string     insertedLogicalMapLines[]{ "99UQwA3l/w==" };
+            const size_t    insertedLogicalMapLinesCount = A_SIZE(insertedLogicalMapLines);
+            Map             logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap, insertedLogicalMapCount, logicalMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedLogicalMapLines, insertedLogicalMapLinesCount, logicalMap);
         }
         else
         {
@@ -7468,9 +4318,9 @@ doTestMIMEExtractLogicalMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertIntegerMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7487,55 +4337,12 @@ doTestMIMEInsertIntegerMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedIntegerMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedIntegerMapByteCount = A_SIZE(expectedIntegerMapBytes);
-#if 0
-            static const uint8_t    transmitIntegerMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0x00, // Integer key = 0
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0x32 // Checksum
-            };
-            const size_t            transmitIntegerMapByteCount = A_SIZE(transmitIntegerMapBytes);
-            Map                     integerMap;
+            Map             integerMap;
+            std::string     expectedIntegerMapLines[]{ "99UQAA3l/w==" };
+            const size_t    expectedIntegerMapLinesCount = A_SIZE(expectedIntegerMapLines);
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes, expectedIntegerMapByteCount, transmitIntegerMapBytes,
-                                      transmitIntegerMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapLines, expectedIntegerMapLinesCount);
         }
         else
         {
@@ -7562,9 +4369,9 @@ doTestMIMEInsertIntegerMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractIntegerMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7581,43 +4388,12 @@ doTestMIMEExtractIntegerMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForIntegerMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedIntegerMapCount = A_SIZE(insertedBytesForIntegerMap);
-            Map                     integerMap;
+            std::string     insertedIntegerMapLines[]{ "99UQAA3l/w==" };
+            const size_t    insertedIntegerMapLinesCount = A_SIZE(insertedIntegerMapLines);
+            Map             integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap, insertedIntegerMapCount, integerMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedIntegerMapLines, insertedIntegerMapLinesCount, integerMap);
         }
         else
         {
@@ -7644,9 +4420,9 @@ doTestMIMEExtractIntegerMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertStringMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7663,56 +4439,12 @@ doTestMIMEInsertStringMapMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedStringMapBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeMap |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedStringMapByteCount = A_SIZE(expectedStringMapBytes);
-#if 0
-            static const uint8_t    transmitStringMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0x80, // String key = empty
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0xB2 // Checksum
-            };
-            const size_t            transmitStringMapByteCount = A_SIZE(transmitStringMapBytes);
-            Map                     stringMap;
+            Map             stringMap;
+            std::string     expectedStringMapLines[]{ "99UQgA3l/w==" };
+            const size_t    expectedStringMapLinesCount = A_SIZE(expectedStringMapLines);
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes, expectedStringMapByteCount, transmitStringMapBytes,
-                                      transmitStringMapByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, stringMap, expectedStringMapLines, expectedStringMapLinesCount);
         }
         else
         {
@@ -7739,9 +4471,9 @@ doTestMIMEInsertStringMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractStringMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string map message
+     Ptr(Ptr(char)) argv) // string map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7758,44 +4490,12 @@ doTestMIMEExtractStringMapMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForStringMap[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Map
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                (13 & DataKind::IntegerShortValueValueMask),
-                // End of Map
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeMap |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedStringMapCount = A_SIZE(insertedBytesForStringMap);
-            Map                     stringMap;
+            std::string     insertedStringMapLines[]{ "99UQgA3l/w==" };
+            const size_t    insertedStringMapLinesCount = A_SIZE(insertedStringMapLines);
+            Map             stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
-            result = extractValueAndCheck(*stuff, insertedBytesForStringMap, insertedStringMapCount, stringMap);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedStringMapLines, insertedStringMapLinesCount, stringMap);
         }
         else
         {
@@ -7822,9 +4522,9 @@ doTestMIMEExtractStringMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertLogicalSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set message
+     Ptr(Ptr(char)) argv) // logical set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7841,51 +4541,12 @@ doTestMIMEInsertLogicalSetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedLogicalSetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedLogicalSetByteCount = A_SIZE(expectedLogicalSetBytes);
-#if 0
-            static const uint8_t    transmitLogicalSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0xC0, // Logical key = false
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0x77 // Checksum
-            };
-            const size_t            transmitLogicalSetByteCount = A_SIZE(transmitLogicalSetBytes);
-            Set                     logicalSet;
+            Set             logicalSet;
+            std::string     expectedLogicalSetLines[]{ "99kQwOn/" };
+            const size_t    expectedLogicalSetLinesCount = A_SIZE(expectedLogicalSetLines);
 
             logicalSet.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes, expectedLogicalSetByteCount, transmitLogicalSetBytes,
-                                      transmitLogicalSetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetLines, expectedLogicalSetLinesCount);
         }
         else
         {
@@ -7912,9 +4573,9 @@ doTestMIMEInsertLogicalSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractLogicalSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set message
+     Ptr(Ptr(char)) argv) // logical set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7931,40 +4592,12 @@ doTestMIMEExtractLogicalSetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForLogicalSet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                DataKind::OtherLogicalFalseValue,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedLogicalSetCount = A_SIZE(insertedBytesForLogicalSet);
-            Set                     logicalSet;
+            std::string     insertedLogicalSetLines[]{ "99kQwOn/" };
+            const size_t    insertedLogicalSetLinesCount = A_SIZE(insertedLogicalSetLines);
+            Set             logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet, insertedLogicalSetCount, logicalSet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedLogicalSetLines, insertedLogicalSetLinesCount, logicalSet);
         }
         else
         {
@@ -7991,9 +4624,9 @@ doTestMIMEExtractLogicalSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertIntegerSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -8010,51 +4643,12 @@ doTestMIMEInsertIntegerSetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedIntegerSetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                  0,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedIntegerSetByteCount = A_SIZE(expectedIntegerSetBytes);
-#if 0
-            static const uint8_t    transmitIntegerSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0x00, // Integer key = 0
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0x37 // Checksum
-            };
-            const size_t            transmitIntegerSetByteCount = A_SIZE(transmitIntegerSetBytes);
-            Set                     integerSet;
+            Set             integerSet;
+            std::string     expectedIntegerSetLines[]{ "99kQAOn/" };
+            const size_t    expectedIntegerSetLinesCount = A_SIZE(expectedIntegerSetLines);
 
             integerSet.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes, expectedIntegerSetByteCount, transmitIntegerSetBytes,
-                                      transmitIntegerSetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetLines, expectedIntegerSetLinesCount);
         }
         else
         {
@@ -8081,9 +4675,9 @@ doTestMIMEInsertIntegerSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractIntegerSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -8100,40 +4694,12 @@ doTestMIMEExtractIntegerSetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForIntegerSet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // Signed Integer
-                DataKind::Integer | DataKind::IntegerShortValue |
-                0,
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedIntegerSetCount = A_SIZE(insertedBytesForIntegerSet);
-            Set                     integerSet;
+            std::string     insertedIntegerSetLines[]{ "99kQAOn/" };
+            const size_t    insertedIntegerSetLinesCount = A_SIZE(insertedIntegerSetLines);
+            Set             integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet, insertedIntegerSetCount, integerSet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedIntegerSetLines, insertedIntegerSetLinesCount, integerSet);
         }
         else
         {
@@ -8160,9 +4726,9 @@ doTestMIMEExtractIntegerSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEInsertStringSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -8179,52 +4745,12 @@ doTestMIMEInsertStringSetMessage
 
         if (nullptr != stuff)
         {
-            static const DataKind   expectedStringSetBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                  DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
-                    DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                  DataKind::OtherContainerTypeSet |
-                  DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            expectedStringSetByteCount = A_SIZE(expectedStringSetBytes);
-#if 0
-            static const uint8_t    transmitStringSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0x80, // String key = empty
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0xB7 // Checksum
-            };
-            const size_t            transmitStringSetByteCount = A_SIZE(transmitStringSetBytes);
-            Set                     stringSet;
+            Set             stringSet;
+            std::string     expectedStringSetLines[]{ "99kQgOn/" };
+            const size_t    expectedStringSetLinesCount = A_SIZE(expectedStringSetLines);
 
             stringSet.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount, transmitStringSetBytes,
-                                      transmitStringSetByteCount);
-#endif//0
+            result = setValueAndCheck(*stuff, stringSet, expectedStringSetLines, expectedStringSetLinesCount);
         }
         else
         {
@@ -8251,9 +4777,9 @@ doTestMIMEInsertStringSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMIMEExtractStringSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string set message
+     Ptr(Ptr(char)) argv) // string set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -8270,41 +4796,12 @@ doTestMIMEExtractStringSetMessage
 
         if (nullptr != stuff)
         {
-#if 0
-            static const DataKind   insertedBytesForStringSet[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue,
-                // Start of Set
-                DataKind::Other | DataKind::OtherContainerStart |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // Signed Integer
-                DataKind::Integer |
-                DataKind::IntegerShortValue |
-                ((1 + DataKindIntegerShortValueMinValue - 1) &
-                 DataKind::IntegerShortValueValueMask),
-                // String
-                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
-                DataKind::StringOrBlobShortLengthValue |
-                (0 & DataKind::StringOrBlobShortLengthMask),
-                // End of Set
-                DataKind::Other | DataKind::OtherContainerEnd |
-                DataKind::OtherContainerTypeSet |
-                DataKind::OtherContainerNonEmptyValue,
-                // End of Message
-                DataKind::EndOfMessageValue |
-                DataKind::OtherMessageNonEmptyValue |
-                DataKind::OtherMessageExpectedOtherValue
-            };
-            const size_t            insertedStringSetCount = A_SIZE(insertedBytesForStringSet);
-            Set                     stringSet;
+            std::string     insertedStringSetLines[]{ "99kQgOn/" };
+            const size_t    insertedStringSetLinesCount = A_SIZE(insertedStringSetLines);
+            Set             stringSet;
 
             stringSet.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForStringSet, insertedStringSetCount, stringSet);
-#endif//0
+            result = extractValueAndCheck(*stuff, insertedStringSetLines, insertedStringSetLinesCount, stringSet);
         }
         else
         {
@@ -8330,10 +4827,10 @@ doTestMIMEExtractStringSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
-    (const char *   launchPath,
+doTestMIMEInsertArrayWithRangeOfIntegers
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with range of integers
+     Ptr(Ptr(char)) argv) // array with range of integers
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -8350,306 +4847,52 @@ doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
 
         if (nullptr != stuff)
         {
-#if 0
-            static const size_t kNumValues = 18;
-            Array               arrayWithIntegers;
-            int64_t             posValue = 1;
+            Array           arrayWithRangeOfIntegers;
+            std::string     expectedArrayWithRangeOfIntegersLines[]{
+                                    "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSlEAAlCRhO",
+                                    "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
+                                    "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
+                                    "uoeidgAA4f8=" };
+            const size_t    expectedArrayWithRangeOfIntegersLinesCount = A_SIZE(expectedArrayWithRangeOfIntegersLines);
 
-            for (size_t ii = 0; kNumValues > ii; ++ii)
-            {
-                arrayWithIntegers.addValue(std::make_shared<Integer>(posValue));
-                posValue *= 10;
-            }
-            for ( ; 0 < posValue; )
-            {
-                arrayWithIntegers.addValue(std::make_shared<Integer>(- posValue));
-                posValue /= 10;
-            }
-            if (arrayWithIntegers.size() == ((2 * kNumValues) + 1))
-            {
-                // Insert the array into the message.
-                stuff->open(true);
-                stuff->setValue(arrayWithIntegers);
-                stuff->close();
-                // Extract objects from the message and compare with the expected contents.
-                SpValue extractedValue{stuff->getValue(true)};
-
-                ODL_P1("extractedValue <- ", extractedValue.get()); //####
-                if (nullptr == extractedValue)
-                {
-                    ODL_LOG("(nullptr == extractedValue)"); //####
-                }
-                else
-                {
-                    const Flaw *    asFlaw = extractedValue->asFlaw();
-
-                    if (asFlaw)
-                    {
-                        ODL_LOG("(asFlaw)"); //####
-                        ODL_LOG(asFlaw->getDescription().c_str()); //####
-                    }
-                    else if (stuff->readAtEnd())
-                    {
-                        if (extractedValue->deeplyEqualTo(arrayWithIntegers))
-                        {
-                            result = 0;
-                        }
-                        else
-                        {
-                            ODL_LOG("! (extractedValue->deeplyEqualTo(arrayWithIntegers))"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (stuff->readAtEnd())"); //####
-                    }
-                }
-                if (0 == result)
-                {
-                    // Compare the bytes with the expected minimal bytes.
-                    static const DataKind   expectedBytesForArrayWithIntegers[] =
-                    {
-                        // Start of Message
-                        DataKind::StartOfMessageValue |
-                          DataKind::OtherMessageNonEmptyValue |
-                          DataKind::OtherMessageExpectedOtherValue,
-                        // Start of Array
-                        DataKind::Other | DataKind::OtherContainerStart |
-                          DataKind::OtherContainerTypeArray |
-                          DataKind::OtherContainerNonEmptyValue,
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) +
-                                              DataKindIntegerShortValueMinValue - 1),
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerShortValue |
-                          0x01, // 1
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerShortValue |
-                          0x0A, // 10
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x64), // 100
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x03), StaticCast(DataKind, 0xE8), // 1000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x27), StaticCast(DataKind, 0x10), // 10000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x01), StaticCast(DataKind, 0x86),
-                        StaticCast(DataKind, 0xA0), // 100000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x0F), StaticCast(DataKind, 0x42),
-                        StaticCast(DataKind, 0x40), // 1000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x98),
-                        StaticCast(DataKind, 0x96), StaticCast(DataKind, 0x80), // 10000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x05), StaticCast(DataKind, 0xF5),
-                        StaticCast(DataKind, 0xE1), StaticCast(DataKind, 0x00), // 100000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x3B), StaticCast(DataKind, 0x9A),
-                        StaticCast(DataKind, 0xCA), StaticCast(DataKind, 0x00), // 1000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x02), StaticCast(DataKind, 0x54),
-                        StaticCast(DataKind, 0x0B), StaticCast(DataKind, 0xE4),
-                        StaticCast(DataKind, 0x00), // 10000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x17), StaticCast(DataKind, 0x48),
-                        StaticCast(DataKind, 0x76), StaticCast(DataKind, 0xE8),
-                        StaticCast(DataKind, 0x00), // 10000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0xE8),
-                        StaticCast(DataKind, 0xD4), StaticCast(DataKind, 0xA5),
-                        StaticCast(DataKind, 0x10), StaticCast(DataKind, 0x00), // 100000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x09), StaticCast(DataKind, 0x18),
-                        StaticCast(DataKind, 0x4E), StaticCast(DataKind, 0x72),
-                        StaticCast(DataKind, 0xA0), StaticCast(DataKind, 0x00), // 1000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x5A), StaticCast(DataKind, 0xF3),
-                        StaticCast(DataKind, 0x10), StaticCast(DataKind, 0x7A),
-                        StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00), // 10000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x03), StaticCast(DataKind, 0x8D),
-                        StaticCast(DataKind, 0x7E), StaticCast(DataKind, 0xA4),
-                        StaticCast(DataKind, 0xC6), StaticCast(DataKind, 0x80),
-                        StaticCast(DataKind, 0x00), // 100000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x23), StaticCast(DataKind, 0x86),
-                        StaticCast(DataKind, 0xF2), StaticCast(DataKind, 0x6F),
-                        StaticCast(DataKind, 0xC1), StaticCast(DataKind, 0x00),
-                        StaticCast(DataKind, 0x00), // 10000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x01), StaticCast(DataKind, 0x63),
-                        StaticCast(DataKind, 0x45), StaticCast(DataKind, 0x78),
-                        StaticCast(DataKind, 0x5D), StaticCast(DataKind, 0x8A),
-                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 100000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xF2), StaticCast(DataKind, 0x1F),
-                        StaticCast(DataKind, 0x49), StaticCast(DataKind, 0x4C),
-                        StaticCast(DataKind, 0x58), StaticCast(DataKind, 0x9C),
-                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // -1000000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((8 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFE), StaticCast(DataKind, 0x9C),
-                        StaticCast(DataKind, 0xBA), StaticCast(DataKind, 0x87),
-                        StaticCast(DataKind, 0xA2), StaticCast(DataKind, 0x76),
-                        StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // -100000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xDC), StaticCast(DataKind, 0x79),
-                        StaticCast(DataKind, 0x0D), StaticCast(DataKind, 0x90),
-                        StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0x00),
-                        StaticCast(DataKind, 0x00), // -10000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((7 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFC), StaticCast(DataKind, 0x72),
-                        StaticCast(DataKind, 0x81), StaticCast(DataKind, 0x5B),
-                        StaticCast(DataKind, 0x39), StaticCast(DataKind, 0x80),
-                        StaticCast(DataKind, 0x00), // -1000000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xA5), StaticCast(DataKind, 0x0C),
-                        StaticCast(DataKind, 0xEF), StaticCast(DataKind, 0x85),
-                        StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x00), // -100000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xF6), StaticCast(DataKind, 0xE7),
-                        StaticCast(DataKind, 0xB1), StaticCast(DataKind, 0x8D),
-                        StaticCast(DataKind, 0x60), StaticCast(DataKind, 0x00), // -10000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((6 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x17),
-                        StaticCast(DataKind, 0x2B), StaticCast(DataKind, 0x5A),
-                        StaticCast(DataKind, 0xF0), StaticCast(DataKind, 0x00), // -1000000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xE8), StaticCast(DataKind, 0xB7),
-                        StaticCast(DataKind, 0x89), StaticCast(DataKind, 0x18),
-                        StaticCast(DataKind, 0x00), // -100000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((5 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFD), StaticCast(DataKind, 0xAB),
-                        StaticCast(DataKind, 0xF4), StaticCast(DataKind, 0x1C),
-                        StaticCast(DataKind, 0x00), // -10000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xC4), StaticCast(DataKind, 0x65),
-                        StaticCast(DataKind, 0x36), StaticCast(DataKind, 0x00), // -1000000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFA), StaticCast(DataKind, 0x0A),
-                        StaticCast(DataKind, 0x1F), StaticCast(DataKind, 0x00), // -100000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((4 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFF), StaticCast(DataKind, 0x67),
-                        StaticCast(DataKind, 0x69), StaticCast(DataKind, 0x80), // -10000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xF0), StaticCast(DataKind, 0xBD),
-                        StaticCast(DataKind, 0xC0), // -1000000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((3 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFE), StaticCast(DataKind, 0x79),
-                        StaticCast(DataKind, 0x60), // -100000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xD8), StaticCast(DataKind, 0xF0), // -10000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((2 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0xFC), StaticCast(DataKind, 0x18), // -1000
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerLongValue |
-                          ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, 0x9C), // -100
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerShortValue |
-                          (0xF6 & DataKind::IntegerShortValueValueMask), // -10
-                        // Signed Integer
-                        DataKind::Integer | DataKind::IntegerShortValue |
-                          (0xFF & DataKind::IntegerShortValueValueMask), // -1
-                        // End of Array
-                        DataKind::Other | DataKind::OtherContainerEnd |
-                          DataKind::OtherContainerTypeArray |
-                          DataKind::OtherContainerNonEmptyValue,
-                        // End of Message
-                        DataKind::EndOfMessageValue |
-                          DataKind::OtherMessageNonEmptyValue |
-                          DataKind::OtherMessageExpectedOtherValue
-                    };
-                    const size_t            expectedBytesForArrayWithIntegersCount = A_SIZE(expectedBytesForArrayWithIntegers);
-                    auto                    contents{stuff->getBytes()};
-                    size_t                  length = contents.size();
-
-                    ODL_PACKET("contents", contents.data(), length); //####
-                    ODL_PACKET("expected", expectedBytesForArrayWithIntegers, //####
-                               expectedBytesForArrayWithIntegersCount); //####
-                    if (expectedBytesForArrayWithIntegersCount == length)
-                    {
-                        result = StaticCast(int, CompareBytes(expectedBytesForArrayWithIntegers, contents.data(),
-                                                               expectedBytesForArrayWithIntegersCount));
-                    }
-                    else
-                    {
-                        ODL_LOG("! (expectedBytesForArrayWithIntegersCount == length)"); //####
-                        result = 1;
-                    }
-                }
-            }
-            else
-            {
-                ODL_LOG("! (arrayWithIntegers.size() == ((2 * kNumValues) + 1))"); //####
-            }
-#endif//0
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
+            result = setValueAndCheck(*stuff, arrayWithRangeOfIntegers, expectedArrayWithRangeOfIntegersLines,
+                                      expectedArrayWithRangeOfIntegersLinesCount);
         }
         else
         {
@@ -8663,7 +4906,98 @@ doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
+} // doTestMIMEExtractArrayWithRangeOfIntegers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 501 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithRangeOfIntegers
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // array with range of integers
+{
+    MDNS_UNUSED_ARG_(launchPath);
+    MDNS_UNUSED_ARG_(argc);
+    MDNS_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Message>()};
+
+        if (nullptr != stuff)
+        {
+            std::string     insertedArrayWithRangeOfIntegersLines[]{
+                                    "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSlEAAlCRhO",
+                                    "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
+                                    "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
+                                    "uoeidgAA4f8=" };
+            const size_t    insertedArrayWithRangeOfIntegersLinesCount = A_SIZE(insertedArrayWithRangeOfIntegersLines);
+            Array           arrayWithRangeOfIntegers;
+
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000000));
+            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
+            result = extractValueAndCheck(*stuff, insertedArrayWithRangeOfIntegersLines,
+                                          insertedArrayWithRangeOfIntegersLinesCount, arrayWithRangeOfIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -8680,7 +5014,7 @@ doTestMIMEExtractMessageWithArrayWithRangeOfIntegers
 int
 main
     (int        argc,
-     char * *   argv)
+     Ptr(Ptr(char))   argv)
 {
     std::string progName{*argv};
 
@@ -8810,10 +5144,6 @@ main
 
                     case 26 :
                         result = doTestMIMEExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 27 :
-                        result = doTestMIMEInsertMultipleEscapesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
@@ -9049,7 +5379,11 @@ main
                         break;
 
                     case 500 :
-                        result = doTestMIMEExtractMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 501 :
+                        result = doTestMIMEExtractArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

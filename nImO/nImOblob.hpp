@@ -81,8 +81,8 @@ namespace nImO
              @param[in] data The data to be placed in the object.
              @param[in] size The number of bytes in the data. */
             Blob
-                (const uint8_t *    data,
-                 const size_t       size);
+                (CPtr(uint8_t)  data,
+                 const size_t   size);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -146,7 +146,7 @@ namespace nImO
 
             /*! @brief Return the value of the object.
              @return The value of the object. */
-            inline const uint8_t *
+            inline CPtr(uint8_t)
             getValue
                 (size_t &   length)
                 const

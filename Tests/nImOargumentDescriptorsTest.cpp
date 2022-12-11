@@ -134,11 +134,11 @@ fixDescriptorString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddressArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -230,11 +230,11 @@ doTestAddressArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBooleanArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -322,11 +322,11 @@ doTestBooleanArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestChannelArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -418,11 +418,11 @@ doTestChannelArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -514,11 +514,11 @@ doTestDoubleArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFilePathArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -610,11 +610,11 @@ doTestFilePathArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -709,11 +709,11 @@ doTestIntegerArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestPortArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -806,11 +806,11 @@ doTestPortArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -886,11 +886,11 @@ doTestStringArgumentDescriptors
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringsArgumentDescriptors
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
-     char * *       argv)
+     Ptr(Ptr(char)) argv)
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -988,8 +988,8 @@ doTestStringsArgumentDescriptors
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

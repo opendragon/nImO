@@ -101,7 +101,7 @@ namespace nImO
              @return The BufferChunk object so that cascading can be done. */
             BufferChunk &
             appendData
-                (const void *   data,
+                (CPtr(void)     data,
                  const size_t   numBytes);
 
             /*! @brief Return the number of available bytes in the chunk.
@@ -116,7 +116,7 @@ namespace nImO
 
             /*! @brief Return the stored data.
              @return A pointer to the stored data. */
-            inline const uint8_t *
+            inline CPtr(uint8_t)
             getData
                 (void)
                 const
@@ -177,10 +177,10 @@ namespace nImO
             UpAuint8_t  _buffer;
 
             /*! @brief The byte just past the end of the internal buffer. */
-            uint8_t *   _bufferEnd;
+            Ptr(uint8_t)    _bufferEnd;
 
             /*! @brief The next byte to write in the internal buffer. */
-            uint8_t *   _write;
+            Ptr(uint8_t)    _write;
 
             /*! @brief @c true if the buffer has an extra byte. */
             bool    _padded;

@@ -106,7 +106,7 @@ catchSignal
 static int
 compareValueWithString
     (const Value &  aValue,
-     const char *   aString)
+     CPtr(char)     aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -134,9 +134,9 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseLogicalValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // logical values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // logical values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -158,7 +158,7 @@ doTestParseLogicalValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asLogical())
             {
@@ -187,7 +187,7 @@ doTestParseLogicalValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -210,9 +210,9 @@ doTestParseLogicalValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseNumberValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // number values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // number values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -234,7 +234,7 @@ doTestParseNumberValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asNumber())
             {
@@ -263,7 +263,7 @@ doTestParseNumberValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -286,9 +286,9 @@ doTestParseNumberValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseStringValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // string values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // string values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -310,7 +310,7 @@ doTestParseStringValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asString())
             {
@@ -339,7 +339,7 @@ doTestParseStringValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -362,9 +362,9 @@ doTestParseStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseArrayValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // array values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -386,7 +386,7 @@ doTestParseArrayValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asArray())
             {
@@ -415,7 +415,7 @@ doTestParseArrayValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -438,9 +438,9 @@ doTestParseArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseSetValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // set values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // set values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -462,7 +462,7 @@ doTestParseSetValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asSet())
             {
@@ -491,7 +491,7 @@ doTestParseSetValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -514,9 +514,9 @@ doTestParseSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseMapValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // map values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // map values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -538,7 +538,7 @@ doTestParseMapValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asMap())
             {
@@ -567,7 +567,7 @@ doTestParseMapValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -590,9 +590,9 @@ doTestParseMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseImplicitArrayValue
-    (const bool     expected,
-     const char *   inString,
-     const char *   expectedString) // implicit array values
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString) // implicit array values
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -614,7 +614,7 @@ doTestParseImplicitArrayValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (readValue)
+        if (nullptr != readValue)
         {
             if (nullptr == readValue->asArray())
             {
@@ -643,7 +643,7 @@ doTestParseImplicitArrayValue
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            ODL_LOG("! (nullptr != readValue)"); //####
         }
     }
     catch (...)
@@ -669,8 +669,8 @@ doTestParseImplicitArrayValue
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

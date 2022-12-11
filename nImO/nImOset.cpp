@@ -190,9 +190,9 @@ nImO::Set::deeplyEqualTo
 
     if (! result)
     {
-        const Set * otherPtr = other.asSet();
+        CPtr(Set)   otherPtr = other.asSet();
 
-        if (otherPtr && (size() == otherPtr->size()))
+        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};
@@ -447,7 +447,7 @@ nImO::Set::getExtractionInfo
     ODL_EXIT(); //####
 } // nImO::Set::getExtractionInfo
 
-const char *
+CPtr(char)
 nImO::Set::getInitialCharacters
     (void)
 {
@@ -458,7 +458,7 @@ nImO::Set::getInitialCharacters
     return initialChars;
 } // nImO::Set::getInitialCharacters
 
-const char *
+CPtr(char)
 nImO::Set::getTerminalCharacters
     (void)
 {

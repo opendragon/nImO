@@ -106,8 +106,8 @@ namespace nImO
             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addBytes
-                (const uint8_t *    inBytes,
-                 const size_t       numBytes);
+                (CPtr(uint8_t)  inBytes,
+                 const size_t   numBytes);
 
             /*! @brief Add a character to the buffer.
             @param[in] aChar The character to add.
@@ -150,8 +150,8 @@ namespace nImO
             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addString
-                (const char *   aString,
-                 const bool     addQuotes = false);
+                (CPtr(char) aString,
+                 const bool addQuotes = false);
 
             /*! @brief Add a character string to the buffer.
             @param[in] aString The value to add.
@@ -232,7 +232,7 @@ namespace nImO
             @param[in] length The length of the string. */
             void
             processCharacters
-                (const char *   aString,
+                (CPtr(char)     aString,
                  const size_t   length);
 
         public :

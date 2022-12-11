@@ -109,12 +109,12 @@ nImO::Number::asNumber
     return this;
 } // nImO::Number::asNumber
 
-const char *
+CPtr(char)
 nImO::Number::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "+-.0123456789";
+    static CPtr(char)   initialChars = "+-.0123456789";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;

@@ -178,7 +178,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Flaw.
             @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-            virtual const Flaw *
+            virtual CPtr(Flaw)
             asFlaw
                 (void)
                 const;

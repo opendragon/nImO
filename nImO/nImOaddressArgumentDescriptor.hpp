@@ -91,7 +91,7 @@ namespace nImO
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
                  const std::string &    defaultValue,
-                 struct in_addr *       addrBuff = nullptr);
+                 Ptr(struct in_addr)    addrBuff = nullptr);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -162,7 +162,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The variable to be filled in with the actual address. */
-            struct in_addr *    _addrBuff;
+            Ptr(struct in_addr) _addrBuff;
 
     }; // AddressArgumentDescriptor
 

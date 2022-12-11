@@ -112,7 +112,7 @@ catchSignal
 static int
 attemptExtractValueAndCheck
     (Message &              stuff,
-     const DataKind *       insertedContents,
+     CPtr(DataKind)       insertedContents,
      const size_t           insertedSize,
      const std::string &    expectedFlawString)
 {
@@ -135,11 +135,11 @@ attemptExtractValueAndCheck
     }
     else
     {
-        const Flaw *    asFlaw = extractedValue->asFlaw();
+        CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
 
-        if (asFlaw)
+        if (nullptr != asFlaw)
         {
-            ODL_LOG("(asFlaw)"); //####
+            ODL_LOG("(nullptr != asFlaw)"); //####
             ODL_LOG(asFlaw->getDescription().c_str()); //####
             if (asFlaw->getDescription() == expectedFlawString)
             {
@@ -164,9 +164,9 @@ attemptExtractValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageInitialEndTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message wrong initial tag
+     Ptr(Ptr(char)) argv) // message wrong initial tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -220,9 +220,9 @@ doTestMessageInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMessageTerminalStartTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message wrong terminal tag
+     Ptr(Ptr(char)) argv) // message wrong terminal tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -276,9 +276,9 @@ doTestMessageTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMessageWithContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty message with content
+     Ptr(Ptr(char)) argv) // empty message with content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -335,9 +335,9 @@ doTestEmptyMessageWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithoutContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty message without content
+     Ptr(Ptr(char)) argv) // non-empty message without content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -395,9 +395,9 @@ doTestNonEmptyMessageWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedInitialStartTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with mismatched tag
+     Ptr(Ptr(char)) argv) // message with mismatched tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -458,9 +458,9 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMismatchedTerminalEndTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with mismatched tag
+     Ptr(Ptr(char)) argv) // message with mismatched tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -521,9 +521,9 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithInvalidContentTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with invalid content tag
+     Ptr(Ptr(char)) argv) // message with invalid content tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -583,9 +583,9 @@ doTestNonEmptyMessageWithInvalidContentTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithZeroDoubleCount
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with bad double count
+     Ptr(Ptr(char)) argv) // message with bad double count
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -647,9 +647,9 @@ doTestNonEmptyMessageWithZeroDoubleCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithStringWithInvalidLength
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with string with invalid length
+     Ptr(Ptr(char)) argv) // message with string with invalid length
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -712,9 +712,9 @@ doTestNonEmptyMessageWithStringWithInvalidLength
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithBlobWithInvalidLength
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with blob with invalid length
+     Ptr(Ptr(char)) argv) // message with blob with invalid length
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -777,9 +777,9 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithInitialEndTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with array with initial end tag
+     Ptr(Ptr(char)) argv) // message with array with initial end tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -845,9 +845,9 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithArrayWithTerminalStartTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with array with terminal start tag
+     Ptr(Ptr(char)) argv) // message with array with terminal start tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -913,9 +913,9 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyArrayWithContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with empty array with content
+     Ptr(Ptr(char)) argv) // message with empty array with content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -984,9 +984,9 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty array without content
+     Ptr(Ptr(char)) argv) // message with nonempty array without content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1057,9 +1057,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty array with invalid count
+     Ptr(Ptr(char)) argv) // message with nonempty array with invalid count
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1129,9 +1129,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with array with too few values
+     Ptr(Ptr(char)) argv) // message with array with too few values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1208,9 +1208,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with array with too many values
+     Ptr(Ptr(char)) argv) // message with array with too many values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1290,9 +1290,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with array with too many doubles
+     Ptr(Ptr(char)) argv) // message with array with too many doubles
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1382,9 +1382,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithInitialEndTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with map with initial end tag
+     Ptr(Ptr(char)) argv) // message with map with initial end tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1450,9 +1450,9 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithMapWithTerminalStartTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with map with terminal start tag
+     Ptr(Ptr(char)) argv) // message with map with terminal start tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1518,9 +1518,9 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptyMapWithContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with empty map with content
+     Ptr(Ptr(char)) argv) // message with empty map with content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1589,9 +1589,9 @@ doTestNonEmptyMessageWithEmptyMapWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithoutContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty map without content
+     Ptr(Ptr(char)) argv) // message with nonempty map without content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1662,9 +1662,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty map with invalid count
+     Ptr(Ptr(char)) argv) // message with nonempty map with invalid count
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1734,9 +1734,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with map with too few values
+     Ptr(Ptr(char)) argv) // message with map with too few values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1819,9 +1819,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with map with too many values
+     Ptr(Ptr(char)) argv) // message with map with too many values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1904,9 +1904,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with map with incomplete pair
+     Ptr(Ptr(char)) argv) // message with map with incomplete pair
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1986,9 +1986,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithInitialEndTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with set with initial end tag
+     Ptr(Ptr(char)) argv) // message with set with initial end tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2054,9 +2054,9 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithSetWithTerminalStartTag
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with set with terminal start tag
+     Ptr(Ptr(char)) argv) // message with set with terminal start tag
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2122,9 +2122,9 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithEmptySetWithContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with empty set with content
+     Ptr(Ptr(char)) argv) // message with empty set with content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2193,9 +2193,9 @@ doTestNonEmptyMessageWithEmptySetWithContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithoutContent
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty set without content
+     Ptr(Ptr(char)) argv) // message with nonempty set without content
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2266,9 +2266,9 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with nonempty set with invalid count
+     Ptr(Ptr(char)) argv) // message with nonempty set with invalid count
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2338,9 +2338,9 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with set with too few values
+     Ptr(Ptr(char)) argv) // message with set with too few values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2417,9 +2417,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with set with too many values
+     Ptr(Ptr(char)) argv) // message with set with too many values
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2502,8 +2502,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

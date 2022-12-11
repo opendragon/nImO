@@ -98,8 +98,8 @@ namespace nImO
             @param[in] numBytes The number of bytes to add. */
             virtual void
             appendBytes
-                (const uint8_t *    data,
-                 const size_t       numBytes)
+                (CPtr(uint8_t)  data,
+                 const size_t   numBytes)
                 override;
 
             /*! @brief Add some bytes to the buffer.
@@ -107,10 +107,10 @@ namespace nImO
             @param[in] numBytes The number of bytes to add. */
             inline void
             appendBytes
-                (const DataKind *   data,
-                 const size_t       numBytes)
+                (CPtr(DataKind) data,
+                 const size_t   numBytes)
             {
-                appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
+                appendBytes(ReinterpretCast(CPtr(uint8_t), data), numBytes);
             }
 
             /*! @brief Close the Message, completing its contents.
@@ -126,18 +126,17 @@ namespace nImO
                 (void)
                 override;
 
-            /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be
-            transmitted.
+            /*! @brief Return a copy of the bytes in the Message, with special characters escaped.
             Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
             except for the initial start-of-message byte.
             Escaping a byte involves inverting the high bit of the byte and having an escape byte
             inserted before the byte.
             The Message bytes are followed by a checksum byte, which is escaped if it matches a
             start-of-message byte or an escape byte.
-            @param[out] length Set to the number of bytes returned.
-            @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
+            @return A string copy of the bytes in the Message, with characters escaped if
+            necessary. */
             std::string
-            getBytesForTransmission
+            getBytesWithEscapes
                 (void);
 
             /*! @brief Return the number of valid bytes in the buffer.

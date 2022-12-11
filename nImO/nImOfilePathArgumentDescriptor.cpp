@@ -85,9 +85,9 @@ using namespace nImO;
  @return @c true if the file path is acceptable and @c false otherwise. */
 static bool
 checkFilePath
-    (const char *   thePath,
-     const bool     forOutput,
-     const bool     emptyIsOK)
+    (CPtr(char) thePath,
+     const bool forOutput,
+     const bool emptyIsOK)
 {
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####

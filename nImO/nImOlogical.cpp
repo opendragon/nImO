@@ -144,7 +144,7 @@ nImO::Logical::deeplyEqualTo
 
     if (! result)
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr != otherPtr)
         {
@@ -178,7 +178,7 @@ nImO::Logical::equalTo
 
     if (&other != this)
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -250,12 +250,12 @@ nImO::Logical::getExtractionInfo
     ODL_EXIT(); //####
 } // nImO::Logical::getExtractionInfo
 
-const char *
+CPtr(char)
 nImO::Logical::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "ftFT";
+    static CPtr(char)   initialChars = "ftFT";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -288,7 +288,7 @@ nImO::Logical::greaterThan
     }
     else
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -321,7 +321,7 @@ nImO::Logical::greaterThanOrEqual
 
     if (&other != this)
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -358,7 +358,7 @@ nImO::Logical::lessThan
     }
     else
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -391,7 +391,7 @@ nImO::Logical::lessThanOrEqual
 
     if (&other != this)
     {
-        const Logical * otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr = other.asLogical();
 
         if (nullptr == otherPtr)
         {
@@ -479,7 +479,7 @@ nImO::Logical::readFromStringBuffer
     SpValue             result;
     size_t              localIndex = position;
     int                 aChar = inBuffer.getChar(localIndex++, atEnd);
-    const std::string * candidate = nullptr;
+    CPtr(std::string)   candidate = nullptr;
 
     // Select which form of the value that is in the buffer:
     if (! atEnd)

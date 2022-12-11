@@ -111,10 +111,10 @@ catchSignal
  @return Zero on success and non-zero on failure. */
 static int
 extractValueAndCheck
-    (Message &          stuff,
-     const DataKind *   insertedContents,
-     const size_t       insertedSize,
-     const Value &      expectedValue)
+    (Message &      stuff,
+     CPtr(DataKind) insertedContents,
+     const size_t   insertedSize,
+     const Value &  expectedValue)
 {
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
@@ -136,7 +136,7 @@ extractValueAndCheck
     }
     else
     {
-        const Flaw *    asFlaw = extractedValue->asFlaw();
+        CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
 
         if (nullptr == asFlaw)
         {
@@ -174,7 +174,7 @@ extractValueAndCheck
             stuff.close();
             if (nullptr != extractedValue)
             {
-                const Flaw *    asFlaw = extractedValue->asFlaw();
+                CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
 
                 if (nullptr == asFlaw)
                 {
@@ -205,9 +205,9 @@ extractValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptyMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty message
+     Ptr(Ptr(char)) argv) // empty message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -245,11 +245,11 @@ doTestExtractEmptyMessage
                 }
                 else
                 {
-                    const Flaw *    asFlaw = extractedValue->asFlaw();
+                    CPtr(Flaw)  asFlaw = extractedValue->asFlaw();
 
-                    if (asFlaw)
+                    if (nullptr != asFlaw)
                     {
-                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG("(nullptr != asFlaw)"); //####
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                         stuff->open(true);
                         stuff->close();
@@ -268,14 +268,14 @@ doTestExtractEmptyMessage
                             else
                             {
                                 asFlaw = extractedValue->asFlaw();
-                                if (asFlaw)
+                                if (nullptr != asFlaw)
                                 {
-                                    ODL_LOG("(asFlaw)"); //####
+                                    ODL_LOG("(nullptr != asFlaw)"); //####
                                     ODL_LOG(asFlaw->getDescription().c_str()); //####
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (asFlaw)"); //####
+                                    ODL_LOG("! (nullptr != asFlaw)"); //####
                                 }
                             }
                         }
@@ -313,9 +313,9 @@ doTestExtractEmptyMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical message
+     Ptr(Ptr(char)) argv) // logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -396,9 +396,9 @@ doTestExtractLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractTinyIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // tiny integer message
+     Ptr(Ptr(char)) argv) // tiny integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -499,9 +499,9 @@ doTestExtractTinyIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractSmallIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer message
+     Ptr(Ptr(char)) argv) // small integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -584,9 +584,9 @@ doTestExtractSmallIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractMediumIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium integer message
+     Ptr(Ptr(char)) argv) // medium integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -671,9 +671,9 @@ doTestExtractMediumIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractBigIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big integer message
+     Ptr(Ptr(char)) argv) // big integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -760,9 +760,9 @@ doTestExtractBigIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptyStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty string message
+     Ptr(Ptr(char)) argv) // empty string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -824,9 +824,9 @@ doTestExtractEmptyStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractShortStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // short string message
+     Ptr(Ptr(char)) argv) // short string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -891,9 +891,9 @@ doTestExtractShortStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractMediumStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium string message
+     Ptr(Ptr(char)) argv) // medium string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -977,9 +977,9 @@ doTestExtractMediumStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptyBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty blob message
+     Ptr(Ptr(char)) argv) // empty blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1041,9 +1041,9 @@ doTestExtractEmptyBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractSmallBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small blob message
+     Ptr(Ptr(char)) argv) // small blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1084,9 +1084,9 @@ doTestExtractSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-            Blob                    shortBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue(actualData, actualDataCount);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, shortBlobValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, smallBlobValue);
         }
         else
         {
@@ -1113,9 +1113,9 @@ doTestExtractSmallBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractMediumBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium blob message
+     Ptr(Ptr(char)) argv) // medium blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1210,9 +1210,9 @@ doTestExtractMediumBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractSingleDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // single double message
+     Ptr(Ptr(char)) argv) // single double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1269,13 +1269,15 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t            insertedMinus42Point5Count = A_SIZE(insertedBytesForMinus42Point5);
-            Double                  plus42Point5(42.5);
-            Double                  minus42Point5(-42.5);
+            Double                  plus42Point5Value(42.5);
+            Double                  minus42Point5Value(-42.5);
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count, minus42Point5);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count,
+                                          minus42Point5Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count,
+                                              plus42Point5Value);
             }
         }
         else
@@ -1303,9 +1305,9 @@ doTestExtractSingleDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptyArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array message
+     Ptr(Ptr(char)) argv) // empty array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1371,9 +1373,9 @@ doTestExtractEmptyArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptyMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map message
+     Ptr(Ptr(char)) argv) // empty map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1439,9 +1441,9 @@ doTestExtractEmptyMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractEmptySetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set message
+     Ptr(Ptr(char)) argv) // empty set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1507,9 +1509,9 @@ doTestExtractEmptySetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one logical message
+     Ptr(Ptr(char)) argv) // array with one logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1584,9 +1586,9 @@ doTestExtractArrayOneLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one integer message
+     Ptr(Ptr(char)) argv) // array with one integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1661,9 +1663,9 @@ doTestExtractArrayOneIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one double message
+     Ptr(Ptr(char)) argv) // array with one double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1743,9 +1745,9 @@ doTestExtractArrayOneDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one string message
+     Ptr(Ptr(char)) argv) // array with one string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1821,9 +1823,9 @@ doTestExtractArrayOneStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one blob message
+     Ptr(Ptr(char)) argv) // array with one blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1899,9 +1901,9 @@ doTestExtractArrayOneBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one array message
+     Ptr(Ptr(char)) argv) // array with one array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1981,9 +1983,9 @@ doTestExtractArrayOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one map message
+     Ptr(Ptr(char)) argv) // array with one map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2063,9 +2065,9 @@ doTestExtractArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one set message
+     Ptr(Ptr(char)) argv) // array with one set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2145,9 +2147,9 @@ doTestExtractArrayOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoLogicalsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two logicals message
+     Ptr(Ptr(char)) argv) // array with two logicals message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2226,9 +2228,9 @@ doTestExtractArrayTwoLogicalsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoIntegersMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two integers message
+     Ptr(Ptr(char)) argv) // array with two integers message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2307,9 +2309,9 @@ doTestExtractArrayTwoIntegersMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two doubles message
+     Ptr(Ptr(char)) argv) // array with two doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2394,9 +2396,9 @@ doTestExtractArrayTwoDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoStringsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two strings message
+     Ptr(Ptr(char)) argv) // array with two strings message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2477,9 +2479,9 @@ doTestExtractArrayTwoStringsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoBlobsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two blobs message
+     Ptr(Ptr(char)) argv) // array with two blobs message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2560,9 +2562,9 @@ doTestExtractArrayTwoBlobsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoArraysMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two arrays message
+     Ptr(Ptr(char)) argv) // array with two arrays message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2651,9 +2653,9 @@ doTestExtractArrayTwoArraysMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoMapsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two maps message
+     Ptr(Ptr(char)) argv) // array with two maps message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2742,9 +2744,9 @@ doTestExtractArrayTwoMapsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayTwoSetsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two sets message
+     Ptr(Ptr(char)) argv) // array with two sets message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2833,9 +2835,9 @@ doTestExtractArrayTwoSetsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with array and map message
+     Ptr(Ptr(char)) argv) // array with array and map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2924,9 +2926,9 @@ doTestExtractArrayOneArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneMapOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with map and set message
+     Ptr(Ptr(char)) argv) // array with map and set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3015,9 +3017,9 @@ doTestExtractArrayOneMapOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayOneSetOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with set and array message
+     Ptr(Ptr(char)) argv) // array with set and array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3106,9 +3108,9 @@ doTestExtractArrayOneSetOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractArrayWithManyDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with many doubles message
+     Ptr(Ptr(char)) argv) // array with many doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3360,9 +3362,9 @@ doTestExtractArrayWithManyDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractLogicalMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map message
+     Ptr(Ptr(char)) argv) // logical map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3440,9 +3442,9 @@ doTestExtractLogicalMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractIntegerMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3520,9 +3522,9 @@ doTestExtractIntegerMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractStringMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string map message
+     Ptr(Ptr(char)) argv) // string map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3601,9 +3603,9 @@ doTestExtractStringMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractLogicalSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set message
+     Ptr(Ptr(char)) argv) // logical set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3678,9 +3680,9 @@ doTestExtractLogicalSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractIntegerSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3755,9 +3757,9 @@ doTestExtractIntegerSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractStringSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string set message
+     Ptr(Ptr(char)) argv) // string set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3833,9 +3835,9 @@ doTestExtractStringSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestExtractMessageWithArrayWithRangeOfIntegers
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with range of integers
+     Ptr(Ptr(char)) argv) // array with range of integers
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3882,11 +3884,11 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 }
                 else
                 {
-                    const Flaw *    asFlaw = extractedValue->asFlaw();
+                    CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
 
-                    if (asFlaw)
+                    if (nullptr != asFlaw)
                     {
-                        ODL_LOG("(asFlaw)"); //####
+                        ODL_LOG("(nullptr != asFlaw)"); //####
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                     }
                     else if (stuff->readAtEnd())
@@ -4179,8 +4181,8 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int    argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

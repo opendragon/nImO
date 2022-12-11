@@ -119,7 +119,7 @@ namespace nImO
 
         private :
             // Private fields.
-            Logger *    _logger;
+            Ptr(Logger) _logger;
 
     }; // ContextWithZeroConfig
 

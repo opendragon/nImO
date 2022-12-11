@@ -113,8 +113,6 @@ add_test(NAME TestMIMEExtractMediumBlobMessage COMMAND ${THIS_TARGET} 24)
 add_test(NAME TestMIMEInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 25)
 # Test message with single double
 add_test(NAME TestMIMEExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 26)
-# Test message with multiple escapes
-add_test(NAME TestMIMEInsertMultipleEscapesMessage COMMAND ${THIS_TARGET} 27)
 
 # Test message with empty array
 add_test(NAME TestMIMEInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
@@ -237,4 +235,6 @@ add_test(NAME TestMIMEInsertStringSetMessage COMMAND ${THIS_TARGET} 410)
 add_test(NAME TestMIMEExtractStringSetMessage COMMAND ${THIS_TARGET} 411)
 
 # Test message with array with range of integers
-add_test(NAME TestMIMEMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 500)
+add_test(NAME TestMIMEInsertArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 500)
+# Test message with array with range of integers
+add_test(NAME TestMIMEExtractArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 501)

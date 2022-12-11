@@ -98,7 +98,7 @@ nImO::String::String
 } // nImO::String::String
 
 nImO::String::String
-    (const char *   initialValue) :
+    (CPtr(char) initialValue) :
         inherited(), _value(initialValue)
 {
     ODL_ENTER(); //####
@@ -147,7 +147,7 @@ nImO::String::deeplyEqualTo
 
     if (! result)
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr != otherPtr)
         {
@@ -181,7 +181,7 @@ nImO::String::equalTo
 
     if (&other != this)
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr == otherPtr)
         {
@@ -311,12 +311,12 @@ nImO::String::getExtractionInfo
     ODL_EXIT(); //####
 } // nImO::String::getExtractionInfo
 
-const char *
+CPtr(char)
 nImO::String::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char * initialChars = "\"'";
+    static CPtr(char)   initialChars = "\"'";
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -349,7 +349,7 @@ nImO::String::greaterThan
     }
     else
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr == otherPtr)
         {
@@ -382,7 +382,7 @@ nImO::String::greaterThanOrEqual
 
     if (&other != this)
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr == otherPtr)
         {
@@ -419,7 +419,7 @@ nImO::String::lessThan
     }
     else
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr == otherPtr)
         {
@@ -452,7 +452,7 @@ nImO::String::lessThanOrEqual
 
     if (&other != this)
     {
-        const String *  otherPtr = other.asString();
+        CPtr(String)    otherPtr = other.asString();
 
         if (nullptr == otherPtr)
         {
@@ -536,8 +536,8 @@ nImO::String::readFromStringBuffer
         int                 octalSum;
         ScanState           state = ScanState::Normal;
         StringBuffer        holding;
-        static const char * standardEscapes = "abtnvfrs";
-        static const char * standardEscapesActual = "\a\b\t\n\v\f\r ";
+        static CPtr(char)   standardEscapes = "abtnvfrs";
+        static CPtr(char)   standardEscapesActual = "\a\b\t\n\v\f\r ";
 
         for ( ; ! done; )
         {
@@ -579,7 +579,7 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            const char *    whichEscape = strchr(standardEscapes, aChar);
+                            CPtr(char)  whichEscape = strchr(standardEscapes, aChar);
 
                             if (nullptr == whichEscape)
                             {
@@ -618,7 +618,7 @@ nImO::String::readFromStringBuffer
                             }
                             else
                             {
-                                const char *    replacement = standardEscapesActual + (whichEscape - standardEscapes);
+                                CPtr(char)  replacement = standardEscapesActual + (whichEscape - standardEscapes);
 
                                 holding.addChar(*replacement);
                                 state = ScanState::Normal;

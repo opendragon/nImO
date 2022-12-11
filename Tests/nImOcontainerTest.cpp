@@ -114,7 +114,7 @@ catchSignal
 static int
 compareValueWithSquishedString
     (const Value &  aValue,
-     const char *   aString)
+     CPtr(char)   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -139,7 +139,7 @@ compareValueWithSquishedString
 static int
 compareValueWithString
     (const Value &  aValue,
-     const char *   aString)
+     CPtr(char)   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -167,9 +167,9 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array value
+     Ptr(Ptr(char)) argv) // empty array value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -238,9 +238,9 @@ doTestEmptyArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular array value
+     Ptr(Ptr(char)) argv) // singular array value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -314,9 +314,9 @@ doTestSingularArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small array value
+     Ptr(Ptr(char)) argv) // small array value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -399,9 +399,9 @@ doTestSmallArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big array value
+     Ptr(Ptr(char)) argv) // big array value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -431,8 +431,8 @@ doTestBigArrayValue
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t *   addr = bigBlob.get();
-                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    Ptr(uint8_t)    addr = bigBlob.get();
+                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     if (0 != ii)
                     {
@@ -491,9 +491,9 @@ doTestBigArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArraySizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array size()
+     Ptr(Ptr(char)) argv) // empty array size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -544,9 +544,9 @@ doTestEmptyArraySizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyArraySizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty array size()
+     Ptr(Ptr(char)) argv) // non-empty array size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -598,9 +598,9 @@ doTestNonEmptyArraySizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array empty()
+     Ptr(Ptr(char)) argv) // empty array empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -651,9 +651,9 @@ doTestEmptyArrayEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyArrayEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty array empty()
+     Ptr(Ptr(char)) argv) // non-empty array empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -705,9 +705,9 @@ doTestNonEmptyArrayEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array clear()
+     Ptr(Ptr(char)) argv) // empty array clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -759,9 +759,9 @@ doTestEmptyArrayClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyArrayClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty array clear()
+     Ptr(Ptr(char)) argv) // non-empty array clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -814,9 +814,9 @@ doTestNonEmptyArrayClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyArrayRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array random iterator
+     Ptr(Ptr(char)) argv) // empty array random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -867,9 +867,9 @@ doTestEmptyArrayRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyArrayRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty array random iterator
+     Ptr(Ptr(char)) argv) // non-empty array random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -927,9 +927,9 @@ doTestNonEmptyArrayRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearingNonEmptyArrayUsingRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // clear non-empty array using random iterator
+     Ptr(Ptr(char)) argv) // clear non-empty array using random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -998,9 +998,9 @@ doTestClearingNonEmptyArrayUsingRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map
+     Ptr(Ptr(char)) argv) // empty map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1069,9 +1069,9 @@ doTestEmptyMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular logical map
+     Ptr(Ptr(char)) argv) // singular logical map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1147,9 +1147,9 @@ doTestSingularLogicalMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular integer map
+     Ptr(Ptr(char)) argv) // singular integer map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1223,9 +1223,9 @@ doTestSingularIntegerMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular string map
+     Ptr(Ptr(char)) argv) // singular string map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1301,9 +1301,9 @@ doTestSingularStringMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small logical map
+     Ptr(Ptr(char)) argv) // small logical map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1382,9 +1382,9 @@ doTestSmallLogicalMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer map
+     Ptr(Ptr(char)) argv) // small integer map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1464,9 +1464,9 @@ doTestSmallIntegerMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small string map
+     Ptr(Ptr(char)) argv) // small string map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1552,9 +1552,9 @@ doTestSmallStringMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapSizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map size()
+     Ptr(Ptr(char)) argv) // empty map size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1605,9 +1605,9 @@ doTestEmptyMapSizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMapSizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty map size()
+     Ptr(Ptr(char)) argv) // non-empty map size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1659,9 +1659,9 @@ doTestNonEmptyMapSizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map empty()
+     Ptr(Ptr(char)) argv) // empty map empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1712,9 +1712,9 @@ doTestEmptyMapEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMapEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty map empty()
+     Ptr(Ptr(char)) argv) // non-empty map empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1766,9 +1766,9 @@ doTestNonEmptyMapEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map clear()
+     Ptr(Ptr(char)) argv) // empty map clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1820,9 +1820,9 @@ doTestEmptyMapClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMapClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty map clear()
+     Ptr(Ptr(char)) argv) // non-empty map clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1875,9 +1875,9 @@ doTestNonEmptyMapClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyMapRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map random iterator
+     Ptr(Ptr(char)) argv) // empty map random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1928,9 +1928,9 @@ doTestEmptyMapRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptyMapRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty map random iterator
+     Ptr(Ptr(char)) argv) // non-empty map random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1987,9 +1987,9 @@ doTestNonEmptyMapRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearingNonEmptyMapUsingRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // clear non-empty map using random iterator
+     Ptr(Ptr(char)) argv) // clear non-empty map using random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2056,9 +2056,9 @@ doTestClearingNonEmptyMapUsingRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set
+     Ptr(Ptr(char)) argv) // empty set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2127,9 +2127,9 @@ doTestEmptySetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularLogicalSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular logical set
+     Ptr(Ptr(char)) argv) // singular logical set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2203,9 +2203,9 @@ doTestSingularLogicalSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularIntegerSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular integer set
+     Ptr(Ptr(char)) argv) // singular integer set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2279,9 +2279,9 @@ doTestSingularIntegerSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSingularStringSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // singular string set
+     Ptr(Ptr(char)) argv) // singular string set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2355,9 +2355,9 @@ doTestSingularStringSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallLogicalSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small logical set
+     Ptr(Ptr(char)) argv) // small logical set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2436,9 +2436,9 @@ doTestSmallLogicalSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallIntegerSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer set
+     Ptr(Ptr(char)) argv) // small integer set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2525,9 +2525,9 @@ doTestSmallIntegerSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallStringSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small string set
+     Ptr(Ptr(char)) argv) // small string set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2614,9 +2614,9 @@ doTestSmallStringSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetSizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set size()
+     Ptr(Ptr(char)) argv) // empty set size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2667,9 +2667,9 @@ doTestEmptySetSizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptySetSizeFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty set size()
+     Ptr(Ptr(char)) argv) // non-empty set size()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2721,9 +2721,9 @@ doTestNonEmptySetSizeFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set empty()
+     Ptr(Ptr(char)) argv) // empty set empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2774,9 +2774,9 @@ doTestEmptySetEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptySetEmptyFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty set empty()
+     Ptr(Ptr(char)) argv) // non-empty set empty()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2828,9 +2828,9 @@ doTestNonEmptySetEmptyFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set clear()
+     Ptr(Ptr(char)) argv) // empty set clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2882,9 +2882,9 @@ doTestEmptySetClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptySetClearFunction
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty set clear()
+     Ptr(Ptr(char)) argv) // non-empty set clear()
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2937,9 +2937,9 @@ doTestNonEmptySetClearFunction
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptySetRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set random iterator
+     Ptr(Ptr(char)) argv) // empty set random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2990,9 +2990,9 @@ doTestEmptySetRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNonEmptySetRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // non-empty set random iterator
+     Ptr(Ptr(char)) argv) // non-empty set random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3051,9 +3051,9 @@ doTestNonEmptySetRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearingNonEmptySetUsingRandomIterator
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // clear non-empty set using random iterator
+     Ptr(Ptr(char)) argv) // clear non-empty set using random iterator
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3123,9 +3123,9 @@ doTestClearingNonEmptySetUsingRandomIterator
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with array value
+     Ptr(Ptr(char)) argv) // array with array value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3199,9 +3199,9 @@ doTestArrayWithArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with map
+     Ptr(Ptr(char)) argv) // array with map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3275,9 +3275,9 @@ doTestArrayWithMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayWithSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with set
+     Ptr(Ptr(char)) argv) // array with set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3351,9 +3351,9 @@ doTestArrayWithSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithArrayValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // map with array
+     Ptr(Ptr(char)) argv) // map with array
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3429,9 +3429,9 @@ doTestMapWithArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithMapValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // map with map
+     Ptr(Ptr(char)) argv) // map with map
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3507,9 +3507,9 @@ doTestMapWithMapValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMapWithSetValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // map with set
+     Ptr(Ptr(char)) argv) // map with set
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3585,9 +3585,9 @@ doTestMapWithSetValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map with incompatible keys
+     Ptr(Ptr(char)) argv) // logical map with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3666,9 +3666,9 @@ doTestLogicalMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map with incompatible keys
+     Ptr(Ptr(char)) argv) // integer map with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3745,9 +3745,9 @@ doTestIntegerMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string map with incompatible keys
+     Ptr(Ptr(char)) argv) // string map with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3826,9 +3826,9 @@ doTestStringMapValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set with incompatible keys
+     Ptr(Ptr(char)) argv) // logical set with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3905,9 +3905,9 @@ doTestLogicalSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set with incompatible keys
+     Ptr(Ptr(char)) argv) // integer set with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3984,9 +3984,9 @@ doTestIntegerSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetValueWithIncompatibleKeys
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string set with incompatible keys
+     Ptr(Ptr(char)) argv) // string set with incompatible keys
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4063,9 +4063,9 @@ doTestStringSetValueWithIncompatibleKeys
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidArrayCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid array compares
+     Ptr(Ptr(char)) argv) // valid array compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4581,7 +4581,7 @@ doTestValidArrayCompares
         {
             struct testStrings
             {
-                const char *        _testValue;
+                CPtr(char)        _testValue;
                 ComparisonStatus    _lessThan;
                 ComparisonStatus    _greaterThan;
                 ComparisonStatus    _lessThanOrEqual;
@@ -4768,9 +4768,9 @@ doTestValidArrayCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid logical map compares
+     Ptr(Ptr(char)) argv) // valid logical map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5059,9 +5059,9 @@ doTestValidLogicalMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid integer map compares
+     Ptr(Ptr(char)) argv) // valid integer map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5336,9 +5336,9 @@ doTestValidIntegerMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid string map compares
+     Ptr(Ptr(char)) argv) // valid string map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5353,7 +5353,7 @@ doTestValidStringMapCompares
     {
         struct testStrings
         {
-            const char *        _testValue;
+            CPtr(char)          _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -5539,9 +5539,9 @@ doTestValidStringMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid logical set compares
+     Ptr(Ptr(char)) argv) // valid logical set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -5830,9 +5830,9 @@ doTestValidLogicalSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidIntegerSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid integer set compares
+     Ptr(Ptr(char)) argv) // valid integer set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6107,9 +6107,9 @@ doTestValidIntegerSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid string set compares
+     Ptr(Ptr(char)) argv) // valid string set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6124,7 +6124,7 @@ doTestValidStringSetCompares
     {
         struct testStrings
         {
-            const char *        _testValue;
+            CPtr(char)          _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -6310,9 +6310,9 @@ doTestValidStringSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArrayCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid array compares
+     Ptr(Ptr(char)) argv) // invalid array compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6335,7 +6335,7 @@ doTestInvalidArrayCompares
         Map                 rightValue6;
         Set                 rightValue7;
         Integer             rightValue8;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
@@ -6425,9 +6425,9 @@ doTestInvalidArrayCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid logical map compares
+     Ptr(Ptr(char)) argv) // invalid logical map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6449,7 +6449,7 @@ doTestInvalidLogicalMapCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Double              rightValue7;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -6538,9 +6538,9 @@ doTestInvalidLogicalMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid integer map compares
+     Ptr(Ptr(char)) argv) // invalid integer map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6561,7 +6561,7 @@ doTestInvalidIntegerMapCompares
         Array               rightValue4;
         Map                 rightValue5;
         Set                 rightValue6;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -6650,9 +6650,9 @@ doTestInvalidIntegerMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringMapCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid string map compares
+     Ptr(Ptr(char)) argv) // invalid string map compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6674,7 +6674,7 @@ doTestInvalidStringMapCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -6764,9 +6764,9 @@ doTestInvalidStringMapCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid logical set compares
+     Ptr(Ptr(char)) argv) // invalid logical set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6788,7 +6788,7 @@ doTestInvalidLogicalSetCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -6877,9 +6877,9 @@ doTestInvalidLogicalSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidIntegerSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid integer set compares
+     Ptr(Ptr(char)) argv) // invalid integer set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -6900,7 +6900,7 @@ doTestInvalidIntegerSetCompares
         Array               rightValue4;
         Map                 rightValue5;
         Set                 rightValue6;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
@@ -6989,9 +6989,9 @@ doTestInvalidIntegerSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringSetCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid string set compares
+     Ptr(Ptr(char)) argv) // invalid string set compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7013,7 +7013,7 @@ doTestInvalidStringSetCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Value *             rightValues[] =
+        Ptr(Value)          rightValues[] =
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
@@ -7103,9 +7103,9 @@ doTestInvalidStringSetCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayIndices
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array indices
+     Ptr(Ptr(char)) argv) // array indices
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7220,9 +7220,9 @@ doTestArrayIndices
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalMapSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map searches
+     Ptr(Ptr(char)) argv) // logical map searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7325,9 +7325,9 @@ doTestLogicalMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerMapSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map searches
+     Ptr(Ptr(char)) argv) // integer map searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7430,9 +7430,9 @@ doTestIntegerMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringMapSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string map searches
+     Ptr(Ptr(char)) argv) // string map searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7535,9 +7535,9 @@ doTestStringMapSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalSetSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set searches
+     Ptr(Ptr(char)) argv) // logical set searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7627,9 +7627,9 @@ doTestLogicalSetSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSetSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set searches
+     Ptr(Ptr(char)) argv) // integer set searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7719,9 +7719,9 @@ doTestIntegerSetSearches
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringSetSearches
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string set searches
+     Ptr(Ptr(char)) argv) // string set searches
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -7814,8 +7814,8 @@ doTestStringSetSearches
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

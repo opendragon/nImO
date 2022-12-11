@@ -182,7 +182,7 @@ nImO::B2I
     ODL_P1("inString = ", &inString); //####
     ODL_I1("numBytes = ", numBytes); //####
     bool            isNegative = (0 != (0x080 & inString[0]));
-    const uint8_t * walker = inString;
+    CPtr(uint8_t)   walker = inString;
     int64_t         result = (isNegative ? -1 : 0);
 
     for (size_t ii = 0; numBytes > ii; ++ii)
@@ -232,8 +232,8 @@ nImO::CanReadFromStandardInput
 
 size_t
 nImO::CompareBytes
-    (const void *   first,
-     const void *   second,
+    (CPtr(void)     first,
+     CPtr(void)     second,
      const size_t   numBytes)
 {
     ODL_ENTER(); //####
@@ -243,8 +243,8 @@ nImO::CompareBytes
 
     if (memcmp(first, second, numBytes))
     {
-        const uint8_t * firstWalker = StaticCast(const uint8_t *, first);
-        const uint8_t * secondWalker = StaticCast(const uint8_t *, second);
+        CPtr(uint8_t)   firstWalker = StaticCast(CPtr(uint8_t), first);
+        CPtr(uint8_t)   secondWalker = StaticCast(CPtr(uint8_t), second);
 
         for (size_t ii = 0; numBytes > ii; ++ii)
         {
@@ -295,15 +295,15 @@ nImO::ConvertDoubleToString
 
 bool
 nImO::ConvertToDouble
-    (const char *   startPtr,
-     double &       result)
+    (CPtr(char) startPtr,
+     double &   result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
-    bool    okSoFar;
-    char *  endPtr;
-    double  value = strtod(startPtr, &endPtr);
+    bool        okSoFar;
+    Ptr(char)   endPtr;
+    double      value = strtod(startPtr, &endPtr);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {
@@ -335,15 +335,15 @@ nImO::ConvertToDouble
 
 bool
 nImO::ConvertToInt64
-    (const char *   startPtr,
-     int64_t &      result)
+    (CPtr(char) startPtr,
+     int64_t &  result)
 {
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
-    bool    okSoFar;
-    char *  endPtr;
-    int64_t value = strtoll(startPtr, &endPtr, 10);
+    bool        okSoFar;
+    Ptr(char)   endPtr;
+    int64_t     value = strtoll(startPtr, &endPtr, 10);
 
     if ((startPtr != endPtr) && (! *endPtr))
     {
@@ -392,7 +392,7 @@ nImO::D2B
 #if 0
 void
 nImO::DumpContactToLog
-    (const char *               tag,
+    (CPtr(char)               tag,
      const yarp::os::Contact &  aContact)
 {
 #if MAC_OR_LINUX_
@@ -468,7 +468,7 @@ nImO::GetLogger
 
 std::string
 nImO::GetRandomChannelName
-    (const char *   channelRoot)
+    (CPtr(char) channelRoot)
 {
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####
@@ -477,7 +477,7 @@ nImO::GetRandomChannelName
     try
     {
         bool                hasLeadingSlash = false;
-        const char *        stringToUse;
+        CPtr(char)          stringToUse;
 #if 0
         int                 randNumb = StaticCast(int, yarp::os::Random::uniform() * kMaxRandom);
 #else//0
@@ -630,11 +630,11 @@ nImO::IsRunning
 } // nImO::IsRunning
 #endif//0
 
-const char *
+CPtr(char)
 nImO::NameOfSignal
     (const int  theSignal)
 {
-    const char *    result;
+    CPtr(char)  result;
 
 #if MAC_OR_LINUX_
     switch (theSignal)
@@ -803,7 +803,7 @@ nImO::NameOfSignal
 void
 nImO::OutputDescription
     (std::ostream &         outStream,
-     const char *           heading,
+     CPtr(char)             heading,
      const std::string &    description)
 {
     size_t      descriptionLength = description.length();
@@ -831,18 +831,18 @@ nImO::OutputDescription
 bool
 nImO::ProcessStandardUtilitiesOptions
     (const int                  argc,
-     char * *                   argv,
+     Ptr(Ptr(char))             argv,
      nImO::DescriptorVector &   argumentDescriptions,
      const std::string &        utilityDescription,
      const std::string &        utilityExample,
      const int                  year,
-     const char *               copyrightHolder,
+     CPtr(char)                 copyrightHolder,
      nImO::OutputFlavour &      flavour,
      bool &                     logging,
      HelpFunction               helper,
      const bool                 ignoreFlavours,
      const bool                 ignoreLogging,
-     nImO::StringVector *       arguments)
+     Ptr(nImO::StringVector)    arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -863,30 +863,32 @@ nImO::ProcessStandardUtilitiesOptions
         VERSION
     }; // OptionIndex
 
-    bool                    keepGoing = true;
-    Option_::Descriptor     firstDescriptor{StaticCast(unsigned int, OptionIndex::UNKNOWN), 0, "", "",
-                                            Option_::Arg::None, nullptr};
-    Option_::Descriptor     helpDescriptor{StaticCast(unsigned int, OptionIndex::HELP), 0, "h", "help",
-                                           Option_::Arg::None, T_("  --help, -h    Print usage and exit")};
-    Option_::Descriptor     infoDescriptor{StaticCast(unsigned int, OptionIndex::INFO), 0, "i", "info",
-                                           Option_::Arg::None,
-                                           T_("  --info, -i    Print type and description and exit")};
-    Option_::Descriptor     jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
-                                           Option_::Arg::None, T_("  --json, -j    Generate output in JSON format")};
-    Option_::Descriptor     loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
-                                           "logg", Option_::Arg::None, T_("  --logg, -l    Log application")};
-    Option_::Descriptor     tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
-                                           Option_::Arg::None, T_("  --tabs, -t    Generate output in tab-format")};
-    Option_::Descriptor     versionDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "v",
-                                              "vers", Option_::Arg::None,
-                                              T_("  --vers, -v    Print version information and exit")};
-    Option_::Descriptor     lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor     usage[8]; // first, help, info, json, logg, tabs, version
-    Option_::Descriptor *   usageWalker = usage;
-    int                     argcWork = argc;
-    char * *                argvWork = argv;
-    std::string             usageString{"USAGE: "};
-    std::string             argList{ArgumentsToArgString(argumentDescriptions)};
+    bool                        keepGoing = true;
+    Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::UNKNOWN), 0, "", "",
+                                                Option_::Arg::None, nullptr};
+    Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::HELP), 0, "h", "help",
+                                                Option_::Arg::None, T_("  --help, -h    Print usage and exit")};
+    Option_::Descriptor         infoDescriptor{StaticCast(unsigned int, OptionIndex::INFO), 0, "i", "info",
+                                                Option_::Arg::None,
+                                                T_("  --info, -i    Print type and description and exit")};
+    Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
+                                                Option_::Arg::None,
+                                                T_("  --json, -j    Generate output in JSON format")};
+    Option_::Descriptor         loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
+                                                "logg", Option_::Arg::None, T_("  --logg, -l    Log application")};
+    Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
+                                                Option_::Arg::None,
+                                                T_("  --tabs, -t    Generate output in tab-format")};
+    Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "v",
+                                                    "vers", Option_::Arg::None,
+                                                    T_("  --vers, -v    Print version information and exit")};
+    Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
+    Option_::Descriptor         usage[8]; // first, help, info, json, logg, tabs, version
+    Ptr(Option_::Descriptor)    usageWalker = usage;
+    int                         argcWork = argc;
+    Ptr(Ptr(char))              argvWork = argv;
+    std::string                 usageString{"USAGE: "};
+    std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
     flavour = OutputFlavour::Normal;
     usageString += *argv;

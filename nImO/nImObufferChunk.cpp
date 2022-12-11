@@ -117,7 +117,7 @@ nImO::BufferChunk::~BufferChunk
 
 nImO::BufferChunk &
 nImO::BufferChunk::appendData
-    (const void *   data,
+    (CPtr(void)     data,
      const size_t   numBytes)
 {
     ODL_OBJENTER(); //####

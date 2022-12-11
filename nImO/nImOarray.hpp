@@ -204,13 +204,13 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of an Array.
              @return The characters that can appear as the start of an Array. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 
             /*! @brief Return the characters that can appear as the end of an Array.
              @return The characters that can appear as the end of an Array. */
-            static const char *
+            static CPtr(char)
             getTerminalCharacters
                 (void);
 

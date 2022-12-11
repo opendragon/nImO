@@ -140,7 +140,7 @@ nImO::Double::deeplyEqualTo
 
     if (! result)
     {
-        const Double *  otherPtr = other.asDouble();
+        CPtr(Double)    otherPtr = other.asDouble();
 
         if (nullptr != otherPtr)
         {
@@ -174,11 +174,11 @@ nImO::Double::equalTo
 
     if (&other != this)
     {
-        const Double *  doublePtr = other.asDouble();
+        CPtr(Double)    doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            CPtr(Integer)   intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -344,11 +344,11 @@ nImO::Double::greaterThan
     }
     else
     {
-        const Double *  doublePtr = other.asDouble();
+        CPtr(Double)    doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            CPtr(Integer)   intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -386,11 +386,11 @@ nImO::Double::greaterThanOrEqual
 
     if (&other != this)
     {
-        const Double *  doublePtr = other.asDouble();
+        CPtr(Double)    doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            CPtr(Integer)   intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -432,11 +432,11 @@ nImO::Double::lessThan
     }
     else
     {
-        const Double *  doublePtr = other.asDouble();
+        CPtr(Double)    doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            CPtr(Integer)   intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {
@@ -474,11 +474,11 @@ nImO::Double::lessThanOrEqual
 
     if (&other != this)
     {
-        const Double *  doublePtr = other.asDouble();
+        CPtr(Double)    doublePtr = other.asDouble();
 
         if (nullptr == doublePtr)
         {
-            const Integer * intPtr = other.asInteger();
+            CPtr(Integer)   intPtr = other.asInteger();
 
             if (nullptr == intPtr)
             {

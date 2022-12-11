@@ -43,6 +43,8 @@
 		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
 		F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringsArgumentDescriptor.cpp; path = nImO/nImOstringsArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOstringsArgumentDescriptor.hpp; path = nImO/nImOstringsArgumentDescriptor.hpp; sourceTree = "<group>"; };
+		F6351BE929462B1E00A93CA2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Tests/resource.h; sourceTree = "<group>"; };
+		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcomparisonStatus.hpp; path = nImO/nImOcomparisonStatus.hpp; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
 		F660586E2885FE7F008F8A09 /* nImOcontextWithZeroConfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithZeroConfig.hpp; path = nImO/nImOcontextWithZeroConfig.hpp; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				F61A18B2293FB39A0032B156 /* nImOMIMEAndMessagesTest.rc.in */,
 				F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */,
 				F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */,
+				F6351BE929462B1E00A93CA2 /* resource.h */,
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;
@@ -737,6 +740,7 @@
 				F679D6CB2412751E001648DB /* Test_converters.txt */,
 				F679D6C524127191001648DB /* Test_messageExtract.txt */,
 				F679D6CC2412751E001648DB /* Test_messageInsert.txt */,
+				F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */,
 				F679D6CF2412751F001648DB /* Test_parser.txt */,
 			);
 			name = Tests;

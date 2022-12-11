@@ -61,11 +61,11 @@
 #endif // defined(__APPLE__)
 
 static const char   kEqualsChar = '=';
-static const char   kMimeCharSet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const char   kMIMECharSet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static const char   kPlusChar = '+';
 static const char   kSlashChar = '/';
 
-static const size_t kMaxMimeLine = 78;
+static const size_t kMaxMIMELine = 78;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -76,11 +76,11 @@ static const size_t kMaxMimeLine = 78;
 #endif // defined(__APPLE__)
 
 static bool
-isValidMimeChar
+isValidMIMEChar
     (const char ch)
 {
     return (isalnum(ch) || (kPlusChar == ch) || (kSlashChar == ch));
-} // isValidMimeChar
+} // isValidMIMEChar
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -91,9 +91,9 @@ isValidMimeChar
 #endif // defined(__APPLE__)
 
 bool
-nImO::DecodeMimeToBytes
+nImO::DecodeMIMEToBytes
     (const StringVector &   inValue,
-     ByteVector &           outBytes)//ByteVector--> uint8_t
+     ByteVector &           outBytes)
 {
     bool        okSoFar = true;
     uint8_t     group6[4];
@@ -105,7 +105,7 @@ nImO::DecodeMimeToBytes
     for (size_t ii = 0, mm = inValue.size(); okSoFar && (ii < mm); ii++)
     {
         line = inValue[ii];
-        for (size_t jj = 1, nn = line.length(); jj <= nn; jj++)
+        for (size_t jj = 0, nn = line.length(); jj < nn; jj++)
         {
             char    ch = line[jj];
 
@@ -114,14 +114,14 @@ nImO::DecodeMimeToBytes
                 break;
 
             }
-            if (isValidMimeChar(ch))
+            if (isValidMIMEChar(ch))
             {
                 group6[count4s++] = ch;
                 if (4 == count4s)
                 {
                     for (size_t kk = 0; kk < 4; kk++)
                     {
-                        group6[kk] = strchr(kMimeCharSet, group6[kk]) - kMimeCharSet;
+                        group6[kk] = strchr(kMIMECharSet, group6[kk]) - kMIMECharSet;
                     }
                     group8[0] = (group6[0] << 2) + ((group6[1] & 0x30) >> 4);
                     group8[1] = ((group6[1] & 0xf) << 4) + ((group6[2] & 0x3c) >> 2);
@@ -146,7 +146,7 @@ nImO::DecodeMimeToBytes
             }
             for (size_t jj = 0; jj < 4; jj++)
             {
-                const char *    offset = strchr(kMimeCharSet, group6[jj]);
+                CPtr(char)  offset = strchr(kMIMECharSet, group6[jj]);
 
                 if (nullptr == offset)
                 {
@@ -154,7 +154,7 @@ nImO::DecodeMimeToBytes
                 }
                 else
                 {
-                    group6[jj] = offset - kMimeCharSet;
+                    group6[jj] = offset - kMIMECharSet;
                 }
             }
             group8[0] = (group6[0] << 2) + ((group6[1] & 0x30) >> 4);
@@ -167,15 +167,15 @@ nImO::DecodeMimeToBytes
         }
     }
     return okSoFar;
-} // nImO::DecodeMimeToBytes
+} // nImO::DecodeMIMEToBytes
 
 void
-nImO::EncodeBytesAsMime
+nImO::EncodeBytesAsMIME
     (StringVector & outValue,
-     const void *   inBytes,
+     CPtr(void)     inBytes,
      const size_t   numBytes)
 {
-    const uint8_t * rawBytes = StaticCast(const uint8_t *, inBytes);
+    CPtr(uint8_t)   rawBytes = StaticCast(CPtr(uint8_t), inBytes);
     uint8_t         group8[3];
     uint8_t         group6[4];
     size_t          count3s = 0;
@@ -193,10 +193,10 @@ nImO::EncodeBytesAsMime
             group6[3] = (group8[2] & 0x3f);
             for (size_t jj = 0; jj < 4; jj++)
             {
-                line += kMimeCharSet[group6[jj]];
+                line += kMIMECharSet[group6[jj]];
             }
             count3s = 0;
-            if (kMaxMimeLine <= line.length())
+            if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
                 line = "";
@@ -215,16 +215,16 @@ nImO::EncodeBytesAsMime
         group6[3] = (group8[2] & 0x3f);
         for (size_t ii = 0; ii < (count3s + 1); ii++)
         {
-            if (kMaxMimeLine <= line.length())
+            if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
                 line = "";
             }
-            line += kMimeCharSet[group6[ii]];
+            line += kMIMECharSet[group6[ii]];
         }
         while (count3s++ < 3)
         {
-            if (kMaxMimeLine <= line.length())
+            if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
                 line = "";
@@ -236,7 +236,7 @@ nImO::EncodeBytesAsMime
     {
         outValue.push_back(line);
     }
-} // nImO::EncodeBytesAsMime
+} // nImO::EncodeBytesAsMIME
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

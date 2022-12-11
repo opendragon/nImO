@@ -230,13 +230,13 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of a Map.
             @return The characters that can appear as the start of a Map. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 
             /*! @brief Return the characters that can appear as the end of a Map.
             @return The characters that can appear as the end of a Map. */
-            static const char *
+            static CPtr(char)
             getTerminalCharacters
                 (void);
 

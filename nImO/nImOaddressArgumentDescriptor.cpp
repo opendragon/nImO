@@ -85,7 +85,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue,
-     struct in_addr *       addrBuff) :
+     Ptr(struct in_addr)    addrBuff) :
         inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
 {
     ODL_ENTER(); //####

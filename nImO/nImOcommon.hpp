@@ -171,6 +171,12 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
 
+/*! @brief A simple macro to make the pointer declarations a bit more readable. */
+# define Ptr(type_)                     type_ *
+
+/*! @brief A simple macro to make the pointer declarations a bit more readable. */
+# define CPtr(type_)                    const type_ *
+
 /*! @brief A macro to make 'casts' more legible. */
 # define StaticCast(type_,value_)       static_cast<type_>(value_)
 /*! @brief A macro to make 'casts' more legible. */
@@ -658,8 +664,8 @@ namespace nImO
      two byte strings differ. */
     size_t
     CompareBytes
-        (const void *   first,
-         const void *   second,
+        (CPtr(void)     first,
+         CPtr(void)     second,
          const size_t   numBytes);
 
     /*! @brief Convert a double value to a string.
@@ -676,8 +682,8 @@ namespace nImO
      otherwise. */
     bool
     ConvertToDouble
-        (const char *   startPtr,
-         double &       result);
+        (CPtr(char) startPtr,
+         double &   result);
 
     /*! @brief Convert a string to a double value.
      @param[in] aString The string to be converted.
@@ -696,8 +702,8 @@ namespace nImO
      otherwise. */
     bool
     ConvertToInt64
-        (const char *   startPtr,
-         int64_t &      result);
+        (CPtr(char) startPtr,
+         int64_t &  result);
 
     /*! @brief Convert a string to an integer value.
      @param[in] aString The string to be converted.
@@ -721,7 +727,7 @@ namespace nImO
      @return A randomly-generated channel name. */
     std::string
     GetRandomChannelName
-        (const char *   channelRoot = DEFAULT_CHANNEL_ROOT_);
+        (CPtr(char) channelRoot = DEFAULT_CHANNEL_ROOT_);
 
     /*! @brief Generate a random channel name.
      @return A randomly-generated channel name. */
@@ -748,7 +754,7 @@ namespace nImO
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
      @return A string description of the signal. */
-    const char *
+    CPtr(char)
     NameOfSignal
         (const int  theSignal);
 
@@ -842,7 +848,7 @@ namespace nImO
     void
     OutputDescription
         (std::ostream &         outStream,
-         const char *           heading,
+         CPtr(char)             heading,
          const std::string &    description);
 
     /*! @brief Process the standard options for utility executables.
@@ -872,18 +878,18 @@ namespace nImO
     bool
     ProcessStandardUtilitiesOptions
         (const int              argc,
-         char * *               argv,
+         Ptr(Ptr(char))         argv,
          DescriptorVector &     argumentDescriptions,
          const std::string &    utilityDescription,
          const std::string &    utilityExample,
          const int              year,
-         const char *           copyrightHolder,
+         CPtr(char)             copyrightHolder,
          OutputFlavour &        flavour,
          bool &                 logging,
          HelpFunction           helper = nullptr,
          const bool             ignoreFlavours = false,
          const bool             ignoreLogging = false,
-         StringVector *         arguments = nullptr);
+         Ptr(StringVector)      arguments = nullptr);
 
     /*! @brief Standardize the handling of multiple Transport value specifications.
      @param[in] firstTransport A Transport value.

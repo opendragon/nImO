@@ -196,9 +196,9 @@ nImO::Map::deeplyEqualTo
 
     if (! result)
     {
-        const Map * otherPtr = other.asMap();
+        CPtr(Map)   otherPtr = other.asMap();
 
-        if (otherPtr && (size() == otherPtr->size()))
+        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};
@@ -497,7 +497,7 @@ nImO::Map::getExtractionInfo
     ODL_EXIT(); //####
 } // nImO::Map::getExtractionInfo
 
-const char *
+CPtr(char)
 nImO::Map::getInitialCharacters
     (void)
 {
@@ -508,7 +508,7 @@ nImO::Map::getInitialCharacters
     return initialChars;
 } // nImO::Map::getInitialCharacters
 
-const char *
+CPtr(char)
 nImO::Map::getTerminalCharacters
     (void)
 {

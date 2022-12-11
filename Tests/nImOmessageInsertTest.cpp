@@ -113,12 +113,12 @@ catchSignal
  @return Zero on success and non-zero on failure. */
 static int
 setValueAndCheck
-    (Message &          stuff,
-     const Value &      aValue,
-     const DataKind *   expectedContents1,
-     const size_t       expectedSize1,
-     const uint8_t *    expectedContents2,
-     const size_t       expectedSize2)
+    (Message &      stuff,
+     const Value &  aValue,
+     CPtr(DataKind) expectedContents1,
+     const size_t   expectedSize1,
+     CPtr(uint8_t)  expectedContents2,
+     const size_t   expectedSize2)
 {
     ODL_ENTER(); //####
     ODL_P4("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents1 = ", //####
@@ -140,7 +140,7 @@ setValueAndCheck
         {
             if ((nullptr != expectedContents2) && (0 < expectedSize2))
             {
-                std::string contents2{stuff.getBytesForTransmission()};
+                std::string contents2{stuff.getBytesWithEscapes()};
                 size_t      length2 = contents2.size();
 
                 ODL_PACKET("expectedContents2", expectedContents2, expectedSize2); //####
@@ -181,9 +181,9 @@ setValueAndCheck
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty message
+     Ptr(Ptr(char)) argv) // empty message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -231,7 +231,7 @@ doTestInsertEmptyMessage
                             0x17 // Checksum
                         };
                         const size_t            transmitEmptyByteCount = A_SIZE(transmitEmptyBytes);
-                        std::string             contents2{stuff->getBytesForTransmission()};
+                        std::string             contents2{stuff->getBytesWithEscapes()};
                         size_t                  length2 = contents2.size();
 
                         ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
@@ -283,9 +283,9 @@ doTestInsertEmptyMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical message
+     Ptr(Ptr(char)) argv) // logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -383,9 +383,9 @@ doTestInsertLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertTinyIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // tiny integer message
+     Ptr(Ptr(char)) argv) // tiny integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -513,9 +513,9 @@ doTestInsertTinyIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small integer message
+     Ptr(Ptr(char)) argv) // small integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -616,9 +616,9 @@ doTestInsertSmallIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium integer message
+     Ptr(Ptr(char)) argv) // medium integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -721,9 +721,9 @@ doTestInsertMediumIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertBigIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big integer message
+     Ptr(Ptr(char)) argv) // big integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -828,9 +828,9 @@ doTestInsertBigIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty string message
+     Ptr(Ptr(char)) argv) // empty string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -901,9 +901,9 @@ doTestInsertEmptyStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertShortStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // short string message
+     Ptr(Ptr(char)) argv) // short string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -977,9 +977,9 @@ doTestInsertShortStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium string message
+     Ptr(Ptr(char)) argv) // medium string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1075,9 +1075,9 @@ doTestInsertMediumStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty blob message
+     Ptr(Ptr(char)) argv) // empty blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1148,9 +1148,9 @@ doTestInsertEmptyBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSmallBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small blob message
+     Ptr(Ptr(char)) argv) // small blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1199,9 +1199,9 @@ doTestInsertSmallBlobMessage
                 0xFA // Checksum
             };
             const size_t            transmitSmallBlobByteCount = A_SIZE(transmitSmallBlobBytes);
-            Blob                    shortBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue(actualData, actualDataCount);
 
-            result = setValueAndCheck(*stuff, shortBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount, transmitSmallBlobBytes,
+            result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount, transmitSmallBlobBytes,
                                       transmitSmallBlobByteCount);
         }
         else
@@ -1229,9 +1229,9 @@ doTestInsertSmallBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMediumBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // medium blob message
+     Ptr(Ptr(char)) argv) // medium blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1341,9 +1341,9 @@ doTestInsertMediumBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertSingleDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // single double message
+     Ptr(Ptr(char)) argv) // single double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1416,16 +1416,17 @@ doTestInsertSingleDoubleMessage
                 0x08 // Checksum
             };
             const size_t            transmitPlus42Point5ByteCount = A_SIZE(transmitPlus42Point5Bytes);
-            Double                  plus42Point5(42.5);
-            Double                  minus42Point5(-42.5);
+            Double                  plus42Point5Value(42.5);
+            Double                  minus42Point5Value(-42.5);
 
-            result = setValueAndCheck(*stuff, plus42Point5, expectedPlus42Point5Bytes,
+            result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Bytes,
                                       expectedPlus42Point5ByteCount, transmitPlus42Point5Bytes,
                                       transmitPlus42Point5ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, minus42Point5, expectedMinus42Point5Bytes, expectedMinus42Point5ByteCount,
-                                          transmitMinus42Point5Bytes, transmitMinus42Point5ByteCount);
+                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Bytes,
+                                          expectedMinus42Point5ByteCount, transmitMinus42Point5Bytes,
+                                          transmitMinus42Point5ByteCount);
             }
         }
         else
@@ -1453,9 +1454,9 @@ doTestInsertSingleDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertMultipleEscapesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // message with multiple escapes
+     Ptr(Ptr(char)) argv) // message with multiple escapes
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1537,9 +1538,9 @@ doTestInsertMultipleEscapesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty array message
+     Ptr(Ptr(char)) argv) // empty array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1615,9 +1616,9 @@ doTestInsertEmptyArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptyMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty map message
+     Ptr(Ptr(char)) argv) // empty map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1693,9 +1694,9 @@ doTestInsertEmptyMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertEmptySetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty set message
+     Ptr(Ptr(char)) argv) // empty set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1771,9 +1772,9 @@ doTestInsertEmptySetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneLogicalMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one logical message
+     Ptr(Ptr(char)) argv) // array with one logical message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1859,9 +1860,9 @@ doTestInsertArrayOneLogicalMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneIntegerMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one integer message
+     Ptr(Ptr(char)) argv) // array with one integer message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1947,9 +1948,9 @@ doTestInsertArrayOneIntegerMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneDoubleMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one double message
+     Ptr(Ptr(char)) argv) // array with one double message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2040,9 +2041,9 @@ doTestInsertArrayOneDoubleMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneStringMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one string message
+     Ptr(Ptr(char)) argv) // array with one string message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2129,9 +2130,9 @@ doTestInsertArrayOneStringMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneBlobMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one blob message
+     Ptr(Ptr(char)) argv) // array with one blob message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2218,9 +2219,9 @@ doTestInsertArrayOneBlobMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one array message
+     Ptr(Ptr(char)) argv) // array with one array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2312,9 +2313,9 @@ doTestInsertArrayOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one map message
+     Ptr(Ptr(char)) argv) // array with one map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2406,9 +2407,9 @@ doTestInsertArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with one set message
+     Ptr(Ptr(char)) argv) // array with one set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2500,9 +2501,9 @@ doTestInsertArrayOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoLogicalsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two logicals message
+     Ptr(Ptr(char)) argv) // array with two logicals message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2592,9 +2593,9 @@ doTestInsertArrayTwoLogicalsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoIntegersMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two integers message
+     Ptr(Ptr(char)) argv) // array with two integers message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2684,9 +2685,9 @@ doTestInsertArrayTwoIntegersMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two doubles message
+     Ptr(Ptr(char)) argv) // array with two doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2783,9 +2784,9 @@ doTestInsertArrayTwoDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoStringsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two strings message
+     Ptr(Ptr(char)) argv) // array with two strings message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2877,9 +2878,9 @@ doTestInsertArrayTwoStringsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoBlobsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two blobs message
+     Ptr(Ptr(char)) argv) // array with two blobs message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2971,9 +2972,9 @@ doTestInsertArrayTwoBlobsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoArraysMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two arrays message
+     Ptr(Ptr(char)) argv) // array with two arrays message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3076,9 +3077,9 @@ doTestInsertArrayTwoArraysMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoMapsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two maps message
+     Ptr(Ptr(char)) argv) // array with two maps message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3181,9 +3182,9 @@ doTestInsertArrayTwoMapsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayTwoSetsMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with two sets message
+     Ptr(Ptr(char)) argv) // array with two sets message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3286,9 +3287,9 @@ doTestInsertArrayTwoSetsMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneArrayOneMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with array and map message
+     Ptr(Ptr(char)) argv) // array with array and map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3391,9 +3392,9 @@ doTestInsertArrayOneArrayOneMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneMapOneSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with map and set message
+     Ptr(Ptr(char)) argv) // array with map and set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3496,9 +3497,9 @@ doTestInsertArrayOneMapOneSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayOneSetOneArrayMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with set and array message
+     Ptr(Ptr(char)) argv) // array with set and array message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3601,9 +3602,9 @@ doTestInsertArrayOneSetOneArrayMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertArrayWithManyDoublesMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // array with many doubles message
+     Ptr(Ptr(char)) argv) // array with many doubles message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3909,9 +3910,9 @@ doTestInsertArrayWithManyDoublesMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical map message
+     Ptr(Ptr(char)) argv) // logical map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4001,9 +4002,9 @@ doTestInsertLogicalMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4093,9 +4094,9 @@ doTestInsertIntegerMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringMapMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer map message
+     Ptr(Ptr(char)) argv) // integer map message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4186,9 +4187,9 @@ doTestInsertStringMapMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertLogicalSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical set message
+     Ptr(Ptr(char)) argv) // logical set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4274,9 +4275,9 @@ doTestInsertLogicalSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertIntegerSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4362,9 +4363,9 @@ doTestInsertIntegerSetMessage
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInsertStringSetMessage
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer set message
+     Ptr(Ptr(char)) argv) // integer set message
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -4454,8 +4455,8 @@ doTestInsertStringSetMessage
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

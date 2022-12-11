@@ -96,18 +96,29 @@ namespace nImO
             @param[in] numBytes The number of bytes to add. */
             virtual void
             appendBytes
-                (const uint8_t *    data,
-                 const size_t       numBytes);
+                (CPtr(uint8_t)  data,
+                 const size_t   numBytes);
 
             /*! @brief Add some bytes to the buffer.
             @param[in] data The bytes to be added.
             @param[in] numBytes The number of bytes to add. */
             inline void
             appendBytes
-                (const DataKind *   data,
-                 const size_t       numBytes)
+                (CPtr(DataKind) data,
+                 const size_t   numBytes)
             {
-                appendBytes(ReinterpretCast(const uint8_t *, data), numBytes);
+                appendBytes(ReinterpretCast(CPtr(uint8_t), data), numBytes);
+            }
+
+            /*! @brief Add some bytes to the buffer.
+             @param[in] data The bytes to be added.
+             @param[in] numBytes The number of bytes to add. */
+            inline void
+            appendBytes
+                (CPtr(char)     data,
+                 const size_t   numBytes)
+            {
+                appendBytes(ReinterpretCast(CPtr(uint8_t), data), numBytes);
             }
 
             /*! @brief Return @c true if a particular index is past the end of the buffer.
@@ -199,7 +210,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The internal buffers used to hold the assembled text. */
-            BufferChunk * *  _buffers;
+            Ptr(Ptr(BufferChunk))   _buffers;
 
             /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
             @c false otherwise. */

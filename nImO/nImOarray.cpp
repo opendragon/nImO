@@ -156,9 +156,9 @@ nImO::Array::deeplyEqualTo
 
     if (! result)
     {
-        const Array *   otherPtr = other.asArray();
+        CPtr(Array) otherPtr = other.asArray();
 
-        if (otherPtr && (size() == otherPtr->size()))
+        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};
@@ -394,7 +394,7 @@ nImO::Array::getExtractionInfo
     ODL_EXIT(); //####
 } // nImO::Array::getExtractionInfo
 
-const char *
+CPtr(char)
 nImO::Array::getInitialCharacters
     (void)
 {
@@ -405,7 +405,7 @@ nImO::Array::getInitialCharacters
     return initialChars;
 } // nImO::Array::getInitialCharacters
 
-const char *
+CPtr(char)
 nImO::Array::getTerminalCharacters
     (void)
 {
@@ -729,7 +729,7 @@ nImO::Array::writeToMessage
             if (aValue)
             {
                 // Check for sequences of Double values
-                const Double *  doubleValue = aValue->asDouble();
+                CPtr(Double)    doubleValue = aValue->asDouble();
 
                 if (nullptr == doubleValue)
                 {

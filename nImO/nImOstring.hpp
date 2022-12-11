@@ -85,7 +85,7 @@ namespace nImO
             /*! @brief The constructor.
             @param[in] initialValue The initial value for the object. */
             explicit String
-                (const char *   initialValue);
+                (CPtr(char) initialValue);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -149,7 +149,7 @@ namespace nImO
 
             /*! @brief Return the characters that can appear as the start of a String.
             @return The characters that can appear as the start of a String. */
-            static const char *
+            static CPtr(char)
             getInitialCharacters
                 (void);
 
@@ -245,7 +245,7 @@ namespace nImO
             @return The updated object. */
             inline String &
             operator =
-                (const char *   value)
+                (CPtr(char) value)
             {
                 _value = value;
                 return *this;

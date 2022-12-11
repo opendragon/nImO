@@ -82,10 +82,10 @@
  the left sequence is lexicographically less than the right sequence. */
 static int
 compareBytes
-    (const uint8_t *    leftValue,
-     const size_t       leftSize,
-     const uint8_t *    rightValue,
-     const size_t       rightSize)
+    (CPtr(uint8_t)  leftValue,
+     const size_t   leftSize,
+     CPtr(uint8_t)  rightValue,
+     const size_t   rightSize)
 {
     ODL_ENTER(); //####
     int result;
@@ -166,14 +166,14 @@ nImO::Blob::Blob
 } // nImO::Blob::Blob
 
 nImO::Blob::Blob
-    (const uint8_t *    data,
-     const size_t       size) :
+    (CPtr(uint8_t)  data,
+     const size_t   size) :
         inherited(), _value(), _size(0)
 {
     ODL_ENTER(); //####
     ODL_P1("datat = ", data); //####
     ODL_I1("size = ", size); //####
-    if (data && (0 < size))
+    if ((nullptr != data) && (0 < size))
     {
         _size = size;
         _value.reset(new uint8_t[_size]);
@@ -230,7 +230,7 @@ nImO::Blob::deeplyEqualTo
 
     if (! result)
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr != otherPtr)
         {
@@ -252,7 +252,7 @@ nImO::Blob::equalTo
 
     if (&other != this)
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {
@@ -408,7 +408,7 @@ nImO::Blob::greaterThan
     }
     else
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {
@@ -441,7 +441,7 @@ nImO::Blob::greaterThanOrEqual
 
     if (&other != this)
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {
@@ -478,7 +478,7 @@ nImO::Blob::lessThan
     }
     else
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {
@@ -511,7 +511,7 @@ nImO::Blob::lessThanOrEqual
 
     if (&other != this)
     {
-        const Blob *    otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr = other.asBlob();
 
         if (nullptr == otherPtr)
         {

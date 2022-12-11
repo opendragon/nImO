@@ -111,9 +111,9 @@ catchSignal
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidArgs
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid args
+     Ptr(Ptr(char)) argv) // invalid args
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -194,9 +194,9 @@ doTestInvalidArgs
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerSize
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer size
+     Ptr(Ptr(char)) argv) // integer size
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -255,9 +255,9 @@ doTestIntegerSize
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleSize
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // double size
+     Ptr(Ptr(char)) argv) // double size
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -303,9 +303,9 @@ doTestDoubleSize
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerConversion
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer conversion
+     Ptr(Ptr(char)) argv) // integer conversion
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -375,9 +375,9 @@ doTestIntegerConversion
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleConversion
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // double conversion
+     Ptr(Ptr(char)) argv) // double conversion
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -446,8 +446,8 @@ doTestDoubleConversion
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

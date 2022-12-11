@@ -117,7 +117,7 @@ catchSignal
 static int
 compareValueWithString
     (const Value &  aValue,
-     const char *   aString)
+     CPtr(char)   aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -145,9 +145,9 @@ compareValueWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyBufferChunk
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty buffer chunk
+     Ptr(Ptr(char)) argv) // empty buffer chunk
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -198,9 +198,9 @@ doTestEmptyBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkWithSingleByte
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // buffer chunk with 1 byte of data
+     Ptr(Ptr(char)) argv) // buffer chunk with 1 byte of data
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -222,7 +222,7 @@ doTestBufferChunkWithSingleByte
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                const uint8_t * storedData = stuff->getData();
+                CPtr(uint8_t) storedData = stuff->getData();
 
                 if (storedData && (data == *storedData))
                 {
@@ -263,9 +263,9 @@ doTestBufferChunkWithSingleByte
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFilledBufferChunk
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // buffer chunk filled with data
+     Ptr(Ptr(char)) argv) // buffer chunk filled with data
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -296,7 +296,7 @@ doTestFilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t * storedData = stuff->getData();
+                    CPtr(uint8_t) storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -354,9 +354,9 @@ doTestFilledBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestOverfilledBufferChunk
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // buffer chunk overfilled with data
+     Ptr(Ptr(char)) argv) // buffer chunk overfilled with data
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -387,7 +387,7 @@ doTestOverfilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    const uint8_t * storedData = stuff->getData();
+                    CPtr(uint8_t) storedData = stuff->getData();
 
                     if (storedData)
                     {
@@ -445,9 +445,9 @@ doTestOverfilledBufferChunk
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBufferChunkReset
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // resetting buffer chunk
+     Ptr(Ptr(char)) argv) // resetting buffer chunk
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -509,9 +509,9 @@ doTestBufferChunkReset
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyStringBuffer
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // empty string buffer
+     Ptr(Ptr(char)) argv) // empty string buffer
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -572,9 +572,9 @@ doTestEmptyStringBuffer
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithCharacters
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with character string
+     Ptr(Ptr(char)) argv) // string buffer with character string
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -587,10 +587,10 @@ doTestStringBufferWithCharacters
     {
         if (1 < argc)
         {
-            const char *    inString = *argv;
-            const char *    outString = argv[1];
-            size_t          outLength = strlen(outString);
-            auto            stuff{make_unique<StringBuffer>()};
+            CPtr(char)  inString = *argv;
+            CPtr(char)  outString = argv[1];
+            size_t      outLength = strlen(outString);
+            auto        stuff{make_unique<StringBuffer>()};
 
             if (nullptr != stuff)
             {
@@ -647,9 +647,9 @@ doTestStringBufferWithCharacters
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithLogical
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with logical
+     Ptr(Ptr(char)) argv) // string buffer with logical
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -662,8 +662,8 @@ doTestStringBufferWithLogical
     {
         if (1 < argc)
         {
-            const char *    outString = argv[1];
-            int64_t         value;
+            CPtr(char)  outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -720,9 +720,9 @@ doTestStringBufferWithLogical
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithInteger
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with integer
+     Ptr(Ptr(char)) argv) // string buffer with integer
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -735,8 +735,8 @@ doTestStringBufferWithInteger
     {
         if (1 < argc)
         {
-            const char *    outString = argv[1];
-            int64_t         value;
+            CPtr(char)  outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value))
             {
@@ -791,9 +791,9 @@ doTestStringBufferWithInteger
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithString
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with string
+     Ptr(Ptr(char)) argv) // string buffer with string
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -806,10 +806,10 @@ doTestStringBufferWithString
     {
         if (1 < argc)
         {
-            const char *    inString = *argv;
-            const char *    outString = argv[1];
-            size_t          outLength = strlen(outString);
-            auto            stuff{make_unique<StringBuffer>()};
+            CPtr(char)  inString = *argv;
+            CPtr(char)  outString = argv[1];
+            size_t      outLength = strlen(outString);
+            auto        stuff{make_unique<StringBuffer>()};
 
             if (nullptr != stuff)
             {
@@ -864,9 +864,9 @@ doTestStringBufferWithString
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSpecialCharacters
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with special chars
+     Ptr(Ptr(char)) argv) // string buffer with special chars
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -879,10 +879,10 @@ doTestStringBufferWithSpecialCharacters
 
     try
     {
-        const char *    inString = "abc\tdef\f\rghi\302";
-        const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t          outLength = strlen(outString);
-        auto            stuff{make_unique<StringBuffer>()};
+        CPtr(char)  inString = "abc\tdef\f\rghi\302";
+        CPtr(char)  outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        size_t      outLength = strlen(outString);
+        auto        stuff{make_unique<StringBuffer>()};
 
         if (nullptr != stuff)
         {
@@ -932,9 +932,9 @@ doTestStringBufferWithSpecialCharacters
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithDouble
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with floating point
+     Ptr(Ptr(char)) argv) // string buffer with floating point
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -947,8 +947,8 @@ doTestStringBufferWithDouble
     {
         if (1 < argc)
         {
-            const char *    outString = argv[1];
-            double          value;
+            CPtr(char)  outString = argv[1];
+            double      value;
 
             if (ConvertToDouble(*argv, value))
             {
@@ -1012,9 +1012,9 @@ doTestStringBufferWithDouble
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigStringBuffer
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big string buffer
+     Ptr(Ptr(char)) argv) // big string buffer
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1031,8 +1031,8 @@ doTestBigStringBuffer
 
         if (nullptr != stuff)
         {
-            const char *    bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
-            size_t          bigLength = strlen(bigString);
+            CPtr(char)  bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
+            size_t      bigLength = strlen(bigString);
 
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -1085,9 +1085,9 @@ doTestBigStringBuffer
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithEmptyBlob
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with empty blob
+     Ptr(Ptr(char)) argv) // string buffer with empty blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1105,8 +1105,8 @@ doTestStringBufferWithEmptyBlob
         if (nullptr != stuff)
         {
             stuff->addBytes(nullptr, 0);
-            auto            resultString{stuff->getString()};
-            const char *    expectedString = "%0%%";
+            auto        resultString{stuff->getString()};
+            CPtr(char)  expectedString = "%0%%";
 
             if (0 == resultString.compare(expectedString))
             {
@@ -1142,9 +1142,9 @@ doTestStringBufferWithEmptyBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithSmallBlob
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with small blob
+     Ptr(Ptr(char)) argv) // string buffer with small blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1167,8 +1167,8 @@ doTestStringBufferWithSmallBlob
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t *   addr = smallBlob.get();
-                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    Ptr(uint8_t)    addr = smallBlob.get();
+                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     smallBlob[ii] = aByte;
                 }
@@ -1226,9 +1226,9 @@ doTestStringBufferWithSmallBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferWithBigBlob
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string buffer with big blob
+     Ptr(Ptr(char)) argv) // string buffer with big blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1251,8 +1251,8 @@ doTestStringBufferWithBigBlob
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t *   addr = bigBlob.get();
-                    uint8_t     aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    Ptr(uint8_t)    addr = bigBlob.get();
+                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     bigBlob[ii] = aByte;
                 }
@@ -1310,9 +1310,9 @@ doTestStringBufferWithBigBlob
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringBufferReset
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // resetting string buffer
+     Ptr(Ptr(char)) argv) // resetting string buffer
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1376,9 +1376,9 @@ doTestStringBufferReset
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultLogicalValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // default logical value
+     Ptr(Ptr(char)) argv) // default logical value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1429,9 +1429,9 @@ doTestDefaultLogicalValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical values
+     Ptr(Ptr(char)) argv) // logical values
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -1444,8 +1444,8 @@ doTestLogicalValue
     {
         if (1 < argc)
         {
-            const char *    outString = argv[1];
-            int64_t         value;
+            CPtr(char)  outString = argv[1];
+            int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -1497,9 +1497,9 @@ doTestLogicalValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultIntegerValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // default integer value
+     Ptr(Ptr(char)) argv) // default integer value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1551,9 +1551,9 @@ doTestDefaultIntegerValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNumberValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // number values
+     Ptr(Ptr(char)) argv) // number values
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -1566,8 +1566,8 @@ doTestNumberValue
     {
         if (1 < argc)
         {
-            const char *    outString = argv[1];
-            int64_t         intValue;
+            CPtr(char)  outString = argv[1];
+            int64_t     intValue;
 
             if (ConvertToInt64(*argv, intValue))
             {
@@ -1644,9 +1644,9 @@ doTestNumberValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultStringValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // default string value
+     Ptr(Ptr(char)) argv) // default string value
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1697,9 +1697,9 @@ doTestDefaultStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string values
+     Ptr(Ptr(char)) argv) // string values
 {
     MDNS_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
@@ -1755,9 +1755,9 @@ doTestStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValueWithEscapes
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string value with escapes
+     Ptr(Ptr(char)) argv) // string value with escapes
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1770,9 +1770,9 @@ doTestStringValueWithEscapes
 
     try
     {
-        const char *    inString = "abc\tdef\f\rghi\302";
-        const char *    outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        auto            stuff{make_unique<String>(inString)};
+        CPtr(char)  inString = "abc\tdef\f\rghi\302";
+        CPtr(char)  outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        auto        stuff{make_unique<String>(inString)};
 
         if (nullptr != stuff)
         {
@@ -1810,9 +1810,9 @@ doTestStringValueWithEscapes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDefaultBlobValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // default blob
+     Ptr(Ptr(char)) argv) // default blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1863,9 +1863,9 @@ doTestDefaultBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSmallBlobValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // small blob
+     Ptr(Ptr(char)) argv) // small blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -1945,9 +1945,9 @@ doTestSmallBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBigBlobValue
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // big blob
+     Ptr(Ptr(char)) argv) // big blob
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2027,9 +2027,9 @@ doTestBigBlobValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLogicalCopyAndAssign
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // logical copy and assign
+     Ptr(Ptr(char)) argv) // logical copy and assign
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2099,9 +2099,9 @@ doTestLogicalCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerCopyAndAssign
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // integer copy and assign
+     Ptr(Ptr(char)) argv) // integer copy and assign
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2192,9 +2192,9 @@ doTestIntegerCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleCopyAndAssign
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // floating point copy and assign
+     Ptr(Ptr(char)) argv) // floating point copy and assign
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2284,9 +2284,9 @@ doTestDoubleCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringCopyAndAssign
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // string copy and assign
+     Ptr(Ptr(char)) argv) // string copy and assign
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2356,9 +2356,9 @@ doTestStringCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBlobCopyAndAssign
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // blob copy and assign
+     Ptr(Ptr(char)) argv) // blob copy and assign
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2392,8 +2392,8 @@ doTestBlobCopyAndAssign
             Blob            bigStuff(bigBlob.get(), kBigTestSize);
             size_t          smallLength = 0;
             size_t          bigLength = 0;
-            const uint8_t * smallValue = smallStuff.getValue(smallLength);
-            const uint8_t * bigValue = bigStuff.getValue(bigLength);
+            CPtr(uint8_t)   smallValue = smallStuff.getValue(smallLength);
+            CPtr(uint8_t)   bigValue = bigStuff.getValue(bigLength);
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
@@ -2473,9 +2473,9 @@ doTestBlobCopyAndAssign
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidLogicalCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid logical compares
+     Ptr(Ptr(char)) argv) // valid logical compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -2592,9 +2592,9 @@ doTestValidLogicalCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidNumberCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid number compares
+     Ptr(Ptr(char)) argv) // valid number compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3030,9 +3030,9 @@ doTestValidNumberCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidStringCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid string compares
+     Ptr(Ptr(char)) argv) // valid string compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3047,8 +3047,8 @@ doTestValidStringCompares
     {
         struct tests
         {
-            const char *        _leftValue;
-            const char *        _rightValue;
+            CPtr(char)          _leftValue;
+            CPtr(char)          _rightValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -3174,9 +3174,9 @@ doTestValidStringCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidBlobCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // valid blob compares
+     Ptr(Ptr(char)) argv) // valid blob compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3191,8 +3191,8 @@ doTestValidBlobCompares
     {
         struct tests
         {
-            const Blob *        _leftValue;
-            const Blob *        _rightValue;
+            CPtr(Blob)          _leftValue;
+            CPtr(Blob)          _rightValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -3328,9 +3328,9 @@ doTestValidBlobCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidLogicalCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid logical compares
+     Ptr(Ptr(char)) argv) // invalid logical compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3348,7 +3348,7 @@ doTestInvalidLogicalCompares
         Number              rightValue1;
         String              rightValue2;
         Blob                rightValue3;
-        Value *             rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Ptr(Value)          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t        numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3431,9 +3431,9 @@ doTestInvalidLogicalCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidNumberCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid number compares
+     Ptr(Ptr(char)) argv) // invalid number compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3451,7 +3451,7 @@ doTestInvalidNumberCompares
         Logical             rightValue1;
         String              rightValue2;
         Blob                rightValue3;
-        Value *             rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Ptr(Value)          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t        numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3534,9 +3534,9 @@ doTestInvalidNumberCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidStringCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid string compares
+     Ptr(Ptr(char)) argv) // invalid string compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3554,7 +3554,7 @@ doTestInvalidStringCompares
         Logical             rightValue1;
         Number              rightValue2;
         Blob                rightValue3;
-        Value *             rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Ptr(Value)          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t        numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3637,9 +3637,9 @@ doTestInvalidStringCompares
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestInvalidBlobCompares
-    (const char *   launchPath,
+    (CPtr(char)     launchPath,
      const int      argc,
-     char * *       argv) // invalid blob compares
+     Ptr(Ptr(char)) argv) // invalid blob compares
 {
     MDNS_UNUSED_ARG_(launchPath);
     MDNS_UNUSED_ARG_(argc);
@@ -3657,7 +3657,7 @@ doTestInvalidBlobCompares
         Logical             rightValue1;
         Number              rightValue2;
         String              rightValue3;
-        Value *             rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
+        Ptr(Value)          rightValues[] = { &rightValue1, &rightValue2, &rightValue3 };
         const size_t        numRightValues = A_SIZE(rightValues);
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3743,8 +3743,8 @@ doTestInvalidBlobCompares
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     char * *   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

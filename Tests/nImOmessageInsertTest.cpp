@@ -115,55 +115,28 @@ static int
 setValueAndCheck
     (Message &      stuff,
      const Value &  aValue,
-     CPtr(DataKind) expectedContents1,
-     const size_t   expectedSize1,
-     CPtr(uint8_t)  expectedContents2,
-     const size_t   expectedSize2)
+     CPtr(DataKind) expectedContents,
+     const size_t   expectedSize)
 {
     ODL_ENTER(); //####
-    ODL_P4("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents1 = ", //####
-           expectedContents1, "expectedContents2 = ", expectedContents2); //####
-    ODL_I2("expectedSize1 = ", expectedSize1, "expectedSize2 = ", expectedSize2); //####
+    ODL_P3("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents = ", expectedContents); //####
+    ODL_I1("expectedSize = ", expectedSize); //####
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    auto    contents1{stuff.getBytes()};
-    size_t  length1 = contents1.size();
+    auto    contents{stuff.getBytes()};
+    size_t  length = contents.size();
     int     result;
 
-    ODL_PACKET("expectedContents1", expectedContents1, expectedSize1); //####
-    ODL_PACKET("contents1", contents1.data(), length1); //####
-    if (expectedSize1 == length1)
+    ODL_PACKET("expectedContents1", expectedContents, expectedSize); //####
+    ODL_PACKET("contents1", contents.data(), length); //####
+    if (expectedSize == length)
     {
-        result = StaticCast(int, CompareBytes(expectedContents1, contents1.data(), expectedSize1));
-        if (0 == result)
-        {
-            if ((nullptr != expectedContents2) && (0 < expectedSize2))
-            {
-                std::string contents2{stuff.getBytesWithEscapes()};
-                size_t      length2 = contents2.size();
-
-                ODL_PACKET("expectedContents2", expectedContents2, expectedSize2); //####
-                ODL_PACKET("contents2", contents2.data(), length2); //####
-                if (expectedSize2 == length2)
-                {
-                    result = StaticCast(int, CompareBytes(expectedContents2, contents2.data(), expectedSize2));
-                }
-                else
-                {
-                    ODL_LOG("! (expectedSize2 == length2)"); //####
-                    result = 1;
-                }
-            }
-            else
-            {
-                ODL_LOG("! ((nullptr != expectedContents2) && (0 < expectedSize2))"); //####
-            }
-        }
+        result = StaticCast(int, CompareBytes(expectedContents, contents.data(), expectedSize));
     }
     else
     {
-        ODL_LOG("! (expectedSize1 == length1)"); //####
+        ODL_LOG("! (expectedSize == length)"); //####
         result = 1;
     }
     ODL_EXIT_I(result); //####
@@ -209,53 +182,29 @@ doTestInsertEmptyMessage
             };
             const size_t            expectedEmptyByteCount = A_SIZE(expectedEmptyBytes);
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto                    contents1{stuff->getBytes()};
-            size_t                  length1 = contents1.size();
+            auto                    contents{stuff->getBytes()};
+            size_t                  length = contents.size();
 
             stuff->open(true);
-            if (0 == length1)
+            if (0 == length)
             {
                 stuff->close();
-                contents1 = stuff->getBytes();
-                length1 = contents1.size();
-                ODL_PACKET("contents", contents1.data(), length1); //####
-                if (expectedEmptyByteCount == length1)
+                contents = stuff->getBytes();
+                length = contents.size();
+                ODL_PACKET("contents", contents.data(), length); //####
+                if (expectedEmptyByteCount == length)
                 {
-                    result = StaticCast(int, CompareBytes(expectedEmptyBytes, contents1.data(), expectedEmptyByteCount));
-                    if (0 == result)
-                    {
-                        static const uint8_t    transmitEmptyBytes[] =
-                        {
-                            0xF0, // Start of message
-                            0xF8, // End of message
-                            0x17 // Checksum
-                        };
-                        const size_t            transmitEmptyByteCount = A_SIZE(transmitEmptyBytes);
-                        std::string             contents2{stuff->getBytesWithEscapes()};
-                        size_t                  length2 = contents2.size();
-
-                        ODL_PACKET("transmitEmptyBytes", transmitEmptyBytes, //####
-                                   transmitEmptyByteCount); //####
-                        ODL_PACKET("contents2", contents2.data(), length2); //####
-                        if (transmitEmptyByteCount == length2)
-                        {
-                            result = StaticCast(int, CompareBytes(transmitEmptyBytes, contents2.data(), transmitEmptyByteCount));
-                        }
-                        else
-                        {
-                            ODL_LOG("! (transmitEmptyByteCount == length2)"); //####
-                            result = 1;
-                        }
-                    }
+                    result = StaticCast(int, CompareBytes(expectedEmptyBytes, contents.data(),
+                                                          expectedEmptyByteCount));
                 }
                 else
                 {
-                    ODL_LOG("! (expectedEmptyByteCount == length1)"); //####
+                    ODL_LOG("! (expectedEmptyByteCount == length)"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 == length1)"); //####
+                ODL_LOG("! (0 == length)"); //####
             }
         }
         else
@@ -332,30 +281,13 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedFalseByteCount = A_SIZE(expectedFalseBytes);
-            static const uint8_t    transmitFalseBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xC0, // Logical False
-                0xFF, // End of message, last is Other
-                0x49 // Checksum
-            };
-            const size_t            transmitFalseByteCount = A_SIZE(transmitFalseBytes);
-            static const uint8_t    transmitTrueBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xC1, // Logical true
-                0xFF, // End of message, last is Other
-                0x48 // Checksum
-            };
-            const size_t            transmitTrueByteCount = A_SIZE(transmitTrueBytes);
             Logical                 falseValue(false);
             Logical                 trueValue(true);
 
-            result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount, transmitTrueBytes, transmitTrueByteCount);
+            result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, falseValue, expectedFalseBytes, expectedFalseByteCount, transmitFalseBytes,
-                                          transmitFalseByteCount);
+                result = setValueAndCheck(*stuff, falseValue, expectedFalseBytes, expectedFalseByteCount);
             }
         }
         else
@@ -447,45 +379,18 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus12ByteCount = A_SIZE(expectedPlus12Bytes);
-            static const uint8_t    transmitMinus12Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x14, // Integer -12
-                0xFC, // End of message, last is Integer
-                0xFB // Checksum
-            };
-            const size_t            transmitMinus12ByteCount = A_SIZE(transmitMinus12Bytes);
-            static const uint8_t    transmitZeroBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x00, // Integer 0
-                0xFC, // End of message, last is Integer
-                0x0F // Checksum
-            };
-            const size_t            transmitZeroByteCount = A_SIZE(transmitZeroBytes);
-            static const uint8_t    transmitPlus12Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x0C, // Integer 12
-                0xFC, // End of message, last is Integer
-                0x03 // Checksum
-            };
-            const size_t            transmitPlus12ByteCount = A_SIZE(transmitPlus12Bytes);
             Integer                 minus12Value(-12);
             Integer                 zeroValue(0);
             Integer                 plus12Value(12);
 
-            result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes, expectedMinus12ByteCount, transmitMinus12Bytes,
-                                      transmitMinus12ByteCount);
+            result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes, expectedMinus12ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, zeroValue, expectedZeroBytes, expectedZeroByteCount, transmitZeroBytes,
-                                          transmitZeroByteCount);
+                result = setValueAndCheck(*stuff, zeroValue, expectedZeroBytes, expectedZeroByteCount);
             }
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Bytes, expectedPlus12ByteCount, transmitPlus12Bytes,
-                                          transmitPlus12ByteCount);
+                result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Bytes, expectedPlus12ByteCount);
             }
         }
         else
@@ -564,31 +469,13 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus144ByteCount = A_SIZE(expectedPlus144Bytes);
-            static const uint8_t    transmitMinus144Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x21, 0xFF, 0x70, // Integer -144
-                0xFC, // End of message, last is Integer
-                0x7F // Checksum
-            };
-            const size_t            transmitMinus144ByteCount = A_SIZE(transmitMinus144Bytes);
-            static const uint8_t    transmitPlus144Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x21, 0x00, 0x90, // Integer 144
-                0xFC, // End of message, last is Integer
-                0x5E // Checksum
-            };
-            const size_t            transmitPlus144ByteCount = A_SIZE(transmitPlus144Bytes);
             Integer                 minus144Value(-144);
             Integer                 plus144Value(144);
 
-            result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes, expectedMinus144ByteCount, transmitMinus144Bytes,
-                                      transmitMinus144ByteCount);
+            result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes, expectedMinus144ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Bytes, expectedPlus144ByteCount, transmitPlus144Bytes,
-                                          transmitPlus144ByteCount);
+                result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Bytes, expectedPlus144ByteCount);
             }
         }
         else
@@ -669,31 +556,15 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus1234567ByteCount = A_SIZE(expectedPlus1234567Bytes);
-            static const uint8_t    transmitMinus1234567Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x22, 0xED, 0x29, 0x79, // Integer -1234567
-                0xFC, // End of message, last is Integer
-                0x5E // Checksum
-            };
-            const size_t            transmitMinus1234567ByteCount = A_SIZE(transmitMinus1234567Bytes);
-            static const uint8_t    transmitPlus1234567Bytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x22, 0x12, 0xD6, 0x87, // Integer 1234567
-                0xFC, // End of message, last is Integer
-                0x7E // Checksum
-            };
-            const size_t            transmitPlus1234567ByteCount = A_SIZE(transmitPlus1234567Bytes);
             Integer                 minus1234567Value(-1234567);
             Integer                 plus1234567Value(1234567);
 
-            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes, expectedMinus1234567ByteCount, transmitMinus1234567Bytes,
-                                      transmitMinus1234567ByteCount);
+            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes,
+                                      expectedMinus1234567ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes, expectedPlus1234567ByteCount, transmitPlus1234567Bytes,
-                                          transmitPlus1234567ByteCount);
+                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes,
+                                          expectedPlus1234567ByteCount);
             }
         }
         else
@@ -776,31 +647,15 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlusBigNumberByteCount = A_SIZE(expectedPlusBigNumberBytes);
-            static const uint8_t    transmitMinusBigNumberBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x25, 0xED, 0xCB, 0xA9, 0x87, 0x65, 0x44, // Integer -20015998343868
-                0xFC, // End of message, last is Integer
-                0x59 // Checksum
-            };
-            const size_t            transmitMinusBigNumberByteCount = A_SIZE(transmitMinusBigNumberBytes);
-            static const uint8_t    transmitPlusBigNumberBytes[] =
-            {
-                0xF4, // Start of message, next is Integer
-                0x25, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, // Integer 20015998343868
-                0xFC, // End of message, last is Integer
-                0x80 // Checksum
-            };
-            const size_t            transmitPlusBigNumberByteCount = A_SIZE(transmitPlusBigNumberBytes);
             Integer                 minusBigNumberValue(-20015998343868);
             Integer                 plusBigNumberValue(20015998343868);
 
-            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes, expectedMinusBigNumberByteCount,
-                                      transmitMinusBigNumberBytes, transmitMinusBigNumberByteCount);
+            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes,
+                                      expectedMinusBigNumberByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes, expectedPlusBigNumberByteCount,
-                                          transmitPlusBigNumberBytes, transmitPlusBigNumberByteCount);
+                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes,
+                                          expectedPlusBigNumberByteCount);
             }
         }
         else
@@ -863,18 +718,9 @@ doTestInsertEmptyStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyStringByteCount = A_SIZE(expectedEmptyStringBytes);
-            static const uint8_t    transmitEmptyStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x80, // String - empty
-                0xFE, // End of message, last is String or Blob
-                0x8B // Checksum
-            };
-            const size_t            transmitEmptyStringByteCount = A_SIZE(transmitEmptyStringBytes);
             String                  emptyStringValue("");
 
-            result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount, transmitEmptyStringBytes,
-                                      transmitEmptyStringByteCount);
+            result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount);
         }
         else
         {
@@ -939,18 +785,9 @@ doTestInsertShortStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedShortStringByteCount = A_SIZE(expectedShortStringBytes);
-            static const uint8_t    transmitShortStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x86, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'
-                0xFE, // End of message, last is String or Blob
-                0x30 // Checksum
-            };
-            const size_t            transmitShortStringByteCount = A_SIZE(transmitShortStringBytes);
             String                  shortStringValue("abcdef");
 
-            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount, transmitShortStringBytes,
-                                      transmitShortStringByteCount);
+            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount);
         }
         else
         {
@@ -1034,21 +871,10 @@ doTestInsertMediumStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedMediumStringByteCount = A_SIZE(expectedMediumStringBytes);
-            static const uint8_t    transmitMediumStringBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0x90, 0x2A, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, // String - 'abcdef'*7, length = 42
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                0xFE, // End of message, last is String or Blob
-                0xFE // Checksum
-            };
-            const size_t            transmitMediumStringByteCount = A_SIZE(transmitMediumStringBytes);
             String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
-            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount,
-                                      transmitMediumStringBytes, transmitMediumStringByteCount);
+            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes,
+                                      expectedMediumStringByteCount);
         }
         else
         {
@@ -1110,18 +936,9 @@ doTestInsertEmptyBlobMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyBlobByteCount = A_SIZE(expectedEmptyBlobBytes);
-            static const uint8_t    transmitEmptyBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xA0, // Empty Blob
-                0xFE, // End of message, last is String or Blob
-                0x6B // Checksum
-            };
-            const size_t            transmitEmptyBlobByteCount = A_SIZE(transmitEmptyBlobBytes);
             Blob                    emptyBlobValue;
 
-            result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount,
-                                      transmitEmptyBlobBytes, transmitEmptyBlobByteCount);
+            result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount);
         }
         else
         {
@@ -1191,18 +1008,9 @@ doTestInsertSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-            static const uint8_t    transmitSmallBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xA6, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Short Blob
-                0xFE, // End of message, last is String or Blob
-                0xFA // Checksum
-            };
-            const size_t            transmitSmallBlobByteCount = A_SIZE(transmitSmallBlobBytes);
             Blob                    smallBlobValue(actualData, actualDataCount);
 
-            result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount, transmitSmallBlobBytes,
-                                      transmitSmallBlobByteCount);
+            result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount);
         }
         else
         {
@@ -1297,24 +1105,9 @@ doTestInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount = A_SIZE(actualData);
-            static const uint8_t    transmitMediumBlobBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xB0, 0x2A, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, // Medium Blob, length = 42
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
-                0xFE, // End of message, last is String or Blob
-                0x44 // Checksum
-            };
-            const size_t            transmitMediumBlobByteCount = A_SIZE(transmitMediumBlobBytes);
             Blob                    mediumBlobValue(actualData, actualDataCount);
 
-            result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount, transmitMediumBlobBytes,
-                                      transmitMediumBlobByteCount);
+            result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount);
         }
         else
         {
@@ -1400,33 +1193,15 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t            expectedMinus42Point5ByteCount = A_SIZE(expectedMinus42Point5Bytes);
-            static const uint8_t    transmitMinus42Point5Bytes[] =
-            {
-                0xF5, // Start of message, next is Doubleing-point
-                0x40, 0xC0, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, -42.5
-                0xFD, // End of message, last is Doubleing-point
-                0x88 // Checksum
-            };
-            const size_t            transmitMinus42Point5ByteCount = A_SIZE(transmitMinus42Point5Bytes);
-            static const uint8_t    transmitPlus42Point5Bytes[] =
-            {
-                0xF5, // Start of message, next is Doubleing-point
-                0x40, 0x40, 0x45, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, // one Double value, 42.5
-                0xFD, // End of message, last is Doubleing-point
-                0x08 // Checksum
-            };
-            const size_t            transmitPlus42Point5ByteCount = A_SIZE(transmitPlus42Point5Bytes);
             Double                  plus42Point5Value(42.5);
             Double                  minus42Point5Value(-42.5);
 
             result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Bytes,
-                                      expectedPlus42Point5ByteCount, transmitPlus42Point5Bytes,
-                                      transmitPlus42Point5ByteCount);
+                                      expectedPlus42Point5ByteCount);
             if (0 == result)
             {
                 result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Bytes,
-                                          expectedMinus42Point5ByteCount, transmitMinus42Point5Bytes,
-                                          transmitMinus42Point5ByteCount);
+                                          expectedMinus42Point5ByteCount);
             }
         }
         else
@@ -1446,86 +1221,6 @@ doTestInsertSingleDoubleMessage
 #if defined(__APPLE__)
 # pragma mark *** Test Case 014 ***
 #endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestInsertMultipleEscapesMessage
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // message with multiple escapes
-{
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
-    try
-    {
-        auto    stuff{make_unique<Message>()};
-
-        if (nullptr != stuff)
-        {
-            static const DataKind   expectedMultipleEscapesBytes[] =
-            {
-                // Start of Message
-                DataKind::StartOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue,
-                // Blob
-                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                  DataKind::StringOrBlobShortLengthValue |
-                  (10 & DataKind::StringOrBlobShortLengthMask),
-                StaticCast(DataKind, 0xDC), StaticCast(DataKind, 0xF0),
-                StaticCast(DataKind, 0xF1), StaticCast(DataKind, 0xF2),
-                StaticCast(DataKind, 0x0D), StaticCast(DataKind, 0xF3),
-                StaticCast(DataKind, 0xF4), StaticCast(DataKind, 0xF5),
-                StaticCast(DataKind, 0xF6), StaticCast(DataKind, 0xF7),
-                // End of Message
-                DataKind::EndOfMessageValue |
-                  DataKind::OtherMessageNonEmptyValue |
-                  DataKind::OtherMessageExpectedStringOrBlobValue
-            };
-            const size_t            expectedMultipleEscapesByteCount = A_SIZE(expectedMultipleEscapesBytes);
-            static const uint8_t    actualData[] =
-            {
-                0xDC, 0xF0, 0xF1, 0xF2, 0x0D, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7
-            };
-            const size_t            actualDataCount = A_SIZE(actualData);
-            static const uint8_t    transmitMultipleEscapesBytes[] =
-            {
-                0xF6, // Start of message, next is String or Blob
-                0xAA, 0xDC, 0x5C, 0xDC, 0x70, 0xDC, 0x71, 0xDC, 0x72, 0x0D, 0xDC, 0x73, 0xDC, 0x74,
-                0xDC, 0x75, 0xDC, 0x76, 0xDC, 0x77, // many escapes
-                0xFE, // End of message, last is String or Blob
-                0xDC, 0x5C // Checksum
-            };
-            const size_t            transmitMultipleEscapesByteCount = A_SIZE(transmitMultipleEscapesBytes);
-            Blob                    multipleEscapesValue(actualData, actualDataCount);
-
-            result = setValueAndCheck(*stuff, multipleEscapesValue, expectedMultipleEscapesBytes, expectedMultipleEscapesByteCount,
-                                      transmitMultipleEscapesBytes, transmitMultipleEscapesByteCount);
-        }
-        else
-        {
-            ODL_LOG("! (stuff)"); //####
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestInsertMultipleEscapesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -1577,19 +1272,9 @@ doTestInsertEmptyArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyArrayByteCount = A_SIZE(expectedEmptyArrayBytes);
-            static const uint8_t    transmitEmptyArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xFF, // End of message, last is Other
-                0x59 // Checksum
-            };
-            const size_t            transmitEmptyArrayByteCount = A_SIZE(transmitEmptyArrayBytes);
             Array                   emptyArray;
 
-            result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount, transmitEmptyArrayBytes,
-                                      transmitEmptyArrayByteCount);
+            result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount);
         }
         else
         {
@@ -1655,19 +1340,9 @@ doTestInsertEmptyMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyMapByteCount = A_SIZE(expectedEmptyMapBytes);
-            static const uint8_t    transmitEmptyMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xFF, // End of message, last is Other
-                0x51 // Checksum
-            };
-            const size_t            transmitEmptyMapByteCount = A_SIZE(transmitEmptyMapBytes);
             Map                     emptyMap;
 
-            result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount, transmitEmptyMapBytes,
-                                      transmitEmptyMapByteCount);
+            result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount);
         }
         else
         {
@@ -1733,19 +1408,9 @@ doTestInsertEmptySetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptySetByteCount = A_SIZE(expectedEmptySetBytes);
-            static const uint8_t    transmitEmptySetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xFF, // End of message, last is Other
-                0x49 // Checksum
-            };
-            const size_t            transmitEmptySetByteCount = A_SIZE(transmitEmptySetBytes);
             Set                     emptySet;
 
-            result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount, transmitEmptySetBytes,
-                                      transmitEmptySetByteCount);
+            result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount);
         }
         else
         {
@@ -1819,21 +1484,11 @@ doTestInsertArrayOneLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneLogicalByteCount = A_SIZE(expectedArrayOneLogicalBytes);
-            static const uint8_t    transmitArrayOneLogicalBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xC0, // Logical false
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x87 // Checksum
-            };
-            const size_t            transmitArrayOneLogicalByteCount = A_SIZE(transmitArrayOneLogicalBytes);
             Array                   arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes, expectedArrayOneLogicalByteCount,
-                                      transmitArrayOneLogicalBytes, transmitArrayOneLogicalByteCount);
+            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes,
+                                      expectedArrayOneLogicalByteCount);
         }
         else
         {
@@ -1907,21 +1562,11 @@ doTestInsertArrayOneIntegerMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneIntegerByteCount = A_SIZE(expectedArrayOneIntegerBytes);
-            static const uint8_t    transmitArrayOneIntegerBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x00, // Integer zero
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x47 // Checksum
-            };
-            const size_t            transmitArrayOneIntegerByteCount = A_SIZE(transmitArrayOneIntegerBytes);
             Array                   arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes, expectedArrayOneIntegerByteCount,
-                                      transmitArrayOneIntegerBytes, transmitArrayOneIntegerByteCount);
+            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes,
+                                      expectedArrayOneIntegerByteCount);
         }
         else
         {
@@ -2000,21 +1645,11 @@ doTestInsertArrayOneDoubleMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneDoubleByteCount = A_SIZE(expectedArrayOneDoubleBytes);
-            static const uint8_t    transmitArrayOneDoubleBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Double zero
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x07 // Checksum
-            };
-            const size_t            transmitArrayOneDoubleByteCount = A_SIZE(transmitArrayOneDoubleBytes);
             Array                   arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes, expectedArrayOneDoubleByteCount,
-                                      transmitArrayOneDoubleBytes, transmitArrayOneDoubleByteCount);
+            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes,
+                                      expectedArrayOneDoubleByteCount);
         }
         else
         {
@@ -2089,21 +1724,11 @@ doTestInsertArrayOneStringMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneStringByteCount = A_SIZE(expectedArrayOneStringBytes);
-            static const uint8_t    transmitArrayOneStringBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0x80, // Empty String
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC7 // Checksum
-            };
-            const size_t            transmitArrayOneStringByteCount = A_SIZE(transmitArrayOneStringBytes);
             Array                   arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes, expectedArrayOneStringByteCount,
-                                      transmitArrayOneStringBytes, transmitArrayOneStringByteCount);
+            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes,
+                                      expectedArrayOneStringByteCount);
         }
         else
         {
@@ -2178,21 +1803,10 @@ doTestInsertArrayOneBlobMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneBlobByteCount = A_SIZE(expectedArrayOneBlobBytes);
-            static const uint8_t    transmitArrayOneBlobBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xA0, // Empty Blob
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xA7 // Checksum
-            };
-            const size_t            transmitArrayOneBlobByteCount = A_SIZE(transmitArrayOneBlobBytes);
             Array                   arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes, expectedArrayOneBlobByteCount,
-                                      transmitArrayOneBlobBytes, transmitArrayOneBlobByteCount);
+            result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes, expectedArrayOneBlobByteCount);
         }
         else
         {
@@ -2271,22 +1885,11 @@ doTestInsertArrayOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayByteCount = A_SIZE(expectedArrayOneArrayBytes);
-            static const uint8_t    transmitArrayOneArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x97 // Checksum
-            };
-            const size_t            transmitArrayOneArrayByteCount = A_SIZE(transmitArrayOneArrayBytes);
             Array                   arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes, expectedArrayOneArrayByteCount,
-                                      transmitArrayOneArrayBytes, transmitArrayOneArrayByteCount);
+            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes,
+                                      expectedArrayOneArrayByteCount);
         }
         else
         {
@@ -2365,22 +1968,10 @@ doTestInsertArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapByteCount = A_SIZE(expectedArrayOneMapBytes);
-            static const uint8_t    transmitArrayOneMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x8F // Checksum
-            };
-            const size_t            transmitArrayOneMapByteCount = A_SIZE(transmitArrayOneMapBytes);
             Array                   arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes, expectedArrayOneMapByteCount,
-                                      transmitArrayOneMapBytes, transmitArrayOneMapByteCount);
+            result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes, expectedArrayOneMapByteCount);
         }
         else
         {
@@ -2459,22 +2050,10 @@ doTestInsertArrayOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetByteCount = A_SIZE(expectedArrayOneSetBytes);
-            static const uint8_t    transmitArrayOneSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x10, // Start of non-empty Array, one element
-                0xD8, // Start of empty Map
-                0xE8, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x87 // Checksum
-            };
-            const size_t            transmitArrayOneSetByteCount = A_SIZE(transmitArrayOneSetBytes);
             Array                   arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes, expectedArrayOneSetByteCount,
-                                      transmitArrayOneSetBytes, transmitArrayOneSetByteCount);
+            result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes, expectedArrayOneSetByteCount);
         }
         else
         {
@@ -2551,22 +2130,12 @@ doTestInsertArrayTwoLogicalsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoLogicalsByteCount = A_SIZE(expectedArrayTwoLogicalsBytes);
-            static const uint8_t    transmitArrayTwoLogicalsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xC0, 0xC0, // Two Logical falses
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC6 // Checksum
-            };
-            const size_t            transmitArrayTwoLogicalsByteCount = A_SIZE(transmitArrayTwoLogicalsBytes);
             Array                   arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes, expectedArrayTwoLogicalsByteCount,
-                                      transmitArrayTwoLogicalsBytes, transmitArrayTwoLogicalsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes,
+                                      expectedArrayTwoLogicalsByteCount);
         }
         else
         {
@@ -2643,22 +2212,12 @@ doTestInsertArrayTwoIntegersMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoIntegersByteCount = A_SIZE(expectedArrayTwoIntegersBytes);
-            static const uint8_t    transmitArrayTwoIntegersBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x00, 0x00, // Two Integer zeroes
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x46 // Checksum
-            };
-            const size_t            transmitArrayTwoIntegersByteCount = A_SIZE(transmitArrayTwoIntegersBytes);
             Array                   arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes, expectedArrayTwoIntegersByteCount,
-                                      transmitArrayTwoIntegersBytes, transmitArrayTwoIntegersByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes,
+                                      expectedArrayTwoIntegersByteCount);
         }
         else
         {
@@ -2741,23 +2300,12 @@ doTestInsertArrayTwoDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoDoublesByteCount = A_SIZE(expectedArrayTwoDoublesBytes);
-            static const uint8_t    transmitArrayTwoDoublesBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Two Double zeroes
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x05 // Checksum
-            };
-            const size_t            transmitArrayTwoDoublesByteCount = A_SIZE(transmitArrayTwoDoublesBytes);
             Array                   arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes, expectedArrayTwoDoublesByteCount,
-                                      transmitArrayTwoDoublesBytes, transmitArrayTwoDoublesByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes,
+                                      expectedArrayTwoDoublesByteCount);
         }
         else
         {
@@ -2836,22 +2384,12 @@ doTestInsertArrayTwoStringsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoStringsByteCount = A_SIZE(expectedArrayTwoStringsBytes);
-            static const uint8_t    transmitArrayTwoStringsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0x80, 0x80, // Two empty Strings
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x46 // Checksum
-            };
-            const size_t            transmitArrayTwoStringsByteCount = A_SIZE(transmitArrayTwoStringsBytes);
             Array                   arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes, expectedArrayTwoStringsByteCount,
-                                      transmitArrayTwoStringsBytes, transmitArrayTwoStringsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes,
+                                      expectedArrayTwoStringsByteCount);
         }
         else
         {
@@ -2930,22 +2468,12 @@ doTestInsertArrayTwoBlobsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoBlobsByteCount = A_SIZE(expectedArrayTwoBlobsBytes);
-            static const uint8_t    transmitArrayTwoBlobsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xA0, 0xA0, // Two empty Blobs
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0x06 // Checksum
-            };
-            const size_t            transmitArrayTwoBlobsByteCount = A_SIZE(transmitArrayTwoBlobsBytes);
             Array                   arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes, expectedArrayTwoBlobsByteCount,
-                                      transmitArrayTwoBlobsBytes, transmitArrayTwoBlobsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes,
+                                      expectedArrayTwoBlobsByteCount);
         }
         else
         {
@@ -3032,25 +2560,12 @@ doTestInsertArrayTwoArraysMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoArraysByteCount = A_SIZE(expectedArrayTwoArraysBytes);
-            static const uint8_t    transmitArrayTwoArraysBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD0, // Start of first empty Array
-                0xE0, // End of first empty Array
-                0xD0, // Start of second empty Array
-                0xE0, // End of second empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xE6 // Checksum
-            };
-            const size_t            transmitArrayTwoArraysByteCount = A_SIZE(transmitArrayTwoArraysBytes);
             Array                   arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes, expectedArrayTwoArraysByteCount,
-                                      transmitArrayTwoArraysBytes, transmitArrayTwoArraysByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes,
+                                      expectedArrayTwoArraysByteCount);
         }
         else
         {
@@ -3137,25 +2652,11 @@ doTestInsertArrayTwoMapsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoMapsByteCount = A_SIZE(expectedArrayTwoMapsBytes);
-            static const uint8_t    transmitArrayTwoMapsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD4, // Start of first empty Map
-                0xE4, // End of first empty Map
-                0xD4, // Start of first empty Map
-                0xE4, // End of first empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xD6 // Checksum
-            };
-            const size_t            transmitArrayTwoMapsByteCount = A_SIZE(transmitArrayTwoMapsBytes);
             Array                   arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsBytes, expectedArrayTwoMapsByteCount,
-                                      transmitArrayTwoMapsBytes, transmitArrayTwoMapsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsBytes, expectedArrayTwoMapsByteCount);
         }
         else
         {
@@ -3242,25 +2743,11 @@ doTestInsertArrayTwoSetsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoSetsByteCount = A_SIZE(expectedArrayTwoSetsBytes);
-            static const uint8_t    transmitArrayTwoSetsBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD8, // Start of first empty Set
-                0xE8, // End of first empty Set
-                0xD8, // Start of first empty Set
-                0xE8, // End of first empty Set
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xC6 // Checksum
-            };
-            const size_t            transmitArrayTwoSetsByteCount = A_SIZE(transmitArrayTwoSetsBytes);
             Array                   arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsBytes, expectedArrayTwoSetsByteCount,
-                                      transmitArrayTwoSetsBytes, transmitArrayTwoSetsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsBytes, expectedArrayTwoSetsByteCount);
         }
         else
         {
@@ -3347,25 +2834,12 @@ doTestInsertArrayOneArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayOneMapByteCount = A_SIZE(expectedArrayOneArrayOneMapBytes);
-            static const uint8_t    transmitArrayOneArrayOneMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xDE // Checksum
-            };
-            const size_t            transmitArrayOneArrayOneMapByteCount = A_SIZE(transmitArrayOneArrayOneMapBytes);
             Array                   arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes, expectedArrayOneArrayOneMapByteCount,
-                                      transmitArrayOneArrayOneMapBytes, transmitArrayOneArrayOneMapByteCount);
+            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes,
+                                      expectedArrayOneArrayOneMapByteCount);
         }
         else
         {
@@ -3452,25 +2926,12 @@ doTestInsertArrayOneMapOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapOneSetByteCount = A_SIZE(expectedArrayOneMapOneSetBytes);
-            static const uint8_t    transmitArrayOneMapOneSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD4, // Start of empty Map
-                0xE4, // End of empty Map
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xCE // Checksum
-            };
-            const size_t            transmitArrayOneMapOneSetByteCount = A_SIZE(transmitArrayOneMapOneSetBytes);
             Array                   arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes, expectedArrayOneMapOneSetByteCount,
-                                      transmitArrayOneMapOneSetBytes, transmitArrayOneMapOneSetByteCount);
+            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes,
+                                      expectedArrayOneMapOneSetByteCount);
         }
         else
         {
@@ -3557,25 +3018,12 @@ doTestInsertArrayOneSetOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetOneArrayByteCount = A_SIZE(expectedArrayOneSetOneArrayBytes);
-            static const uint8_t    transmitArrayOneSetOneArrayBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x11, // Start of non-empty Array, two elements
-                0xD8, // Start of empty Set
-                0xE8, // End of empty Set
-                0xD0, // Start of empty Array
-                0xE0, // End of empty Array
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xD6 // Checksum
-            };
-            const size_t            transmitArrayOneSetOneArrayByteCount = A_SIZE(transmitArrayOneSetOneArrayBytes);
             Array                   arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes, expectedArrayOneSetOneArrayByteCount,
-                                      transmitArrayOneSetOneArrayBytes, transmitArrayOneSetOneArrayByteCount);
+            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes,
+                                      expectedArrayOneSetOneArrayByteCount);
         }
         else
         {
@@ -3823,67 +3271,14 @@ doTestInsertArrayWithManyDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayManyDoublesByteCount = A_SIZE(expectedArrayManyDoublesBytes);
-            static const uint8_t    transmitArrayManyDoublesBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD1, 0x20, 0x1A, // Start of non-empty Array, 42 elements
-                0x60, 0x2B, // Count of doubles that follow
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
-                0x3F, 0xDC, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 1 [note the escape]
-                0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 2
-                0x40, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 3
-                0x40, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 4
-                0x40, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5
-                0x40, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 6
-                0x40, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 7
-                0x40, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 8
-                0x40, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 9
-                0x40, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 10
-                0x40, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 11
-                0x40, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 12
-                0x40, 0x2A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 13
-                0x40, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 14
-                0x40, 0x2E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 15
-                0x40, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 16
-                0x40, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 17
-                0x40, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 18
-                0x40, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 19
-                0x40, 0x34, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 20
-                0x40, 0x35, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 21
-                0x40, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 22
-                0x40, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 23
-                0x40, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 24
-                0x40, 0x39, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 25
-                0x40, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 26
-                0x40, 0x3B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 27
-                0x40, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 28
-                0x40, 0x3D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 29
-                0x40, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 30
-                0x40, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 31
-                0x40, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 32
-                0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 33
-                0x40, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 34
-                0x40, 0x41, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 35
-                0x40, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 36
-                0x40, 0x42, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 37
-                0x40, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 38
-                0x40, 0x43, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 39
-                0x40, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 40
-                0x40, 0x44, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, // 41
-                0x40, 0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 42
-                0xE1, // End of non-empty Array
-                0xFF, // End of message, last is Other
-                0xBA // Checksum
-            };
-            const size_t            transmitArrayManyDoublesByteCount = A_SIZE(transmitArrayManyDoublesBytes);
             Array                   arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes, expectedArrayManyDoublesByteCount,
-                                      transmitArrayManyDoublesBytes, transmitArrayManyDoublesByteCount);
+            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes,
+                                      expectedArrayManyDoublesByteCount);
         }
         else
         {
@@ -3960,22 +3355,10 @@ doTestInsertLogicalMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalMapByteCount = A_SIZE(expectedLogicalMapBytes);
-            static const uint8_t    transmitLogicalMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0xC0, // Logical key = false
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0x72 // Checksum
-            };
-            const size_t            transmitLogicalMapByteCount = A_SIZE(transmitLogicalMapBytes);
             Map                     logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes, expectedLogicalMapByteCount, transmitLogicalMapBytes,
-                                      transmitLogicalMapByteCount);
+            result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes, expectedLogicalMapByteCount);
         }
         else
         {
@@ -4052,22 +3435,10 @@ doTestInsertIntegerMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerMapByteCount = A_SIZE(expectedIntegerMapBytes);
-            static const uint8_t    transmitIntegerMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0x00, // Integer key = 0
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0x32 // Checksum
-            };
-            const size_t            transmitIntegerMapByteCount = A_SIZE(transmitIntegerMapBytes);
             Map                     integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes, expectedIntegerMapByteCount, transmitIntegerMapBytes,
-                                      transmitIntegerMapByteCount);
+            result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes, expectedIntegerMapByteCount);
         }
         else
         {
@@ -4145,22 +3516,10 @@ doTestInsertStringMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringMapByteCount = A_SIZE(expectedStringMapBytes);
-            static const uint8_t    transmitStringMapBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD5, 0x10, // Start of non-empty Map, one element
-                0x80, // String key = empty
-                0x0D, // Integer value = 13
-                0xE5, // End of non-empty Map
-                0xFF, // End of message, last is Other
-                0xB2 // Checksum
-            };
-            const size_t            transmitStringMapByteCount = A_SIZE(transmitStringMapBytes);
             Map                     stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
-            result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes, expectedStringMapByteCount, transmitStringMapBytes,
-                                      transmitStringMapByteCount);
+            result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes, expectedStringMapByteCount);
         }
         else
         {
@@ -4234,21 +3593,10 @@ doTestInsertLogicalSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalSetByteCount = A_SIZE(expectedLogicalSetBytes);
-            static const uint8_t    transmitLogicalSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0xC0, // Logical key = false
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0x77 // Checksum
-            };
-            const size_t            transmitLogicalSetByteCount = A_SIZE(transmitLogicalSetBytes);
             Set                     logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes, expectedLogicalSetByteCount, transmitLogicalSetBytes,
-                                      transmitLogicalSetByteCount);
+            result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes, expectedLogicalSetByteCount);
         }
         else
         {
@@ -4322,21 +3670,10 @@ doTestInsertIntegerSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerSetByteCount = A_SIZE(expectedIntegerSetBytes);
-            static const uint8_t    transmitIntegerSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0x00, // Integer key = 0
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0x37 // Checksum
-            };
-            const size_t            transmitIntegerSetByteCount = A_SIZE(transmitIntegerSetBytes);
             Set                     integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes, expectedIntegerSetByteCount, transmitIntegerSetBytes,
-                                      transmitIntegerSetByteCount);
+            result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes, expectedIntegerSetByteCount);
         }
         else
         {
@@ -4411,21 +3748,10 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringSetByteCount = A_SIZE(expectedStringSetBytes);
-            static const uint8_t    transmitStringSetBytes[] =
-            {
-                0xF7, // Start of message, next is Other
-                0xD9, 0x10, // Start of non-empty Set, one element
-                0x80, // String key = empty
-                0xE9, // End of non-empty Set
-                0xFF, // End of message, last is Other
-                0xB7 // Checksum
-            };
-            const size_t            transmitStringSetByteCount = A_SIZE(transmitStringSetBytes);
             Set                     stringSet;
 
             stringSet.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount, transmitStringSetBytes,
-                                      transmitStringSetByteCount);
+            result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount);
         }
         else
         {
@@ -4534,10 +3860,6 @@ main
 
                     case 13 :
                         result = doTestInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 14 :
-                        result = doTestInsertMultipleEscapesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :

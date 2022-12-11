@@ -126,19 +126,6 @@ namespace nImO
                 (void)
                 override;
 
-            /*! @brief Return a copy of the bytes in the Message, with special characters escaped.
-            Start-of-message bytes (as well as escape bytes) are escaped if present in the Message,
-            except for the initial start-of-message byte.
-            Escaping a byte involves inverting the high bit of the byte and having an escape byte
-            inserted before the byte.
-            The Message bytes are followed by a checksum byte, which is escaped if it matches a
-            start-of-message byte or an escape byte.
-            @return A string copy of the bytes in the Message, with characters escaped if
-            necessary. */
-            std::string
-            getBytesWithEscapes
-                (void);
-
             /*! @brief Return the number of valid bytes in the buffer.
             @return The number of valid bytes in the buffer. */
             virtual size_t

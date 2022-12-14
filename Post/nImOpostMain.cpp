@@ -144,10 +144,11 @@ main
             std::string         header{secondArg.getCurrentValue()};
             bool                readFromStdin{firstArg.getCurrentValue()};
             auto                stuff{make_unique<nImO::Message>()};
-            nImO::Array         stringsToSend;
 
             if (nullptr != stuff)
             {
+                nImO::SpArray   stringsToSend(new nImO::Array);
+
 // collect the logging ports!!
                 if (0 < header.length())
                 {
@@ -156,7 +157,7 @@ main
                     {
                         header += " " + arguments[ii];
                     }
-                    stringsToSend.addValue(std::make_shared<nImO::String>(header));
+                    stringsToSend->addValue(std::make_shared<nImO::String>(header));
                 }
                 if (readFromStdin)
                 {
@@ -164,15 +165,22 @@ main
 
                     while (getline(std::cin, inLine))
                     {
-                        stringsToSend.addValue(std::make_shared<nImO::String>(inLine));
+                        stringsToSend->addValue(std::make_shared<nImO::String>(inLine));
                     }
                 }
-                if (0 < stringsToSend.size())
+                if (0 < stringsToSend->size())
                 {
                     nImO::Message   messageToSend;
 
                     messageToSend.open(true);
-                    messageToSend.setValue(stringsToSend);
+                    if (1 < stringsToSend->size())
+                    {
+                        messageToSend.setValue(stringsToSend);
+                    }
+                    else
+                    {
+                        messageToSend.setValue(stringsToSend->at(0));
+                    }
                     messageToSend.close();
                     if (ourContext.report(messageToSend))
                     {

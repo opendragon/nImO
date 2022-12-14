@@ -186,11 +186,11 @@ doTestEmptyArrayValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar, kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ', kEndArrayChar, '\0'
             };
@@ -257,13 +257,13 @@ doTestSingularArrayValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
                     '1', '2', '3', '.', '4', '5',
                 kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -333,7 +333,7 @@ doTestSmallArrayValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -342,7 +342,7 @@ doTestSmallArrayValue
                     '4', '2',
                 kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
@@ -1017,11 +1017,11 @@ doTestEmptyMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar, kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ', kEndMapChar, '\0'
             };
@@ -1088,14 +1088,14 @@ doTestSingularLogicalMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
@@ -1166,13 +1166,13 @@ doTestSingularIntegerMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
@@ -1242,14 +1242,14 @@ doTestSingularStringMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                         kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -1320,7 +1320,7 @@ doTestSmallLogicalMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     'f', 'a', 'l', 's', 'e', kKeyValueSeparator, '4', '2', ' ',
@@ -1328,7 +1328,7 @@ doTestSmallLogicalMapValue
                     '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ' ',
@@ -1401,7 +1401,7 @@ doTestSmallIntegerMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '1', '2', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
@@ -1409,7 +1409,7 @@ doTestSmallIntegerMapValue
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
@@ -1483,7 +1483,7 @@ doTestSmallStringMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', kKeyValueSeparator,
@@ -1494,7 +1494,7 @@ doTestSmallStringMapValue
                         '1', '2', '.', '3', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
@@ -2075,11 +2075,11 @@ doTestEmptySetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar, kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ', kEndSetChar, '\0'
             };
@@ -2146,13 +2146,13 @@ doTestSingularLogicalSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
@@ -2222,13 +2222,13 @@ doTestSingularIntegerSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '4', '2',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
@@ -2298,13 +2298,13 @@ doTestSingularStringSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -2374,14 +2374,14 @@ doTestSmallLogicalSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ',
@@ -2455,7 +2455,7 @@ doTestSmallIntegerSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '1', '2', ' ',
@@ -2464,7 +2464,7 @@ doTestSmallIntegerSetValue
                     '1', '2', '3',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '1', '2', ' ',
@@ -2544,7 +2544,7 @@ doTestSmallStringSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
@@ -2553,7 +2553,7 @@ doTestSmallStringSetValue
                     '"', 'g', 'a', 'm', 'm', 'a', '"',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
@@ -3142,13 +3142,13 @@ doTestArrayWithArrayValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
                     kStartArrayChar, kEndArrayChar,
                 kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartArrayChar, ' ', kEndArrayChar, ' ',
@@ -3218,13 +3218,13 @@ doTestArrayWithMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
                     kStartMapChar, kEndMapChar,
                 kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartMapChar, ' ', kEndMapChar, ' ',
@@ -3294,13 +3294,13 @@ doTestArrayWithSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
                     kStartSetChar, kEndSetChar,
                 kEndArrayChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartSetChar, ' ', kEndSetChar, ' ',
@@ -3370,14 +3370,14 @@ doTestMapWithArrayValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartArrayChar, kEndArrayChar,
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -3448,14 +3448,14 @@ doTestMapWithMapValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartMapChar, kEndMapChar,
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -3526,14 +3526,14 @@ doTestMapWithSetValue
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartSetChar, kEndSetChar,
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
@@ -3604,14 +3604,14 @@ doTestLogicalMapValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
@@ -3685,13 +3685,13 @@ doTestIntegerMapValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
@@ -3764,14 +3764,14 @@ doTestStringMapValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                     kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
                 kEndMapChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -3845,13 +3845,13 @@ doTestLogicalSetValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
@@ -3924,13 +3924,13 @@ doTestIntegerSetValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '4', '2',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
@@ -4003,13 +4003,13 @@ doTestStringSetValueWithIncompatibleKeys
 
         if (nullptr != stuff)
         {
-            static const char   expectedSquishedString[] =
+            static const char   expectedSquishedString[]
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                 kEndSetChar, '\0'
             };
-            static const char   expectedString[] =
+            static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
@@ -4089,7 +4089,7 @@ doTestValidArrayCompares
         }; // testLogicals
 
         Array               stuff;
-        static testLogicals testSet1l[] =
+        static testLogicals testSet1l[]
         {
             { false,
                 ComparisonStatus(true), // <
@@ -4104,8 +4104,8 @@ doTestValidArrayCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testLogicals testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testLogicals testSet1r[]
         {
             { false,
                 ComparisonStatus(false), // <
@@ -4120,7 +4120,7 @@ doTestValidArrayCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
 
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
@@ -4211,7 +4211,7 @@ doTestValidArrayCompares
         }
         if (0 == result)
         {
-            static testLogicals testSet2l[] =
+            static testLogicals testSet2l[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -4226,8 +4226,8 @@ doTestValidArrayCompares
                     ComparisonStatus(true), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2l = A_SIZE(testSet2l);
-            static testLogicals testSet2r[] =
+            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            static testLogicals testSet2r[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -4242,7 +4242,7 @@ doTestValidArrayCompares
                     ComparisonStatus(false), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2r = A_SIZE(testSet2r);
+            const size_t        numTestValues2r{A_SIZE(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -4345,7 +4345,7 @@ doTestValidArrayCompares
                 ComparisonStatus    _equalTo;
             }; // testNumbers
 
-            static testNumbers  testSet3l[] =
+            static testNumbers  testSet3l[]
             {
                 { -300,
                     ComparisonStatus(true), // <
@@ -4414,8 +4414,8 @@ doTestValidArrayCompares
                     ComparisonStatus(true), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues3l = A_SIZE(testSet3l);
-            static testNumbers  testSet3r[] =
+            const size_t        numTestValues3l{A_SIZE(testSet3l)};
+            static testNumbers  testSet3r[]
             {
                 { -300,
                     ComparisonStatus(false), // <
@@ -4484,7 +4484,7 @@ doTestValidArrayCompares
                     ComparisonStatus(false), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues3r = A_SIZE(testSet3r);
+            const size_t        numTestValues3r{A_SIZE(testSet3r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Double>(123.45));
@@ -4589,7 +4589,7 @@ doTestValidArrayCompares
                 ComparisonStatus    _equalTo;
             }; // testStrings
 
-            static testStrings  testSet4l[] =
+            static testStrings  testSet4l[]
             {
                 { "aaa",
                     ComparisonStatus(true), // <
@@ -4622,8 +4622,8 @@ doTestValidArrayCompares
                     ComparisonStatus(true), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues4l = A_SIZE(testSet4l);
-            static testStrings  testSet4r[] =
+            const size_t        numTestValues4l{A_SIZE(testSet4l)};
+            static testStrings  testSet4r[]
             {
                 { "aaa",
                     ComparisonStatus(false), // <
@@ -4656,7 +4656,7 @@ doTestValidArrayCompares
                     ComparisonStatus(false), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues4r = A_SIZE(testSet4r);
+            const size_t        numTestValues4r{A_SIZE(testSet4r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<String>("abc"));
@@ -4793,7 +4793,7 @@ doTestValidLogicalMapCompares
             ComparisonStatus    _equalTo;
         }; // testLogicals
 
-        static testLogicals testSet1l[] =
+        static testLogicals testSet1l[]
         {
             { false,
                 ComparisonStatus(true), // <
@@ -4808,8 +4808,8 @@ doTestValidLogicalMapCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testLogicals testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testLogicals testSet1r[]
         {
             { false,
                 ComparisonStatus(false), // <
@@ -4824,7 +4824,7 @@ doTestValidLogicalMapCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
@@ -4916,7 +4916,7 @@ doTestValidLogicalMapCompares
         }
         if (0 == result)
         {
-            static testLogicals testSet2l[] =
+            static testLogicals testSet2l[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -4931,8 +4931,8 @@ doTestValidLogicalMapCompares
                     ComparisonStatus(true), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2l = A_SIZE(testSet2l);
-            static testLogicals testSet2r[] =
+            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            static testLogicals testSet2r[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -4947,7 +4947,7 @@ doTestValidLogicalMapCompares
                     ComparisonStatus(false), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2r = A_SIZE(testSet2r);
+            const size_t        numTestValues2r{A_SIZE(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("abc"));
@@ -5084,7 +5084,7 @@ doTestValidIntegerMapCompares
             ComparisonStatus    _equalTo;
         }; // testNumbers
 
-        static testNumbers  testSet1l[] =
+        static testNumbers  testSet1l[]
         {
             { -300,
                 ComparisonStatus(true), // <
@@ -5153,8 +5153,8 @@ doTestValidIntegerMapCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testNumbers  testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testNumbers  testSet1r[]
         {
             { -300,
                 ComparisonStatus(false), // <
@@ -5223,7 +5223,7 @@ doTestValidIntegerMapCompares
                 ComparisonStatus(false), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123), std::make_shared<String>("abc"));
@@ -5361,7 +5361,7 @@ doTestValidStringMapCompares
             ComparisonStatus    _equalTo;
         }; // testStrings
 
-        static testStrings  testSet1l[] =
+        static testStrings  testSet1l[]
         {
             { "aaa",
                 ComparisonStatus(true), // <
@@ -5394,8 +5394,8 @@ doTestValidStringMapCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testStrings  testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testStrings  testSet1r[]
         {
             { "aaa",
                 ComparisonStatus(false), // <
@@ -5428,7 +5428,7 @@ doTestValidStringMapCompares
                 ComparisonStatus(false), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
@@ -5564,7 +5564,7 @@ doTestValidLogicalSetCompares
             ComparisonStatus    _equalTo;
         }; // testLogicals
 
-        static testLogicals testSet1l[] =
+        static testLogicals testSet1l[]
         {
             { false,
                 ComparisonStatus(true), // <
@@ -5579,8 +5579,8 @@ doTestValidLogicalSetCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testLogicals testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testLogicals testSet1r[]
         {
             { false,
                 ComparisonStatus(false), // <
@@ -5595,7 +5595,7 @@ doTestValidLogicalSetCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(true) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true));
@@ -5687,7 +5687,7 @@ doTestValidLogicalSetCompares
         }
         if (0 == result)
         {
-            static testLogicals testSet2l[] =
+            static testLogicals testSet2l[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -5702,8 +5702,8 @@ doTestValidLogicalSetCompares
                     ComparisonStatus(true), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2l = A_SIZE(testSet2l);
-            static testLogicals testSet2r[] =
+            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            static testLogicals testSet2r[]
             {
                 { false,
                     ComparisonStatus(false), // <
@@ -5718,7 +5718,7 @@ doTestValidLogicalSetCompares
                     ComparisonStatus(false), // >=
                     ComparisonStatus(false) } // ==
             };
-            const size_t        numTestValues2r = A_SIZE(testSet2r);
+            const size_t        numTestValues2r{A_SIZE(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -5855,7 +5855,7 @@ doTestValidIntegerSetCompares
             ComparisonStatus    _equalTo;
         }; // testNumbers
 
-        static testNumbers  testSet1l[] =
+        static testNumbers  testSet1l[]
         {
             { -300,
                 ComparisonStatus(true), // <
@@ -5924,8 +5924,8 @@ doTestValidIntegerSetCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testNumbers  testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testNumbers  testSet1r[]
         {
             { -300,
                 ComparisonStatus(false), // <
@@ -5994,7 +5994,7 @@ doTestValidIntegerSetCompares
                 ComparisonStatus(false), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123));
@@ -6132,7 +6132,7 @@ doTestValidStringSetCompares
             ComparisonStatus    _equalTo;
         }; // testStrings
 
-        static testStrings  testSet1l[] =
+        static testStrings  testSet1l[]
         {
             { "aaa",
                 ComparisonStatus(true), // <
@@ -6165,8 +6165,8 @@ doTestValidStringSetCompares
                 ComparisonStatus(true), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1l = A_SIZE(testSet1l);
-        static testStrings  testSet1r[] =
+        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        static testStrings  testSet1r[]
         {
             { "aaa",
                 ComparisonStatus(false), // <
@@ -6199,7 +6199,7 @@ doTestValidStringSetCompares
                 ComparisonStatus(false), // >=
                 ComparisonStatus(false) } // ==
         };
-        const size_t        numTestValues1r = A_SIZE(testSet1r);
+        const size_t        numTestValues1r{A_SIZE(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"));
@@ -6335,12 +6335,12 @@ doTestInvalidArrayCompares
         Map                 rightValue6;
         Set                 rightValue7;
         Integer             rightValue8;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>());
         leftValue.addValue(std::make_shared<Number>());
@@ -6449,12 +6449,12 @@ doTestInvalidLogicalMapCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Double              rightValue7;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
@@ -6561,11 +6561,11 @@ doTestInvalidIntegerMapCompares
         Array               rightValue4;
         Map                 rightValue5;
         Set                 rightValue6;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
@@ -6674,12 +6674,12 @@ doTestInvalidStringMapCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
@@ -6788,12 +6788,12 @@ doTestInvalidLogicalSetCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>(false));
         leftValue.addValue(std::make_shared<Logical>(true));
@@ -6900,11 +6900,11 @@ doTestInvalidIntegerSetCompares
         Array               rightValue4;
         Map                 rightValue5;
         Set                 rightValue6;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<Integer>(42));
         leftValue.addValue(std::make_shared<Integer>(17));
@@ -7013,12 +7013,12 @@ doTestInvalidStringSetCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Integer             rightValue7;
-        Ptr(Value)          rightValues[] =
+        Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues = A_SIZE(rightValues);
+        const size_t    numRightValues{A_SIZE(rightValues)};
 
         leftValue.addValue(std::make_shared<String>("abc"));
         leftValue.addValue(std::make_shared<String>("def"));

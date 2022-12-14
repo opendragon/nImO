@@ -188,7 +188,7 @@ namespace nImO
             @return The Message object so that cascading can be done. */
             Message &
             setValue
-                (const Value &  theValue);
+                (SpValue    theValue);
 
         protected :
             // Protected methods.

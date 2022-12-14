@@ -138,7 +138,7 @@ nImO::Set::addValue
 
     if (nullptr == val)
     {
-        result = {inherited2::end(), false};
+        result = { inherited2::end(), false };
     }
     else
     {
@@ -152,7 +152,7 @@ nImO::Set::addValue
         }
         else
         {
-            result = {inherited2::end(), false};
+            result = { inherited2::end(), false };
         }
     }
     ODL_OBJEXIT(); //####
@@ -452,7 +452,7 @@ nImO::Set::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[] = { kStartSetChar, '\0' };
+    static const char   initialChars[]{ kStartSetChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -463,7 +463,7 @@ nImO::Set::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[] = { kEndSetChar, '\0' };
+    static const char   terminalChars[]{ kEndSetChar, '\0' };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
@@ -851,7 +851,7 @@ nImO::Set::writeToMessage
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const DataKind    stuff[] =
+        static const DataKind    stuff[]
         {
             DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeSet |
               DataKind::OtherContainerEmptyValue,

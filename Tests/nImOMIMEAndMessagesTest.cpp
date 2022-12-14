@@ -116,12 +116,12 @@ catchSignal
 static int
 setValueAndCheck
     (Message &          stuff,
-     const Value &      aValue,
+     SpValue            aValue,
      CPtr(std::string)  expectedContents,
      const size_t       expectedSize)
 {
     ODL_ENTER(); //####
-    ODL_P3("stuff = ", &stuff, "aValue = ", &aValue, "expectedContents = ", expectedContents); //####
+    ODL_P3("stuff = ", &stuff, "aValue = ", aValue, "expectedContents = ", expectedContents); //####
     ODL_I1("expectedSize = ", expectedSize); //####
     stuff.open(true);
     stuff.setValue(aValue);
@@ -296,7 +296,7 @@ doTestMIMEInsertEmptyMessage
                 if (0 < asString.length())
                 {
                     std::string     expectedLines[]{ "8Pg=" };
-                    const size_t    expectedLinesCount = A_SIZE(expectedLines);
+                    const size_t    expectedLinesCount{A_SIZE(expectedLines)};
                     StringVector    outVec;
 
                     EncodeBytesAsMIME(outVec, asString);
@@ -468,12 +468,12 @@ doTestMIMEInsertLogicalMessage
 
         if (nullptr != stuff)
         {
-            Logical         falseValue(false);
-            Logical         trueValue(true);
+            SpValue         falseValue{new Logical(false)};
+            SpValue         trueValue{new Logical(true)};
             std::string     expectedTrueLines[]{ "98H/" };
-            const size_t    expectedTrueLinesCount = A_SIZE(expectedTrueLines);
+            const size_t    expectedTrueLinesCount{A_SIZE(expectedTrueLines)};
             std::string     expectedFalseLines[]{ "98D/" };
-            const size_t    expectedFalseLinesCount = A_SIZE(expectedFalseLines);
+            const size_t    expectedFalseLinesCount{A_SIZE(expectedFalseLines)};
 
             result = setValueAndCheck(*stuff, trueValue, expectedTrueLines, expectedTrueLinesCount);
             if (0 == result)
@@ -526,9 +526,9 @@ doTestMIMEExtractLogicalMessage
         if (nullptr != stuff)
         {
             std::string     insertedTrueLines[]{ "98H/" };
-            const size_t    insertedTrueLinesCount = A_SIZE(insertedTrueLines);
+            const size_t    insertedTrueLinesCount{A_SIZE(insertedTrueLines)};
             std::string     insertedFalseLines[]{ "98D/" };
-            const size_t    insertedFalseLinesCount = A_SIZE(insertedFalseLines);
+            const size_t    insertedFalseLinesCount{A_SIZE(insertedFalseLines)};
             Logical         falseValue(false);
             Logical         trueValue(true);
 
@@ -582,15 +582,15 @@ doTestMIMEInsertTinyIntegerMessage
 
         if (nullptr != stuff)
         {
-            Integer         minus12Value(-12);
-            Integer         zeroValue(0);
-            Integer         plus12Value(12);
+            SpValue         minus12Value{new Integer(-12)};
+            SpValue         zeroValue{new Integer};
+            SpValue         plus12Value{new Integer(12)};
             std::string     expectedMinus12Lines[]{ "9BT8" };
-            const size_t    expectedMinus12LinesCount = A_SIZE(expectedMinus12Lines);
+            const size_t    expectedMinus12LinesCount{A_SIZE(expectedMinus12Lines)};
             std::string     expectedZeroLines[]{ "9AD8" };
-            const size_t    expectedZeroLinesCount = A_SIZE(expectedZeroLines);
+            const size_t    expectedZeroLinesCount{A_SIZE(expectedZeroLines)};
             std::string     expectedPlus12Lines[]{ "9Az8" };
-            const size_t    expectedPlus12LinesCount = A_SIZE(expectedPlus12Lines);
+            const size_t    expectedPlus12LinesCount{A_SIZE(expectedPlus12Lines)};
 
             result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Lines, expectedMinus12LinesCount);
             if (0 == result)
@@ -647,11 +647,11 @@ doTestMIMEExtractTinyIntegerMessage
         if (nullptr != stuff)
         {
             std::string     insertedMinus12Lines[]{ "9BT8" };
-            const size_t    insertedMinus12LinesCount = A_SIZE(insertedMinus12Lines);
+            const size_t    insertedMinus12LinesCount{A_SIZE(insertedMinus12Lines)};
             std::string     insertedZeroLines[]{ "9AD8" };
-            const size_t    insertedZeroLinesCount = A_SIZE(insertedZeroLines);
+            const size_t    insertedZeroLinesCount{A_SIZE(insertedZeroLines)};
             std::string     insertedPlus12Lines[]{ "9Az8" };
-            const size_t    insertedPlus12LinesCount = A_SIZE(insertedPlus12Lines);
+            const size_t    insertedPlus12LinesCount{A_SIZE(insertedPlus12Lines)};
             Integer         minus12Value(-12);
             Integer         zeroValue(0);
             Integer         plus12Value(12);
@@ -710,12 +710,12 @@ doTestMIMEInsertSmallIntegerMessage
 
         if (nullptr != stuff)
         {
-            Integer         minus144Value(-144);
-            Integer         plus144Value(144);
+            SpValue         minus144Value{new Integer(-144)};
+            SpValue         plus144Value{new Integer(144)};
             std::string     expectedMinus144Lines[]{ "9CH/cPw=" };
-            const size_t    expectedMinus144LinesCount = A_SIZE(expectedMinus144Lines);
+            const size_t    expectedMinus144LinesCount{A_SIZE(expectedMinus144Lines)};
             std::string     expectedPlus144Lines[]{ "9CEAkPw=" };
-            const size_t    expectedPlus144LinesCount = A_SIZE(expectedPlus144Lines);
+            const size_t    expectedPlus144LinesCount{A_SIZE(expectedPlus144Lines)};
 
             result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Lines, expectedMinus144LinesCount);
             if (0 == result)
@@ -768,9 +768,9 @@ doTestMIMEExtractSmallIntegerMessage
         if (nullptr != stuff)
         {
             std::string     insertedMinus144Lines[]{ "9CH/cPw=" };
-            const size_t    insertedMinus144LinesCount = A_SIZE(insertedMinus144Lines);
+            const size_t    insertedMinus144LinesCount{A_SIZE(insertedMinus144Lines)};
             std::string     insertedPlus144Lines[]{ "9CEAkPw=" };
-            const size_t    insertedPlus144LinesCount = A_SIZE(insertedPlus144Lines);
+            const size_t    insertedPlus144LinesCount{A_SIZE(insertedPlus144Lines)};
             Integer         minus144Value(-144);
             Integer         plus144Value(144);
 
@@ -824,12 +824,12 @@ doTestMIMEInsertMediumIntegerMessage
 
         if (nullptr != stuff)
         {
-            Integer         minus1234567Value(-1234567);
-            Integer         plus1234567Value(1234567);
+            SpValue         minus1234567Value{new Integer(-1234567)};
+            SpValue         plus1234567Value{new Integer(1234567)};
             std::string     expectedMinus1234567Lines[]{ "9CLtKXn8" };
-            const size_t    expectedMinus1234567LinesCount = A_SIZE(expectedMinus1234567Lines);
+            const size_t    expectedMinus1234567LinesCount{A_SIZE(expectedMinus1234567Lines)};
             std::string     expectedPlus1234567Lines[]{ "9CIS1of8" };
-            const size_t    expectedPlus1234567LinesCount = A_SIZE(expectedPlus1234567Lines);
+            const size_t    expectedPlus1234567LinesCount{A_SIZE(expectedPlus1234567Lines)};
 
             result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Lines,
                                       expectedMinus1234567LinesCount);
@@ -884,9 +884,9 @@ doTestMIMEExtractMediumIntegerMessage
         if (nullptr != stuff)
         {
             std::string     insertedMinus1234567Lines[]{ "9CLtKXn8" };
-            const size_t    insertedMinus1234567LinesCount = A_SIZE(insertedMinus1234567Lines);
+            const size_t    insertedMinus1234567LinesCount{A_SIZE(insertedMinus1234567Lines)};
             std::string     insertedPlus1234567Lines[]{ "9CIS1of8" };
-            const size_t    insertedPlus1234567LinesCount = A_SIZE(insertedPlus1234567Lines);
+            const size_t    insertedPlus1234567LinesCount{A_SIZE(insertedPlus1234567Lines)};
             Integer         minus1234567Value(-1234567);
             Integer         plus1234567Value(1234567);
 
@@ -942,12 +942,12 @@ doTestMIMEInsertBigIntegerMessage
 
         if (nullptr != stuff)
         {
-            Integer         minusBigNumberValue(-20015998343868);
-            Integer         plusBigNumberValue(20015998343868);
+            SpValue         minusBigNumberValue{new Integer(-20015998343868)};
+            SpValue         plusBigNumberValue{new Integer(20015998343868)};
             std::string     expectedMinusBigNumberLines[]{ "9CXty6mHZUT8" };
-            const size_t    expectedMinusBigNumberLinesCount = A_SIZE(expectedMinusBigNumberLines);
+            const size_t    expectedMinusBigNumberLinesCount{A_SIZE(expectedMinusBigNumberLines)};
             std::string     expectedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
-            const size_t    expectedPlusBigNumberLinesCount = A_SIZE(expectedPlusBigNumberLines);
+            const size_t    expectedPlusBigNumberLinesCount{A_SIZE(expectedPlusBigNumberLines)};
 
             result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberLines,
                                       expectedMinusBigNumberLinesCount);
@@ -1002,9 +1002,9 @@ doTestMIMEExtractBigIntegerMessage
         if (nullptr != stuff)
         {
             std::string     insertedMinusBigNumberLines[]{ "9CXty6mHZUT8" };
-            const size_t    insertedMinusBigNumberLinesCount = A_SIZE(insertedMinusBigNumberLines);
+            const size_t    insertedMinusBigNumberLinesCount{A_SIZE(insertedMinusBigNumberLines)};
             std::string     insertedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
-            const size_t    insertedPlusBigNumberLinesCount = A_SIZE(insertedPlusBigNumberLines);
+            const size_t    insertedPlusBigNumberLinesCount{A_SIZE(insertedPlusBigNumberLines)};
             Integer         minusBigNumberValue(-20015998343868);
             Integer         plusBigNumberValue(20015998343868);
 
@@ -1060,9 +1060,9 @@ doTestMIMEInsertEmptyStringMessage
 
         if (nullptr != stuff)
         {
-            String          emptyStringValue("");
+            SpValue         emptyStringValue{new String};
             std::string     expectedEmptyStringLines[]{ "9oD+" };
-            const size_t    expectedEmptyStringLinesCount = A_SIZE(expectedEmptyStringLines);
+            const size_t    expectedEmptyStringLinesCount{A_SIZE(expectedEmptyStringLines)};
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringLines, expectedEmptyStringLinesCount);
         }
@@ -1111,7 +1111,7 @@ doTestMIMEExtractEmptyStringMessage
         if (nullptr != stuff)
         {
             std::string     insertedEmptyStringLines[]{ "9oD+" };
-            const size_t    insertedEmptyStringLinesCount = A_SIZE(insertedEmptyStringLines);
+            const size_t    insertedEmptyStringLinesCount{A_SIZE(insertedEmptyStringLines)};
             String          emptyStringValue;
 
             result = extractValueAndCheck(*stuff, insertedEmptyStringLines, insertedEmptyStringLinesCount,
@@ -1161,9 +1161,9 @@ doTestMIMEInsertShortStringMessage
 
         if (nullptr != stuff)
         {
-            String          shortStringValue("abcdef");
+            SpValue         shortStringValue{new String("abcdef")};
             std::string     expectedShortStringLines[]{ "9oZhYmNkZWb+" };
-            const size_t    expectedShortStringLinesCount = A_SIZE(expectedShortStringLines);
+            const size_t    expectedShortStringLinesCount{A_SIZE(expectedShortStringLines)};
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringLines,
                                       expectedShortStringLinesCount);
@@ -1213,7 +1213,7 @@ doTestMIMEExtractShortStringMessage
         if (nullptr != stuff)
         {
             std::string     insertedShortStringLines[]{ "9oZhYmNkZWb+" };
-            const size_t    insertedShortStringLinesCount = A_SIZE(insertedShortStringLines);
+            const size_t    insertedShortStringLinesCount{A_SIZE(insertedShortStringLines)};
             String          shortStringValue("abcdef");
 
             result = extractValueAndCheck(*stuff, insertedShortStringLines, insertedShortStringLinesCount,
@@ -1263,10 +1263,10 @@ doTestMIMEInsertMediumStringMessage
 
         if (nullptr != stuff)
         {
-            String          mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            SpValue         mediumStringValue{new String("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
             std::string     expectedMediumStringLines[]{
                                                 "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
-            const size_t    expectedMediumStringLinesCount = A_SIZE(expectedMediumStringLines);
+            const size_t    expectedMediumStringLinesCount{A_SIZE(expectedMediumStringLines)};
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringLines,
                                       expectedMediumStringLinesCount);
@@ -1317,7 +1317,7 @@ doTestMIMEExtractMediumStringMessage
         {
             std::string     insertedMediumStringLines[]{
                                                 "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
-            const size_t    insertedMediumStringLinesCount = A_SIZE(insertedMediumStringLines);
+            const size_t    insertedMediumStringLinesCount{A_SIZE(insertedMediumStringLines)};
             String          mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
 
             result = extractValueAndCheck(*stuff, insertedMediumStringLines, insertedMediumStringLinesCount,
@@ -1367,9 +1367,9 @@ doTestMIMEInsertEmptyBlobMessage
 
         if (nullptr != stuff)
         {
-            Blob            emptyBlobValue;
+            SpValue         emptyBlobValue{new Blob};
             std::string     expectedEmptyBlobLines[]{ "9qD+" };
-            const size_t    expectedEmptyBlobLinesCount = A_SIZE(expectedEmptyBlobLines);
+            const size_t    expectedEmptyBlobLinesCount{A_SIZE(expectedEmptyBlobLines)};
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobLines, expectedEmptyBlobLinesCount);
         }
@@ -1418,7 +1418,7 @@ doTestMIMEExtractEmptyBlobMessage
         if (nullptr != stuff)
         {
             std::string     insertedEmptyBlobLines[]{ "9qD+" };
-            const size_t    insertedEmptyBlobLinesCount = A_SIZE(insertedEmptyBlobLines);
+            const size_t    insertedEmptyBlobLinesCount{A_SIZE(insertedEmptyBlobLines)};
             Blob            emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedEmptyBlobLines, insertedEmptyBlobLinesCount, emptyBlobValue);
@@ -1467,14 +1467,14 @@ doTestMIMEInsertSmallBlobMessage
 
         if (nullptr != stuff)
         {
-            static const uint8_t    actualData[] =
+            static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount = A_SIZE(actualData);
-            Blob                    smallBlobValue(actualData, actualDataCount);
+            const size_t            actualDataCount{A_SIZE(actualData)};
+            SpValue                 smallBlobValue{ new Blob(actualData, actualDataCount)};
             std::string             expectedSmallBlobLines[]{ "9qYSIzRFVmf+" };
-            const size_t            expectedSmallBlobLinesCount = A_SIZE(expectedSmallBlobLines);
+            const size_t            expectedSmallBlobLinesCount{A_SIZE(expectedSmallBlobLines)};
 
             result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobLines, expectedSmallBlobLinesCount);
         }
@@ -1523,12 +1523,12 @@ doTestMIMEExtractSmallBlobMessage
         if (nullptr != stuff)
         {
             std::string             insertedSmallBlobLines[]{ "9qYSIzRFVmf+" };
-            const size_t            insertedSmallBlobLinesCount = A_SIZE(insertedSmallBlobLines);
-            static const uint8_t    actualData[] =
+            const size_t            insertedSmallBlobLinesCount{A_SIZE(insertedSmallBlobLines)};
+            static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount = A_SIZE(actualData);
+            const size_t            actualDataCount{A_SIZE(actualData)};
             Blob                    smallBlobValue(actualData, actualDataCount);
 
             result = extractValueAndCheck(*stuff, insertedSmallBlobLines, insertedSmallBlobLinesCount, smallBlobValue);
@@ -1577,7 +1577,7 @@ doTestMIMEInsertMediumBlobMessage
 
         if (nullptr != stuff)
         {
-            static const uint8_t    actualData[] =
+            static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1587,11 +1587,11 @@ doTestMIMEInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount = A_SIZE(actualData);
-            Blob                    mediumBlobValue(actualData, actualDataCount);
+            const size_t            actualDataCount{A_SIZE(actualData)};
+            SpValue                 mediumBlobValue{new Blob(actualData, actualDataCount)};
             std::string             expectedMediumBlobLines[]{
                                                 "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
-            const size_t            expectedMediumBlobLinesCount = A_SIZE(expectedMediumBlobLines);
+            const size_t            expectedMediumBlobLinesCount{A_SIZE(expectedMediumBlobLines)};
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobLines, expectedMediumBlobLinesCount);
         }
@@ -1641,8 +1641,8 @@ doTestMIMEExtractMediumBlobMessage
         {
             std::string             insertedMediumBlobLines[]{
                                                 "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
-            const size_t            insertedMediumBlobLinesCount = A_SIZE(insertedMediumBlobLines);
-            static const uint8_t    actualData[] =
+            const size_t            insertedMediumBlobLinesCount{A_SIZE(insertedMediumBlobLines)};
+            static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1652,7 +1652,7 @@ doTestMIMEExtractMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount = A_SIZE(actualData);
+            const size_t            actualDataCount{A_SIZE(actualData)};
             Blob                    mediumBlobValue(actualData, actualDataCount);
 
             result = extractValueAndCheck(*stuff, insertedMediumBlobLines, insertedMediumBlobLinesCount,
@@ -1702,12 +1702,12 @@ doTestMIMEInsertSingleDoubleMessage
 
         if (nullptr != stuff)
         {
-            Double          plus42Point5Value(42.5);
-            Double          minus42Point5Value(-42.5);
+            SpValue         plus42Point5Value{new Double(42.5)};
+            SpValue         minus42Point5Value{new Double(-42.5)};
             std::string     expectedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0=" };
-            const size_t    expectedPlus42Point5LinesCount = A_SIZE(expectedPlus42Point5Lines);
+            const size_t    expectedPlus42Point5LinesCount{A_SIZE(expectedPlus42Point5Lines)};
             std::string     expectedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
-            const size_t    expectedMinus42Point5LinesCount = A_SIZE(expectedMinus42Point5Lines);
+            const size_t    expectedMinus42Point5LinesCount{A_SIZE(expectedMinus42Point5Lines)};
 
             result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Lines,
                                       expectedPlus42Point5LinesCount);
@@ -1762,9 +1762,9 @@ doTestMIMEExtractSingleDoubleMessage
         if (nullptr != stuff)
         {
             std::string     insertedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0=" };
-            const size_t    insertedPlus42Point5LinesCount = A_SIZE(insertedPlus42Point5Lines);
+            const size_t    insertedPlus42Point5LinesCount{A_SIZE(insertedPlus42Point5Lines)};
             std::string     insertedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
-            const size_t    insertedMinus42Point5LinesCount = A_SIZE(insertedMinus42Point5Lines);
+            const size_t    insertedMinus42Point5LinesCount{A_SIZE(insertedMinus42Point5Lines)};
             Double          plus42Point5Value(42.5);
             Double          minus42Point5Value(-42.5);
 
@@ -1820,9 +1820,9 @@ doTestMIMEInsertEmptyArrayMessage
 
         if (nullptr != stuff)
         {
-            Array           emptyArray;
+            SpArray         emptyArray{new Array};
             std::string     expectedEmptyArrayLines[]{ "99Dg/w==" };
-            const size_t    expectedEmptyArrayLinesCount = A_SIZE(expectedEmptyArrayLines);
+            const size_t    expectedEmptyArrayLinesCount{A_SIZE(expectedEmptyArrayLines)};
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayLines, expectedEmptyArrayLinesCount);
         }
@@ -1871,7 +1871,7 @@ doTestMIMEExtractEmptyArrayMessage
         if (nullptr != stuff)
         {
             std::string     insertedEmptyArrayLines[]{ "99Dg/w==" };
-            const size_t    insertedEmptyArrayLinesCount = A_SIZE(insertedEmptyArrayLines);
+            const size_t    insertedEmptyArrayLinesCount{A_SIZE(insertedEmptyArrayLines)};
             Array           emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedEmptyArrayLines, insertedEmptyArrayLinesCount, emptyArray);
@@ -1920,9 +1920,9 @@ doTestMIMEInsertEmptyMapMessage
 
         if (nullptr != stuff)
         {
-            Map             emptyMap;
+            SpValue         emptyMap{new Map};
             std::string     expectedEmptyMapLines[]{ "99Tk/w==" };
-            const size_t    expectedEmptyMapLinesCount = A_SIZE(expectedEmptyMapLines);
+            const size_t    expectedEmptyMapLinesCount{A_SIZE(expectedEmptyMapLines)};
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapLines, expectedEmptyMapLinesCount);
         }
@@ -1971,7 +1971,7 @@ doTestMIMEExtractEmptyMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedEmptyMapLines[]{ "99Tk/w==" };
-            const size_t    insertedEmptyMapLinesCount = A_SIZE(insertedEmptyMapLines);
+            const size_t    insertedEmptyMapLinesCount{A_SIZE(insertedEmptyMapLines)};
             Map             emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedEmptyMapLines, insertedEmptyMapLinesCount, emptyMap);
@@ -2020,9 +2020,9 @@ doTestMIMEInsertEmptySetMessage
 
         if (nullptr != stuff)
         {
-            Set             emptySet;
+            SpValue         emptySet{new Set};
             std::string     expectedEmptySetLines[]{ "99jo/w==" };
-            const size_t    expectedEmptySetLinesCount = A_SIZE(expectedEmptySetLines);
+            const size_t    expectedEmptySetLinesCount{A_SIZE(expectedEmptySetLines)};
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetLines, expectedEmptySetLinesCount);
         }
@@ -2071,7 +2071,7 @@ doTestMIMEExtractEmptySetMessage
         if (nullptr != stuff)
         {
             std::string     insertedEmptySetLines[]{ "99jo/w==" };
-            const size_t    insertedEmptySetLinesCount = A_SIZE(insertedEmptySetLines);
+            const size_t    insertedEmptySetLinesCount{A_SIZE(insertedEmptySetLines)};
             Set             emptySet;
 
             result = extractValueAndCheck(*stuff, insertedEmptySetLines, insertedEmptySetLinesCount, emptySet);
@@ -2120,12 +2120,11 @@ doTestMIMEInsertArrayOneLogicalMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneLogical;
-            Logical         trueValue(true);
+            SpArray         arrayOneLogical{new Array};
             std::string     expectedArrayOneLogicalLines[]{ "99EQwOH/" };
-            const size_t    expectedArrayOneLogicalLinesCount = A_SIZE(expectedArrayOneLogicalLines);
+            const size_t    expectedArrayOneLogicalLinesCount{A_SIZE(expectedArrayOneLogicalLines)};
 
-            arrayOneLogical.addValue(std::make_shared<Logical>());
+            arrayOneLogical->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalLines,
                                       expectedArrayOneLogicalLinesCount);
         }
@@ -2174,7 +2173,7 @@ doTestMIMEExtractArrayOneLogicalMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneLogicalLines[]{ "99EQwOH/" };
-            const size_t    insertedArrayOneLogicalLinesCount = A_SIZE(insertedArrayOneLogicalLines);
+            const size_t    insertedArrayOneLogicalLinesCount{A_SIZE(insertedArrayOneLogicalLines)};
             Array           arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
@@ -2225,11 +2224,11 @@ doTestMIMEInsertArrayOneIntegerMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneInteger;
+            SpArray         arrayOneInteger{new Array};
             std::string     expectedArrayOneIntegerLines[]{ "99EQAOH/" };
-            const size_t    expectedArrayOneIntegerLinesCount = A_SIZE(expectedArrayOneIntegerLines);
+            const size_t    expectedArrayOneIntegerLinesCount{A_SIZE(expectedArrayOneIntegerLines)};
 
-            arrayOneInteger.addValue(std::make_shared<Integer>());
+            arrayOneInteger->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerLines,
                                       expectedArrayOneIntegerLinesCount);
         }
@@ -2278,7 +2277,7 @@ doTestMIMEExtractArrayOneIntegerMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneIntegerLines[]{ "99EQAOH/" };
-            const size_t    insertedArrayOneIntegerLinesCount = A_SIZE(insertedArrayOneIntegerLines);
+            const size_t    insertedArrayOneIntegerLinesCount{A_SIZE(insertedArrayOneIntegerLines)};
             Array           arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
@@ -2329,11 +2328,11 @@ doTestMIMEInsertArrayOneDoubleMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneDouble;
+            SpArray         arrayOneDouble{new Array};
             std::string     expectedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8=" };
-            const size_t    expectedArrayOneDoubleLinesCount = A_SIZE(expectedArrayOneDoubleLines);
+            const size_t    expectedArrayOneDoubleLinesCount{A_SIZE(expectedArrayOneDoubleLines)};
 
-            arrayOneDouble.addValue(std::make_shared<Double>());
+            arrayOneDouble->addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleLines,
                                       expectedArrayOneDoubleLinesCount);
         }
@@ -2382,7 +2381,7 @@ doTestMIMEExtractArrayOneDoubleMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8=" };
-            const size_t    insertedArrayOneDoubleLinesCount = A_SIZE(insertedArrayOneDoubleLines);
+            const size_t    insertedArrayOneDoubleLinesCount{A_SIZE(insertedArrayOneDoubleLines)};
             Array           arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
@@ -2433,11 +2432,11 @@ doTestMIMEInsertArrayOneStringMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneString;
+            SpArray         arrayOneString{new Array};
             std::string     expectedArrayOneStringLines[]{ "99EQgOH/" };
-            const size_t    expectedArrayOneStringLinesCount = A_SIZE(expectedArrayOneStringLines);
+            const size_t    expectedArrayOneStringLinesCount{A_SIZE(expectedArrayOneStringLines)};
 
-            arrayOneString.addValue(std::make_shared<String>());
+            arrayOneString->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringLines,
                                       expectedArrayOneStringLinesCount);
         }
@@ -2486,7 +2485,7 @@ doTestMIMEExtractArrayOneStringMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneStringLines[]{ "99EQgOH/" };
-            const size_t    insertedArrayOneStringLinesCount = A_SIZE(insertedArrayOneStringLines);
+            const size_t    insertedArrayOneStringLinesCount{A_SIZE(insertedArrayOneStringLines)};
             Array           arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
@@ -2537,11 +2536,11 @@ doTestMIMEInsertArrayOneBlobMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneBlob;
+            SpArray         arrayOneBlob{new Array};
             std::string     expectedArrayOneBlobLines[]{ "99EQoOH/" };
-            const size_t    expectedArrayOneBlobLinesCount = A_SIZE(expectedArrayOneBlobLines);
+            const size_t    expectedArrayOneBlobLinesCount{A_SIZE(expectedArrayOneBlobLines)};
 
-            arrayOneBlob.addValue(std::make_shared<Blob>());
+            arrayOneBlob->addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobLines, expectedArrayOneBlobLinesCount);
         }
         else
@@ -2589,7 +2588,7 @@ doTestMIMEExtractArrayOneBlobMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneBlobLines[]{ "99EQoOH/" };
-            const size_t    insertedArrayOneBlobLinesCount = A_SIZE(insertedArrayOneBlobLines);
+            const size_t    insertedArrayOneBlobLinesCount{A_SIZE(insertedArrayOneBlobLines)};
             Array           arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
@@ -2640,11 +2639,11 @@ doTestMIMEInsertArrayOneArrayMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneArray;
+            SpArray         arrayOneArray{new Array};
             std::string     expectedArrayOneArrayLines[]{ "99EQ0ODh/w==" };
-            const size_t    expectedArrayOneArrayLinesCount = A_SIZE(expectedArrayOneArrayLines);
+            const size_t    expectedArrayOneArrayLinesCount{A_SIZE(expectedArrayOneArrayLines)};
 
-            arrayOneArray.addValue(std::make_shared<Array>());
+            arrayOneArray->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayLines,
                                       expectedArrayOneArrayLinesCount);
         }
@@ -2693,7 +2692,7 @@ doTestMIMEExtractArrayOneArrayMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneArrayLines[]{ "99EQ0ODh/w==" };
-            const size_t    insertedArrayOneArrayLinesCount = A_SIZE(insertedArrayOneArrayLines);
+            const size_t    insertedArrayOneArrayLinesCount{A_SIZE(insertedArrayOneArrayLines)};
             Array           arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
@@ -2744,11 +2743,11 @@ doTestMIMEInsertArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneMap;
+            SpArray         arrayOneMap{new Array};
             std::string     expectedArrayOneMapLines[]{ "99EQ1OTh/w==" };
-            const size_t    expectedArrayOneMapLinesCount = A_SIZE(expectedArrayOneMapLines);
+            const size_t    expectedArrayOneMapLinesCount{A_SIZE(expectedArrayOneMapLines)};
 
-            arrayOneMap.addValue(std::make_shared<Map>());
+            arrayOneMap->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapLines, expectedArrayOneMapLinesCount);
         }
         else
@@ -2796,7 +2795,7 @@ doTestMIMEExtractArrayOneMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneMapLines[]{ "99EQ1OTh/w==" };
-            const size_t    insertedArrayOneMapLinesCount = A_SIZE(insertedArrayOneMapLines);
+            const size_t    insertedArrayOneMapLinesCount{A_SIZE(insertedArrayOneMapLines)};
             Array           arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
@@ -2846,11 +2845,11 @@ doTestMIMEInsertArrayOneSetMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneSet;
+            SpArray         arrayOneSet{new Array};
             std::string     expectedArrayOneSetLines[]{ "99EQ2Ojh/w==" };
-            const size_t    expectedArrayOneSetLinesCount = A_SIZE(expectedArrayOneSetLines);
+            const size_t    expectedArrayOneSetLinesCount{A_SIZE(expectedArrayOneSetLines)};
 
-            arrayOneSet.addValue(std::make_shared<Set>());
+            arrayOneSet->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetLines, expectedArrayOneSetLinesCount);
         }
         else
@@ -2898,7 +2897,7 @@ doTestMIMEExtractArrayOneSetMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneSetLines[]{ "99EQ2Ojh/w==" };
-            const size_t    insertedArrayOneSetLinesCount = A_SIZE(insertedArrayOneSetLines);
+            const size_t    insertedArrayOneSetLinesCount{A_SIZE(insertedArrayOneSetLines)};
             Array           arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
@@ -2948,12 +2947,12 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoLogicals;
+            SpArray         arrayTwoLogicals{new Array};
             std::string     expectedArrayTwoLogicalsLines[]{ "99ERwMDh/w==" };
-            const size_t    expectedArrayTwoLogicalsLinesCount = A_SIZE(expectedArrayTwoLogicalsLines);
+            const size_t    expectedArrayTwoLogicalsLinesCount{A_SIZE(expectedArrayTwoLogicalsLines)};
 
-            arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            arrayTwoLogicals.addValue(std::make_shared<Logical>());
+            arrayTwoLogicals->addValue(std::make_shared<Logical>());
+            arrayTwoLogicals->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsLines,
                                       expectedArrayTwoLogicalsLinesCount);
         }
@@ -3002,7 +3001,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoLogicalsLines[]{ "99ERwMDh/w==" };
-            const size_t    insertedArrayTwoLogicalsLinesCount = A_SIZE(insertedArrayTwoLogicalsLines);
+            const size_t    insertedArrayTwoLogicalsLinesCount{A_SIZE(insertedArrayTwoLogicalsLines)};
             Array           arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
@@ -3054,12 +3053,12 @@ doTestMIMEInsertArrayTwoIntegersMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoIntegers;
+            SpArray         arrayTwoIntegers{new Array};
             std::string     expectedArrayTwoIntegersLines[]{ "99ERAADh/w==" };
-            const size_t    expectedArrayTwoIntegersLinesCount = A_SIZE(expectedArrayTwoIntegersLines);
+            const size_t    expectedArrayTwoIntegersLinesCount{A_SIZE(expectedArrayTwoIntegersLines)};
 
-            arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            arrayTwoIntegers.addValue(std::make_shared<Integer>());
+            arrayTwoIntegers->addValue(std::make_shared<Integer>());
+            arrayTwoIntegers->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersLines,
                                       expectedArrayTwoIntegersLinesCount);
         }
@@ -3108,7 +3107,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoIntegersLines[]{ "99ERAADh/w==" };
-            const size_t    insertedArrayTwoIntegersLinesCount = A_SIZE(insertedArrayTwoIntegersLines);
+            const size_t    insertedArrayTwoIntegersLinesCount{A_SIZE(insertedArrayTwoIntegersLines)};
             Array           arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
@@ -3160,12 +3159,12 @@ doTestMIMEInsertArrayTwoDoublesMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoDoubles;
+            SpArray         arrayTwoDoubles{new Array};
             std::string     expectedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w==" };
-            const size_t    expectedArrayTwoDoublesLinesCount = A_SIZE(expectedArrayTwoDoublesLines);
+            const size_t    expectedArrayTwoDoublesLinesCount{A_SIZE(expectedArrayTwoDoublesLines)};
 
-            arrayTwoDoubles.addValue(std::make_shared<Double>());
-            arrayTwoDoubles.addValue(std::make_shared<Double>());
+            arrayTwoDoubles->addValue(std::make_shared<Double>());
+            arrayTwoDoubles->addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesLines,
                                       expectedArrayTwoDoublesLinesCount);
         }
@@ -3214,7 +3213,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w==" };
-            const size_t    insertedArrayTwoDoublesLinesCount = A_SIZE(insertedArrayTwoDoublesLines);
+            const size_t    insertedArrayTwoDoublesLinesCount{A_SIZE(insertedArrayTwoDoublesLines)};
             Array           arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
@@ -3266,13 +3265,14 @@ doTestMIMEInsertArrayTwoStringsMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoStrings;
+            SpArray         arrayTwoStrings{new Array};
             std::string     expectedArrayTwoStringsLines[]{ "99ERgIDh/w==" };
-            const size_t    expectedArrayTwoStringsLinesCount = A_SIZE(expectedArrayTwoStringsLines);
+            const size_t    expectedArrayTwoStringsLinesCount{A_SIZE(expectedArrayTwoStringsLines)};
 
-            arrayTwoStrings.addValue(std::make_shared<String>());
-            arrayTwoStrings.addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines, expectedArrayTwoStringsLinesCount);
+            arrayTwoStrings->addValue(std::make_shared<String>());
+            arrayTwoStrings->addValue(std::make_shared<String>());
+            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines,
+                                      expectedArrayTwoStringsLinesCount);
         }
         else
         {
@@ -3319,7 +3319,7 @@ doTestMIMEExtractArrayTwoStringsMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoStringsLines[]{ "99ERgIDh/w==" };
-            const size_t    insertedArrayTwoStringsLinesCount = A_SIZE(insertedArrayTwoStringsLines);
+            const size_t    insertedArrayTwoStringsLinesCount{A_SIZE(insertedArrayTwoStringsLines)};
             Array           arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
@@ -3371,12 +3371,12 @@ doTestMIMEInsertArrayTwoBlobsMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoBlobs;
+            SpArray         arrayTwoBlobs{new Array};
             std::string     expectedArrayTwoBlobsLines[]{ "99ERoKDh/w==" };
-            const size_t    expectedArrayTwoBlobsLinesCount = A_SIZE(expectedArrayTwoBlobsLines);
+            const size_t    expectedArrayTwoBlobsLinesCount{A_SIZE(expectedArrayTwoBlobsLines)};
 
-            arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            arrayTwoBlobs.addValue(std::make_shared<Blob>());
+            arrayTwoBlobs->addValue(std::make_shared<Blob>());
+            arrayTwoBlobs->addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsLines,
                                       expectedArrayTwoBlobsLinesCount);
         }
@@ -3425,7 +3425,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoBlobsLines[]{ "99ERoKDh/w==" };
-            const size_t    insertedArrayTwoBlobsLinesCount = A_SIZE(insertedArrayTwoBlobsLines);
+            const size_t    insertedArrayTwoBlobsLinesCount{A_SIZE(insertedArrayTwoBlobsLines)};
             Array           arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
@@ -3477,12 +3477,12 @@ doTestMIMEInsertArrayTwoArraysMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoArrays;
+            SpArray         arrayTwoArrays{new Array};
             std::string     expectedArrayTwoArraysLines[]{ "99ER0ODQ4OH/" };
-            const size_t    expectedArrayTwoArraysLinesCount = A_SIZE(expectedArrayTwoArraysLines);
+            const size_t    expectedArrayTwoArraysLinesCount{A_SIZE(expectedArrayTwoArraysLines)};
 
-            arrayTwoArrays.addValue(std::make_shared<Array>());
-            arrayTwoArrays.addValue(std::make_shared<Array>());
+            arrayTwoArrays->addValue(std::make_shared<Array>());
+            arrayTwoArrays->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysLines,
                                       expectedArrayTwoArraysLinesCount);
         }
@@ -3531,7 +3531,7 @@ doTestMIMEExtractArrayTwoArraysMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoArraysLines[]{ "99ER0ODQ4OH/" };
-            const size_t    insertedArrayTwoArraysLinesCount = A_SIZE(insertedArrayTwoArraysLines);
+            const size_t    insertedArrayTwoArraysLinesCount{A_SIZE(insertedArrayTwoArraysLines)};
             Array           arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
@@ -3583,12 +3583,12 @@ doTestMIMEInsertArrayTwoMapsMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoMaps;
+            SpArray         arrayTwoMaps{new Array};
             std::string     expectedArrayTwoMapsLines[]{ "99ER1OTU5OH/" };
-            const size_t    expectedArrayTwoMapsLinesCount = A_SIZE(expectedArrayTwoMapsLines);
+            const size_t    expectedArrayTwoMapsLinesCount{A_SIZE(expectedArrayTwoMapsLines)};
 
-            arrayTwoMaps.addValue(std::make_shared<Map>());
-            arrayTwoMaps.addValue(std::make_shared<Map>());
+            arrayTwoMaps->addValue(std::make_shared<Map>());
+            arrayTwoMaps->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsLines, expectedArrayTwoMapsLinesCount);
         }
         else
@@ -3636,7 +3636,7 @@ doTestMIMEExtractArrayTwoMapsMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoMapsLines[]{ "99ER1OTU5OH/" };
-            const size_t    insertedArrayTwoMapsLinesCount = A_SIZE(insertedArrayTwoMapsLines);
+            const size_t    insertedArrayTwoMapsLinesCount{A_SIZE(insertedArrayTwoMapsLines)};
             Array           arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
@@ -3688,12 +3688,12 @@ doTestMIMEInsertArrayTwoSetsMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayTwoSets;
+            SpArray         arrayTwoSets{new Array};
             std::string     expectedArrayTwoSetsLines[]{ "99ER2OjY6OH/" };
-            const size_t    expectedArrayTwoSetsLinesCount = A_SIZE(expectedArrayTwoSetsLines);
+            const size_t    expectedArrayTwoSetsLinesCount{A_SIZE(expectedArrayTwoSetsLines)};
 
-            arrayTwoSets.addValue(std::make_shared<Set>());
-            arrayTwoSets.addValue(std::make_shared<Set>());
+            arrayTwoSets->addValue(std::make_shared<Set>());
+            arrayTwoSets->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsLines, expectedArrayTwoSetsLinesCount);
         }
         else
@@ -3741,7 +3741,7 @@ doTestMIMEExtractArrayTwoSetsMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayTwoSetsLines[]{ "99ER2OjY6OH/" };
-            const size_t    insertedArrayTwoSetsLinesCount = A_SIZE(insertedArrayTwoSetsLines);
+            const size_t    insertedArrayTwoSetsLinesCount{A_SIZE(insertedArrayTwoSetsLines)};
             Array           arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
@@ -3793,12 +3793,12 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneArrayOneMap;
+            SpArray         arrayOneArrayOneMap{new Array};
             std::string     expectedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/" };
-            const size_t    expectedArrayOneArrayOneMapLinesCount = A_SIZE(expectedArrayOneArrayOneMapLines);
+            const size_t    expectedArrayOneArrayOneMapLinesCount{A_SIZE(expectedArrayOneArrayOneMapLines)};
 
-            arrayOneArrayOneMap.addValue(std::make_shared<Array>());
-            arrayOneArrayOneMap.addValue(std::make_shared<Map>());
+            arrayOneArrayOneMap->addValue(std::make_shared<Array>());
+            arrayOneArrayOneMap->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapLines,
                                       expectedArrayOneArrayOneMapLinesCount);
         }
@@ -3847,7 +3847,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/" };
-            const size_t    insertedArrayOneArrayOneMapLinesCount = A_SIZE(insertedArrayOneArrayOneMapLines);
+            const size_t    insertedArrayOneArrayOneMapLinesCount{A_SIZE(insertedArrayOneArrayOneMapLines)};
             Array           arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
@@ -3899,12 +3899,12 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneMapOneSet;
+            SpArray         arrayOneMapOneSet{new Array};
             std::string     expectedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/" };
-            const size_t    expectedArrayOneMapOneSetLinesCount = A_SIZE(expectedArrayOneMapOneSetLines);
+            const size_t    expectedArrayOneMapOneSetLinesCount{A_SIZE(expectedArrayOneMapOneSetLines)};
 
-            arrayOneMapOneSet.addValue(std::make_shared<Map>());
-            arrayOneMapOneSet.addValue(std::make_shared<Set>());
+            arrayOneMapOneSet->addValue(std::make_shared<Map>());
+            arrayOneMapOneSet->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetLines,
                                       expectedArrayOneMapOneSetLinesCount);
         }
@@ -3953,7 +3953,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/" };
-            const size_t    insertedArrayOneMapOneSetLinesCount = A_SIZE(insertedArrayOneMapOneSetLines);
+            const size_t    insertedArrayOneMapOneSetLinesCount{A_SIZE(insertedArrayOneMapOneSetLines)};
             Array           arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
@@ -4005,12 +4005,12 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 
         if (nullptr != stuff)
         {
-            Array           arrayOneSetOneArray;
+            SpArray         arrayOneSetOneArray{new Array};
             std::string     expectedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/" };
-            const size_t    expectedArrayOneSetOneArrayLinesCount = A_SIZE(expectedArrayOneSetOneArrayLines);
+            const size_t    expectedArrayOneSetOneArrayLinesCount{A_SIZE(expectedArrayOneSetOneArrayLines)};
 
-            arrayOneSetOneArray.addValue(std::make_shared<Set>());
-            arrayOneSetOneArray.addValue(std::make_shared<Array>());
+            arrayOneSetOneArray->addValue(std::make_shared<Set>());
+            arrayOneSetOneArray->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayLines,
                                       expectedArrayOneSetOneArrayLinesCount);
         }
@@ -4059,7 +4059,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
         if (nullptr != stuff)
         {
             std::string     insertedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/" };
-            const size_t    insertedArrayOneSetOneArrayLinesCount = A_SIZE(insertedArrayOneSetOneArrayLines);
+            const size_t    insertedArrayOneSetOneArrayLinesCount{A_SIZE(insertedArrayOneSetOneArrayLines)};
             Array           arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
@@ -4112,7 +4112,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
         if (nullptr != stuff)
         {
             const size_t    numValues = 43;
-            Array           arrayManyDoubles;
+            SpArray         arrayManyDoubles{new Array};
             std::string     expectedArrayManyDoublesLines[]{
                                     "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAAQBgAAAAA",
                                     "AABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAAAABAKgAAAAAAAEAs",
@@ -4120,11 +4120,11 @@ doTestMIMEInsertArrayWithManyDoublesMessage
                                     "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
                                     "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
                                     "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
-            const size_t    expectedArrayManyDoublesLinesCount = A_SIZE(expectedArrayManyDoublesLines);
+            const size_t    expectedArrayManyDoublesLinesCount{A_SIZE(expectedArrayManyDoublesLines)};
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
-                arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
+                arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesLines,
                                       expectedArrayManyDoublesLinesCount);
@@ -4181,7 +4181,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
                                     "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
                                     "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
                                     "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
-            const size_t    insertedArrayManyDoublesLinesCount = A_SIZE(insertedArrayManyDoublesLines);
+            const size_t    insertedArrayManyDoublesLinesCount{A_SIZE(insertedArrayManyDoublesLines)};
             Array           arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -4235,11 +4235,11 @@ doTestMIMEInsertLogicalMapMessage
 
         if (nullptr != stuff)
         {
-            Map             logicalMap;
+            SpMap           logicalMap{new Map};
             std::string     expectedLogicalMapLines[]{ "99UQwA3l/w==" };
-            const size_t    expectedLogicalMapLinesCount = A_SIZE(expectedLogicalMapLines);
+            const size_t    expectedLogicalMapLinesCount{A_SIZE(expectedLogicalMapLines)};
 
-            logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
+            logicalMap->addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapLines, expectedLogicalMapLinesCount);
         }
         else
@@ -4287,7 +4287,7 @@ doTestMIMEExtractLogicalMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedLogicalMapLines[]{ "99UQwA3l/w==" };
-            const size_t    insertedLogicalMapLinesCount = A_SIZE(insertedLogicalMapLines);
+            const size_t    insertedLogicalMapLinesCount{A_SIZE(insertedLogicalMapLines)};
             Map             logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
@@ -4337,11 +4337,11 @@ doTestMIMEInsertIntegerMapMessage
 
         if (nullptr != stuff)
         {
-            Map             integerMap;
+            SpMap           integerMap{new Map};
             std::string     expectedIntegerMapLines[]{ "99UQAA3l/w==" };
-            const size_t    expectedIntegerMapLinesCount = A_SIZE(expectedIntegerMapLines);
+            const size_t    expectedIntegerMapLinesCount{A_SIZE(expectedIntegerMapLines)};
 
-            integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
+            integerMap->addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapLines, expectedIntegerMapLinesCount);
         }
         else
@@ -4389,7 +4389,7 @@ doTestMIMEExtractIntegerMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedIntegerMapLines[]{ "99UQAA3l/w==" };
-            const size_t    insertedIntegerMapLinesCount = A_SIZE(insertedIntegerMapLines);
+            const size_t    insertedIntegerMapLinesCount{A_SIZE(insertedIntegerMapLines)};
             Map             integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
@@ -4439,11 +4439,11 @@ doTestMIMEInsertStringMapMessage
 
         if (nullptr != stuff)
         {
-            Map             stringMap;
+            SpMap           stringMap{new Map};
             std::string     expectedStringMapLines[]{ "99UQgA3l/w==" };
-            const size_t    expectedStringMapLinesCount = A_SIZE(expectedStringMapLines);
+            const size_t    expectedStringMapLinesCount{A_SIZE(expectedStringMapLines)};
 
-            stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
+            stringMap->addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapLines, expectedStringMapLinesCount);
         }
         else
@@ -4491,7 +4491,7 @@ doTestMIMEExtractStringMapMessage
         if (nullptr != stuff)
         {
             std::string     insertedStringMapLines[]{ "99UQgA3l/w==" };
-            const size_t    insertedStringMapLinesCount = A_SIZE(insertedStringMapLines);
+            const size_t    insertedStringMapLinesCount{A_SIZE(insertedStringMapLines)};
             Map             stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
@@ -4541,11 +4541,11 @@ doTestMIMEInsertLogicalSetMessage
 
         if (nullptr != stuff)
         {
-            Set             logicalSet;
+            SpSet           logicalSet{new Set};
             std::string     expectedLogicalSetLines[]{ "99kQwOn/" };
-            const size_t    expectedLogicalSetLinesCount = A_SIZE(expectedLogicalSetLines);
+            const size_t    expectedLogicalSetLinesCount{A_SIZE(expectedLogicalSetLines)};
 
-            logicalSet.addValue(std::make_shared<Logical>());
+            logicalSet->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetLines, expectedLogicalSetLinesCount);
         }
         else
@@ -4593,7 +4593,7 @@ doTestMIMEExtractLogicalSetMessage
         if (nullptr != stuff)
         {
             std::string     insertedLogicalSetLines[]{ "99kQwOn/" };
-            const size_t    insertedLogicalSetLinesCount = A_SIZE(insertedLogicalSetLines);
+            const size_t    insertedLogicalSetLinesCount{A_SIZE(insertedLogicalSetLines)};
             Set             logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
@@ -4643,11 +4643,11 @@ doTestMIMEInsertIntegerSetMessage
 
         if (nullptr != stuff)
         {
-            Set             integerSet;
+            SpSet           integerSet{new Set};
             std::string     expectedIntegerSetLines[]{ "99kQAOn/" };
-            const size_t    expectedIntegerSetLinesCount = A_SIZE(expectedIntegerSetLines);
+            const size_t    expectedIntegerSetLinesCount{A_SIZE(expectedIntegerSetLines)};
 
-            integerSet.addValue(std::make_shared<Integer>());
+            integerSet->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetLines, expectedIntegerSetLinesCount);
         }
         else
@@ -4695,7 +4695,7 @@ doTestMIMEExtractIntegerSetMessage
         if (nullptr != stuff)
         {
             std::string     insertedIntegerSetLines[]{ "99kQAOn/" };
-            const size_t    insertedIntegerSetLinesCount = A_SIZE(insertedIntegerSetLines);
+            const size_t    insertedIntegerSetLinesCount{A_SIZE(insertedIntegerSetLines)};
             Set             integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
@@ -4745,11 +4745,11 @@ doTestMIMEInsertStringSetMessage
 
         if (nullptr != stuff)
         {
-            Set             stringSet;
+            SpSet           stringSet{new Set};
             std::string     expectedStringSetLines[]{ "99kQgOn/" };
-            const size_t    expectedStringSetLinesCount = A_SIZE(expectedStringSetLines);
+            const size_t    expectedStringSetLinesCount{A_SIZE(expectedStringSetLines)};
 
-            stringSet.addValue(std::make_shared<String>());
+            stringSet->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStringSetLines, expectedStringSetLinesCount);
         }
         else
@@ -4797,7 +4797,7 @@ doTestMIMEExtractStringSetMessage
         if (nullptr != stuff)
         {
             std::string     insertedStringSetLines[]{ "99kQgOn/" };
-            const size_t    insertedStringSetLinesCount = A_SIZE(insertedStringSetLines);
+            const size_t    insertedStringSetLinesCount{A_SIZE(insertedStringSetLines)};
             Set             stringSet;
 
             stringSet.addValue(std::make_shared<String>());
@@ -4847,50 +4847,50 @@ doTestMIMEInsertArrayWithRangeOfIntegers
 
         if (nullptr != stuff)
         {
-            Array           arrayWithRangeOfIntegers;
+            SpArray         arrayWithRangeOfIntegers{new Array};
             std::string     expectedArrayWithRangeOfIntegersLines[]{
                                     "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSlEAAlCRhO",
                                     "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
                                     "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
                                     "uoeidgAA4f8=" };
-            const size_t    expectedArrayWithRangeOfIntegersLinesCount = A_SIZE(expectedArrayWithRangeOfIntegersLines);
+            const size_t    expectedArrayWithRangeOfIntegersLinesCount{A_SIZE(expectedArrayWithRangeOfIntegersLines)};
 
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000000));
-            arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000000000));
+            arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000000000));
             result = setValueAndCheck(*stuff, arrayWithRangeOfIntegers, expectedArrayWithRangeOfIntegersLines,
                                       expectedArrayWithRangeOfIntegersLinesCount);
         }
@@ -4943,7 +4943,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
                                     "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
                                     "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
                                     "uoeidgAA4f8=" };
-            const size_t    insertedArrayWithRangeOfIntegersLinesCount = A_SIZE(insertedArrayWithRangeOfIntegersLines);
+            const size_t    insertedArrayWithRangeOfIntegersLinesCount{A_SIZE(insertedArrayWithRangeOfIntegersLines)};
             Array           arrayWithRangeOfIntegers;
 
             arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(1));
@@ -5013,8 +5013,8 @@ doTestMIMEExtractArrayWithRangeOfIntegers
  @return @c 0 on a successful test and @c 1 on failure. */
 int
 main
-    (int        argc,
-     Ptr(Ptr(char))   argv)
+    (int            argc,
+     Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
 

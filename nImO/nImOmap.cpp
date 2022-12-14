@@ -502,7 +502,7 @@ nImO::Map::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[] = { kStartMapChar, '\0' };
+    static const char   initialChars[]{ kStartMapChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -513,7 +513,7 @@ nImO::Map::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[] = { kEndMapChar, kKeyValueSeparator, '\0' };
+    static const char   terminalChars[]{ kEndMapChar, kKeyValueSeparator, '\0' };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
@@ -942,7 +942,7 @@ nImO::Map::writeToMessage
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const DataKind   stuff[] =
+        static const DataKind   stuff[]
         {
             DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeMap |
               DataKind::OtherContainerEmptyValue,

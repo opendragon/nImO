@@ -399,7 +399,7 @@ nImO::Array::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[] = { kStartArrayChar, '\0' };
+    static const char   initialChars[]{ kStartArrayChar, '\0' };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -410,7 +410,7 @@ nImO::Array::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[] = { kEndArrayChar, '\0' };
+    static const char   terminalChars[]{ kEndArrayChar, '\0' };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
@@ -749,7 +749,7 @@ nImO::Array::writeToMessage
     else
     {
         ODL_LOG("! (0 < inherited2::size())"); //####
-        static const DataKind   stuff[] =
+        static const DataKind   stuff[]
         {
             (DataKind::Other | DataKind::OtherContainerStart |
              DataKind::OtherContainerTypeArray |

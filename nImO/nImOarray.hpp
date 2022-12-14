@@ -145,7 +145,7 @@ namespace nImO
              @return The element at the given position, or @c nullptr if the index is out of range. */
             inline SpValue
             at
-                (const size_type    index)
+                (const size_type    index = 0)
                 const
             {
                 SpValue result;

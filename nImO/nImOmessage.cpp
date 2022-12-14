@@ -159,12 +159,12 @@ nImO::Message::close
         case MessageState::OpenForWriting :
             if (! _headerAdded)
             {
-                static const DataKind   emptyMessage[] =
+                static const DataKind   emptyMessage[]
                 {
                     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
                 };
-                const size_t    emptyMessageLength = A_SIZE(emptyMessage);
+                const size_t    emptyMessageLength{A_SIZE(emptyMessage)};
 
                 appendBytes(emptyMessage, emptyMessageLength);
             }
@@ -399,24 +399,24 @@ nImO::Message::reset
 
 nImO::Message &
 nImO::Message::setValue
-    (const nImO::Value &    theValue)
+    (nImO::SpValue  theValue)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("theValue = ", &theValue); //####
+    ODL_P1("theValue = ", theValue); //####
     reset();
     if (MessageState::OpenForWriting == _state)
     {
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         std::lock_guard<std::mutex> guard(_lock);
 
-        DataKind    typeTag = theValue.getTypeTag();
+        DataKind    typeTag = theValue->getTypeTag();
         DataKind    headerByte = (DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
         DataKind    trailerByte = (DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;
         ODL_B1("_headerAdded <- ", _headerAdded); //####
-        theValue.writeToMessage(*this);
+        theValue->writeToMessage(*this);
         appendBytes(&trailerByte, sizeof(trailerByte));
     }
     else

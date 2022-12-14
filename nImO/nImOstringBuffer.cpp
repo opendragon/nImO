@@ -71,7 +71,7 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The canonical names for control characters. */
-static CPtr(char)   kCanonicalControl[] =
+static CPtr(char)   kCanonicalControl[]
 {
     "C-@", // 00 NUL
     "C-A", // 01 SOH
@@ -366,22 +366,22 @@ nImO::StringBuffer::processCharacters
                     if (' ' == aByte)
                     {
                         // Meta-blank is very special
-                        static const uint8_t    metaBlank[] = { '2', '4', '0' };
+                        static const uint8_t    metaBlank[]{ '2', '4', '0' };
 
                         inherited::appendBytes(metaBlank, sizeof(metaBlank));
                     }
                     else if (0x7F == aByte)
                     {
                         // As is 0xFF
-                        static const uint8_t    metaDel[] = { '3', '7', '7' };
+                        static const uint8_t    metaDel[]{ '3', '7', '7' };
 
                         inherited::appendBytes(metaDel, sizeof(metaDel));
                     }
                     else if (delimiter == aByte)
                     {
                         // Make sure that we don't break if there's a meta-quote of some form!
-                        static const uint8_t    metaDoubleQuote[] = { '2', '4', '2' };
-                        static const uint8_t    metaSingleQuote[] = { '2', '4', '7' };
+                        static const uint8_t    metaDoubleQuote[]{ '2', '4', '2' };
+                        static const uint8_t    metaSingleQuote[]{ '2', '4', '7' };
 
                         if (kSingleQuote == aByte)
                         {
@@ -395,7 +395,7 @@ nImO::StringBuffer::processCharacters
                     else
                     {
                         // 'Regular' meta characters
-                        static const uint8_t    metaPrefix[] = { 'M', '-' };
+                        static const uint8_t    metaPrefix[]{ 'M', '-' };
 
                         inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)

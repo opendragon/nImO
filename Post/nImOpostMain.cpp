@@ -36,8 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImOarray.hpp>
 #include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOmDnsContext.hpp>
+#include <nImOmessage.hpp>
+#include <nImOMIMESupport.hpp>
+#include <nImOstring.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
 //#include <odlEnable.h>
@@ -127,6 +131,7 @@ main
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
     nImO::StringVector              arguments;
+    int                             result = 1;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
@@ -139,23 +144,58 @@ main
             nImO::MdnsContext   ourContext(progName, logging);
             std::string         header{secondArg.getCurrentValue()};
             bool                readFromStdin{firstArg.getCurrentValue()};
+            auto                stuff{make_unique<nImO::Message>()};
+            nImO::Array         stringsToSend;
 
-            if (0 < header.length())
+            if (nullptr != stuff)
             {
-                // We need to skip the strings from 'readFromStdin' and 'header'.
-                for (size_t ii = 2; ii < arguments.size(); ++ii)
+// collect the logging ports!!
+                if (0 < header.length())
                 {
-                    header += " " + arguments[ii];
+                    // We need to skip the strings from 'readFromStdin' and 'header'.
+                    for (size_t ii = 2; ii < arguments.size(); ++ii)
+                    {
+                        header += " " + arguments[ii];
+                    }
+                    stringsToSend.addValue(std::make_shared<nImO::String>(header));
                 }
-std::cout << header << std::endl;//!!
-            }
-            if (readFromStdin)
-            {
-                std::string inLine;
-
-                while (getline(std::cin, inLine))
+                if (readFromStdin)
                 {
-std::cout << inLine << std::endl;//!!
+                    std::string inLine;
+
+                    while (getline(std::cin, inLine))
+                    {
+                        stringsToSend.addValue(std::make_shared<nImO::String>(inLine));
+                    }
+                }
+                if (0 < stringsToSend.size())
+                {
+                    nImO::Message   messageToSend;
+
+                    messageToSend.open(true);
+                    messageToSend.setValue(stringsToSend);
+                    messageToSend.close();
+                    if (0 < messageToSend.getLength())
+                    {
+                        auto    asString{messageToSend.getBytes()};
+
+                        if (0 < asString.length())
+                        {
+                            nImO::StringVector  outVec;
+
+                            nImO::EncodeBytesAsMIME(outVec, asString);
+// send the message to the logging ports.
+result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 < asString.length())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 < messageToSend())"); //####
+                    }
                 }
             }
         }
@@ -164,6 +204,6 @@ std::cout << inLine << std::endl;//!!
             ODL_LOG("Exception caught"); //####
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(result); //####
+    return result;
 } // main

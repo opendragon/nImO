@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontextWithMdns.hpp
+//  File:       nImO/nImOcontextWithMDNS.hpp
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithMdns_HPP_))
-# define nImOcontextWithMdns_HPP_ /* Header guard */
+#if (! defined(nImOcontextWithMDNS_HPP_))
+# define nImOcontextWithMDNS_HPP_ /* Header guard */
 
 # include <nImOcontext.hpp>
 # include <nImOlogger.hpp>
@@ -57,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for an application that uses mDNS. */
-    class ContextWithMdns : public Context
+    class ContextWithMDNS : public Context
     {
 
         public :
@@ -79,14 +79,14 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
-            ContextWithMdns
+            ContextWithMDNS
                 (const std::string &    executableName,
                  const bool             logging,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual
-            ~ContextWithMdns
+            ~ContextWithMDNS
                 (void);
 
             /*! @brief Log a message.
@@ -123,8 +123,8 @@ namespace nImO
             // Private fields.
             Ptr(Logger) _logger;
 
-    }; // ContextWithMdns
+    }; // ContextWithMDNS
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithMdns_HPP_)
+#endif // ! defined(nImOcontextWithMDNS_HPP_)

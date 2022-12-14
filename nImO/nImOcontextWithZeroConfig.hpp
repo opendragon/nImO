@@ -41,6 +41,7 @@
 
 # include <nImOcontext.hpp>
 # include <nImOlogger.hpp>
+# include <nImOmessage.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -80,10 +81,11 @@ namespace nImO
                 (void);
 
             /*! @brief Log a message.
-            @param[in] message The message to be logged. */
-            void
+             @param[in] messageToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
             report
-                (const std::string &    message)
+                (Message &  messageToSend)
                 const;
 
         protected :

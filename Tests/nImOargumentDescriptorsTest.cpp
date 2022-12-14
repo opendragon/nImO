@@ -759,7 +759,6 @@ doTestPortArgumentDescriptors
                 {
                     testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
                                                                     strtol(*argv, nullptr, 10), false));
-                    std::cerr << testDescriptor->toString() << std::endl;
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;

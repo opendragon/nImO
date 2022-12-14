@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOlogger.hpp"
+#include <nImOMIMESupport.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -120,16 +121,37 @@ nImO::Logger::removeListeningPort
     ODL_OBJEXIT(); //####
 } // nImO::Logger::removeListeningPort
 
-void
+bool
 nImO::Logger::report
-    (const std::string &    message)
+    (nImO::Message &    messageToSend)
     const
 {
-    MDNS_UNUSED_ARG_(message);
+    bool    okSoFar = false;
+
     ODL_OBJENTER(); //####
-    ODL_S1s("message = ", message); //####
-    //
-    ODL_OBJEXIT(); //####
+    if (0 < messageToSend.getLength())
+    {
+        auto    asString{messageToSend.getBytes()};
+
+        if (0 < asString.length())
+        {
+            nImO::StringVector  outVec;
+
+            nImO::EncodeBytesAsMIME(outVec, asString);
+            // send the message to the logging ports.
+            okSoFar = true;
+        }
+        else
+        {
+            ODL_LOG("! (0 < asString.length())"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (0 < messageToSend.getLength())"); //####
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::Logger::report
 
 #if defined(__APPLE__)

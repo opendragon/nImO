@@ -40,7 +40,6 @@
 #include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOmDnsContext.hpp>
 #include <nImOmessage.hpp>
-#include <nImOMIMESupport.hpp>
 #include <nImOstring.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 
@@ -129,7 +128,7 @@ main
                                                 nImO::ArgumentMode::OptionalModifiable, ""};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
-    bool                            logging = false;
+    bool                            logging = true; // We need to have the logging ports set up!
     nImO::StringVector              arguments;
     int                             result = 1;
 
@@ -175,26 +174,9 @@ main
                     messageToSend.open(true);
                     messageToSend.setValue(stringsToSend);
                     messageToSend.close();
-                    if (0 < messageToSend.getLength())
+                    if (ourContext.report(messageToSend))
                     {
-                        auto    asString{messageToSend.getBytes()};
-
-                        if (0 < asString.length())
-                        {
-                            nImO::StringVector  outVec;
-
-                            nImO::EncodeBytesAsMIME(outVec, asString);
-// send the message to the logging ports.
-result = 0;
-                        }
-                        else
-                        {
-                            ODL_LOG("! (0 < asString.length())"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (0 < messageToSend())"); //####
+                        result = 0;
                     }
                 }
             }

@@ -139,18 +139,24 @@ nImO::ContextWithZeroConfig::removeListeningPort
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithZeroConfig::removeListeningPort
 
-void
+bool
 nImO::ContextWithZeroConfig::report
-    (const std::string &    message)
+    (nImO::Message &    messageToSend)
     const
 {
+    bool    okSoFar;
+
     ODL_OBJENTER(); //####
-    ODL_S1s("message = ", message); //####
-    if (nullptr != _logger)
+    if (nullptr == _logger)
     {
-        _logger->report(message);
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
     }
-    ODL_OBJEXIT(); //####
+    else
+    {
+        okSoFar = _logger->report(messageToSend);
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::ContextWithZeroConfig::report
 
 #if defined(__APPLE__)

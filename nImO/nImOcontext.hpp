@@ -52,7 +52,14 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+# if defined(__APPLE__)
+#  pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wdeprecated-declarations"
+# endif // defined(__APPLE__)
 # include <boost/asio.hpp>
+# if defined(__APPLE__)
+#  pragma clang diagnostic pop
+# endif // defined(__APPLE__)
 
 using namespace boost;
 

@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOzeroConfService.hpp
+//  File:       nImO/nImOcontextWithMdns.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO access to Zeroconf/Bonjour/mDNS as a service.
+//  Contains:   The class declaration for nImO execution contexts that use mDNS.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2017 by OpenDragon.
+//  Copyright:  (c) 2022 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2017-02-10
+//  Created:    2022-07-18
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOzeroConfService_HPP_))
-# define nImOzeroConfService_HPP_ /* Header guard */
+#if (! defined(nImOcontextWithMdns_HPP_))
+# define nImOcontextWithMdns_HPP_ /* Header guard */
 
-# include <nImOvalue.hpp>
+# include <nImOcontext.hpp>
+# include <nImOlogger.hpp>
+# include <nImOmessage.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO access to Zeroconf/Bonjour/mDNS as a service. */
+ @brief The class declaration for %nImO execution contexts that use mDNS. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide simple values. */
-    class ZeroConfService final // : public Value
+    /*! @brief A class to provide support for an application that uses mDNS. */
+    class ContextWithMdns : public Context
     {
 
         public :
@@ -68,31 +70,48 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            //using inherited = Value;
+            using inherited = Context;
 
         public :
             // Public methods.
 
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            ZeroConfService
-                (ZeroConfService &&	other)
-                noexcept;
+            /*! @brief The constructor.
+             @param[in] executable The name of the executing program.
+             @param[in] logging @c true if the executing program is to be logged.
+             @param[in] nodeName The @nImO-visible name of the executing program. */
+            ContextWithMdns
+                (const std::string &    executableName,
+                 const bool             logging,
+                 const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual
-            ~ZeroConfService
+            ~ContextWithMdns
                 (void);
+
+            /*! @brief Log a message.
+             @param[in] messageToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (Message &  messageToSend)
+                const;
 
         protected :
             // Protected methods.
 
-            /*! @brief The constructor. */
-            ZeroConfService
-                (void);
-
         private :
             // Private methods.
+
+            /*! @brief Add a new listening port for the logged messages. */
+            void
+            addListeningPort
+                (void);
+
+            /*! @brief Remove a listening port. */
+            void
+            removeListeningPort
+                (void);
 
         public :
             // Public fields.
@@ -102,9 +121,10 @@ namespace nImO
 
         private :
             // Private fields.
+            Ptr(Logger) _logger;
 
-    }; // ZeroConfService
+    }; // ContextWithMdns
 
 } // nImO
 
-#endif // ! defined(nImOzeroConfService_HPP_)
+#endif // ! defined(nImOcontextWithMdns_HPP_)

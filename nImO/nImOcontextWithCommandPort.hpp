@@ -39,7 +39,7 @@
 #if (! defined(nImOcontextWithCommandPort_HPP_))
 # define nImOcontextWithCommandPort_HPP_ /* Header guard */
 
-# include <nImOcontextWithZeroConfig.hpp>
+# include <nImOcontextWithMdns.hpp>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for an application that uses a command port. */
-    class ContextWithCommandPort : public ContextWithZeroConfig
+    class ContextWithCommandPort : public ContextWithMdns
     {
 
         public :
@@ -68,7 +68,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithZeroConfig;
+            using inherited = ContextWithMdns;
 
         public :
             // Public methods.

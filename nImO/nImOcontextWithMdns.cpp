@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontextWithZeroConfig.cpp
+//  File:       nImO/nImOcontextWithMdns.cpp
 //
 //  Project:    nImO
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithZeroConfig.hpp"
+#include "nImOcontextWithMdns.hpp"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -76,7 +76,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ContextWithZeroConfig::ContextWithZeroConfig
+nImO::ContextWithMdns::ContextWithMdns
     (const std::string &    executableName,
      const bool             logging,
      const std::string &    nodeName) :
@@ -98,9 +98,9 @@ nImO::ContextWithZeroConfig::ContextWithZeroConfig
         throw;
     }
     ODL_EXIT_P(this); //####
-} // nImO::ContextWithZeroConfig::ContextWithZeroConfig
+} // nImO::ContextWithMdns::ContextWithMdns
 
-nImO::ContextWithZeroConfig::~ContextWithZeroConfig
+nImO::ContextWithMdns::~ContextWithMdns
     (void)
 {
     ODL_OBJENTER(); //####
@@ -109,14 +109,14 @@ nImO::ContextWithZeroConfig::~ContextWithZeroConfig
         delete _logger;
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::~ContextWithZeroConfig
+} // nImO::ContextWithMdns::~ContextWithMdns
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::ContextWithZeroConfig::addListeningPort
+nImO::ContextWithMdns::addListeningPort
     (void)
 {
     ODL_OBJENTER(); //####
@@ -125,10 +125,10 @@ nImO::ContextWithZeroConfig::addListeningPort
         _logger->addListeningPort();
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::addListeningPort
+} // nImO::ContextWithMdns::addListeningPort
 
 void
-nImO::ContextWithZeroConfig::removeListeningPort
+nImO::ContextWithMdns::removeListeningPort
     (void)
 {
     ODL_OBJENTER(); //####
@@ -137,10 +137,10 @@ nImO::ContextWithZeroConfig::removeListeningPort
         _logger->removeListeningPort();
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithZeroConfig::removeListeningPort
+} // nImO::ContextWithMdns::removeListeningPort
 
 bool
-nImO::ContextWithZeroConfig::report
+nImO::ContextWithMdns::report
     (nImO::Message &    messageToSend)
     const
 {
@@ -157,7 +157,7 @@ nImO::ContextWithZeroConfig::report
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ContextWithZeroConfig::report
+} // nImO::ContextWithMdns::report
 
 #if defined(__APPLE__)
 # pragma mark Global functions

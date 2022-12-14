@@ -57,6 +57,12 @@
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
+# include <boost/asio/read_until.hpp>
+# include <boost/bind/bind.hpp>
+# include <boost/shared_array.hpp>
+# include <boost/thread.hpp>
+# include <boost/thread/locks.hpp>
+# include <boost/thread/mutex.hpp>
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -65,6 +71,19 @@ using namespace boost;
 
 namespace nImO
 {
+
+    /*! @brief A holder for a shared pointer to an Asio service . */
+    typedef std::shared_ptr<asio::io_service>       SPservice;
+
+    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
+    typedef std::shared_ptr<asio::ip::tcp::socket>  SPsocketTCP;
+
+    /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
+    typedef std::shared_ptr<asio::ip::udp::socket>  SPsocketUDP;
+
+    /*! @brief A holder for a shared pointer to an Asio 'work' placeholder. */
+    typedef std::unique_ptr<asio::io_service::work> UPwork;
+
     /*! @brief A class to provide binary data with unknown structure. */
     class Context
     {

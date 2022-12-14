@@ -71,7 +71,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
             "${THIS_SOURCE_DIR}/nImOcontext.cpp"
             "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp"
-            "${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.cpp"
+            "${THIS_SOURCE_DIR}/nImOcontextWithMdns.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
             "${THIS_SOURCE_DIR}/nImOdouble.cpp"
             "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp"
@@ -85,7 +85,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
-            "${THIS_SOURCE_DIR}/nImOmDnsContext.cpp"
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
@@ -102,8 +101,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOtestContext.cpp"
             "${THIS_SOURCE_DIR}/nImOutilityContext.cpp"
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
-            "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
-            "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
             "${THIS_SOURCE_DIR}/optionparser.cpp")
 
 target_link_libraries(${THIS_TARGET}
@@ -147,7 +144,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
         "${THIS_SOURCE_DIR}/nImOcontext.hpp"
         "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.hpp"
+        "${THIS_SOURCE_DIR}/nImOcontextWithMdns.hpp"
         "${THIS_SOURCE_DIR}/nImOconverters.hpp"
         "${THIS_SOURCE_DIR}/nImOdouble.hpp"
         "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
@@ -161,7 +158,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOlogger.hpp"
         "${THIS_SOURCE_DIR}/nImOlogical.hpp"
         "${THIS_SOURCE_DIR}/nImOmap.hpp"
-        "${THIS_SOURCE_DIR}/nImOmDnsContext.hpp"
         "${THIS_SOURCE_DIR}/nImOmessage.hpp"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.hpp"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp"
@@ -178,8 +174,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOtestContext.hpp"
         "${THIS_SOURCE_DIR}/nImOutilityContext.hpp"
         "${THIS_SOURCE_DIR}/nImOvalue.hpp"
-        "${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp"
-        "${THIS_SOURCE_DIR}/nImOzeroConfService.hpp"
         "${THIS_SOURCE_DIR}/optionparser.hpp"
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
@@ -203,7 +197,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.hpp
         ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.hpp
         ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp
-        ${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.cpp ${THIS_SOURCE_DIR}/nImOcontextWithZeroConfig.hpp
+        ${THIS_SOURCE_DIR}/nImOcontextWithMdns.cpp ${THIS_SOURCE_DIR}/nImOcontextWithMdns.hpp
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.hpp
         ${THIS_SOURCE_DIR}/nImOdouble.cpp ${THIS_SOURCE_DIR}/nImOdouble.hpp
         ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp
@@ -217,7 +211,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.hpp
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
-        ${THIS_SOURCE_DIR}/nImOmDnsContext.cpp ${THIS_SOURCE_DIR}/nImOmdnsContext.hpp
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.hpp
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.hpp
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp
@@ -233,9 +226,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp
         ${THIS_SOURCE_DIR}/nImOtestContext.cpp ${THIS_SOURCE_DIR}/nImOtestContext.hpp
         ${THIS_SOURCE_DIR}/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/nImOutilityContext.hpp
-        ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.hpp
-        ${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp ${THIS_SOURCE_DIR}/nImOzeroConfClient.hpp
-        ${THIS_SOURCE_DIR}/nImOzeroConfService.cpp ${THIS_SOURCE_DIR}/nImOzeroConfService.hpp)
+        ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.hpp)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)

@@ -101,6 +101,7 @@
 #  pragma warning(disable: 4996)
 #  include <WinSock2.h>
 #  include <Ws2tcpip.h>
+#  include <iphlpapi.h>
 #  pragma warning(pop)
 # endif // ! MAC_OR_LINUX_
 

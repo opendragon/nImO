@@ -17,7 +17,7 @@
 #include "nImOcontainer.hpp"
 #include "nImOcontext.hpp"
 #include "nImOcontextWithCommandPort.hpp"
-#include "nImOcontextWithZeroConfig.hpp"
+#include "nImOcontextWithMdns.hpp"
 #include "nImOconverters.hpp"
 #include "nImOdouble.hpp"
 #include "nImOdoubleArgumentDescriptor.hpp"
@@ -31,7 +31,6 @@
 #include "nImOlogger.hpp"
 #include "nImOlogical.hpp"
 #include "nImOmap.hpp"
-#include "nImOmDnsContext.hpp"
 #include "nImOmessage.hpp"
 #include "nImOmiscellaneousContext.hpp"
 #include "nImOnumber.hpp"
@@ -47,6 +46,4 @@
 #include "nImOtestContext.hpp"
 #include "nImOutilityContext.hpp"
 #include "nImOvalue.hpp"
-#include "nImOzeroConfClient.hpp"
-#include "nImOzeroConfService.hpp"
 %}

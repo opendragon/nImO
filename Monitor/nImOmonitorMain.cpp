@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOmDnsContext.hpp>
+#include <nImOcontextWithMdns.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -151,26 +151,32 @@ main
     ODL_ENTER(); //####
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
-    bool                    logging = false;
+    bool                    logging = false; // We will create the logging port used by other applications
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
     {
         try
         {
-            nImO::MdnsContext   ourContext(progName, logging);
+            nImO::ContextWithMdns   ourContext(progName, logging);
 
             nImO::SetSignalHandlers(catchSignal);
             // Open a UDP port to collect messages.
+
+
             // Announce the UDP port so that other applications can report.
+
+
             // Wait for messages until exit requested.
             for ( ; 1 == lKeepRunning; )
             {
 
             }
             std::cout << "saw Ctrl-C" << std::endl;
-            // Retract announcement.
-            // Close UDP port.
+            // Retract the announcement.
+
+            // Close the UDP port.
+            
         }
         catch (...)
         {

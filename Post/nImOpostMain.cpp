@@ -38,7 +38,7 @@
 
 #include <nImOarray.hpp>
 #include <nImObooleanArgumentDescriptor.hpp>
-#include <nImOmDnsContext.hpp>
+#include <nImOcontextWithMdns.hpp>
 #include <nImOmessage.hpp>
 #include <nImOstring.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
@@ -140,10 +140,10 @@ main
     {
         try
         {
-            nImO::MdnsContext   ourContext(progName, logging);
-            std::string         header{secondArg.getCurrentValue()};
-            bool                readFromStdin{firstArg.getCurrentValue()};
-            auto                stuff{make_unique<nImO::Message>()};
+            nImO::ContextWithMdns   ourContext(progName, logging);
+            std::string             header{secondArg.getCurrentValue()};
+            bool                    readFromStdin{firstArg.getCurrentValue()};
+            auto                    stuff{make_unique<nImO::Message>()};
 
             if (nullptr != stuff)
             {

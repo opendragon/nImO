@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImObooleanArgumentDescriptor.hpp>
 #include <nImOstringArgumentDescriptor.hpp>
 #include <nImOmDnsContext.hpp>
 
@@ -118,20 +119,45 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::StringArgumentDescriptor  firstArg{"message", T_("Text to send to logging applications"),
+    nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"),
+                                                nImO::ArgumentMode::OptionalModifiable, false};
+    nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),
                                                 nImO::ArgumentMode::OptionalModifiable, ""};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    nImO::StringVector              arguments;
 
     argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",
-                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
+                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true,
+                                              &arguments))
     {
         try
         {
             nImO::MdnsContext   ourContext(progName, logging);
+            std::string         header{secondArg.getCurrentValue()};
+            bool                readFromStdin{firstArg.getCurrentValue()};
 
+            if (0 < header.length())
+            {
+                // We need to skip the strings from 'readFromStdin' and 'header'.
+                for (size_t ii = 2; ii < arguments.size(); ++ii)
+                {
+                    header += " " + arguments[ii];
+                }
+std::cout << header << std::endl;//!!
+            }
+            if (readFromStdin)
+            {
+                std::string inLine;
+
+                while (getline(std::cin, inLine))
+                {
+std::cout << inLine << std::endl;//!!
+                }
+            }
         }
         catch (...)
         {

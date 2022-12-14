@@ -135,6 +135,8 @@
 		F6B0B1842408177C00CB5ED5 /* nImOremoveApp.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOremoveApp.rc.in; path = ApplicationSupport/RemoveApplication/nImOremoveApp.rc.in; sourceTree = "<group>"; };
 		F6B0B1852408177C00CB5ED5 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = ApplicationSupport/RemoveApplication/resource.h; sourceTree = "<group>"; };
 		F6B0B1862408177C00CB5ED5 /* nImOremoveAppMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOremoveAppMain.cpp; path = ApplicationSupport/RemoveApplication/nImOremoveAppMain.cpp; sourceTree = "<group>"; };
+		F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithNetworking.hpp; path = nImO/nImOcontextWithNetworking.hpp; sourceTree = "<group>"; };
+		F6B18566294A892B0091BEE3 /* nImOcontextWithNetworking.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithNetworking.cpp; path = nImO/nImOcontextWithNetworking.cpp; sourceTree = "<group>"; };
 		F6B388F71C77F3D1004B2D42 /* nImOconnect.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconnect.rc.in; path = Connect/nImOconnect.rc.in; sourceTree = SOURCE_ROOT; };
 		F6B388F81C77F3D1004B2D42 /* nImOconnectMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconnectMain.cpp; path = Connect/nImOconnectMain.cpp; sourceTree = SOURCE_ROOT; };
 		F6B388F91C77F3D1004B2D42 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Connect/resource.h; sourceTree = SOURCE_ROOT; };
@@ -539,6 +541,8 @@
 				F6737D5B28857E25000DD5FC /* nImOcontextWithCommandPort.hpp */,
 				F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */,
 				F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.hpp */,
+				F6B18566294A892B0091BEE3 /* nImOcontextWithNetworking.cpp */,
+				F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.hpp */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.hpp */,
 				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontextWithMDNS.hpp
+//  File:       nImO/nImOcontextWithNetworking.hpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use mDNS.
+//  Contains:   The class declaration for nImO execution contexts that use networking.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-18
+//  Created:    2022-12-14
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithMDNS_HPP_))
-# define nImOcontextWithMDNS_HPP_ /* Header guard */
+#if (! defined(nImOcontextWithNetworking_HPP_))
+# define nImOcontextWithNetworking_HPP_ /* Header guard */
 
-# include <nImOcontextWithNetworking.hpp>
-# include <nImOlogger.hpp>
+# include <nImOcontext.hpp>
 # include <nImOmessage.hpp>
 
 # if defined(__APPLE__)
@@ -49,15 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use mDNS. */
+ @brief The class declaration for %nImO execution contexts that use networking. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for an application that uses mDNS. */
-    class ContextWithMDNS : public ContextWithNetworking
+    /*! @brief A class to provide support for an application that uses networking. */
+    class ContextWithNetworking : public Context
     {
 
         public :
@@ -70,48 +69,29 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithNetworking;
+            using inherited = Context;
 
         public :
             // Public methods.
+
+            /*! @brief The destructor. */
+            virtual
+            ~ContextWithNetworking
+                (void);
+
+        protected :
+            // Protected methods.
 
             /*! @brief The constructor.
              @param[in] executable The name of the executing program.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
-            ContextWithMDNS
+            ContextWithNetworking
                 (const std::string &    executableName,
-                 const bool             logging,
                  const std::string &    nodeName = "");
-
-            /*! @brief The destructor. */
-            virtual
-            ~ContextWithMDNS
-                (void);
-
-            /*! @brief Log a message.
-             @param[in] messageToSend The message to be logged.
-             @return @c true if the message was successfully logged. */
-            bool
-            report
-                (Message &  messageToSend)
-                const;
-
-        protected :
-            // Protected methods.
 
         private :
             // Private methods.
-
-            /*! @brief Add a new listening port for the logged messages. */
-            void
-            addListeningPort
-                (void);
-
-            /*! @brief Remove a listening port. */
-            void
-            removeListeningPort
-                (void);
 
         public :
             // Public fields.
@@ -122,10 +102,8 @@ namespace nImO
         private :
             // Private fields.
 
-            Ptr(Logger) _logger;
-
-    }; // ContextWithMDNS
+    }; // ContextWithNetworking
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithMDNS_HPP_)
+#endif // ! defined(nImOcontextWithNetworking_HPP_)

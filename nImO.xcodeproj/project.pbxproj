@@ -47,8 +47,8 @@
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcomparisonStatus.hpp; path = nImO/nImOcomparisonStatus.hpp; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
-		F660586E2885FE7F008F8A09 /* nImOcontextWithMdns.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithMdns.hpp; path = nImO/nImOcontextWithMdns.hpp; sourceTree = "<group>"; };
-		F660586F2885FEAB008F8A09 /* nImOcontextWithMdns.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithMdns.cpp; path = nImO/nImOcontextWithMdns.cpp; sourceTree = "<group>"; };
+		F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = nImOcontextWithMDNS.hpp; path = nImO/nImOcontextWithMDNS.hpp; sourceTree = "<group>"; };
+		F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithMDNS.cpp; path = nImO/nImOcontextWithMDNS.cpp; sourceTree = "<group>"; };
 		F666302F1E3AD67000CAD88F /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmonitor.rc.in; path = Monitor/nImOmonitor.rc.in; sourceTree = SOURCE_ROOT; };
 		F66630301E3AD67000CAD88F /* nImOmonitorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmonitorMain.cpp; path = Monitor/nImOmonitorMain.cpp; sourceTree = SOURCE_ROOT; };
 		F66630311E3AD67000CAD88F /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Monitor/resource.h; sourceTree = SOURCE_ROOT; };
@@ -537,8 +537,8 @@
 				F6737D5E28857E25000DD5FC /* nImOcontext.hpp */,
 				F6737D5D28857E25000DD5FC /* nImOcontextWithCommandPort.cpp */,
 				F6737D5B28857E25000DD5FC /* nImOcontextWithCommandPort.hpp */,
-				F660586F2885FEAB008F8A09 /* nImOcontextWithMdns.cpp */,
-				F660586E2885FE7F008F8A09 /* nImOcontextWithMdns.hpp */,
+				F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */,
+				F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.hpp */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.hpp */,
 				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,

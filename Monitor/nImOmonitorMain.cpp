@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcontextWithMdns.hpp>
+#include <nImOcontextWithMDNS.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -158,7 +158,7 @@ main
     {
         try
         {
-            nImO::ContextWithMdns   ourContext(progName, logging);
+            nImO::ContextWithMDNS   ourContext(progName, logging);
 
             nImO::SetSignalHandlers(catchSignal);
             // Open a UDP port to collect messages.

@@ -17,7 +17,7 @@
 #include "nImOcontainer.hpp"
 #include "nImOcontext.hpp"
 #include "nImOcontextWithCommandPort.hpp"
-#include "nImOcontextWithMdns.hpp"
+#include "nImOcontextWithMDNS.hpp"
 #include "nImOconverters.hpp"
 #include "nImOdouble.hpp"
 #include "nImOdoubleArgumentDescriptor.hpp"

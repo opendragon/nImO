@@ -168,7 +168,7 @@ main
             // Announce the UDP port so that other applications can report.
 
 
-            // Wait for messages until exit requested.
+            // Wait for messages until exit requested via Ctrl-C.
             for ( ; 1 == lKeepRunning; )
             {
 

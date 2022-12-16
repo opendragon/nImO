@@ -93,6 +93,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
                                             nImO::ArgumentMode::Optional, false};
     nImO::PortArgumentDescriptor secondArg{"port", T_("Port for communication"),

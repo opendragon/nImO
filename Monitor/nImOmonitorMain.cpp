@@ -149,6 +149,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
     bool                    logging = false; // We will create the logging port used by other applications

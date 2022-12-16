@@ -119,6 +119,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg("channel", T_("Channel of interest"),
                                               nImO::ArgumentMode::RequiredModifiable, "/in");
     nImO::DescriptorVector          argumentList;

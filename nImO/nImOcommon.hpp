@@ -841,6 +841,11 @@ namespace nImO
         return StaticCast(DataKind, leftValue & toUType(rightValue));
     }
 
+    /*! @brief Load configuration data into memory.*/
+    void
+    LoadConfiguration
+        (void);
+
     /*! @brief Write out a (possibly multi-line) description.
      @param[in,out] outStream The stream to write to.
      @param[in] heading The text to appear on the first line before the beginning of the

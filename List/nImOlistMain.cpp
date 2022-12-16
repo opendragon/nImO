@@ -173,6 +173,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     lChoiceMap.insert({"apps", T_choiceInfo{E_choice::kApps, "available applications"}});
     lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});

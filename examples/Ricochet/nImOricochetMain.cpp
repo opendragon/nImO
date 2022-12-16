@@ -93,6 +93,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::PortArgumentDescriptor firstArg{"port", T_("Port for communication"),
                                           nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector       argumentList;

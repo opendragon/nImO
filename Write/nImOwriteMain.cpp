@@ -148,6 +148,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
@@ -167,7 +168,7 @@ main
 
             nImO::SetSignalHandlers(catchSignal);
             // Open a nImO channel to collect messages.
-            // Wait for messages until exit requested.
+            // Wait for messages until exit requested via Ctrl-C.
             for ( ; 1 == lKeepRunning; )
             {
                 // TBD

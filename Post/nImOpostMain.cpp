@@ -122,6 +122,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"),
                                                 nImO::ArgumentMode::OptionalModifiable, false};
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),

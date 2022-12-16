@@ -996,6 +996,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
 #if 0
 #if MAC_OR_LINUX_
     SetUpLogger(progName);

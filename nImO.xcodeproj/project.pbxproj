@@ -212,6 +212,7 @@
 		F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = optionparser.cpp; path = nImO/optionparser.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ADE1CA2C7F4004748ED /* optionparser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = optionparser.hpp; path = nImO/optionparser.hpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ADF1CA2C7F4004748ED /* nImOcommon.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = nImOcommon.i; path = nImO/swig_nImO_in/nImOcommon.i; sourceTree = SOURCE_ROOT; };
+		F6F1D465294CE0E5000B48A7 /* nImOcommonSettings.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOcommonSettings.cmake; sourceTree = "<group>"; };
 		F6F238531CD96F290005554A /* nImOchunkArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchunkArray.cpp; path = nImO/nImOchunkArray.cpp; sourceTree = "<group>"; };
 		F6F238541CD96F290005554A /* nImOchunkArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nImOchunkArray.hpp; path = nImO/nImOchunkArray.hpp; sourceTree = "<group>"; };
 		F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfig.cmake; sourceTree = "<group>"; };
@@ -410,6 +411,7 @@
 				F6B388F11C77F2BC004B2D42 /* List */,
 				F666302D1E3AD65000CAD88F /* Monitor */,
 				F6B388F21C77F2E0004B2D42 /* nImO */,
+				F6F1D465294CE0E5000B48A7 /* nImOcommonSettings.cmake */,
 				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
 				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
 				F6D7AD05224A5D560095AA43 /* non-iOS */,

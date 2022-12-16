@@ -135,6 +135,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),

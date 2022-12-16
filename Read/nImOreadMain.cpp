@@ -120,6 +120,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"),
                                              nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),

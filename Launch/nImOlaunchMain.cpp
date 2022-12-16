@@ -118,6 +118,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::LoadConfiguration();
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
                                              nImO::ArgumentMode::OptionalModifiable, "launch"};
     nImO::DescriptorVector          argumentList;

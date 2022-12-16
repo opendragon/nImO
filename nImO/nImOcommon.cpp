@@ -630,6 +630,14 @@ nImO::IsRunning
 } // nImO::IsRunning
 #endif//0
 
+void
+nImO::LoadConfiguration
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // LoadConfiguration
+
 CPtr(char)
 nImO::NameOfSignal
     (const int  theSignal)

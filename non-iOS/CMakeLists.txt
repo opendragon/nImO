@@ -61,7 +61,7 @@ project(nImO
 
 include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -86,7 +86,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -97,7 +97,7 @@ if(APPLE)
         FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
     set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 # 'rpath' warning
@@ -106,7 +106,7 @@ elseif(LINUX)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
     set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 else()
@@ -247,7 +247,9 @@ else()
     set(OTHER_LIBS "")
 endif()
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
+#message(${IF_LIBRARY})
+#message(${IF_LIBRARY_ROOT})
+set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
     Threads::Threads)
 
 if(LINUX)
@@ -261,6 +263,9 @@ if(APPLE)
 
         add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                             ${ODL_LIBRARY_ROOT} "@rpath/${ODL_LIBRARY_ROOT}" ${target})
+
+        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                            ${IF_LIBRARY_ROOT} "@rpath/${IF_LIBRARY_ROOT}" ${target})
 
     endfunction()
 else()

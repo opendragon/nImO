@@ -104,9 +104,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/optionparser.cpp")
 
-target_link_libraries(${THIS_TARGET}
-                        ${ODL_LIBRARY}
-                        ${BONJOUR_LIB})
+target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
 
 if(LINUX)
     target_link_libraries(${THIS_TARGET}

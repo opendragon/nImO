@@ -84,7 +84,6 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] executable The name of the executing program.
-             @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithNetworking
                 (const std::string &    executableName,
@@ -99,8 +98,17 @@ namespace nImO
         protected :
             // Protected fields.
 
+            /*! @brief The coordinating object for I/O operations. */
+            SPservice   fService;
+
         private :
             // Private fields.
+
+            /*! @brief The pool of active threads. */
+            boost::thread_group fPool;
+
+            /*! @brief A 'dummy' operation to keep the service queue alive. */
+            UPwork  fWork;
 
     }; // ContextWithNetworking
 

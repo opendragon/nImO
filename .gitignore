@@ -32,6 +32,7 @@ libnImOcommon.dylib
 nImO/swig_nImO_out_csharp
 nImO/swig_nImO_out_python
 nImOConfigVersion.cmake
+nImOconfig.h
 nImOconfig.hpp
 non-iOS/examples/Ricochet/nImOricochet
 non-iOS/examples/Ricochet/nImOricochet.dir/

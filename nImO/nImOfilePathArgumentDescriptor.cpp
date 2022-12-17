@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOfilePathArgumentDescriptor.hpp"
+#include "nImOfilePathArgumentDescriptor.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

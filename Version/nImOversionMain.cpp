@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOmiscellaneousContext.hpp>
+#include <nImOmiscellaneousContext.h>
 
 #include <boost/version.hpp>
 #include <initFileConfig.h>
@@ -110,13 +110,15 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
+    std::string             configFilePath; // not used
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Reports the version number of the library",
-                                              progName, 2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, false, true))
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
+                                              "Reports the version number of the libraries used", progName, 2016,
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, true,
+                                              false, true))
     {
         std::string ifVersionString;
         std::string mdnsVersionString;

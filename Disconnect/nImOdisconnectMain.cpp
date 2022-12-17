@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOutilityContext.hpp>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -118,7 +118,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
@@ -126,12 +125,15 @@ main
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr,
+                                              false, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::UtilityContext    ourContext(progName, logging);

@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOsinkContext.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOsinkContext.h>
+#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -120,7 +120,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"),
                                              nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
@@ -128,12 +127,15 @@ main
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::SinkContext   ourContext(progName, logging, secondArg.getCurrentValue());

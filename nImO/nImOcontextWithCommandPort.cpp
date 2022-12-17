@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithCommandPort.hpp"
+#include "nImOcontextWithCommandPort.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

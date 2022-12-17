@@ -86,7 +86,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -186,7 +186,7 @@ if(Boost_FOUND)
     link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
-configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
+configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
 

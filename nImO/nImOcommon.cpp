@@ -36,10 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcommon.hpp"
+#include "nImOcommon.h"
 
-#include <nImObaseArgumentDescriptor.hpp>
-#include <nImOvalue.hpp>
+#include <initFile.h>
+#include <initFileObject.h>
+#include <nImObaseArgumentDescriptor.h>
+#include <nImOvalue.h>
+#include <fstream>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -48,6 +51,7 @@
 # include <unistd.h>
 #else // ! MAC_OR_LINUX_
 # include <Windows.h>
+# include <io.h>
 #endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
@@ -77,15 +81,9 @@ static bool lRandomSeeded = false;
 /*! @brief The maximum integer that we wish to use for generated random values. */
 static const int    kMaxRandom = 123456789;
 
-#if 0
-/*! @brief @c true if the executable is running or ready-to-run and @c false otherwise. */
-static bool lKeepRunning = false;
+static const std::string    kDefaultConfigFilePath = "nimo-config.txt";
 
-#if MAC_OR_LINUX_
-/*! @brief The logger to use for reporting problems. */
-static yarp::os::impl::Logger * lLogger = nullptr;
-#endif // MAC_OR_LINUX_
-#endif//0
+static InitFile::SpBaseValue    lConfigurationValues;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -264,18 +262,6 @@ nImO::CompareBytes
     return result;
 } // nImO::CompareBytes
 
-#if 0
-void
-nImO::ConsumeSomeTime
-    (const double   factor)
-{
-    ODL_ENTER(); //####
-    yarp::os::Time::delay(ONE_SECOND_DELAY_ / factor);
-    yarp::os::Time::yield();
-    ODL_EXIT(); //####
-} // nImO::ConsumeSomeTime
-#endif//0
-
 std::string
 nImO::ConvertDoubleToString
     (const double   value)
@@ -389,82 +375,30 @@ nImO::D2B
     ODL_EXIT(); //####
 } // nImO::D2B
 
-#if 0
-void
-nImO::DumpContactToLog
-    (CPtr(char)               tag,
-     const yarp::os::Contact &  aContact)
+boost::optional<InitFile::SpBaseValue>
+nImO::GetConfiguredValue
+    (const std::string &    key)
 {
-#if MAC_OR_LINUX_
-    if (lLogger)
-    {
-        std::string message{"tag = "};
+    boost::optional<InitFile::SpBaseValue>  retVal;
 
-        message += tag;
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.carrier = ";
-        message += aContact.getCarrier();
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.host = ";
-        message += aContact.getHost();
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.isValid = ";
-        message += (aContact.isValid() ? "true" : "false");
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.name = ";
-        message += aContact.getName();
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.port = ";
-        message += std::to_string(aContact.getPort());
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-        message = "contact.toString = ";
-        message += aContact.toString();
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->info(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-    }
-#endif // MAC_OR_LINUX_
-} // nImO::DumpContactToLog
-#endif//0
-
-#if 0
-#if MAC_OR_LINUX_
-yarp::os::impl::Logger &
-nImO::GetLogger
-    (void)
-{
     ODL_ENTER(); //####
-    ODL_EXIT_P(lLogger);
-    return *lLogger;
-} // nImO::GetLogger
-#endif // MAC_OR_LINUX_
-#endif //0
+    if ((0 < key.length()) && (nullptr != lConfigurationValues))
+    {
+        Ptr(InitFile::ObjectValue)  asObjectValue = lConfigurationValues->AsObject();
+
+        if (nullptr != asObjectValue)
+        {
+            InitFile::SpBaseValue   value = asObjectValue->GetValue(key);
+
+            if (nullptr != value)
+            {
+                retVal = value;
+            }
+        }
+    }
+    ODL_EXIT(); //####
+    return retVal;
+} // nImO::GetConfiguredValue
 
 std::string
 nImO::GetRandomChannelName
@@ -478,11 +412,7 @@ nImO::GetRandomChannelName
     {
         bool                hasLeadingSlash = false;
         CPtr(char)          stringToUse;
-#if 0
-        int                 randNumb = StaticCast(int, yarp::os::Random::uniform() * kMaxRandom);
-#else//0
         int                 randNumb = (rand() % kMaxRandom);
-#endif//0
         std::stringstream   buff;
 
         if (channelRoot)
@@ -605,36 +535,39 @@ nImO::I2B
     return length;
 } // nImO::I2B
 
-#if 0
-void
-nImO::IdleUntilNotRunning
-    (void)
-{
-    ODL_ENTER(); //####
-    for ( ; IsRunning(); )
-    {
-        ConsumeSomeTime();
-    }
-    ODL_EXIT(); //####
-} // nImO::IdleUntilNotRunning
-#endif//0
-
-#if 0
-bool
-nImO::IsRunning
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_B(lKeepRunning); //####
-    return lKeepRunning;
-} // nImO::IsRunning
-#endif//0
-
 void
 nImO::LoadConfiguration
-    (void)
+    (const std::string &    configFilePath)
 {
+    std::string workingPath;
+
     ODL_ENTER(); //####
+    if (0 < configFilePath.length())
+    {
+        workingPath = configFilePath;
+    }
+    else
+    {
+        workingPath = kDefaultConfigFilePath;
+    }
+#if MAC_OR_LINUX_
+    if (0 == access(workingPath.c_str(), R_OK))
+#else // ! MAC_OR_LINUX_
+    if (0 == _access(workingPath.c_str(), 4))
+#endif // ! MAC_OR_LINUX_
+    {
+        std::ifstream   inStream(workingPath.c_str());
+
+        if (inStream)
+        {
+            InitFile::SpBaseValue readValue = InitFile::GetValue(inStream);
+
+            if ((nullptr != readValue) && (nullptr != readValue->AsObject()))
+            {
+                lConfigurationValues = readValue;
+            }
+        }
+    }
     ODL_EXIT(); //####
 } // LoadConfiguration
 
@@ -847,7 +780,9 @@ nImO::ProcessStandardUtilitiesOptions
      CPtr(char)                 copyrightHolder,
      nImO::OutputFlavour &      flavour,
      bool &                     logging,
+     std::string &              configPath,
      HelpFunction               helper,
+     const bool                 ignoreConfigFilePath,
      const bool                 ignoreFlavours,
      const bool                 ignoreLogging,
      Ptr(nImO::StringVector)    arguments)
@@ -863,35 +798,39 @@ nImO::ProcessStandardUtilitiesOptions
     enum class OptionIndex
     {
         UNKNOWN,
+        CONFIG,
         HELP,
         INFO,
         JSON,
-        TABS,
         LOGG,
+        TABS,
         VERSION
     }; // OptionIndex
 
     bool                        keepGoing = true;
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::UNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
+    Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::CONFIG), 0, "c", "config",
+                                                    Option_::Arg::Optional,
+                                                    T_("  --config, -c <path> \tSpecify path to configuration file")};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::HELP), 0, "h", "help",
-                                                Option_::Arg::None, T_("  --help, -h    Print usage and exit")};
+                                                Option_::Arg::None, T_("  --help, -h  \tPrint usage and exit")};
     Option_::Descriptor         infoDescriptor{StaticCast(unsigned int, OptionIndex::INFO), 0, "i", "info",
                                                 Option_::Arg::None,
-                                                T_("  --info, -i    Print type and description and exit")};
+                                                T_("  --info, -i \tPrint type and description and exit")};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
                                                 Option_::Arg::None,
-                                                T_("  --json, -j    Generate output in JSON format")};
+                                                T_("  --json, -j \tGenerate output in JSON format")};
     Option_::Descriptor         loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
-                                                "logg", Option_::Arg::None, T_("  --logg, -l    Log application")};
+                                                "logg", Option_::Arg::None, T_("  --logg, -l \tLog application")};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
                                                 Option_::Arg::None,
-                                                T_("  --tabs, -t    Generate output in tab-format")};
+                                                T_("  --tabs, -t \tGenerate output in tab-format")};
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "v",
                                                     "vers", Option_::Arg::None,
-                                                    T_("  --vers, -v    Print version information and exit")};
+                                                    T_("  --vers, -v \tPrint version information and exit")};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[8]; // first, help, info, json, logg, tabs, version
+    Option_::Descriptor         usage[9]; // first, config, help, info, json, logg, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker = usage;
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork = argv;
@@ -937,6 +876,10 @@ nImO::ProcessStandardUtilitiesOptions
     firstDescriptor.help = _strdup(usageString.c_str());
 #endif // ! MAC_OR_LINUX_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
+    if (! ignoreConfigFilePath)
+    {
+        memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
+    }
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
     memcpy(usageWalker++, &infoDescriptor, sizeof(infoDescriptor));
     if (! ignoreFlavours)
@@ -962,16 +905,17 @@ nImO::ProcessStandardUtilitiesOptions
     {
         keepGoing = false;
     }
-    else if (options[StaticCast(size_t, OptionIndex::HELP)] || options[StaticCast(size_t, OptionIndex::UNKNOWN)])
+    else if ((nullptr != options[StaticCast(size_t, OptionIndex::HELP)]) ||
+             (nullptr != options[StaticCast(size_t, OptionIndex::UNKNOWN)]))
     {
         Option_::printUsage(std::cout, usage, HELP_LINE_LENGTH_);
-        if (helper)
+        if (nullptr != helper)
         {
             helper(std::cout);
         }
         keepGoing = false;
     }
-    else if (options[StaticCast(size_t, OptionIndex::VERSION)])
+    else if (nullptr != options[StaticCast(size_t, OptionIndex::VERSION)])
     {
         std::string nImOversionString{SanitizeString(nImO_VERSION_, true)};
 
@@ -979,24 +923,34 @@ nImO::ProcessStandardUtilitiesOptions
                     copyrightHolder << "." << std::endl;
         keepGoing = false;
     }
-    else if (options[StaticCast(size_t, OptionIndex::INFO)])
+    else if (nullptr != options[StaticCast(size_t, OptionIndex::INFO)])
     {
         std::cout << "Utility\t" << utilityDescription << std::endl;
         keepGoing = false;
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
-        if (options[StaticCast(size_t, OptionIndex::JSON)])
+        if (nullptr != options[StaticCast(size_t, OptionIndex::JSON)])
         {
             flavour = OutputFlavour::JSON;
         }
-        else if (options[StaticCast(size_t, OptionIndex::TABS)])
+        else if (nullptr != options[StaticCast(size_t, OptionIndex::TABS)])
         {
             flavour = OutputFlavour::Tabs;
         }
-        if (options[StaticCast(size_t, OptionIndex::LOGG)])
+        if (nullptr != options[StaticCast(size_t, OptionIndex::LOGG)])
         {
             logging = true;
+        }
+        Ptr(Option_::Option)    configOption = options[StaticCast(size_t, OptionIndex::CONFIG)];
+
+        if ((! ignoreConfigFilePath) && (nullptr != configOption) && (nullptr != configOption->arg))
+        {
+            configPath = configOption->arg;
+        }
+        else
+        {
+            configPath = "";
         }
         if (nullptr != arguments)
         {
@@ -1233,23 +1187,6 @@ nImO::SetUpCatcher
     ODL_EXIT(); //####
 } // nImO::SetUpCatcher
 
-#if 0
-#if MAC_OR_LINUX_
-void
-nImO::SetUpLogger
-    (const std::string &    progName)
-{
-    ODL_ENTER(); //####
-    lLogger = new yarp::os::impl::Logger(progName.c_str());
-    if (lLogger)
-    {
-        lLogger->setVerbosity(1);
-    }
-    ODL_EXIT(); //####
-} // nImO::SetUpLogger
-#endif // MAC_OR_LINUX_
-#endif//0
-
 void
 nImO::ShutDownCatcher
     (void)
@@ -1272,50 +1209,3 @@ nImO::ShutDownCatcher
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
 } // nImO::ShutDownCatcher
-
-#if 0
-void
-nImO::SignalRunningStop
-    (const int  signal)
-{
-    MDNS_UNUSED_ARG_(signal);
-    ODL_ENTER(); //####
-    //ODL_I1("signal = ", signal); //####
-    StopRunning();
-    ODL_EXIT(); //####
-} // nImO::SignalRunningStop
-#endif//0
-
-#if 0
-void
-nImO::Stall
-    (void)
-{
-    for ( ; ; )
-    {
-        ConsumeSomeTime();
-    }
-} // nImO::Stall
-#endif//0
-
-#if 0
-void
-nImO::StartRunning
-    (void)
-{
-    ODL_ENTER(); //####
-    lKeepRunning = true;
-    ODL_EXIT(); //####
-} // nImO::StartRunning
-#endif//0
-
-#if 0
-void
-nImO::StopRunning
-    (void)
-{
-    ODL_ENTER(); //####
-    lKeepRunning = false;
-    ODL_EXIT(); //####
-} // nImO::StopRunning
-#endif//0

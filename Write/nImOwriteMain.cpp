@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOsourceContext.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOsourceContext.h>
+#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -148,7 +148,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
                                              nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
@@ -156,12 +155,15 @@ main
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::SourceContext ourContext(progName, logging, secondArg.getCurrentValue());

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOconverters.hpp"
+#include "nImOconverters.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

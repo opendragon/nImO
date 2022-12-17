@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOinteger.hpp"
+#include "nImOinteger.h"
 
-#include <nImOarray.hpp>
-#include <nImOcommon.hpp>
-#include <nImOdouble.hpp>
-#include <nImOmessage.hpp>
-#include <nImOstringBuffer.hpp>
+#include <nImOarray.h>
+#include <nImOcommon.h>
+#include <nImOdouble.h>
+#include <nImOmessage.h>
+#include <nImOstringBuffer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

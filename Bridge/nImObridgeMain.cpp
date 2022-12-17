@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOstringArgumentDescriptor.hpp>
-#include <nImOutilityContext.hpp>
+#include <nImOstringArgumentDescriptor.h>
+#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -118,17 +118,19 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
                                              nImO::ArgumentMode::OptionalModifiable, "bridge"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr,
+                                              false, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::UtilityContext    ourContext(progName, logging, firstArg.getCurrentValue());

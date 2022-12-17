@@ -36,12 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOarray.hpp>
-#include <nImObooleanArgumentDescriptor.hpp>
-#include <nImOcontextWithMDNS.hpp>
-#include <nImOmessage.hpp>
-#include <nImOstring.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
+#include <nImOarray.h>
+#include <nImObooleanArgumentDescriptor.h>
+#include <nImOcontextWithMDNS.h>
+#include <nImOmessage.h>
+#include <nImOstring.h>
+#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -122,7 +122,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"),
                                                 nImO::ArgumentMode::OptionalModifiable, false};
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),
@@ -132,13 +131,15 @@ main
     bool                            logging = true; // We need to have the logging ports set up!
     nImO::StringVector              arguments;
     int                             result = 1;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",
-                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true,
-                                              &arguments))
+                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr,
+                                              false, true, true, &arguments))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::ContextWithMDNS   ourContext(progName, logging);
@@ -150,7 +151,7 @@ main
             {
                 nImO::SpArray   stringsToSend(new nImO::Array);
 
-// collect the logging ports!!
+// collect the logging ports?
                 if (0 < header.length())
                 {
                     // We need to skip the strings from 'readFromStdin' and 'header'.

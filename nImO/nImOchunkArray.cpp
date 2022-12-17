@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOchunkArray.hpp"
+#include "nImOchunkArray.h"
 
-#include <nImObufferChunk.hpp>
+#include <nImObufferChunk.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

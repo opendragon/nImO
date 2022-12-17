@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOfilterContext.hpp"
+#include "nImOfilterContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

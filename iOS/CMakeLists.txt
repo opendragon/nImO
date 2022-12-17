@@ -118,7 +118,7 @@ if(Boost_FOUND)
     set(Boost_USE_MULTITHREADED)
 endif()
 
-configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.hpp")
+configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
 

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcontextWithMDNS.hpp>
+#include <nImOcontextWithMDNS.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -149,14 +149,16 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
     bool                    logging = false; // We will create the logging port used by other applications
+    std::string             configFilePath;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::ContextWithMDNS   ourContext(progName, logging);

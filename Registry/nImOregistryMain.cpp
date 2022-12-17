@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOserviceContext.hpp>
+#include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -118,14 +118,16 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
+    std::string             configFilePath;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::ServiceContext    ourContext(progName, logging, false);

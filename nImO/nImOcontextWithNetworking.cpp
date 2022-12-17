@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithNetworking.hpp"
+#include "nImOcontextWithNetworking.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

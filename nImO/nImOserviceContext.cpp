@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOserviceContext.hpp"
+#include "nImOserviceContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

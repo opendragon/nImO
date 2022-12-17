@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOutilityContext.hpp>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -119,17 +119,19 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::ChannelArgumentDescriptor firstArg("channel", T_("Channel of interest"),
                                               nImO::ArgumentMode::RequiredModifiable, "/in");
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::UtilityContext    ourContext(progName, logging);

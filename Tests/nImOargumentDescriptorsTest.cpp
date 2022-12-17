@@ -36,16 +36,16 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOaddressArgumentDescriptor.hpp>
-#include <nImObooleanArgumentDescriptor.hpp>
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOdoubleArgumentDescriptor.hpp>
-#include <nImOfilePathArgumentDescriptor.hpp>
-#include <nImOintegerArgumentDescriptor.hpp>
-#include <nImOportArgumentDescriptor.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
-#include <nImOstringsArgumentDescriptor.hpp>
-#include <nImOtestContext.hpp>
+#include <nImOaddressArgumentDescriptor.h>
+#include <nImObooleanArgumentDescriptor.h>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOdoubleArgumentDescriptor.h>
+#include <nImOfilePathArgumentDescriptor.h>
+#include <nImOintegerArgumentDescriptor.h>
+#include <nImOportArgumentDescriptor.h>
+#include <nImOstringArgumentDescriptor.h>
+#include <nImOstringsArgumentDescriptor.h>
+#include <nImOtestContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -95,9 +95,6 @@ catchSignal
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
-#if 0
-    nImO_ERROR_(message.c_str());
-#endif//0
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // catchSignal
@@ -996,12 +993,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
-#if 0
-#if MAC_OR_LINUX_
-    SetUpLogger(progName);
-#endif // MAC_OR_LINUX_
-#endif//0
     int result = 1;
 
     try

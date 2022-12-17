@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOinvalid.hpp"
+#include "nImOinvalid.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

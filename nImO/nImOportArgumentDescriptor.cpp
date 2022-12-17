@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOportArgumentDescriptor.hpp"
+#include "nImOportArgumentDescriptor.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

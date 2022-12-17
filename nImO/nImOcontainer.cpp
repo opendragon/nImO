@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontainer.hpp"
+#include "nImOcontainer.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

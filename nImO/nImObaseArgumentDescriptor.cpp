@@ -37,18 +37,18 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImObaseArgumentDescriptor.hpp"
+#include "nImObaseArgumentDescriptor.h"
 
-#include <nImOaddressArgumentDescriptor.hpp>
-#include <nImObooleanArgumentDescriptor.hpp>
-#include <nImOchannelArgumentDescriptor.hpp>
-#include <nImOdoubleArgumentDescriptor.hpp>
-#include <nImOextraArgumentDescriptor.hpp>
-#include <nImOfilePathArgumentDescriptor.hpp>
-#include <nImOintegerArgumentDescriptor.hpp>
-#include <nImOportArgumentDescriptor.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
-#include <nImOstringsArgumentDescriptor.hpp>
+#include <nImOaddressArgumentDescriptor.h>
+#include <nImObooleanArgumentDescriptor.h>
+#include <nImOchannelArgumentDescriptor.h>
+#include <nImOdoubleArgumentDescriptor.h>
+#include <nImOextraArgumentDescriptor.h>
+#include <nImOfilePathArgumentDescriptor.h>
+#include <nImOintegerArgumentDescriptor.h>
+#include <nImOportArgumentDescriptor.h>
+#include <nImOstringArgumentDescriptor.h>
+#include <nImOstringsArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOstringsArgumentDescriptor.hpp>
-#include <nImOutilityContext.hpp>
+#include <nImOstringsArgumentDescriptor.h>
+#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -173,7 +173,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     lChoiceMap.insert({"apps", T_choiceInfo{E_choice::kApps, "available applications"}});
     lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});
@@ -189,11 +188,15 @@ main
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "List information about objects in the nImO space", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, helpForList, false, true))
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
+                                              "List information about objects in the nImO space", "", 2016,
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, helpForList,
+                                              false, false, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::UtilityContext    ourContext(progName, logging);

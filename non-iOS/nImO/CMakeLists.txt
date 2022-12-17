@@ -104,7 +104,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/optionparser.cpp")
 
-target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
 
 if(LINUX)
     target_link_libraries(${THIS_TARGET}
@@ -115,8 +115,12 @@ if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                         ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
 
+    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                        ${IF_LIBRARY_ROOT} ${IF_LIBRARY} ${THIS_TARGET_LIB})
+
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -id
                         ${THIS_TARGET_LIB} ${THIS_TARGET_LIB})
+
 endif()
 
 install(TARGETS ${THIS_TARGET}
@@ -125,109 +129,109 @@ install(TARGETS ${THIS_TARGET}
         COMPONENT libraries)
 
 install(FILES
-        "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOarray.hpp"
-        "${THIS_SOURCE_DIR}/nImOatom.hpp"
-        "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOblob.hpp"
-        "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImObufferChunk.hpp"
-        "${THIS_SOURCE_DIR}/nImOchannel.hpp"
-        "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOchannelName.hpp"
-        "${THIS_SOURCE_DIR}/nImOchunkArray.hpp"
-        "${THIS_SOURCE_DIR}/nImOcommon.hpp"
-        "${THIS_SOURCE_DIR}/nImOcompareValues.hpp"
-        "${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp"
-        "${THIS_SOURCE_DIR}/nImOconfig.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontainer.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontext.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontextWithMDNS.hpp"
-        "${THIS_SOURCE_DIR}/nImOcontextWithNetworking.hpp"
-        "${THIS_SOURCE_DIR}/nImOconverters.hpp"
-        "${THIS_SOURCE_DIR}/nImOdouble.hpp"
-        "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOfilterContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOflaw.hpp"
-        "${THIS_SOURCE_DIR}/nImOinteger.hpp"
-        "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOinvalid.hpp"
-        "${THIS_SOURCE_DIR}/nImOlogger.hpp"
-        "${THIS_SOURCE_DIR}/nImOlogical.hpp"
-        "${THIS_SOURCE_DIR}/nImOmap.hpp"
-        "${THIS_SOURCE_DIR}/nImOmessage.hpp"
-        "${THIS_SOURCE_DIR}/nImOMIMESupport.hpp"
-        "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOnumber.hpp"
-        "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOserviceContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOset.hpp"
-        "${THIS_SOURCE_DIR}/nImOsinkContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOsourceContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOstring.hpp"
-        "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOstringBuffer.hpp"
-        "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp"
-        "${THIS_SOURCE_DIR}/nImOtestContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOutilityContext.hpp"
-        "${THIS_SOURCE_DIR}/nImOvalue.hpp"
+        "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOarray.h"
+        "${THIS_SOURCE_DIR}/nImOatom.h"
+        "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOblob.h"
+        "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImObufferChunk.h"
+        "${THIS_SOURCE_DIR}/nImOchannel.h"
+        "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOchannelName.h"
+        "${THIS_SOURCE_DIR}/nImOchunkArray.h"
+        "${THIS_SOURCE_DIR}/nImOcommon.h"
+        "${THIS_SOURCE_DIR}/nImOcompareValues.h"
+        "${THIS_SOURCE_DIR}/nImOcomparisonStatus.h"
+        "${THIS_SOURCE_DIR}/nImOconfig.h"
+        "${THIS_SOURCE_DIR}/nImOcontainer.h"
+        "${THIS_SOURCE_DIR}/nImOcontext.h"
+        "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.h"
+        "${THIS_SOURCE_DIR}/nImOcontextWithMDNS.h"
+        "${THIS_SOURCE_DIR}/nImOcontextWithNetworking.h"
+        "${THIS_SOURCE_DIR}/nImOconverters.h"
+        "${THIS_SOURCE_DIR}/nImOdouble.h"
+        "${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOfilterContext.h"
+        "${THIS_SOURCE_DIR}/nImOflaw.h"
+        "${THIS_SOURCE_DIR}/nImOinteger.h"
+        "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOinvalid.h"
+        "${THIS_SOURCE_DIR}/nImOlogger.h"
+        "${THIS_SOURCE_DIR}/nImOlogical.h"
+        "${THIS_SOURCE_DIR}/nImOmap.h"
+        "${THIS_SOURCE_DIR}/nImOmessage.h"
+        "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
+        "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h"
+        "${THIS_SOURCE_DIR}/nImOnumber.h"
+        "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOserviceContext.h"
+        "${THIS_SOURCE_DIR}/nImOset.h"
+        "${THIS_SOURCE_DIR}/nImOsinkContext.h"
+        "${THIS_SOURCE_DIR}/nImOsourceContext.h"
+        "${THIS_SOURCE_DIR}/nImOstring.h"
+        "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOstringBuffer.h"
+        "${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOtestContext.h"
+        "${THIS_SOURCE_DIR}/nImOutilityContext.h"
+        "${THIS_SOURCE_DIR}/nImOvalue.h"
         "${THIS_SOURCE_DIR}/optionparser.hpp"
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES ${THIS_SOURCE_DIR}/swig_nImO_in/nImOcommon.i
-        ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOarray.cpp ${THIS_SOURCE_DIR}/nImOarray.hpp
-        ${THIS_SOURCE_DIR}/nImOatom.cpp ${THIS_SOURCE_DIR}/nImOatom.hpp
-        ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOblob.cpp ${THIS_SOURCE_DIR}/nImOblob.hpp
-        ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/nImObufferChunk.hpp
-        ${THIS_SOURCE_DIR}/nImOchannel.cpp ${THIS_SOURCE_DIR}/nImOchannel.hpp
-        ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.hpp
-        ${THIS_SOURCE_DIR}/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/nImOchunkArray.hpp
-        ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.hpp
-        ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.hpp
-        ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.hpp
-        ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.hpp
-        ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.hpp
-        ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.hpp
-        ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.cpp ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.hpp
-        ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.hpp
-        ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.hpp
-        ${THIS_SOURCE_DIR}/nImOdouble.cpp ${THIS_SOURCE_DIR}/nImOdouble.hpp
-        ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.hpp
-        ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.hpp
-        ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.hpp
-        ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.hpp
-        ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.hpp
-        ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.hpp
-        ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.hpp
-        ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.hpp
-        ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.hpp
-        ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.hpp
-        ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.hpp
-        ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.hpp
-        ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.hpp
-        ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.hpp
-        ${THIS_SOURCE_DIR}/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/nImOsinkContext.hpp
-        ${THIS_SOURCE_DIR}/nImOstring.cpp ${THIS_SOURCE_DIR}/nImOstring.hpp
-        ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/nImOstringBuffer.hpp
-        ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.hpp
-        ${THIS_SOURCE_DIR}/nImOtestContext.cpp ${THIS_SOURCE_DIR}/nImOtestContext.hpp
-        ${THIS_SOURCE_DIR}/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/nImOutilityContext.hpp
-        ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.hpp)
+        ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOarray.cpp ${THIS_SOURCE_DIR}/nImOarray.h
+        ${THIS_SOURCE_DIR}/nImOatom.cpp ${THIS_SOURCE_DIR}/nImOatom.h
+        ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOblob.cpp ${THIS_SOURCE_DIR}/nImOblob.h
+        ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/nImObufferChunk.h
+        ${THIS_SOURCE_DIR}/nImOchannel.cpp ${THIS_SOURCE_DIR}/nImOchannel.h
+        ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
+        ${THIS_SOURCE_DIR}/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/nImOchunkArray.h
+        ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.h
+        ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.h
+        ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.h
+        ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.h
+        ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.h
+        ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.h
+        ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.cpp ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.h
+        ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.h
+        ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.h
+        ${THIS_SOURCE_DIR}/nImOdouble.cpp ${THIS_SOURCE_DIR}/nImOdouble.h
+        ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOdoubleArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOextraArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.h
+        ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.h
+        ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.h
+        ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.h
+        ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h
+        ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.h
+        ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.h
+        ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.h
+        ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
+        ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h
+        ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
+        ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.h
+        ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.h
+        ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.h
+        ${THIS_SOURCE_DIR}/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/nImOsinkContext.h
+        ${THIS_SOURCE_DIR}/nImOstring.cpp ${THIS_SOURCE_DIR}/nImOstring.h
+        ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/nImOstringBuffer.h
+        ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringsArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOtestContext.cpp ${THIS_SOURCE_DIR}/nImOtestContext.h
+        ${THIS_SOURCE_DIR}/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/nImOutilityContext.h
+        ${THIS_SOURCE_DIR}/nImOvalue.cpp ${THIS_SOURCE_DIR}/nImOvalue.h)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOMIMESupport.hpp"
+#include "nImOMIMESupport.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

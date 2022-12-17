@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOaddressArgumentDescriptor.hpp"
+#include "nImOaddressArgumentDescriptor.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

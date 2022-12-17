@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOsinkContext.hpp"
+#include "nImOsinkContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

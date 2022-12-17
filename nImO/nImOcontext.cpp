@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontext.hpp"
-#include "nImOvalue.hpp"
+#include "nImOcontext.h"
+#include "nImOvalue.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

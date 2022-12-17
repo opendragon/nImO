@@ -36,20 +36,20 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOvalue.hpp"
+#include "nImOvalue.h"
 
-#include <nImOarray.hpp>
-#include <nImOblob.hpp>
-#include <nImOdouble.hpp>
-#include <nImOinteger.hpp>
-#include <nImOinvalid.hpp>
-#include <nImOlogical.hpp>
-#include <nImOmap.hpp>
-#include <nImOmessage.hpp>
-#include <nImOnumber.hpp>
-#include <nImOset.hpp>
-#include <nImOstring.hpp>
-#include <nImOstringBuffer.hpp>
+#include <nImOarray.h>
+#include <nImOblob.h>
+#include <nImOdouble.h>
+#include <nImOinteger.h>
+#include <nImOinvalid.h>
+#include <nImOlogical.h>
+#include <nImOmap.h>
+#include <nImOmessage.h>
+#include <nImOnumber.h>
+#include <nImOset.h>
+#include <nImOstring.h>
+#include <nImOstringBuffer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOutilityContext.hpp"
+#include "nImOutilityContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

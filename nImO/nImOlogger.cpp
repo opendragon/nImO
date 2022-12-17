@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOlogger.hpp"
-#include <nImOMIMESupport.hpp>
+#include "nImOlogger.h"
+#include <nImOMIMESupport.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -78,7 +78,9 @@
 #endif // defined(__APPLE__)
 
 nImO::Logger::Logger
-    (void)
+    (const uint32_t logAddress,
+     const uint16_t logPort):
+        _address(logAddress), _port(logPort)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -88,7 +90,7 @@ nImO::Logger::~Logger
     (void)
 {
     ODL_OBJENTER(); //####
-    removeAllListeningPorts();
+//    removeAllListeningPorts();
     ODL_OBJEXIT(); //####
 } // nImO::Logger::~Logger
 
@@ -96,30 +98,30 @@ nImO::Logger::~Logger
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::Logger::addListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::addListeningPort
+//void
+//nImO::Logger::addListeningPort
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    ODL_OBJEXIT(); //####
+//} // nImO::Logger::addListeningPort
 
-/*! @brief Remove all listeners. */
-void
-nImO::Logger::removeAllListeningPorts
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::removeAllListeningPorts
+///*! @brief Remove all listeners. */
+//void
+//nImO::Logger::removeAllListeningPorts
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    ODL_OBJEXIT(); //####
+//} // nImO::Logger::removeAllListeningPorts
 
-void
-nImO::Logger::removeListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::removeListeningPort
+//void
+//nImO::Logger::removeListeningPort
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    ODL_OBJEXIT(); //####
+//} // nImO::Logger::removeListeningPort
 
 bool
 nImO::Logger::report
@@ -138,7 +140,9 @@ nImO::Logger::report
             nImO::StringVector  outVec;
 
             nImO::EncodeBytesAsMIME(outVec, asString);
-            // send the message to the logging ports.
+            // send the message to the logging ports, using _logAddress and _logPort
+MDNS_UNUSED_VAR_(_address);//!!
+MDNS_UNUSED_VAR_(_port);//!!
             okSoFar = true;
         }
         else

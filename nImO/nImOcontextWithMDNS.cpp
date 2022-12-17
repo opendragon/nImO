@@ -36,7 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithMDNS.hpp"
+#include "nImOcontextWithMDNS.h"
+#include "initFileAddress.h"
+#include "initFileInteger.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -60,6 +62,22 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A macro to convert four integers into an IPv4 address. */
+#define IPV4_ADDR(a_, b_, c_, d_) \
+    (((a_ & 0xff) << 24) | ((b_ & 0xff) << 16) | ((c_ & 0xff) << 8) | (d_ & 0xff))
+
+/*! @brief The address to be used for logging, if none is specified in the configuration file. */
+static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
+
+/*! @brief The port to be used for logging, if none is specified in the configuration file. */
+static uint16_t kDefaultLogPort = 1954;
+
+/*! @brief The key for the logger address in the configuration file. */
+static std::string  kAddressKey = "logger address";
+
+/*! @brief The key for the logger port in the configuration file. */
+static std::string  kPortKey = "logger port";
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -80,16 +98,65 @@ nImO::ContextWithMDNS::ContextWithMDNS
     (const std::string &    executableName,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, nodeName), _logger(nullptr)
+        inherited(executableName, nodeName), _loggingEnabled(logging), _logger(nullptr)
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
-        if (logging)
+        // Get the address and port to use for logging.
+        boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kAddressKey);
+
+        if (retValue)
         {
-            _logger = new Logger;
+            InitFile::SpBaseValue       actualValue = *retValue;
+            Ptr(InitFile::AddressValue) asAddress = actualValue->AsAddress();
+
+            if (nullptr == asAddress)
+            {
+                _logAddress = kDefaultLogAddress;
+            }
+            else
+            {
+                _logAddress = asAddress->GetValue();
+            }
+        }
+        else
+        {
+            _logAddress = kDefaultLogAddress;
+        }
+        retValue = GetConfiguredValue(kPortKey);
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue = *retValue;
+            Ptr(InitFile::IntegerValue) asInteger = actualValue->AsInteger();
+
+            if (nullptr == asInteger)
+            {
+                _logPort = kDefaultLogPort;
+            }
+            else
+            {
+                int64_t tempValue = asInteger->GetValue();
+
+                if ((0 < tempValue) && (tempValue <= 0x0FFFF))
+                {
+                    _logPort = StaticCast(uint16_t, tempValue);
+                }
+                else
+                {
+                    _logPort = kDefaultLogPort;
+                }
+            }
+        }
+        else
+        {
+            _logPort = kDefaultLogPort;
+        }
+        if (_loggingEnabled)
+        {
+            _logger = new Logger(_logAddress, _logPort);
         }
     }
     catch (...)
@@ -115,29 +182,29 @@ nImO::ContextWithMDNS::~ContextWithMDNS
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::ContextWithMDNS::addListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    if (nullptr != _logger)
-    {
-        _logger->addListeningPort();
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::addListeningPort
+//void
+//nImO::ContextWithMDNS::addListeningPort
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    if (nullptr != _logger)
+//    {
+//        _logger->addListeningPort();
+//    }
+//    ODL_OBJEXIT(); //####
+//} // nImO::ContextWithMDNS::addListeningPort
 
-void
-nImO::ContextWithMDNS::removeListeningPort
-    (void)
-{
-    ODL_OBJENTER(); //####
-    if (nullptr != _logger)
-    {
-        _logger->removeListeningPort();
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::removeListeningPort
+//void
+//nImO::ContextWithMDNS::removeListeningPort
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    if (nullptr != _logger)
+//    {
+//        _logger->removeListeningPort();
+//    }
+//    ODL_OBJEXIT(); //####
+//} // nImO::ContextWithMDNS::removeListeningPort
 
 bool
 nImO::ContextWithMDNS::report
@@ -147,13 +214,13 @@ nImO::ContextWithMDNS::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
-    if (nullptr == _logger)
+    if (_loggingEnabled && (nullptr != _logger))
     {
-        okSoFar = true; // If we aren't set up for logging, ignore this call.
+        okSoFar = _logger->report(messageToSend);
     }
     else
     {
-        okSoFar = _logger->report(messageToSend);
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

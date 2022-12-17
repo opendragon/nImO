@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOsourceContext.hpp"
+#include "nImOsourceContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

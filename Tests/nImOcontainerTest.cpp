@@ -36,17 +36,17 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOarray.hpp>
-#include <nImOblob.hpp>
-#include <nImObufferChunk.hpp>
-#include <nImOdouble.hpp>
-#include <nImOinteger.hpp>
-#include <nImOlogical.hpp>
-#include <nImOmap.hpp>
-#include <nImOset.hpp>
-#include <nImOstring.hpp>
-#include <nImOstringBuffer.hpp>
-#include <nImOtestContext.hpp>
+#include <nImOarray.h>
+#include <nImOblob.h>
+#include <nImObufferChunk.h>
+#include <nImOdouble.h>
+#include <nImOinteger.h>
+#include <nImOlogical.h>
+#include <nImOmap.h>
+#include <nImOset.h>
+#include <nImOstring.h>
+#include <nImOstringBuffer.h>
+#include <nImOtestContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -99,9 +99,6 @@ catchSignal
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
-#if 0
-    nImO_ERROR_(message.c_str());
-#endif//0
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // catchSignal
@@ -7823,12 +7820,6 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
-#if 0
-#if MAC_OR_LINUX_
-    SetUpLogger(progName);
-#endif // MAC_OR_LINUX_
-#endif//0
     int result = 1;
 
     try

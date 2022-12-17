@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOtestContext.hpp"
+#include "nImOtestContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

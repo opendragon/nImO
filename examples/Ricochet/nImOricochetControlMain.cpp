@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImObooleanArgumentDescriptor.hpp>
-#include <nImOmiscellaneousContext.hpp>
-#include <nImOportArgumentDescriptor.hpp>
-#include <nImOstringArgumentDescriptor.hpp>
+#include <nImObooleanArgumentDescriptor.h>
+#include <nImOmiscellaneousContext.h>
+#include <nImOportArgumentDescriptor.h>
+#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -93,20 +93,22 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::LoadConfiguration();
     nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
-                                            nImO::ArgumentMode::Optional, false};
-    nImO::PortArgumentDescriptor secondArg{"port", T_("Port for communication"),
-                                           nImO::ArgumentMode::Optional, 2020};
-    nImO::DescriptorVector       argumentList;
-    nImO::OutputFlavour          flavour;
-    bool                         logging = false;
+                                                nImO::ArgumentMode::Optional, false};
+    nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"),
+                                                nImO::ArgumentMode::Optional, 2020};
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+    bool                            logging = false;
+    std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, nullptr, true, true))
+                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
+                                              true, true))
     {
+        nImO::LoadConfiguration(configFilePath);
         try
         {
             nImO::MiscellaneousContext  ourContext(progName);

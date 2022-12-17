@@ -39,8 +39,6 @@
 #include <nImOarray.h>
 #include <nImObooleanArgumentDescriptor.h>
 #include <nImOcontextWithMDNS.h>
-#include <nImOmessage.h>
-#include <nImOstring.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -145,49 +143,41 @@ main
             nImO::ContextWithMDNS   ourContext(progName, logging);
             std::string             header{secondArg.getCurrentValue()};
             bool                    readFromStdin{firstArg.getCurrentValue()};
-            auto                    stuff{make_unique<nImO::Message>()};
 
-            if (nullptr != stuff)
+            if (readFromStdin)
             {
-                nImO::SpArray   stringsToSend(new nImO::Array);
+                nImO::StringVector      stuffToSend;
 
-// collect the logging ports?
                 if (0 < header.length())
                 {
-                    // We need to skip the strings from 'readFromStdin' and 'header'.
-                    for (size_t ii = 2; ii < arguments.size(); ++ii)
-                    {
-                        header += " " + arguments[ii];
-                    }
-                    stringsToSend->addValue(std::make_shared<nImO::String>(header));
+                    stuffToSend.push_back(header);
                 }
-                if (readFromStdin)
-                {
-                    std::string inLine;
+                std::string inLine;
 
-                    while (getline(std::cin, inLine))
-                    {
-                        stringsToSend->addValue(std::make_shared<nImO::String>(inLine));
-                    }
+                while (getline(std::cin, inLine))
+                {
+                    stuffToSend.push_back(inLine);
                 }
-                if (0 < stringsToSend->size())
+                if (1 < stuffToSend.size())
                 {
-                    nImO::Message   messageToSend;
-
-                    messageToSend.open(true);
-                    if (1 < stringsToSend->size())
-                    {
-                        messageToSend.setValue(stringsToSend);
-                    }
-                    else
-                    {
-                        messageToSend.setValue(stringsToSend->at(0));
-                    }
-                    messageToSend.close();
-                    if (ourContext.report(messageToSend))
+                    if (ourContext.report(stuffToSend))
                     {
                         result = 0;
                     }
+                }
+                else if (0 < stuffToSend.size())
+                {
+                    if (ourContext.report(stuffToSend[0]))
+                    {
+                        result = 0;
+                    }
+                }
+            }
+            else if (0 < header.length())
+            {
+                if (ourContext.report(header))
+                {
+                    result = 0;
                 }
             }
         }

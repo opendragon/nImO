@@ -37,7 +37,10 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOlogger.h"
+#include <nImOarray.h>
+#include <nImOmessage.h>
 #include <nImOMIMESupport.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -122,6 +125,66 @@ nImO::Logger::~Logger
 //    ODL_OBJENTER(); //####
 //    ODL_OBJEXIT(); //####
 //} // nImO::Logger::removeListeningPort
+
+bool
+nImO::Logger::report
+    (const std::string &    stringToSend)
+    const
+{
+    bool    okSoFar = false;
+
+    ODL_OBJENTER(); //####
+    if (0 < stringToSend.length())
+    {
+        nImO::Message   messageToSend;
+
+        messageToSend.open(true);
+        messageToSend.setValue(std::make_shared<String>(stringToSend));
+        messageToSend.close();
+        if (report(messageToSend))
+        {
+            okSoFar = true;
+        }
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::Logger::report
+
+bool
+nImO::Logger::report
+    (const nImO::StringVector & stringsToSend)
+    const
+{
+    bool            okSoFar = false;
+    nImO::SpArray   stringArray(new nImO::Array);
+
+    ODL_OBJENTER(); //####
+    for (size_t ii = 0; ii < stringsToSend.size(); ++ii)
+    {
+        stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
+    }
+    if (0 < stringArray->size())
+    {
+        nImO::Message   messageToSend;
+
+        messageToSend.open(true);
+        if (1 < stringArray->size())
+        {
+            messageToSend.setValue(stringArray);
+        }
+        else
+        {
+            messageToSend.setValue(stringArray->at(0));
+        }
+        messageToSend.close();
+        if (report(messageToSend))
+        {
+            okSoFar = true;
+        }
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::Logger::report
 
 bool
 nImO::Logger::report

@@ -91,13 +91,21 @@ namespace nImO
 //            void
 //            removeListeningPort
 //                (void);
-//
-            /*! @brief Log a message.
-             @param[in] messageToSend The message to be logged.
+
+            /*! @brief Log a simple message.
+             @param[in] stringToSend The message to be logged.
              @return @c true if the message was successfully logged. */
             bool
             report
-                (Message &  messageToSend)
+                (const std::string &    stringToSend)
+                const;
+
+            /*! @brief Log a complex message.
+             @param[in] stringsToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const StringVector &   stringsToSend)
                 const;
 
         protected :
@@ -110,6 +118,13 @@ namespace nImO
 //            void
 //            removeAllListeningPorts
 //                (void);
+            /*! @brief Log a message.
+             @param[in] messageToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (Message &  messageToSend)
+                const;
 
         public :
             // Public fields.

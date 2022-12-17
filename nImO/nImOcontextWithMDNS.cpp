@@ -208,7 +208,7 @@ nImO::ContextWithMDNS::~ContextWithMDNS
 
 bool
 nImO::ContextWithMDNS::report
-    (nImO::Message &    messageToSend)
+    (const std::string &    stringToSend)
     const
 {
     bool    okSoFar;
@@ -216,7 +216,27 @@ nImO::ContextWithMDNS::report
     ODL_OBJENTER(); //####
     if (_loggingEnabled && (nullptr != _logger))
     {
-        okSoFar = _logger->report(messageToSend);
+        okSoFar = _logger->report(stringToSend);
+    }
+    else
+    {
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ContextWithMDNS::report
+
+bool
+nImO::ContextWithMDNS::report
+    (const nImO::StringVector & stringsToSend)
+    const
+{
+    bool    okSoFar;
+
+    ODL_OBJENTER(); //####
+    if (_loggingEnabled && (nullptr != _logger))
+    {
+        okSoFar = _logger->report(stringsToSend);
     }
     else
     {

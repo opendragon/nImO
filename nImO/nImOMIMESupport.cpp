@@ -43,6 +43,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -167,6 +176,17 @@ nImO::DecodeMIMEToBytes
         }
     }
     return okSoFar;
+} // nImO::DecodeMIMEToBytes
+
+bool
+nImO::DecodeMIMEToBytes
+    (const std::string &    inValue,
+     ByteVector &           outBytes)
+{
+    StringVector    tempValues;
+
+    boost::split(tempValues, inValue, boost::is_any_of("\n"));
+    return DecodeMIMEToBytes(tempValues, outBytes);
 } // nImO::DecodeMIMEToBytes
 
 void

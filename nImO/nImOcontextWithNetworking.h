@@ -98,17 +98,14 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The coordinating object for I/O operations. */
-            SPservice   fService;
-
         private :
             // Private fields.
 
             /*! @brief The pool of active threads. */
-            boost::thread_group fPool;
+            boost::thread_group _pool;
 
             /*! @brief A 'dummy' operation to keep the service queue alive. */
-            UPwork  fWork;
+            UPwork  _work;
 
     }; // ContextWithNetworking
 

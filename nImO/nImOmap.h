@@ -69,16 +69,16 @@ namespace nImO
         public :
             // Public type definitions.
 
-            /*! @brief The non-const iterator for Arrays. */
+            /*! @brief The non-const iterator for Maps. */
             using iterator = MapBase::iterator;
 
-            /*! @brief The const iterator for Arrays. */
+            /*! @brief The const iterator for Maps. */
             using const_iterator = MapBase::const_iterator;
 
-            /*! @brief The non-const iterator for Arrays. */
+            /*! @brief The non-const iterator for Maps. */
             using reverse_iterator = MapBase::reverse_iterator;
 
-            /*! @brief The const iterator for Arrays. */
+            /*! @brief The const iterator for Maps. */
             using const_reverse_iterator = MapBase::const_reverse_iterator;
 
             /*! @brief The return result from the insert method. */
@@ -137,7 +137,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Map.
             @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
-            virtual const Map *
+            virtual CPtr(Map)
             asMap
                 (void)
                 const

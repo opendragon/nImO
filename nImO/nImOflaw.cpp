@@ -95,7 +95,7 @@ nImO::Flaw::~Flaw
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Flaw *
+CPtr(nImO::Flaw)
 nImO::Flaw::asFlaw
     (void)
     const

@@ -150,28 +150,28 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is an Array.
             @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
-            virtual const Array *
+            virtual CPtr(Array)
             asArray
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Blob.
             @return Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
-            virtual const Blob *
+            virtual CPtr(Blob)
             asBlob
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Container.
             @return Non-@c nullptr if the object is a Container and @c nullptr otherwise. */
-            virtual const Container *
+            virtual CPtr(Container)
             asContainer
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Double.
             @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-            virtual const Double *
+            virtual CPtr(Double)
             asDouble
                 (void)
                 const;
@@ -185,42 +185,42 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is an Integer.
             @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
-            virtual const Integer *
+            virtual CPtr(Integer)
             asInteger
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Logical.
             @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
-            virtual const Logical *
+            virtual CPtr(Logical)
             asLogical
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Map.
             @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
-            virtual const Map *
+            virtual CPtr(Map)
             asMap
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Number.
             @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-            virtual const Number *
+            virtual CPtr(Number)
             asNumber
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a Set.
             @return Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
-            virtual const Set *
+            virtual CPtr(Set)
             asSet
                 (void)
                 const;
 
             /*! @brief Return non-@c nullptr if the object is a String.
             @return Non-@c nullptr if the object is a String and @c nullptr otherwise. */
-            virtual const String *
+            virtual CPtr(String)
             asString
                 (void)
                 const;

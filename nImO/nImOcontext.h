@@ -68,8 +68,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-using namespace boost;
-
 namespace nImO
 {
 
@@ -106,6 +104,15 @@ namespace nImO
             ~Context
                 (void);
 
+            /*! @brief Return the I/O service.
+             @return The I/O service. */
+            inline SPservice
+            getService
+                (void)
+            {
+                return _service;
+            }
+
         protected :
             // Protected methods.
 
@@ -131,11 +138,11 @@ namespace nImO
             /*! @brief The @nImO-visible name of the executing program. */
             std::string _nodeName;
 
-            /*! @brief The service object to be used for asynchronous operations. */
-            asio::io_service    _ios;
-
         private :
             // Private fields.
+
+            /*! @brief The service object to be used for asynchronous operations. */
+            SPservice   _service;
 
     }; // Context
 

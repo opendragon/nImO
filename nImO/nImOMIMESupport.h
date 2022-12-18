@@ -65,7 +65,7 @@ namespace nImO
      @param[out] length Set to the number of bytes returned.
      @return A pointer to a copy of the bytes in the Message, ready to be transmitted. */
 
-    /*! @brief Convert a MIME-encoded string into the corresponding byttes.
+    /*! @brief Convert a MIME-encoded string into the corresponding bytes.
      @param[in] inValue The MIME-encoding of some bytes.
      @param[out] outBytes The bytes represented by the MIME encoding.
      @return @c true if the input string can be converted into a sequence of bytes and
@@ -73,6 +73,16 @@ namespace nImO
     bool
     DecodeMIMEToBytes
         (const StringVector &   inValue,
+         ByteVector &           outBytes);
+
+    /*! @brief Convert a MIME-encoded string into the corresponding bytes.
+     @param[in] inValue The MIME-encoding of some bytes.
+     @param[out] outBytes The bytes represented by the MIME encoding.
+     @return @c true if the input string can be converted into a sequence of bytes and
+     @c false otherwise. */
+    bool
+    DecodeMIMEToBytes
+        (const std::string &    inValue,
          ByteVector &           outBytes);
 
     /*! @brief Convert a sequence of bytes into a sequence of MIME-encoded strings.

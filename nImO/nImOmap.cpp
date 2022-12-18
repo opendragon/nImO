@@ -165,7 +165,7 @@ nImO::Map::addValue
     return result;
 } // nImO::Map::addValue
 
-const nImO::Map *
+CPtr(nImO::Map)
 nImO::Map::asMap
     (void)
     const

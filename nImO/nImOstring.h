@@ -105,7 +105,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a String.
             @return Non-@c nullptr if the object is a String and @c nullptr otherwise. */
-            virtual const String *
+            virtual CPtr(String)
             asString
                 (void)
                 const

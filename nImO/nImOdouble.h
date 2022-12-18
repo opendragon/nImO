@@ -100,7 +100,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Double.
             @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-            virtual const Double *
+            virtual CPtr(Double)
             asDouble
                 (void)
                 const

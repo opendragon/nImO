@@ -126,7 +126,7 @@ nImO::Array::addEntries
     return *this;
 } // nImO::Array::addEntries
 
-const nImO::Array *
+CPtr(nImO::Array)
 nImO::Array::asArray
     (void)
     const

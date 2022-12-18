@@ -159,7 +159,7 @@ nImO::Set::addValue
     return result;
 } // nImO::Set::addValue
 
-const nImO::Set *
+CPtr(nImO::Set)
 nImO::Set::asSet
     (void)
     const

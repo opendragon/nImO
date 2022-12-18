@@ -161,7 +161,7 @@ nImO::ContextWithMDNS::ContextWithMDNS
         }
         if (_loggingEnabled)
         {
-            _logger = new Logger(_logAddress, _logPort);
+            _logger = new Logger(getService(), _logAddress, _logPort);
         }
     }
     catch (...)
@@ -186,30 +186,6 @@ nImO::ContextWithMDNS::~ContextWithMDNS
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-//void
-//nImO::ContextWithMDNS::addListeningPort
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    if (nullptr != _logger)
-//    {
-//        _logger->addListeningPort();
-//    }
-//    ODL_OBJEXIT(); //####
-//} // nImO::ContextWithMDNS::addListeningPort
-
-//void
-//nImO::ContextWithMDNS::removeListeningPort
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    if (nullptr != _logger)
-//    {
-//        _logger->removeListeningPort();
-//    }
-//    ODL_OBJEXIT(); //####
-//} // nImO::ContextWithMDNS::removeListeningPort
 
 bool
 nImO::ContextWithMDNS::report

@@ -99,7 +99,7 @@ nImO::Number::~Number
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Number *
+CPtr(nImO::Number)
 nImO::Number::asNumber
     (void)
     const

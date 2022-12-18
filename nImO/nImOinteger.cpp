@@ -119,7 +119,7 @@ nImO::Integer::~Integer
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Integer *
+CPtr(nImO::Integer)
 nImO::Integer::asInteger
     (void)
     const

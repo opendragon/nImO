@@ -209,7 +209,7 @@ nImO::Blob::~Blob
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Blob *
+CPtr(nImO::Blob)
 nImO::Blob::asBlob
     (void)
     const

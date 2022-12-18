@@ -69,7 +69,14 @@
 #  endif // ! defined(__linux__)
 # endif // ! defined(MAC_OR_LINUX_)
 
+# if defined(__APPLE__)
+#  pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wdeprecated-declarations"
+# endif // defined(__APPLE__)
 # include <boost/optional.hpp>
+# if defined(__APPLE__)
+#  pragma clang diagnostic pop
+# endif // defined(__APPLE__)
 # include <cmath>
 # include <csignal>
 # include <cstdlib>
@@ -218,6 +225,8 @@ make_unique
 {
     return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
 }
+
+using namespace boost;
 
 namespace nImO
 {

@@ -140,7 +140,7 @@ nImO::Value::addToExtractionMap
     ODL_EXIT(); //####
 } // addToExtractionMap
 
-const nImO::Array *
+CPtr(nImO::Array)
 nImO::Value::asArray
     (void)
     const
@@ -150,7 +150,7 @@ nImO::Value::asArray
     return nullptr;
 } // nImO::Value::asArray
 
-const nImO::Blob *
+CPtr(nImO::Blob)
 nImO::Value::asBlob
     (void)
     const
@@ -160,7 +160,7 @@ nImO::Value::asBlob
     return nullptr;
 } // nImO::Value::asBlob
 
-const nImO::Container *
+CPtr(nImO::Container)
 nImO::Value::asContainer
     (void)
     const
@@ -170,7 +170,7 @@ nImO::Value::asContainer
     return nullptr;
 } // nImO::Value::asContainer
 
-const nImO::Double *
+CPtr(nImO::Double)
 nImO::Value::asDouble
     (void)
     const
@@ -180,7 +180,7 @@ nImO::Value::asDouble
     return nullptr;
 } // nImO::Value::asDouble
 
-const nImO::Flaw *
+CPtr(nImO::Flaw)
 nImO::Value::asFlaw
     (void)
     const
@@ -190,7 +190,7 @@ nImO::Value::asFlaw
     return nullptr;
 } // nImO::Value::asFlaw
 
-const nImO::Integer *
+CPtr(nImO::Integer)
 nImO::Value::asInteger
     (void)
     const
@@ -200,7 +200,7 @@ nImO::Value::asInteger
     return nullptr;
 } // nImO::Value::asInteger
 
-const nImO::Logical *
+CPtr(nImO::Logical)
 nImO::Value::asLogical
     (void)
     const
@@ -210,7 +210,7 @@ nImO::Value::asLogical
     return nullptr;
 } // nImO::Value::asLogical
 
-const nImO::Map *
+CPtr(nImO::Map)
 nImO::Value::asMap
     (void)
     const
@@ -220,7 +220,7 @@ nImO::Value::asMap
     return nullptr;
 } // nImO::Value::asMap
 
-const nImO::Number *
+CPtr(nImO::Number)
 nImO::Value::asNumber
     (void)
     const
@@ -230,7 +230,7 @@ nImO::Value::asNumber
     return nullptr;
 } // nImO::Value::asNumber
 
-const nImO::Set *
+CPtr(nImO::Set)
 nImO::Value::asSet
     (void)
     const
@@ -240,7 +240,7 @@ nImO::Value::asSet
     return nullptr;
 } // nImO::Value::asSet
 
-const nImO::String *
+CPtr(nImO::String)
 nImO::Value::asString
     (void)
     const

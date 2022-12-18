@@ -37,37 +37,15 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOcontextWithMDNS.h>
+#include <nImOarray.h>
+#include <nImOMIMESupport.h>
+#include <nImOvalue.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
+//#include <deque>
 #include <signal.h>
-
-#if defined(__APPLE__)
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunknown-pragmas"
-# pragma clang diagnostic ignored "-Wc++11-extensions"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# pragma clang diagnostic ignored "-Wdocumentation"
-# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# pragma clang diagnostic ignored "-Wextern-c-compat"
-# pragma clang diagnostic ignored "-Wpadded"
-# pragma clang diagnostic ignored "-Wshadow"
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wweak-vtables"
-#endif // defined(__APPLE__)
-#if (! MAC_OR_LINUX_)
-# pragma warning(push)
-# pragma warning(disable: 4996)
-#endif // ! MAC_OR_LINUX_
-//#include <ace/Version.h>
-//#include <yarp/conf/version.h>
-#if (! MAC_OR_LINUX_)
-# pragma warning(pop)
-#endif // ! MAC_OR_LINUX_
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -91,6 +69,124 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+///*! @brief The sequence of received messages. */
+//static std::deque<nImO::SpValue>    lReceivedValues;
+
+/*! @brief The most recent message. */
+static nImO::SpValue    lValueJustReceived;
+
+/*! @brief Used to protect valueJustReceived. */
+static boost::mutex lValueJustReceivedLock;
+
+/*! @brief Used to indicate that valueJustReceived is ready to use. */
+static boost::condition_variable    lValueJustReceivedCondition;
+
+/*! @brief A class to provide values that are used to compare pointers to values. */
+class ReceiveOnLoggingPort final
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor.
+         @param[in] service The I/O service to attach to.
+         @param[in] runFlag A reference to the flag that is used to stop execution.
+         @param[in] address The IP address to listen on.
+         @param[in] port The port to listen on. */
+        ReceiveOnLoggingPort
+            (nImO::SPservice        service,
+             boost::atomic<bool> &  runFlag,
+             const uint32_t         address,
+             const uint16_t         port) :
+                _runFlag(runFlag), _socket(*service)
+        {
+            asio::ip::address_v4    listenAddress(0);
+            asio::ip::address_v4    multicastAddress(address);
+            asio::ip::udp::endpoint listenEndpoint(listenAddress, port);
+
+            _socket.open(listenEndpoint.protocol());
+            _socket.set_option(asio::ip::udp::socket::reuse_address(true));
+            _socket.bind(listenEndpoint);
+            // Join the multicast group.
+            _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
+            receiveMessages();
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Receive a message. */
+        void
+        receiveMessages
+            (void)
+        {
+            if (_runFlag)
+            {
+                _socket.async_receive_from(asio::buffer(_data), _senderEndpoint,
+                                           [this]
+                                           (system::error_code  ec,
+                                            std::size_t         length)
+                                           {
+                                               if (! ec)
+                                               {
+                                                   nImO::ByteVector inBytes;
+                                                   std::string      receivedAsString(_data.data(), length);
+
+                                                   // We need to convert the raw data to a string!
+                                                   if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
+                                                   {
+                                                       nImO::Message   newMessage;
+
+                                                       newMessage.open(false);
+                                                       newMessage.appendBytes(inBytes.data(), inBytes.size());
+                                                       {
+                                                           boost::lock_guard<boost::mutex>  lock(lValueJustReceivedLock);
+
+                                                           lValueJustReceived = newMessage.getValue();
+                                                       }
+                                                       newMessage.close();
+                                                       lValueJustReceivedCondition.notify_one();
+                                                   }
+                                                   receiveMessages();
+                                               }
+                                           });
+            }
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+        /*! @brief A reference to the 'keep going' flag. */
+        boost::atomic<bool> &   _runFlag;
+
+        /*! @brief The socket for a multicast reception. */
+        asio::ip::udp::socket   _socket;
+
+        /*! @brief The sender's endpoint. */
+        asio::ip::udp::endpoint _senderEndpoint;
+
+        /*! @brief A buffer for the raw message data. */
+        std::array<char, 2048>  _data;
+
+}; // ReceiveOnLoggingPort
+
 /*! @brief Set to @false when a SIGINT occurs. */
 static boost::atomic<bool>  lKeepRunning(true);
 
@@ -113,7 +209,6 @@ catchSignal
 #if defined(SIGINT)
     if (SIGINT == signal)
     {
-        //lKeepRunning = 0;
         lKeepRunning = false;
     }
     else
@@ -162,24 +257,44 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
+            uint32_t                loggingAddress;
+            uint16_t                loggingPort;
             nImO::ContextWithMDNS   ourContext(progName, logging);
 
             nImO::SetSignalHandlers(catchSignal);
-            // Open a UDP port to collect messages.
-
-
-            // Announce the UDP port so that other applications can report.
-
+            ourContext.getLoggingInfo(loggingAddress, loggingPort);
+            ReceiveOnLoggingPort    receiver(ourContext.getService(), lKeepRunning, loggingAddress, loggingPort);
 
             // Wait for messages until exit requested via Ctrl-C.
-            for (; lKeepRunning; )
+            for ( ; lKeepRunning; )
             {
+                // Check for messages.
+                boost::unique_lock<boost::mutex>    lock(lValueJustReceivedLock);
 
+                while ((nullptr == lValueJustReceived) && lKeepRunning)
+                {
+                    lValueJustReceivedCondition.wait(lock);
+                }
+                if (nullptr != lValueJustReceived)
+                {
+                    CPtr(nImO::Array)   asArray{lValueJustReceived->asArray()};
+
+                    if (nullptr == asArray)
+                    {
+                        std::cout << *lValueJustReceived << std::endl;
+                    }
+                    else
+                    {
+                        for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
+                        {
+                            nImO::SpValue   element{asArray->at(ii)};
+
+                            std::cout << *element << std::endl;
+                        }
+                    }
+                    lValueJustReceived.reset();
+                }
             }
-            // Retract the announcement.
-
-            // Close the UDP port.
-            
         }
         catch (...)
         {

@@ -39,6 +39,7 @@
 #if (! defined(nImOlogger_H_))
 # define nImOlogger_H_ /* Header guard */
 
+# include <nImOcontext.h>
 # include <nImOmessage.h>
 
 # if defined(__APPLE__)
@@ -71,10 +72,12 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] service The I/O service to attach to.
              @param[in] logAddress The multicast address to use.
              @param[in] logPort The multicast port to use. */
             Logger
-                (const uint32_t logAddress,
+                (SPservice      service,
+                 const uint32_t logAddress,
                  const uint16_t logPort);
 
             /*! @brief The destructor. */
@@ -82,31 +85,19 @@ namespace nImO
             ~Logger
                 (void);
 
-//            /*! @brief Add a new listening port for the logged messages. */
-//            void
-//            addListeningPort
-//                (void);
-//
-//            /*! @brief Remove a listening port. */
-//            void
-//            removeListeningPort
-//                (void);
-
             /*! @brief Log a simple message.
              @param[in] stringToSend The message to be logged.
              @return @c true if the message was successfully logged. */
             bool
             report
-                (const std::string &    stringToSend)
-                const;
+                (const std::string &    stringToSend);
 
             /*! @brief Log a complex message.
              @param[in] stringsToSend The message to be logged.
              @return @c true if the message was successfully logged. */
             bool
             report
-                (const StringVector &   stringsToSend)
-                const;
+                (const StringVector &   stringsToSend);
 
         protected :
             // Protected methods.
@@ -114,17 +105,12 @@ namespace nImO
         private :
             // Private methods.
 
-//            /*! @brief Remove all listening ports. */
-//            void
-//            removeAllListeningPorts
-//                (void);
             /*! @brief Log a message.
              @param[in] messageToSend The message to be logged.
              @return @c true if the message was successfully logged. */
             bool
             report
-                (Message &  messageToSend)
-                const;
+                (Message &  messageToSend);
 
         public :
             // Public fields.
@@ -140,6 +126,12 @@ namespace nImO
 
             /*! @brief The multicast port used for logging. */
             uint16_t    _port;
+
+            /*! @brief The endpoint for a multicast transmission. */
+            asio::ip::udp::endpoint _endpoint;
+        
+            /*! @brief The socket for a multicast transmission. */
+            asio::ip::udp::socket _socket;
 
     }; // Logger
 

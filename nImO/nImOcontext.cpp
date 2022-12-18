@@ -80,7 +80,7 @@
 nImO::Context::Context
     (const std::string &    executableName,
      const std::string &    nodeName) :
-        _executableName(executableName), _nodeName(nodeName)
+        _executableName(executableName), _nodeName(nodeName), _service(new asio::io_service)
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####

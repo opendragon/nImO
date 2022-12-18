@@ -135,7 +135,7 @@ namespace nImO
                 override;
 
             /*! @brief Return the next Value in the Message.
-            @param[in] allowClosed @c true if the state can be closed @c false if the Message mut be
+            @param[in] allowClosed @c true if the state can be closed @c false if the Message must be
             opened for reading
             @return The next Value in the Message or @c nullptr if the Value cannot be retrieved or
             a Flaw if the Value is invalid. */

@@ -100,7 +100,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is an Integer.
             @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
-            virtual const Integer *
+            virtual CPtr(Integer)
             asInteger
                 (void)
                 const

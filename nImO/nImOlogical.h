@@ -100,7 +100,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Logical.
             @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
-            virtual const Logical *
+            virtual CPtr(Logical)
             asLogical
                 (void)
                 const

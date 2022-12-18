@@ -90,7 +90,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Number.
             @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-            virtual const Number *
+            virtual CPtr(Number)
             asNumber
                 (void)
                 const

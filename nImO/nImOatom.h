@@ -91,7 +91,7 @@ namespace nImO
                 (Atom &&	other)
                 noexcept;
 
-    private :
+        private :
             // Private methods.
 
         public :

@@ -95,7 +95,7 @@ nImO::Container::~Container
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Container *
+CPtr(nImO::Container)
 nImO::Container::asContainer
     (void)
     const

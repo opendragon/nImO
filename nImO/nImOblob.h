@@ -102,7 +102,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Blob.
              @return Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */
-            virtual const Blob *
+            virtual CPtr(Blob)
             asBlob
                 (void)
                 const

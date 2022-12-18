@@ -126,7 +126,7 @@ nImO::String::~String
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::String *
+CPtr(nImO::String)
 nImO::String::asString
     (void)
     const

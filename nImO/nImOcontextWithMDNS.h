@@ -89,37 +89,40 @@ namespace nImO
             ~ContextWithMDNS
                 (void);
 
-        /*! @brief Log a message.
-         @param[in] stringToSend The message to be logged.
-         @return @c true if the message was successfully logged. */
-        bool
-        report
-            (const std::string &    stringToSend)
-            const;
+            /*! @brief Return the address and port to use for logging.
+             @param[out] address The address for logging.
+             @param[out] port The port for logging. */
+            inline void
+            getLoggingInfo
+                (uint32_t & address,
+                 uint16_t & port)
+                const
+            {
+                address = _logAddress;
+                port = _logPort;
+            }
 
-        /*! @brief Log a message.
-         @param[in] stringsToSend The message to be logged.
-         @return @c true if the message was successfully logged. */
-        bool
-        report
-            (const StringVector &   stringsToSend)
-            const;
+            /*! @brief Log a message.
+             @param[in] stringToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const std::string &    stringToSend)
+                const;
+
+            /*! @brief Log a message.
+             @param[in] stringsToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const StringVector &   stringsToSend)
+                const;
 
         protected :
             // Protected methods.
 
         private :
             // Private methods.
-
-//            /*! @brief Add a new listening port for the logged messages. */
-//            void
-//            addListeningPort
-//                (void);
-
-//            /*! @brief Remove a listening port. */
-//            void
-//            removeListeningPort
-//                (void);
 
         public :
             // Public fields.

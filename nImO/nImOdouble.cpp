@@ -119,7 +119,7 @@ nImO::Double::~Double
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Double *
+CPtr(nImO::Double)
 nImO::Double::asDouble
     (void)
     const

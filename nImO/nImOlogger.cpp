@@ -47,6 +47,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -81,9 +90,11 @@
 #endif // defined(__APPLE__)
 
 nImO::Logger::Logger
-    (const uint32_t logAddress,
+    (SPservice      service,
+     const uint32_t logAddress,
      const uint16_t logPort):
-        _address(logAddress), _port(logPort)
+        _address(logAddress), _port(logPort), _endpoint(asio::ip::address_v4(_address), _port),
+        _socket(*service, _endpoint.protocol())
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -93,7 +104,6 @@ nImO::Logger::~Logger
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllListeningPorts();
     ODL_OBJEXIT(); //####
 } // nImO::Logger::~Logger
 
@@ -101,35 +111,9 @@ nImO::Logger::~Logger
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-//void
-//nImO::Logger::addListeningPort
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    ODL_OBJEXIT(); //####
-//} // nImO::Logger::addListeningPort
-
-///*! @brief Remove all listeners. */
-//void
-//nImO::Logger::removeAllListeningPorts
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    ODL_OBJEXIT(); //####
-//} // nImO::Logger::removeAllListeningPorts
-
-//void
-//nImO::Logger::removeListeningPort
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    ODL_OBJEXIT(); //####
-//} // nImO::Logger::removeListeningPort
-
 bool
 nImO::Logger::report
     (const std::string &    stringToSend)
-    const
 {
     bool    okSoFar = false;
 
@@ -153,7 +137,6 @@ nImO::Logger::report
 bool
 nImO::Logger::report
     (const nImO::StringVector & stringsToSend)
-    const
 {
     bool            okSoFar = false;
     nImO::SpArray   stringArray(new nImO::Array);
@@ -189,7 +172,6 @@ nImO::Logger::report
 bool
 nImO::Logger::report
     (nImO::Message &    messageToSend)
-    const
 {
     bool    okSoFar = false;
 
@@ -203,9 +185,15 @@ nImO::Logger::report
             nImO::StringVector  outVec;
 
             nImO::EncodeBytesAsMIME(outVec, asString);
-            // send the message to the logging ports, using _logAddress and _logPort
-MDNS_UNUSED_VAR_(_address);//!!
-MDNS_UNUSED_VAR_(_port);//!!
+            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
+
+            // send the encoded message to the logging ports
+            _socket.async_send_to(asio::buffer(*outString), _endpoint,
+                                  [outString]
+                                  (system::error_code   /*ec*/,
+                                   std::size_t          /*length*/)
+                                  {
+                                  });
             okSoFar = true;
         }
         else

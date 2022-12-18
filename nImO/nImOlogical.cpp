@@ -123,7 +123,7 @@ nImO::Logical::~Logical
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const nImO::Logical *
+CPtr(nImO::Logical)
 nImO::Logical::asLogical
     (void)
     const

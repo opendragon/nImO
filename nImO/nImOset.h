@@ -69,16 +69,16 @@ namespace nImO
         public :
             // Public type definitions.
 
-            /*! @brief The non-const iterator for Arrays. */
+            /*! @brief The non-const iterator for Sets. */
             using iterator = SetBase::iterator;
 
-            /*! @brief The const iterator for Arrays. */
+            /*! @brief The const iterator for Sets. */
             using const_iterator = SetBase::const_iterator;
 
-            /*! @brief The non-const iterator for Arrays. */
+            /*! @brief The non-const iterator for Sets. */
             using reverse_iterator = SetBase::reverse_iterator;
 
-            /*! @brief The const iterator for Arrays. */
+            /*! @brief The const iterator for Sets. */
             using const_revese_iterator = SetBase::const_reverse_iterator;
 
             /*! @brief The return result from the insert method. */
@@ -132,7 +132,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Set.
             @return Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
-            virtual const Set *
+            virtual CPtr(Set)
             asSet
                 (void)
                 const

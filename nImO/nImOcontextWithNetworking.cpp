@@ -79,7 +79,7 @@
 nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    executableName,
      const std::string &    nodeName) :
-    inherited(executableName, nodeName), fService(new asio::io_service)
+    inherited(executableName, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
@@ -87,15 +87,15 @@ nImO::ContextWithNetworking::ContextWithNetworking
     try
     {
         // The number of threads requested should be one less than the number possible, to account for the main thread.
-        int numThreadsInPool = std::max(static_cast<int>(boost::thread::hardware_concurrency()), 1) - 1;
+        int numThreadsInPool = std::max(static_cast<int>(thread::hardware_concurrency()), 1) - 1;
 
-        fWork.reset(new asio::io_service::work(*fService));
+        _work.reset(new asio::io_service::work(*getService()));
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
-            fPool.create_thread([this]
+            _pool.create_thread([this]
                                 (void)
                                 {
-                                    fService->run();
+                                    getService()->run();
                                 });
         }
     }
@@ -111,8 +111,8 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     (void)
 {
     ODL_OBJENTER(); //####
-    fWork.reset(nullptr);
-    fPool.join_all();
+    _work.reset(nullptr);
+    _pool.join_all();
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithNetworking::~ContextWithNetworking
 

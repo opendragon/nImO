@@ -134,7 +134,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is an Array.
              @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
-            virtual const Array *
+            virtual CPtr(Array)
             asArray
                 (void)
                 const

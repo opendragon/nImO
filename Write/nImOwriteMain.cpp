@@ -92,7 +92,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Set to @0 when a SIGINT occurs. */
-static volatile sig_atomic_t    lKeepRunning = 1;
+static boost::atomic<bool>  lKeepRunning(true);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -113,7 +113,7 @@ catchSignal
 #if defined(SIGINT)
     if (SIGINT == signal)
     {
-        lKeepRunning = 0;
+        lKeepRunning = false;
     }
     else
 #endif // defined(SIGINT)
@@ -171,7 +171,7 @@ main
             nImO::SetSignalHandlers(catchSignal);
             // Open a nImO channel to collect messages.
             // Wait for messages until exit requested via Ctrl-C.
-            for ( ; 1 == lKeepRunning; )
+            for ( ; lKeepRunning; )
             {
                 // TBD
             }

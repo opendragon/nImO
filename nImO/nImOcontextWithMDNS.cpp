@@ -64,7 +64,7 @@
 
 /*! @brief A macro to convert four integers into an IPv4 address. */
 #define IPV4_ADDR(a_, b_, c_, d_) \
-    (((a_ & 0xff) << 24) | ((b_ & 0xff) << 16) | ((c_ & 0xff) << 8) | (d_ & 0xff))
+    (((a_ & 0x0ff) << 24) | ((b_ & 0x0ff) << 16) | ((c_ & 0x0ff) << 8) | (d_ & 0x0ff))
 
 /*! @brief The address to be used for logging, if none is specified in the configuration file. */
 static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
@@ -120,6 +120,11 @@ nImO::ContextWithMDNS::ContextWithMDNS
             else
             {
                 _logAddress = asAddress->GetValue();
+                if (239 != (_logAddress >> 24))
+                {
+                    std::cerr << "Invalid address in configuration file; using default address." << std::endl;
+                    _logAddress = kDefaultLogAddress;
+                }
             }
         }
         else

@@ -39,6 +39,7 @@
 #include <nImOcontextWithMDNS.h>
 #include <nImOarray.h>
 #include <nImOMIMESupport.h>
+#include <nImOstring.h>
 #include <nImOvalue.h>
 
 //#include <odlEnable.h>
@@ -281,15 +282,32 @@ main
 
                     if (nullptr == asArray)
                     {
-                        std::cout << *lValueJustReceived << std::endl;
+                        CPtr(nImO::String)  asString{lValueJustReceived->asString()};
+
+                        if (nullptr == asString)
+                        {
+                            std::cout << *lValueJustReceived << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << asString->getValue() << std::endl;
+                        }
                     }
                     else
                     {
                         for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
                         {
-                            nImO::SpValue   element{asArray->at(ii)};
+                            nImO::SpValue       element{asArray->at(ii)};
+                            CPtr(nImO::String)  asString{element->asString()};
 
-                            std::cout << *element << std::endl;
+                            if (nullptr == asString)
+                            {
+                                std::cout << *element << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << asString->getValue() << std::endl;
+                            }
                         }
                     }
                     lValueJustReceived.reset();

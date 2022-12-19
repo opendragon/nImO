@@ -104,7 +104,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::ServiceContext    ourContext(progName, logging, false);
+            nImO::ServiceContext    ourContext{progName, logging, false};
 
         }
         catch (...)

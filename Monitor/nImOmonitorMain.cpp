@@ -45,7 +45,7 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-//#include <deque>
+#include <deque>
 #include <signal.h>
 
 #if defined(__APPLE__)
@@ -70,17 +70,14 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-///*! @brief The sequence of received messages. */
-//static std::deque<nImO::SpValue>    lReceivedValues;
+/*! @brief The sequence of received messages. */
+static std::deque<nImO::SpValue>    lReceivedValues;
 
-/*! @brief The most recent message. */
-static nImO::SpValue    lValueJustReceived;
+/*! @brief Used to protect lReceivedValues. */
+static boost::mutex lReceivedLock;
 
-/*! @brief Used to protect valueJustReceived. */
-static boost::mutex lValueJustReceivedLock;
-
-/*! @brief Used to indicate that valueJustReceived is ready to use. */
-static boost::condition_variable    lValueJustReceivedCondition;
+/*! @brief Used to indicate that lReceivedValues is ready to use. */
+static boost::condition_variable    lReceivedCondition;
 
 /*! @brief A class to provide values that are used to compare pointers to values. */
 class ReceiveOnLoggingPort final
@@ -152,12 +149,12 @@ class ReceiveOnLoggingPort final
                                                        newMessage.open(false);
                                                        newMessage.appendBytes(inBytes.data(), inBytes.size());
                                                        {
-                                                           boost::lock_guard<boost::mutex>  lock(lValueJustReceivedLock);
+                                                           boost::lock_guard<boost::mutex>  lock(lReceivedLock);
 
-                                                           lValueJustReceived = newMessage.getValue();
+                                                           lReceivedValues.push_back(newMessage.getValue());
                                                        }
                                                        newMessage.close();
-                                                       lValueJustReceivedCondition.notify_one();
+                                                       lReceivedCondition.notify_one();
                                                    }
                                                    receiveMessages();
                                                }
@@ -260,33 +257,43 @@ main
         {
             uint32_t                loggingAddress;
             uint16_t                loggingPort;
-            nImO::ContextWithMDNS   ourContext(progName, logging);
+            nImO::ContextWithMDNS   ourContext{progName, logging};
 
             nImO::SetSignalHandlers(catchSignal);
             ourContext.getLoggingInfo(loggingAddress, loggingPort);
-            ReceiveOnLoggingPort    receiver(ourContext.getService(), lKeepRunning, loggingAddress, loggingPort);
+            ReceiveOnLoggingPort    receiver{ourContext.getService(), lKeepRunning, loggingAddress, loggingPort};
 
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; lKeepRunning; )
             {
-                // Check for messages.
-                boost::unique_lock<boost::mutex>    lock(lValueJustReceivedLock);
+                nImO::SpValue   nextValue;
 
-                while ((nullptr == lValueJustReceived) && lKeepRunning)
                 {
-                    lValueJustReceivedCondition.wait(lock);
+                    // Check for messages.
+                    boost::unique_lock<boost::mutex>    lock(lReceivedLock);
+
+                    //while ((nullptr == lValueJustReceived) && lKeepRunning)
+                    while ((0 == lReceivedValues.size()) && lKeepRunning)
+                    {
+                        lReceivedCondition.wait(lock);
+                    }
+                    if (lKeepRunning)
+                    {
+                        nextValue = lReceivedValues.front();
+                        lReceivedValues.pop_front();
+                    }
                 }
-                if (nullptr != lValueJustReceived)
+                if (lKeepRunning)
                 {
-                    CPtr(nImO::Array)   asArray{lValueJustReceived->asArray()};
+                    CPtr(nImO::Array)   asArray{nextValue->asArray()};
 
                     if (nullptr == asArray)
                     {
-                        CPtr(nImO::String)  asString{lValueJustReceived->asString()};
+                        CPtr(nImO::String)  asString{nextValue->asString()};
 
                         if (nullptr == asString)
                         {
-                            std::cout << *lValueJustReceived << std::endl;
+                            std::cout << *nextValue << std::endl;
                         }
                         else
                         {
@@ -310,7 +317,7 @@ main
                             }
                         }
                     }
-                    lValueJustReceived.reset();
+                    nextValue.reset();
                 }
             }
         }

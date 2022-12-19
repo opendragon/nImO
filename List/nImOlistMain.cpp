@@ -173,7 +173,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::UtilityContext    ourContext(progName, logging);
+            nImO::UtilityContext    ourContext{progName, logging};
             std::string             choice{firstArg.getCurrentValue()};
             auto                    match{lChoiceMap.find(choice)};
 

@@ -114,7 +114,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::ContextWithMDNS   ourContext(progName, logging);
+            nImO::ContextWithMDNS   ourContext{progName, logging};
             std::string             header{secondArg.getCurrentValue()};
             bool                    readFromStdin{firstArg.getCurrentValue()};
 

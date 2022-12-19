@@ -108,7 +108,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::UtilityContext    ourContext(progName, logging);
+            nImO::UtilityContext    ourContext{progName, logging};
 
         }
         catch (...)

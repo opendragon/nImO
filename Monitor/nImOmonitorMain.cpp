@@ -285,19 +285,24 @@ main
                 }
                 if (lKeepRunning)
                 {
+                    time_t              rawTime;
+                    std::string         nowAsString;
                     CPtr(nImO::Array)   asArray{nextValue->asArray()};
+                    char                timeBuffer[80];
 
+                    time(&rawTime);
+                    strftime(timeBuffer, sizeof(timeBuffer), "%F/%T ", localtime(&rawTime));
                     if (nullptr == asArray)
                     {
                         CPtr(nImO::String)  asString{nextValue->asString()};
 
                         if (nullptr == asString)
                         {
-                            std::cout << *nextValue << std::endl;
+                            std::cout << timeBuffer << *nextValue << std::endl;
                         }
                         else
                         {
-                            std::cout << asString->getValue() << std::endl;
+                            std::cout << timeBuffer << asString->getValue() << std::endl;
                         }
                     }
                     else
@@ -309,11 +314,11 @@ main
 
                             if (nullptr == asString)
                             {
-                                std::cout << *element << std::endl;
+                                std::cout << timeBuffer << *element << std::endl;
                             }
                             else
                             {
-                                std::cout << asString->getValue() << std::endl;
+                                std::cout << timeBuffer << asString->getValue() << std::endl;
                             }
                         }
                     }

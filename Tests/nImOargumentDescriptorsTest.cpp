@@ -110,8 +110,7 @@ fixDescriptorString
     ODL_S1s("inString = ", inString); //####
     std::string result{inString};
 
-    for (std::string::size_type pos = result.find("\\t"); pos != result.npos;
-         pos = result.find("\\t"))
+    for (std::string::size_type pos = result.find("\\t"); pos != result.npos; pos = result.find("\\t"))
     {
         result.replace(pos, 2, "\t");
     }
@@ -355,8 +354,7 @@ doTestChannelArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   ":#"));
+                testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, ":#"));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -367,8 +365,7 @@ doTestChannelArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       *argv));
+                    testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, *argv));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -380,8 +377,7 @@ doTestChannelArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       "/tmp"));
+                    testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/tmp"));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;

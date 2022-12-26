@@ -326,7 +326,7 @@ doTestMIMEInsertEmptyMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -368,7 +368,7 @@ doTestMIMEExtractEmptyMessage
 
         if (nullptr != stuff)
         {
-            ODL_LOG("(stuff)"); //####
+            ODL_LOG("(nullptr != stuff)"); //####
             StringVector    inVec;
             ByteVector      outBytes;
 
@@ -423,7 +423,7 @@ doTestMIMEExtractEmptyMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -480,7 +480,7 @@ doTestMIMEInsertLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -537,7 +537,7 @@ doTestMIMEExtractLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -601,7 +601,7 @@ doTestMIMEInsertTinyIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -665,7 +665,7 @@ doTestMIMEExtractTinyIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -722,7 +722,7 @@ doTestMIMEInsertSmallIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -779,7 +779,7 @@ doTestMIMEExtractSmallIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -838,7 +838,7 @@ doTestMIMEInsertMediumIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -897,7 +897,7 @@ doTestMIMEExtractMediumIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -956,7 +956,7 @@ doTestMIMEInsertBigIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1015,7 +1015,7 @@ doTestMIMEExtractBigIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1065,7 +1065,7 @@ doTestMIMEInsertEmptyStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1116,7 +1116,7 @@ doTestMIMEExtractEmptyStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1167,7 +1167,7 @@ doTestMIMEInsertShortStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1218,7 +1218,7 @@ doTestMIMEExtractShortStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1270,7 +1270,7 @@ doTestMIMEInsertMediumStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1322,7 +1322,7 @@ doTestMIMEExtractMediumStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1372,7 +1372,7 @@ doTestMIMEInsertEmptyBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1422,7 +1422,7 @@ doTestMIMEExtractEmptyBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1477,7 +1477,7 @@ doTestMIMEInsertSmallBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1532,7 +1532,7 @@ doTestMIMEExtractSmallBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1594,7 +1594,7 @@ doTestMIMEInsertMediumBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1657,7 +1657,7 @@ doTestMIMEExtractMediumBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1716,7 +1716,7 @@ doTestMIMEInsertSingleDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1775,7 +1775,7 @@ doTestMIMEExtractSingleDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1825,7 +1825,7 @@ doTestMIMEInsertEmptyArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1875,7 +1875,7 @@ doTestMIMEExtractEmptyArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1925,7 +1925,7 @@ doTestMIMEInsertEmptyMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1975,7 +1975,7 @@ doTestMIMEExtractEmptyMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2025,7 +2025,7 @@ doTestMIMEInsertEmptySetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2075,7 +2075,7 @@ doTestMIMEExtractEmptySetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2127,7 +2127,7 @@ doTestMIMEInsertArrayOneLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2179,7 +2179,7 @@ doTestMIMEExtractArrayOneLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2231,7 +2231,7 @@ doTestMIMEInsertArrayOneIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2283,7 +2283,7 @@ doTestMIMEExtractArrayOneIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2335,7 +2335,7 @@ doTestMIMEInsertArrayOneDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2387,7 +2387,7 @@ doTestMIMEExtractArrayOneDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2439,7 +2439,7 @@ doTestMIMEInsertArrayOneStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2491,7 +2491,7 @@ doTestMIMEExtractArrayOneStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2542,7 +2542,7 @@ doTestMIMEInsertArrayOneBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2594,7 +2594,7 @@ doTestMIMEExtractArrayOneBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2646,7 +2646,7 @@ doTestMIMEInsertArrayOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2698,7 +2698,7 @@ doTestMIMEExtractArrayOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2749,7 +2749,7 @@ doTestMIMEInsertArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2800,7 +2800,7 @@ doTestMIMEExtractArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2851,7 +2851,7 @@ doTestMIMEInsertArrayOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2902,7 +2902,7 @@ doTestMIMEExtractArrayOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2955,7 +2955,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3008,7 +3008,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3061,7 +3061,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3114,7 +3114,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3167,7 +3167,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3220,7 +3220,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3273,7 +3273,7 @@ doTestMIMEInsertArrayTwoStringsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3326,7 +3326,7 @@ doTestMIMEExtractArrayTwoStringsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3379,7 +3379,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3432,7 +3432,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3485,7 +3485,7 @@ doTestMIMEInsertArrayTwoArraysMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3538,7 +3538,7 @@ doTestMIMEExtractArrayTwoArraysMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3590,7 +3590,7 @@ doTestMIMEInsertArrayTwoMapsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3643,7 +3643,7 @@ doTestMIMEExtractArrayTwoMapsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3695,7 +3695,7 @@ doTestMIMEInsertArrayTwoSetsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3748,7 +3748,7 @@ doTestMIMEExtractArrayTwoSetsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3801,7 +3801,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3854,7 +3854,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3907,7 +3907,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3960,7 +3960,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4013,7 +4013,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4066,7 +4066,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4128,7 +4128,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4190,7 +4190,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4241,7 +4241,7 @@ doTestMIMEInsertLogicalMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4292,7 +4292,7 @@ doTestMIMEExtractLogicalMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4343,7 +4343,7 @@ doTestMIMEInsertIntegerMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4394,7 +4394,7 @@ doTestMIMEExtractIntegerMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4445,7 +4445,7 @@ doTestMIMEInsertStringMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4496,7 +4496,7 @@ doTestMIMEExtractStringMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4547,7 +4547,7 @@ doTestMIMEInsertLogicalSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4598,7 +4598,7 @@ doTestMIMEExtractLogicalSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4649,7 +4649,7 @@ doTestMIMEInsertIntegerSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4700,7 +4700,7 @@ doTestMIMEExtractIntegerSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4751,7 +4751,7 @@ doTestMIMEInsertStringSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4802,7 +4802,7 @@ doTestMIMEExtractStringSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4893,7 +4893,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4984,7 +4984,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)

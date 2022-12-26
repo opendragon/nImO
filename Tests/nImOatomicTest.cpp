@@ -172,7 +172,7 @@ doTestEmptyBufferChunk
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -221,13 +221,13 @@ doTestBufferChunkWithSingleByte
             {
                 CPtr(uint8_t) storedData = stuff->getData();
 
-                if (storedData && (data == *storedData))
+                if ((nullptr != storedData) && (data == *storedData))
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (storedData && (data == *storedData))"); //####
+                    ODL_LOG("! ((nullptr != storedData) && (data == *storedData))"); //####
                 }
             }
             else
@@ -237,7 +237,7 @@ doTestBufferChunkWithSingleByte
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -295,7 +295,7 @@ doTestFilledBufferChunk
                 {
                     CPtr(uint8_t) storedData = stuff->getData();
 
-                    if (storedData)
+                    if (nullptr != storedData)
                     {
                         result = 0;
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
@@ -312,7 +312,7 @@ doTestFilledBufferChunk
                     }
                     else
                     {
-                        ODL_LOG("! (storedData)"); //####
+                        ODL_LOG("! (nullptr != storedData)"); //####
                     }
                 }
                 else
@@ -328,7 +328,7 @@ doTestFilledBufferChunk
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -386,7 +386,7 @@ doTestOverfilledBufferChunk
                 {
                     CPtr(uint8_t) storedData = stuff->getData();
 
-                    if (storedData)
+                    if (nullptr != storedData)
                     {
                         result = 0;
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
@@ -403,7 +403,7 @@ doTestOverfilledBufferChunk
                     }
                     else
                     {
-                        ODL_LOG("! (storedData)"); //####
+                        ODL_LOG("! (nullptr != storedData)"); //####
                     }
                 }
                 else
@@ -419,7 +419,7 @@ doTestOverfilledBufferChunk
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -483,7 +483,7 @@ doTestBufferChunkReset
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -546,7 +546,7 @@ doTestEmptyStringBuffer
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -616,7 +616,7 @@ doTestStringBufferWithCharacters
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (nullptr != stuff)"); //####
             }
         }
         else
@@ -684,7 +684,7 @@ doTestStringBufferWithLogical
                 }
                 else
                 {
-                    ODL_LOG("! (stuff)"); //####
+                    ODL_LOG("! (nullptr != stuff)"); //####
                 }
             }
             else
@@ -755,7 +755,7 @@ doTestStringBufferWithInteger
                 }
                 else
                 {
-                    ODL_LOG("! (stuff)"); //####
+                    ODL_LOG("! (nullptr != stuff)"); //####
                 }
             }
             else
@@ -833,7 +833,7 @@ doTestStringBufferWithString
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (nullptr != stuff)"); //####
             }
         }
         else
@@ -906,7 +906,7 @@ doTestStringBufferWithSpecialCharacters
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -976,7 +976,7 @@ doTestStringBufferWithDouble
                 }
                 else
                 {
-                    ODL_LOG("! (stuff)"); //####
+                    ODL_LOG("! (nullptr != stuff)"); //####
                 }
             }
             else
@@ -1059,7 +1059,7 @@ doTestBigStringBuffer
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1116,7 +1116,7 @@ doTestStringBufferWithEmptyBlob
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1160,7 +1160,7 @@ doTestStringBufferWithSmallBlob
         {
             UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
-            if (smallBlob)
+            if (nullptr != smallBlob)
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -1195,12 +1195,12 @@ doTestStringBufferWithSmallBlob
             }
             else
             {
-                ODL_LOG("! (smallBlob)"); //####
+                ODL_LOG("! (nullptr != smallBlob)"); //####
             }
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1244,7 +1244,7 @@ doTestStringBufferWithBigBlob
         {
             UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
-            if (bigBlob)
+            if (nullptr != bigBlob)
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -1279,12 +1279,12 @@ doTestStringBufferWithBigBlob
             }
             else
             {
-                ODL_LOG("! (bigBlob)"); //####
+                ODL_LOG("! (nullptr != bigBlob)"); //####
             }
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1350,7 +1350,7 @@ doTestStringBufferReset
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1403,7 +1403,7 @@ doTestDefaultLogicalValue
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1461,7 +1461,7 @@ doTestLogicalValue
                 }
                 else
                 {
-                    ODL_LOG("! (stuff)"); //####
+                    ODL_LOG("! (nullptr != stuff)"); //####
                 }
             }
             else
@@ -1525,7 +1525,7 @@ doTestDefaultIntegerValue
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1583,7 +1583,7 @@ doTestNumberValue
                 }
                 else
                 {
-                    ODL_LOG("! (stuff)"); //####
+                    ODL_LOG("! (nullptr != stuff)"); //####
                 }
             }
             else
@@ -1607,7 +1607,7 @@ doTestNumberValue
                     }
                     else
                     {
-                        ODL_LOG("! (stuff)"); //####
+                        ODL_LOG("! (nullptr != stuff)"); //####
                     }
                 }
                 else
@@ -1671,7 +1671,7 @@ doTestDefaultStringValue
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1724,7 +1724,7 @@ doTestStringValue
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (nullptr != stuff)"); //####
             }
         }
         else
@@ -1784,7 +1784,7 @@ doTestStringValueWithEscapes
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1837,7 +1837,7 @@ doTestDefaultBlobValue
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1914,7 +1914,7 @@ doTestSmallBlobValue
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (nullptr != stuff)"); //####
             }
         }
         else
@@ -1959,7 +1959,7 @@ doTestBigBlobValue
     {
         UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
 
-        if (bigBlob)
+        if (nullptr != bigBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -1996,12 +1996,12 @@ doTestBigBlobValue
             }
             else
             {
-                ODL_LOG("! (stuff)"); //####
+                ODL_LOG("! (nullptr != stuff)"); //####
             }
         }
         else
         {
-            ODL_LOG("! (bigBlob)"); //####
+            ODL_LOG("! (nullptr != bigBlob)"); //####
         }
     }
     catch (...)
@@ -2371,7 +2371,7 @@ doTestBlobCopyAndAssign
         UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
         UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
 
-        if (bigBlob && smallBlob)
+        if ((nullptr != bigBlob) && (nullptr != smallBlob))
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {

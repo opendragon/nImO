@@ -221,7 +221,7 @@ doTestExtractEmptyMessage
 
         if (nullptr != stuff)
         {
-            ODL_LOG("(stuff)"); //####
+            ODL_LOG("(nullptr != stuff)"); //####
             static const DataKind   bytesToInsert[]
             {
                 // Start of Message
@@ -287,7 +287,7 @@ doTestExtractEmptyMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -370,7 +370,7 @@ doTestExtractLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -473,7 +473,7 @@ doTestExtractTinyIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -558,7 +558,7 @@ doTestExtractSmallIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -647,7 +647,7 @@ doTestExtractMediumIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -738,7 +738,7 @@ doTestExtractBigIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -803,7 +803,7 @@ doTestExtractEmptyStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -871,7 +871,7 @@ doTestExtractShortStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -958,7 +958,7 @@ doTestExtractMediumStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1022,7 +1022,7 @@ doTestExtractEmptyBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1094,7 +1094,7 @@ doTestExtractSmallBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1191,7 +1191,7 @@ doTestExtractMediumBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1286,7 +1286,7 @@ doTestExtractSingleDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1354,7 +1354,7 @@ doTestExtractEmptyArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1422,7 +1422,7 @@ doTestExtractEmptyMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1490,7 +1490,7 @@ doTestExtractEmptySetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1568,7 +1568,7 @@ doTestExtractArrayOneLogicalMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1646,7 +1646,7 @@ doTestExtractArrayOneIntegerMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1729,7 +1729,7 @@ doTestExtractArrayOneDoubleMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1808,7 +1808,7 @@ doTestExtractArrayOneStringMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1887,7 +1887,7 @@ doTestExtractArrayOneBlobMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1970,7 +1970,7 @@ doTestExtractArrayOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2052,7 +2052,7 @@ doTestExtractArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2134,7 +2134,7 @@ doTestExtractArrayOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2216,7 +2216,7 @@ doTestExtractArrayTwoLogicalsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2298,7 +2298,7 @@ doTestExtractArrayTwoIntegersMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2386,7 +2386,7 @@ doTestExtractArrayTwoDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2470,7 +2470,7 @@ doTestExtractArrayTwoStringsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2554,7 +2554,7 @@ doTestExtractArrayTwoBlobsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2646,7 +2646,7 @@ doTestExtractArrayTwoArraysMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2738,7 +2738,7 @@ doTestExtractArrayTwoMapsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2830,7 +2830,7 @@ doTestExtractArrayTwoSetsMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2922,7 +2922,7 @@ doTestExtractArrayOneArrayOneMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3014,7 +3014,7 @@ doTestExtractArrayOneMapOneSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3106,7 +3106,7 @@ doTestExtractArrayOneSetOneArrayMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3361,7 +3361,7 @@ doTestExtractArrayWithManyDoublesMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3441,7 +3441,7 @@ doTestExtractLogicalMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3521,7 +3521,7 @@ doTestExtractIntegerMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3602,7 +3602,7 @@ doTestExtractStringMapMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3679,7 +3679,7 @@ doTestExtractLogicalSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3756,7 +3756,7 @@ doTestExtractIntegerSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3834,7 +3834,7 @@ doTestExtractStringSetMessage
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4178,7 +4178,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
         }
         else
         {
-            ODL_LOG("! (stuff)"); //####
+            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)

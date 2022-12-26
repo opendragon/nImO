@@ -4126,40 +4126,40 @@ doTestValidArrayCompares
         {
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             //if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             //if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             //if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             //if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -4249,40 +4249,40 @@ doTestValidArrayCompares
             {
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
@@ -4493,40 +4493,40 @@ doTestValidArrayCompares
             {
                 Double  aValue(testSet3l[ii]._testValue);
 
-                if (testSet3l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+                if (testSet3l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet3l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet3l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                    if (testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                    if (testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                    if (testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet3l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                    if (testSet3l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet3l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet3l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
@@ -4663,40 +4663,40 @@ doTestValidArrayCompares
             {
                 String  aValue(testSet4l[ii]._testValue);
 
-                if (testSet4l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+                if (testSet4l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet4l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet4l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                    if (testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                    if (testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                    if (testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet4l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                    if (testSet4l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet4l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet4l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
@@ -4831,40 +4831,40 @@ doTestValidLogicalMapCompares
         {
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -4954,40 +4954,40 @@ doTestValidLogicalMapCompares
             {
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
@@ -5232,40 +5232,40 @@ doTestValidIntegerMapCompares
         {
             Integer aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -5435,40 +5435,40 @@ doTestValidStringMapCompares
         {
             String  aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -5602,40 +5602,40 @@ doTestValidLogicalSetCompares
         {
             Logical aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -5725,40 +5725,40 @@ doTestValidLogicalSetCompares
             {
                 Logical aValue(testSet2l[ii]._testValue);
 
-                if (testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
-                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                     result = 1;
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                         result = 1;
                     }
                 }
                 if (0 == result)
                 {
-                    if (testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
                     {
-                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                         result = 1;
                     }
                 }
@@ -6003,40 +6003,40 @@ doTestValidIntegerSetCompares
         {
             Integer aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }
@@ -6206,40 +6206,40 @@ doTestValidStringSetCompares
         {
             String  aValue(testSet1l[ii]._testValue);
 
-            if (testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
-                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(nullptr != stuff))"); //####
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
                     result = 1;
                 }
             }
             if (0 == result)
             {
-                if (testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
-                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(nullptr != stuff))"); //####
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
                     result = 1;
                 }
             }

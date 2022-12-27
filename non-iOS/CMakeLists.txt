@@ -186,6 +186,9 @@ if(Boost_FOUND)
     link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
+# Find ANTLR4
+find_package(antlr4-runtime REQUIRED)
+
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
@@ -247,10 +250,18 @@ else()
     set(OTHER_LIBS "")
 endif()
 
-#message(${IF_LIBRARY})
-#message(${IF_LIBRARY_ROOT})
+if(WIN32)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+elseif(APPLE)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+elseif(LINUX)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+else()
+    set(ANTLR4_RUNTIME "TBD")
+endif()
+
 set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
-    Threads::Threads)
+    ${ANTLR4_RUNTIME} Threads::Threads)
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)

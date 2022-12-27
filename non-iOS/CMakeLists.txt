@@ -186,6 +186,8 @@ if(Boost_FOUND)
     link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
+list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
+
 # Find ANTLR4
 find_package(antlr4-runtime REQUIRED)
 

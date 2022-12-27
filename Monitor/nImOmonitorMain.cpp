@@ -208,6 +208,7 @@ catchSignal
     if (SIGINT == signal)
     {
         lKeepRunning = false;
+        lReceivedCondition.notify_one(); // make sure to exit from the read!!!
     }
     else
 #endif // defined(SIGINT)

@@ -40,7 +40,7 @@ elseif(APPLE)
     set(nImO_LIBRARY "${SELF_DIR}/libnImOcommon.dylib")
     set(nImO_LIBRARY_ROOT "libnImOcommon.dylib")
 else()
-    set(nImO_LIBRARY "${SELF_DIR}/libnImOcommon.so")
+    set(nImO_LIBRARY "${SELF_DIR}/libnImOcommon.a")
 endif()
 
 message(STATUS "nImO version: ${nImO_VERSION}")
